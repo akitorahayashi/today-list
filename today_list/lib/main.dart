@@ -23,6 +23,5 @@ void main() async {
   await TLVibration.initVibrate();
   await TLCategory.readWorkspaceCategories();
   await todayListUser.initializeFirebase();
-  // await MobileAds.instance.initialize();
   runApp(TodayList(key: todayListAppKey));
 }

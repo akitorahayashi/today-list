@@ -267,31 +267,29 @@ class HomePageState extends State<HomePage> {
         TodayListBottomNavbar(
           leadingIconData: FontAwesomeIcons.squareCheck,
           //　今日のチェック済みtodoを全て削除するボタン
-          leadingButtonOnPressed: () {
-            yesNoAlert(
-                context: context,
-                title: "チェック済みToDoを\n削除しますか?",
-                message: null,
-                yesAction: () async {
-                  Navigator.pop(context);
-                  deleteCheckedToDosInToday(
-                      context: context,
-                      selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-                      selectedWorkspaceIndex: currentWorkspaceIndex,
-                      selectedWorkspace: currentWorkspace);
-                  TLVibration.vibrate();
-                  simpleAlert(
-                      context: context,
-                      title: "削除が完了しました！",
-                      message: null,
-                      buttonText: "OK");
-                  setState(() {});
-                  await Workspace.saveSelectedWorkspace(
-                      selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-                      selectedWorkspaceIndex: currentWorkspaceIndex,
-                      selectedWorkspace: currentWorkspace);
-                });
-          },
+          leadingButtonOnPressed: () => yesNoAlert(
+              context: context,
+              title: "チェック済みToDoを\n削除しますか?",
+              message: null,
+              yesAction: () async {
+                Navigator.pop(context);
+                deleteCheckedToDosInToday(
+                    context: context,
+                    selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
+                    selectedWorkspaceIndex: currentWorkspaceIndex,
+                    selectedWorkspace: currentWorkspace);
+                TLVibration.vibrate();
+                simpleAlert(
+                    context: context,
+                    title: "削除が完了しました",
+                    message: null,
+                    buttonText: "OK");
+                setState(() {});
+                await Workspace.saveSelectedWorkspace(
+                    selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
+                    selectedWorkspaceIndex: currentWorkspaceIndex,
+                    selectedWorkspace: currentWorkspace);
+              }),
           trailingIconData: FontAwesomeIcons.list,
           // カテゴリーリストに移動するボタン
           tralingButtonOnPressed: () async {
