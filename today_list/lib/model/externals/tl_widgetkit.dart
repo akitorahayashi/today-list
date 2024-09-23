@@ -1,5 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:today_list/model/tl_category.dart';
 import 'package:today_list/model/user/setting_data.dart';
 import 'package:today_list/model/workspace/id_to_jsonworkspaceList.dart';
 
