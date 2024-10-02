@@ -110,7 +110,7 @@ Future<void> confirmToDeleteThisCategory({
                             Navigator.pop(context);
                           } else {
                             // workspace category
-                            idToJsonWorkspaceList.remove(
+                            workspaces.remove(
                                 workspaceCategories[indexOfWorkspaceCategory]
                                     .id);
                             workspaceCategories

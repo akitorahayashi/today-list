@@ -36,7 +36,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
     if (widget.oldWorkspaceCategory != null && !isInitialized) {
       isInitialized = true;
       _selectedWorkspaceCategory = widget.oldWorkspaceCategory!;
-      _workspaceNameInputController.text = idToJsonWorkspaceList[widget
+      _workspaceNameInputController.text = workspaces[widget
           .oldWorkspaceCategory!
           .id]![widget.oldIndexInStringWorkspaces!]["name"];
     }
@@ -166,7 +166,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                               noneId:
                                   TLToDos(toDosInToday: [], toDosInWhenever: [])
                             }).toJson();
-                        idToJsonWorkspaceList[_selectedWorkspaceCategory.id]!
+                        workspaces[_selectedWorkspaceCategory.id]!
                             .add(createdWorkspaceJsonData);
                         // 追加したことを知らせる
                         notifyWorkspaceIsAdded(
@@ -176,16 +176,15 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                       } else {
                         // edit action
                         final Workspace editedWorkspace = Workspace.fromJson(
-                            idToJsonWorkspaceList[widget.oldWorkspaceCategory!
-                                .id]![widget.oldIndexInStringWorkspaces!]);
+                            workspaces[widget.oldWorkspaceCategory!.id]![
+                                widget.oldIndexInStringWorkspaces!]);
                         // 名前だけ変える
                         editedWorkspace.name =
                             _workspaceNameInputController.text;
                         // 消して元の場所に入れる
-                        idToJsonWorkspaceList[widget.oldWorkspaceCategory!.id]!
+                        workspaces[widget.oldWorkspaceCategory!.id]!
                             .removeAt(widget.oldIndexInStringWorkspaces!);
-                        idToJsonWorkspaceList[_selectedWorkspaceCategory.id]!
-                            .insert(
+                        workspaces[_selectedWorkspaceCategory.id]!.insert(
                           widget.oldIndexInStringWorkspaces!,
                           editedWorkspace.toJson(),
                         );

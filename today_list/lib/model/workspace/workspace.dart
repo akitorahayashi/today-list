@@ -12,9 +12,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 String currentWorkspaceCategoryId = noneId;
 int currentWorkspaceIndex = 0;
 Workspace currentWorkspace = (() {
-  print(idToJsonWorkspaceList[currentWorkspaceCategoryId]!.runtimeType);
-  return Workspace.fromJson(idToJsonWorkspaceList[currentWorkspaceCategoryId]![
-      currentWorkspaceIndex]);
+  print(workspaces[currentWorkspaceCategoryId]!.runtimeType);
+  return Workspace.fromJson(
+      workspaces[currentWorkspaceCategoryId]![currentWorkspaceIndex]);
 }());
 
 class Workspace {
@@ -93,7 +93,7 @@ class Workspace {
     currentWorkspaceCategoryId = selectedWorkspaceCategoryId;
     currentWorkspaceIndex = newWorkspaceIndex;
     currentWorkspace = Workspace.fromJson(
-        idToJsonWorkspaceList[selectedWorkspaceCategoryId]![newWorkspaceIndex]);
+        workspaces[selectedWorkspaceCategoryId]![newWorkspaceIndex]);
     await saveCurrentWorkspace(
         selectedWorkspaceCategoryId: selectedWorkspaceCategoryId,
         newWorkspaceIndex: newWorkspaceIndex);
@@ -106,10 +106,9 @@ class Workspace {
           pref.getString("currentWorkspaceCategoryId") ?? noneId;
       currentWorkspaceIndex = pref.getInt("currentWorkspaceIndex") ?? 0;
       if (pref.getString("idToJsonWorkspaceList") != null) {
-        idToJsonWorkspaceList =
-            (json.decode(pref.getString("idToJsonWorkspaceList")!)
-                    as Map<String, dynamic>)
-                .map(
+        workspaces = (json.decode(pref.getString("idToJsonWorkspaceList")!)
+                as Map<String, dynamic>)
+            .map(
           (key, value) => MapEntry(
             key,
             (value as List<dynamic>)
@@ -125,8 +124,8 @@ class Workspace {
     // iosならばwidgetを更新する
     if (Platform.isIOS) TLWidgetKit.updateIdToJsonWorkspaceList();
     // string workspaceを保存する
-    await SharedPreferences.getInstance().then((pref) => pref.setString(
-        "idToJsonWorkspaceList", json.encode(idToJsonWorkspaceList)));
+    await SharedPreferences.getInstance().then((pref) =>
+        pref.setString("idToJsonWorkspaceList", json.encode(workspaces)));
   }
 
   static Future<void> saveSelectedWorkspace({
@@ -134,8 +133,8 @@ class Workspace {
     required int selectedWorkspaceIndex,
     required Workspace selectedWorkspace,
   }) async {
-    idToJsonWorkspaceList[selectedWorkspaceCategoryId]![
-        selectedWorkspaceIndex] = currentWorkspace.toJson();
+    workspaces[selectedWorkspaceCategoryId]![selectedWorkspaceIndex] =
+        currentWorkspace.toJson();
     await Workspace.saveStringWorkspaces();
   }
   // --- save ---

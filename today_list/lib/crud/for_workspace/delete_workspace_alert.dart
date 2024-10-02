@@ -18,8 +18,7 @@ Future<void> deleteWorkspaceAlert({
   required int indexInStringWorkspaces,
 }) async {
   final Workspace willDeletedWorkspace = Workspace.fromJson(
-      idToJsonWorkspaceList[selectedWorkspaceCategoryId]![
-          indexInStringWorkspaces]);
+      workspaces[selectedWorkspaceCategoryId]![indexInStringWorkspaces]);
   return showDialog(
       context: context,
       barrierDismissible: false,
@@ -92,8 +91,7 @@ Future<void> deleteWorkspaceAlert({
                                 pref.setInt("currentWorkspaceIndex",
                                     currentWorkspaceIndex);
                               }
-                              idToJsonWorkspaceList[
-                                      selectedWorkspaceCategoryId]!
+                              workspaces[selectedWorkspaceCategoryId]!
                                   .removeAt(indexInStringWorkspaces);
                               // このアラートを消してsimpleアラートを表示する
                               Navigator.pop(context);

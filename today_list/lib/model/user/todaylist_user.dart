@@ -292,8 +292,7 @@ class TodayListUser {
                                 "workspaceCategories":
                                     TLCategory.categoryArrayToJson(
                                         categoryArray: workspaceCategories),
-                                "stringWorkspaces":
-                                    json.encode(idToJsonWorkspaceList),
+                                "stringWorkspaces": json.encode(workspaces),
                               });
 
                               // --- will be saved content ---
@@ -443,18 +442,18 @@ class TodayListUser {
       if (json.decode(mapUserData["stringWorkspaces"]).runtimeType ==
           List<dynamic>) {
         // migrate
-        idToJsonWorkspaceList = {
+        workspaces = {
           noneId: json.decode(mapUserData["stringWorkspaces"]).cast<String>(),
         };
         workspaceCategories = [TLCategory(id: noneId, title: "なし")];
       } else {
-        idToJsonWorkspaceList = json.decode(mapUserData["stringWorkspaces"]);
+        workspaces = json.decode(mapUserData["stringWorkspaces"]);
         workspaceCategories = TLCategory.jsonToCategoryArray(
             jsonCategoryArrayData: mapUserData["workspaceCategories"]);
       }
       // current workspace
-      currentWorkspace = Workspace.fromJson(idToJsonWorkspaceList[
-          currentWorkspaceCategoryId]![currentWorkspaceIndex]);
+      currentWorkspace = Workspace.fromJson(
+          workspaces[currentWorkspaceCategoryId]![currentWorkspaceIndex]);
       // バイブレーション
       TLVibration.initVibrate();
       // 保存

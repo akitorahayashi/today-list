@@ -84,9 +84,9 @@ class _ManageWorkspacePageState extends State<ManageWorkspacePage> {
                         ),
                         ChangeWorkspaceCard(
                           isInDrawerList: false,
-                          workspaceName: idToJsonWorkspaceList[
-                                  currentWorkspaceCategoryId]![
-                              currentWorkspaceIndex]["name"]!,
+                          workspaceName:
+                              workspaces[currentWorkspaceCategoryId]![
+                                  currentWorkspaceIndex]["name"]!,
                           indexOfWorkspaceCategory: workspaceCategories
                               .indexWhere((oneOfWorkspaceCategory) =>
                                   oneOfWorkspaceCategory.id ==

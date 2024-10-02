@@ -41,8 +41,7 @@ class _WorkspaceCategoryBlockInManageState
                 Padding(
                   padding: EdgeInsets.only(
                       top: 12.0,
-                      bottom: idToJsonWorkspaceList[workspaceCategory.id]!
-                              .isNotEmpty
+                      bottom: workspaces[workspaceCategory.id]!.isNotEmpty
                           ? 5.0
                           : 12),
                   child: Row(
@@ -129,7 +128,7 @@ class _WorkspaceCategoryBlockInManageState
                     // body
                     for (int indexInStringWorkspaces = 0;
                         indexInStringWorkspaces <
-                            idToJsonWorkspaceList[workspaceCategory.id]!.length;
+                            workspaces[workspaceCategory.id]!.length;
                         indexInStringWorkspaces++)
                       GestureDetector(
                         key: Key(UniqueKey().toString()),
@@ -140,9 +139,8 @@ class _WorkspaceCategoryBlockInManageState
                             : null,
                         child: ChangeWorkspaceCard(
                             isInDrawerList: true,
-                            workspaceName:
-                                idToJsonWorkspaceList[workspaceCategory.id]![
-                                    indexInStringWorkspaces]["name"]!,
+                            workspaceName: workspaces[workspaceCategory.id]![
+                                indexInStringWorkspaces]["name"]!,
                             indexOfWorkspaceCategory:
                                 widget.indexOfWorkspaceCategory,
                             indexInStringWorkspaces: indexInStringWorkspaces),
@@ -153,7 +151,7 @@ class _WorkspaceCategoryBlockInManageState
                     // if (widget.indexOfWorkspaceCategory != 0 &&
                     //     (!(oldIndex == 0 || newIndex == 0))) {
                     final List<dynamic> stringWorkspaceList =
-                        idToJsonWorkspaceList[workspaceCategory.id]!;
+                        workspaces[workspaceCategory.id]!;
                     final reorderedWorkspace =
                         stringWorkspaceList.removeAt(oldIndex);
                     stringWorkspaceList.insert(newIndex, reorderedWorkspace);
