@@ -23,7 +23,7 @@ List<TLCategory> workspaceCategories = [
   TLCategory(id: noneId, title: "なし"),
 ];
 
-Map<String, List<Map<String, dynamic>>> idToJsonWorkspaceList = {
+Map<String, List<Map<String, dynamic>>> workspaces = {
   noneId: [
     // --- 使い方
     Workspace(name: "デフォルト", bigCategories: [

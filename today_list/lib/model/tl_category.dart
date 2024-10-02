@@ -36,36 +36,36 @@ class TLCategory {
 // --- save ---
 
   static void saveBigAndSmallCategories() {
-    final jsonCurrentWorkspace = idToJsonWorkspaceList[
-        currentWorkspaceCategoryId]![currentWorkspaceIndex];
+    final jsonCurrentWorkspace =
+        workspaces[currentWorkspaceCategoryId]![currentWorkspaceIndex];
     jsonCurrentWorkspace["bigCategories"] = TLCategory.categoryArrayToJson(
         categoryArray: currentWorkspace.bigCategories);
     jsonCurrentWorkspace["smallCategories"] = TLCategory.smallCategoriesToJson(
         smallCategories: currentWorkspace.smallCategories);
     SharedPreferences.getInstance().then((pref) {
-      pref.setString("stringWorkspaces", json.encode(idToJsonWorkspaceList));
+      pref.setString("stringWorkspaces", json.encode(workspaces));
     });
   }
 
   static void saveBigCategories() {
     // currentWorkspaceのbigCategoriesに更新したものを入れる
-    idToJsonWorkspaceList[currentWorkspaceCategoryId]![currentWorkspaceIndex]
+    workspaces[currentWorkspaceCategoryId]![currentWorkspaceIndex]
             ["bigCategories"] =
         TLCategory.categoryArrayToJson(
             categoryArray: currentWorkspace.bigCategories);
     SharedPreferences.getInstance().then((pref) {
-      pref.setString("stringWorkspaces", json.encode(idToJsonWorkspaceList));
+      pref.setString("stringWorkspaces", json.encode(workspaces));
     });
   }
 
   static void saveSmallCategories() {
     // currentWorkspaceのsmallCategoriesに更新したものを入れる
-    idToJsonWorkspaceList[currentWorkspaceCategoryId]![currentWorkspaceIndex]
+    workspaces[currentWorkspaceCategoryId]![currentWorkspaceIndex]
             ["smallCategories"] =
         TLCategory.smallCategoriesToJson(
             smallCategories: currentWorkspace.smallCategories);
     SharedPreferences.getInstance().then((pref) {
-      pref.setString("stringWorkspaces", json.encode(idToJsonWorkspaceList));
+      pref.setString("stringWorkspaces", json.encode(workspaces));
     });
   }
 

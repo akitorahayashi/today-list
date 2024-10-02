@@ -66,7 +66,7 @@ Future<TLCategory?> addWorkspaceCategoryAlert({
                               id: newCategoryId,
                               title: categoryNameInputController.text));
                           // workspacesを更新
-                          idToJsonWorkspaceList[newCategoryId] = [];
+                          workspaces[newCategoryId] = [];
                           // 保存
                           TLCategory.saveWorkspaceCategories();
                           Workspace.saveSelectedWorkspace(

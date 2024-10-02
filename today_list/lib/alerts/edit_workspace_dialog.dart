@@ -34,8 +34,9 @@ class _EditWorkspaceDialogState extends State<EditWorkspaceDialog> {
     if (widget.oldWorkspaceCategoryId != null && !isInitialized) {
       isInitialized = true;
       _selectedWorkspaceCategoryId = widget.oldWorkspaceCategoryId;
-      _workspaceNameInputController.text = idToJsonWorkspaceList[
-          widget.oldWorkspaceCategoryId]![widget.oldWorkspaceIndex!]["name"];
+      _workspaceNameInputController.text =
+          workspaces[widget.oldWorkspaceCategoryId]![widget.oldWorkspaceIndex!]
+              ["name"];
     }
     return Dialog(
       backgroundColor: theme[settingData.selectedTheme]!.alertColor,
@@ -135,9 +136,8 @@ class _EditWorkspaceDialogState extends State<EditWorkspaceDialog> {
                       // workspacesを更新
                       if (widget.oldWorkspaceCategoryId == null) {
                         // add action
-                        idToJsonWorkspaceList[
-                                _selectedWorkspaceCategoryId ?? noneId]!
-                            .add(Workspace(
+                        workspaces[_selectedWorkspaceCategoryId ?? noneId]!.add(
+                            Workspace(
                                 name: enteredWorkspaceName,
                                 bigCategories: [
                               TLCategory(id: noneId, title: "なし")
@@ -155,16 +155,14 @@ class _EditWorkspaceDialogState extends State<EditWorkspaceDialog> {
                       } else {
                         // edit action
                         final Workspace editedWorkspace = Workspace.fromJson(
-                            idToJsonWorkspaceList[
-                                    widget.oldWorkspaceCategoryId!]![
+                            workspaces[widget.oldWorkspaceCategoryId!]![
                                 widget.oldWorkspaceIndex!]);
                         editedWorkspace.name = enteredWorkspaceName;
                         // 入れて消す
-                        idToJsonWorkspaceList[
-                                _selectedWorkspaceCategoryId ?? noneId]!
+                        workspaces[_selectedWorkspaceCategoryId ?? noneId]!
                             .insert(widget.oldWorkspaceIndex!,
                                 editedWorkspace.toJson());
-                        idToJsonWorkspaceList[widget.oldWorkspaceCategoryId]!
+                        workspaces[widget.oldWorkspaceCategoryId]!
                             .removeAt(widget.oldWorkspaceIndex! + 1);
                         simpleAlert(
                             context: context,
