@@ -13,7 +13,7 @@ class ToDosInThisCategoryInToday extends StatefulWidget {
 
   final String selectedWorkspaceCategoryId;
   final int selectedWorkspaceIndex;
-  final Workspace selectedWorkspace;
+  final TLWorkspace selectedWorkspace;
 
   List<TLToDo> get toDosInTodayInThisCategory => selectedWorkspace
       .toDos[smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
@@ -74,7 +74,7 @@ class _ToDosInThisCategoryInTodayState
                       .insert(newIndex, reorderedToDo);
                   widget.superKey.currentState?.setState(() {});
                   // toDosを保存する
-                  Workspace.saveSelectedWorkspace(
+                  TLWorkspace.saveSelectedWorkspace(
                     selectedWorkspaceCategoryId:
                         widget.selectedWorkspaceCategoryId,
                     selectedWorkspaceIndex: widget.selectedWorkspaceIndex,

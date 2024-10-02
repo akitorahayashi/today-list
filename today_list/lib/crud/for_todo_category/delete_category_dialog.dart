@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../alerts/common/simple_alert.dart';
 import '../../constants/theme.dart';
 import '../../model/tl_category.dart';
-import '../../model/workspace/id_to_jsonworkspaceList.dart';
-import '../../model/workspace/workspace.dart';
+import '../../model/workspace/tl_workspaces.dart';
+import '../../model/workspace/tl_workspace.dart';
 import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../styles.dart';
@@ -101,7 +101,7 @@ Future<void> confirmToDeleteThisCategory({
                             } else {
                               TLCategory.saveSmallCategories();
                             }
-                            Workspace.saveSelectedWorkspace(
+                            TLWorkspace.saveSelectedWorkspace(
                               selectedWorkspaceCategoryId:
                                   currentWorkspaceCategoryId,
                               selectedWorkspaceIndex: currentWorkspaceIndex,
@@ -110,13 +110,13 @@ Future<void> confirmToDeleteThisCategory({
                             Navigator.pop(context);
                           } else {
                             // workspace category
-                            workspaces.remove(
+                            tlworkspaces.remove(
                                 workspaceCategories[indexOfWorkspaceCategory]
                                     .id);
                             workspaceCategories
                                 .removeAt(indexOfWorkspaceCategory);
                             TLCategory.saveWorkspaceCategories();
-                            Workspace.saveStringWorkspaces();
+                            TLWorkspace.saveWorkspaces();
                           }
                           // アラートを消す
                           Navigator.pop(context);

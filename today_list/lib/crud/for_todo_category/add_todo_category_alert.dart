@@ -119,7 +119,7 @@ Future<TLCategory?> addToDoCategoryAlert({
                               ? TLCategory.saveBigAndSmallCategories()
                               : TLCategory.saveSmallCategories();
 
-                          Workspace.saveSelectedWorkspace(
+                          TLWorkspace.saveSelectedWorkspace(
                             selectedWorkspaceCategoryId:
                                 currentWorkspaceCategoryId,
                             selectedWorkspaceIndex: currentWorkspaceIndex,

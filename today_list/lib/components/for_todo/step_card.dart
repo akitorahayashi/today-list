@@ -53,7 +53,7 @@ class _StepInToDoCardState extends State<StepInToDoCard> {
             newName: stepData.title,
             newCheckedState: stepData.isChecked,
             quickChangeToToday: null);
-        Workspace.saveSelectedWorkspace(
+        TLWorkspace.saveSelectedWorkspace(
           selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
           selectedWorkspaceIndex: currentWorkspaceIndex,
           selectedWorkspace: currentWorkspace,

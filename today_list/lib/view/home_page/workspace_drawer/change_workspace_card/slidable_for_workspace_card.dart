@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/workspace/id_to_jsonworkspaceList.dart';
+import 'package:today_list/model/workspace/tl_workspaces.dart';
 import '../../../../model/user/setting_data.dart';
 import '../../../../model/tl_category.dart';
 import '../../../../constants/theme.dart';
@@ -12,15 +12,13 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 class SlidableForWorkspaceCard extends StatefulWidget {
   final bool isInDrawerList;
   final bool isCurrentWorkspace;
-  final TLCategory workspaceCategoryOfThisCard;
-  final int indexInStringWorkspaces;
+  final int indexInTLWorkspaces;
   final Widget child;
   const SlidableForWorkspaceCard({
     super.key,
     required this.isInDrawerList,
     required this.isCurrentWorkspace,
-    required this.workspaceCategoryOfThisCard,
-    required this.indexInStringWorkspaces,
+    required this.indexInTLWorkspaces,
     required this.child,
   });
 
@@ -36,8 +34,7 @@ class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
       // currentWorkspaceの時や
       startActionPane: widget.isCurrentWorkspace ||
               // デフォルトワークスペースの時は削除できないようにする
-              (widget.workspaceCategoryOfThisCard.id == noneId &&
-                  widget.indexInStringWorkspaces == 0)
+              (widget.indexInTLWorkspaces == 0)
           ? null
           : ActionPane(
               motion: const ScrollMotion(),
@@ -55,10 +52,7 @@ class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
                     }
                     deleteWorkspaceAlert(
                         context: context,
-                        selectedWorkspaceCategoryId:
-                            widget.workspaceCategoryOfThisCard.id,
-                        indexInStringWorkspaces:
-                            widget.indexInStringWorkspaces);
+                        indexInTLWorkspaces: widget.indexInTLWorkspaces);
                   },
                   icon: Icons.remove,
                   label: "Delete",
@@ -66,8 +60,7 @@ class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
               ],
             ),
       endActionPane: // デフォルトワークスペースの時は編集できないようにする
-          (widget.workspaceCategoryOfThisCard.id == noneId &&
-                  widget.indexInStringWorkspaces == 0)
+          widget.indexInTLWorkspaces == 0
               ? null
               : ActionPane(
                   motion: const ScrollMotion(),
@@ -89,10 +82,8 @@ class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
                             barrierDismissible: false,
                             builder: (context) {
                               return AddOrEditWorkspaceDialog(
-                                  oldWorkspaceCategory:
-                                      widget.workspaceCategoryOfThisCard,
                                   oldIndexInStringWorkspaces:
-                                      widget.indexInStringWorkspaces);
+                                      widget.indexInTLWorkspaces);
                             });
                         setState(() {});
                         drawerForWorkspaceKey.currentState?.setState(() {});

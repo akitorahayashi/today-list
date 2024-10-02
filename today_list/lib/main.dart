@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/externals/tl_vibration.dart';
-import 'model/workspace/workspace.dart';
+import 'model/workspace/tl_workspace.dart';
 import './constants/global_keys.dart';
 import 'model/user/setting_data.dart';
 import 'model/externals/tl_ads.dart';
@@ -17,11 +17,10 @@ enum LanguageType { ja, en }
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Workspace.readWorkspaces();
+  await TLWorkspace.readWorkspaces();
   await TLAds.initializeTLAds();
   await settingData.readSettings();
   await TLVibration.initVibrate();
-  await TLCategory.readWorkspaceCategories();
-  await todayListUser.initializeFirebase();
+  // await todayListUser.initializeFirebase();
   runApp(TodayList(key: todayListAppKey));
 }

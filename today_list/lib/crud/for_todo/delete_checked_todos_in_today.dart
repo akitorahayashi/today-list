@@ -8,7 +8,7 @@ void deleteCheckedToDosInToday({
   required BuildContext context,
   required int selectedWorkspaceIndex,
   required String selectedWorkspaceCategoryId,
-  required Workspace selectedWorkspace,
+  required TLWorkspace selectedWorkspace,
 }) {
   for (TLCategory bigCategory in (selectedWorkspace).bigCategories) {
     // bigCategoryに関するcheckのsort

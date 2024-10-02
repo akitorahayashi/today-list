@@ -94,7 +94,7 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                       selectedToDoArray.insert(newIndex, reorderedToDo);
                       editToDoPageKey.currentState?.setState(() {});
                       // toDosを保存する
-                      Workspace.saveSelectedWorkspace(
+                      TLWorkspace.saveSelectedWorkspace(
                           selectedWorkspaceCategoryId:
                               currentWorkspaceCategoryId,
                           selectedWorkspaceIndex: currentWorkspaceIndex,

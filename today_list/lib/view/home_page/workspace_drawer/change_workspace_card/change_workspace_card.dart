@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/externals/tl_vibration.dart';
 import '../../../../model/user/setting_data.dart';
-import '../../../../model/workspace/workspace.dart';
-import '../../../../model/workspace/workspaces.dart';
+import '../../../../model/workspace/tl_workspace.dart';
+import '../../../../model/workspace/tl_workspaces.dart';
 import '../../../../constants/theme.dart';
 import '../../../../constants/global_keys.dart';
 import 'notify_current_workspace_is_changed.dart';
@@ -27,7 +27,7 @@ class ChangeWorkspaceCard extends StatefulWidget {
 
 class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
   bool get isCurrentWorkspace =>
-      widget.indexInWorkspaces == currentWorkspaceIndex;
+      widget.indexInWorkspaces == TLWorkspace.currentWorkspaceIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +47,7 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                   if (isCurrentWorkspace) {
                     Navigator.pop(context);
                   } else {
-                    currentWorkspace.changeCurrentWorkspace(
-                        selectedWorkspaceCategoryId:
-                            workspaceCategoryIdOfThisCard,
+                    TLWorkspace.currentWorkspace.changeCurrentWorkspace(
                         newWorkspaceIndex: widget.indexInWorkspaces);
                     TLVibration.vibrate();
                     Navigator.pop(context);
@@ -58,15 +56,13 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                     manageWorkspacePageKey.currentState?.setState(() {});
                     notifyCurrentWorkspaceIsChanged(
                         context: context,
-                        newWorkspaceName: currentWorkspace.name);
+                        newWorkspaceName: TLWorkspace.currentWorkspace.name);
                   }
                 },
                 child: SlidableForWorkspaceCard(
                   isInDrawerList: true,
                   isCurrentWorkspace: isCurrentWorkspace,
-                  workspaceCategoryOfThisCard:
-                      workspaceCategories[widget.indexOfWorkspaceCategory],
-                  indexInStringWorkspaces: widget.indexInWorkspaces,
+                  indexInTLWorkspaces: widget.indexInWorkspaces,
                   child: Align(
                     alignment: Alignment.center,
                     child: Padding(
@@ -76,7 +72,7 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                                   ? "☆ "
                                   : "") +
                               (isCurrentWorkspace
-                                  ? currentWorkspace.name
+                                  ? TLWorkspace.currentWorkspace.name
                                   : widget.workspaceName) +
                               ((isCurrentWorkspace && widget.isInDrawerList)
                                   ? "   "

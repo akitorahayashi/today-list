@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/constants/global_keys.dart';
 import '../../model/tl_category.dart';
-import '../../model/workspace/workspace.dart';
-import '../../model/workspace/id_to_jsonworkspaceList.dart';
+import '../../model/workspace/tl_workspace.dart';
+import '../../model/workspace/tl_workspaces.dart';
 import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../for_todo_category/notify_category_is_added.dart';
@@ -66,10 +66,10 @@ Future<TLCategory?> addWorkspaceCategoryAlert({
                               id: newCategoryId,
                               title: categoryNameInputController.text));
                           // workspacesを更新
-                          workspaces[newCategoryId] = [];
+                          tlworkspaces[newCategoryId] = [];
                           // 保存
                           TLCategory.saveWorkspaceCategories();
-                          Workspace.saveSelectedWorkspace(
+                          TLWorkspace.saveSelectedWorkspace(
                             selectedWorkspaceCategoryId:
                                 currentWorkspaceCategoryId,
                             selectedWorkspaceIndex: currentWorkspaceIndex,

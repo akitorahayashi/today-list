@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:today_list/model/user/setting_data.dart';
-import 'package:today_list/model/workspace/id_to_jsonworkspaceList.dart';
+import 'package:today_list/model/workspace/tl_workspaces.dart';
 
 import 'dart:convert';
 import 'dart:io';
@@ -29,7 +29,7 @@ class TLWidgetKit {
       try {
         final String result = await methodChannel.invokeMethod(
           'updateIdToJsonWorkspaceList',
-          json.encode(workspaces),
+          json.encode(tlworkspaces),
         );
         print('SET setUserDefaultsForAppGroup: $result');
       } on PlatformException catch (e) {

@@ -5,8 +5,8 @@ import 'common/simple_alert.dart';
 import '../constants/theme.dart';
 import '../model/tl_category.dart';
 import '../model/user/setting_data.dart';
-import '../model/workspace/workspace.dart';
-import '../model/workspace/id_to_jsonworkspaceList.dart';
+import '../model/workspace/tl_workspace.dart';
+import '../model/workspace/tl_workspaces.dart';
 import '../model/todo/tl_todos.dart';
 import '../model/externals/tl_vibration.dart';
 import '../styles.dart';
@@ -34,9 +34,8 @@ class _EditWorkspaceDialogState extends State<EditWorkspaceDialog> {
     if (widget.oldWorkspaceCategoryId != null && !isInitialized) {
       isInitialized = true;
       _selectedWorkspaceCategoryId = widget.oldWorkspaceCategoryId;
-      _workspaceNameInputController.text =
-          workspaces[widget.oldWorkspaceCategoryId]![widget.oldWorkspaceIndex!]
-              ["name"];
+      _workspaceNameInputController.text = tlworkspaces[
+          widget.oldWorkspaceCategoryId]![widget.oldWorkspaceIndex!]["name"];
     }
     return Dialog(
       backgroundColor: theme[settingData.selectedTheme]!.alertColor,
@@ -136,8 +135,8 @@ class _EditWorkspaceDialogState extends State<EditWorkspaceDialog> {
                       // workspacesを更新
                       if (widget.oldWorkspaceCategoryId == null) {
                         // add action
-                        workspaces[_selectedWorkspaceCategoryId ?? noneId]!.add(
-                            Workspace(
+                        tlworkspaces[_selectedWorkspaceCategoryId ?? noneId]!
+                            .add(TLWorkspace(
                                 name: enteredWorkspaceName,
                                 bigCategories: [
                               TLCategory(id: noneId, title: "なし")
@@ -154,15 +153,16 @@ class _EditWorkspaceDialogState extends State<EditWorkspaceDialog> {
                             newWorkspaceName: enteredWorkspaceName);
                       } else {
                         // edit action
-                        final Workspace editedWorkspace = Workspace.fromJson(
-                            workspaces[widget.oldWorkspaceCategoryId!]![
-                                widget.oldWorkspaceIndex!]);
+                        final TLWorkspace editedWorkspace =
+                            TLWorkspace.fromJson(
+                                tlworkspaces[widget.oldWorkspaceCategoryId!]![
+                                    widget.oldWorkspaceIndex!]);
                         editedWorkspace.name = enteredWorkspaceName;
                         // 入れて消す
-                        workspaces[_selectedWorkspaceCategoryId ?? noneId]!
+                        tlworkspaces[_selectedWorkspaceCategoryId ?? noneId]!
                             .insert(widget.oldWorkspaceIndex!,
                                 editedWorkspace.toJson());
-                        workspaces[widget.oldWorkspaceCategoryId]!
+                        tlworkspaces[widget.oldWorkspaceCategoryId]!
                             .removeAt(widget.oldWorkspaceIndex! + 1);
                         simpleAlert(
                             context: context,
@@ -175,7 +175,7 @@ class _EditWorkspaceDialogState extends State<EditWorkspaceDialog> {
                       manageWorkspacePageKey.currentState?.setState(() {});
                       TLVibration.vibrate();
                       // workspacesをセーブする
-                      Workspace.saveStringWorkspaces();
+                      TLWorkspace.saveWorkspaces();
                     } else {
                       Navigator.pop(context);
                     }

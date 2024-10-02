@@ -26,7 +26,7 @@ class ToDoCard extends StatefulWidget {
   // workspace系
   final String selectedWorkspaceCategoryId;
   final int selectedWorkspaceIndex;
-  final Workspace selectedWorkspace;
+  final TLWorkspace selectedWorkspace;
 
   const ToDoCard({
     super.key,
@@ -79,7 +79,7 @@ class ToDoCardState extends State<ToDoCard> {
           newCheckedState: toDoData.isChecked,
           quickChangeToToday: null,
         );
-        Workspace.saveSelectedWorkspace(
+        TLWorkspace.saveSelectedWorkspace(
           selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
           selectedWorkspaceIndex: currentWorkspaceIndex,
           selectedWorkspace: currentWorkspace,
@@ -187,7 +187,7 @@ class ToDoCardState extends State<ToDoCard> {
                             toDoData.steps.insert(newIndex, reOrderedToDo);
                             setState(() {});
                             // toDosを保存する
-                            Workspace.saveSelectedWorkspace(
+                            TLWorkspace.saveSelectedWorkspace(
                               selectedWorkspaceCategoryId:
                                   widget.selectedWorkspaceCategoryId,
                               selectedWorkspaceIndex:

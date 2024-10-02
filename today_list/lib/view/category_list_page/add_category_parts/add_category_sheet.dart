@@ -3,7 +3,7 @@ import '../../../constants/theme.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/tl_category.dart';
 import '../../../model/workspace/workspace.dart';
-import '../../../model/workspace/id_to_jsonworkspaceList.dart';
+import '../../../model/workspace/workspaces.dart';
 import '../../../model/user/setting_data.dart';
 import '../../../constants/global_keys.dart';
 import '../../../crud/for_todo_category/add_todo_category_alert.dart';
@@ -49,7 +49,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
     categoryListPageKey.currentState?.setState(() {});
     // toDosとgroupedCategoriesを保存する
     TLCategory.saveSmallCategories();
-    Workspace.saveSelectedWorkspace(
+    TLWorkspace.saveSelectedWorkspace(
       selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
       selectedWorkspaceIndex: currentWorkspaceIndex,
       selectedWorkspace: currentWorkspace,

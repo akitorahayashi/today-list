@@ -158,7 +158,7 @@ class ModelOfToDoCard extends StatelessWidget {
                         toDoData.steps.remove(reOrderedToDo);
                         toDoData.steps.insert(newIndex, reOrderedToDo);
                         // toDosを保存する
-                        Workspace.saveSelectedWorkspace(
+                        TLWorkspace.saveSelectedWorkspace(
                           selectedWorkspaceCategoryId:
                               currentWorkspaceCategoryId,
                           selectedWorkspaceIndex: currentWorkspaceIndex,

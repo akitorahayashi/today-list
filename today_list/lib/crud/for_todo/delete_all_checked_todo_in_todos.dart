@@ -5,7 +5,7 @@ import '../../model/todo/tl_todos.dart';
 void deleteAllCheckedToDosInThisToDos({
   required bool onlyToday,
   int? selectedWorkspaceIndex,
-  Workspace? selectedWorkspace,
+  TLWorkspace? selectedWorkspace,
   required TLToDos selectedToDos,
 }) {
   // effortなどを更新する

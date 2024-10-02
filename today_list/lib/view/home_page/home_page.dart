@@ -9,8 +9,8 @@ import '../../constants/global_keys.dart';
 import '../../constants/theme.dart';
 import '../../alerts/common/yes_no_alert.dart';
 import '../../model/user/setting_data.dart';
-import '../../model/workspace/workspace.dart';
-import '../../model/workspace/workspaces.dart';
+import '../../model/workspace/tl_workspace.dart';
+import '../../model/workspace/tl_workspaces.dart';
 import '../../model/tl_category.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../crud/for_todo/delete_checked_todos_in_today.dart';
@@ -54,7 +54,7 @@ class HomePageState extends State<HomePage> {
       // purchase.initPlatformState();
     });
 
-    Workspace.readWorkspaces().then((value) => setState(() {}));
+    TLWorkspace.readWorkspaces().then((value) => setState(() {}));
   }
 
   @override
@@ -285,10 +285,9 @@ class HomePageState extends State<HomePage> {
                     message: null,
                     buttonText: "OK");
                 setState(() {});
-                await Workspace.saveSelectedWorkspace(
-                    selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-                    selectedWorkspaceIndex: currentWorkspaceIndex,
-                    selectedWorkspace: currentWorkspace);
+                await TLWorkspace.saveSelectedWorkspace(
+                    selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
+                    selectedWorkspace: TLWorkspace.currentWorkspace);
               }),
           trailingIconData: FontAwesomeIcons.list,
           // カテゴリーリストに移動するボタン

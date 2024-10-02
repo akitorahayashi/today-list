@@ -2,7 +2,7 @@ import '../tl_category.dart';
 import '../todo/tl_todo.dart';
 import '../todo/tl_todos.dart';
 import '../todo/tl_step.dart';
-import 'workspace.dart';
+import 'tl_workspace.dart';
 
 const String noneId = "---n";
 
@@ -19,9 +19,9 @@ const String mathAId = "mathAId";
 const String mathIId = "mathIId";
 const String englishId = "englishId";
 
-List<Map<String, dynamic>> workspaces = [
+List<Map<String, dynamic>> tlworkspaces = [
   // --- 使い方
-  Workspace(name: "デフォルト", bigCategories: [
+  TLWorkspace(name: "デフォルト", bigCategories: [
     TLCategory(id: noneId, title: "なし"),
     TLCategory(id: swToDoId, title: "ToDo"),
     TLCategory(id: swCategoryId, title: "Category"),
@@ -71,7 +71,7 @@ List<Map<String, dynamic>> workspaces = [
     ], toDosInWhenever: []),
   }).toJson(),
   // --- 買い物
-  Workspace(name: "買い物", bigCategories: [
+  TLWorkspace(name: "買い物", bigCategories: [
     TLCategory(id: noneId, title: "なし"),
     TLCategory(id: superMarcketId, title: "スーパー"),
     TLCategory(id: hundredStoreId, title: "100均"),
@@ -99,7 +99,7 @@ List<Map<String, dynamic>> workspaces = [
         toDosInToday: [TLToDo(title: "お皿", steps: [])], toDosInWhenever: []),
   }).toJson(),
   // --- 学校
-  Workspace(name: "学校", bigCategories: [
+  TLWorkspace(name: "学校", bigCategories: [
     TLCategory(id: noneId, title: "なし"),
     TLCategory(id: mathId, title: "数学"),
     TLCategory(id: englishId, title: "英語"),

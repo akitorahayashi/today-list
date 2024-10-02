@@ -24,7 +24,7 @@ class SlidableForToDoCard extends StatefulWidget {
   // workspace
   final String selectedWorkspaceCategoryId;
   final int selectedWorkspaceIndex;
-  final Workspace selectedWorkspace;
+  final TLWorkspace selectedWorkspace;
   // child
   final Function editAction;
   final Widget child;
@@ -71,7 +71,7 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
             TLVibration.vibrate();
             homePageKey.currentState?.setState(() {});
             editToDoPageKey.currentState?.setState(() {});
-            Workspace.saveSelectedWorkspace(
+            TLWorkspace.saveSelectedWorkspace(
               selectedWorkspaceCategoryId: widget.selectedWorkspaceCategoryId,
               selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
               selectedWorkspace: widget.selectedWorkspace,
@@ -125,7 +125,7 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
                 newCheckedState: widget.toDoData.isChecked,
                 quickChangeToToday: !widget.ifInToday,
               );
-              Workspace.saveSelectedWorkspace(
+              TLWorkspace.saveSelectedWorkspace(
                 selectedWorkspaceCategoryId: widget.selectedWorkspaceCategoryId,
                 selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
                 selectedWorkspace: widget.selectedWorkspace,

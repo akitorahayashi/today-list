@@ -51,7 +51,7 @@ void addOrEditToDoAction({
     newCheckedState: createdToDo.isChecked,
     quickChangeToToday: null,
   );
-  Workspace.saveSelectedWorkspace(
+  TLWorkspace.saveSelectedWorkspace(
     selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
     selectedWorkspaceIndex: currentWorkspaceIndex,
     selectedWorkspace: currentWorkspace,
