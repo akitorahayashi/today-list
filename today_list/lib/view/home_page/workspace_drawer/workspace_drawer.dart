@@ -70,7 +70,7 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                                 .indexWhere((workspaceCategory) =>
                                     workspaceCategory.id ==
                                     currentWorkspaceCategoryId),
-                            indexInStringWorkspaces: currentWorkspaceIndex,
+                            indexInWorkspaces: currentWorkspaceIndex,
                           )
                         ],
                       ),

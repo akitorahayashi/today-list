@@ -1,23 +1,19 @@
 import 'package:today_list/model/externals/tl_widgetkit.dart';
 
 import '../tl_category.dart';
-import 'id_to_jsonworkspaceList.dart';
+import 'workspaces.dart';
 import '../todo/tl_todos.dart';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-// 現在のworkspaceを固定するメンバー
-String currentWorkspaceCategoryId = noneId;
-int currentWorkspaceIndex = 0;
-Workspace currentWorkspace = (() {
-  print(workspaces[currentWorkspaceCategoryId]!.runtimeType);
-  return Workspace.fromJson(
-      workspaces[currentWorkspaceCategoryId]![currentWorkspaceIndex]);
-}());
-
 class Workspace {
+  static int currentWorkspaceIndex = 0;
+
+  static Workspace get currentWorkspace =>
+      Workspace.fromJson(workspaces[currentWorkspaceIndex]);
+
   String name;
   // effort
   // int numberOfToDosHaveBeenDone = 0;
@@ -87,7 +83,6 @@ class Workspace {
   }
 
   Future<void> changeCurrentWorkspace({
-    required String selectedWorkspaceCategoryId,
     required int newWorkspaceIndex,
   }) async {
     currentWorkspaceCategoryId = selectedWorkspaceCategoryId;

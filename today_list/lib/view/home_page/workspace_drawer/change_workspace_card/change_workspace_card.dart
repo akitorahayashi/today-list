@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:today_list/model/externals/tl_vibration.dart';
 import '../../../../model/user/setting_data.dart';
 import '../../../../model/workspace/workspace.dart';
-import '../../../../model/workspace/id_to_jsonworkspaceList.dart';
+import '../../../../model/workspace/workspaces.dart';
 import '../../../../constants/theme.dart';
 import '../../../../constants/global_keys.dart';
 import 'notify_current_workspace_is_changed.dart';
@@ -12,13 +12,13 @@ class ChangeWorkspaceCard extends StatefulWidget {
   final bool isInDrawerList;
   final String workspaceName;
   final int indexOfWorkspaceCategory;
-  final int indexInStringWorkspaces;
+  final int indexInWorkspaces;
   const ChangeWorkspaceCard({
     super.key,
     required this.isInDrawerList,
     required this.workspaceName,
     required this.indexOfWorkspaceCategory,
-    required this.indexInStringWorkspaces,
+    required this.indexInWorkspaces,
   });
 
   @override
@@ -26,12 +26,8 @@ class ChangeWorkspaceCard extends StatefulWidget {
 }
 
 class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
-  String get workspaceCategoryIdOfThisCard =>
-      workspaceCategories[widget.indexOfWorkspaceCategory].id;
-
   bool get isCurrentWorkspace =>
-      workspaceCategoryIdOfThisCard == currentWorkspaceCategoryId &&
-      widget.indexInStringWorkspaces == currentWorkspaceIndex;
+      widget.indexInWorkspaces == currentWorkspaceIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +50,7 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                     currentWorkspace.changeCurrentWorkspace(
                         selectedWorkspaceCategoryId:
                             workspaceCategoryIdOfThisCard,
-                        newWorkspaceIndex: widget.indexInStringWorkspaces);
+                        newWorkspaceIndex: widget.indexInWorkspaces);
                     TLVibration.vibrate();
                     Navigator.pop(context);
                     // ignore: invalid_use_of_protected_member
@@ -70,7 +66,7 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                   isCurrentWorkspace: isCurrentWorkspace,
                   workspaceCategoryOfThisCard:
                       workspaceCategories[widget.indexOfWorkspaceCategory],
-                  indexInStringWorkspaces: widget.indexInStringWorkspaces,
+                  indexInStringWorkspaces: widget.indexInWorkspaces,
                   child: Align(
                     alignment: Alignment.center,
                     child: Padding(
