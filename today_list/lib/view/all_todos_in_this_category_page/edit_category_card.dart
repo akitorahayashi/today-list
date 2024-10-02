@@ -2,8 +2,8 @@ import '../../constants/theme.dart';
 import '../../constants/global_keys.dart';
 import '../../model/tl_category.dart';
 import '../../model/user/setting_data.dart';
-import '../../model/workspace/workspace.dart';
-import '../../model/workspace/id_to_jsonworkspaceList.dart';
+import '../../model/workspace/tl_workspace.dart';
+import '../../model/workspace/tl_workspaces.dart';
 import '../../crud/for_todo_category/delete_category_dialog.dart';
 import '../../crud/for_todo_category/rename_category_dialog.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +23,9 @@ class EditCatedgoryCard extends StatefulWidget {
 
 class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
   TLCategory get _categoryOfThisPage => widget.indexOfSmallCategory == null
-      ? currentWorkspace.bigCategories[widget.indexOfBigCategory]
-      : currentWorkspace.smallCategories[currentWorkspace
+      ? TLWorkspace.currentWorkspace.bigCategories[widget.indexOfBigCategory]
+      : TLWorkspace.currentWorkspace.smallCategories[TLWorkspace
+          .currentWorkspace
           .bigCategories[widget.indexOfBigCategory]
           .id]![widget.indexOfSmallCategory!];
 
@@ -88,7 +89,6 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
                 barrierDismissible: false,
                 builder: (context) => renameCategoryDialog(
                   context: context,
-                  indexOfWorkspaceCategory: null,
                   indexOfBigCategory: widget.indexOfBigCategory,
                   indexOfSmallCategory: widget.indexOfSmallCategory,
                 ),

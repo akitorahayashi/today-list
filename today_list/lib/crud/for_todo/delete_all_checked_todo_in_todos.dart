@@ -1,11 +1,11 @@
-import '../../model/workspace/workspace.dart';
+import '../../model/workspace/tl_workspace.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_todos.dart';
 
 void deleteAllCheckedToDosInThisToDos({
   required bool onlyToday,
   int? selectedWorkspaceIndex,
-  Workspace? selectedWorkspace,
+  TLWorkspace? selectedWorkspace,
   required TLToDos selectedToDos,
 }) {
   // effortなどを更新する

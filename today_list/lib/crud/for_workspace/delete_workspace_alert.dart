@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../model/workspace/workspace.dart';
-import '../../model/workspace/id_to_jsonworkspaceList.dart';
+import '../../model/workspace/tl_workspace.dart';
+import '../../model/workspace/tl_workspaces.dart';
 import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../constants/theme.dart';
 import '../../constants/global_keys.dart';
-import '../../alerts/common/simple_alert.dart';
+import '../../alerts/simple_alert.dart';
 import '../../styles.dart';
 import 'dart:convert';
 
@@ -14,11 +14,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 // Workspaceを消す
 Future<void> deleteWorkspaceAlert({
   required BuildContext context,
-  required String selectedWorkspaceCategoryId,
-  required int indexInStringWorkspaces,
+  required int indexInTLWorkspaces,
 }) async {
-  final Workspace willDeletedWorkspace = Workspace.fromJson(
-      workspaces[selectedWorkspaceCategoryId]![indexInStringWorkspaces]);
+  final TLWorkspace willDeletedWorkspace =
+      TLWorkspace.fromJson(tlworkspaces[indexInTLWorkspaces]);
   return showDialog(
       context: context,
       barrierDismissible: false,
@@ -59,7 +58,7 @@ Future<void> deleteWorkspaceAlert({
                       fontSize: 13),
                 ),
                 // はい、いいえボタン
-                ButtonBar(
+                OverflowBar(
                   alignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     // いいえボタン
@@ -72,8 +71,7 @@ Future<void> deleteWorkspaceAlert({
                         style: alertButtonStyle(),
                         onPressed: () {
                           // デフォルトワークスペースは消せない
-                          if (selectedWorkspaceCategoryId == noneId &&
-                              indexInStringWorkspaces == 0) {
+                          if (indexInTLWorkspaces == 0) {
                             Navigator.pop(context);
                             simpleAlert(
                                 context: context,
@@ -81,18 +79,15 @@ Future<void> deleteWorkspaceAlert({
                                 message: '"デフォルト"のWorkspaceは\n削除できません',
                                 buttonText: "OK");
                           } else {
-                            // stringWorkspacesから削除
+                            // TLWorkspacesから削除
                             SharedPreferences.getInstance().then((pref) {
-                              if (currentWorkspaceCategoryId ==
-                                      selectedWorkspaceCategoryId &&
-                                  currentWorkspaceIndex >
-                                      indexInStringWorkspaces) {
-                                currentWorkspaceIndex--;
+                              if (TLWorkspace.currentWorkspaceIndex >
+                                  indexInTLWorkspaces) {
+                                TLWorkspace.currentWorkspaceIndex--;
                                 pref.setInt("currentWorkspaceIndex",
-                                    currentWorkspaceIndex);
+                                    TLWorkspace.currentWorkspaceIndex);
                               }
-                              workspaces[selectedWorkspaceCategoryId]!
-                                  .removeAt(indexInStringWorkspaces);
+                              tlworkspaces.removeAt(indexInTLWorkspaces);
                               // このアラートを消してsimpleアラートを表示する
                               Navigator.pop(context);
                               // ignore: invalid_use_of_protected_member
@@ -105,11 +100,10 @@ Future<void> deleteWorkspaceAlert({
                                   message: null,
                                   buttonText: "OK");
                               // セーブする
-                              Workspace.saveSelectedWorkspace(
-                                selectedWorkspaceCategoryId:
-                                    currentWorkspaceCategoryId,
-                                selectedWorkspaceIndex: currentWorkspaceIndex,
-                                selectedWorkspace: currentWorkspace,
+                              TLWorkspace.saveSelectedWorkspace(
+                                selectedWorkspaceIndex:
+                                    TLWorkspace.currentWorkspaceIndex,
+                                selectedWorkspace: TLWorkspace.currentWorkspace,
                               );
                             });
                           }

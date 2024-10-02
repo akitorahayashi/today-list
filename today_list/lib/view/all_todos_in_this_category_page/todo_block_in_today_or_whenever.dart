@@ -3,7 +3,7 @@ import '../../constants/global_keys.dart';
 import '../../components/for_todo/todo_card/todo_card.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/tl_category.dart';
-import '../../model/workspace/workspace.dart';
+import '../../model/workspace/tl_workspace.dart';
 
 import 'package:reorderables/reorderables.dart';
 
@@ -23,8 +23,9 @@ class ToDoBlockInTodayOrWhenever extends StatefulWidget {
   });
 
   List<TLToDo> get toDoArrayOfThisBlock => ifInToday
-      ? currentWorkspace.toDos[categoryThisPage.id]!.toDosInToday
-      : currentWorkspace.toDos[categoryThisPage.id]!.toDosInWhenever;
+      ? TLWorkspace.currentWorkspace.toDos[categoryThisPage.id]!.toDosInToday
+      : TLWorkspace
+          .currentWorkspace.toDos[categoryThisPage.id]!.toDosInWhenever;
 
   @override
   State<ToDoBlockInTodayOrWhenever> createState() =>
@@ -72,9 +73,8 @@ class _ToDoBlockInTodayOrWheneverState
                 bigCategoryOfThisToDo: widget.bigCategoryThisPage,
                 smallCategoryOfThisToDo: widget.smallCategoryThisPage,
                 // workspace
-                selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-                selectedWorkspaceIndex: currentWorkspaceIndex,
-                selectedWorkspace: currentWorkspace,
+                selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
+                selectedWorkspace: TLWorkspace.currentWorkspace,
               )
           ],
         ),

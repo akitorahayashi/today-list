@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/externals/tl_vibration.dart';
 import '../../../../model/user/setting_data.dart';
-import '../../../../model/workspace/workspace.dart';
-import '../../../../model/workspace/id_to_jsonworkspaceList.dart';
+import '../../../../model/workspace/tl_workspace.dart';
+import '../../../../model/workspace/tl_workspaces.dart';
 import '../../../../constants/theme.dart';
 import '../../../../constants/global_keys.dart';
 import 'notify_current_workspace_is_changed.dart';
@@ -11,14 +11,12 @@ import 'slidable_for_workspace_card.dart';
 class ChangeWorkspaceCard extends StatefulWidget {
   final bool isInDrawerList;
   final String workspaceName;
-  final int indexOfWorkspaceCategory;
-  final int indexInStringWorkspaces;
+  final int indexInWorkspaces;
   const ChangeWorkspaceCard({
     super.key,
     required this.isInDrawerList,
     required this.workspaceName,
-    required this.indexOfWorkspaceCategory,
-    required this.indexInStringWorkspaces,
+    required this.indexInWorkspaces,
   });
 
   @override
@@ -26,12 +24,8 @@ class ChangeWorkspaceCard extends StatefulWidget {
 }
 
 class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
-  String get workspaceCategoryIdOfThisCard =>
-      workspaceCategories[widget.indexOfWorkspaceCategory].id;
-
   bool get isCurrentWorkspace =>
-      workspaceCategoryIdOfThisCard == currentWorkspaceCategoryId &&
-      widget.indexInStringWorkspaces == currentWorkspaceIndex;
+      widget.indexInWorkspaces == TLWorkspace.currentWorkspaceIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +45,8 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                   if (isCurrentWorkspace) {
                     Navigator.pop(context);
                   } else {
-                    currentWorkspace.changeCurrentWorkspace(
-                        selectedWorkspaceCategoryId:
-                            workspaceCategoryIdOfThisCard,
-                        newWorkspaceIndex: widget.indexInStringWorkspaces);
+                    TLWorkspace.currentWorkspace.changeCurrentWorkspace(
+                        newWorkspaceIndex: widget.indexInWorkspaces);
                     TLVibration.vibrate();
                     Navigator.pop(context);
                     // ignore: invalid_use_of_protected_member
@@ -62,15 +54,13 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                     manageWorkspacePageKey.currentState?.setState(() {});
                     notifyCurrentWorkspaceIsChanged(
                         context: context,
-                        newWorkspaceName: currentWorkspace.name);
+                        newWorkspaceName: TLWorkspace.currentWorkspace.name);
                   }
                 },
                 child: SlidableForWorkspaceCard(
                   isInDrawerList: true,
                   isCurrentWorkspace: isCurrentWorkspace,
-                  workspaceCategoryOfThisCard:
-                      workspaceCategories[widget.indexOfWorkspaceCategory],
-                  indexInStringWorkspaces: widget.indexInStringWorkspaces,
+                  indexInTLWorkspaces: widget.indexInWorkspaces,
                   child: Align(
                     alignment: Alignment.center,
                     child: Padding(
@@ -80,7 +70,7 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                                   ? "☆ "
                                   : "") +
                               (isCurrentWorkspace
-                                  ? currentWorkspace.name
+                                  ? TLWorkspace.currentWorkspace.name
                                   : widget.workspaceName) +
                               ((isCurrentWorkspace && widget.isInDrawerList)
                                   ? "   "

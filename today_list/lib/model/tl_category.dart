@@ -1,7 +1,7 @@
 import 'package:today_list/model/externals/tl_widgetkit.dart';
 
-import 'workspace/workspace.dart';
-import 'workspace/id_to_jsonworkspaceList.dart';
+import 'workspace/tl_workspace.dart';
+import 'workspace/tl_workspaces.dart';
 import 'todo/tl_todos.dart';
 import 'dart:convert';
 
@@ -28,7 +28,7 @@ class TLCategory {
         title = jsonData["title"];
 
   int getNumberOfToDosInThisCategory() {
-    final TLToDos selectedToDos = currentWorkspace.toDos[id]!;
+    final TLToDos selectedToDos = TLWorkspace.currentWorkspace.toDos[id]!;
     return selectedToDos.toDosInToday.length +
         selectedToDos.toDosInWhenever.length;
   }
@@ -37,55 +37,33 @@ class TLCategory {
 
   static void saveBigAndSmallCategories() {
     final jsonCurrentWorkspace =
-        workspaces[currentWorkspaceCategoryId]![currentWorkspaceIndex];
+        tlworkspaces[TLWorkspace.currentWorkspaceIndex];
     jsonCurrentWorkspace["bigCategories"] = TLCategory.categoryArrayToJson(
-        categoryArray: currentWorkspace.bigCategories);
+        categoryArray: TLWorkspace.currentWorkspace.bigCategories);
     jsonCurrentWorkspace["smallCategories"] = TLCategory.smallCategoriesToJson(
-        smallCategories: currentWorkspace.smallCategories);
+        smallCategories: TLWorkspace.currentWorkspace.smallCategories);
     SharedPreferences.getInstance().then((pref) {
-      pref.setString("stringWorkspaces", json.encode(workspaces));
+      pref.setString("stringWorkspaces", json.encode(tlworkspaces));
     });
   }
 
   static void saveBigCategories() {
     // currentWorkspaceのbigCategoriesに更新したものを入れる
-    workspaces[currentWorkspaceCategoryId]![currentWorkspaceIndex]
-            ["bigCategories"] =
+    tlworkspaces[TLWorkspace.currentWorkspaceIndex]["bigCategories"] =
         TLCategory.categoryArrayToJson(
-            categoryArray: currentWorkspace.bigCategories);
+            categoryArray: TLWorkspace.currentWorkspace.bigCategories);
     SharedPreferences.getInstance().then((pref) {
-      pref.setString("stringWorkspaces", json.encode(workspaces));
+      pref.setString("tlworkspaces", json.encode(tlworkspaces));
     });
   }
 
   static void saveSmallCategories() {
     // currentWorkspaceのsmallCategoriesに更新したものを入れる
-    workspaces[currentWorkspaceCategoryId]![currentWorkspaceIndex]
-            ["smallCategories"] =
+    tlworkspaces[TLWorkspace.currentWorkspaceIndex]["smallCategories"] =
         TLCategory.smallCategoriesToJson(
-            smallCategories: currentWorkspace.smallCategories);
+            smallCategories: TLWorkspace.currentWorkspace.smallCategories);
     SharedPreferences.getInstance().then((pref) {
-      pref.setString("stringWorkspaces", json.encode(workspaces));
-    });
-  }
-
-  static Future<void> saveWorkspaceCategories() async {
-    await SharedPreferences.getInstance().then((pref) {
-      pref.setString(
-          "workspaceCategories",
-          json.encode(TLCategory.categoryArrayToJson(
-              categoryArray: workspaceCategories)));
-      // TLWidgetKit.updateWorkspaceCategories();
-    });
-  }
-
-  static Future<void> readWorkspaceCategories() async {
-    await SharedPreferences.getInstance().then((pref) {
-      if (pref.getString("workspaceCategories") != null) {
-        workspaceCategories = TLCategory.jsonToCategoryArray(
-            jsonCategoryArrayData:
-                json.decode(pref.getString("workspaceCategories")!));
-      }
+      pref.setString("tlworkspaces", json.encode(tlworkspaces));
     });
   }
 

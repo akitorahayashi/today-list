@@ -6,7 +6,7 @@ import '../../../model/todo/tl_todo.dart';
 import '../../../model/tl_category.dart';
 import '../../../model/externals/tl_vibration.dart';
 import '../../../model/user/setting_data.dart';
-import '../../../model/workspace/workspace.dart';
+import '../../../model/workspace/tl_workspace.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -22,9 +22,8 @@ class SlidableForToDoCard extends StatefulWidget {
   final TLCategory bigCategoryOfThisToDo;
   final TLCategory? smallCategoryOfThisToDo;
   // workspace
-  final String selectedWorkspaceCategoryId;
   final int selectedWorkspaceIndex;
-  final Workspace selectedWorkspace;
+  final TLWorkspace selectedWorkspace;
   // child
   final Function editAction;
   final Widget child;
@@ -40,7 +39,6 @@ class SlidableForToDoCard extends StatefulWidget {
     required this.bigCategoryOfThisToDo,
     required this.smallCategoryOfThisToDo,
     // workspace
-    required this.selectedWorkspaceCategoryId,
     required this.selectedWorkspaceIndex,
     required this.selectedWorkspace,
     required this.editAction,
@@ -71,8 +69,7 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
             TLVibration.vibrate();
             homePageKey.currentState?.setState(() {});
             editToDoPageKey.currentState?.setState(() {});
-            Workspace.saveSelectedWorkspace(
-              selectedWorkspaceCategoryId: widget.selectedWorkspaceCategoryId,
+            TLWorkspace.saveSelectedWorkspace(
               selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
               selectedWorkspace: widget.selectedWorkspace,
             );
@@ -125,8 +122,7 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
                 newCheckedState: widget.toDoData.isChecked,
                 quickChangeToToday: !widget.ifInToday,
               );
-              Workspace.saveSelectedWorkspace(
-                selectedWorkspaceCategoryId: widget.selectedWorkspaceCategoryId,
+              TLWorkspace.saveSelectedWorkspace(
                 selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
                 selectedWorkspace: widget.selectedWorkspace,
               );

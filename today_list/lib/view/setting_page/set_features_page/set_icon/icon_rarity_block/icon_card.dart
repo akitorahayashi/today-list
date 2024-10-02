@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/externals/tl_ads.dart';
 import '../../../../../constants/global_keys.dart';
-import '../../../../../alerts/common/yes_no_alert.dart';
-import '../../../../../alerts/common/simple_alert.dart';
+import '../../../../../alerts/yes_no_alert.dart';
+import '../../../../../alerts/simple_alert.dart';
 import '../../../../../constants/icon_for_checkbox.dart';
 import '../../../../../constants/theme.dart';
 import '../../../../../model/user/setting_data.dart';

@@ -7,7 +7,7 @@ import '../../../model/todo/tl_step.dart';
 import '../../../model/tl_category.dart';
 import '../../../model/user/setting_data.dart';
 import '../../../model/externals/tl_vibration.dart';
-import '../../../model/workspace/workspace.dart';
+import '../../../model/workspace/tl_workspace.dart';
 import '../../../crud/for_todo/notify_todo_or_step_is_edited.dart';
 import '../../../view/edit_todo_page/edit_todo_page.dart';
 import '../step_card.dart';
@@ -24,9 +24,8 @@ class ToDoCard extends StatefulWidget {
   // smallCategoryならこれがある
   final TLCategory? smallCategoryOfThisToDo;
   // workspace系
-  final String selectedWorkspaceCategoryId;
   final int selectedWorkspaceIndex;
-  final Workspace selectedWorkspace;
+  final TLWorkspace selectedWorkspace;
 
   const ToDoCard({
     super.key,
@@ -36,7 +35,6 @@ class ToDoCard extends StatefulWidget {
     required this.bigCategoryOfThisToDo,
     this.smallCategoryOfThisToDo,
     // workspace系
-    required this.selectedWorkspaceCategoryId,
     required this.selectedWorkspaceIndex,
     required this.selectedWorkspace,
   });
@@ -79,10 +77,9 @@ class ToDoCardState extends State<ToDoCard> {
           newCheckedState: toDoData.isChecked,
           quickChangeToToday: null,
         );
-        Workspace.saveSelectedWorkspace(
-          selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-          selectedWorkspaceIndex: currentWorkspaceIndex,
-          selectedWorkspace: currentWorkspace,
+        TLWorkspace.saveSelectedWorkspace(
+          selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
+          selectedWorkspace: TLWorkspace.currentWorkspace,
         );
       },
       onLongPress: toDoData.isChecked ? () {} : null,
@@ -106,7 +103,6 @@ class ToDoCardState extends State<ToDoCard> {
               bigCategoryOfThisToDo: widget.bigCategoryOfThisToDo,
               smallCategoryOfThisToDo: widget.smallCategoryOfThisToDo,
               // workspace
-              selectedWorkspaceCategoryId: widget.selectedWorkspaceCategoryId,
               selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
               selectedWorkspace: widget.selectedWorkspace,
               editAction: () async {
@@ -187,9 +183,7 @@ class ToDoCardState extends State<ToDoCard> {
                             toDoData.steps.insert(newIndex, reOrderedToDo);
                             setState(() {});
                             // toDosを保存する
-                            Workspace.saveSelectedWorkspace(
-                              selectedWorkspaceCategoryId:
-                                  widget.selectedWorkspaceCategoryId,
+                            TLWorkspace.saveSelectedWorkspace(
                               selectedWorkspaceIndex:
                                   widget.selectedWorkspaceIndex,
                               selectedWorkspace: widget.selectedWorkspace,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../styles.dart';
-import '../../alerts/common/simple_alert.dart';
+import '../../alerts/simple_alert.dart';
 import '../../constants/global_keys.dart';
 import '../../constants/theme.dart';
 import '../../model/tl_category.dart';
 import '../../model/user/setting_data.dart';
-import '../../model/workspace/workspace.dart';
-import '../../model/workspace/id_to_jsonworkspaceList.dart';
+import '../../model/workspace/tl_workspace.dart';
+import '../../model/workspace/tl_workspaces.dart';
 import '../../model/todo/tl_todos.dart';
 import '../../model/externals/tl_vibration.dart';
 import 'add_workspace_category_alert.dart';
@@ -14,12 +14,9 @@ import 'notify_workspace_is_added.dart';
 import 'dart:convert';
 
 class AddOrEditWorkspaceDialog extends StatefulWidget {
-  final TLCategory? oldWorkspaceCategory;
   final int? oldIndexInStringWorkspaces;
   const AddOrEditWorkspaceDialog(
-      {super.key,
-      required this.oldWorkspaceCategory,
-      required this.oldIndexInStringWorkspaces});
+      {super.key, required this.oldIndexInStringWorkspaces});
 
   @override
   State<AddOrEditWorkspaceDialog> createState() =>
@@ -27,18 +24,15 @@ class AddOrEditWorkspaceDialog extends StatefulWidget {
 }
 
 class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
-  TLCategory _selectedWorkspaceCategory = workspaceCategories[0];
   bool isInitialized = false;
   final TextEditingController _workspaceNameInputController =
       TextEditingController();
   @override
   Widget build(BuildContext context) {
-    if (widget.oldWorkspaceCategory != null && !isInitialized) {
+    if (widget.oldIndexInStringWorkspaces != null && !isInitialized) {
       isInitialized = true;
-      _selectedWorkspaceCategory = widget.oldWorkspaceCategory!;
-      _workspaceNameInputController.text = workspaces[widget
-          .oldWorkspaceCategory!
-          .id]![widget.oldIndexInStringWorkspaces!]["name"];
+      _workspaceNameInputController.text =
+          tlworkspaces[widget.oldIndexInStringWorkspaces!]["name"];
     }
     return Dialog(
       backgroundColor: theme[settingData.selectedTheme]!.alertColor,
@@ -46,74 +40,19 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
+          const Padding(
+            padding: const EdgeInsets.only(top: 28.0),
+            child: Text(
+              "Workspace",
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black54),
+            ),
+          ),
           // スペーサー
           const SizedBox(
-            height: 30,
-          ),
-          // カテゴリー選択のためのDropdownButton
-          SizedBox(
-            width: 230,
-            child: DropdownButton(
-                iconEnabledColor: theme[settingData.selectedTheme]!.accentColor,
-                isExpanded: true,
-                // smallCategoryをなしにすることで選択できるようになることを知らせる
-                hint: Text(
-                  _selectedWorkspaceCategory.id == noneId
-                      ? "カテゴリー"
-                      : workspaceCategories[workspaceCategories.indexWhere(
-                              (TLCategory workspaceCategory) =>
-                                  _selectedWorkspaceCategory.id ==
-                                  workspaceCategory.id)]
-                          .title,
-                  style: TextStyle(
-                      fontSize: 14.5,
-                      color: Colors.black.withOpacity(
-                          _selectedWorkspaceCategory.id == noneId ? 0.4 : 0.5),
-                      fontWeight: FontWeight.w600),
-                ),
-                items: [
-                  TLCategory(id: noneId, title: "なし"),
-                  ...workspaceCategories.sublist(1),
-                  TLCategory(id: "---makeWorkspaceCategory", title: "新しく作る"),
-                ].map((TLCategory workspaceCategory) {
-                  return DropdownMenuItem(
-                    value: workspaceCategory,
-                    child: Text(
-                      workspaceCategory.title,
-                      style: (workspaceCategory.id == noneId &&
-                                  _selectedWorkspaceCategory.id == noneId) ||
-                              workspaceCategory.id ==
-                                  _selectedWorkspaceCategory.id
-                          ? TextStyle(
-                              color:
-                                  theme[settingData.selectedTheme]!.accentColor,
-                              fontWeight: FontWeight.bold)
-                          : TextStyle(
-                              color: Colors.black.withOpacity(0.5),
-                              fontWeight: FontWeight.bold),
-                    ),
-                  );
-                }).toList(),
-                onChanged: (TLCategory? workspaceCategory) async {
-                  if (workspaceCategory != null) {
-                    switch (workspaceCategory.id) {
-                      case noneId:
-                        _selectedWorkspaceCategory = workspaceCategories[0];
-                        break;
-                      case "---makeWorkspaceCategory":
-                        _selectedWorkspaceCategory =
-                            await addWorkspaceCategoryAlert(
-                                    context: context,
-                                    categoryNameInputController:
-                                        TextEditingController()) ??
-                                workspaceCategories[0];
-                        break;
-                      default:
-                        _selectedWorkspaceCategory = workspaceCategory;
-                    }
-                    setState(() {});
-                  }
-                }),
+            height: 40,
           ),
           // 新しいworkspace名を入力するTextField
           Padding(
@@ -132,7 +71,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                 )),
           ),
           // 閉じる 追加するボタン
-          ButtonBar(
+          OverflowBar(
             alignment: MainAxisAlignment.spaceEvenly,
             children: [
               // カテゴリーを作らずにアラートを閉じるボタン
@@ -151,10 +90,10 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                       // アラートを閉じる
                       Navigator.pop(context);
                       // workspacesを更新
-                      if (widget.oldWorkspaceCategory == null) {
+                      if (widget.oldIndexInStringWorkspaces == null) {
                         // add action
                         // 新しくできたWorkspace
-                        final createdWorkspaceJsonData = Workspace(
+                        final createdWorkspaceJsonData = TLWorkspace(
                             name: _workspaceNameInputController.text,
                             bigCategories: [
                               TLCategory(id: noneId, title: "なし")
@@ -166,8 +105,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                               noneId:
                                   TLToDos(toDosInToday: [], toDosInWhenever: [])
                             }).toJson();
-                        workspaces[_selectedWorkspaceCategory.id]!
-                            .add(createdWorkspaceJsonData);
+                        tlworkspaces.add(createdWorkspaceJsonData);
                         // 追加したことを知らせる
                         notifyWorkspaceIsAdded(
                             context: context,
@@ -175,29 +113,25 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                                 _workspaceNameInputController.text);
                       } else {
                         // edit action
-                        final Workspace editedWorkspace = Workspace.fromJson(
-                            workspaces[widget.oldWorkspaceCategory!.id]![
+                        final TLWorkspace editedWorkspace =
+                            TLWorkspace.fromJson(tlworkspaces[
                                 widget.oldIndexInStringWorkspaces!]);
                         // 名前だけ変える
                         editedWorkspace.name =
                             _workspaceNameInputController.text;
                         // 消して元の場所に入れる
-                        workspaces[widget.oldWorkspaceCategory!.id]!
+                        tlworkspaces
                             .removeAt(widget.oldIndexInStringWorkspaces!);
-                        workspaces[_selectedWorkspaceCategory.id]!.insert(
+                        tlworkspaces.insert(
                           widget.oldIndexInStringWorkspaces!,
                           editedWorkspace.toJson(),
                         );
 
                         // currentWorkspaceの時
-                        if (currentWorkspaceCategoryId ==
-                                _selectedWorkspaceCategory.id &&
-                            currentWorkspaceIndex ==
-                                widget.oldIndexInStringWorkspaces!) {
-                          currentWorkspace = editedWorkspace;
-                          currentWorkspace.saveCurrentWorkspace(
-                              selectedWorkspaceCategoryId:
-                                  _selectedWorkspaceCategory.id,
+                        if (TLWorkspace.currentWorkspaceIndex ==
+                            widget.oldIndexInStringWorkspaces!) {
+                          TLWorkspace.currentWorkspace = editedWorkspace;
+                          TLWorkspace.currentWorkspace.saveCurrentWorkspace(
                               newWorkspaceIndex:
                                   widget.oldIndexInStringWorkspaces!);
                         }
@@ -213,12 +147,15 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                       manageWorkspacePageKey.currentState?.setState(() {});
                       drawerForWorkspaceKey.currentState?.setState(() {});
                       // workspacesをセーブする
-                      Workspace.saveStringWorkspaces();
+                      TLWorkspace.saveWorkspaces();
                     }
                   },
-                  child:
-                      Text(widget.oldWorkspaceCategory == null ? "追加" : "編集"))
+                  child: Text(
+                      widget.oldIndexInStringWorkspaces == null ? "追加" : "編集"))
             ],
+          ),
+          const SizedBox(
+            height: 16,
           )
         ],
       ),

@@ -78,8 +78,8 @@ class _SignInCardState extends State<SignInCard> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: GestureDetector(
                   onTap: () async {
-                    await todayListUser.signInWithGoogle(
-                        context: context, isWeb: false);
+                    // await todayListUser.signInWithGoogle(
+                    //     context: context, isWeb: false);
                     setState(() {});
                   },
                   child: Card(
