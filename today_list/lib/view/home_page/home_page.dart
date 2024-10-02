@@ -10,7 +10,7 @@ import '../../constants/theme.dart';
 import '../../alerts/common/yes_no_alert.dart';
 import '../../model/user/setting_data.dart';
 import '../../model/workspace/workspace.dart';
-import '../../model/workspace/id_to_jsonworkspaceList.dart';
+import '../../model/workspace/workspaces.dart';
 import '../../model/tl_category.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../crud/for_todo/delete_checked_todos_in_today.dart';
@@ -310,7 +310,7 @@ class HomePageState extends State<HomePage> {
                 toDoTitle: "",
                 belogedSteps: const [],
                 isInToday: true,
-                bigCategory: workspaceCategories[0],
+                bigCategory: TLCategory(id: noneId, title: "なし"),
                 smallCategory: null,
                 indexOfThisToDoInToDos: null,
                 oldCategoryId: null,

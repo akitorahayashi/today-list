@@ -6,7 +6,7 @@ import '../../../constants/theme.dart';
 import '../../../constants/global_keys.dart';
 import '../../../model/user/setting_data.dart';
 import '../../../model/workspace/workspace.dart';
-import '../../../model/workspace/id_to_jsonworkspaceList.dart';
+import '../../../model/workspace/workspaces.dart';
 import '../content_views/content_card.dart';
 import '../../../view/home_page/content_views/manage_workspace/manage_workspace_page.dart';
 import './add_workspace_button.dart';
@@ -95,20 +95,15 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                           // カードの表示
                           child: Column(
                             children: [
-                              Column(
-                                children: [
-                                  for (int indexOfWorkspaceCategoryOfThisBlock =
-                                          0;
-                                      indexOfWorkspaceCategoryOfThisBlock <
-                                          workspaceCategories.length;
-                                      indexOfWorkspaceCategoryOfThisBlock++)
-                                    WorkspaceCategoryBlockInDrawer(
-                                        indexOfWorkspaceCategoryOfThisBlock:
-                                            indexOfWorkspaceCategoryOfThisBlock),
-                                  // 新しくworkspaceを追加する,
-                                  const AddWorkspaceButton()
-                                ],
-                              ),
+                              for (int indexOfWorkspaceCategoryOfThisBlock = 0;
+                                  indexOfWorkspaceCategoryOfThisBlock <
+                                      workspaceCategories.length;
+                                  indexOfWorkspaceCategoryOfThisBlock++)
+                                WorkspaceCategoryBlockInDrawer(
+                                    indexOfWorkspaceCategoryOfThisBlock:
+                                        indexOfWorkspaceCategoryOfThisBlock),
+                              // 新しくworkspaceを追加する,
+                              const AddWorkspaceButton(),
                             ],
                           ),
                         ),
