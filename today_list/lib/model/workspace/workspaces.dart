@@ -19,9 +19,9 @@ const String mathAId = "mathAId";
 const String mathIId = "mathIId";
 const String englishId = "englishId";
 
-List<TLCategory> workspaceCategories = [
-  TLCategory(id: noneId, title: "なし"),
-];
+// List<TLCategory> workspaceCategories = [
+//   TLCategory(id: noneId, title: "なし"),
+// ];
 
 Map<String, List<Map<String, dynamic>>> workspaces = {
   noneId: [
