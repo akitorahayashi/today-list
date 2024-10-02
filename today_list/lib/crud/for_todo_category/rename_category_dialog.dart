@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-import '../../alerts/common/simple_alert.dart';
+import '../../alerts/simple_alert.dart';
 import '../../constants/theme.dart';
 import '../../model/tl_category.dart';
-import '../../model/workspace/workspace.dart';
-import '../../model/workspace/id_to_jsonworkspaceList.dart';
+import '../../model/workspace/tl_workspace.dart';
 import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../styles.dart';
 
 Widget renameCategoryDialog({
   required BuildContext context,
-  required int? indexOfWorkspaceCategory,
   required int indexOfBigCategory,
   required int? indexOfSmallCategory,
 }) {
-  final TLCategory oldCategory = indexOfWorkspaceCategory == null
-      ? indexOfSmallCategory == null
-          ? currentWorkspace.bigCategories[indexOfBigCategory]
-          : currentWorkspace.smallCategories[currentWorkspace
-              .bigCategories[indexOfBigCategory].id]![indexOfSmallCategory]
-      : workspaceCategories[indexOfWorkspaceCategory];
+  final TLCategory oldCategory = indexOfSmallCategory == null
+      ? TLWorkspace.currentWorkspace.bigCategories[indexOfBigCategory]
+      : TLWorkspace.currentWorkspace.smallCategories[TLWorkspace
+          .currentWorkspace
+          .bigCategories[indexOfBigCategory]
+          .id]![indexOfSmallCategory];
   // textFieldに改名する準備をする
   String? newCategoryName = oldCategory.title;
   TextEditingController controllerForRename =
@@ -98,32 +96,28 @@ Widget renameCategoryDialog({
                     if (newCategoryName == null) {
                       Navigator.pop(context);
                     } else {
-                      if (indexOfWorkspaceCategory == null) {
-                        // todo category
-                        if (indexOfSmallCategory != null) {
-                          // smallの場合、タイトルを変える
-                          currentWorkspace
-                              .smallCategories[currentWorkspace
-                                  .bigCategories[indexOfBigCategory]
-                                  .id]![indexOfSmallCategory]
-                              .title = newCategoryName!;
-                          TLCategory.saveSmallCategories();
-                        } else {
-                          // bigCategoryを更新
-                          currentWorkspace.bigCategories[indexOfBigCategory]
-                              .title = newCategoryName!;
-                          TLCategory.saveBigCategories();
-                        }
-                        // alert → all page → category list
-                        Navigator.pop(context);
-                        Navigator.pop(context);
+                      // todo category
+                      if (indexOfSmallCategory != null) {
+                        // smallの場合、タイトルを変える
+                        TLWorkspace
+                            .currentWorkspace
+                            .smallCategories[TLWorkspace
+                                .currentWorkspace
+                                .bigCategories[indexOfBigCategory]
+                                .id]![indexOfSmallCategory]
+                            .title = newCategoryName!;
+                        TLCategory.saveSmallCategories();
                       } else {
-                        // workspace category
-                        workspaceCategories[indexOfWorkspaceCategory].title =
-                            newCategoryName!;
-                        TLCategory.saveWorkspaceCategories();
-                        Navigator.pop(context);
+                        // bigCategoryを更新
+                        TLWorkspace
+                            .currentWorkspace
+                            .bigCategories[indexOfBigCategory]
+                            .title = newCategoryName!;
+                        TLCategory.saveBigCategories();
                       }
+                      // alert → all page → category list
+                      Navigator.pop(context);
+                      Navigator.pop(context);
                       TLVibration.vibrate();
                       simpleAlert(
                           context: context,

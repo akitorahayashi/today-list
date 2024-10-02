@@ -3,8 +3,8 @@ import 'package:today_list/model/externals/tl_widgetkit.dart';
 
 import '../../constants/global_keys.dart';
 import '../../constants/theme.dart';
-import '../../alerts/common/yes_no_alert.dart';
-import '../../alerts/common/simple_alert.dart';
+import '../../alerts/yes_no_alert.dart';
+import '../../alerts/simple_alert.dart';
 import '../externals/tl_vibration.dart';
 import '../../styles.dart';
 import 'package:flutter/material.dart';

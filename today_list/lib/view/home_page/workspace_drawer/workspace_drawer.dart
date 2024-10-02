@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'change_workspace_card/change_workspace_card.dart';
-import './workspace_category_block_in_drawer.dart';
 import '../../../components/for_ui/tl_sliver_appbar.dart';
 import '../../../constants/theme.dart';
 import '../../../constants/global_keys.dart';
 import '../../../model/user/setting_data.dart';
-import '../../../model/workspace/workspace.dart';
-import '../../../model/workspace/workspaces.dart';
+import '../../../model/workspace/tl_workspace.dart';
+import '../../../model/workspace/tl_workspaces.dart';
 import '../content_views/content_card.dart';
 import '../../../view/home_page/content_views/manage_workspace/manage_workspace_page.dart';
 import './add_workspace_button.dart';
@@ -65,12 +64,9 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                           ),
                           ChangeWorkspaceCard(
                             isInDrawerList: false,
-                            workspaceName: currentWorkspace.name,
-                            indexOfWorkspaceCategory: workspaceCategories
-                                .indexWhere((workspaceCategory) =>
-                                    workspaceCategory.id ==
-                                    currentWorkspaceCategoryId),
-                            indexInWorkspaces: currentWorkspaceIndex,
+                            workspaceName: TLWorkspace.currentWorkspace.name,
+                            indexInWorkspaces:
+                                TLWorkspace.currentWorkspaceIndex,
                           )
                         ],
                       ),
@@ -95,13 +91,22 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                           // カードの表示
                           child: Column(
                             children: [
-                              for (int indexOfWorkspaceCategoryOfThisBlock = 0;
-                                  indexOfWorkspaceCategoryOfThisBlock <
-                                      workspaceCategories.length;
-                                  indexOfWorkspaceCategoryOfThisBlock++)
-                                WorkspaceCategoryBlockInDrawer(
-                                    indexOfWorkspaceCategoryOfThisBlock:
-                                        indexOfWorkspaceCategoryOfThisBlock),
+                              for (int indexInWorkspaces = 0;
+                                  indexInWorkspaces < tlworkspaces.length;
+                                  indexInWorkspaces++)
+                                GestureDetector(
+                                  key: Key(UniqueKey().toString()),
+                                  // デフォルトワークスペースの並び替え阻止
+                                  onLongPress:
+                                      indexInWorkspaces == 0 ? () {} : null,
+                                  child: ChangeWorkspaceCard(
+                                    isInDrawerList: true,
+                                    workspaceName:
+                                        tlworkspaces[indexInWorkspaces]
+                                            ["name"]!,
+                                    indexInWorkspaces: indexInWorkspaces,
+                                  ),
+                                ),
                               // 新しくworkspaceを追加する,
                               const AddWorkspaceButton(),
                             ],
@@ -151,25 +156,25 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                             //     },
                             //     contentName: "All ToDos in Today"),
                             // manage workspace
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: ContentCard(
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        fullscreenDialog: true,
-                                        builder: (context) {
-                                          return ManageWorkspacePage(
-                                            key: manageWorkspacePageKey,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
-                                  contentName: "Manage Workspace"),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(top: 8.0),
+                            //   child: ContentCard(
+                            //       onTap: () {
+                            //         Navigator.pop(context);
+                            //         Navigator.push(
+                            //           context,
+                            //           MaterialPageRoute(
+                            //             fullscreenDialog: true,
+                            //             builder: (context) {
+                            //               return ManageWorkspacePage(
+                            //                 key: manageWorkspacePageKey,
+                            //               );
+                            //             },
+                            //           ),
+                            //         );
+                            //       },
+                            //       contentName: "Manage Workspace"),
+                            // ),
                           ],
                         ),
                       ),

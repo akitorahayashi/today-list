@@ -11,13 +11,11 @@ import 'slidable_for_workspace_card.dart';
 class ChangeWorkspaceCard extends StatefulWidget {
   final bool isInDrawerList;
   final String workspaceName;
-  final int indexOfWorkspaceCategory;
   final int indexInWorkspaces;
   const ChangeWorkspaceCard({
     super.key,
     required this.isInDrawerList,
     required this.workspaceName,
-    required this.indexOfWorkspaceCategory,
     required this.indexInWorkspaces,
   });
 

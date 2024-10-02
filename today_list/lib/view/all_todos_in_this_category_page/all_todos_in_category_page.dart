@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/alerts/common/simple_alert.dart';
+import 'package:today_list/alerts/simple_alert.dart';
 import './todo_block_in_today_or_whenever.dart';
 import './edit_category_card.dart';
-import '../../alerts/common/yes_no_alert.dart';
+import '../../alerts/yes_no_alert.dart';
 import '../../constants/theme.dart';
 import '../../constants/global_keys.dart';
 import '../../model/tl_category.dart';
-import '../../model/workspace/workspace.dart';
+import '../../model/workspace/tl_workspace.dart';
 import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
-import '../../model/workspace/workspaces.dart';
+import '../../model/workspace/tl_workspaces.dart';
 import '../../components/for_ui/today_list_bottom_navbar/today_list_bottom_navbar.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
 import '../../crud/for_todo/delete_all_checked_todo_in_todos.dart';
@@ -34,11 +34,11 @@ class AllToDosInThisCategoryPage extends StatefulWidget {
 class AllToDosInThisCategoryPageState
     extends State<AllToDosInThisCategoryPage> {
   TLCategory get _bigCategoryOfThisPage =>
-      currentWorkspace.bigCategories[widget.indexOfBigCategory];
+      TLWorkspace.currentWorkspace.bigCategories[widget.indexOfBigCategory];
   TLCategory? get _smallCategoryOfThisPage =>
       widget.indexOfSmallCategory != null
-          ? currentWorkspace.smallCategories[_bigCategoryOfThisPage.id]![
-              widget.indexOfSmallCategory!]
+          ? TLWorkspace.currentWorkspace.smallCategories[
+              _bigCategoryOfThisPage.id]![widget.indexOfSmallCategory!]
           : null;
   // このページのカテゴリー
   TLCategory get _categoryOfThisPage =>
@@ -99,8 +99,8 @@ class AllToDosInThisCategoryPageState
               // 「今日」のブロック
               ToDoBlockInTodayOrWhenever(
                 ifInToday: true,
-                bigCategoryThisPage:
-                    currentWorkspace.bigCategories[widget.indexOfBigCategory],
+                bigCategoryThisPage: TLWorkspace
+                    .currentWorkspace.bigCategories[widget.indexOfBigCategory],
                 smallCategoryThisPage: widget.indexOfSmallCategory == null
                     ? null
                     : _categoryOfThisPage,
@@ -108,8 +108,8 @@ class AllToDosInThisCategoryPageState
               // 「いつでも」のブロック
               ToDoBlockInTodayOrWhenever(
                 ifInToday: false,
-                bigCategoryThisPage:
-                    currentWorkspace.bigCategories[widget.indexOfBigCategory],
+                bigCategoryThisPage: TLWorkspace
+                    .currentWorkspace.bigCategories[widget.indexOfBigCategory],
                 smallCategoryThisPage: widget.indexOfSmallCategory == null
                     ? null
                     : _categoryOfThisPage,
@@ -132,19 +132,18 @@ class AllToDosInThisCategoryPageState
                   // Todo.dartの方で全部書いてある
                   deleteAllCheckedToDosInThisToDos(
                       onlyToday: false,
-                      selectedToDos:
-                          currentWorkspace.toDos[_categoryOfThisPage.id]!);
+                      selectedToDos: TLWorkspace
+                          .currentWorkspace.toDos[_categoryOfThisPage.id]!);
                   allToDosInCategoryPageKey.currentState?.setState(() {});
                   categoryListPageKey.currentState?.setState(() {});
                   TLVibration.vibrate();
                   TLWorkspace.saveSelectedWorkspace(
-                    selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-                    selectedWorkspaceIndex: currentWorkspaceIndex,
-                    selectedWorkspace: currentWorkspace,
+                    selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
+                    selectedWorkspace: TLWorkspace.currentWorkspace,
                   );
                   simpleAlert(
                       context: context,
-                      title: "削除が完了しました！",
+                      title: "削除が完了しました",
                       message: null,
                       buttonText: "OK");
                 });

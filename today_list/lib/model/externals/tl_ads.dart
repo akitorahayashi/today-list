@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:today_list/alerts/common/simple_alert.dart';
+import 'package:today_list/alerts/simple_alert.dart';
 import 'package:today_list/main.dart';
 
 class TLAds {

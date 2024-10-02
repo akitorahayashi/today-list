@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../alerts/common/simple_alert.dart';
+import '../../alerts/simple_alert.dart';
 import '../../constants/theme.dart';
 import '../../model/tl_category.dart';
 import '../../model/workspace/tl_workspaces.dart';
@@ -17,9 +17,11 @@ Future<void> confirmToDeleteThisCategory({
 }) async {
   // 本当に削除するか確認するアラート
   final TLCategory categoryThisBelongsTo = indexOfSmallCategory == null
-      ? currentWorkspace.bigCategories[indexOfBigCategory]
-      : currentWorkspace.smallCategories[currentWorkspace
-          .bigCategories[indexOfBigCategory].id]![indexOfSmallCategory];
+      ? TLWorkspace.currentWorkspace.bigCategories[indexOfBigCategory]
+      : TLWorkspace.currentWorkspace.smallCategories[TLWorkspace
+          .currentWorkspace
+          .bigCategories[indexOfBigCategory]
+          .id]![indexOfSmallCategory];
   return showDialog(
       context: context,
       barrierDismissible: false,
@@ -64,60 +66,52 @@ Future<void> confirmToDeleteThisCategory({
                     TextButton(
                         style: alertButtonStyle(),
                         onPressed: () async {
-                          if (indexOfWorkspaceCategory == null) {
-                            if (indexOfSmallCategory != null) {
-                              // このカテゴリーがsmallCategoryの場合
-                              // カテゴリーのリストから削除する
-                              currentWorkspace.smallCategories[currentWorkspace
-                                      .bigCategories[indexOfBigCategory].id]!
-                                  .removeWhere(((TLCategory smallCategory) =>
-                                      smallCategory.id ==
-                                      categoryThisBelongsTo.id));
-                              // toDosに入っているものを消す
-                              currentWorkspace.toDos
-                                  .remove(categoryThisBelongsTo.id);
-                            } else {
-                              // このカテゴリーがbigCategoryの場合
-                              // bigCategoryのsmallCategoryでtoDosに入っているものを消す
-                              for (TLCategory smallCategory
-                                  in currentWorkspace.smallCategories[
-                                      currentWorkspace
-                                          .bigCategories[indexOfBigCategory]
-                                          .id]!) {
-                                currentWorkspace.toDos.remove(smallCategory.id);
-                              } // toDosに入っているものを消す
-                              currentWorkspace.toDos
-                                  .remove(categoryThisBelongsTo.id);
-                              // カテゴリーのリストからbigCategoryとsmallCategoryを削除する
-                              currentWorkspace.bigCategories
-                                  .removeAt(indexOfBigCategory);
-                              currentWorkspace.smallCategories
-                                  .remove(categoryThisBelongsTo.id);
-                            }
-
-                            // categoriesとtoDosを保存する
-                            if (indexOfSmallCategory == null) {
-                              TLCategory.saveBigCategories();
-                            } else {
-                              TLCategory.saveSmallCategories();
-                            }
-                            TLWorkspace.saveSelectedWorkspace(
-                              selectedWorkspaceCategoryId:
-                                  currentWorkspaceCategoryId,
-                              selectedWorkspaceIndex: currentWorkspaceIndex,
-                              selectedWorkspace: currentWorkspace,
-                            );
-                            Navigator.pop(context);
+                          if (indexOfSmallCategory != null) {
+                            // このカテゴリーがsmallCategoryの場合
+                            // カテゴリーのリストから削除する
+                            TLWorkspace
+                                .currentWorkspace
+                                .smallCategories[TLWorkspace.currentWorkspace
+                                    .bigCategories[indexOfBigCategory].id]!
+                                .removeWhere(((TLCategory smallCategory) =>
+                                    smallCategory.id ==
+                                    categoryThisBelongsTo.id));
+                            // toDosに入っているものを消す
+                            TLWorkspace.currentWorkspace.toDos
+                                .remove(categoryThisBelongsTo.id);
                           } else {
-                            // workspace category
-                            tlworkspaces.remove(
-                                workspaceCategories[indexOfWorkspaceCategory]
-                                    .id);
-                            workspaceCategories
-                                .removeAt(indexOfWorkspaceCategory);
-                            TLCategory.saveWorkspaceCategories();
-                            TLWorkspace.saveWorkspaces();
+                            // このカテゴリーがbigCategoryの場合
+                            // bigCategoryのsmallCategoryでtoDosに入っているものを消す
+                            for (TLCategory smallCategory
+                                in TLWorkspace.currentWorkspace.smallCategories[
+                                    TLWorkspace
+                                        .currentWorkspace
+                                        .bigCategories[indexOfBigCategory]
+                                        .id]!) {
+                              TLWorkspace.currentWorkspace.toDos
+                                  .remove(smallCategory.id);
+                            } // toDosに入っているものを消す
+                            TLWorkspace.currentWorkspace.toDos
+                                .remove(categoryThisBelongsTo.id);
+                            // カテゴリーのリストからbigCategoryとsmallCategoryを削除する
+                            TLWorkspace.currentWorkspace.bigCategories
+                                .removeAt(indexOfBigCategory);
+                            TLWorkspace.currentWorkspace.smallCategories
+                                .remove(categoryThisBelongsTo.id);
                           }
+
+                          // categoriesとtoDosを保存する
+                          if (indexOfSmallCategory == null) {
+                            TLCategory.saveBigCategories();
+                          } else {
+                            TLCategory.saveSmallCategories();
+                          }
+                          TLWorkspace.saveSelectedWorkspace(
+                            selectedWorkspaceIndex:
+                                TLWorkspace.currentWorkspaceIndex,
+                            selectedWorkspace: TLWorkspace.currentWorkspace,
+                          );
+                          Navigator.pop(context);
                           // アラートを消す
                           Navigator.pop(context);
                           TLVibration.vibrate();

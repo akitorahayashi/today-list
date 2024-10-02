@@ -5,7 +5,7 @@ import '../../../constants/icon_for_checkbox.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/tl_category.dart';
 import '../../../model/user/setting_data.dart';
-import '../../../model/workspace/workspace.dart';
+import '../../../model/workspace/tl_workspace.dart';
 import '../../../components/for_todo/todo_card/slidable_for_todo_card.dart';
 
 import 'package:reorderables/reorderables.dart';
@@ -46,15 +46,14 @@ class ModelOfToDoCard extends StatelessWidget {
           isModelCard: true,
           toDoData: toDoData,
           ifInToday: ifInToday,
-          toDoArrayOfThisToDo: currentWorkspace
+          toDoArrayOfThisToDo: TLWorkspace.currentWorkspace
               .toDos[smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
               .getToDoArray(inToday: ifInToday),
           bigCategoryOfThisToDo: bigCategoryOfThisToDo,
           smallCategoryOfThisToDo: smallCategoryOfThisToDo,
           indexOfThisToDoInToDos: indexOfThisToDoInToDoArrray,
-          selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-          selectedWorkspaceIndex: currentWorkspaceIndex,
-          selectedWorkspace: currentWorkspace,
+          selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
+          selectedWorkspace: TLWorkspace.currentWorkspace,
           editAction: tapToEditAction,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -159,10 +158,9 @@ class ModelOfToDoCard extends StatelessWidget {
                         toDoData.steps.insert(newIndex, reOrderedToDo);
                         // toDosを保存する
                         TLWorkspace.saveSelectedWorkspace(
-                          selectedWorkspaceCategoryId:
-                              currentWorkspaceCategoryId,
-                          selectedWorkspaceIndex: currentWorkspaceIndex,
-                          selectedWorkspace: currentWorkspace,
+                          selectedWorkspaceIndex:
+                              TLWorkspace.currentWorkspaceIndex,
+                          selectedWorkspace: TLWorkspace.currentWorkspace,
                         );
                       }
                     },

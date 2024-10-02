@@ -3,7 +3,7 @@ import '../../constants/global_keys.dart';
 import '../../constants/icon_for_checkbox.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_step.dart';
-import '../../model/workspace/workspace.dart';
+import '../../model/workspace/tl_workspace.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../crud/for_todo/notify_todo_or_step_is_edited.dart';
 
@@ -54,9 +54,8 @@ class _StepInToDoCardState extends State<StepInToDoCard> {
             newCheckedState: stepData.isChecked,
             quickChangeToToday: null);
         TLWorkspace.saveSelectedWorkspace(
-          selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-          selectedWorkspaceIndex: currentWorkspaceIndex,
-          selectedWorkspace: currentWorkspace,
+          selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
+          selectedWorkspace: TLWorkspace.currentWorkspace,
         );
       },
       child: Card(

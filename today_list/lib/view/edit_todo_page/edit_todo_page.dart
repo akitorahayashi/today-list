@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
-import '../../alerts/common/yes_no_alert.dart';
+import '../../alerts/yes_no_alert.dart';
 import '../../constants/theme.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/tl_category.dart';

@@ -6,7 +6,7 @@ import '../../../model/todo/tl_todo.dart';
 import '../../../model/tl_category.dart';
 import '../../../model/externals/tl_vibration.dart';
 import '../../../model/user/setting_data.dart';
-import '../../../model/workspace/workspace.dart';
+import '../../../model/workspace/tl_workspace.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -22,7 +22,6 @@ class SlidableForToDoCard extends StatefulWidget {
   final TLCategory bigCategoryOfThisToDo;
   final TLCategory? smallCategoryOfThisToDo;
   // workspace
-  final String selectedWorkspaceCategoryId;
   final int selectedWorkspaceIndex;
   final TLWorkspace selectedWorkspace;
   // child
@@ -40,7 +39,6 @@ class SlidableForToDoCard extends StatefulWidget {
     required this.bigCategoryOfThisToDo,
     required this.smallCategoryOfThisToDo,
     // workspace
-    required this.selectedWorkspaceCategoryId,
     required this.selectedWorkspaceIndex,
     required this.selectedWorkspace,
     required this.editAction,
@@ -72,7 +70,6 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
             homePageKey.currentState?.setState(() {});
             editToDoPageKey.currentState?.setState(() {});
             TLWorkspace.saveSelectedWorkspace(
-              selectedWorkspaceCategoryId: widget.selectedWorkspaceCategoryId,
               selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
               selectedWorkspace: widget.selectedWorkspace,
             );
@@ -126,7 +123,6 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
                 quickChangeToToday: !widget.ifInToday,
               );
               TLWorkspace.saveSelectedWorkspace(
-                selectedWorkspaceCategoryId: widget.selectedWorkspaceCategoryId,
                 selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
                 selectedWorkspace: widget.selectedWorkspace,
               );

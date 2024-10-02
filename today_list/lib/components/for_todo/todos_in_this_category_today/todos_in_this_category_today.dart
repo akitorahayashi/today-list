@@ -1,5 +1,5 @@
 import '../todo_card/todo_card.dart';
-import '../../../model/workspace/workspace.dart';
+import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/tl_category.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,6 @@ class ToDosInThisCategoryInToday extends StatefulWidget {
   final TLCategory bigCategoryOfThisToDo;
   final TLCategory? smallCategoryOfThisToDo;
 
-  final String selectedWorkspaceCategoryId;
   final int selectedWorkspaceIndex;
   final TLWorkspace selectedWorkspace;
 
@@ -25,7 +24,6 @@ class ToDosInThisCategoryInToday extends StatefulWidget {
     required this.bigCategoryOfThisToDo,
     this.smallCategoryOfThisToDo,
     // workspace系
-    required this.selectedWorkspaceCategoryId,
     required this.selectedWorkspaceIndex,
     required this.selectedWorkspace,
   });
@@ -58,8 +56,6 @@ class _ToDosInThisCategoryInTodayState
                     bigCategoryOfThisToDo: widget.bigCategoryOfThisToDo,
                     smallCategoryOfThisToDo: widget.smallCategoryOfThisToDo,
                     // workspace
-                    selectedWorkspaceCategoryId:
-                        widget.selectedWorkspaceCategoryId,
                     selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
                     selectedWorkspace: widget.selectedWorkspace,
                   ),
@@ -75,8 +71,6 @@ class _ToDosInThisCategoryInTodayState
                   widget.superKey.currentState?.setState(() {});
                   // toDosを保存する
                   TLWorkspace.saveSelectedWorkspace(
-                    selectedWorkspaceCategoryId:
-                        widget.selectedWorkspaceCategoryId,
                     selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
                     selectedWorkspace: widget.selectedWorkspace,
                   );

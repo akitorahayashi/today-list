@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../constants/theme.dart';
-import '../../model/user/setting_data.dart';
-import '../../styles.dart';
+import '../constants/theme.dart';
+import '../model/user/setting_data.dart';
+import '../styles.dart';
 
 Future<void> yesNoAlert(
     {required BuildContext context,

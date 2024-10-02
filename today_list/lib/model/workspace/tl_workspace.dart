@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TLWorkspace {
   static int currentWorkspaceIndex = 0;
 
-  static TLWorkspace get currentWorkspace =>
+  static TLWorkspace currentWorkspace =
       TLWorkspace.fromJson(tlworkspaces[currentWorkspaceIndex]);
 
   String name;

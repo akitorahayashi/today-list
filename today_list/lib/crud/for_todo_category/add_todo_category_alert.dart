@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/theme.dart';
 import '../../model/tl_category.dart';
-import '../../model/workspace/workspace.dart';
+import '../../model/workspace/tl_workspace.dart';
 import '../../model/todo/tl_todos.dart';
 import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
@@ -71,7 +71,7 @@ Future<TLCategory?> addToDoCategoryAlert({
                             // IDがユニークなら追加する
                             if (() {
                               final bigCategories =
-                                  currentWorkspace.bigCategories;
+                                  TLWorkspace.currentWorkspace.bigCategories;
                               for (int index = 0;
                                   index < bigCategories.length;
                                   index++) {
@@ -82,10 +82,10 @@ Future<TLCategory?> addToDoCategoryAlert({
                               return true;
                             }()) {
                               // ToDoBigカテゴリーを追加する
-                              currentWorkspace.bigCategories
+                              TLWorkspace.currentWorkspace.bigCategories
                                   .add(createdCategory);
-                              currentWorkspace.smallCategories[newCategoryId] =
-                                  [];
+                              TLWorkspace.currentWorkspace
+                                  .smallCategories[newCategoryId] = [];
                             } else {
                               // 抜ける
                               Navigator.pop(context);
@@ -94,11 +94,11 @@ Future<TLCategory?> addToDoCategoryAlert({
                             // smallCategoryを追加する場合
                             // IDがユニークなら追加する
                             if (() {
-                              for (String bigCategoryId
-                                  in currentWorkspace.smallCategories.keys) {
-                                for (TLCategory smallCategory
-                                    in currentWorkspace
-                                        .smallCategories[bigCategoryId]!) {
+                              for (String bigCategoryId in TLWorkspace
+                                  .currentWorkspace.smallCategories.keys) {
+                                for (TLCategory smallCategory in TLWorkspace
+                                    .currentWorkspace
+                                    .smallCategories[bigCategoryId]!) {
                                   if (smallCategory.id == newCategoryId) {
                                     return false;
                                   }
@@ -107,12 +107,13 @@ Future<TLCategory?> addToDoCategoryAlert({
                               return true;
                             }()) {
                               // ToDoSmallCategoryを追加する
-                              currentWorkspace.smallCategories[bigCategoryId]!
+                              TLWorkspace.currentWorkspace
+                                  .smallCategories[bigCategoryId]!
                                   .add(createdCategory);
                             }
                           }
                           // toDosを更新
-                          currentWorkspace.toDos[newCategoryId] =
+                          TLWorkspace.currentWorkspace.toDos[newCategoryId] =
                               TLToDos(toDosInToday: [], toDosInWhenever: []);
                           // 保存
                           bigCategoryId == null
@@ -120,10 +121,9 @@ Future<TLCategory?> addToDoCategoryAlert({
                               : TLCategory.saveSmallCategories();
 
                           TLWorkspace.saveSelectedWorkspace(
-                            selectedWorkspaceCategoryId:
-                                currentWorkspaceCategoryId,
-                            selectedWorkspaceIndex: currentWorkspaceIndex,
-                            selectedWorkspace: currentWorkspace,
+                            selectedWorkspaceIndex:
+                                TLWorkspace.currentWorkspaceIndex,
+                            selectedWorkspace: TLWorkspace.currentWorkspace,
                           );
                           TLVibration.vibrate();
                           categoryNameInputController.clear();

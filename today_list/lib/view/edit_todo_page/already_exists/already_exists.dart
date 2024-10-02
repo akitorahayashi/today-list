@@ -3,7 +3,7 @@ import '../../../constants/theme.dart';
 import '../../../constants/global_keys.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/tl_category.dart';
-import '../../../model/workspace/workspace.dart';
+import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/user/setting_data.dart';
 import './model_of_todo_card.dart';
 
@@ -31,8 +31,8 @@ class _AlreadyExistsState extends State<AlreadyExists> {
   Widget build(BuildContext context) {
     final TLCategory categoryOfThisToDo =
         widget.smallCategoryOfThisToDo ?? widget.bigCategoryOfThisToDo;
-    final List<TLToDo> toDoArrayOfThisBlock = currentWorkspace
-        .toDos[categoryOfThisToDo.id]!
+    final List<TLToDo> toDoArrayOfThisBlock = TLWorkspace
+        .currentWorkspace.toDos[categoryOfThisToDo.id]!
         .getToDoArray(inToday: widget.ifInToday);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -82,8 +82,8 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                       ),
                   ],
                   onReorder: (oldIndex, newIndex) {
-                    List<TLToDo> selectedToDoArray = currentWorkspace
-                        .toDos[categoryOfThisToDo.id]!
+                    List<TLToDo> selectedToDoArray = TLWorkspace
+                        .currentWorkspace.toDos[categoryOfThisToDo.id]!
                         .getToDoArray(inToday: widget.ifInToday);
                     final int indexOfCheckedToDo =
                         selectedToDoArray.indexWhere((todo) => todo.isChecked);
@@ -95,10 +95,9 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                       editToDoPageKey.currentState?.setState(() {});
                       // toDosを保存する
                       TLWorkspace.saveSelectedWorkspace(
-                          selectedWorkspaceCategoryId:
-                              currentWorkspaceCategoryId,
-                          selectedWorkspaceIndex: currentWorkspaceIndex,
-                          selectedWorkspace: currentWorkspace);
+                          selectedWorkspaceIndex:
+                              TLWorkspace.currentWorkspaceIndex,
+                          selectedWorkspace: TLWorkspace.currentWorkspace);
                     }
                   }),
             ],

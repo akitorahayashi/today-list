@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../constants/theme.dart';
 import '../../../../constants/global_keys.dart';
-import '../../../../alerts/common/yes_no_alert.dart';
-import '../../../../alerts/common/simple_alert.dart';
+import '../../../../alerts/yes_no_alert.dart';
+import '../../../../alerts/simple_alert.dart';
 import '../../../../model/user/setting_data.dart';
 import '../../../../model/externals/tl_ads.dart';
 

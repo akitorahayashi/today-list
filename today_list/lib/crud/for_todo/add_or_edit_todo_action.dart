@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../model/tl_category.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_step.dart';
-import '../../model/workspace/workspace.dart';
+import '../../model/workspace/tl_workspace.dart';
 import '../../model/externals/tl_vibration.dart';
 import 'notify_todo_or_step_is_edited.dart';
 
@@ -22,13 +22,14 @@ void addOrEditToDoAction({
   );
   final TLCategory categoryOfThisToDo =
       smallCategoryOfToDo ?? bigCategoryOfToDo;
-  final List<TLToDo> toDoArray = currentWorkspace.toDos[categoryOfThisToDo.id]!
+  final List<TLToDo> toDoArray = TLWorkspace
+      .currentWorkspace.toDos[categoryOfThisToDo.id]!
       .getToDoArray(inToday: ifInToday);
   // add action
   // 元の場所に戻す
   if (indexOfEditedToDo != null) {
     // edit action - 過去のものを消す
-    currentWorkspace.toDos[oldCategoryId]!
+    TLWorkspace.currentWorkspace.toDos[oldCategoryId]!
         .getToDoArray(inToday: ifInToday)
         .removeAt(indexOfEditedToDo);
     toDoArray.insert(indexOfEditedToDo, createdToDo);
@@ -52,8 +53,7 @@ void addOrEditToDoAction({
     quickChangeToToday: null,
   );
   TLWorkspace.saveSelectedWorkspace(
-    selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-    selectedWorkspaceIndex: currentWorkspaceIndex,
-    selectedWorkspace: currentWorkspace,
+    selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
+    selectedWorkspace: TLWorkspace.currentWorkspace,
   );
 }

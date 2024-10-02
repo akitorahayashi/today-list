@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../model/workspace/workspace.dart';
+import '../../model/workspace/tl_workspace.dart';
 import '../../model/tl_category.dart';
 import 'delete_all_checked_todo_in_todos.dart';
 
@@ -7,7 +7,6 @@ import 'delete_all_checked_todo_in_todos.dart';
 void deleteCheckedToDosInToday({
   required BuildContext context,
   required int selectedWorkspaceIndex,
-  required String selectedWorkspaceCategoryId,
   required TLWorkspace selectedWorkspace,
 }) {
   for (TLCategory bigCategory in (selectedWorkspace).bigCategories) {

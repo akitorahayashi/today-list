@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
-import '../../model/workspace/workspace.dart';
+import '../../model/workspace/tl_workspace.dart';
 import '../../model/tl_category.dart';
 import '../../model/user/setting_data.dart';
 import '../../constants/theme.dart';
@@ -53,7 +53,7 @@ class CategoryListPageState extends State<CategoryListPage> {
                     // bigCategoryがなしではない場合、bigCategoryの並び替え可能カードを表示する
                     for (int indexOfBigCategory = 0;
                         indexOfBigCategory <
-                            currentWorkspace.bigCategories.length;
+                            TLWorkspace.currentWorkspace.bigCategories.length;
                         indexOfBigCategory++)
                       BigCategoryCard(
                           key: Key(UniqueKey().toString()),
@@ -63,9 +63,10 @@ class CategoryListPageState extends State<CategoryListPage> {
                     if (newIndex != 0) {
                       if (newIndex != oldIndex) {
                         // 抜き出して
-                        TLCategory reOrderedBigCategory =
-                            currentWorkspace.bigCategories.removeAt(oldIndex);
-                        currentWorkspace.bigCategories
+                        TLCategory reOrderedBigCategory = TLWorkspace
+                            .currentWorkspace.bigCategories
+                            .removeAt(oldIndex);
+                        TLWorkspace.currentWorkspace.bigCategories
                             .insert(newIndex, reOrderedBigCategory);
                         setState(() {});
                         // categorisを保存する

@@ -3,7 +3,7 @@ import '../../../constants/theme.dart';
 import '../../../constants/global_keys.dart';
 import '../../../model/tl_category.dart';
 import '../../../model/user/setting_data.dart';
-import '../../../model/workspace/workspace.dart';
+import '../../../model/workspace/tl_workspace.dart';
 import '../../../view/all_todos_in_this_category_page/all_todos_in_category_page.dart';
 
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -17,7 +17,7 @@ class SmallCategoryCard extends StatelessWidget {
       required this.indexOfSmallCategory});
 
   TLCategory get smallCategoryOfThisCard =>
-      currentWorkspace.smallCategories[currentWorkspace
+      TLWorkspace.currentWorkspace.smallCategories[TLWorkspace.currentWorkspace
           .bigCategories[indexOfBigCategory].id]![indexOfSmallCategory];
 
   @override

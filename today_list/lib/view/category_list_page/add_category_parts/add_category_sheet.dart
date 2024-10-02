@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../constants/theme.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/tl_category.dart';
-import '../../../model/workspace/workspace.dart';
-import '../../../model/workspace/workspaces.dart';
+import '../../../model/workspace/tl_workspace.dart';
+import '../../../model/workspace/tl_workspaces.dart';
 import '../../../model/user/setting_data.dart';
 import '../../../constants/global_keys.dart';
 import '../../../crud/for_todo_category/add_todo_category_alert.dart';
@@ -30,16 +30,17 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
 
   // 既存のbigCategory利用時
   TLCategory _selectedBigCategoryInDropButton =
-      currentWorkspace.bigCategories[0];
+      TLWorkspace.currentWorkspace.bigCategories[0];
 
   void addSmallCategoryAction() {
     final String newSmallCategoryId = UniqueKey().toString();
     // small categoryの追加
-    currentWorkspace.smallCategories[_selectedBigCategoryInDropButton.id]!.add(
-        TLCategory(
+    TLWorkspace
+        .currentWorkspace.smallCategories[_selectedBigCategoryInDropButton.id]!
+        .add(TLCategory(
             id: newSmallCategoryId, title: _smallCategoryInputController.text));
     // todosを更新する
-    currentWorkspace.toDos[newSmallCategoryId] =
+    TLWorkspace.currentWorkspace.toDos[newSmallCategoryId] =
         TLToDos(toDosInToday: [], toDosInWhenever: []);
     notifyCategoryIsAdded(
         context: context,
@@ -50,9 +51,8 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
     // toDosとgroupedCategoriesを保存する
     TLCategory.saveSmallCategories();
     TLWorkspace.saveSelectedWorkspace(
-      selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-      selectedWorkspaceIndex: currentWorkspaceIndex,
-      selectedWorkspace: currentWorkspace,
+      selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
+      selectedWorkspace: TLWorkspace.currentWorkspace,
     );
   }
 
@@ -77,8 +77,8 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                   isExpanded: true,
                   hint: Text(
                     (() {
-                      final options = currentWorkspace.bigCategories.where(
-                          (bigCategory) =>
+                      final options = TLWorkspace.currentWorkspace.bigCategories
+                          .where((bigCategory) =>
                               bigCategory.id ==
                               _selectedBigCategoryInDropButton.id);
                       if (options.first.id == noneId) {
@@ -89,7 +89,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                     }()),
                   ),
                   items: [
-                    ...currentWorkspace.bigCategories,
+                    ...TLWorkspace.currentWorkspace.bigCategories,
                     TLCategory(id: "---makeBigCategory", title: "新しく作る"),
                   ].map((TLCategory bigCategory) {
                     return DropdownMenuItem(
@@ -118,7 +118,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                                       categoryNameInputController:
                                           TextEditingController(),
                                       bigCategoryId: null) ??
-                                  currentWorkspace.bigCategories[0];
+                                  TLWorkspace.currentWorkspace.bigCategories[0];
                           _canInputSmallCategory = true;
                           categoryListPageKey.currentState?.setState(() {});
                           break;

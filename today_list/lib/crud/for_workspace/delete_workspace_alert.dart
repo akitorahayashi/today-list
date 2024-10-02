@@ -5,7 +5,7 @@ import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../constants/theme.dart';
 import '../../constants/global_keys.dart';
-import '../../alerts/common/simple_alert.dart';
+import '../../alerts/simple_alert.dart';
 import '../../styles.dart';
 import 'dart:convert';
 
@@ -79,17 +79,15 @@ Future<void> deleteWorkspaceAlert({
                                 message: '"デフォルト"のWorkspaceは\n削除できません',
                                 buttonText: "OK");
                           } else {
-                            // stringWorkspacesから削除
+                            // TLWorkspacesから削除
                             SharedPreferences.getInstance().then((pref) {
-                              if (currentWorkspaceCategoryId ==
-                                      selectedWorkspaceCategoryId &&
-                                  currentWorkspaceIndex > indexInTLWorkspaces) {
-                                currentWorkspaceIndex--;
+                              if (TLWorkspace.currentWorkspaceIndex >
+                                  indexInTLWorkspaces) {
+                                TLWorkspace.currentWorkspaceIndex--;
                                 pref.setInt("currentWorkspaceIndex",
-                                    currentWorkspaceIndex);
+                                    TLWorkspace.currentWorkspaceIndex);
                               }
-                              tlworkspaces[selectedWorkspaceCategoryId]!
-                                  .removeAt(indexInTLWorkspaces);
+                              tlworkspaces.removeAt(indexInTLWorkspaces);
                               // このアラートを消してsimpleアラートを表示する
                               Navigator.pop(context);
                               // ignore: invalid_use_of_protected_member
@@ -103,10 +101,9 @@ Future<void> deleteWorkspaceAlert({
                                   buttonText: "OK");
                               // セーブする
                               TLWorkspace.saveSelectedWorkspace(
-                                selectedWorkspaceCategoryId:
-                                    currentWorkspaceCategoryId,
-                                selectedWorkspaceIndex: currentWorkspaceIndex,
-                                selectedWorkspace: currentWorkspace,
+                                selectedWorkspaceIndex:
+                                    TLWorkspace.currentWorkspaceIndex,
+                                selectedWorkspace: TLWorkspace.currentWorkspace,
                               );
                             });
                           }

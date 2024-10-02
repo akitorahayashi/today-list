@@ -1,4 +1,4 @@
-import '../../model/workspace/workspace.dart';
+import '../../model/workspace/tl_workspace.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_todos.dart';
 

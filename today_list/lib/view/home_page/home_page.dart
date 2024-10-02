@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/alerts/common/simple_alert.dart';
+import 'package:today_list/alerts/simple_alert.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
 import '../../components/for_todo/todos_in_this_category_today/header_for_todos.dart';
 import '../../components/for_todo/todos_in_this_category_today/todos_in_this_category_today.dart';
@@ -7,7 +7,7 @@ import '../../components/for_ui/today_list_bottom_navbar/center_button_of_bottom
 import '../../components/for_ui/today_list_bottom_navbar/today_list_bottom_navbar.dart';
 import '../../constants/global_keys.dart';
 import '../../constants/theme.dart';
-import '../../alerts/common/yes_no_alert.dart';
+import '../../alerts/yes_no_alert.dart';
 import '../../model/user/setting_data.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';
@@ -177,7 +177,7 @@ class HomePageState extends State<HomePage> {
               ),
               Center(
                   child: Text(
-                "- ${currentWorkspace.name} - ",
+                "- ${TLWorkspace.currentWorkspace.name} - ",
                 style: const TextStyle(
                     fontSize: 16,
                     color: Colors.black45,
@@ -189,55 +189,62 @@ class HomePageState extends State<HomePage> {
               //     effort: currentWorkspace.numberOfToDosHaveBeenDone),
               // 今日のtodoを表示
               // なしの時の処理
-              if (currentWorkspace.toDos[currentWorkspace.bigCategories[0].id]!
-                  .toDosInToday.isNotEmpty)
+              if (TLWorkspace
+                  .currentWorkspace
+                  .toDos[TLWorkspace.currentWorkspace.bigCategories[0].id]!
+                  .toDosInToday
+                  .isNotEmpty)
                 const SizedBox(height: 7),
-              if (currentWorkspace.toDos[currentWorkspace.bigCategories[0].id]!
-                  .toDosInToday.isNotEmpty)
+              if (TLWorkspace
+                  .currentWorkspace
+                  .toDos[TLWorkspace.currentWorkspace.bigCategories[0].id]!
+                  .toDosInToday
+                  .isNotEmpty)
                 ToDosInThisCategoryInToday(
                   superKey: homePageKey,
-                  bigCategoryOfThisToDo: currentWorkspace.bigCategories[0],
+                  bigCategoryOfThisToDo:
+                      TLWorkspace.currentWorkspace.bigCategories[0],
                   // workspace
-                  selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-                  selectedWorkspaceIndex: currentWorkspaceIndex,
-                  selectedWorkspace: currentWorkspace,
+                  selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
+                  selectedWorkspace: TLWorkspace.currentWorkspace,
                 ),
               // なし以外のbigCategoryの処理
               for (TLCategory bigCategory
-                  in currentWorkspace.bigCategories.sublist(1))
+                  in TLWorkspace.currentWorkspace.bigCategories.sublist(1))
                 Column(
                   children: [
                     // big header
-                    if (currentWorkspace
-                            .toDos[bigCategory.id]!.toDosInToday.isNotEmpty ||
+                    if (TLWorkspace.currentWorkspace.toDos[bigCategory.id]!
+                            .toDosInToday.isNotEmpty ||
                         // そのsmallCategoryがToDoを持っていたら、bigHeaderを表示
-                        (currentWorkspace
+                        (TLWorkspace.currentWorkspace
                                 .smallCategories[bigCategory.id]!.isNotEmpty &&
-                            currentWorkspace.smallCategories[bigCategory.id]!
-                                    .indexWhere((smallCategory) =>
-                                        currentWorkspace
-                                            .toDos[smallCategory.id]!
-                                            .toDosInToday
-                                            .isNotEmpty) !=
+                            TLWorkspace.currentWorkspace
+                                    .smallCategories[bigCategory.id]!
+                                    .indexWhere((smallCategory) => TLWorkspace
+                                        .currentWorkspace
+                                        .toDos[smallCategory.id]!
+                                        .toDosInToday
+                                        .isNotEmpty) !=
                                 -1))
                       HeaderForToDos(
                           isBigCategory: true, category: bigCategory),
                     // big body
-                    if (currentWorkspace
-                        .toDos[bigCategory.id]!.toDosInToday.isNotEmpty)
+                    if (TLWorkspace.currentWorkspace.toDos[bigCategory.id]!
+                        .toDosInToday.isNotEmpty)
                       ToDosInThisCategoryInToday(
                         superKey: homePageKey,
                         bigCategoryOfThisToDo: bigCategory,
                         // workspace
-                        selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-                        selectedWorkspaceIndex: currentWorkspaceIndex,
-                        selectedWorkspace: currentWorkspace,
+                        selectedWorkspaceIndex:
+                            TLWorkspace.currentWorkspaceIndex,
+                        selectedWorkspace: TLWorkspace.currentWorkspace,
                       ),
-                    for (TLCategory smallCategory
-                        in currentWorkspace.smallCategories[bigCategory.id] ??
-                            [])
-                      if (currentWorkspace
-                          .toDos[smallCategory.id]!.toDosInToday.isNotEmpty)
+                    for (TLCategory smallCategory in TLWorkspace
+                            .currentWorkspace.smallCategories[bigCategory.id] ??
+                        [])
+                      if (TLWorkspace.currentWorkspace.toDos[smallCategory.id]!
+                          .toDosInToday.isNotEmpty)
                         Column(
                           children: [
                             // small header
@@ -249,10 +256,9 @@ class HomePageState extends State<HomePage> {
                               bigCategoryOfThisToDo: bigCategory,
                               smallCategoryOfThisToDo: smallCategory,
                               // workspace
-                              selectedWorkspaceCategoryId:
-                                  currentWorkspaceCategoryId,
-                              selectedWorkspaceIndex: currentWorkspaceIndex,
-                              selectedWorkspace: currentWorkspace,
+                              selectedWorkspaceIndex:
+                                  TLWorkspace.currentWorkspaceIndex,
+                              selectedWorkspace: TLWorkspace.currentWorkspace,
                             )
                           ],
                         ),
@@ -275,9 +281,8 @@ class HomePageState extends State<HomePage> {
                 Navigator.pop(context);
                 deleteCheckedToDosInToday(
                     context: context,
-                    selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-                    selectedWorkspaceIndex: currentWorkspaceIndex,
-                    selectedWorkspace: currentWorkspace);
+                    selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
+                    selectedWorkspace: TLWorkspace.currentWorkspace);
                 TLVibration.vibrate();
                 simpleAlert(
                     context: context,

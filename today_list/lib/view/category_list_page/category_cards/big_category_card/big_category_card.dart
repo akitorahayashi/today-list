@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../../../../constants/theme.dart';
 import '../../../../model/tl_category.dart';
 import '../../../../model/user/setting_data.dart';
-import '../../../../model/workspace/workspace.dart';
-import '../../../../model/workspace/id_to_jsonworkspaceList.dart';
+import '../../../../model/workspace/tl_workspace.dart';
+import '../../../../model/workspace/tl_workspaces.dart';
 import './big_category_chip.dart';
 import '../small_category_card.dart';
 
@@ -20,7 +20,8 @@ class BigCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onLongPress:
-          currentWorkspace.bigCategories[indexOfBigCategory].id != noneId
+          TLWorkspace.currentWorkspace.bigCategories[indexOfBigCategory].id !=
+                  noneId
               ? null
               : () {},
       child: Card(
@@ -38,8 +39,9 @@ class BigCategoryCard extends StatelessWidget {
                 children: [
                   for (int indexOfSmallCategory = 0;
                       indexOfSmallCategory <
-                          currentWorkspace
-                              .smallCategories[currentWorkspace
+                          TLWorkspace
+                              .currentWorkspace
+                              .smallCategories[TLWorkspace.currentWorkspace
                                   .bigCategories[indexOfBigCategory].id]!
                               .length;
                       indexOfSmallCategory++)
@@ -52,12 +54,15 @@ class BigCategoryCard extends StatelessWidget {
                 onReorder: (oldIndex, newIndex) {
                   if (oldIndex != newIndex) {
                     // 抜き出して
-                    TLCategory reOrderedSmallCategory = currentWorkspace
-                        .smallCategories[currentWorkspace
+                    TLCategory reOrderedSmallCategory = TLWorkspace
+                        .currentWorkspace
+                        .smallCategories[TLWorkspace.currentWorkspace
                             .bigCategories[indexOfBigCategory].id]!
                         .removeAt(oldIndex);
                     // 入れる
-                    currentWorkspace.smallCategories[currentWorkspace
+                    TLWorkspace
+                        .currentWorkspace
+                        .smallCategories[TLWorkspace.currentWorkspace
                             .bigCategories[indexOfBigCategory].id]!
                         .insert(newIndex, reOrderedSmallCategory);
                     // categorisを保存する
