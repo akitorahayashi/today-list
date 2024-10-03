@@ -124,12 +124,12 @@ class _SignInCardState extends State<SignInCard> {
                   TextSpan(children: [
                     const TextSpan(text: "Googleアカウントをお持ちでないですか?  "),
                     TextSpan(
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => launchMyUrl(
-                              context: context,
-                              url:
-                                  "https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp",
-                              shouldUseExternalApplication: true),
+                        recognizer: TapGestureRecognizer()..onTap = () => {},
+                        // launchMyUrl(
+                        //     context: context,
+                        //     url:
+                        //         "https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp",
+                        //     shouldUseExternalApplication: true),
                         style: const TextStyle(
                             color: Colors.blue,
                             decoration: TextDecoration.underline),

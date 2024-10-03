@@ -26,26 +26,26 @@ class ButtonInNiceAppCard extends StatelessWidget {
         onPressed: () async {
           if (isStoreUrl) {
             if (isCurrentApp) {
-              launchMyUrl(
-                  context: context,
-                  url: Platform.isIOS
-                      ? niceAppInThisCard.appStoreUrl
-                      : niceAppInThisCard.playStoreUrl,
-                  shouldUseExternalApplication: isStoreUrl);
+              // launchMyUrl(
+              //     context: context,
+              //     url: Platform.isIOS
+              //         ? niceAppInThisCard.appStoreUrl
+              //         : niceAppInThisCard.playStoreUrl,
+              //     shouldUseExternalApplication: isStoreUrl);
             } else {
-              launchMyUrl(
-                  context: context,
-                  url: Platform.isIOS
-                      ? niceAppInThisCard.appStoreUrl
-                      : niceAppInThisCard.playStoreUrl,
-                  shouldUseExternalApplication: isStoreUrl);
+              // launchMyUrl(
+              //     context: context,
+              //     url: Platform.isIOS
+              //         ? niceAppInThisCard.appStoreUrl
+              //         : niceAppInThisCard.playStoreUrl,
+              //     shouldUseExternalApplication: isStoreUrl);
             }
           } else {
             // detail
-            launchMyUrl(
-                context: context,
-                url: niceAppInThisCard.roughUsageUrl,
-                shouldUseExternalApplication: isStoreUrl);
+            // launchMyUrl(
+            //     context: context,
+            //     url: niceAppInThisCard.roughUsageUrl,
+            //     shouldUseExternalApplication: isStoreUrl);
           }
         },
         style: ButtonStyle(

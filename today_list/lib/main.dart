@@ -8,7 +8,7 @@ import 'model/tl_category.dart';
 import './model/user/todaylist_user.dart';
 import './app.dart';
 
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+// import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 bool adTestMode = true;
 
@@ -16,7 +16,7 @@ enum LanguageType { ja, en }
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await TLWorkspace.readWorkspaces();
   await TLAds.initializeTLAds();
   await settingData.readSettings();

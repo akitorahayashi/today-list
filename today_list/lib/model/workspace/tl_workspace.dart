@@ -102,7 +102,7 @@ class TLWorkspace {
 
   static Future<void> saveWorkspaces() async {
     // iosならばwidgetを更新する
-    if (Platform.isIOS) TLWidgetKit.updateIdToJsonWorkspaceList();
+    if (Platform.isIOS) TLWidgetKit.updateTLWorkspaces();
     // string workspaceを保存する
     await SharedPreferences.getInstance().then((pref) =>
         pref.setString("idToJsonWorkspaceList", json.encode(tlworkspaces)));

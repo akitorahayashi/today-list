@@ -24,11 +24,11 @@ class TLWidgetKit {
   //   }
   // }
 
-  static Future<void> updateIdToJsonWorkspaceList() async {
+  static Future<void> updateTLWorkspaces() async {
     if (Platform.isIOS) {
       try {
         final String result = await methodChannel.invokeMethod(
-          'updateIdToJsonWorkspaceList',
+          'updateTLWorkspaces',
           json.encode(tlworkspaces),
         );
         print('SET setUserDefaultsForAppGroup: $result');
