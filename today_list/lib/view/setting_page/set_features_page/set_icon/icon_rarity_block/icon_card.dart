@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/main.dart';
 import 'package:today_list/model/externals/tl_ads.dart';
 import '../../../../../constants/global_keys.dart';
 import '../../../../../alerts/yes_no_alert.dart';
@@ -38,7 +39,7 @@ class _IconCardState extends State<IconCard> {
       flex: 1,
       child: GestureDetector(
         onTap: () async {
-          if (TLAds.isPassActive) {
+          if (TLAds.isPassActive || kDebugMode) {
             SettingData.shared.askToSetDefaultIcon(
                 context: context,
                 iconCategoryName: widget.iconCategoryName,
