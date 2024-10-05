@@ -30,8 +30,19 @@
 		1BF7E9192CB10C3C0071A8EE /* TodayList Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1BF7E90C2CB10C390071A8EE /* TodayList Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1BF7E9252CB10C4F0071A8EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7E91F2CB10C4F0071A8EE /* Preview Assets.xcassets */; };
 		1BF7E9262CB10C4F0071A8EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7E9212CB10C4F0071A8EE /* Assets.xcassets */; };
-		1BF7E9272CB10C4F0071A8EE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7E9222CB10C4F0071A8EE /* ContentView.swift */; };
 		1BF7E9282CB10C4F0071A8EE /* TodayListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7E9232CB10C4F0071A8EE /* TodayListApp.swift */; };
+		1BF7E92B2CB119520071A8EE /* ShowToDosInTodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7E92A2CB1192C0071A8EE /* ShowToDosInTodayView.swift */; };
+		1BF7E92D2CB11A200071A8EE /* SelectWorkspaceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7E92C2CB11A070071A8EE /* SelectWorkspaceHomeView.swift */; };
+		1BF7E92F2CB11C080071A8EE /* TLCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EDA2CB0E533009FE623 /* TLCategory.swift */; };
+		1BF7E9302CB11C080071A8EE /* TLCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EDA2CB0E533009FE623 /* TLCategory.swift */; };
+		1BF7E9312CB11C110071A8EE /* TLWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED82CB0E52A009FE623 /* TLWorkspace.swift */; };
+		1BF7E9322CB11C110071A8EE /* TLWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED82CB0E52A009FE623 /* TLWorkspace.swift */; };
+		1BF7E9332CB11C1C0071A8EE /* TLToDos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED62CB0E525009FE623 /* TLToDos.swift */; };
+		1BF7E9342CB11C1C0071A8EE /* TLToDos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED62CB0E525009FE623 /* TLToDos.swift */; };
+		1BF7E9352CB11C230071A8EE /* TLStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED42CB0E51F009FE623 /* TLStep.swift */; };
+		1BF7E9362CB11C230071A8EE /* TLStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED42CB0E51F009FE623 /* TLStep.swift */; };
+		1BF7E9372CB11C2C0071A8EE /* TLToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED22CB0E513009FE623 /* TLToDo.swift */; };
+		1BF7E9382CB11C2C0071A8EE /* TLToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED22CB0E513009FE623 /* TLToDo.swift */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		3C65A9B4582EC825B1FD17C7 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29AC6F156513E5EF12FC0B27 /* Pods_Runner.framework */; };
@@ -129,8 +140,9 @@
 		1BF7E90C2CB10C390071A8EE /* TodayList Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TodayList Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BF7E91F2CB10C4F0071A8EE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1BF7E9212CB10C4F0071A8EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1BF7E9222CB10C4F0071A8EE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1BF7E9232CB10C4F0071A8EE /* TodayListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayListApp.swift; sourceTree = "<group>"; };
+		1BF7E92A2CB1192C0071A8EE /* ShowToDosInTodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosInTodayView.swift; sourceTree = "<group>"; };
+		1BF7E92C2CB11A070071A8EE /* SelectWorkspaceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkspaceHomeView.swift; sourceTree = "<group>"; };
 		1CEC5A9755FC7D3CB5952D89 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		29AC6F156513E5EF12FC0B27 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29B733FA4C462963D05A43DF /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -208,7 +220,6 @@
 			children = (
 				1BB91ECB2CB0E3C1009FE623 /* View */,
 				1BB91ECA2CB0E3B9009FE623 /* Constants */,
-				1BB91EC92CB0E3B3009FE623 /* Model */,
 				1BB91EBA2CB0E0AD009FE623 /* AppIntent.swift */,
 				1BB91EBB2CB0E0AD009FE623 /* Assets.xcassets */,
 				1BB91EBC2CB0E0AD009FE623 /* Info.plist */,
@@ -270,10 +281,10 @@
 		1BF7E9242CB10C4F0071A8EE /* TodayList Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				1BF7E92E2CB11A3F0071A8EE /* View */,
 				1BF7E9292CB10C8C0071A8EE /* Constants */,
 				1BF7E9202CB10C4F0071A8EE /* Preview Content */,
 				1BF7E9212CB10C4F0071A8EE /* Assets.xcassets */,
-				1BF7E9222CB10C4F0071A8EE /* ContentView.swift */,
 				1BF7E9232CB10C4F0071A8EE /* TodayListApp.swift */,
 			);
 			path = "TodayList Watch App";
@@ -284,6 +295,15 @@
 			children = (
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		1BF7E92E2CB11A3F0071A8EE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1BF7E92C2CB11A070071A8EE /* SelectWorkspaceHomeView.swift */,
+				1BF7E92A2CB1192C0071A8EE /* ShowToDosInTodayView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		331C8082294A63A400263BE5 /* RunnerTests */ = {
@@ -322,6 +342,7 @@
 				1BB91EE02CB0E6B6009FE623 /* ShowToDosInAWorkspaceWidgetExtension.entitlements */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
+				1BB91EC92CB0E3B3009FE623 /* Model */,
 				1BB91EC12CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidget */,
 				1BF7E9242CB10C4F0071A8EE /* TodayList Watch App */,
 				97C146EF1CF9000F007C117D /* Products */,
@@ -670,8 +691,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BF7E9272CB10C4F0071A8EE /* ContentView.swift in Sources */,
+				1BF7E92B2CB119520071A8EE /* ShowToDosInTodayView.swift in Sources */,
+				1BF7E9342CB11C1C0071A8EE /* TLToDos.swift in Sources */,
+				1BF7E9322CB11C110071A8EE /* TLWorkspace.swift in Sources */,
+				1BF7E9302CB11C080071A8EE /* TLCategory.swift in Sources */,
+				1BF7E92D2CB11A200071A8EE /* SelectWorkspaceHomeView.swift in Sources */,
+				1BF7E9382CB11C2C0071A8EE /* TLToDo.swift in Sources */,
 				1BF7E9282CB10C4F0071A8EE /* TodayListApp.swift in Sources */,
+				1BF7E9362CB11C230071A8EE /* TLStep.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,8 +714,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF7E92F2CB11C080071A8EE /* TLCategory.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
+				1BF7E9312CB11C110071A8EE /* TLWorkspace.swift in Sources */,
+				1BF7E9332CB11C1C0071A8EE /* TLToDos.swift in Sources */,
+				1BF7E9372CB11C2C0071A8EE /* TLToDo.swift in Sources */,
+				1BF7E9352CB11C230071A8EE /* TLStep.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
