@@ -6,8 +6,8 @@ import 'dart:convert';
 import 'dart:io';
 
 class TLWidgetKit {
-  static const methodChannel =
-      MethodChannel('com.akitora0703.todaylist/sample');
+  static const methodChannel = MethodChannel(
+      'com.akitora0703.todaylist/show_todos_in_a_workspace_widget');
 
   // static Future<void> updateWorkspaceCategories() async {
   //   if (Platform.isIOS) {
