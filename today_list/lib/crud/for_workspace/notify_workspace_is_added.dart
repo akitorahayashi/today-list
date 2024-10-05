@@ -11,7 +11,7 @@ void notifyWorkspaceIsAdded(
       barrierDismissible: false,
       builder: (context) {
         return Dialog(
-          backgroundColor: theme[settingData.selectedTheme]!.alertColor,
+          backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
             child: Column(
@@ -32,7 +32,8 @@ void notifyWorkspaceIsAdded(
                   child: Text(
                     newWorkspaceName,
                     style: TextStyle(
-                        color: theme[settingData.selectedTheme]!.accentColor,
+                        color: theme[SettingData.shared.selectedTheme]!
+                            .accentColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),

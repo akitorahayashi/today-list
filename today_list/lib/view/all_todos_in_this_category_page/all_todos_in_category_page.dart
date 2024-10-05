@@ -51,7 +51,8 @@ class AllToDosInThisCategoryPageState
         // 背景色
         Container(
             decoration: BoxDecoration(
-                color: theme[settingData.selectedTheme]!.backgroundColor),
+                color:
+                    theme[SettingData.shared.selectedTheme]!.backgroundColor),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height),
         CustomScrollView(

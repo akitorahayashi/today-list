@@ -64,7 +64,8 @@ class HomePageState extends State<HomePage> {
       drawer: WorkspaceDrawer(key: drawerForWorkspaceKey, isContentMode: false),
       body: Stack(children: [
         // 背景色
-        Container(color: theme[settingData.selectedTheme]!.backgroundColor),
+        Container(
+            color: theme[SettingData.shared.selectedTheme]!.backgroundColor),
         // 本体
         CustomScrollView(
           slivers: [

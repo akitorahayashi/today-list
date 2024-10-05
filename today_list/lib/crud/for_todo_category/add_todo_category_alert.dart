@@ -19,7 +19,7 @@ Future<TLCategory?> addToDoCategoryAlert({
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: theme[settingData.selectedTheme]!.alertColor,
+          backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
           content: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -37,7 +37,7 @@ Future<TLCategory?> addToDoCategoryAlert({
                       autofocus: true,
                       controller: categoryNameInputController,
                       cursorColor:
-                          theme[settingData.selectedTheme]!.accentColor,
+                          theme[SettingData.shared.selectedTheme]!.accentColor,
                       style: TextStyle(
                           color: Colors.black.withOpacity(0.5),
                           fontWeight: FontWeight.w600),
@@ -46,7 +46,7 @@ Future<TLCategory?> addToDoCategoryAlert({
                     )),
               ),
               // 閉じる 追加するボタン
-              ButtonBar(
+              OverflowBar(
                 alignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   // カテゴリーを作らずにアラートを閉じるボタン

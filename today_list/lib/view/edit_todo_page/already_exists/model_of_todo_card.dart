@@ -36,7 +36,7 @@ class ModelOfToDoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: theme[settingData.selectedTheme]!.panelColor,
+      color: theme[SettingData.shared.selectedTheme]!.panelColor,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ClipRRect(

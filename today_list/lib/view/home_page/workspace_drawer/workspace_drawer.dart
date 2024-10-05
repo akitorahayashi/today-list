@@ -26,11 +26,13 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
       child: Stack(
         children: [
           // 背景色
-          Container(color: theme[settingData.selectedTheme]!.backgroundColor),
+          Container(
+              color: theme[SettingData.shared.selectedTheme]!.backgroundColor),
           CustomScrollView(
             slivers: [
               TLSliverAppBar(
-                  pageTitle: settingData.englishMode ? "Workspace" : "作業場",
+                  pageTitle:
+                      SettingData.shared.englishMode ? "Workspace" : "作業場",
                   leadingButtonOnPressed: null,
                   leadingIcon: Container(),
                   trailingButtonOnPressed: null,
@@ -43,8 +45,8 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color:
-                            theme[settingData.selectedTheme]!.panelBorderColor),
+                        color: theme[SettingData.shared.selectedTheme]!
+                            .panelBorderColor),
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -53,7 +55,7 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0, bottom: 5),
                             child: Text(
-                              settingData.englishMode
+                              SettingData.shared.englishMode
                                   ? "current workspace"
                                   : "現在の作業場",
                               style: TextStyle(
@@ -79,8 +81,8 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color:
-                            theme[settingData.selectedTheme]!.panelBorderColor),
+                        color: theme[SettingData.shared.selectedTheme]!
+                            .panelBorderColor),
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -123,7 +125,7 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: theme[settingData.selectedTheme]!
+                          color: theme[SettingData.shared.selectedTheme]!
                               .panelBorderColor),
                       child: Card(
                         shape: RoundedRectangleBorder(

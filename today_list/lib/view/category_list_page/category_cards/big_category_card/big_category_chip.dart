@@ -26,7 +26,7 @@ class BigCategoryChip extends StatelessWidget {
         height: 80,
         child: InputChip(
           backgroundColor:
-              theme[settingData.selectedTheme]!.bigCategoryChipColor,
+              theme[SettingData.shared.selectedTheme]!.bigCategoryChipColor,
           avatar: const Icon(FontAwesomeIcons.rectangleList),
           label: SizedBox(
             height: 35,

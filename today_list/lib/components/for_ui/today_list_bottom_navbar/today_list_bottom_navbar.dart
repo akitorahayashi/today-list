@@ -25,7 +25,8 @@ class TodayListBottomNavbar extends StatelessWidget {
         children: [
           DecoratedBox(
             decoration: BoxDecoration(
-              gradient: theme[settingData.selectedTheme]!.gradientOfNavBar,
+              gradient:
+                  theme[SettingData.shared.selectedTheme]!.gradientOfNavBar,
               boxShadow: const [
                 BoxShadow(blurRadius: 8, color: Colors.black45)
               ],

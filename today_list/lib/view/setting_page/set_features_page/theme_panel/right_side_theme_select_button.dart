@@ -29,7 +29,7 @@ class _RightSideThemeSelectButtonState
     return GestureDetector(
       onTap: () async {
         if (TLAds.isPassActive) {
-          settingData.confirmToChangeTheme(
+          SettingData.shared.confirmToChangeTheme(
             context: context,
             themeName: widget.themeName,
           );

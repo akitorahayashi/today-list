@@ -51,9 +51,12 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        settingData.englishMode ? "Already Exists" : "追加済み",
+                        SettingData.shared.englishMode
+                            ? "Already Exists"
+                            : "追加済み",
                         style: TextStyle(
-                          color: theme[settingData.selectedTheme]!.accentColor,
+                          color: theme[SettingData.shared.selectedTheme]!
+                              .accentColor,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),

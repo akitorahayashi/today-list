@@ -54,7 +54,7 @@ class _SetVibrationCardState extends State<SetVibrationCard> {
             min: 0,
             max: 4,
             divisions: 4,
-            activeColor: theme[settingData.selectedTheme]!.accentColor,
+            activeColor: theme[SettingData.shared.selectedTheme]!.accentColor,
             value: TLVibration.vibrationStrength,
             onChanged: (sliderValue) {
               TLVibration.vibrationStrength = sliderValue;

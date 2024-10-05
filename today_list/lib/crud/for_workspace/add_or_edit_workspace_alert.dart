@@ -35,7 +35,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
           tlworkspaces[widget.oldIndexInStringWorkspaces!]["name"];
     }
     return Dialog(
-      backgroundColor: theme[settingData.selectedTheme]!.alertColor,
+      backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -61,7 +61,8 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                 width: 230,
                 child: TextField(
                   autofocus: true,
-                  cursorColor: theme[settingData.selectedTheme]!.accentColor,
+                  cursorColor:
+                      theme[SettingData.shared.selectedTheme]!.accentColor,
                   controller: _workspaceNameInputController,
                   style: TextStyle(
                       color: Colors.black.withOpacity(0.5),

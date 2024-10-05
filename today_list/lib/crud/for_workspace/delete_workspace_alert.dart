@@ -23,7 +23,7 @@ Future<void> deleteWorkspaceAlert({
       barrierDismissible: false,
       builder: (context) {
         return Dialog(
-          backgroundColor: theme[settingData.selectedTheme]!.alertColor,
+          backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
           child: Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
@@ -45,7 +45,8 @@ Future<void> deleteWorkspaceAlert({
                   child: Text(
                     willDeletedWorkspace.name,
                     style: TextStyle(
-                        color: theme[settingData.selectedTheme]!.accentColor,
+                        color: theme[SettingData.shared.selectedTheme]!
+                            .accentColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
                   ),

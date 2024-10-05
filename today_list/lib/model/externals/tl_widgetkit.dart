@@ -43,7 +43,7 @@ class TLWidgetKit {
       try {
         final String result = await methodChannel.invokeMethod(
           'updateSelectedTheme',
-          settingData.selectedTheme,
+          SettingData.shared.selectedTheme,
         );
         print('SET setUserDefaultsForAppGroup: $result');
       } on PlatformException catch (e) {

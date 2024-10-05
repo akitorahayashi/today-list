@@ -130,7 +130,8 @@ class EditToDoPageState extends State<EditToDoPage> {
           // 背景色
           Container(
               decoration: BoxDecoration(
-                  color: theme[settingData.selectedTheme]!.backgroundColor),
+                  color:
+                      theme[SettingData.shared.selectedTheme]!.backgroundColor),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height),
 
@@ -228,8 +229,8 @@ class EditToDoPageState extends State<EditToDoPage> {
                                         style: oneOfBigCategory.id ==
                                                 _selectedBigCategory.id
                                             ? TextStyle(
-                                                color: theme[settingData
-                                                        .selectedTheme]!
+                                                color: theme[SettingData
+                                                        .shared.selectedTheme]!
                                                     .accentColor,
                                                 fontWeight: FontWeight.bold)
                                             : TextStyle(
@@ -297,8 +298,8 @@ class EditToDoPageState extends State<EditToDoPage> {
                                         style: item.id ==
                                                 _selectedBigCategory.id
                                             ? TextStyle(
-                                                color: theme[settingData
-                                                        .selectedTheme]!
+                                                color: theme[SettingData
+                                                        .shared.selectedTheme]!
                                                     .accentColor,
                                                 fontWeight: FontWeight.bold)
                                             : TextStyle(
@@ -346,17 +347,20 @@ class EditToDoPageState extends State<EditToDoPage> {
                                             2,
                                   ),
                                   // 背景色
-                                  fillColor: theme[settingData.selectedTheme]!
-                                      .toggleButtonsBackgroundColor,
+                                  fillColor:
+                                      theme[SettingData.shared.selectedTheme]!
+                                          .toggleButtonsBackgroundColor,
                                   // 文字色
                                   selectedColor:
-                                      theme[settingData.selectedTheme]!
+                                      theme[SettingData.shared.selectedTheme]!
                                           .accentColor,
-                                  color: theme[settingData.selectedTheme]!
-                                      .accentColor,
+                                  color:
+                                      theme[SettingData.shared.selectedTheme]!
+                                          .accentColor,
                                   // splashColor
-                                  splashColor: theme[settingData.selectedTheme]!
-                                      .toggleButtonsBackgroundSplashColor,
+                                  splashColor:
+                                      theme[SettingData.shared.selectedTheme]!
+                                          .toggleButtonsBackgroundSplashColor,
                                   // 機能
                                   isSelected: [_ifInToday, !_ifInToday],
                                   renderBorder: true,

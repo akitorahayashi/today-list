@@ -23,7 +23,7 @@ Widget renameCategoryDialog({
   TextEditingController controllerForRename =
       TextEditingController(text: oldCategory.title);
   return AlertDialog(
-    backgroundColor: theme[settingData.selectedTheme]!.alertColor,
+    backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
     title: Column(
       children: [
         Padding(
@@ -56,7 +56,8 @@ Widget renameCategoryDialog({
                 child: TextFormField(
                   autofocus: true,
                   controller: controllerForRename,
-                  cursorColor: theme[settingData.selectedTheme]!.accentColor,
+                  cursorColor:
+                      theme[SettingData.shared.selectedTheme]!.accentColor,
                   onChanged: (String? enteredCategoryName) {
                     if (enteredCategoryName != null &&
                         enteredCategoryName.trim() != "") {
@@ -86,7 +87,8 @@ Widget renameCategoryDialog({
                   child: Text(
                     "戻す",
                     style: TextStyle(
-                        color: theme[settingData.selectedTheme]!.accentColor),
+                        color: theme[SettingData.shared.selectedTheme]!
+                            .accentColor),
                   ),
                 ),
                 // 完了ボタン
@@ -129,7 +131,8 @@ Widget renameCategoryDialog({
                   child: Text(
                     "完了",
                     style: TextStyle(
-                        color: theme[settingData.selectedTheme]!.accentColor),
+                        color: theme[SettingData.shared.selectedTheme]!
+                            .accentColor),
                   ),
                 )
               ],

@@ -5,10 +5,10 @@ import 'model/user/setting_data.dart';
 // alert
 ButtonStyle alertButtonStyle() => ButtonStyle(
       foregroundColor: MaterialStateProperty.all<Color>(
-        theme[settingData.selectedTheme]!.accentColor,
+        theme[SettingData.shared.selectedTheme]!.accentColor,
       ),
       overlayColor: MaterialStateProperty.all<Color>(
-        theme[settingData.selectedTheme]!.accentColor.withOpacity(0.1),
+        theme[SettingData.shared.selectedTheme]!.accentColor.withOpacity(0.1),
       ),
     );
 
@@ -23,12 +23,12 @@ InputDecoration tlInputDecoration({
         label: Text(labelText),
         labelStyle: TextStyle(color: Colors.black.withOpacity(0.45)),
         enabledBorder: UnderlineInputBorder(
-          borderSide:
-              BorderSide(color: theme[settingData.selectedTheme]!.accentColor),
+          borderSide: BorderSide(
+              color: theme[SettingData.shared.selectedTheme]!.accentColor),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderSide:
-              BorderSide(color: theme[settingData.selectedTheme]!.accentColor),
+          borderSide: BorderSide(
+              color: theme[SettingData.shared.selectedTheme]!.accentColor),
         ),
         // 完了ボタン
         suffixIcon: suffixIcon);

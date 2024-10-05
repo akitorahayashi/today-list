@@ -27,7 +27,7 @@ Future<void> confirmToDeleteThisCategory({
       barrierDismissible: false,
       builder: (context) {
         return Dialog(
-          backgroundColor: theme[settingData.selectedTheme]!.alertColor,
+          backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
             child: Column(
@@ -39,7 +39,8 @@ Future<void> confirmToDeleteThisCategory({
                   child: Text(
                     "本当にこのカテゴリーを\n削除しますか？",
                     style: TextStyle(
-                        color: theme[settingData.selectedTheme]!.accentColor,
+                        color: theme[SettingData.shared.selectedTheme]!
+                            .accentColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),

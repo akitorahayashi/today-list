@@ -31,15 +31,15 @@ class _IconCardState extends State<IconCard> {
   @override
   Widget build(BuildContext context) {
     final bool isFocused =
-        widget.iconCategoryName == settingData.defaultIconCategory &&
-            widget.selectedIconRarity == settingData.defaultIconRarity &&
-            widget.iconName == settingData.defaultIconName;
+        widget.iconCategoryName == SettingData.shared.defaultIconCategory &&
+            widget.selectedIconRarity == SettingData.shared.defaultIconRarity &&
+            widget.iconName == SettingData.shared.defaultIconName;
     return Expanded(
       flex: 1,
       child: GestureDetector(
         onTap: () async {
           if (TLAds.isPassActive) {
-            settingData.askToSetDefaultIcon(
+            SettingData.shared.askToSetDefaultIcon(
                 context: context,
                 iconCategoryName: widget.iconCategoryName,
                 iconRarity: widget.selectedIconRarity,
@@ -69,7 +69,7 @@ class _IconCardState extends State<IconCard> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: isFocused ? 0 : 3,
-          color: theme[settingData.selectedTheme]!.panelColor,
+          color: theme[SettingData.shared.selectedTheme]!.panelColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Column(
@@ -91,7 +91,8 @@ class _IconCardState extends State<IconCard> {
                     color: !widget.isEarned
                         ? Colors.black26
                         : isFocused
-                            ? theme[settingData.selectedTheme]!.checkmarkColor
+                            ? theme[SettingData.shared.selectedTheme]!
+                                .checkmarkColor
                             : Colors.black45,
                     size: isFontawesomeCategories ? 17 : 20,
                   ),
@@ -104,7 +105,8 @@ class _IconCardState extends State<IconCard> {
                       color: !widget.isEarned
                           ? Colors.black26
                           : isFocused
-                              ? theme[settingData.selectedTheme]!.checkmarkColor
+                              ? theme[SettingData.shared.selectedTheme]!
+                                  .checkmarkColor
                               : Colors.black45),
                 )
               ],

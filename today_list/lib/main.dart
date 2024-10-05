@@ -11,6 +11,7 @@ import './app.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 bool adTestMode = true;
+bool isDebug = true;
 
 enum LanguageType { ja, en }
 
@@ -19,7 +20,7 @@ void main() async {
   // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await TLWorkspace.readWorkspaces();
   await TLAds.initializeTLAds();
-  await settingData.readSettings();
+  await SettingData.shared.readSettings();
   await TLVibration.initVibrate();
   // await todayListUser.initializeFirebase();
   runApp(TodayList(key: todayListAppKey));

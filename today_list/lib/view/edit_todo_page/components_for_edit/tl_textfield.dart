@@ -40,7 +40,7 @@ class _TLTextfieldState extends State<TLTextfield> {
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: Colors.black.withOpacity(0.6)),
-          cursorColor: theme[settingData.selectedTheme]!.accentColor,
+          cursorColor: theme[SettingData.shared.selectedTheme]!.accentColor,
           decoration: tlInputDecoration(
               labelText: widget.isForStep ? "Step" : "ToDo",
               icon: Icon(
@@ -55,7 +55,7 @@ class _TLTextfieldState extends State<TLTextfield> {
                   child: Icon(
                     Icons.add,
                     color: isEntered
-                        ? theme[settingData.selectedTheme]!.accentColor
+                        ? theme[SettingData.shared.selectedTheme]!.accentColor
                         : Colors.black,
                     size: 25,
                   ),

@@ -43,9 +43,10 @@ class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
                 SlidableAction(
                   autoClose: true,
                   spacing: 8,
-                  backgroundColor: theme[settingData.selectedTheme]!.panelColor,
+                  backgroundColor:
+                      theme[SettingData.shared.selectedTheme]!.panelColor,
                   foregroundColor:
-                      theme[settingData.selectedTheme]!.accentColor,
+                      theme[SettingData.shared.selectedTheme]!.accentColor,
                   onPressed: (BuildContext context) {
                     if (!widget.isInDrawerList) {
                       Navigator.pop(context);
@@ -70,9 +71,9 @@ class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
                       autoClose: true,
                       spacing: 8,
                       backgroundColor:
-                          theme[settingData.selectedTheme]!.panelColor,
+                          theme[SettingData.shared.selectedTheme]!.panelColor,
                       foregroundColor:
-                          theme[settingData.selectedTheme]!.accentColor,
+                          theme[SettingData.shared.selectedTheme]!.accentColor,
                       onPressed: (BuildContext context) async {
                         if (!widget.isInDrawerList) {
                           Navigator.pop(context);
