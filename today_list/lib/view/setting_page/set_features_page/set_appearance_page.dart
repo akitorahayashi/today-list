@@ -34,7 +34,7 @@ class SetAppearancePageState extends State<SetAppearancePage> {
     TLAds.loadRewardedAd();
     // 広告を読み込む
     BannerAd(
-      adUnitId: TLAds.setFeaturesBannerAdUnitId(isTestMode: adTestMode),
+      adUnitId: TLAds.setFeaturesBannerAdUnitId(isTestMode: kAdTestMode),
       request: AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(

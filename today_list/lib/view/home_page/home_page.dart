@@ -79,97 +79,14 @@ class HomePageState extends State<HomePage> {
                 color: Colors.white,
               ),
               // setting pageへ移動するボタン
-              trailingButtonOnPressed: !adTestMode
-                  ? null
-                  : () async {
-                      await Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return SettingPage(key: settingPageKey);
-                      }));
-                      homePageKey.currentState?.setState(() {});
-                    },
-              trailingIcon: !adTestMode
-                  ? null
-                  : const Icon(Icons.settings, color: Colors.white),
-              // pro pageへ遷移するボタン
-              // actions: adIsClosed
-              //     ? null
-              //     : [
-              //         Padding(
-              //           padding: EdgeInsets.only(
-              //               left: 5.0,
-              //               bottom: 5.0,
-              //               right: purchase.havePurchased ? 8.0 : 5.5),
-              //           child: GestureDetector(
-              //             onTap: () async {
-              //               enterSerialCodeMode = false;
-              //               await Navigator.push(context,
-              //                   MaterialPageRoute(builder: (context) {
-              //                 return ProPage(
-              //                   key: proPageKey,
-              //                 );
-              //               }));
-              //               homePageKey.currentState?.setState(() {});
-              //             },
-              //             onLongPress: () {
-              //               enterSerialCodeMode = true;
-              //               simpleAlert(
-              //                   context: context,
-              //                   title:
-              //                       "連続ログイン日数: ${settingData.consecutiveLoginDays}日",
-              //                   message:
-              //                       "- はじめ -\nCoinの欠片・・・1枚\n\n- 3日連続ログイン -\nCoinの欠片・・・2枚\n\n- 7日連続ログイン -\nCoinの欠片・・・3枚",
-              //                   buttonText: "OK");
-              //               setState(() {});
-              //             },
-              //             onDoubleTap: !enterSerialCodeMode
-              //                 ? null
-              //                 : () {
-              //                     admob.letUserEnterSerialCode(
-              //                         context: context);
-              //                   },
-              //             child: (() {
-              //               return isDevelopperMode
-              //                   ? const Icon(
-              //                       Icons.construction,
-              //                       color: Colors.white,
-              //                     )
-              //                   : purchase.havePurchased
-              //                       ? const Icon(
-              //                           FontAwesomeIcons.crown,
-              //                           color: Colors.white,
-              //                           size: 17,
-              //                         )
-              //                       : Transform.rotate(
-              //                           angle: 3.14,
-              //                           child: const Icon(
-              //                             Icons.auto_awesome,
-              //                             color: Colors.white,
-              //                           ));
-              //             }()),
-              //           ),
-              //         ),
-              // setting pageへ遷移する
-              //   Padding(
-              //     padding:
-              //         const EdgeInsets.only(bottom: 5.0, right: 16.5),
-              //     child: Padding(
-              //       padding: const EdgeInsets.only(left: 5.0),
-              //       child: GestureDetector(
-              //           onTap: () async {
-              //             await Navigator.push(context,
-              //                 MaterialPageRoute(builder: (context) {
-              //               return SettingPage(
-              //                 key: settingPageKey,
-              //               );
-              //             }));
-              //             homePageKey.currentState?.setState(() {});
-              //           },
-              //           child: const Icon(Icons.settings,
-              //               color: Colors.white)),
-              //     ),
-              //   ),
-              // ],
+              trailingButtonOnPressed: () async {
+                await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) {
+                  return SettingPage(key: settingPageKey);
+                }));
+                homePageKey.currentState?.setState(() {});
+              },
+              trailingIcon: const Icon(Icons.settings, color: Colors.white),
             ),
             SliverList(
                 delegate: SliverChildListDelegate([

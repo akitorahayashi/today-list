@@ -10,8 +10,8 @@ import './app.dart';
 
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-bool adTestMode = true;
-bool isDebug = true;
+bool kAdTestMode = true;
+bool kDebugMode = true;
 
 enum LanguageType { ja, en }
 

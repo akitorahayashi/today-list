@@ -86,7 +86,7 @@ class EditToDoPageState extends State<EditToDoPage> {
     super.initState();
     // 広告を読み込む
     BannerAd(
-      adUnitId: TLAds.editPageBannerAdUnitId(isTestMode: adTestMode),
+      adUnitId: TLAds.editPageBannerAdUnitId(isTestMode: kAdTestMode),
       // ignore: prefer_const_constructors
       request: AdRequest(),
       size: AdSize.banner,
