@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
+		1B9EA5C52CB16B5600F9A82D /* TLContentExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED02CB0E421009FE623 /* TLContentExample.swift */; };
+		1B9EA5C62CB16B5600F9A82D /* TLContentExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED02CB0E421009FE623 /* TLContentExample.swift */; };
+		1B9EA5C72CB16B5E00F9A82D /* TLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ECC2CB0E3D2009FE623 /* TLTheme.swift */; };
+		1B9EA5C82CB16B5E00F9A82D /* TLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ECC2CB0E3D2009FE623 /* TLTheme.swift */; };
+		1B9EA5CB2CB16EB800F9A82D /* TLWatchAppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9EA5CA2CB16EA200F9A82D /* TLWatchAppBar.swift */; };
 		1BB91EA22CB0E0A5009FE623 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BB91E2B2CB0DB2B009FE623 /* WidgetKit.framework */; };
 		1BB91EA32CB0E0A5009FE623 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BB91E2D2CB0DB2B009FE623 /* SwiftUI.framework */; };
 		1BB91EB42CB0E0A7009FE623 /* ShowToDosInAWorkspaceWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1BB91EA12CB0E0A5009FE623 /* ShowToDosInAWorkspaceWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -116,6 +121,8 @@
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
+		1B9EA5C92CB16CDC00F9A82D /* TodayList Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TodayList Watch App.entitlements"; sourceTree = "<group>"; };
+		1B9EA5CA2CB16EA200F9A82D /* TLWatchAppBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLWatchAppBar.swift; sourceTree = "<group>"; };
 		1BB91E2B2CB0DB2B009FE623 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1BB91E2D2CB0DB2B009FE623 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		1BB91EA12CB0E0A5009FE623 /* ShowToDosInAWorkspaceWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShowToDosInAWorkspaceWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,7 +228,6 @@
 			isa = PBXGroup;
 			children = (
 				1BB91ECB2CB0E3C1009FE623 /* View */,
-				1BB91ECA2CB0E3B9009FE623 /* Constants */,
 				1BB91EBA2CB0E0AD009FE623 /* AppIntent.swift */,
 				1BB91EBB2CB0E0AD009FE623 /* Assets.xcassets */,
 				1BB91EBC2CB0E0AD009FE623 /* Info.plist */,
@@ -283,6 +289,7 @@
 		1BF7E9242CB10C4F0071A8EE /* TodayList Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				1B9EA5C92CB16CDC00F9A82D /* TodayList Watch App.entitlements */,
 				1BF7E9202CB10C4F0071A8EE /* Preview Content */,
 				1BF7E9212CB10C4F0071A8EE /* Assets.xcassets */,
 				1BF7E9292CB10C8C0071A8EE /* Constants */,
@@ -303,6 +310,7 @@
 		1BF7E92E2CB11A3F0071A8EE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1B9EA5CA2CB16EA200F9A82D /* TLWatchAppBar.swift */,
 				1BF7E92C2CB11A070071A8EE /* SelectWorkspaceHomeView.swift */,
 				1BF7E92A2CB1192C0071A8EE /* ShowToDosInTodayView.swift */,
 			);
@@ -346,6 +354,7 @@
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				1BB91EC92CB0E3B3009FE623 /* Model */,
+				1BB91ECA2CB0E3B9009FE623 /* Constants */,
 				1BB91EC12CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidget */,
 				1BF7E9242CB10C4F0071A8EE /* TodayList Watch App */,
 				97C146EF1CF9000F007C117D /* Products */,
@@ -694,15 +703,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B9EA5C62CB16B5600F9A82D /* TLContentExample.swift in Sources */,
 				1BF7E92B2CB119520071A8EE /* ShowToDosInTodayView.swift in Sources */,
 				1BF7E9342CB11C1C0071A8EE /* TLToDos.swift in Sources */,
 				1BF7E9322CB11C110071A8EE /* TLWorkspace.swift in Sources */,
 				1BF7E9302CB11C080071A8EE /* TLCategory.swift in Sources */,
+				1B9EA5C82CB16B5E00F9A82D /* TLTheme.swift in Sources */,
 				1BF7E92D2CB11A200071A8EE /* SelectWorkspaceHomeView.swift in Sources */,
 				1BF7E9382CB11C2C0071A8EE /* TLToDo.swift in Sources */,
 				1BF7E9282CB10C4F0071A8EE /* TodayListApp.swift in Sources */,
 				1BF7E9362CB11C230071A8EE /* TLStep.swift in Sources */,
 				1BF7E93A2CB11DA80071A8EE /* TLPhoneConnector.swift in Sources */,
+				1B9EA5CB2CB16EB800F9A82D /* TLWatchAppBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,7 +730,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B9EA5C52CB16B5600F9A82D /* TLContentExample.swift in Sources */,
 				1BF7E92F2CB11C080071A8EE /* TLCategory.swift in Sources */,
+				1B9EA5C72CB16B5E00F9A82D /* TLTheme.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				1BF7E9312CB11C110071A8EE /* TLWorkspace.swift in Sources */,
@@ -899,6 +913,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "TodayList Watch App/TodayList Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TodayList Watch App/Preview Content\"";
@@ -942,6 +957,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "TodayList Watch App/TodayList Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TodayList Watch App/Preview Content\"";
@@ -982,6 +998,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "TodayList Watch App/TodayList Watch App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TodayList Watch App/Preview Content\"";
