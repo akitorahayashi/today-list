@@ -30,7 +30,6 @@ import UIKit
             } else if call.method == "updateSelectedTheme" {
                 // 引数からStringを取り出す
                 if let selectedTheme = call.arguments as? String {
-                    print(selectedTheme)
                     // UserDefaultsに保存
                     userdefaults?.set(selectedTheme, forKey: "selectedTheme")
                     WidgetCenter.shared.reloadAllTimelines()

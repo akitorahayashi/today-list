@@ -10,6 +10,8 @@ import SwiftUI
 
 struct SelectWorkspaceHomeView: View {
     
+    @State private var selectedColorTheme: String = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")?.string(forKey: "selectedTheme") ?? "Sun Orange"
+    
     @State private var isSecondViewActive = false
     
     @ObservedObject var tlConnector = TLPhoneConnector()
@@ -17,25 +19,28 @@ struct SelectWorkspaceHomeView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                TLWatchAppBar(selectedColorTheme: self.selectedColorTheme)
                 
-                Text("Hello, world!")
-                
-                Button(action: {
-                    isSecondViewActive = true
-                }) {
-                    Text("Go to Second View")
-                }
-                .navigationDestination(isPresented: $isSecondViewActive) {
-                    ShowToDosInTodayView()
+                ScrollView {
+                    Button(action: {
+                        isSecondViewActive = true
+                    }) {
+                        Text("Go to Second View")
+                    }
+                    .navigationDestination(isPresented: $isSecondViewActive) {
+                        ShowToDosInTodayView()
+                    }
                 }
                 
             }
-            .padding()
+            
         }
+        .background(kTLThemes[self.selectedColorTheme]!.backgroundColorOfToDoList)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct SelectWorkspaceHomeView_Previews: PreviewProvider {
     static var previews: some View {
         SelectWorkspaceHomeView()
             .previewDevice("Apple Watch Series 9 - 41mm (watchOS 11.0)") // デバイス名を指定

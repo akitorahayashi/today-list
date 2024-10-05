@@ -8,6 +8,8 @@
 import SwiftUI
 
 class TLTheme {
+    static var selectedTheme: String = "Sun Orange"
+    
     let gradientOfTopBar: LinearGradient
     let backgroundColorOfToDoList: Color
     
