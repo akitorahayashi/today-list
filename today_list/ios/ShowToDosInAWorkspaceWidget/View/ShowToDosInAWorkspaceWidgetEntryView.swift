@@ -20,7 +20,7 @@ struct ShowToDosInAWorkspaceWidgetEntryView : View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { _ in
             // ToDoリストの表示
             TLToDoListView(tLToDosData: tLToDosData)
                 .padding(.top, topPaddingOfToDoList(for: widgetFamily))
