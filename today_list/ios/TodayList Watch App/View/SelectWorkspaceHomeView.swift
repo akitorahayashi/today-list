@@ -9,14 +9,29 @@
 import SwiftUI
 
 struct SelectWorkspaceHomeView: View {
+    
+    @State private var isSecondViewActive = false
+    
+    @ObservedObject var tlConnector = TLPhoneConnector()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                
+                Text("Hello, world!")
+                
+                Button(action: {
+                    isSecondViewActive = true
+                }) {
+                    Text("Go to Second View")
+                }
+                .navigationDestination(isPresented: $isSecondViewActive) {
+                    ShowToDosInTodayView()
+                }
+                
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
