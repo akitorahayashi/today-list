@@ -85,7 +85,7 @@ class ToDoCardState extends State<ToDoCard> {
       onLongPress: toDoData.isChecked ? () {} : null,
       child: Card(
           // 色
-          color: theme[settingData.selectedTheme]!.panelColor,
+          color: theme[SettingData.shared.selectedTheme]!.panelColor,
           // 浮き具合
           elevation: 2,
           shape:

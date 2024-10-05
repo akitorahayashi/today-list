@@ -16,7 +16,7 @@ class IconCategoryBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: theme[settingData.selectedTheme]!.settingPanelColor,
+      color: theme[SettingData.shared.selectedTheme]!.settingPanelColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.all(4.0),

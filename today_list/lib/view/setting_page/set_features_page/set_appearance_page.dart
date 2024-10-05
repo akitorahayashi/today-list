@@ -34,7 +34,7 @@ class SetAppearancePageState extends State<SetAppearancePage> {
     TLAds.loadRewardedAd();
     // 広告を読み込む
     BannerAd(
-      adUnitId: TLAds.setFeaturesBannerAdUnitId(isTestMode: adTestMode),
+      adUnitId: TLAds.setFeaturesBannerAdUnitId(isTestMode: kAdTestMode),
       request: AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
@@ -63,7 +63,7 @@ class SetAppearancePageState extends State<SetAppearancePage> {
     double deviceWidth = MediaQuery.of(context).size.width;
     // テーマを表示させるための変数
     List<String> unUsingTheme = theme.keys
-        .where((themeName) => themeName != settingData.selectedTheme)
+        .where((themeName) => themeName != SettingData.shared.selectedTheme)
         .toList();
 
     return ListView(padding: EdgeInsets.zero, children: [
@@ -84,7 +84,7 @@ class SetAppearancePageState extends State<SetAppearancePage> {
       Padding(
         padding: const EdgeInsets.only(top: 8.0),
         child: PanelWithTitle(
-            title: settingData.englishMode ? "THEME" : "テーマ",
+            title: SettingData.shared.englishMode ? "THEME" : "テーマ",
             contents: [
               // 現在の枚数を表示する
               ShowLimitOfPassCard(),
@@ -117,12 +117,12 @@ class SetAppearancePageState extends State<SetAppearancePage> {
       // VIBRATION設定カード
       // ignore: prefer_const_literals_to_create_immutables
       PanelWithTitle(
-          title: settingData.englishMode ? "VIBRATION" : "バイブレーション",
+          title: SettingData.shared.englishMode ? "VIBRATION" : "バイブレーション",
           // ignore: prefer_const_literals_to_create_immutables
           contents: [SetVibrationCard()]),
       // ICONS選択カード
       PanelWithTitle(
-        title: settingData.englishMode ? "ICONS" : "チェックマーク",
+        title: SettingData.shared.englishMode ? "ICONS" : "チェックマーク",
         contents: [
           for (String iconCategoryName in iconsForCheckBox.keys)
             IconCategoryPanel(iconCategoryName: iconCategoryName),

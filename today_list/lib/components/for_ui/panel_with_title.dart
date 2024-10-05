@@ -14,7 +14,7 @@ class PanelWithTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: theme[settingData.selectedTheme]!.settingPanelColor,
+      color: theme[SettingData.shared.selectedTheme]!.settingPanelColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 3.5,
       child: Padding(
@@ -30,7 +30,7 @@ class PanelWithTitle extends StatelessWidget {
                         fontSize: 26,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 3,
-                        color: theme[settingData.selectedTheme]!
+                        color: theme[SettingData.shared.selectedTheme]!
                             .titleColorOfSettingPage)),
               ),
             ),

@@ -13,9 +13,9 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
-SettingData settingData = SettingData();
-
 class SettingData {
+  static SettingData shared = SettingData();
+
   // テーマ
   String selectedTheme = "Sun Orange";
   // 英語モード
@@ -57,10 +57,10 @@ class SettingData {
   Future<void> readSettings() async {
     await SharedPreferences.getInstance().then((pref) async {
       if (pref.getString("settingData") != null) {
-        settingData =
+        SettingData.shared =
             SettingData.fromJson(json.decode(pref.getString("settingData")!));
       } else {
-        await settingData.saveSettings();
+        await shared.saveSettings();
       }
     });
   }
@@ -68,7 +68,7 @@ class SettingData {
   // 全ての設定を保存する関数
   Future<void> saveSettings() async {
     await SharedPreferences.getInstance().then((pref) {
-      pref.setString("settingData", json.encode(settingData.toJson()));
+      pref.setString("settingData", json.encode(shared.toJson()));
     });
   }
 
@@ -128,7 +128,7 @@ class SettingData {
                     child: Text("$themeNameに変更しますか？"),
                   ),
                   // 操作ボタン
-                  ButtonBar(
+                  OverflowBar(
                     alignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       // 戻るボタン
@@ -148,7 +148,7 @@ class SettingData {
                           onPressed: () {
                             // このアラートを消す
                             Navigator.pop(context);
-                            settingData.selectedTheme = themeName;
+                            SettingData.shared.selectedTheme = themeName;
                             TLWidgetKit.updateSelectedTheme();
                             todayListAppKey.currentState?.setState(() {});
                             setAppearancePageKey.currentState?.setState(() {});
@@ -156,12 +156,12 @@ class SettingData {
                             // thank youアラート
                             simpleAlert(
                               context: context,
-                              title: "変更が完了しました!",
+                              title: "変更が完了しました",
                               message: null,
                               buttonText: "OK",
                             );
 
-                            settingData.saveSettings();
+                            SettingData.shared.saveSettings();
                           },
                           // InkWell
                           child: Text("変更",
@@ -193,9 +193,9 @@ class SettingData {
       yesAction: () {
         Navigator.pop(context);
         // if (settingData.userLevel >= 10) {
-        settingData.defaultIconCategory = iconCategoryName;
-        settingData.defaultIconRarity = iconRarity;
-        settingData.defaultIconName = iconName;
+        shared.defaultIconCategory = iconCategoryName;
+        shared.defaultIconRarity = iconRarity;
+        shared.defaultIconName = iconName;
         todayListAppKey.currentState?.setState(() {});
         setAppearancePageKey.currentState?.setState(() {});
         TLVibration.vibrate();
@@ -204,7 +204,7 @@ class SettingData {
             title: "変更が完了しました!",
             message: null,
             buttonText: "OK");
-        settingData.saveSettings();
+        shared.saveSettings();
       },
     );
     // } else {

@@ -24,7 +24,7 @@ class AddCategoryButton extends StatelessWidget {
           child: ClipOval(
             child: Icon(
               Icons.add,
-              color: theme[settingData.selectedTheme]!.accentColor,
+              color: theme[SettingData.shared.selectedTheme]!.accentColor,
               size: 30,
             ),
           )),

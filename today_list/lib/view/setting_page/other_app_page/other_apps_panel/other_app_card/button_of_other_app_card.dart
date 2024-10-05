@@ -49,24 +49,24 @@ class ButtonInNiceAppCard extends StatelessWidget {
           }
         },
         style: ButtonStyle(
-          overlayColor: MaterialStateProperty.all(
-              theme[settingData.selectedTheme]!
+          overlayColor: WidgetStateProperty.all(
+              theme[SettingData.shared.selectedTheme]!
                   .niceAppsPressedElevatedButtonColor),
-          backgroundColor: MaterialStateProperty.resolveWith<Color>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.disabled)) {
+          backgroundColor: WidgetStateProperty.resolveWith<Color>(
+            (Set<WidgetState> states) {
+              if (states.contains(WidgetState.disabled)) {
                 return const Color.fromRGBO(220, 220, 220, 1);
               }
-              return theme[settingData.selectedTheme]!
+              return theme[SettingData.shared.selectedTheme]!
                   .niceAppsElevatedButtonColor;
             },
           ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           )),
-          elevation: MaterialStateProperty.resolveWith<double>(
-            (Set<MaterialState> states) {
+          elevation: WidgetStateProperty.resolveWith<double>(
+            (Set<WidgetState> states) {
               return 2;
             },
           ),

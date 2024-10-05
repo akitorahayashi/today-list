@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/main.dart';
 import '../../../../constants/theme.dart';
 import '../../../../constants/global_keys.dart';
 import '../../../../alerts/yes_no_alert.dart';
@@ -28,8 +29,8 @@ class _RightSideThemeSelectButtonState
     final double deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () async {
-        if (TLAds.isPassActive) {
-          settingData.confirmToChangeTheme(
+        if (TLAds.isPassActive || kDebugMode) {
+          SettingData.shared.confirmToChangeTheme(
             context: context,
             themeName: widget.themeName,
           );

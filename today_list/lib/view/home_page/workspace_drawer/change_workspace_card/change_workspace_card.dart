@@ -35,7 +35,7 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 70),
         child: Card(
-          color: theme[settingData.selectedTheme]!.panelColor,
+          color: theme[SettingData.shared.selectedTheme]!.panelColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: ClipRRect(
@@ -77,8 +77,8 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                                   : ""),
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
-                              color:
-                                  theme[settingData.selectedTheme]!.accentColor,
+                              color: theme[SettingData.shared.selectedTheme]!
+                                  .accentColor,
                               letterSpacing: 1)),
                     ),
                   ),

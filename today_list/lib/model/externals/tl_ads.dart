@@ -112,7 +112,7 @@ class TLAds {
 
   static Future<void> loadRewardedAd() async {
     return RewardedAd.load(
-      adUnitId: TLAds.rewardedAdUnitId(isTestMode: adTestMode),
+      adUnitId: TLAds.rewardedAdUnitId(isTestMode: kAdTestMode),
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {

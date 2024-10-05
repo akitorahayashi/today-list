@@ -99,7 +99,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                         style: bigCategory.id ==
                                 _selectedBigCategoryInDropButton.id
                             ? TextStyle(
-                                color: theme[settingData.selectedTheme]!
+                                color: theme[SettingData.shared.selectedTheme]!
                                     .accentColor,
                                 fontWeight: FontWeight.bold)
                             : TextStyle(
@@ -142,7 +142,8 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
 
               // smallCategoryのTextFormField
               child: TextFormField(
-                cursorColor: theme[settingData.selectedTheme]!.accentColor,
+                cursorColor:
+                    theme[SettingData.shared.selectedTheme]!.accentColor,
                 controller: _smallCategoryInputController,
                 readOnly: !_canInputSmallCategory,
                 style: TextStyle(
@@ -150,7 +151,8 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                   fontWeight: FontWeight.bold,
                 ),
                 decoration: tlInputDecoration(
-                    labelText: settingData.englishMode ? "Small" : "小カテゴリー",
+                    labelText:
+                        SettingData.shared.englishMode ? "Small" : "小カテゴリー",
                     icon: null,
                     suffixIcon: null),
                 onChanged: (_) => setState(() {}),
@@ -171,7 +173,8 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                   child: Text(
                     "閉じる",
                     style: TextStyle(
-                        color: theme[settingData.selectedTheme]!.accentColor),
+                        color: theme[SettingData.shared.selectedTheme]!
+                            .accentColor),
                   ),
                 ),
 
@@ -196,7 +199,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                               _selectedBigCategoryInDropButton.id != noneId &&
                                       _smallCategoryNameIsEntered
                                   // 追加ボタンを使うことができる
-                                  ? theme[settingData.selectedTheme]!
+                                  ? theme[SettingData.shared.selectedTheme]!
                                       .accentColor
                                   : Colors.black),
                     ),

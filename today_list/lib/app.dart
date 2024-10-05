@@ -31,7 +31,7 @@ class _TodayListState extends State<TodayList> {
         // ],
         // ライト用テーマ
         theme: ThemeData(
-          primarySwatch: theme[settingData.selectedTheme]!.accentColor,
+          primarySwatch: theme[SettingData.shared.selectedTheme]!.accentColor,
         ),
         home: HomePage(key: homePageKey)
         // FutureBuilder(
