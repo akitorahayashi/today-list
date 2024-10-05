@@ -128,7 +128,7 @@ class SettingData {
                     child: Text("$themeNameに変更しますか？"),
                   ),
                   // 操作ボタン
-                  ButtonBar(
+                  OverflowBar(
                     alignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       // 戻るボタン
@@ -148,7 +148,7 @@ class SettingData {
                           onPressed: () {
                             // このアラートを消す
                             Navigator.pop(context);
-                            shared.selectedTheme = themeName;
+                            SettingData.shared.selectedTheme = themeName;
                             TLWidgetKit.updateSelectedTheme();
                             todayListAppKey.currentState?.setState(() {});
                             setAppearancePageKey.currentState?.setState(() {});
@@ -156,12 +156,12 @@ class SettingData {
                             // thank youアラート
                             simpleAlert(
                               context: context,
-                              title: "変更が完了しました!",
+                              title: "変更が完了しました",
                               message: null,
                               buttonText: "OK",
                             );
 
-                            shared.saveSettings();
+                            SettingData.shared.saveSettings();
                           },
                           // InkWell
                           child: Text("変更",
