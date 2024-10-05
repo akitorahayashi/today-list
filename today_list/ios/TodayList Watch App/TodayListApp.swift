@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct TodayList_Watch_AppApp: App {
+struct TodayListWatchApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SelectWorkspaceHomeView()
         }
     }
 }

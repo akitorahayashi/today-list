@@ -1,5 +1,5 @@
 import 'package:today_list/model/externals/tl_widgetkit.dart';
-
+import 'package:today_list/model/externals/tl_connectivity.dart';
 import '../tl_category.dart';
 import 'tl_workspaces.dart';
 import '../todo/tl_todos.dart';
@@ -102,7 +102,10 @@ class TLWorkspace {
 
   static Future<void> saveWorkspaces() async {
     // iosならばwidgetを更新する
-    if (Platform.isIOS) TLWidgetKit.updateTLWorkspaces();
+    if (Platform.isIOS) {
+      TLWidgetKit.updateTLWorkspaces();
+      TLConnectivity.sendJsonToAppleWatch();
+    }
     // string workspaceを保存する
     await SharedPreferences.getInstance().then((pref) =>
         pref.setString("idToJsonWorkspaceList", json.encode(tlworkspaces)));
