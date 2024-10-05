@@ -36,5 +36,8 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<!-- admob -->
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-1452400640613361~4341673218</string>
 </dict>
 </plist>
