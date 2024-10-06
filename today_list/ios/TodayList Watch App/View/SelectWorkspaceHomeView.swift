@@ -10,8 +10,6 @@ import SwiftUI
 
 struct SelectWorkspaceHomeView: View {
     
-    @State private var selectedColorTheme: String = UserDefaults.standard.string(forKey: "selectedTheme") ?? "Sun Orange"
-    
     @State private var isSecondViewActive = false
     
     @ObservedObject var tlConnector = TLPhoneConnector()
@@ -19,7 +17,7 @@ struct SelectWorkspaceHomeView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                TLWatchAppBar(selectedColorTheme: self.selectedColorTheme)
+                TLWatchAppBar(selectedColorTheme: self.tlConnector.selectedTheme)
                 
                 ScrollView {
                     Button(action: {
@@ -33,16 +31,9 @@ struct SelectWorkspaceHomeView: View {
                 }
                 
             }
-            .onAppear {
-                // ビューが表示されるときにUserDefaultsから値を読み取る
-                if let savedTheme = UserDefaults.standard.string(forKey: "selectedTheme") {
-                    selectedColorTheme = savedTheme // 値を更新
-                }
-                print(selectedColorTheme) // デバッグ用に現在のテーマを出力
-            }
             
         }
-        .background(kTLThemes[self.selectedColorTheme]?.backgroundColorOfToDoList ?? Color.clear) // nilの場合の対策
+        .background(kTLThemes[self.tlConnector.selectedTheme]?.backgroundColorOfToDoList ?? Color.clear) // nilの場合の対策
         .edgesIgnoringSafeArea(.all)
     }
 }

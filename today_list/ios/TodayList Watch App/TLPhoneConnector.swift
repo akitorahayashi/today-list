@@ -12,6 +12,9 @@ import WatchConnectivity
 class TLPhoneConnector: NSObject, ObservableObject, WCSessionDelegate  {
     static let shared = TLPhoneConnector()
     
+    @Published var selectedTheme: String = "Sun Orange"
+    @Published var strTLWorkspaces: String?
+    
     override init() {
         super.init()
         if WCSession.isSupported() {
@@ -41,12 +44,16 @@ class TLPhoneConnector: NSObject, ObservableObject, WCSessionDelegate  {
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         print("didReceiveMessage: \(message)")
         //         受け取ったメッセージを取り出す
-        if let receivedSelectedtheme = message["selsectedTheme"] as? String {
-            UserDefaults.standard.set(receivedSelectedtheme, forKey: "selsectedTheme")
-            //結果を画面に反映
+        if let receivedSelectedtheme = message["selectedTheme"] as? String {
+            DispatchQueue.main.async {
+                self.selectedTheme = receivedSelectedtheme
+            }
+            //結果
             print("watchOS: selectedtheme saved successfully")
-        } else if let receivedTLWorkspaces = message["tlWorkspaces"] as? String {
-            UserDefaults.standard.set(receivedTLWorkspaces, forKey: "tlWorkspaces")
+        } else if let strTLWorkspaces = message["tlWorkspaces"] as? String {
+            DispatchQueue.main.async {
+                self.strTLWorkspaces = strTLWorkspaces
+            }
             print("watchOS: tlWorkspaces saved successfully")
         } else {
             print("watchOS: message was not saved")
