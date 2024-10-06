@@ -132,7 +132,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                         if (TLWorkspace.currentWorkspaceIndex ==
                             widget.oldIndexInStringWorkspaces!) {
                           TLWorkspace.currentWorkspace = editedWorkspace;
-                          TLWorkspace.currentWorkspace.saveCurrentWorkspace(
+                          TLWorkspace.currentWorkspace.changeCurrentWorkspace(
                               newWorkspaceIndex:
                                   widget.oldIndexInStringWorkspaces!);
                         }

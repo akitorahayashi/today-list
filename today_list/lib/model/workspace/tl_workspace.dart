@@ -12,7 +12,7 @@ class TLWorkspace {
   static int currentWorkspaceIndex = 0;
 
   static TLWorkspace currentWorkspace =
-      TLWorkspace.fromJson(tlworkspaces[currentWorkspaceIndex]);
+      TLWorkspace.fromJson(tlworkspaces[TLWorkspace.currentWorkspaceIndex]);
 
   String name;
   // effort
@@ -72,19 +72,15 @@ class TLWorkspace {
     return false;
   }
 
-  Future<void> saveCurrentWorkspace({
-    required int newWorkspaceIndex,
-  }) async {
-    return SharedPreferences.getInstance().then((pref) {
-      pref.setInt("currentWorkspaceIndex", TLWorkspace.currentWorkspaceIndex);
-    });
-  }
-
   Future<void> changeCurrentWorkspace({
     required int newWorkspaceIndex,
   }) async {
     TLWorkspace.currentWorkspaceIndex = newWorkspaceIndex;
-    await saveCurrentWorkspace(newWorkspaceIndex: newWorkspaceIndex);
+    TLWorkspace.currentWorkspace =
+        TLWorkspace.fromJson(tlworkspaces[TLWorkspace.currentWorkspaceIndex]);
+    await SharedPreferences.getInstance().then((pref) {
+      pref.setInt("currentWorkspaceIndex", newWorkspaceIndex);
+    });
   }
 
   // --- save ---

@@ -51,7 +51,7 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                     Navigator.pop(context);
                     // ignore: invalid_use_of_protected_member
                     homePageKey.currentState?.setState(() {});
-                    manageWorkspacePageKey.currentState?.setState(() {});
+                    drawerForWorkspaceKey.currentState?.setState(() {});
                     notifyCurrentWorkspaceIsChanged(
                         context: context,
                         newWorkspaceName: TLWorkspace.currentWorkspace.name);
