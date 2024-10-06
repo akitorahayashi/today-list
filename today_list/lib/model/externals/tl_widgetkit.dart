@@ -40,6 +40,7 @@ class TLWidgetKit {
 
   static Future<void> updateSelectedTheme() async {
     if (Platform.isIOS) {
+      print(SettingData.shared.selectedTheme);
       try {
         final String result = await methodChannel.invokeMethod(
           'updateSelectedTheme',

@@ -12,7 +12,7 @@ import SwiftUI
 struct ShowToDosInAWorkspaceWidgetBundle: WidgetBundle {
     var body: some Widget {
         ShowToDosInAWorkspaceWidget()
-        ShowToDosInAWorkspaceWidgetControl()
-        ShowToDosInAWorkspaceWidgetLiveActivity()
+//        ShowToDosInAWorkspaceWidgetControl()
+//        ShowToDosInAWorkspaceWidgetLiveActivity()
     }
 }
