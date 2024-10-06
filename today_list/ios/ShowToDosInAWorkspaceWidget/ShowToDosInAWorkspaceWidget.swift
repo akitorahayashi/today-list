@@ -31,9 +31,6 @@ struct SimpleEntry: TimelineEntry {
     let tlContentExample: String?
 }
 
-import WidgetKit
-import SwiftUI
-
 struct ShowToDosInAWorkspaceWidget: Widget {
     let kind: String = "ShowToDosInAWorkspaceWidget"
 

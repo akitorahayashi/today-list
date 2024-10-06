@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SelectWorkspaceHomeView: View {
     
-    @State private var selectedColorTheme: String = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")?.string(forKey: "selectedTheme") ?? "Sun Orange"
+    @State private var selectedColorTheme: String = UserDefaults.standard.string(forKey: "selectedTheme") ?? "Sun Orange"
     
     @State private var isSecondViewActive = false
     
@@ -33,16 +33,23 @@ struct SelectWorkspaceHomeView: View {
                 }
                 
             }
+            .onAppear {
+                // ビューが表示されるときにUserDefaultsから値を読み取る
+                if let savedTheme = UserDefaults.standard.string(forKey: "selectedTheme") {
+                    selectedColorTheme = savedTheme // 値を更新
+                }
+                print(selectedColorTheme) // デバッグ用に現在のテーマを出力
+            }
             
         }
-        .background(kTLThemes[self.selectedColorTheme]!.backgroundColorOfToDoList)
+        .background(kTLThemes[self.selectedColorTheme]?.backgroundColorOfToDoList ?? Color.clear) // nilの場合の対策
         .edgesIgnoringSafeArea(.all)
     }
 }
 
-struct SelectWorkspaceHomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectWorkspaceHomeView()
-            .previewDevice("Apple Watch Series 9 - 41mm (watchOS 11.0)") // デバイス名を指定
-    }
-}
+//struct SelectWorkspaceHomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SelectWorkspaceHomeView()
+//            .previewDevice("Apple Watch Series 9 - 41mm (watchOS 11.0)") // デバイス名を指定
+//    }
+//}

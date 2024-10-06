@@ -19,7 +19,7 @@ import UIKit
             switch call.method {
             case "updateTLWorkspaces":
                 if let stringOfStringWorkspaces = call.arguments as? String {
-                    userdefaults?.set(stringOfStringWorkspaces, forKey: "jsonWorkspaces") // Fixed typo
+                    userdefaults?.set(stringOfStringWorkspaces, forKey: "tlWorkspaces") // Fixed typo
                     // メインスレッドでの更新を追加
                     DispatchQueue.main.async {
                         WidgetCenter.shared.reloadAllTimelines()

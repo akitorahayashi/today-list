@@ -292,19 +292,11 @@
 				1B9EA5C92CB16CDC00F9A82D /* TodayList Watch App.entitlements */,
 				1BF7E9202CB10C4F0071A8EE /* Preview Content */,
 				1BF7E9212CB10C4F0071A8EE /* Assets.xcassets */,
-				1BF7E9292CB10C8C0071A8EE /* Constants */,
 				1BF7E92E2CB11A3F0071A8EE /* View */,
 				1BF7E9392CB11D980071A8EE /* TLPhoneConnector.swift */,
 				1BF7E9232CB10C4F0071A8EE /* TodayListApp.swift */,
 			);
 			path = "TodayList Watch App";
-			sourceTree = "<group>";
-		};
-		1BF7E9292CB10C8C0071A8EE /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Constants;
 			sourceTree = "<group>";
 		};
 		1BF7E92E2CB11A3F0071A8EE /* View */ = {
@@ -813,7 +805,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.ShowToDosInAWorkspaceWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.showToDosInAWorkspaceWIdget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -854,7 +846,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.ShowToDosInAWorkspaceWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.showToDosInAWorkspaceWIdget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -893,7 +885,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.ShowToDosInAWorkspaceWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.showToDosInAWorkspaceWIdget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

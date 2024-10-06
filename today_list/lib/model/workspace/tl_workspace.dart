@@ -100,7 +100,7 @@ class TLWorkspace {
     // iosならばwidgetを更新する
     if (Platform.isIOS) {
       TLWidgetKit.updateTLWorkspaces();
-      TLConnectivity.sendJsonToAppleWatch();
+      TLConnectivity.sendTLWorkspacesToAppleWatch();
     }
     // string workspaceを保存する
     await SharedPreferences.getInstance().then((pref) =>

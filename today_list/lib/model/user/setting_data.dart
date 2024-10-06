@@ -1,4 +1,5 @@
 // ignore_for_file: invalid_use_of_protected_member
+import 'package:today_list/model/externals/tl_connectivity.dart';
 import 'package:today_list/model/externals/tl_widgetkit.dart';
 
 import '../../constants/global_keys.dart';
@@ -149,6 +150,7 @@ class SettingData {
                             // このアラートを消す
                             Navigator.pop(context);
                             SettingData.shared.selectedTheme = themeName;
+                            TLConnectivity.sendSelectedThemeToAppleWatch();
                             TLWidgetKit.updateSelectedTheme();
                             todayListAppKey.currentState?.setState(() {});
                             setAppearancePageKey.currentState?.setState(() {});

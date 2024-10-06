@@ -27,7 +27,7 @@ struct ShowToDosInAWorkspaceWidgetEntryView : View {
         }.onAppear {
             // UserDefaultsからデータを取得してtLToDosDataに代入
             tLToDosData = TLToDos.extractToDos(
-                from: entry.tlContentExample ?? UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")?.string(forKey: "jsonWorkspaces"),
+                from: entry.tlContentExample ?? UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")?.string(forKey: "tlWorkspaces"),
                 indexInWorkspaces: 0,
                 toDosCategoryId: noneId
             )
