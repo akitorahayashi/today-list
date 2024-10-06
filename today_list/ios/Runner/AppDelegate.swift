@@ -12,36 +12,38 @@ import UIKit
         
         let userdefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         
-    // --- showTodosInAWorkspaceWidget
+        // --- showTodosInAWorkspaceWidget
         let showTodosInAWorkspaceWidgetMethodChannel = FlutterMethodChannel(name: "com.akitora0703.todaylist/show_todos_in_a_workspace_widget", binaryMessenger: controller.binaryMessenger)
         
         showTodosInAWorkspaceWidgetMethodChannel.setMethodCallHandler { [weak self] (call: FlutterMethodCall, result: @escaping FlutterResult) in
-            if call.method == "updateTLWorkspaces" {
-                // 引数からStringを取り出す
+            switch call.method {
+            case "updateTLWorkspaces":
                 if let stringOfStringWorkspaces = call.arguments as? String {
-                    // UserDefaultsに保存
-                    userdefaults?.set(stringOfStringWorkspaces, forKey: "jsonWorksapces")
+                    userdefaults?.set(stringOfStringWorkspaces, forKey: "jsonWorkspaces") // Fixed typo
                     WidgetCenter.shared.reloadAllTimelines()
-                    result("worksapces saved successfully")
+                    result("workspaces saved successfully")
                 } else {
-                    result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected a String", details: nil))
+                    let errorMessage = "Expected a String for updateTLWorkspaces"
+                    print(errorMessage) // Log error
+                    result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
                 }
                 
-            } else if call.method == "updateSelectedTheme" {
-                // 引数からStringを取り出す
+            case "updateSelectedTheme":
                 if let selectedTheme = call.arguments as? String {
-                    // UserDefaultsに保存
                     userdefaults?.set(selectedTheme, forKey: "selectedTheme")
                     WidgetCenter.shared.reloadAllTimelines()
                     result("selectedTheme saved successfully")
                 } else {
-                    result(FlutterError(code: "INVALID_ARGUMENT", message: "Expected a String", details: nil))
+                    let errorMessage = "Expected a String for updateSelectedTheme"
+                    print(errorMessage) // Log error
+                    result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
                 }
                 
-            } else {
+            default:
                 result(FlutterMethodNotImplemented)
             }
         }
+        
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
