@@ -11,29 +11,28 @@ import SwiftUI
 struct SelectWorkspaceHomeView: View {
     
     @State private var isSecondViewActive = false
+    @State private var decodedWorkspaces: [TLWorkspace]?
     
     @ObservedObject var tlConnector = TLPhoneConnector()
     
     var body: some View {
         NavigationStack {
             VStack {
-                TLWatchAppBar(selectedColorTheme: self.tlConnector.selectedTheme)
+                TLWatchAppBar(appbarTitle: "workspace", selectedColorTheme: self.tlConnector.selectedTheme)
                 
                 ScrollView {
-                    Button(action: {
-                        isSecondViewActive = true
-                    }) {
-                        Text("Go to Second View")
+                    // ForEach to display TLWorkspace names
+                    ForEach(tlConnector.decodedTLWorkspace) { tlWorkspace in
+                        NavigationLink(destination: ShowToDosInTodayView()) {
+                            Text(tlWorkspace.name) // Display workspace name
+                                .padding()
+                        }
                     }
-                    .navigationDestination(isPresented: $isSecondViewActive) {
-                        ShowToDosInTodayView()
-                    }
+                    
                 }
-                
             }
-            
         }
-        .background(kTLThemes[self.tlConnector.selectedTheme]?.backgroundColorOfToDoList ?? Color.clear) // nilの場合の対策
+        .background(kTLThemes[self.tlConnector.selectedTheme]?.backgroundColorOfToDoList ?? Color.clear) // nil handling
         .edgesIgnoringSafeArea(.all)
     }
 }

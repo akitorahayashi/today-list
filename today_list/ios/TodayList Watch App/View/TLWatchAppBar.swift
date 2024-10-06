@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TLWatchAppBar: View {
+    let appbarTitle: String
     var selectedColorTheme: String
     
     var body: some View {
@@ -18,7 +19,7 @@ struct TLWatchAppBar: View {
             .overlay(
                 VStack {
                     Spacer()
-                    Text("Workspace")
+                    Text(appbarTitle)
                         .font(.system(size: 20, weight: .bold)) // 太い白文字
                         .foregroundColor(.white) // 白色
                         .padding(.bottom, 4)

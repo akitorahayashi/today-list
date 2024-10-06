@@ -13,7 +13,7 @@ class TLPhoneConnector: NSObject, ObservableObject, WCSessionDelegate  {
     static let shared = TLPhoneConnector()
     
     @Published var selectedTheme: String = "Sun Orange"
-    @Published var strTLWorkspaces: String?
+    @Published var decodedTLWorkspace: [TLWorkspace] = []
     
     override init() {
         super.init()
@@ -52,7 +52,7 @@ class TLPhoneConnector: NSObject, ObservableObject, WCSessionDelegate  {
             print("watchOS: selectedtheme saved successfully")
         } else if let strTLWorkspaces = message["tlWorkspaces"] as? String {
             DispatchQueue.main.async {
-                self.strTLWorkspaces = strTLWorkspaces
+                self.decodedTLWorkspace = TLWorkspace.decodeWorkspaces(from: strTLWorkspaces) ?? []
             }
             print("watchOS: tlWorkspaces saved successfully")
         } else {

@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ShowToDosInTodayView: View {
     
-    @State private var selectedColorTheme: String = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")?.string(forKey: "selectedTheme") ?? "Sun Orange"
+    @ObservedObject var tlConnector = TLPhoneConnector()
     
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack {
-            TLWatchAppBar(selectedColorTheme: self.selectedColorTheme)
+            TLWatchAppBar(appbarTitle: "todo",selectedColorTheme: self.tlConnector.selectedTheme)
             
             ScrollView {
                 Text("Congrats!")
