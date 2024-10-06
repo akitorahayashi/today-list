@@ -5,7 +5,7 @@ struct TLToDos: Codable {
     let toDosInWhenever: [TLToDo]
     
     // JSONからToDosをデコードする関数
-    static func extractToDos(from jsonWorkspaces: String?,toDosCategoryId: String, indexInStringWorkspaces: Int) -> TLToDos? {
+    static func extractToDos(from jsonWorkspaces: String?, indexInWorkspaces: Int, toDosCategoryId: String) -> TLToDos? {
         // JSON文字列がnilでないかチェックし、データに変換
         guard let jsonString = jsonWorkspaces else {
             print("exit: nil")
@@ -22,13 +22,13 @@ struct TLToDos: Codable {
             let tlWorkspaces = try JSONDecoder().decode([TLWorkspace].self, from: data)
             
             // インデックスが有効かどうかをチェック
-            guard indexInStringWorkspaces >= 0 && indexInStringWorkspaces < tlWorkspaces.count else {
+            guard indexInWorkspaces >= 0 && indexInWorkspaces < tlWorkspaces.count else {
                 print("指定されたインデックスが無効です")
                 return nil
             }
             
             // 指定されたインデックスのワークスペースを取得
-            let selectedWorkspace: TLWorkspace = tlWorkspaces[indexInStringWorkspaces]
+            let selectedWorkspace: TLWorkspace = tlWorkspaces[indexInWorkspaces]
             
             // toDosCategoryIdに基づいて、適切なTLToDosを取得
             guard let toDos: TLToDos = selectedWorkspace.toDos[toDosCategoryId] else {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TodayListTheme {
+class TLTheme {
   final String themeTitle;
   // 設定ページ系
   final Color titleColorOfSettingPage;
@@ -32,7 +32,7 @@ class TodayListTheme {
   // reward
   final Color rewardButtonTitleColor;
 
-  TodayListTheme({
+  TLTheme({
     required this.themeTitle,
     // 設定ページ系
     required this.titleColorOfSettingPage,
@@ -67,8 +67,8 @@ class TodayListTheme {
   });
 }
 
-final Map<String, TodayListTheme> theme = {
-  "Sun Orange": TodayListTheme(
+final Map<String, TLTheme> theme = {
+  "Sun Orange": TLTheme(
     themeTitle: "Sun\nOrange",
     // 設定ページ系
     titleColorOfSettingPage: const Color.fromRGBO(170, 119, 80, 1),
@@ -105,7 +105,7 @@ final Map<String, TodayListTheme> theme = {
     rewardButtonTitleColor: const Color.fromRGBO(255, 190, 86, 1),
     // settings
   ),
-  "Lime Green": TodayListTheme(
+  "Lime Green": TLTheme(
     themeTitle: "Lime\nGreen",
     // 設定ページ系
     settingPanelColor: const Color.fromRGBO(223, 168, 139, 1),
@@ -141,7 +141,7 @@ final Map<String, TodayListTheme> theme = {
     // reward
     rewardButtonTitleColor: const Color.fromRGBO(123, 205, 60, 1),
   ),
-  "Marine Blue": TodayListTheme(
+  "Marine Blue": TLTheme(
     themeTitle: "Marine\nBlue",
     // 設定ページ系
     titleColorOfSettingPage: Colors.cyan,
