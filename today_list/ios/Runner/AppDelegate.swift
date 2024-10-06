@@ -20,7 +20,10 @@ import UIKit
             case "updateTLWorkspaces":
                 if let stringOfStringWorkspaces = call.arguments as? String {
                     userdefaults?.set(stringOfStringWorkspaces, forKey: "jsonWorkspaces") // Fixed typo
-                    WidgetCenter.shared.reloadAllTimelines()
+                    // メインスレッドでの更新を追加
+                    DispatchQueue.main.async {
+                        WidgetCenter.shared.reloadAllTimelines()
+                    }
                     result("workspaces saved successfully")
                 } else {
                     let errorMessage = "Expected a String for updateTLWorkspaces"
@@ -31,7 +34,10 @@ import UIKit
             case "updateSelectedTheme":
                 if let selectedTheme = call.arguments as? String {
                     userdefaults?.set(selectedTheme, forKey: "selectedTheme")
-                    WidgetCenter.shared.reloadAllTimelines()
+                    // メインスレッドでの更新を追加
+                    DispatchQueue.main.async {
+                        WidgetCenter.shared.reloadAllTimelines()
+                    }
                     result("selectedTheme saved successfully")
                 } else {
                     let errorMessage = "Expected a String for updateSelectedTheme"

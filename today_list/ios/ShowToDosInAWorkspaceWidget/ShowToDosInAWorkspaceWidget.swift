@@ -31,29 +31,36 @@ struct SimpleEntry: TimelineEntry {
     let tlContentExample: String?
 }
 
+import WidgetKit
+import SwiftUI
+
 struct ShowToDosInAWorkspaceWidget: Widget {
     let kind: String = "ShowToDosInAWorkspaceWidget"
 
-    @State private var selectedColorTheme: String = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")?.string(forKey: "selectedTheme") ?? "Sun Orange"
-        
-        var body: some WidgetConfiguration {
-            AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
-                ShowToDosInAWorkspaceWidgetEntryView(entry: entry)
-                    .containerBackground(for: .widget) {
-                        VStack(alignment: .center, spacing: 0) {
-                            ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
-                                kTLThemes[selectedColorTheme]!.gradientOfTopBar
-                                Text("ToDo")
-                                    .font(.system(size: 18, weight: .bold))
-                                    .foregroundColor(.white)
-                            }.frame(height: 28)
-                            kTLThemes[selectedColorTheme]!.backgroundColorOfToDoList
+    var body: some WidgetConfiguration {
+        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
+            // UserDefaultsからテーマを取得
+            let selectedColorTheme = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")?.string(forKey: "selectedTheme") ?? "Sun Orange"
+
+            ShowToDosInAWorkspaceWidgetEntryView(entry: entry)
+                .containerBackground(for: .widget) {
+                    VStack(alignment: .center, spacing: 0) {
+                        ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
+                            // テーマの適用
+                            kTLThemes[selectedColorTheme]?.gradientOfTopBar
+                            Text("ToDo")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(.white)
                         }
+                        .frame(height: 28)
+                        kTLThemes[selectedColorTheme]?.backgroundColorOfToDoList
                     }
-            }.configurationDisplayName("Show ToDo Widget")
-                .description("デフォルトWorkspaceのなしカテゴリーに登録されているToDoを表示します")
-                .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+                }
         }
+        .configurationDisplayName("Show ToDo Widget")
+        .description("デフォルトWorkspaceのなしカテゴリーに登録されているToDoを表示します")
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+    }
 }
 
 //extension ConfigurationAppIntent {
