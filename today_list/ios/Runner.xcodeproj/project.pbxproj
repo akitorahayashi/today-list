@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
+		1B9981042CB39D7100FE4336 /* ShowToDosInAWorkspaceInTodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9981032CB39D5F00FE4336 /* ShowToDosInAWorkspaceInTodayView.swift */; };
+		1B9981072CB39DFF00FE4336 /* TLBigcatgeorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9981062CB39DF500FE4336 /* TLBigcatgeorySection.swift */; };
+		1B99810F2CB3A11C00FE4336 /* ShowToDosForCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B99810E2CB3A11600FE4336 /* ShowToDosForCategory.swift */; };
 		1B9EA5C52CB16B5600F9A82D /* TLContentExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED02CB0E421009FE623 /* TLContentExample.swift */; };
 		1B9EA5C62CB16B5600F9A82D /* TLContentExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED02CB0E421009FE623 /* TLContentExample.swift */; };
 		1B9EA5C72CB16B5E00F9A82D /* TLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ECC2CB0E3D2009FE623 /* TLTheme.swift */; };
@@ -36,7 +39,6 @@
 		1BF7E9252CB10C4F0071A8EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7E91F2CB10C4F0071A8EE /* Preview Assets.xcassets */; };
 		1BF7E9262CB10C4F0071A8EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7E9212CB10C4F0071A8EE /* Assets.xcassets */; };
 		1BF7E9282CB10C4F0071A8EE /* TodayListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7E9232CB10C4F0071A8EE /* TodayListApp.swift */; };
-		1BF7E92B2CB119520071A8EE /* ShowToDosInTodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7E92A2CB1192C0071A8EE /* ShowToDosInTodayView.swift */; };
 		1BF7E92D2CB11A200071A8EE /* SelectWorkspaceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7E92C2CB11A070071A8EE /* SelectWorkspaceHomeView.swift */; };
 		1BF7E92F2CB11C080071A8EE /* TLCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EDA2CB0E533009FE623 /* TLCategory.swift */; };
 		1BF7E9302CB11C080071A8EE /* TLCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EDA2CB0E533009FE623 /* TLCategory.swift */; };
@@ -121,6 +123,9 @@
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
+		1B9981032CB39D5F00FE4336 /* ShowToDosInAWorkspaceInTodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosInAWorkspaceInTodayView.swift; sourceTree = "<group>"; };
+		1B9981062CB39DF500FE4336 /* TLBigcatgeorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLBigcatgeorySection.swift; sourceTree = "<group>"; };
+		1B99810E2CB3A11600FE4336 /* ShowToDosForCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosForCategory.swift; sourceTree = "<group>"; };
 		1B9EA5C92CB16CDC00F9A82D /* TodayList Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TodayList Watch App.entitlements"; sourceTree = "<group>"; };
 		1B9EA5CA2CB16EA200F9A82D /* TLWatchAppBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLWatchAppBar.swift; sourceTree = "<group>"; };
 		1BB91E2B2CB0DB2B009FE623 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -149,7 +154,6 @@
 		1BF7E91F2CB10C4F0071A8EE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1BF7E9212CB10C4F0071A8EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BF7E9232CB10C4F0071A8EE /* TodayListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayListApp.swift; sourceTree = "<group>"; };
-		1BF7E92A2CB1192C0071A8EE /* ShowToDosInTodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosInTodayView.swift; sourceTree = "<group>"; };
 		1BF7E92C2CB11A070071A8EE /* SelectWorkspaceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkspaceHomeView.swift; sourceTree = "<group>"; };
 		1BF7E9392CB11D980071A8EE /* TLPhoneConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLPhoneConnector.swift; sourceTree = "<group>"; };
 		1CEC5A9755FC7D3CB5952D89 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -222,6 +226,40 @@
 				7687676B08A470C319744F9C /* Pods-RunnerTests.profile.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		1B9981002CB39BCC00FE4336 /* SelectWorkspaceHomeView */ = {
+			isa = PBXGroup;
+			children = (
+				1BF7E92C2CB11A070071A8EE /* SelectWorkspaceHomeView.swift */,
+			);
+			path = SelectWorkspaceHomeView;
+			sourceTree = "<group>";
+		};
+		1B9981052CB39DC000FE4336 /* ShowToDosInTodayInAWorkspaceView */ = {
+			isa = PBXGroup;
+			children = (
+				1B9981082CB3A01000FE4336 /* TLBigCategorySection */,
+				1B9981032CB39D5F00FE4336 /* ShowToDosInAWorkspaceInTodayView.swift */,
+			);
+			path = ShowToDosInTodayInAWorkspaceView;
+			sourceTree = "<group>";
+		};
+		1B9981082CB3A01000FE4336 /* TLBigCategorySection */ = {
+			isa = PBXGroup;
+			children = (
+				1B99810D2CB3A10900FE4336 /* ShowToDosForCategory */,
+				1B9981062CB39DF500FE4336 /* TLBigcatgeorySection.swift */,
+			);
+			path = TLBigCategorySection;
+			sourceTree = "<group>";
+		};
+		1B99810D2CB3A10900FE4336 /* ShowToDosForCategory */ = {
+			isa = PBXGroup;
+			children = (
+				1B99810E2CB3A11600FE4336 /* ShowToDosForCategory.swift */,
+			);
+			path = ShowToDosForCategory;
 			sourceTree = "<group>";
 		};
 		1BB91EC12CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidget */ = {
@@ -302,9 +340,9 @@
 		1BF7E92E2CB11A3F0071A8EE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1B9981052CB39DC000FE4336 /* ShowToDosInTodayInAWorkspaceView */,
+				1B9981002CB39BCC00FE4336 /* SelectWorkspaceHomeView */,
 				1B9EA5CA2CB16EA200F9A82D /* TLWatchAppBar.swift */,
-				1BF7E92C2CB11A070071A8EE /* SelectWorkspaceHomeView.swift */,
-				1BF7E92A2CB1192C0071A8EE /* ShowToDosInTodayView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -696,10 +734,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B9EA5C62CB16B5600F9A82D /* TLContentExample.swift in Sources */,
-				1BF7E92B2CB119520071A8EE /* ShowToDosInTodayView.swift in Sources */,
+				1B99810F2CB3A11C00FE4336 /* ShowToDosForCategory.swift in Sources */,
 				1BF7E9342CB11C1C0071A8EE /* TLToDos.swift in Sources */,
 				1BF7E9322CB11C110071A8EE /* TLWorkspace.swift in Sources */,
 				1BF7E9302CB11C080071A8EE /* TLCategory.swift in Sources */,
+				1B9981042CB39D7100FE4336 /* ShowToDosInAWorkspaceInTodayView.swift in Sources */,
+				1B9981072CB39DFF00FE4336 /* TLBigcatgeorySection.swift in Sources */,
 				1B9EA5C82CB16B5E00F9A82D /* TLTheme.swift in Sources */,
 				1BF7E92D2CB11A200071A8EE /* SelectWorkspaceHomeView.swift in Sources */,
 				1BF7E9382CB11C2C0071A8EE /* TLToDo.swift in Sources */,
@@ -786,6 +826,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = ShowToDosInAWorkspaceWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
@@ -807,6 +848,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.showToDosInAWorkspaceWIdget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -828,6 +870,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = ShowToDosInAWorkspaceWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
@@ -848,6 +891,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.showToDosInAWorkspaceWIdget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -867,6 +911,7 @@
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = ShowToDosInAWorkspaceWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
@@ -887,6 +932,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.showToDosInAWorkspaceWIdget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

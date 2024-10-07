@@ -23,7 +23,7 @@ struct SelectWorkspaceHomeView: View {
                 ScrollView {
                     // ForEach to display TLWorkspace names
                     ForEach(tlConnector.decodedTLWorkspace) { tlWorkspace in
-                        NavigationLink(destination: ShowToDosInTodayView()) {
+                        NavigationLink(destination: ShowToDosInTodayInAWorkspaceView(tlWorkspace: tlWorkspace)) {
                             Text(tlWorkspace.name) // Display workspace name
                                 .padding()
                         }

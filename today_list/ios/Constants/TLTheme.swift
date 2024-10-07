@@ -7,16 +7,11 @@
 
 import SwiftUI
 
-class TLTheme {
-    static var selectedTheme: String = "Sun Orange"
-    
+struct TLTheme {
     let gradientOfTopBar: LinearGradient
     let backgroundColorOfToDoList: Color
+    let toDoCardColor: Color
     
-    init(gradientOfTopBar: LinearGradient, backgroundColorOfToDoList: Color) {
-        self.gradientOfTopBar = gradientOfTopBar
-        self.backgroundColorOfToDoList = backgroundColorOfToDoList
-    }
 }
 
 let kTLThemes: [String: TLTheme] = [
@@ -29,7 +24,8 @@ let kTLThemes: [String: TLTheme] = [
             startPoint: .leading,
             endPoint: .trailing
         ),
-        backgroundColorOfToDoList: Color(red: 255 / 255, green: 229 / 255, blue: 214 / 255)
+        backgroundColorOfToDoList: Color(red: 255 / 255, green: 229 / 255, blue: 214 / 255),
+        toDoCardColor: Color(red: 255 / 255, green: 229 / 255, blue: 214 / 255)
     ),
     "Lime Green": TLTheme(gradientOfTopBar: LinearGradient(
         gradient: Gradient(colors: [
@@ -39,7 +35,9 @@ let kTLThemes: [String: TLTheme] = [
         startPoint: .leading,
         endPoint: .trailing
     ),
-    backgroundColorOfToDoList: Color(red: 239 / 255, green: 255 / 255, blue: 214 / 255)),
+                          backgroundColorOfToDoList: Color(red: 239 / 255, green: 255 / 255, blue: 214 / 255),
+                          toDoCardColor: Color(red: 255 / 255, green: 229 / 255, blue: 214 / 255)
+    ),
     "Marine Blue": TLTheme(gradientOfTopBar: LinearGradient(
         gradient: Gradient(colors: [
             Color(red: 131 / 255, green: 169 / 255, blue: 252 / 255),
@@ -48,5 +46,7 @@ let kTLThemes: [String: TLTheme] = [
         startPoint: .leading,
         endPoint: .trailing
     ),
-    backgroundColorOfToDoList: Color(red: 241 / 255, green: 251 / 255, blue: 253 / 255)),
+                           backgroundColorOfToDoList: Color(red: 241 / 255, green: 251 / 255, blue: 253 / 255),
+                           toDoCardColor: Color(red: 255 / 255, green: 229 / 255, blue: 214 / 255)
+    ),
 ]
