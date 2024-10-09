@@ -42,6 +42,8 @@ class HomePageState extends State<HomePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!accetColorIsChanged) {
         accetColorIsChanged = true;
+        print("accetColor is changed");
+        setState(() {});
         FlutterNativeSplash.remove();
       }
       // if (settingData.isFirstEntry) {
@@ -49,12 +51,7 @@ class HomePageState extends State<HomePage> {
       //     return const ShowTutorialPage();
       //   }));
       // }
-
-      // admob.readAdsData();
-      // purchase.initPlatformState();
     });
-
-    TLWorkspace.readWorkspaces().then((value) => setState(() {}));
   }
 
   @override

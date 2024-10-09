@@ -10,7 +10,7 @@ import './model/user/todaylist_user.dart';
 import './app.dart';
 
 import 'package:flutter_watch_os_connectivity/flutter_watch_os_connectivity.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 bool kAdTestMode = true;
 bool kDebugMode = true;
@@ -19,7 +19,7 @@ enum LanguageType { ja, en }
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await TLWorkspace.readWorkspaces();
   await TLAds.initializeTLAds();
   await SettingData.shared.readSettings();
