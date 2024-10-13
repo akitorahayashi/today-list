@@ -58,8 +58,8 @@ class TLPhoneConnector: NSObject, ObservableObject, WCSessionDelegate  {
         } else {
             print("watchOS: message was not saved")
         }
+        
     }
-    
 #if os(iOS)
     func sessionDidBecomeInactive(_ session: WCSession) {
         // セッションが非アクティブになった時の処理
