@@ -70,9 +70,7 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
             homePageKey.currentState?.setState(() {});
             editToDoPageKey.currentState?.setState(() {});
             TLWorkspace.saveSelectedWorkspace(
-              selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
-              selectedWorkspace: widget.selectedWorkspace,
-            );
+                selectedWorkspaceIndex: widget.selectedWorkspaceIndex);
           },
           icon: Icons.remove,
         ),
@@ -127,9 +125,7 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
                 quickChangeToToday: !widget.ifInToday,
               );
               TLWorkspace.saveSelectedWorkspace(
-                selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
-                selectedWorkspace: widget.selectedWorkspace,
-              );
+                  selectedWorkspaceIndex: widget.selectedWorkspaceIndex);
             },
             icon: widget.ifInToday ? Icons.schedule : Icons.light_mode,
             label: widget.ifInToday ? "whenever" : "today",

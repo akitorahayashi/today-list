@@ -121,10 +121,8 @@ Future<TLCategory?> addToDoCategoryAlert({
                               : TLCategory.saveSmallCategories();
 
                           TLWorkspace.saveSelectedWorkspace(
-                            selectedWorkspaceIndex:
-                                TLWorkspace.currentWorkspaceIndex,
-                            selectedWorkspace: TLWorkspace.currentWorkspace,
-                          );
+                              selectedWorkspaceIndex:
+                                  TLWorkspace.currentWorkspaceIndex);
                           TLVibration.vibrate();
                           categoryNameInputController.clear();
                           Navigator.pop(context, createdCategory);

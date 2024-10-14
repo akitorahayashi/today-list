@@ -62,7 +62,7 @@ class TLSliverAppBar extends StatelessWidget {
         pageTitle,
         style: TextStyle(
             color: Colors.white,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w900,
             fontSize: titleFontSize ?? 30,
             letterSpacing: titleSpacing ?? 1,
             overflow: TextOverflow.ellipsis),

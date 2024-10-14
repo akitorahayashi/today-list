@@ -9,9 +9,7 @@ import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';
 import '../../model/todo/tl_todos.dart';
 import '../../model/externals/tl_vibration.dart';
-import 'add_workspace_category_alert.dart';
 import 'notify_workspace_is_added.dart';
-import 'dart:convert';
 
 class AddOrEditWorkspaceDialog extends StatefulWidget {
   final int? oldIndexInStringWorkspaces;
@@ -132,7 +130,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                         if (TLWorkspace.currentWorkspaceIndex ==
                             widget.oldIndexInStringWorkspaces!) {
                           TLWorkspace.currentWorkspace = editedWorkspace;
-                          TLWorkspace.currentWorkspace.changeCurrentWorkspace(
+                          TLWorkspace.changeCurrentWorkspace(
                               newWorkspaceIndex:
                                   widget.oldIndexInStringWorkspaces!);
                         }

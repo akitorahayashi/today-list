@@ -99,8 +99,7 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                       // toDosを保存する
                       TLWorkspace.saveSelectedWorkspace(
                           selectedWorkspaceIndex:
-                              TLWorkspace.currentWorkspaceIndex,
-                          selectedWorkspace: TLWorkspace.currentWorkspace);
+                              TLWorkspace.currentWorkspaceIndex);
                     }
                   }),
             ],

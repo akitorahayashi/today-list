@@ -108,10 +108,8 @@ Future<void> confirmToDeleteThisCategory({
                             TLCategory.saveSmallCategories();
                           }
                           TLWorkspace.saveSelectedWorkspace(
-                            selectedWorkspaceIndex:
-                                TLWorkspace.currentWorkspaceIndex,
-                            selectedWorkspace: TLWorkspace.currentWorkspace,
-                          );
+                              selectedWorkspaceIndex:
+                                  TLWorkspace.currentWorkspaceIndex);
                           Navigator.pop(context);
                           // アラートを消す
                           Navigator.pop(context);

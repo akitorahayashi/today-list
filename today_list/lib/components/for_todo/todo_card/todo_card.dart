@@ -78,9 +78,7 @@ class ToDoCardState extends State<ToDoCard> {
           quickChangeToToday: null,
         );
         TLWorkspace.saveSelectedWorkspace(
-          selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
-          selectedWorkspace: TLWorkspace.currentWorkspace,
-        );
+            selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex);
       },
       onLongPress: toDoData.isChecked ? () {} : null,
       child: Card(
@@ -184,10 +182,8 @@ class ToDoCardState extends State<ToDoCard> {
                             setState(() {});
                             // toDosを保存する
                             TLWorkspace.saveSelectedWorkspace(
-                              selectedWorkspaceIndex:
-                                  widget.selectedWorkspaceIndex,
-                              selectedWorkspace: widget.selectedWorkspace,
-                            );
+                                selectedWorkspaceIndex:
+                                    widget.selectedWorkspaceIndex);
                           }
                         },
                       ),
