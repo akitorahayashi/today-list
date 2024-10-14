@@ -88,10 +88,9 @@ class TLWorkspace {
     await SharedPreferences.getInstance().then((pref) {
       currentWorkspaceIndex = pref.getInt("currentWorkspaceIndex") ?? 0;
       if (pref.getString("tlworkspaces") != null) {
-        tlworkspaces = json
-            .decode(pref.getString("tlworkspaces")!)
-            .map((item) => item as Map<String, dynamic>)
-            .toList();
+        tlworkspaces = List<Map<String, dynamic>>.from(
+          json.decode(pref.getString("tlworkspaces")!) as List,
+        );
       }
     });
   }
@@ -103,8 +102,8 @@ class TLWorkspace {
       TLConnectivity.sendTLWorkspacesToAppleWatch();
     }
     // string workspaceを保存する
-    await SharedPreferences.getInstance().then((pref) =>
-        pref.setString("idToJsonWorkspaceList", json.encode(tlworkspaces)));
+    await SharedPreferences.getInstance().then(
+        (pref) => pref.setString("tlworkspaces", json.encode(tlworkspaces)));
   }
 
   static Future<void> saveSelectedWorkspace({
