@@ -51,9 +51,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
     // toDosとgroupedCategoriesを保存する
     TLCategory.saveSmallCategories();
     TLWorkspace.saveSelectedWorkspace(
-      selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
-      selectedWorkspace: TLWorkspace.currentWorkspace,
-    );
+        selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex);
   }
 
 // ---  カテゴリー追加系の変数

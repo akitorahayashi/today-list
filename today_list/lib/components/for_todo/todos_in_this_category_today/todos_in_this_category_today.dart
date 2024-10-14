@@ -71,9 +71,7 @@ class _ToDosInThisCategoryInTodayState
                   widget.superKey.currentState?.setState(() {});
                   // toDosを保存する
                   TLWorkspace.saveSelectedWorkspace(
-                    selectedWorkspaceIndex: widget.selectedWorkspaceIndex,
-                    selectedWorkspace: widget.selectedWorkspace,
-                  );
+                      selectedWorkspaceIndex: widget.selectedWorkspaceIndex);
                 }
               }),
         ),

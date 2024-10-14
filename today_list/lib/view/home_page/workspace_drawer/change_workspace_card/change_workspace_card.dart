@@ -10,12 +10,10 @@ import 'slidable_for_workspace_card.dart';
 
 class ChangeWorkspaceCard extends StatefulWidget {
   final bool isInDrawerList;
-  final String workspaceName;
   final int indexInWorkspaces;
   const ChangeWorkspaceCard({
     super.key,
     required this.isInDrawerList,
-    required this.workspaceName,
     required this.indexInWorkspaces,
   });
 
@@ -45,7 +43,7 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                   if (isCurrentWorkspace) {
                     Navigator.pop(context);
                   } else {
-                    TLWorkspace.currentWorkspace.changeCurrentWorkspace(
+                    TLWorkspace.changeCurrentWorkspace(
                         newWorkspaceIndex: widget.indexInWorkspaces);
                     TLVibration.vibrate();
                     Navigator.pop(context);
@@ -71,7 +69,8 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                                   : "") +
                               (isCurrentWorkspace
                                   ? TLWorkspace.currentWorkspace.name
-                                  : widget.workspaceName) +
+                                  : tlworkspaces[widget.indexInWorkspaces]
+                                      ["name"]) +
                               ((isCurrentWorkspace && widget.isInDrawerList)
                                   ? "   "
                                   : ""),

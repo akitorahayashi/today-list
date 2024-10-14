@@ -21,57 +21,57 @@ const String englishId = "englishId";
 
 List<Map<String, dynamic>> tlworkspaces = [
   // --- 使い方
-  TLWorkspace(name: "デフォルト", bigCategories: [
-    TLCategory(id: noneId, title: "なし"),
-    TLCategory(id: swToDoId, title: "ToDo"),
-    TLCategory(id: swCategoryId, title: "Category"),
-    TLCategory(id: swWorkspaceId, title: "Workspace"),
-  ], smallCategories: {
-    noneId: [],
-    swToDoId: [],
-    swCategoryId: [],
-    swWorkspaceId: [],
-  }, toDos: {
-    noneId: TLToDos(toDosInToday: [
-      TLToDo(title: "Today Listはデザイン性に優れたToDoアプリ!", steps: [
-        TLStep(title: "カテゴリー分けを駆使して整理!"),
-        TLStep(title: "テーマカラーやチェックボックスを変えて自分好みのToDoアプリを作ろう!"),
-      ]),
-    ], toDosInWhenever: []),
-    // --- ToDo
-    swToDoId: TLToDos(toDosInToday: [
-      TLToDo(title: "ホーム画面下の+マークから追加できます", steps: []),
-      TLToDo(
-          title: "このToDoカードを左右にスライドすることで編集したり、削除することができます",
-          steps: [TLStep(title: "「今日」から「いつでも」にすぐ変更もできます!")]),
-      TLToDo(title: "左下のチェックボタンからチェックしたToDoを一括削除!", steps: []),
-    ], toDosInWhenever: []),
-    // --- Category
-    swCategoryId: TLToDos(toDosInToday: [
-      TLToDo(title: "右下のリストのボタンからカテゴリーリストを開くことができます", steps: [
-        TLStep(title: "+マークでカテゴリーを追加"),
-        TLStep(title: "カテゴリーのカードをタップすることで「今日」と「いつでも」のToDoを一つの画面で管理できます"),
-        TLStep(title: "「いつでも」に入れたToDoはカードをスライドしてこの画面から「今日」にしよう!!"),
-      ]),
-      TLToDo(
-          title: "「今日」「いつでも」のToDoを一度に管理できる画面を開いて右上の鉛筆ボタンからカテゴリーを編集、削除できます!",
-          steps: []),
-    ], toDosInWhenever: []),
-    // ---Workspace
-    swWorkspaceId: TLToDos(toDosInToday: [
-      TLToDo(
-          title: "WorkspaceはCategoryとそれに伴うToDoを一括で管理する場所です!",
-          steps: [TLStep(title: "Worksapceを変えることで、違ったカテゴリーを区別してまとめることができる!")]),
-      TLToDo(
-          title: "ホーム画面左上のメニューボタンからWorkspaceの一覧を見ることができます",
-          steps: [TLStep(title: "一覧の中の+ボタンからworkspaceを追加!")]),
-      TLToDo(
-          title: "Worspaceを編集したいときは一覧からManage Workspace(管理画面)を開こう!",
-          steps: [TLStep(title: "-ボタンで削除、鉛筆ボタンで名前を編集できます!")]),
-    ], toDosInWhenever: []),
-  }).toJson(),
+  // TLWorkspace(name: "Default", bigCategories: [
+  //   TLCategory(id: noneId, title: "なし"),
+  //   TLCategory(id: swToDoId, title: "ToDo"),
+  //   TLCategory(id: swCategoryId, title: "Category"),
+  //   TLCategory(id: swWorkspaceId, title: "Workspace"),
+  // ], smallCategories: {
+  //   noneId: [],
+  //   swToDoId: [],
+  //   swCategoryId: [],
+  //   swWorkspaceId: [],
+  // }, toDos: {
+  //   noneId: TLToDos(toDosInToday: [
+  //     TLToDo(title: "Today Listはデザイン性に優れたToDoアプリ!", steps: [
+  //       TLStep(title: "カテゴリー分けを駆使して整理!"),
+  //       TLStep(title: "テーマカラーやチェックボックスを変えて自分好みのToDoアプリを作ろう!"),
+  //     ]),
+  //   ], toDosInWhenever: []),
+  //   // --- ToDo
+  //   swToDoId: TLToDos(toDosInToday: [
+  //     TLToDo(title: "ホーム画面下の+マークから追加できます", steps: []),
+  //     TLToDo(
+  //         title: "このToDoカードを左右にスライドすることで編集したり、削除することができます",
+  //         steps: [TLStep(title: "「今日」から「いつでも」にすぐ変更もできます!")]),
+  //     TLToDo(title: "左下のチェックボタンからチェックしたToDoを一括削除!", steps: []),
+  //   ], toDosInWhenever: []),
+  //   // --- Category
+  //   swCategoryId: TLToDos(toDosInToday: [
+  //     TLToDo(title: "右下のリストのボタンからカテゴリーリストを開くことができます", steps: [
+  //       TLStep(title: "+マークでカテゴリーを追加"),
+  //       TLStep(title: "カテゴリーのカードをタップすることで「今日」と「いつでも」のToDoを一つの画面で管理できます"),
+  //       TLStep(title: "「いつでも」に入れたToDoはカードをスライドしてこの画面から「今日」にしよう!!"),
+  //     ]),
+  //     TLToDo(
+  //         title: "「今日」「いつでも」のToDoを一度に管理できる画面を開いて右上の鉛筆ボタンからカテゴリーを編集、削除できます!",
+  //         steps: []),
+  //   ], toDosInWhenever: []),
+  //   // ---Workspace
+  //   swWorkspaceId: TLToDos(toDosInToday: [
+  //     TLToDo(
+  //         title: "WorkspaceはCategoryとそれに伴うToDoを一括で管理する場所です!",
+  //         steps: [TLStep(title: "Worksapceを変えることで、違ったカテゴリーを区別してまとめることができる!")]),
+  //     TLToDo(
+  //         title: "ホーム画面左上のメニューボタンからWorkspaceの一覧を見ることができます",
+  //         steps: [TLStep(title: "一覧の中の+ボタンからworkspaceを追加!")]),
+  //     TLToDo(
+  //         title: "Worspaceを編集したいときは一覧からManage Workspace(管理画面)を開こう!",
+  //         steps: [TLStep(title: "-ボタンで削除、鉛筆ボタンで名前を編集できます!")]),
+  //   ], toDosInWhenever: []),
+  // }).toJson(),
   // --- 買い物
-  TLWorkspace(name: "買い物", bigCategories: [
+  TLWorkspace(name: "Default", bigCategories: [
     TLCategory(id: noneId, title: "なし"),
     TLCategory(id: superMarcketId, title: "スーパー"),
     TLCategory(id: hundredStoreId, title: "100均"),
@@ -99,7 +99,7 @@ List<Map<String, dynamic>> tlworkspaces = [
         toDosInToday: [TLToDo(title: "お皿", steps: [])], toDosInWhenever: []),
   }).toJson(),
   // --- 学校
-  TLWorkspace(name: "学校", bigCategories: [
+  TLWorkspace(name: "School", bigCategories: [
     TLCategory(id: noneId, title: "なし"),
     TLCategory(id: mathId, title: "数学"),
     TLCategory(id: englishId, title: "英語"),

@@ -18,7 +18,6 @@ import '../edit_todo_page/edit_todo_page.dart';
 import '../category_list_page/category_list_page.dart';
 import '../setting_page/setting_page.dart';
 import './workspace_drawer/workspace_drawer.dart';
-import '../.././main.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -67,7 +66,9 @@ class HomePageState extends State<HomePage> {
         CustomScrollView(
           slivers: [
             TLSliverAppBar(
-              pageTitle: "Today List",
+              pageTitle: TLWorkspace.currentWorkspaceIndex == 0
+                  ? "Today List"
+                  : TLWorkspace.currentWorkspace.name,
               // drawerを表示するボタン
               leadingButtonOnPressed: () =>
                   homePageScaffoldKey.currentState!.openDrawer(),
@@ -90,20 +91,6 @@ class HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 10,
               ),
-              Center(
-                  child: Text(
-                "- ${TLWorkspace.currentWorkspace.name} - ",
-                style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black45,
-                    fontWeight: FontWeight.bold),
-              )),
-              // // 今までこなしたToDoの数を表示
-              // EffortCard(
-              //     effortTitle: currentWorkspace.name,
-              //     effort: currentWorkspace.numberOfToDosHaveBeenDone),
-              // 今日のtodoを表示
-              // なしの時の処理
               if (TLWorkspace
                   .currentWorkspace
                   .toDos[TLWorkspace.currentWorkspace.bigCategories[0].id]!
@@ -206,8 +193,7 @@ class HomePageState extends State<HomePage> {
                     buttonText: "OK");
                 setState(() {});
                 await TLWorkspace.saveSelectedWorkspace(
-                    selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
-                    selectedWorkspace: TLWorkspace.currentWorkspace);
+                    selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex);
               }),
           trailingIconData: FontAwesomeIcons.list,
           // カテゴリーリストに移動するボタン

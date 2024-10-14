@@ -54,9 +54,7 @@ class _StepInToDoCardState extends State<StepInToDoCard> {
             newCheckedState: stepData.isChecked,
             quickChangeToToday: null);
         TLWorkspace.saveSelectedWorkspace(
-          selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
-          selectedWorkspace: TLWorkspace.currentWorkspace,
-        );
+            selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex);
       },
       child: Card(
         elevation: 2,

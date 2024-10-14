@@ -7,7 +7,6 @@ import '../../constants/theme.dart';
 import '../../constants/global_keys.dart';
 import '../../alerts/simple_alert.dart';
 import '../../styles.dart';
-import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -102,10 +101,8 @@ Future<void> deleteWorkspaceAlert({
                                   buttonText: "OK");
                               // セーブする
                               TLWorkspace.saveSelectedWorkspace(
-                                selectedWorkspaceIndex:
-                                    TLWorkspace.currentWorkspaceIndex,
-                                selectedWorkspace: TLWorkspace.currentWorkspace,
-                              );
+                                  selectedWorkspaceIndex:
+                                      TLWorkspace.currentWorkspaceIndex);
                             });
                           }
                         },

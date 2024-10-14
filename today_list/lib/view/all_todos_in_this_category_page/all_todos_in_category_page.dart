@@ -139,9 +139,8 @@ class AllToDosInThisCategoryPageState
                   categoryListPageKey.currentState?.setState(() {});
                   TLVibration.vibrate();
                   TLWorkspace.saveSelectedWorkspace(
-                    selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
-                    selectedWorkspace: TLWorkspace.currentWorkspace,
-                  );
+                      selectedWorkspaceIndex:
+                          TLWorkspace.currentWorkspaceIndex);
                   simpleAlert(
                       context: context,
                       title: "削除が完了しました",

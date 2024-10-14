@@ -72,7 +72,7 @@ class TLWorkspace {
     return false;
   }
 
-  Future<void> changeCurrentWorkspace({
+  static Future<void> changeCurrentWorkspace({
     required int newWorkspaceIndex,
   }) async {
     TLWorkspace.currentWorkspaceIndex = newWorkspaceIndex;
@@ -108,7 +108,6 @@ class TLWorkspace {
 
   static Future<void> saveSelectedWorkspace({
     required int selectedWorkspaceIndex,
-    required TLWorkspace selectedWorkspace,
   }) async {
     tlworkspaces[selectedWorkspaceIndex] = currentWorkspace.toJson();
     await TLWorkspace.saveWorkspaces();
