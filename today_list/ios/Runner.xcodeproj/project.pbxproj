@@ -8,74 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
-		1B9981042CB39D7100FE4336 /* ShowToDosInAWorkspaceInTodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9981032CB39D5F00FE4336 /* ShowToDosInAWorkspaceInTodayView.swift */; };
-		1B9981072CB39DFF00FE4336 /* TLBigcatgeorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9981062CB39DF500FE4336 /* TLBigcatgeorySection.swift */; };
-		1B99810F2CB3A11C00FE4336 /* ShowToDosForCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B99810E2CB3A11600FE4336 /* ShowToDosForCategory.swift */; };
-		1B9EA5C52CB16B5600F9A82D /* TLContentExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED02CB0E421009FE623 /* TLContentExample.swift */; };
-		1B9EA5C62CB16B5600F9A82D /* TLContentExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED02CB0E421009FE623 /* TLContentExample.swift */; };
-		1B9EA5C72CB16B5E00F9A82D /* TLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ECC2CB0E3D2009FE623 /* TLTheme.swift */; };
-		1B9EA5C82CB16B5E00F9A82D /* TLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ECC2CB0E3D2009FE623 /* TLTheme.swift */; };
-		1B9EA5CB2CB16EB800F9A82D /* TLWatchAppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9EA5CA2CB16EA200F9A82D /* TLWatchAppBar.swift */; };
-		1BB91EA22CB0E0A5009FE623 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BB91E2B2CB0DB2B009FE623 /* WidgetKit.framework */; };
-		1BB91EA32CB0E0A5009FE623 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BB91E2D2CB0DB2B009FE623 /* SwiftUI.framework */; };
-		1BB91EB42CB0E0A7009FE623 /* ShowToDosInAWorkspaceWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1BB91EA12CB0E0A5009FE623 /* ShowToDosInAWorkspaceWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		1BB91EC22CB0E0AD009FE623 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EBA2CB0E0AD009FE623 /* AppIntent.swift */; };
-		1BB91EC32CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EBD2CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidget.swift */; };
-		1BB91EC42CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EBE2CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetBundle.swift */; };
-		1BB91EC52CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EBF2CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetControl.swift */; };
-		1BB91EC62CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EC02CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetLiveActivity.swift */; };
-		1BB91EC72CB0E0AD009FE623 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BB91EBB2CB0E0AD009FE623 /* Assets.xcassets */; };
-		1BB91ECD2CB0E3D6009FE623 /* TLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ECC2CB0E3D2009FE623 /* TLTheme.swift */; };
-		1BB91ED12CB0E42E009FE623 /* TLContentExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED02CB0E421009FE623 /* TLContentExample.swift */; };
-		1BB91ED32CB0E51A009FE623 /* TLToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED22CB0E513009FE623 /* TLToDo.swift */; };
-		1BB91ED52CB0E521009FE623 /* TLStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED42CB0E51F009FE623 /* TLStep.swift */; };
-		1BB91ED72CB0E528009FE623 /* TLToDos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED62CB0E525009FE623 /* TLToDos.swift */; };
-		1BB91ED92CB0E52E009FE623 /* TLWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED82CB0E52A009FE623 /* TLWorkspace.swift */; };
-		1BB91EDB2CB0E536009FE623 /* TLCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EDA2CB0E533009FE623 /* TLCategory.swift */; };
-		1BB91EDD2CB0E5B2009FE623 /* ShowToDosInAWorkspaceWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EDC2CB0E5AC009FE623 /* ShowToDosInAWorkspaceWidgetEntryView.swift */; };
-		1BB91EE32CB0E949009FE623 /* TLToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EE22CB0E942009FE623 /* TLToDoListView.swift */; };
-		1BB91EE52CB0E97E009FE623 /* TLToDoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EE42CB0E979009FE623 /* TLToDoRow.swift */; };
-		1BF7E9192CB10C3C0071A8EE /* TodayList Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1BF7E90C2CB10C390071A8EE /* TodayList Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		1BF7E9252CB10C4F0071A8EE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7E91F2CB10C4F0071A8EE /* Preview Assets.xcassets */; };
-		1BF7E9262CB10C4F0071A8EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BF7E9212CB10C4F0071A8EE /* Assets.xcassets */; };
-		1BF7E9282CB10C4F0071A8EE /* TodayListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7E9232CB10C4F0071A8EE /* TodayListApp.swift */; };
-		1BF7E92D2CB11A200071A8EE /* SelectWorkspaceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7E92C2CB11A070071A8EE /* SelectWorkspaceHomeView.swift */; };
-		1BF7E92F2CB11C080071A8EE /* TLCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EDA2CB0E533009FE623 /* TLCategory.swift */; };
-		1BF7E9302CB11C080071A8EE /* TLCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91EDA2CB0E533009FE623 /* TLCategory.swift */; };
-		1BF7E9312CB11C110071A8EE /* TLWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED82CB0E52A009FE623 /* TLWorkspace.swift */; };
-		1BF7E9322CB11C110071A8EE /* TLWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED82CB0E52A009FE623 /* TLWorkspace.swift */; };
-		1BF7E9332CB11C1C0071A8EE /* TLToDos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED62CB0E525009FE623 /* TLToDos.swift */; };
-		1BF7E9342CB11C1C0071A8EE /* TLToDos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED62CB0E525009FE623 /* TLToDos.swift */; };
-		1BF7E9352CB11C230071A8EE /* TLStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED42CB0E51F009FE623 /* TLStep.swift */; };
-		1BF7E9362CB11C230071A8EE /* TLStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED42CB0E51F009FE623 /* TLStep.swift */; };
-		1BF7E9372CB11C2C0071A8EE /* TLToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED22CB0E513009FE623 /* TLToDo.swift */; };
-		1BF7E9382CB11C2C0071A8EE /* TLToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB91ED22CB0E513009FE623 /* TLToDo.swift */; };
-		1BF7E93A2CB11DA80071A8EE /* TLPhoneConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF7E9392CB11D980071A8EE /* TLPhoneConnector.swift */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
-		3C65A9B4582EC825B1FD17C7 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29AC6F156513E5EF12FC0B27 /* Pods_Runner.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
-		7BD3CDDEEDE429416344C74A /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B733FA4C462963D05A43DF /* Pods_RunnerTests.framework */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1BB91EB22CB0E0A7009FE623 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1BB91EA02CB0E0A5009FE623;
-			remoteInfo = ShowToDosInAWorkspaceWidgetExtension;
-		};
-		1BF7E9172CB10C3C0071A8EE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1BF7E90B2CB10C390071A8EE;
-			remoteInfo = "TodayList Watch App";
-		};
 		331C8085294A63A400263BE5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
@@ -86,28 +27,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		1BB91E452CB0DB2D009FE623 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				1BB91EB42CB0E0A7009FE623 /* ShowToDosInAWorkspaceWidgetExtension.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1BF7E91A2CB10C3C0071A8EE /* Embed Watch Content */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
-			files = (
-				1BF7E9192CB10C3C0071A8EE /* TodayList Watch App.app in Embed Watch Content */,
-			);
-			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -123,50 +42,12 @@
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
-		1B9981032CB39D5F00FE4336 /* ShowToDosInAWorkspaceInTodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosInAWorkspaceInTodayView.swift; sourceTree = "<group>"; };
-		1B9981062CB39DF500FE4336 /* TLBigcatgeorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLBigcatgeorySection.swift; sourceTree = "<group>"; };
-		1B99810E2CB3A11600FE4336 /* ShowToDosForCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosForCategory.swift; sourceTree = "<group>"; };
-		1B9EA5C92CB16CDC00F9A82D /* TodayList Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "TodayList Watch App.entitlements"; sourceTree = "<group>"; };
-		1B9EA5CA2CB16EA200F9A82D /* TLWatchAppBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLWatchAppBar.swift; sourceTree = "<group>"; };
-		1BB91E2B2CB0DB2B009FE623 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
-		1BB91E2D2CB0DB2B009FE623 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		1BB91EA12CB0E0A5009FE623 /* ShowToDosInAWorkspaceWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShowToDosInAWorkspaceWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		1BB91EBA2CB0E0AD009FE623 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
-		1BB91EBB2CB0E0AD009FE623 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1BB91EBC2CB0E0AD009FE623 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1BB91EBD2CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosInAWorkspaceWidget.swift; sourceTree = "<group>"; };
-		1BB91EBE2CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosInAWorkspaceWidgetBundle.swift; sourceTree = "<group>"; };
-		1BB91EBF2CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosInAWorkspaceWidgetControl.swift; sourceTree = "<group>"; };
-		1BB91EC02CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosInAWorkspaceWidgetLiveActivity.swift; sourceTree = "<group>"; };
-		1BB91ECC2CB0E3D2009FE623 /* TLTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLTheme.swift; sourceTree = "<group>"; };
-		1BB91ED02CB0E421009FE623 /* TLContentExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLContentExample.swift; sourceTree = "<group>"; };
-		1BB91ED22CB0E513009FE623 /* TLToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLToDo.swift; sourceTree = "<group>"; };
-		1BB91ED42CB0E51F009FE623 /* TLStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLStep.swift; sourceTree = "<group>"; };
-		1BB91ED62CB0E525009FE623 /* TLToDos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLToDos.swift; sourceTree = "<group>"; };
-		1BB91ED82CB0E52A009FE623 /* TLWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLWorkspace.swift; sourceTree = "<group>"; };
-		1BB91EDA2CB0E533009FE623 /* TLCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLCategory.swift; sourceTree = "<group>"; };
-		1BB91EDC2CB0E5AC009FE623 /* ShowToDosInAWorkspaceWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosInAWorkspaceWidgetEntryView.swift; sourceTree = "<group>"; };
-		1BB91EE02CB0E6B6009FE623 /* ShowToDosInAWorkspaceWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShowToDosInAWorkspaceWidgetExtension.entitlements; sourceTree = "<group>"; };
-		1BB91EE22CB0E942009FE623 /* TLToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLToDoListView.swift; sourceTree = "<group>"; };
-		1BB91EE42CB0E979009FE623 /* TLToDoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLToDoRow.swift; sourceTree = "<group>"; };
-		1BDE0E0D2CAEAED700F0E2FA /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
-		1BF7E90C2CB10C390071A8EE /* TodayList Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TodayList Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1BF7E91F2CB10C4F0071A8EE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		1BF7E9212CB10C4F0071A8EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1BF7E9232CB10C4F0071A8EE /* TodayListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayListApp.swift; sourceTree = "<group>"; };
-		1BF7E92C2CB11A070071A8EE /* SelectWorkspaceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkspaceHomeView.swift; sourceTree = "<group>"; };
-		1BF7E9392CB11D980071A8EE /* TLPhoneConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLPhoneConnector.swift; sourceTree = "<group>"; };
-		1CEC5A9755FC7D3CB5952D89 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		29AC6F156513E5EF12FC0B27 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		29B733FA4C462963D05A43DF /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7687676B08A470C319744F9C /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
-		88EA1C4479BA95E774D1BC5B /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,196 +55,25 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AEBC0E4D302E4A85FB0423BC /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
-		C2B3961F882650FB4FE8A96D /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
-		F08BFD60C1F74B7C0889B09A /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1BB91E9E2CB0E0A5009FE623 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1BB91EA32CB0E0A5009FE623 /* SwiftUI.framework in Frameworks */,
-				1BB91EA22CB0E0A5009FE623 /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1BF7E9092CB10C390071A8EE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6C099BF7958765F18BC809D9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7BD3CDDEEDE429416344C74A /* Pods_RunnerTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		97C146EB1CF9000F007C117D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C65A9B4582EC825B1FD17C7 /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		06DC0A77B29496A42BBF813D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F08BFD60C1F74B7C0889B09A /* Pods-Runner.debug.xcconfig */,
-				88EA1C4479BA95E774D1BC5B /* Pods-Runner.release.xcconfig */,
-				C2B3961F882650FB4FE8A96D /* Pods-Runner.profile.xcconfig */,
-				1CEC5A9755FC7D3CB5952D89 /* Pods-RunnerTests.debug.xcconfig */,
-				AEBC0E4D302E4A85FB0423BC /* Pods-RunnerTests.release.xcconfig */,
-				7687676B08A470C319744F9C /* Pods-RunnerTests.profile.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		1B9981002CB39BCC00FE4336 /* SelectWorkspaceHomeView */ = {
-			isa = PBXGroup;
-			children = (
-				1BF7E92C2CB11A070071A8EE /* SelectWorkspaceHomeView.swift */,
-			);
-			path = SelectWorkspaceHomeView;
-			sourceTree = "<group>";
-		};
-		1B9981052CB39DC000FE4336 /* ShowToDosInTodayInAWorkspaceView */ = {
-			isa = PBXGroup;
-			children = (
-				1B9981082CB3A01000FE4336 /* TLBigCategorySection */,
-				1B9981032CB39D5F00FE4336 /* ShowToDosInAWorkspaceInTodayView.swift */,
-			);
-			path = ShowToDosInTodayInAWorkspaceView;
-			sourceTree = "<group>";
-		};
-		1B9981082CB3A01000FE4336 /* TLBigCategorySection */ = {
-			isa = PBXGroup;
-			children = (
-				1B99810D2CB3A10900FE4336 /* ShowToDosForCategory */,
-				1B9981062CB39DF500FE4336 /* TLBigcatgeorySection.swift */,
-			);
-			path = TLBigCategorySection;
-			sourceTree = "<group>";
-		};
-		1B99810D2CB3A10900FE4336 /* ShowToDosForCategory */ = {
-			isa = PBXGroup;
-			children = (
-				1B99810E2CB3A11600FE4336 /* ShowToDosForCategory.swift */,
-			);
-			path = ShowToDosForCategory;
-			sourceTree = "<group>";
-		};
-		1BB91EC12CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidget */ = {
-			isa = PBXGroup;
-			children = (
-				1BB91ECB2CB0E3C1009FE623 /* View */,
-				1BB91EBA2CB0E0AD009FE623 /* AppIntent.swift */,
-				1BB91EBB2CB0E0AD009FE623 /* Assets.xcassets */,
-				1BB91EBC2CB0E0AD009FE623 /* Info.plist */,
-				1BB91EBD2CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidget.swift */,
-				1BB91EBE2CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetBundle.swift */,
-				1BB91EBF2CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetControl.swift */,
-				1BB91EC02CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetLiveActivity.swift */,
-			);
-			path = ShowToDosInAWorkspaceWidget;
-			sourceTree = "<group>";
-		};
-		1BB91EC92CB0E3B3009FE623 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				1BB91EDA2CB0E533009FE623 /* TLCategory.swift */,
-				1BB91ED82CB0E52A009FE623 /* TLWorkspace.swift */,
-				1BB91ED62CB0E525009FE623 /* TLToDos.swift */,
-				1BB91ED42CB0E51F009FE623 /* TLStep.swift */,
-				1BB91ED22CB0E513009FE623 /* TLToDo.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		1BB91ECA2CB0E3B9009FE623 /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-				1BB91ED02CB0E421009FE623 /* TLContentExample.swift */,
-				1BB91ECC2CB0E3D2009FE623 /* TLTheme.swift */,
-			);
-			path = Constants;
-			sourceTree = "<group>";
-		};
-		1BB91ECB2CB0E3C1009FE623 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				1BB91EE12CB0E937009FE623 /* TLToDoListView */,
-				1BB91EDC2CB0E5AC009FE623 /* ShowToDosInAWorkspaceWidgetEntryView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		1BB91EE12CB0E937009FE623 /* TLToDoListView */ = {
-			isa = PBXGroup;
-			children = (
-				1BB91EE42CB0E979009FE623 /* TLToDoRow.swift */,
-				1BB91EE22CB0E942009FE623 /* TLToDoListView.swift */,
-			);
-			path = TLToDoListView;
-			sourceTree = "<group>";
-		};
-		1BF7E9202CB10C4F0071A8EE /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				1BF7E91F2CB10C4F0071A8EE /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		1BF7E9242CB10C4F0071A8EE /* TodayList Watch App */ = {
-			isa = PBXGroup;
-			children = (
-				1B9EA5C92CB16CDC00F9A82D /* TodayList Watch App.entitlements */,
-				1BF7E9202CB10C4F0071A8EE /* Preview Content */,
-				1BF7E9212CB10C4F0071A8EE /* Assets.xcassets */,
-				1BF7E92E2CB11A3F0071A8EE /* View */,
-				1BF7E9392CB11D980071A8EE /* TLPhoneConnector.swift */,
-				1BF7E9232CB10C4F0071A8EE /* TodayListApp.swift */,
-			);
-			path = "TodayList Watch App";
-			sourceTree = "<group>";
-		};
-		1BF7E92E2CB11A3F0071A8EE /* View */ = {
-			isa = PBXGroup;
-			children = (
-				1B9981052CB39DC000FE4336 /* ShowToDosInTodayInAWorkspaceView */,
-				1B9981002CB39BCC00FE4336 /* SelectWorkspaceHomeView */,
-				1B9EA5CA2CB16EA200F9A82D /* TLWatchAppBar.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		331C8082294A63A400263BE5 /* RunnerTests */ = {
 			isa = PBXGroup;
 			children = (
 				331C807B294A618700263BE5 /* RunnerTests.swift */,
 			);
 			path = RunnerTests;
-			sourceTree = "<group>";
-		};
-		7421D47CB94ACA254D7B7228 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				29AC6F156513E5EF12FC0B27 /* Pods_Runner.framework */,
-				29B733FA4C462963D05A43DF /* Pods_RunnerTests.framework */,
-				1BB91E2B2CB0DB2B009FE623 /* WidgetKit.framework */,
-				1BB91E2D2CB0DB2B009FE623 /* SwiftUI.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -380,17 +90,10 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
-				1BB91EE02CB0E6B6009FE623 /* ShowToDosInAWorkspaceWidgetExtension.entitlements */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
-				1BB91EC92CB0E3B3009FE623 /* Model */,
-				1BB91ECA2CB0E3B9009FE623 /* Constants */,
-				1BB91EC12CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidget */,
-				1BF7E9242CB10C4F0071A8EE /* TodayList Watch App */,
 				97C146EF1CF9000F007C117D /* Products */,
 				331C8082294A63A400263BE5 /* RunnerTests */,
-				06DC0A77B29496A42BBF813D /* Pods */,
-				7421D47CB94ACA254D7B7228 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -399,8 +102,6 @@
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
-				1BB91EA12CB0E0A5009FE623 /* ShowToDosInAWorkspaceWidgetExtension.appex */,
-				1BF7E90C2CB10C390071A8EE /* TodayList Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -408,7 +109,6 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
-				1BDE0E0D2CAEAED700F0E2FA /* Runner.entitlements */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -424,52 +124,12 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1BB91EA02CB0E0A5009FE623 /* ShowToDosInAWorkspaceWidgetExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1BB91EB62CB0E0A7009FE623 /* Build configuration list for PBXNativeTarget "ShowToDosInAWorkspaceWidgetExtension" */;
-			buildPhases = (
-				1BB91E9D2CB0E0A5009FE623 /* Sources */,
-				1BB91E9E2CB0E0A5009FE623 /* Frameworks */,
-				1BB91E9F2CB0E0A5009FE623 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ShowToDosInAWorkspaceWidgetExtension;
-			packageProductDependencies = (
-			);
-			productName = ShowToDosInAWorkspaceWidgetExtension;
-			productReference = 1BB91EA12CB0E0A5009FE623 /* ShowToDosInAWorkspaceWidgetExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		1BF7E90B2CB10C390071A8EE /* TodayList Watch App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1BF7E91E2CB10C3C0071A8EE /* Build configuration list for PBXNativeTarget "TodayList Watch App" */;
-			buildPhases = (
-				1BF7E9082CB10C390071A8EE /* Sources */,
-				1BF7E9092CB10C390071A8EE /* Frameworks */,
-				1BF7E90A2CB10C390071A8EE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "TodayList Watch App";
-			packageProductDependencies = (
-			);
-			productName = "TodayList Watch App";
-			productReference = 1BF7E90C2CB10C390071A8EE /* TodayList Watch App.app */;
-			productType = "com.apple.product-type.application";
-		};
 		331C8080294A63A400263BE5 /* RunnerTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 331C8087294A63A400263BE5 /* Build configuration list for PBXNativeTarget "RunnerTests" */;
 			buildPhases = (
-				D36A44F679AD457058942590 /* [CP] Check Pods Manifest.lock */,
 				331C807D294A63A400263BE5 /* Sources */,
 				331C807F294A63A400263BE5 /* Resources */,
-				6C099BF7958765F18BC809D9 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -485,23 +145,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
-				23D5782E9F6533A8FD6CF8FE /* [CP] Check Pods Manifest.lock */,
+				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
-				C84C0906C78C7AEFECDF84B5 /* [CP] Embed Pods Frameworks */,
-				8D879594597D9A6A5E15C73E /* [CP] Copy Pods Resources */,
-				1BB91E452CB0DB2D009FE623 /* Embed Foundation Extensions */,
-				1BF7E91A2CB10C3C0071A8EE /* Embed Watch Content */,
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
-				9740EEB61CF901F6004384FC /* Run Script */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				1BB91EB32CB0E0A7009FE623 /* PBXTargetDependency */,
-				1BF7E9182CB10C3C0071A8EE /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -515,16 +168,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
-					1BB91EA02CB0E0A5009FE623 = {
-						CreatedOnToolsVersion = 16.0;
-					};
-					1BF7E90B2CB10C390071A8EE = {
-						CreatedOnToolsVersion = 16.0;
-					};
 					331C8080294A63A400263BE5 = {
 						CreatedOnToolsVersion = 14.0;
 						TestTargetID = 97C146ED1CF9000F007C117D;
@@ -550,30 +196,11 @@
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
-				1BB91EA02CB0E0A5009FE623 /* ShowToDosInAWorkspaceWidgetExtension */,
-				1BF7E90B2CB10C390071A8EE /* TodayList Watch App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1BB91E9F2CB0E0A5009FE623 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1BB91EC72CB0E0AD009FE623 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1BF7E90A2CB10C390071A8EE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1BF7E9252CB10C4F0071A8EE /* Preview Assets.xcassets in Resources */,
-				1BF7E9262CB10C4F0071A8EE /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		331C807F294A63A400263BE5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -595,28 +222,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		23D5782E9F6533A8FD6CF8FE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Runner-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -633,23 +238,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
 		};
-		8D879594597D9A6A5E15C73E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -665,91 +253,9 @@
 			shellPath = /bin/sh;
 			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
 		};
-		C84C0906C78C7AEFECDF84B5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D36A44F679AD457058942590 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RunnerTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1BB91E9D2CB0E0A5009FE623 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1BB91EC22CB0E0AD009FE623 /* AppIntent.swift in Sources */,
-				1BB91ED92CB0E52E009FE623 /* TLWorkspace.swift in Sources */,
-				1BB91EC32CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidget.swift in Sources */,
-				1BB91EC42CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetBundle.swift in Sources */,
-				1BB91ED12CB0E42E009FE623 /* TLContentExample.swift in Sources */,
-				1BB91EC52CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetControl.swift in Sources */,
-				1BB91ED52CB0E521009FE623 /* TLStep.swift in Sources */,
-				1BB91ED32CB0E51A009FE623 /* TLToDo.swift in Sources */,
-				1BB91EC62CB0E0AD009FE623 /* ShowToDosInAWorkspaceWidgetLiveActivity.swift in Sources */,
-				1BB91EDB2CB0E536009FE623 /* TLCategory.swift in Sources */,
-				1BB91EE52CB0E97E009FE623 /* TLToDoRow.swift in Sources */,
-				1BB91EE32CB0E949009FE623 /* TLToDoListView.swift in Sources */,
-				1BB91EDD2CB0E5B2009FE623 /* ShowToDosInAWorkspaceWidgetEntryView.swift in Sources */,
-				1BB91ECD2CB0E3D6009FE623 /* TLTheme.swift in Sources */,
-				1BB91ED72CB0E528009FE623 /* TLToDos.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1BF7E9082CB10C390071A8EE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1B9EA5C62CB16B5600F9A82D /* TLContentExample.swift in Sources */,
-				1B99810F2CB3A11C00FE4336 /* ShowToDosForCategory.swift in Sources */,
-				1BF7E9342CB11C1C0071A8EE /* TLToDos.swift in Sources */,
-				1BF7E9322CB11C110071A8EE /* TLWorkspace.swift in Sources */,
-				1BF7E9302CB11C080071A8EE /* TLCategory.swift in Sources */,
-				1B9981042CB39D7100FE4336 /* ShowToDosInAWorkspaceInTodayView.swift in Sources */,
-				1B9981072CB39DFF00FE4336 /* TLBigcatgeorySection.swift in Sources */,
-				1B9EA5C82CB16B5E00F9A82D /* TLTheme.swift in Sources */,
-				1BF7E92D2CB11A200071A8EE /* SelectWorkspaceHomeView.swift in Sources */,
-				1BF7E9382CB11C2C0071A8EE /* TLToDo.swift in Sources */,
-				1BF7E9282CB10C4F0071A8EE /* TodayListApp.swift in Sources */,
-				1BF7E9362CB11C230071A8EE /* TLStep.swift in Sources */,
-				1BF7E93A2CB11DA80071A8EE /* TLPhoneConnector.swift in Sources */,
-				1B9EA5CB2CB16EB800F9A82D /* TLWatchAppBar.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		331C807D294A63A400263BE5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -762,31 +268,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B9EA5C52CB16B5600F9A82D /* TLContentExample.swift in Sources */,
-				1BF7E92F2CB11C080071A8EE /* TLCategory.swift in Sources */,
-				1B9EA5C72CB16B5E00F9A82D /* TLTheme.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
-				1BF7E9312CB11C110071A8EE /* TLWorkspace.swift in Sources */,
-				1BF7E9332CB11C1C0071A8EE /* TLToDos.swift in Sources */,
-				1BF7E9372CB11C2C0071A8EE /* TLToDo.swift in Sources */,
-				1BF7E9352CB11C230071A8EE /* TLStep.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1BB91EB32CB0E0A7009FE623 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1BB91EA02CB0E0A5009FE623 /* ShowToDosInAWorkspaceWidgetExtension */;
-			targetProxy = 1BB91EB22CB0E0A7009FE623 /* PBXContainerItemProxy */;
-		};
-		1BF7E9182CB10C3C0071A8EE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1BF7E90B2CB10C390071A8EE /* TodayList Watch App */;
-			targetProxy = 1BF7E9172CB10C3C0071A8EE /* PBXContainerItemProxy */;
-		};
 		331C8086294A63A400263BE5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 97C146ED1CF9000F007C117D /* Runner */;
@@ -814,258 +303,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1BB91EB72CB0E0A7009FE623 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = ShowToDosInAWorkspaceWidgetExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShowToDosInAWorkspaceWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShowToDosInAWorkspaceWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.showToDosInAWorkspaceWIdget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		1BB91EB82CB0E0A7009FE623 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = ShowToDosInAWorkspaceWidgetExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShowToDosInAWorkspaceWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShowToDosInAWorkspaceWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.showToDosInAWorkspaceWIdget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		1BB91EB92CB0E0A7009FE623 /* Profile */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = ShowToDosInAWorkspaceWidgetExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShowToDosInAWorkspaceWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ShowToDosInAWorkspaceWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.showToDosInAWorkspaceWIdget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Profile;
-		};
-		1BF7E91B2CB10C3C0071A8EE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "TodayList Watch App/TodayList Watch App.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"TodayList Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = TodayList;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.akitorahayashi.todayList;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 11.0;
-			};
-			name = Debug;
-		};
-		1BF7E91C2CB10C3C0071A8EE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "TodayList Watch App/TodayList Watch App.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"TodayList Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = TodayList;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.akitorahayashi.todayList;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 11.0;
-			};
-			name = Release;
-		};
-		1BF7E91D2CB10C3C0071A8EE /* Profile */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = "TodayList Watch App/TodayList Watch App.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"TodayList Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = TodayList;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.akitorahayashi.todayList;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 11.0;
-			};
-			name = Profile;
-		};
 		249021D3217E4FDB00AE95B9 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1109,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
@@ -1124,20 +361,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TodayList;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.todayList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1147,13 +379,11 @@
 		};
 		331C8088294A63A400263BE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CEC5A9755FC7D3CB5952D89 /* Pods-RunnerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.todayList.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1166,13 +396,11 @@
 		};
 		331C8089294A63A400263BE5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AEBC0E4D302E4A85FB0423BC /* Pods-RunnerTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.todayList.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1183,13 +411,11 @@
 		};
 		331C808A294A63A400263BE5 /* Profile */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7687676B08A470C319744F9C /* Pods-RunnerTests.profile.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.todayList.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1202,7 +428,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1247,7 +473,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1259,7 +485,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1298,7 +524,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = iphoneos;
@@ -1315,20 +541,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TodayList;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.todayList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1343,20 +564,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = TodayList;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akitorahayashi.todayList;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.todayList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -1367,26 +583,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1BB91EB62CB0E0A7009FE623 /* Build configuration list for PBXNativeTarget "ShowToDosInAWorkspaceWidgetExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1BB91EB72CB0E0A7009FE623 /* Debug */,
-				1BB91EB82CB0E0A7009FE623 /* Release */,
-				1BB91EB92CB0E0A7009FE623 /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1BF7E91E2CB10C3C0071A8EE /* Build configuration list for PBXNativeTarget "TodayList Watch App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1BF7E91B2CB10C3C0071A8EE /* Debug */,
-				1BF7E91C2CB10C3C0071A8EE /* Release */,
-				1BF7E91D2CB10C3C0071A8EE /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		331C8087294A63A400263BE5 /* Build configuration list for PBXNativeTarget "RunnerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
