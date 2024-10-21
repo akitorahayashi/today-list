@@ -2,7 +2,7 @@
 //  ShowToDosInAWorkspaceWidget.swift
 //  ShowToDosInAWorkspaceWidget
 //
-//  Created by 林 明虎 on 2024/10/21.
+//  Created by 林 明虎 on 2024/10/05.
 //
 
 import WidgetKit
@@ -10,49 +10,25 @@ import SwiftUI
 
 struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
+        SimpleEntry(date: Date(), tlContentExample: nil)
     }
-
+    
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration)
+        SimpleEntry(date: Date(), tlContentExample: kTLContentExample)
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
         var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
-        }
-
+        
+        entries.append(SimpleEntry(date: Date(), tlContentExample: nil))
+        
         return Timeline(entries: entries, policy: .atEnd)
     }
-
-//    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let configuration: ConfigurationAppIntent
-}
-
-struct ShowToDosInAWorkspaceWidgetEntryView : View {
-    var entry: Provider.Entry
-
-    var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Favorite Emoji:")
-            Text(entry.configuration.favoriteEmoji)
-        }
-    }
+    let tlContentExample: String?
 }
 
 struct ShowToDosInAWorkspaceWidget: Widget {
@@ -60,29 +36,44 @@ struct ShowToDosInAWorkspaceWidget: Widget {
 
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
+            // UserDefaultsからテーマを取得
+            let selectedColorTheme = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")?.string(forKey: "selectedTheme") ?? "Sun Orange"
+
             ShowToDosInAWorkspaceWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+                .containerBackground(for: .widget) {
+                    VStack(alignment: .center, spacing: 0) {
+                        ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
+                            // テーマの適用
+                            kTLThemes[selectedColorTheme]?.gradientOfTopBar
+                            Text("ToDo")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(.white)
+                        }
+                        .frame(height: 28)
+                        kTLThemes[selectedColorTheme]?.backgroundColorOfToDoList
+                    }
+                }
         }
+        .configurationDisplayName("Show ToDo Widget")
+        .description("デフォルトWorkspaceのなしカテゴリーに登録されているToDoを表示します")
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
 
-extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
-        return intent
-    }
-    
-    fileprivate static var starEyes: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
-        return intent
-    }
-}
+//#Preview(as: .systemSmall) {
+//    ShowToDoWidget()
+//} timeline: {
+//    SimpleEntry(date: .now, contentsToShow: contentsToShow)
+//}
 
-#Preview(as: .systemSmall) {
+//#Preview(as: .systemMedium) {
+//    ShowToDoWidget()
+//} timeline: {
+//    SimpleEntry(date: .now, contentsToShow: contentsToShow)
+//}
+
+#Preview(as: .systemLarge) {
     ShowToDosInAWorkspaceWidget()
 } timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
+    SimpleEntry(date: .now, tlContentExample: kTLContentExample)
 }
