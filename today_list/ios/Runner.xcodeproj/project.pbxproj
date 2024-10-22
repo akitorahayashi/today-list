@@ -449,6 +449,7 @@
 			buildPhases = (
 				F638A37CB4429D2B469BB1D4 /* [CP] Check Pods Manifest.lock */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
+				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EC1CF9000F007C117D /* Resources */,
 				1BA7C2D12CC6853F00DCF511 /* Embed Watch Content */,
@@ -457,7 +458,6 @@
 				6584E1AFA7777A2DBDA6ACC0 /* [CP] Embed Pods Frameworks */,
 				F1F1AD53A4470E20C5C4A7C1 /* [CP] Copy Pods Resources */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
-				9740EEB61CF901F6004384FC /* Run Script */,
 			);
 			buildRules = (
 			);
