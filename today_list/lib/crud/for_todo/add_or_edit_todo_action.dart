@@ -17,6 +17,7 @@ void addOrEditToDoAction({
   required List<TLStep> addedSteps,
 }) {
   final createdToDo = TLToDo(
+    id: UniqueKey().toString(),
     title: toDoInputController.text,
     steps: addedSteps,
   );

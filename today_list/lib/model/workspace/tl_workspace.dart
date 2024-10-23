@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:today_list/model/externals/tl_widgetkit.dart';
 import 'package:today_list/model/externals/tl_connectivity.dart';
 import '../tl_category.dart';
@@ -13,16 +14,14 @@ class TLWorkspace {
 
   static TLWorkspace currentWorkspace =
       TLWorkspace.fromJson(tlworkspaces[TLWorkspace.currentWorkspaceIndex]);
-
+  String id = UniqueKey().toString();
   String name;
-  // effort
-  // int numberOfToDosHaveBeenDone = 0;
-  // int thirdDigidOfNumberOfToDosHaveBeenDone = 0;
   // todo
   List<TLCategory> bigCategories;
   Map<String, List<TLCategory>> smallCategories;
   Map<String, TLToDos> toDos;
   TLWorkspace({
+    required this.id,
     required this.name,
     required this.bigCategories,
     required this.smallCategories,
@@ -31,6 +30,7 @@ class TLWorkspace {
 
   Map<String, dynamic> toJson() {
     return {
+      "id": id,
       "name": name,
       "bigCategories":
           TLCategory.categoryArrayToJson(categoryArray: bigCategories),
@@ -42,6 +42,7 @@ class TLWorkspace {
 
   factory TLWorkspace.fromJson(Map<String, dynamic> jsonData) {
     return TLWorkspace(
+      id: jsonData["id"] ?? UniqueKey().toString(),
       name: jsonData["name"] ?? "Unknown",
       bigCategories: TLCategory.jsonToCategoryArray(
           jsonCategoryArrayData: jsonData["bigCategories"]),

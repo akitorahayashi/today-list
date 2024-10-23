@@ -1,8 +1,12 @@
+import 'package:flutter/material.dart';
+
 class TLStep {
+  String id;
   String title;
   bool isChecked;
 
   TLStep({
+    required this.id,
     required this.title,
     this.isChecked = false,
   });
@@ -16,8 +20,9 @@ class TLStep {
 
   factory TLStep.fromJson(Map<String, dynamic> jsonData) {
     return TLStep(
-      title: jsonData["title"],
-      isChecked: jsonData["isChecked"] ?? false, // デフォルト値を設定
+      id: jsonData["id"] ?? UniqueKey().toString(),
+      title: jsonData["title"] ?? "",
+      isChecked: jsonData["isChecked"] ?? false,
     );
   }
 }

@@ -434,6 +434,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                                     : () {
                                         if (_edittedStepIndex == null) {
                                           _stepsOfThisToDo.add(TLStep(
+                                              id: UniqueKey().toString(),
                                               title: _stepTitleInputController
                                                   .text));
                                         } else {
@@ -442,6 +443,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                                           _stepsOfThisToDo.insert(
                                               _edittedStepIndex!,
                                               TLStep(
+                                                  id: UniqueKey().toString(),
                                                   title:
                                                       _stepTitleInputController
                                                           .text));

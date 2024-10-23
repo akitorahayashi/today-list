@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+
 import 'tl_step.dart';
 
 class TLToDo {
-  // static int numberOfComplitedToDos = 0;
-
   // todo別のメンバー
+  String id;
   String title;
 
   bool isChecked;
@@ -11,9 +12,10 @@ class TLToDo {
 
 // コンストラクタ
   TLToDo({
+    required this.id,
     required this.title,
-    this.isChecked = false,
     required this.steps,
+    this.isChecked = false,
   });
 
   // チェックの状態が変わったtodoの位置を変える関数
@@ -49,7 +51,8 @@ class TLToDo {
     List<dynamic> stepsData = jsonData["steps"] ?? [];
 
     return TLToDo(
-      title: jsonData["title"],
+      id: jsonData["id"] ?? UniqueKey().toString(),
+      title: jsonData["title"] ?? "",
       isChecked: jsonData["isChecked"] ?? false,
       steps: stepsData.map((stepData) => TLStep.fromJson(stepData)).toList(),
     );
