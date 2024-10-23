@@ -13,6 +13,7 @@ class TLStep {
 
   Map<String, dynamic> toMap() {
     return {
+      "id": id,
       "title": title,
       "isChecked": isChecked,
     };

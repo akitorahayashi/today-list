@@ -12,6 +12,7 @@ let noneId = "---n"
 let kTLContentExample = """
 [
   {
+    "id": "workspace1",
     "name": "ToDo",
     "bigCategories": [
       { "id": "noneId", "title": "なし" },
@@ -29,31 +30,14 @@ let kTLContentExample = """
       "---n": {
         "toDosInToday": [
           {
+            "id": "todo1",
             "title": "パスタ",
             "isChecked": false,
             "steps": [
-              { "title": "スパゲッティ", "isChecked": false },
-              { "title": "オリーブオイル", "isChecked": false }
+              { "id": "step1", "title": "スパゲッティ", "isChecked": false },
+              { "id": "step2", "title": "オリーブオイル", "isChecked": false }
             ]
-          },
-          { "title": "キャベツ", "isChecked": false, "steps": [] },
-          { "title": "にんじん", "isChecked": false, "steps": [] },
-          { "title": "のり", "isChecked": false, "steps": [] },
-          { "title": "まくらカバー", "isChecked": false, "steps": [] }
-        ],
-        "toDosInWhenever": []
-      },
-      "superMarcketId": {
-        "toDosInToday": [],
-        "toDosInWhenever": []
-      },
-      "vegetableId": {
-        "toDosInToday": [],
-        "toDosInWhenever": []
-      },
-      "hundredStoreId": {
-        "toDosInToday": [
-          { "title": "お皿", "isChecked": false, "steps": [] }
+          }
         ],
         "toDosInWhenever": []
       }
@@ -61,4 +45,3 @@ let kTLContentExample = """
   }
 ]
 """;
-

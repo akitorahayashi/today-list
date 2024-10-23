@@ -12,38 +12,14 @@ struct TLCategory: Codable {
 }
 
 struct TLToDo: Identifiable, Codable {
-    var id: UUID
+    var id: String
     var title: String
     var isChecked: Bool
     var steps: [TLStep]
-    
-    // デフォルトイニシャライザ
-    init(id: UUID = UUID(), title: String, isChecked: Bool, steps: [TLStep]) {
-        self.id = id
-        self.title = title
-        self.isChecked = isChecked
-        self.steps = steps
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case isChecked
-        case steps
-    }
-    
-    // カスタムデコード処理
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
-        self.title = try container.decode(String.self, forKey: .title)
-        self.isChecked = try container.decode(Bool.self, forKey: .isChecked)
-        self.steps = try container.decode([TLStep].self, forKey: .steps)
-    }
 }
 
 struct TLStep: Identifiable, Codable {
-    let id = UUID()
+    let id: String
     let title: String
     let isChecked: Bool
 }
@@ -93,38 +69,11 @@ struct TLToDos: Codable {
 }
 
 struct TLWorkspace: Codable, Identifiable {
-    var id: UUID
+    var id: String
     var name: String
     var bigCategories: [TLCategory]
     var smallCategories: [String: [TLCategory]]
     var toDos: [String: TLToDos]
-    
-    // Default initializer
-    init(id: UUID = UUID(), name: String, bigCategories: [TLCategory] = [], smallCategories: [String: [TLCategory]] = [:], toDos: [String: TLToDos] = [:]) {
-        self.id = id
-        self.name = name
-        self.bigCategories = bigCategories
-        self.smallCategories = smallCategories
-        self.toDos = toDos
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case bigCategories
-        case smallCategories
-        case toDos
-    }
-    
-    // Custom decoding
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
-        self.name = try container.decode(String.self, forKey: .name)
-        self.bigCategories = try container.decode([TLCategory].self, forKey: .bigCategories)
-        self.smallCategories = try container.decode([String: [TLCategory]].self, forKey: .smallCategories)
-        self.toDos = try container.decode([String: TLToDos].self, forKey: .toDos)
-    }
     
     // JSONからToDosをデコードする関数
     static func decodeWorkspaces(from jsonWorkspaces: String?) -> [TLWorkspace]? {
