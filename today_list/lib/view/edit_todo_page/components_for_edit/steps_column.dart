@@ -26,7 +26,7 @@ class _StepsColumnState extends State<StepsColumn> {
     return ReorderableColumn(
       children: List<Widget>.generate(widget.stepsOfThisToDo.length, (index) {
         return Padding(
-          key: Key(UniqueKey().toString()),
+          key: Key(widget.stepsOfThisToDo[index].id),
           padding: const EdgeInsets.only(left: 16.0, top: 1),
           child: Padding(
             padding: const EdgeInsets.only(left: 21.0),

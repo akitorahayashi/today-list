@@ -202,262 +202,243 @@ class EditToDoPageState extends State<EditToDoPage> {
                       child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        child: Column(
-                          children: [
-                            Column(children: [
-                              // ビッグカテゴリーを選択してsmallCategory選択のためのdropdownを更新する
-                              TLDropDownButton(
-                                  hintText: _selectedBigCategory.id == noneId
-                                      ? "大カテゴリー"
-                                      : TLWorkspace
-                                          .currentWorkspace.bigCategories
-                                          .where((oneOfBigCategory) =>
-                                              oneOfBigCategory.id ==
-                                              _selectedBigCategory.id)
-                                          .first
-                                          .title,
-                                  items: [
-                                    ...TLWorkspace
-                                        .currentWorkspace.bigCategories,
-                                    TLCategory(
-                                        id: "---bigCategory", title: "新しく作る"),
-                                  ].map((TLCategory oneOfBigCategory) {
-                                    return DropdownMenuItem(
-                                      value: oneOfBigCategory,
-                                      child: Text(
-                                        oneOfBigCategory.title,
-                                        style: oneOfBigCategory.id ==
-                                                _selectedBigCategory.id
-                                            ? TextStyle(
-                                                color: theme[SettingData
-                                                        .shared.selectedTheme]!
-                                                    .accentColor,
-                                                fontWeight: FontWeight.bold)
-                                            : TextStyle(
-                                                color: Colors.black
-                                                    .withOpacity(0.5),
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged:
-                                      (TLCategory? newBigCategory) async {
-                                    if (newBigCategory != null) {
-                                      _selectedSmallCategory = null;
-                                      switch (newBigCategory.id) {
-                                        case noneId:
-                                          _selectedBigCategory = TLWorkspace
-                                              .currentWorkspace
-                                              .bigCategories[0];
-                                          break;
-                                        case "---bigCategory":
-                                          _selectedBigCategory =
-                                              await addToDoCategoryAlert(
-                                                      context: context,
-                                                      categoryNameInputController:
-                                                          _categoryNameInputController,
-                                                      bigCategoryId: null) ??
-                                                  TLWorkspace.currentWorkspace
-                                                      .bigCategories[0];
-                                          break;
-                                        default:
-                                          _selectedBigCategory = newBigCategory;
-                                      }
-                                      setState(() {});
-                                    }
-                                  }),
-                              // --- ビッグカテゴリーを選択する
-
-                              // スモールカテゴリーを選択する
-                              TLDropDownButton(
-                                  hintText: _selectedSmallCategory == null
-                                      ? "小カテゴリー"
-                                      : TLWorkspace
-                                          .currentWorkspace
-                                          .smallCategories[
-                                              _selectedBigCategory.id]!
-                                          .where((oneOfSmallCategory) =>
-                                              oneOfSmallCategory.id ==
-                                              _selectedSmallCategory!.id)
-                                          .first
-                                          .title,
-                                  items: [
-                                    TLCategory(id: noneId, title: "なし"),
-                                    ...TLWorkspace
-                                            .currentWorkspace.smallCategories[
-                                        _selectedBigCategory.id]!,
-                                    if (_selectedBigCategory.id != noneId)
-                                      TLCategory(
-                                          id: "---smallCategory",
-                                          title: "新しく作る"),
-                                  ].map((TLCategory item) {
-                                    return DropdownMenuItem(
-                                      value: item,
-                                      child: Text(
-                                        item.title,
-                                        style: item.id ==
-                                                _selectedBigCategory.id
-                                            ? TextStyle(
-                                                color: theme[SettingData
-                                                        .shared.selectedTheme]!
-                                                    .accentColor,
-                                                fontWeight: FontWeight.bold)
-                                            : TextStyle(
-                                                color: Colors.black
-                                                    .withOpacity(0.5),
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged:
-                                      (TLCategory? newSmallCategory) async {
-                                    if (newSmallCategory != null) {
-                                      switch (newSmallCategory.id) {
-                                        case noneId:
-                                          _selectedSmallCategory = null;
-                                          break;
-                                        case "---smallCategory":
-                                          _selectedSmallCategory =
-                                              await addToDoCategoryAlert(
+                        child: Column(children: [
+                          // ビッグカテゴリーを選択してsmallCategory選択のためのdropdownを更新する
+                          TLDropDownButton(
+                              hintText: _selectedBigCategory.id == noneId
+                                  ? "大カテゴリー"
+                                  : TLWorkspace.currentWorkspace.bigCategories
+                                      .where((oneOfBigCategory) =>
+                                          oneOfBigCategory.id ==
+                                          _selectedBigCategory.id)
+                                      .first
+                                      .title,
+                              items: [
+                                ...TLWorkspace.currentWorkspace.bigCategories,
+                                TLCategory(
+                                    id: "---bigCategory", title: "新しく作る"),
+                              ].map((TLCategory oneOfBigCategory) {
+                                return DropdownMenuItem(
+                                  value: oneOfBigCategory,
+                                  child: Text(
+                                    oneOfBigCategory.title,
+                                    style: oneOfBigCategory.id ==
+                                            _selectedBigCategory.id
+                                        ? TextStyle(
+                                            color: theme[SettingData
+                                                    .shared.selectedTheme]!
+                                                .accentColor,
+                                            fontWeight: FontWeight.bold)
+                                        : TextStyle(
+                                            color:
+                                                Colors.black.withOpacity(0.5),
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (TLCategory? newBigCategory) async {
+                                if (newBigCategory != null) {
+                                  _selectedSmallCategory = null;
+                                  switch (newBigCategory.id) {
+                                    case noneId:
+                                      _selectedBigCategory = TLWorkspace
+                                          .currentWorkspace.bigCategories[0];
+                                      break;
+                                    case "---bigCategory":
+                                      _selectedBigCategory =
+                                          await addToDoCategoryAlert(
                                                   context: context,
                                                   categoryNameInputController:
                                                       _categoryNameInputController,
-                                                  bigCategoryId:
-                                                      _selectedBigCategory.id);
-                                          break;
-                                        default:
-                                          _selectedSmallCategory =
-                                              newSmallCategory;
-                                      }
-                                      setState(() {});
-                                    }
-                                  }),
-                              // --- スモールカテゴリーを選択する
+                                                  bigCategoryId: null) ??
+                                              TLWorkspace.currentWorkspace
+                                                  .bigCategories[0];
+                                      break;
+                                    default:
+                                      _selectedBigCategory = newBigCategory;
+                                  }
+                                  setState(() {});
+                                }
+                              }),
+                          // --- ビッグカテゴリーを選択する
 
-                              // 一列目 今日かいつでもか選択する
-                              Padding(
-                                padding: const EdgeInsets.only(top: 12.0),
-                                child: ToggleButtons(
-                                  // 大きさ
-                                  constraints: BoxConstraints(
-                                    minHeight: 35,
-                                    minWidth:
-                                        (MediaQuery.of(context).size.width -
-                                                50) /
-                                            2,
+                          // スモールカテゴリーを選択する
+                          TLDropDownButton(
+                              hintText: _selectedSmallCategory == null
+                                  ? "小カテゴリー"
+                                  : TLWorkspace.currentWorkspace
+                                      .smallCategories[_selectedBigCategory.id]!
+                                      .where((oneOfSmallCategory) =>
+                                          oneOfSmallCategory.id ==
+                                          _selectedSmallCategory!.id)
+                                      .first
+                                      .title,
+                              items: [
+                                TLCategory(id: noneId, title: "なし"),
+                                ...TLWorkspace.currentWorkspace
+                                    .smallCategories[_selectedBigCategory.id]!,
+                                if (_selectedBigCategory.id != noneId)
+                                  TLCategory(
+                                      id: "---smallCategory", title: "新しく作る"),
+                              ].map((TLCategory item) {
+                                return DropdownMenuItem(
+                                  value: item,
+                                  child: Text(
+                                    item.title,
+                                    style: item.id == _selectedBigCategory.id
+                                        ? TextStyle(
+                                            color: theme[SettingData
+                                                    .shared.selectedTheme]!
+                                                .accentColor,
+                                            fontWeight: FontWeight.bold)
+                                        : TextStyle(
+                                            color:
+                                                Colors.black.withOpacity(0.5),
+                                            fontWeight: FontWeight.bold),
                                   ),
-                                  // 背景色
-                                  fillColor:
-                                      theme[SettingData.shared.selectedTheme]!
-                                          .toggleButtonsBackgroundColor,
-                                  // 文字色
-                                  selectedColor:
-                                      theme[SettingData.shared.selectedTheme]!
-                                          .accentColor,
-                                  color:
-                                      theme[SettingData.shared.selectedTheme]!
-                                          .accentColor,
-                                  // splashColor
-                                  splashColor:
-                                      theme[SettingData.shared.selectedTheme]!
-                                          .toggleButtonsBackgroundSplashColor,
-                                  // 機能
-                                  isSelected: [_ifInToday, !_ifInToday],
-                                  renderBorder: true,
-                                  onPressed: (int index) => setState(() {
-                                    _ifInToday = index == 0;
-                                  }),
-                                  children: const [
-                                    Text("今日"),
-                                    Text(" いつでも "),
-                                  ],
-                                ),
-                              ),
-                              // --- 今日かいつでもか選択する
+                                );
+                              }).toList(),
+                              onChanged: (TLCategory? newSmallCategory) async {
+                                if (newSmallCategory != null) {
+                                  switch (newSmallCategory.id) {
+                                    case noneId:
+                                      _selectedSmallCategory = null;
+                                      break;
+                                    case "---smallCategory":
+                                      _selectedSmallCategory =
+                                          await addToDoCategoryAlert(
+                                              context: context,
+                                              categoryNameInputController:
+                                                  _categoryNameInputController,
+                                              bigCategoryId:
+                                                  _selectedBigCategory.id);
+                                      break;
+                                    default:
+                                      _selectedSmallCategory = newSmallCategory;
+                                  }
+                                  setState(() {});
+                                }
+                              }),
+                          // --- スモールカテゴリーを選択する
 
-                              // ToDoのタイトルを入力するTextFormField
-                              TLTextfield(
-                                isForStep: false,
-                                controller: _toDoTitleInputController,
-                                onChanged: (_) => setState(() {}),
-                                onPressed: !toDoTitleIsEntered
-                                    ? () => {}
-                                    : () {
-                                        addOrEditToDoAction(
-                                          context: context,
-                                          indexOfEditedToDo:
-                                              _indexOfThisToDoInToDos,
-                                          ifInToday: _ifInToday,
-                                          bigCategoryOfToDo:
-                                              _selectedBigCategory,
-                                          smallCategoryOfToDo:
-                                              _selectedSmallCategory,
-                                          toDoInputController:
-                                              _toDoTitleInputController,
-                                          addedSteps: _stepsOfThisToDo,
-                                          oldCategoryId: widget.oldCategoryId,
-                                        );
-                                        TLVibration.vibrate();
-                                        _indexOfThisToDoInToDos = null;
-                                        _edittedStepIndex = null;
-                                        _stepsOfThisToDo = [];
-                                        setState(() {});
-                                      },
+                          // 一列目 今日かいつでもか選択する
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12.0),
+                            child: ToggleButtons(
+                              // 大きさ
+                              constraints: BoxConstraints(
+                                minHeight: 35,
+                                minWidth:
+                                    (MediaQuery.of(context).size.width - 50) /
+                                        2,
                               ),
+                              // 背景色
+                              fillColor:
+                                  theme[SettingData.shared.selectedTheme]!
+                                      .toggleButtonsBackgroundColor,
+                              // 文字色
+                              selectedColor:
+                                  theme[SettingData.shared.selectedTheme]!
+                                      .accentColor,
+                              color: theme[SettingData.shared.selectedTheme]!
+                                  .accentColor,
+                              // splashColor
+                              splashColor:
+                                  theme[SettingData.shared.selectedTheme]!
+                                      .toggleButtonsBackgroundSplashColor,
+                              // 機能
+                              isSelected: [_ifInToday, !_ifInToday],
+                              renderBorder: true,
+                              onPressed: (int index) => setState(() {
+                                _ifInToday = index == 0;
+                              }),
+                              children: const [
+                                Text("今日"),
+                                Text(" いつでも "),
+                              ],
+                            ),
+                          ),
+                          // --- 今日かいつでもか選択する
 
-                              // 入力したstepsを表示
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: StepsColumn(
-                                    stepsOfThisToDo: _stepsOfThisToDo,
-                                    onTapStepRow: (index) {
-                                      _stepTitleInputController.text =
-                                          _stepsOfThisToDo[index].title;
-                                      _edittedStepIndex = index;
-                                      TLVibration.vibrate();
-                                      setState(() {});
-                                    },
-                                    tapToRemoveStepRow: (index) {
-                                      _stepsOfThisToDo.removeAt(index);
-                                      _edittedStepIndex = null;
-                                      TLVibration.vibrate();
-                                    }),
-                              ),
+                          // ToDoのタイトルを入力するTextFormField
+                          TLTextfield(
+                            isForStep: false,
+                            controller: _toDoTitleInputController,
+                            onChanged: (_) => setState(() {}),
+                            onPressed: !toDoTitleIsEntered
+                                ? () => {}
+                                : () {
+                                    addOrEditToDoAction(
+                                      context: context,
+                                      indexOfEditedToDo:
+                                          _indexOfThisToDoInToDos,
+                                      ifInToday: _ifInToday,
+                                      bigCategoryOfToDo: _selectedBigCategory,
+                                      smallCategoryOfToDo:
+                                          _selectedSmallCategory,
+                                      toDoInputController:
+                                          _toDoTitleInputController,
+                                      addedSteps: _stepsOfThisToDo,
+                                      oldCategoryId: widget.oldCategoryId,
+                                    );
+                                    TLVibration.vibrate();
+                                    _indexOfThisToDoInToDos = null;
+                                    _edittedStepIndex = null;
+                                    _stepsOfThisToDo = [];
+                                    setState(() {});
+                                  },
+                          ),
 
-                              // steps入力のtextFormField
-                              TLTextfield(
-                                isForStep: true,
-                                controller: _stepTitleInputController,
-                                onChanged: (_) => setState(() {}),
-                                onPressed: !stepTitleIsEntered
-                                    ? () => {}
-                                    : () {
-                                        if (_edittedStepIndex == null) {
-                                          _stepsOfThisToDo.add(TLStep(
+                          // 入力したstepsを表示
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: StepsColumn(
+                                stepsOfThisToDo: _stepsOfThisToDo,
+                                onTapStepRow: (index) {
+                                  _stepTitleInputController.text =
+                                      _stepsOfThisToDo[index].title;
+                                  _edittedStepIndex = index;
+                                  TLVibration.vibrate();
+                                  setState(() {});
+                                },
+                                tapToRemoveStepRow: (index) {
+                                  _stepsOfThisToDo.removeAt(index);
+                                  _edittedStepIndex = null;
+                                  TLVibration.vibrate();
+                                }),
+                          ),
+
+                          // steps入力のtextFormField
+                          TLTextfield(
+                            isForStep: true,
+                            controller: _stepTitleInputController,
+                            onChanged: (_) => setState(() {}),
+                            onPressed: !stepTitleIsEntered
+                                ? () => {}
+                                : () {
+                                    if (_edittedStepIndex == null) {
+                                      _stepsOfThisToDo.add(TLStep(
+                                          id: UniqueKey().toString(),
+                                          title:
+                                              _stepTitleInputController.text));
+                                    } else {
+                                      _stepsOfThisToDo
+                                          .removeAt(_edittedStepIndex!);
+                                      _stepsOfThisToDo.insert(
+                                          _edittedStepIndex!,
+                                          TLStep(
                                               id: UniqueKey().toString(),
                                               title: _stepTitleInputController
                                                   .text));
-                                        } else {
-                                          _stepsOfThisToDo
-                                              .removeAt(_edittedStepIndex!);
-                                          _stepsOfThisToDo.insert(
-                                              _edittedStepIndex!,
-                                              TLStep(
-                                                  id: UniqueKey().toString(),
-                                                  title:
-                                                      _stepTitleInputController
-                                                          .text));
-                                        }
-                                        _stepTitleInputController.clear();
-                                        setState(() {});
-                                      },
-                              ),
-                              const SizedBox(
-                                height: 45,
-                              ),
-                            ])
-                          ],
-                        ),
+                                    }
+                                    _stepTitleInputController.clear();
+                                    setState(() {});
+                                  },
+                          ),
+                          const SizedBox(
+                            height: 45,
+                          ),
+                        ]),
                       ),
                     ),
                     // 広告

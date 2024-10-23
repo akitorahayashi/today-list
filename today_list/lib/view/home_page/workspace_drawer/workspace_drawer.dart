@@ -101,7 +101,8 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                                         indexInWorkspaces < tlworkspaces.length;
                                         indexInWorkspaces++)
                                       ChangeWorkspaceCard(
-                                        key: Key(UniqueKey().toString()),
+                                        key: Key(tlworkspaces[indexInWorkspaces]
+                                            ["id"]),
                                         isInDrawerList: true,
                                         indexInWorkspaces: indexInWorkspaces,
                                       ),

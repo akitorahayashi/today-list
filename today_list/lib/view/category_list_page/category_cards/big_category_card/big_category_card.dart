@@ -46,7 +46,13 @@ class BigCategoryCard extends StatelessWidget {
                               .length;
                       indexOfSmallCategory++)
                     SmallCategoryCard(
-                        key: Key(UniqueKey().toString()),
+                        key: Key(TLWorkspace
+                            .currentWorkspace
+                            .smallCategories[TLWorkspace
+                                .currentWorkspace
+                                .bigCategories[indexOfBigCategory]
+                                .id]![indexOfSmallCategory]
+                            .id),
                         indexOfBigCategory: indexOfBigCategory,
                         indexOfSmallCategory: indexOfSmallCategory)
                 ],
