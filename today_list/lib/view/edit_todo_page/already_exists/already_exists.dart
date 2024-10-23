@@ -72,7 +72,8 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                         indexOfThisToDoInToDos < toDoArrayOfThisBlock.length;
                         indexOfThisToDoInToDos++)
                       ModelOfToDoCard(
-                        key: Key(UniqueKey().toString()),
+                        key: Key(
+                            toDoArrayOfThisBlock[indexOfThisToDoInToDos].id),
                         // todoのメンバー
                         toDoData: toDoArrayOfThisBlock[indexOfThisToDoInToDos],
                         ifInToday: widget.ifInToday,

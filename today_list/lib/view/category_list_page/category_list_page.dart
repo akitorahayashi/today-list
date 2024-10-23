@@ -57,7 +57,8 @@ class CategoryListPageState extends State<CategoryListPage> {
                             TLWorkspace.currentWorkspace.bigCategories.length;
                         indexOfBigCategory++)
                       BigCategoryCard(
-                          key: Key(UniqueKey().toString()),
+                          key: Key(TLWorkspace.currentWorkspace
+                              .bigCategories[indexOfBigCategory].id),
                           indexOfBigCategory: indexOfBigCategory),
                   ],
                   onReorder: (oldIndex, newIndex) {

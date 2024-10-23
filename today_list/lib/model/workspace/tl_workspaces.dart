@@ -6,10 +6,6 @@ import 'tl_workspace.dart';
 
 const String noneId = "---n";
 
-const String swToDoId = "swToDoId";
-const String swCategoryId = "swCategoryId";
-const String swWorkspaceId = "swWorkspaceId";
-
 const String superMarcketId = "superMarcketId";
 const String vegetableId = "vegetableId";
 const String hundredStoreId = "hundredStoreId";
@@ -20,58 +16,7 @@ const String mathIId = "mathIId";
 const String englishId = "englishId";
 
 List<Map<String, dynamic>> tlworkspaces = [
-  // --- 使い方
-  // TLWorkspace(name: "Default", bigCategories: [
-  //   TLCategory(id: noneId, title: "なし"),
-  //   TLCategory(id: swToDoId, title: "ToDo"),
-  //   TLCategory(id: swCategoryId, title: "Category"),
-  //   TLCategory(id: swWorkspaceId, title: "Workspace"),
-  // ], smallCategories: {
-  //   noneId: [],
-  //   swToDoId: [],
-  //   swCategoryId: [],
-  //   swWorkspaceId: [],
-  // }, toDos: {
-  //   noneId: TLToDos(toDosInToday: [
-  //     TLToDo(title: "Today Listはデザイン性に優れたToDoアプリ!", steps: [
-  //       TLStep(title: "カテゴリー分けを駆使して整理!"),
-  //       TLStep(title: "テーマカラーやチェックボックスを変えて自分好みのToDoアプリを作ろう!"),
-  //     ]),
-  //   ], toDosInWhenever: []),
-  //   // --- ToDo
-  //   swToDoId: TLToDos(toDosInToday: [
-  //     TLToDo(title: "ホーム画面下の+マークから追加できます", steps: []),
-  //     TLToDo(
-  //         title: "このToDoカードを左右にスライドすることで編集したり、削除することができます",
-  //         steps: [TLStep(title: "「今日」から「いつでも」にすぐ変更もできます!")]),
-  //     TLToDo(title: "左下のチェックボタンからチェックしたToDoを一括削除!", steps: []),
-  //   ], toDosInWhenever: []),
-  //   // --- Category
-  //   swCategoryId: TLToDos(toDosInToday: [
-  //     TLToDo(title: "右下のリストのボタンからカテゴリーリストを開くことができます", steps: [
-  //       TLStep(title: "+マークでカテゴリーを追加"),
-  //       TLStep(title: "カテゴリーのカードをタップすることで「今日」と「いつでも」のToDoを一つの画面で管理できます"),
-  //       TLStep(title: "「いつでも」に入れたToDoはカードをスライドしてこの画面から「今日」にしよう!!"),
-  //     ]),
-  //     TLToDo(
-  //         title: "「今日」「いつでも」のToDoを一度に管理できる画面を開いて右上の鉛筆ボタンからカテゴリーを編集、削除できます!",
-  //         steps: []),
-  //   ], toDosInWhenever: []),
-  //   // ---Workspace
-  //   swWorkspaceId: TLToDos(toDosInToday: [
-  //     TLToDo(
-  //         title: "WorkspaceはCategoryとそれに伴うToDoを一括で管理する場所です!",
-  //         steps: [TLStep(title: "Worksapceを変えることで、違ったカテゴリーを区別してまとめることができる!")]),
-  //     TLToDo(
-  //         title: "ホーム画面左上のメニューボタンからWorkspaceの一覧を見ることができます",
-  //         steps: [TLStep(title: "一覧の中の+ボタンからworkspaceを追加!")]),
-  //     TLToDo(
-  //         title: "Worspaceを編集したいときは一覧からManage Workspace(管理画面)を開こう!",
-  //         steps: [TLStep(title: "-ボタンで削除、鉛筆ボタンで名前を編集できます!")]),
-  //   ], toDosInWhenever: []),
-  // }).toJson(),
-  // --- 買い物
-  TLWorkspace(name: "Default", bigCategories: [
+  TLWorkspace(id: "defaultWorkspaceId", name: "Default", bigCategories: [
     TLCategory(id: noneId, title: "なし"),
     TLCategory(id: superMarcketId, title: "スーパー"),
     TLCategory(id: hundredStoreId, title: "100均"),
@@ -83,23 +28,25 @@ List<Map<String, dynamic>> tlworkspaces = [
     hundredStoreId: [],
   }, toDos: {
     noneId: TLToDos(toDosInToday: [
-      TLToDo(title: "のり", steps: []),
-      TLToDo(title: "まくらカバー", steps: [])
+      TLToDo(id: "todo1", title: "のり", steps: []),
+      TLToDo(id: "todo2", title: "まくらカバー", steps: []),
     ], toDosInWhenever: []),
     superMarcketId: TLToDos(toDosInToday: [
-      TLToDo(
-          title: "パスタ",
-          steps: [TLStep(title: "パスタの束"), TLStep(title: "オリーブオイル")]),
+      TLToDo(id: "todo3", title: "パスタ", steps: [
+        TLStep(id: "step1", title: "パスタの束"),
+        TLStep(id: "step2", title: "オリーブオイル")
+      ]),
     ], toDosInWhenever: []),
     vegetableId: TLToDos(toDosInToday: [
-      TLToDo(title: "キャベツ", steps: []),
-      TLToDo(title: "にんじん", steps: []),
+      TLToDo(id: "todo4", title: "キャベツ", steps: []),
+      TLToDo(id: "todo5", title: "にんじん", steps: []),
     ], toDosInWhenever: []),
     hundredStoreId: TLToDos(
-        toDosInToday: [TLToDo(title: "お皿", steps: [])], toDosInWhenever: []),
+        toDosInToday: [TLToDo(id: "todo6", title: "お皿", steps: [])],
+        toDosInWhenever: []),
   }).toJson(),
   // --- 学校
-  TLWorkspace(name: "School", bigCategories: [
+  TLWorkspace(id: "schoolWorksapceId", name: "School", bigCategories: [
     TLCategory(id: noneId, title: "なし"),
     TLCategory(id: mathId, title: "数学"),
     TLCategory(id: englishId, title: "英語"),
@@ -112,18 +59,18 @@ List<Map<String, dynamic>> tlworkspaces = [
     englishId: []
   }, toDos: {
     noneId: TLToDos(
-        toDosInToday: [TLToDo(title: "~のプリントを出す", steps: [])],
+        toDosInToday: [TLToDo(id: "todo7", title: "~のプリントを出す", steps: [])],
         toDosInWhenever: []),
     mathId: TLToDos(toDosInToday: [], toDosInWhenever: []),
     mathAId: TLToDos(toDosInToday: [
-      TLToDo(title: "~を復習する", steps: []),
-      TLToDo(title: "ワーク12ページの宿題をやる", steps: []),
+      TLToDo(id: "todo8", title: "~を復習する", steps: []),
+      TLToDo(id: "todo9", title: "ワーク12ページの宿題をやる", steps: []),
     ], toDosInWhenever: []),
     mathIId: TLToDos(
-        toDosInToday: [TLToDo(title: "ドリル20~25ページ", steps: [])],
+        toDosInToday: [TLToDo(id: "todo10", title: "ドリル20~25ページ", steps: [])],
         toDosInWhenever: []),
     englishId: TLToDos(
-        toDosInToday: [TLToDo(title: "単語帳301~400", steps: [])],
+        toDosInToday: [TLToDo(id: "todo11", title: "単語帳301~400", steps: [])],
         toDosInWhenever: []),
   }).toJson(),
 ];

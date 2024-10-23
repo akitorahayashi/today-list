@@ -93,6 +93,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                         // add action
                         // 新しくできたWorkspace
                         final createdWorkspaceJsonData = TLWorkspace(
+                            id: UniqueKey().toString(),
                             name: _workspaceNameInputController.text,
                             bigCategories: [
                               TLCategory(id: noneId, title: "なし")

@@ -49,7 +49,8 @@ class _ToDosInThisCategoryInTodayState
                         widget.toDosInTodayInThisCategory.length;
                     indexOfThisToDoInToDos++)
                   ToDoCard(
-                    key: Key(UniqueKey().toString()),
+                    key: Key(widget
+                        .toDosInTodayInThisCategory[indexOfThisToDoInToDos].id),
                     superKey: widget.superKey,
                     ifInToday: true,
                     indexOfThisToDoInToDos: indexOfThisToDoInToDos,

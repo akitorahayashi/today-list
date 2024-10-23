@@ -44,7 +44,7 @@ struct TLToDoListView: View {
                         for tlToDo in toDosInToday {
                             if contentCounter >= maxItems { break }
                             
-                            var createdToDo = TLToDo(title: tlToDo.title, isChecked: false, steps: [])
+                            var createdToDo = TLToDo(id:tlToDo.id, title: tlToDo.title, isChecked: false, steps: [])
                             contentCounter += 1
                             
                             for tlStep in tlToDo.steps {
