@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
-import 'package:today_list/model/externals/tl_ads.dart';
+import 'package:today_list/model/external/tl_ads.dart';
 import '../../../../../constants/global_keys.dart';
 import '../../../../../alerts/yes_no_alert.dart';
 import '../../../../../alerts/simple_alert.dart';
@@ -31,7 +31,7 @@ class _IconCardState extends State<IconCard> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isFocused =
+    final bool isCurrentIcon =
         widget.iconCategoryName == SettingData.shared.defaultIconCategory &&
             widget.selectedIconRarity == SettingData.shared.defaultIconRarity &&
             widget.iconName == SettingData.shared.defaultIconName;
@@ -40,11 +40,13 @@ class _IconCardState extends State<IconCard> {
       child: GestureDetector(
         onTap: () async {
           if (TLAds.isPassActive || kDebugMode) {
-            SettingData.shared.askToSetDefaultIcon(
-                context: context,
-                iconCategoryName: widget.iconCategoryName,
-                iconRarity: widget.selectedIconRarity,
-                iconName: widget.iconName);
+            if (!isCurrentIcon) {
+              SettingData.shared.askToSetDefaultIcon(
+                  context: context,
+                  iconCategoryName: widget.iconCategoryName,
+                  iconRarity: widget.selectedIconRarity,
+                  iconName: widget.iconName);
+            }
           } else {
             await yesNoAlert(
               context: context,
@@ -69,7 +71,7 @@ class _IconCardState extends State<IconCard> {
         child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          elevation: isFocused ? 0 : 3,
+          elevation: isCurrentIcon ? 0 : 3,
           color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
               .panelColor,
           child: Padding(
@@ -83,7 +85,7 @@ class _IconCardState extends State<IconCard> {
                   child: Icon(
                     !widget.isEarned
                         ? Icons.help_outline
-                        : isFocused
+                        : isCurrentIcon
                             ? iconsForCheckBox[widget.iconCategoryName]![widget
                                     .selectedIconRarity]![widget.iconName]!
                                 .checkedIcon
@@ -92,7 +94,7 @@ class _IconCardState extends State<IconCard> {
                                 .notCheckedIcon,
                     color: !widget.isEarned
                         ? Colors.black26
-                        : isFocused
+                        : isCurrentIcon
                             ? tlThemeDataList[
                                     SettingData.shared.selectedThemeIndex]!
                                 .checkmarkColor
@@ -107,7 +109,7 @@ class _IconCardState extends State<IconCard> {
                       fontWeight: FontWeight.w600,
                       color: !widget.isEarned
                           ? Colors.black26
-                          : isFocused
+                          : isCurrentIcon
                               ? tlThemeDataList[
                                       SettingData.shared.selectedThemeIndex]!
                                   .checkmarkColor
