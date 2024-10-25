@@ -1,5 +1,5 @@
 import '../../model/user/setting_data.dart';
-import '../../constants/theme.dart';
+import '../../model/tl_theme.dart';
 import 'package:flutter/material.dart';
 
 class DoubleCard extends StatelessWidget {

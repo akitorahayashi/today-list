@@ -1,6 +1,6 @@
-import '../../constants/theme.dart';
+import '../../model/tl_theme.dart';
 import '../../constants/global_keys.dart';
-import '../../model/tl_category.dart';
+import '../../model/todo/tl_category.dart';
 import '../../model/user/setting_data.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';

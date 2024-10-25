@@ -3,7 +3,7 @@ import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';
 import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
-import '../../constants/theme.dart';
+import '../../model/tl_theme.dart';
 import '../../constants/global_keys.dart';
 import '../../alerts/simple_alert.dart';
 import '../../styles.dart';

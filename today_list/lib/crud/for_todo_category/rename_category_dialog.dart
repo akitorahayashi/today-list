@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../alerts/simple_alert.dart';
-import '../../constants/theme.dart';
-import '../../model/tl_category.dart';
+import '../../model/tl_theme.dart';
+import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../styles.dart';
 
@@ -12,6 +11,7 @@ Widget renameCategoryDialog({
   required int indexOfBigCategory,
   required int? indexOfSmallCategory,
 }) {
+  final TLThemeData _tlThemeData = TLTheme.of(context);
   final TLCategory oldCategory = indexOfSmallCategory == null
       ? TLWorkspace.currentWorkspace.bigCategories[indexOfBigCategory]
       : TLWorkspace.currentWorkspace.smallCategories[TLWorkspace
@@ -23,8 +23,7 @@ Widget renameCategoryDialog({
   TextEditingController controllerForRename =
       TextEditingController(text: oldCategory.title);
   return AlertDialog(
-    backgroundColor:
-        tlThemeDataList[SettingData.shared.selectedThemeIndex]!.alertColor,
+    backgroundColor: _tlThemeData.alertColor,
     title: Column(
       children: [
         Padding(
@@ -57,9 +56,7 @@ Widget renameCategoryDialog({
                 child: TextFormField(
                   autofocus: true,
                   controller: controllerForRename,
-                  cursorColor:
-                      tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                          .accentColor,
+                  cursorColor: _tlThemeData.accentColor,
                   onChanged: (String? enteredCategoryName) {
                     if (enteredCategoryName != null &&
                         enteredCategoryName.trim() != "") {
@@ -72,12 +69,15 @@ Widget renameCategoryDialog({
                       color: Colors.black.withOpacity(0.5),
                       fontWeight: FontWeight.w600),
                   decoration: tlInputDecoration(
-                      labelText: "新しいカテゴリー名", icon: null, suffixIcon: null),
+                      context: context,
+                      labelText: "新しいカテゴリー名",
+                      icon: null,
+                      suffixIcon: null),
                 ),
               ),
             ),
             // 戻す、完了ボタン
-            ButtonBar(
+            OverflowBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
                 // 戻すボタン
@@ -88,10 +88,7 @@ Widget renameCategoryDialog({
                   },
                   child: Text(
                     "戻す",
-                    style: TextStyle(
-                        color: tlThemeDataList[
-                                SettingData.shared.selectedThemeIndex]!
-                            .accentColor),
+                    style: TextStyle(color: _tlThemeData.accentColor),
                   ),
                 ),
                 // 完了ボタン
@@ -133,10 +130,7 @@ Widget renameCategoryDialog({
                   },
                   child: Text(
                     "完了",
-                    style: TextStyle(
-                        color: tlThemeDataList[
-                                SettingData.shared.selectedThemeIndex]!
-                            .accentColor),
+                    style: TextStyle(color: _tlThemeData.accentColor),
                   ),
                 )
               ],

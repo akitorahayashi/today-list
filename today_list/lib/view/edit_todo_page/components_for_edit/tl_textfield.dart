@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../styles.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../model/user/setting_data.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

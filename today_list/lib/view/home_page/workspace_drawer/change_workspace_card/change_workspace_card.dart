@@ -3,7 +3,7 @@ import 'package:today_list/model/externals/tl_vibration.dart';
 import '../../../../model/user/setting_data.dart';
 import '../../../../model/workspace/tl_workspace.dart';
 import '../../../../model/workspace/tl_workspaces.dart';
-import '../../../../constants/theme.dart';
+import '../../../../model/tl_theme.dart';
 import '../../../../constants/global_keys.dart';
 import 'notify_current_workspace_is_changed.dart';
 import 'slidable_for_workspace_card.dart';

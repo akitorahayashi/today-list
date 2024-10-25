@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
-import '../../../../constants/theme.dart';
+import '../../../../model/tl_theme.dart';
 import '../../../../constants/global_keys.dart';
 import '../../../../alerts/yes_no_alert.dart';
 import '../../../../alerts/simple_alert.dart';
@@ -11,10 +11,10 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RightSideThemeSelectButton extends StatefulWidget {
-  final String themeName;
+  final int IndexOfthemeData;
   const RightSideThemeSelectButton({
     super.key,
-    required this.themeName,
+    required this.IndexOfthemeData,
   });
 
   @override
@@ -26,13 +26,14 @@ class _RightSideThemeSelectButtonState
     extends State<RightSideThemeSelectButton> {
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _themeData = TLTheme.of(context);
     final double deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () async {
         if (TLAds.isPassActive || kDebugMode) {
           SettingData.shared.confirmToChangeTheme(
             context: context,
-            selectedThemeIndex: widget.themeName,
+            selectedThemeIndex: widget.IndexOfthemeData,
           );
         } else {
           await yesNoAlert(
@@ -59,7 +60,8 @@ class _RightSideThemeSelectButtonState
           width: deviceWidth / 2 - 50,
           height: 150,
           decoration: BoxDecoration(
-              gradient: tlThemeDataList[widget.themeName]!.gradientOfNavBar,
+              gradient:
+                  tlThemeDataList[widget.IndexOfthemeData]!.gradientOfNavBar,
               borderRadius: BorderRadius.circular(10)),
           // ガラス
           child: GlassContainer(
@@ -69,7 +71,7 @@ class _RightSideThemeSelectButtonState
               // todoのカードを表示
               child: Card(
                 elevation: 5,
-                color: tlThemeDataList[widget.themeName]!.panelColor,
+                color: tlThemeDataList[widget.IndexOfthemeData]!.panelColor,
                 child: SizedBox(
                   width: deviceWidth / 2 - 70,
                   child: Padding(
@@ -81,16 +83,16 @@ class _RightSideThemeSelectButtonState
                           padding: const EdgeInsets.only(right: 8.0),
                           child: FaIcon(
                             FontAwesomeIcons.square,
-                            color: tlThemeDataList[widget.themeName]!
+                            color: tlThemeDataList[widget.IndexOfthemeData]!
                                 .checkmarkColor,
                           ),
                         ),
                         Text(
-                          tlThemeDataList[widget.themeName]!
+                          tlThemeDataList[widget.IndexOfthemeData]!
                               .themeTitleInSettings,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: tlThemeDataList[widget.themeName]!
+                              color: tlThemeDataList[widget.IndexOfthemeData]!
                                   .checkmarkColor,
                               fontSize: 12,
                               letterSpacing: 2,

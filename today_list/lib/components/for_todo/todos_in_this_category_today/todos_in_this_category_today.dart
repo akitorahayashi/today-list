@@ -1,7 +1,7 @@
 import '../todo_card/todo_card.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/tl_category.dart';
+import '../../../model/todo/tl_category.dart';
 import 'package:flutter/material.dart';
 
 import 'package:reorderables/reorderables.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../model/user/setting_data.dart';
 
 class ContentCard extends StatelessWidget {

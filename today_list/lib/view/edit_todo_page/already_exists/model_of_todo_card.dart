@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../constants/global_keys.dart';
 import '../../../constants/icon_for_checkbox.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/tl_category.dart';
+import '../../../model/todo/tl_category.dart';
 import '../../../model/user/setting_data.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../components/for_todo/todo_card/slidable_for_todo_card.dart';

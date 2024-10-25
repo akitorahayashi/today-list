@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../constants/icon_for_checkbox.dart';
 import '../../../components/for_ui/panel_with_title.dart';
 import '../../../model/user/setting_data.dart';
@@ -60,12 +60,13 @@ class SetAppearancePageState extends State<SetAppearancePage> {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     double deviceWidth = MediaQuery.of(context).size.width;
     // テーマを表示させるための変数
-    List<String> unUsingTheme = tlThemeDataList.keys
-        .where(
-            (themeName) => themeName != SettingData.shared.selectedThemeIndex)
-        .toList();
+    List<int> unUsingThemeIndices =
+        List<int>.generate(tlThemeDataList.length, (index) => index)
+            .where((index) => index != SettingData.shared.selectedThemeIndex)
+            .toList();
 
     return ListView(padding: EdgeInsets.zero, children: [
       // 広告
@@ -104,10 +105,10 @@ class SetAppearancePageState extends State<SetAppearancePage> {
                           children: [
                             // 2個目のテーマ
                             RightSideThemeSelectButton(
-                                themeName: unUsingTheme[0]),
+                                IndexOfthemeData: unUsingThemeIndices[0]),
                             // 3個目のテーマ
                             RightSideThemeSelectButton(
-                                themeName: unUsingTheme[1]),
+                                IndexOfthemeData: unUsingThemeIndices[1]),
                           ],
                         ),
                       ),

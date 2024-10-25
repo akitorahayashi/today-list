@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import '../../../alerts/yes_no_alert.dart';
 import '../../../alerts/simple_alert.dart';
 import '../../../model/externals/tl_ads.dart';
-import '../../../model/user/setting_data.dart';
 import '../../../constants/global_keys.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 
 class ShowLimitOfPassCard extends StatelessWidget {
   const ShowLimitOfPassCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 12),
       child: InkWell(
@@ -34,8 +34,7 @@ class ShowLimitOfPassCard extends StatelessWidget {
           ),
         ),
         child: Card(
-          color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-              .settingPanelColor,
+          color: _tlThemeData.settingPanelColor,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: Card(
@@ -50,9 +49,7 @@ class ShowLimitOfPassCard extends StatelessWidget {
                         "PASSの期限",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: tlThemeDataList[
-                                  SettingData.shared.selectedThemeIndex]!
-                              .accentColor,
+                          color: _tlThemeData.accentColor,
                         ),
                       ),
                     ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../model/user/setting_data.dart';
 import '../model/externals/tl_ads.dart';
-import 'theme.dart';
+import '../model/tl_theme.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

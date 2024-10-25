@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/tl_category.dart';
+import '../../model/todo/tl_category.dart';
 import '../../model/user/setting_data.dart';
-import '../../constants/theme.dart';
+import '../../model/tl_theme.dart';
 import 'category_cards/big_category_card/big_category_card.dart';
 import './add_category_parts/add_category_button.dart';
 import './add_category_parts/add_category_sheet.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../constants/global_keys.dart';
-import '../../../model/tl_category.dart';
+import '../../../model/todo/tl_category.dart';
 import '../../../model/user/setting_data.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../view/all_todos_in_this_category_page/all_todos_in_category_page.dart';

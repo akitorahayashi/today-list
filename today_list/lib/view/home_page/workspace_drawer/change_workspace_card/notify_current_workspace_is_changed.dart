@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../styles.dart';
 import '../../../../model/user/setting_data.dart';
-import '../../../../constants/theme.dart';
+import '../../../../model/tl_theme.dart';
 
 Future<void> notifyCurrentWorkspaceIsChanged({
   required BuildContext context,

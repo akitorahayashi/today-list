@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/workspace/tl_workspaces.dart';
 import '../../../../model/user/setting_data.dart';
-import '../../../../model/tl_category.dart';
-import '../../../../constants/theme.dart';
+import '../../../../model/todo/tl_category.dart';
+import '../../../../model/tl_theme.dart';
 import '../../../../constants/global_keys.dart';
 import '../../../../crud/for_workspace/delete_workspace_alert.dart';
 import '../../../../crud/for_workspace/add_or_edit_workspace_alert.dart';

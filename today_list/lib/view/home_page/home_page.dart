@@ -6,12 +6,12 @@ import '../../components/for_todo/todos_in_this_category_today/todos_in_this_cat
 import '../../components/for_ui/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
 import '../../components/for_ui/today_list_bottom_navbar/today_list_bottom_navbar.dart';
 import '../../constants/global_keys.dart';
-import '../../constants/theme.dart';
+import '../../model/tl_theme.dart';
 import '../../alerts/yes_no_alert.dart';
 import '../../model/user/setting_data.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';
-import '../../model/tl_category.dart';
+import '../../model/todo/tl_category.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../crud/for_todo/delete_checked_todos_in_today.dart';
 import '../edit_todo_page/edit_todo_page.dart';

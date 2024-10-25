@@ -3,7 +3,7 @@ import 'package:today_list/model/externals/tl_connectivity.dart';
 import 'package:today_list/model/externals/tl_widgetkit.dart';
 
 import '../../constants/global_keys.dart';
-import '../../constants/theme.dart';
+import '../tl_theme.dart';
 import '../../alerts/yes_no_alert.dart';
 import '../../alerts/simple_alert.dart';
 import '../externals/tl_vibration.dart';

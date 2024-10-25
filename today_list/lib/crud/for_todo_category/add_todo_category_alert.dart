@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../constants/theme.dart';
-import '../../model/tl_category.dart';
+import '../../model/tl_theme.dart';
+import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/todo/tl_todos.dart';
 import '../../model/user/setting_data.dart';

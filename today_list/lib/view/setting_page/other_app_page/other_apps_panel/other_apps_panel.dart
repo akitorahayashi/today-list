@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../constants/theme.dart';
-import '../../../../model/user/setting_data.dart';
+import '../../../../model/tl_theme.dart';
 import '../../../../components/for_ui/double_card.dart';
 import './other_app_card/other_app_card.dart';
 import './other_apps_model.dart';
@@ -10,6 +9,7 @@ class NiceAppsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return DoubleCard(
       child: Column(
         children: [
@@ -26,18 +26,14 @@ class NiceAppsPanel extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 26,
-                        color: tlThemeDataList[
-                                SettingData.shared.selectedThemeIndex]!
-                            .niceAppsCardColor),
+                        color: _tlThemeData.niceAppsCardColor),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 24.0),
                   child: Icon(
                     Icons.thumb_up,
-                    color:
-                        tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                            .niceAppsCardColor,
+                    color: _tlThemeData.niceAppsCardColor,
                   ),
                 )
               ],
