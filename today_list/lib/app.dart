@@ -18,7 +18,7 @@ class _TodayListState extends State<TodayList> {
   @override
   Widget build(BuildContext context) {
     return TLTheme(
-      data: tlThemeDataList[SettingData.shared.selectedThemeIndex]!,
+      data: tlThemeDataList[SettingData.shared.selectedThemeIndex],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: "Today List",
@@ -34,7 +34,7 @@ class _TodayListState extends State<TodayList> {
           // ライト用テーマ
           theme: ThemeData(
             primarySwatch:
-                tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                tlThemeDataList[SettingData.shared.selectedThemeIndex]
                     .accentColor,
           ),
           home: HomePage(key: homePageKey)

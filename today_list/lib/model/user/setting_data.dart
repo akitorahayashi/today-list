@@ -75,13 +75,13 @@ class SettingData {
 
   // テーマを変更する関数
   Future<void> confirmToChangeTheme(
-      {required BuildContext context, required String themeName}) {
+      {required BuildContext context, required int selectedThemeIndex}) {
     return showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
           return Dialog(
-            backgroundColor: tlThemeDataList[themeName]!.alertColor,
+            backgroundColor: tlThemeDataList[selectedThemeIndex].alertColor,
             child: DefaultTextStyle(
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -98,8 +98,8 @@ class SettingData {
                       height: 80,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          gradient:
-                              tlThemeDataList[themeName]!.gradientOfNavBar,
+                          gradient: tlThemeDataList[selectedThemeIndex]!
+                              .gradientOfNavBar,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: GlassContainer(
@@ -107,16 +107,18 @@ class SettingData {
                             alignment: Alignment.center,
                             child: Card(
                               elevation: 5,
-                              color: tlThemeDataList[themeName]!.panelColor,
+                              color: tlThemeDataList[selectedThemeIndex]!
+                                  .panelColor,
                               child: Container(
                                 width: 150,
                                 height: 50,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  themeName,
+                                  selectedThemeIndex,
                                   style: TextStyle(
-                                      color: tlThemeDataList[themeName]!
-                                          .checkmarkColor,
+                                      color:
+                                          tlThemeDataList[selectedThemeIndex]!
+                                              .checkmarkColor,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -128,7 +130,7 @@ class SettingData {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text("$themeNameに変更しますか？"),
+                    child: Text("$selectedThemeIndexに変更しますか？"),
                   ),
                   // 操作ボタン
                   OverflowBar(
@@ -142,7 +144,8 @@ class SettingData {
                         child: Text(
                           "戻る",
                           style: TextStyle(
-                              color: tlThemeDataList[themeName]!.accentColor),
+                              color: tlThemeDataList[selectedThemeIndex]!
+                                  .accentColor),
                         ),
                       ),
                       // 変更するボタン
@@ -151,7 +154,8 @@ class SettingData {
                           onPressed: () {
                             // このアラートを消す
                             Navigator.pop(context);
-                            SettingData.shared.selectedThemeIndex = themeName;
+                            SettingData.shared.selectedThemeIndex =
+                                selectedThemeIndex;
                             TLConnectivity.sendSelectedThemeToAppleWatch();
                             TLWidgetKit.updateSelectedTheme();
                             todayListAppKey.currentState?.setState(() {});
@@ -170,7 +174,7 @@ class SettingData {
                           // InkWell
                           child: Text("変更",
                               style: TextStyle(
-                                  color: tlThemeDataList[themeName]!
+                                  color: tlThemeDataList[selectedThemeIndex]!
                                       .accentColor))),
                     ],
                   )

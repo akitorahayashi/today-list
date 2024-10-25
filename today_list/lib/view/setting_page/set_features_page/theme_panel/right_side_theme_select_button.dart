@@ -32,7 +32,7 @@ class _RightSideThemeSelectButtonState
         if (TLAds.isPassActive || kDebugMode) {
           SettingData.shared.confirmToChangeTheme(
             context: context,
-            themeName: widget.themeName,
+            selectedThemeIndex: widget.themeName,
           );
         } else {
           await yesNoAlert(
