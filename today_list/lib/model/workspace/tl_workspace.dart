@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/externals/tl_widgetkit.dart';
-import 'package:today_list/model/externals/tl_connectivity.dart';
+import 'package:today_list/model/external/tl_widgetkit.dart';
+import 'package:today_list/model/external/tl_connectivity.dart';
+import 'package:today_list/model/external/tl_pref.dart';
 import '../todo/tl_category.dart';
 import 'tl_workspaces.dart';
 import '../todo/tl_todos.dart';
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TLWorkspace {
   static int currentWorkspaceIndex = 0;
@@ -79,14 +78,14 @@ class TLWorkspace {
     TLWorkspace.currentWorkspaceIndex = newWorkspaceIndex;
     TLWorkspace.currentWorkspace =
         TLWorkspace.fromJson(tlworkspaces[TLWorkspace.currentWorkspaceIndex]);
-    await SharedPreferences.getInstance().then((pref) {
+    await TLPref().getPref.then((pref) {
       pref.setInt("currentWorkspaceIndex", newWorkspaceIndex);
     });
   }
 
   // --- save ---
   static Future<void> readWorkspaces() async {
-    await SharedPreferences.getInstance().then((pref) {
+    await TLPref().getPref.then((pref) {
       currentWorkspaceIndex = pref.getInt("currentWorkspaceIndex") ?? 0;
       if (pref.getString("tlworkspaces") != null) {
         tlworkspaces = List<Map<String, dynamic>>.from(
@@ -103,7 +102,7 @@ class TLWorkspace {
       TLConnectivity.sendTLWorkspacesToAppleWatch();
     }
     // string workspaceを保存する
-    await SharedPreferences.getInstance().then(
+    await TLPref().getPref.then(
         (pref) => pref.setString("tlworkspaces", json.encode(tlworkspaces)));
   }
 

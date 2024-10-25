@@ -1,9 +1,8 @@
 import '../workspace/tl_workspace.dart';
 import '../workspace/tl_workspaces.dart';
 import 'tl_todos.dart';
+import '../external/tl_pref.dart';
 import 'dart:convert';
-
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TLCategory {
   String id;
@@ -40,7 +39,7 @@ class TLCategory {
         categoryArray: TLWorkspace.currentWorkspace.bigCategories);
     jsonCurrentWorkspace["smallCategories"] = TLCategory.smallCategoriesToJson(
         smallCategories: TLWorkspace.currentWorkspace.smallCategories);
-    SharedPreferences.getInstance().then((pref) {
+    TLPref().getPref.then((pref) {
       pref.setString("stringWorkspaces", json.encode(tlworkspaces));
     });
   }
@@ -50,7 +49,7 @@ class TLCategory {
     tlworkspaces[TLWorkspace.currentWorkspaceIndex]["bigCategories"] =
         TLCategory.categoryArrayToJson(
             categoryArray: TLWorkspace.currentWorkspace.bigCategories);
-    SharedPreferences.getInstance().then((pref) {
+    TLPref().getPref.then((pref) {
       pref.setString("tlworkspaces", json.encode(tlworkspaces));
     });
   }
@@ -60,7 +59,7 @@ class TLCategory {
     tlworkspaces[TLWorkspace.currentWorkspaceIndex]["smallCategories"] =
         TLCategory.smallCategoriesToJson(
             smallCategories: TLWorkspace.currentWorkspace.smallCategories);
-    SharedPreferences.getInstance().then((pref) {
+    TLPref().getPref.then((pref) {
       pref.setString("tlworkspaces", json.encode(tlworkspaces));
     });
   }
