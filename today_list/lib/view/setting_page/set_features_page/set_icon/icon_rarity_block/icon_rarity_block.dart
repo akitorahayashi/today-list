@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../constants/icon_for_checkbox.dart';
+import '../../../../../constants/icon_for_checkbox_data.dart';
 import '../../../../../model/tl_theme.dart';
 import '../../../../../model/user/setting_data.dart';
 import './icon_card.dart';

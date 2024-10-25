@@ -4,7 +4,7 @@ import 'package:today_list/model/externals/tl_ads.dart';
 import '../../../../../constants/global_keys.dart';
 import '../../../../../alerts/yes_no_alert.dart';
 import '../../../../../alerts/simple_alert.dart';
-import '../../../../../constants/icon_for_checkbox.dart';
+import '../../../../../constants/icon_for_checkbox_data.dart';
 import '../../../../../model/tl_theme.dart';
 import '../../../../../model/user/setting_data.dart';
 
