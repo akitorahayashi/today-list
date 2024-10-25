@@ -13,27 +13,35 @@ import 'dart:convert';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 class SettingData {
-  static SettingData shared = SettingData();
+  static SettingData shared = SettingData(
+      selectedThemeIndex: 0,
+      defaultIconRarity: "Common",
+      defaultIconName: "box",
+      defaultIconCategory: "Default",
+      isFirstEntry: true);
 
   // テーマ
-  int selectedThemeIndex = 0;
-  // 英語モード
-  bool englishMode = true;
+  int selectedThemeIndex;
   // アイコン
-  String defaultIconCategory = "Default";
-  String defaultIconRarity = "Common";
-  String defaultIconName = "box";
+  String defaultIconCategory;
+  String defaultIconRarity;
+  String defaultIconName;
   // チュートリアル
-  bool isFirstEntry = true;
+  bool isFirstEntry;
 
   // コンストラクタ
-  SettingData();
+  SettingData({
+    required this.selectedThemeIndex,
+    required this.defaultIconRarity,
+    required this.defaultIconName,
+    required this.defaultIconCategory,
+    required this.isFirstEntry,
+  });
 
   // 保存する際に使う
   Map<String, dynamic> toJson() {
     return {
       "selectedThemeIndex": selectedThemeIndex,
-      "englishMode": englishMode,
       "defaultIconCategory": defaultIconCategory,
       "defaultIconRarity": defaultIconRarity,
       "defaultIconName": defaultIconName,
@@ -43,13 +51,13 @@ class SettingData {
 
   // JSONからインスタンスを作成するファクトリコンストラクタ
   factory SettingData.fromJson(Map<String, dynamic> jsonData) {
-    return SettingData()
-      ..selectedThemeIndex = jsonData["selectedThemeIndex"] ?? "Sun Orange"
-      ..englishMode = jsonData["englishMode"] ?? true
-      ..defaultIconCategory = jsonData["defaultIconCategory"] ?? "Default"
-      ..defaultIconRarity = jsonData["defaultIconRarity"] ?? "Common"
-      ..defaultIconName = jsonData["defaultIconName"] ?? "box"
-      ..isFirstEntry = jsonData["isFirstEntry"] ?? true;
+    return SettingData(
+      selectedThemeIndex: jsonData["selectedThemeIndex"] ?? 0,
+      defaultIconCategory: jsonData["defaultIconCategory"] ?? "Default",
+      defaultIconRarity: jsonData["defaultIconRarity"] ?? "Common",
+      defaultIconName: jsonData["defaultIconName"] ?? "box",
+      isFirstEntry: jsonData["isFirstEntry"] ?? true,
+    );
   }
 
   // 設定を読み込む関数

@@ -1,4 +1,4 @@
-import './tl_pref.dart';
+import 'tl_pref.dart';
 
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 

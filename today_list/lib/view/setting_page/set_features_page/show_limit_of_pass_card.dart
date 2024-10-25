@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../alerts/yes_no_alert.dart';
 import '../../../alerts/simple_alert.dart';
-import '../../../model/externals/tl_ads.dart';
+import '../../../model/external/tl_ads.dart';
 import '../../../constants/global_keys.dart';
 import '../../../model/tl_theme.dart';
 

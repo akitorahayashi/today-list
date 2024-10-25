@@ -3,7 +3,7 @@ import '../../model/todo/tl_category.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/externals/tl_vibration.dart';
+import '../../model/external/tl_vibration.dart';
 import 'notify_todo_or_step_is_edited.dart';
 
 void addOrEditToDoAction({

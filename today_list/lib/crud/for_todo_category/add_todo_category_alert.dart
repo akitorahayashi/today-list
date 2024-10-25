@@ -3,7 +3,7 @@ import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/todo/tl_todos.dart';
-import '../../model/externals/tl_vibration.dart';
+import '../../model/external/tl_vibration.dart';
 import '../../styles.dart';
 import 'notify_category_is_added.dart';
 

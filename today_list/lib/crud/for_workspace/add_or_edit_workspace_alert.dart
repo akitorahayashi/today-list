@@ -7,7 +7,7 @@ import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';
 import '../../model/todo/tl_todos.dart';
-import '../../model/externals/tl_vibration.dart';
+import '../../model/external/tl_vibration.dart';
 import 'notify_workspace_is_added.dart';
 
 class AddOrEditWorkspaceDialog extends StatefulWidget {
