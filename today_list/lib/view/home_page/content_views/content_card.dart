@@ -19,7 +19,8 @@ class ContentCard extends StatelessWidget {
         child: ConstrainedBox(
             constraints: const BoxConstraints(minHeight: 70),
             child: Card(
-                color: theme[SettingData.shared.selectedTheme]!.panelColor,
+                color: tlThemeDataList[SettingData.shared.selectedTheme]!
+                    .panelColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 child: ClipRRect(
@@ -34,7 +35,8 @@ class ContentCard extends StatelessWidget {
                         child: Text(contentName,
                             style: TextStyle(
                                 fontWeight: FontWeight.w700,
-                                color: theme[SettingData.shared.selectedTheme]!
+                                color: tlThemeDataList[
+                                        SettingData.shared.selectedTheme]!
                                     .accentColor,
                                 letterSpacing: 1)),
                       ),

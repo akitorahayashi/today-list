@@ -19,7 +19,8 @@ Future<TLCategory?> addToDoCategoryAlert({
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
+          backgroundColor:
+              tlThemeDataList[SettingData.shared.selectedTheme]!.alertColor,
           content: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -37,7 +38,8 @@ Future<TLCategory?> addToDoCategoryAlert({
                       autofocus: true,
                       controller: categoryNameInputController,
                       cursorColor:
-                          theme[SettingData.shared.selectedTheme]!.accentColor,
+                          tlThemeDataList[SettingData.shared.selectedTheme]!
+                              .accentColor,
                       style: TextStyle(
                           color: Colors.black.withOpacity(0.5),
                           fontWeight: FontWeight.w600),

@@ -33,7 +33,7 @@ class _SignInCardState extends State<SignInCard> {
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w800,
-                      color: theme[SettingData.shared.selectedTheme]!
+                      color: tlThemeDataList[SettingData.shared.selectedTheme]!
                           .accentColor
                           .withOpacity(0.8)),
                 ),
@@ -48,8 +48,8 @@ class _SignInCardState extends State<SignInCard> {
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     letterSpacing: 1,
-                    color:
-                        theme[SettingData.shared.selectedTheme]!.accentColor),
+                    color: tlThemeDataList[SettingData.shared.selectedTheme]!
+                        .accentColor),
               ),
             ),
             const Padding(
@@ -65,8 +65,8 @@ class _SignInCardState extends State<SignInCard> {
                 style: TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 20,
-                    color:
-                        theme[SettingData.shared.selectedTheme]!.accentColor),
+                    color: tlThemeDataList[SettingData.shared.selectedTheme]!
+                        .accentColor),
               ),
             ),
             const Padding(
@@ -95,7 +95,8 @@ class _SignInCardState extends State<SignInCard> {
                             padding: const EdgeInsets.only(right: 12.0),
                             child: Icon(
                               FontAwesomeIcons.square,
-                              color: theme[SettingData.shared.selectedTheme]!
+                              color: tlThemeDataList[
+                                      SettingData.shared.selectedTheme]!
                                   .accentColor
                                   .withOpacity(0.84),
                             ),
@@ -103,7 +104,8 @@ class _SignInCardState extends State<SignInCard> {
                           Text(
                             "Sign in with Google",
                             style: TextStyle(
-                                color: theme[SettingData.shared.selectedTheme]!
+                                color: tlThemeDataList[
+                                        SettingData.shared.selectedTheme]!
                                     .accentColor
                                     .withOpacity(0.84),
                                 fontSize: 20,

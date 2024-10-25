@@ -81,7 +81,7 @@ class SettingData {
         barrierDismissible: false,
         builder: (context) {
           return Dialog(
-            backgroundColor: theme[themeName]!.alertColor,
+            backgroundColor: tlThemeDataList[themeName]!.alertColor,
             child: DefaultTextStyle(
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -98,7 +98,8 @@ class SettingData {
                       height: 80,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          gradient: theme[themeName]!.gradientOfNavBar,
+                          gradient:
+                              tlThemeDataList[themeName]!.gradientOfNavBar,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: GlassContainer(
@@ -106,7 +107,7 @@ class SettingData {
                             alignment: Alignment.center,
                             child: Card(
                               elevation: 5,
-                              color: theme[themeName]!.panelColor,
+                              color: tlThemeDataList[themeName]!.panelColor,
                               child: Container(
                                 width: 150,
                                 height: 50,
@@ -114,7 +115,8 @@ class SettingData {
                                 child: Text(
                                   themeName,
                                   style: TextStyle(
-                                      color: theme[themeName]!.checkmarkColor,
+                                      color: tlThemeDataList[themeName]!
+                                          .checkmarkColor,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -139,8 +141,8 @@ class SettingData {
                         // InkWell
                         child: Text(
                           "戻る",
-                          style:
-                              TextStyle(color: theme[themeName]!.accentColor),
+                          style: TextStyle(
+                              color: tlThemeDataList[themeName]!.accentColor),
                         ),
                       ),
                       // 変更するボタン
@@ -168,7 +170,8 @@ class SettingData {
                           // InkWell
                           child: Text("変更",
                               style: TextStyle(
-                                  color: theme[themeName]!.accentColor))),
+                                  color: tlThemeDataList[themeName]!
+                                      .accentColor))),
                     ],
                   )
                 ],

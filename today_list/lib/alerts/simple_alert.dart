@@ -13,7 +13,8 @@ Future<void> simpleAlert(
       barrierDismissible: false,
       builder: (context) {
         return Dialog(
-          backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
+          backgroundColor:
+              tlThemeDataList[SettingData.shared.selectedTheme]!.alertColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
             child: Padding(
@@ -27,8 +28,9 @@ Future<void> simpleAlert(
                     child: Text(
                       title,
                       style: TextStyle(
-                          color: theme[SettingData.shared.selectedTheme]!
-                              .accentColor,
+                          color:
+                              tlThemeDataList[SettingData.shared.selectedTheme]!
+                                  .accentColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),

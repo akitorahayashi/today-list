@@ -34,7 +34,8 @@ class ShowLimitOfPassCard extends StatelessWidget {
           ),
         ),
         child: Card(
-          color: theme[SettingData.shared.selectedTheme]!.settingPanelColor,
+          color: tlThemeDataList[SettingData.shared.selectedTheme]!
+              .settingPanelColor,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: Card(
@@ -49,8 +50,9 @@ class ShowLimitOfPassCard extends StatelessWidget {
                         "PASSの期限",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: theme[SettingData.shared.selectedTheme]!
-                              .accentColor,
+                          color:
+                              tlThemeDataList[SettingData.shared.selectedTheme]!
+                                  .accentColor,
                         ),
                       ),
                     ),

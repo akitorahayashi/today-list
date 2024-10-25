@@ -25,7 +25,7 @@ class _TLDropDownButtonState extends State<TLDropDownButton> {
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
       child: DropdownButton(
           iconEnabledColor:
-              theme[SettingData.shared.selectedTheme]!.accentColor,
+              tlThemeDataList[SettingData.shared.selectedTheme]!.accentColor,
           isExpanded: true,
           hint: Text(
             widget.hintText,

@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
 
-class TLTheme {
-  final String themeTitle;
+class TLTheme extends InheritedWidget {
+  final TLThemeData data;
+
+  TLTheme({required this.data, required Widget child}) : super(child: child);
+
+  static TLThemeData of(BuildContext context) {
+    final TLTheme? customTheme =
+        context.dependOnInheritedWidgetOfExactType<TLTheme>();
+    return customTheme!.data;
+  }
+
+  @override
+  bool updateShouldNotify(TLTheme oldWidget) {
+    return data != oldWidget.data;
+  }
+}
+
+class TLThemeData {
+  final String themeName;
+  final String themeTitleInSettings;
   // 設定ページ系
   final Color titleColorOfSettingPage;
   final Color settingPanelColor;
@@ -32,8 +50,9 @@ class TLTheme {
   // reward
   final Color rewardButtonTitleColor;
 
-  TLTheme({
-    required this.themeTitle,
+  TLThemeData({
+    required this.themeName,
+    required this.themeTitleInSettings,
     // 設定ページ系
     required this.titleColorOfSettingPage,
     required this.settingPanelColor,
@@ -67,9 +86,10 @@ class TLTheme {
   });
 }
 
-final Map<String, TLTheme> theme = {
-  "Sun Orange": TLTheme(
-    themeTitle: "Sun\nOrange",
+final List<TLThemeData> tlThemeDataList = [
+  TLThemeData(
+    themeName: "Sun Orange",
+    themeTitleInSettings: "Sun\nOrange",
     // 設定ページ系
     titleColorOfSettingPage: const Color.fromRGBO(170, 119, 80, 1),
     settingPanelColor: const Color.fromRGBO(255, 243, 184, 1),
@@ -105,8 +125,9 @@ final Map<String, TLTheme> theme = {
     rewardButtonTitleColor: const Color.fromRGBO(255, 190, 86, 1),
     // settings
   ),
-  "Lime Green": TLTheme(
-    themeTitle: "Lime\nGreen",
+  TLThemeData(
+    themeName: "Lime Green",
+    themeTitleInSettings: "Lime\nGreen",
     // 設定ページ系
     settingPanelColor: const Color.fromRGBO(223, 168, 139, 1),
     titleColorOfSettingPage: const Color.fromRGBO(130, 81, 43, 1),
@@ -141,8 +162,9 @@ final Map<String, TLTheme> theme = {
     // reward
     rewardButtonTitleColor: const Color.fromRGBO(123, 205, 60, 1),
   ),
-  "Marine Blue": TLTheme(
-    themeTitle: "Marine\nBlue",
+  TLThemeData(
+    themeName: "Marine Blue",
+    themeTitleInSettings: "Marine\nBlue",
     // 設定ページ系
     titleColorOfSettingPage: Colors.cyan,
     settingPanelColor: const Color.fromRGBO(219, 248, 255, 1),
@@ -176,4 +198,4 @@ final Map<String, TLTheme> theme = {
     // reward
     rewardButtonTitleColor: Colors.cyan,
   ),
-};
+];

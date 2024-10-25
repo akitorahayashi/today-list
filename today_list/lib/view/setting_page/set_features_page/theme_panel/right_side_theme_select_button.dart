@@ -59,7 +59,7 @@ class _RightSideThemeSelectButtonState
           width: deviceWidth / 2 - 50,
           height: 150,
           decoration: BoxDecoration(
-              gradient: theme[widget.themeName]!.gradientOfNavBar,
+              gradient: tlThemeDataList[widget.themeName]!.gradientOfNavBar,
               borderRadius: BorderRadius.circular(10)),
           // ガラス
           child: GlassContainer(
@@ -69,7 +69,7 @@ class _RightSideThemeSelectButtonState
               // todoのカードを表示
               child: Card(
                 elevation: 5,
-                color: theme[widget.themeName]!.panelColor,
+                color: tlThemeDataList[widget.themeName]!.panelColor,
                 child: SizedBox(
                   width: deviceWidth / 2 - 70,
                   child: Padding(
@@ -81,14 +81,17 @@ class _RightSideThemeSelectButtonState
                           padding: const EdgeInsets.only(right: 8.0),
                           child: FaIcon(
                             FontAwesomeIcons.square,
-                            color: theme[widget.themeName]!.checkmarkColor,
+                            color: tlThemeDataList[widget.themeName]!
+                                .checkmarkColor,
                           ),
                         ),
                         Text(
-                          theme[widget.themeName]!.themeTitle,
+                          tlThemeDataList[widget.themeName]!
+                              .themeTitleInSettings,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: theme[widget.themeName]!.checkmarkColor,
+                              color: tlThemeDataList[widget.themeName]!
+                                  .checkmarkColor,
                               fontSize: 12,
                               letterSpacing: 2,
                               fontWeight: FontWeight.w800),

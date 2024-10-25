@@ -62,7 +62,7 @@ class SetAppearancePageState extends State<SetAppearancePage> {
   Widget build(BuildContext context) {
     double deviceWidth = MediaQuery.of(context).size.width;
     // テーマを表示させるための変数
-    List<String> unUsingTheme = theme.keys
+    List<String> unUsingTheme = tlThemeDataList.keys
         .where((themeName) => themeName != SettingData.shared.selectedTheme)
         .toList();
 

@@ -31,7 +31,7 @@ Widget getIcon({required bool isChecked, Color? iconColor, double? iconSize}) {
     isChecked ? thisIconData.checkedIcon : thisIconData.notCheckedIcon,
     color: iconColor ??
         (isChecked
-            ? theme[SettingData.shared.selectedTheme]!.checkmarkColor
+            ? tlThemeDataList[SettingData.shared.selectedTheme]!.checkmarkColor
             : Colors.black.withOpacity(0.56)),
     size: iconSize ??
         (fontawesomeCategories.contains(SettingData.shared.defaultIconCategory)

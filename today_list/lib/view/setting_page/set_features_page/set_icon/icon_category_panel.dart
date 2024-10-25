@@ -22,8 +22,8 @@ class IconCategoryPanel extends StatelessWidget {
               style: TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w800,
-                  color:
-                      theme[SettingData.shared.selectedTheme]!.checkmarkColor),
+                  color: tlThemeDataList[SettingData.shared.selectedTheme]!
+                      .checkmarkColor),
             ),
           ),
           // Super Rare, Rare

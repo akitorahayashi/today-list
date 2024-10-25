@@ -24,9 +24,9 @@ class _StepsColumnState extends State<StepsColumn> {
   @override
   Widget build(BuildContext context) {
     return ReorderableColumn(
-      children: List<Widget>.generate(widget.stepsOfThisToDo.length, (index) {
+      children: List<Widget>.generate(widget.stepsOfThisToDo.length, (indexOfAStep) {
         return Padding(
-          key: Key(widget.stepsOfThisToDo[index].id),
+          key: Key(widget.stepsOfThisToDo[indexOfAStep].id),
           padding: const EdgeInsets.only(left: 16.0, top: 1),
           child: Padding(
             padding: const EdgeInsets.only(left: 21.0),
@@ -44,11 +44,11 @@ class _StepsColumnState extends State<StepsColumn> {
                 Expanded(
                   child: GestureDetector(
                       onTap: () {
-                        widget.onTapStepRow(index);
+                        widget.onTapStepRow(indexOfAStep);
                         editToDoPageKey.currentState?.setState(() {});
                       },
                       child: Text(
-                        widget.stepsOfThisToDo[index].title,
+                        widget.stepsOfThisToDo[indexOfAStep].title,
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -60,7 +60,7 @@ class _StepsColumnState extends State<StepsColumn> {
                   padding: const EdgeInsets.only(right: 16.0),
                   child: TextButton(
                     onPressed: () {
-                      widget.tapToRemoveStepRow(index);
+                      widget.tapToRemoveStepRow(indexOfAStep);
                       editToDoPageKey.currentState?.setState(() {});
                     },
                     style: TextButton.styleFrom(

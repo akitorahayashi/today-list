@@ -61,7 +61,8 @@ class HomePageState extends State<HomePage> {
       body: Stack(children: [
         // 背景色
         Container(
-            color: theme[SettingData.shared.selectedTheme]!.backgroundColor),
+            color: tlThemeDataList[SettingData.shared.selectedTheme]!
+                .backgroundColor),
         // 本体
         CustomScrollView(
           slivers: [

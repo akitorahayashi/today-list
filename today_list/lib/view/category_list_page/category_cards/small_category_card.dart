@@ -52,8 +52,9 @@ class SmallCategoryCard extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           overflow: TextOverflow.ellipsis,
                           fontSize: 15,
-                          color: theme[SettingData.shared.selectedTheme]!
-                              .accentColor),
+                          color:
+                              tlThemeDataList[SettingData.shared.selectedTheme]!
+                                  .accentColor),
                     ),
                   ),
                 ),
@@ -66,8 +67,9 @@ class SmallCategoryCard extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
-                        color: theme[SettingData.shared.selectedTheme]!
-                            .accentColor),
+                        color:
+                            tlThemeDataList[SettingData.shared.selectedTheme]!
+                                .accentColor),
                   ),
                 ),
             ],

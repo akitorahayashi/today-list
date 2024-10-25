@@ -70,8 +70,8 @@ class TLSliverAppBar extends StatelessWidget {
       // AppBarのデザイン
       flexibleSpace: DecoratedBox(
         decoration: BoxDecoration(
-            gradient:
-                theme[SettingData.shared.selectedTheme]!.gradientOfNavBar),
+            gradient: tlThemeDataList[SettingData.shared.selectedTheme]!
+                .gradientOfNavBar),
         child: const FlexibleSpaceBar(
           title: SizedBox(),
         ),
