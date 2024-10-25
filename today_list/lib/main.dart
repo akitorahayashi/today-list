@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/externals/tl_connectivity.dart';
-import 'package:today_list/model/externals/tl_vibration.dart';
+import 'package:today_list/model/external/tl_connectivity.dart';
+import 'package:today_list/model/external/tl_vibration.dart';
 import 'model/workspace/tl_workspace.dart';
 import './constants/global_keys.dart';
 import 'model/user/setting_data.dart';
-import 'model/externals/tl_ads.dart';
+import 'model/external/tl_ads.dart';
 import './app.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';

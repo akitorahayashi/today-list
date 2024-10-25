@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/alerts/simple_alert.dart';
-import './tl_pref.dart';
+import 'tl_pref.dart';
 import 'package:today_list/main.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';

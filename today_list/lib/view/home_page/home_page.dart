@@ -11,7 +11,7 @@ import '../../alerts/yes_no_alert.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';
 import '../../model/todo/tl_category.dart';
-import '../../model/externals/tl_vibration.dart';
+import '../../model/external/tl_vibration.dart';
 import '../../crud/for_todo/delete_checked_todos_in_today.dart';
 import '../edit_todo_page/edit_todo_page.dart';
 import '../category_list_page/category_list_page.dart';

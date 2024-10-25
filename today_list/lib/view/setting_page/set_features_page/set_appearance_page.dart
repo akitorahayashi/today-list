@@ -6,7 +6,7 @@ import '../../../model/tl_theme.dart';
 import '../../../constants/icon_for_checkbox_data.dart';
 import '../../../components/for_ui/panel_with_title.dart';
 import '../../../model/user/setting_data.dart';
-import '../../../model/externals/tl_ads.dart';
+import '../../../model/external/tl_ads.dart';
 import './set_icon/icon_category_panel.dart';
 import './set_vibration_card.dart';
 import './theme_panel/left_side_show_selecting_panel.dart';

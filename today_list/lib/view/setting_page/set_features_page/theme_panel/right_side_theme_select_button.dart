@@ -5,7 +5,7 @@ import '../../../../constants/global_keys.dart';
 import '../../../../alerts/yes_no_alert.dart';
 import '../../../../alerts/simple_alert.dart';
 import '../../../../model/user/setting_data.dart';
-import '../../../../model/externals/tl_ads.dart';
+import '../../../../model/external/tl_ads.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
