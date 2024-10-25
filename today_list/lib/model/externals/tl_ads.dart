@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/alerts/simple_alert.dart';
+import 'package:today_list/main.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:today_list/alerts/simple_alert.dart';
-import 'package:today_list/main.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class TLAds {
   static RewardedAd? rewardedAd;
@@ -135,44 +136,38 @@ class TLAds {
 
   // ad unit id
   static String editPageBannerAdUnitId({required bool isTestMode}) {
-    if (Platform.isAndroid) {
-      return isTestMode
-          ? "ca-app-pub-3940256099942544/6300978111"
-          : "ca-app-pub-1452400640613361/8048676444";
-    } else if (Platform.isIOS) {
-      return isTestMode
-          ? "ca-app-pub-3940256099942544/2934735716"
-          : "ca-app-pub-1452400640613361/3235333467";
+    if (isTestMode) {
+      return Platform.isAndroid
+          ? dotenv.env['ANDROID_TEST_BANNER_AD_UNIT_ID']!
+          : dotenv.env['IOS_TEST_BANNER_AD_UNIT_ID']!;
     } else {
-      throw UnsupportedError('Unsupported platform');
+      return Platform.isAndroid
+          ? dotenv.env['ANDROID_EDIT_PAGE_BANNER_AD_UNIT_ID']!
+          : dotenv.env['IOS_EDIT_PAGE_BANNER_AD_UNIT_ID']!;
     }
   }
 
   static String setFeaturesBannerAdUnitId({required bool isTestMode}) {
-    if (Platform.isAndroid) {
-      return isTestMode
-          ? "ca-app-pub-3940256099942544/6300978111"
-          : "ca-app-pub-1452400640613361/7912945074";
-    } else if (Platform.isIOS) {
-      return isTestMode
-          ? "ca-app-pub-3940256099942544/2934735716"
-          : "ca-app-pub-1452400640613361/1539108413";
+    if (isTestMode) {
+      return Platform.isAndroid
+          ? dotenv.env['ANDROID_TEST_BANNER_AD_UNIT_ID']!
+          : dotenv.env['IOS_TEST_BANNER_AD_UNIT_ID']!;
     } else {
-      throw UnsupportedError("Unsupported platform");
+      return Platform.isAndroid
+          ? dotenv.env['ANDROID_SET_FEATURES_BANNER_AD_UNIT_ID']!
+          : dotenv.env['IOS_SET_FEATURES_BANNER_AD_UNIT_ID']!;
     }
   }
 
   static String rewardedAdUnitId({required bool isTestMode}) {
-    if (Platform.isAndroid) {
-      return isTestMode
-          ? "ca-app-pub-3940256099942544/5224354917"
-          : "ca-app-pub-1452400640613361/1483268097";
-    } else if (Platform.isIOS) {
-      return isTestMode
-          ? "ca-app-pub-3940256099942544/1712485313"
-          : "ca-app-pub-1452400640613361/4835108172";
+    if (isTestMode) {
+      return Platform.isAndroid
+          ? dotenv.env['ANDROID_TEST_REWARDED_AD_UNIT_ID']!
+          : dotenv.env['IOS_TEST_REWARDED_AD_UNIT_ID']!;
     } else {
-      throw UnsupportedError("Unsupported platform");
+      return Platform.isAndroid
+          ? dotenv.env['ANDROID_REWARDED_AD_UNIT_ID']!
+          : dotenv.env['IOS_REWARDED_AD_UNIT_ID']!;
     }
   }
 }

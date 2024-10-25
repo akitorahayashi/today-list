@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/externals/tl_widgetkit.dart';
 import 'package:today_list/model/externals/tl_connectivity.dart';
-import '../tl_category.dart';
+import '../todo/tl_category.dart';
 import 'tl_workspaces.dart';
 import '../todo/tl_todos.dart';
 import 'dart:convert';

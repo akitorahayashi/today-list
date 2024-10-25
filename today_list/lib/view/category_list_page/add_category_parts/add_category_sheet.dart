@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_todos.dart';
-import '../../../model/tl_category.dart';
+import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/workspace/tl_workspaces.dart';
 import '../../../model/user/setting_data.dart';
@@ -57,6 +57,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
 // ---  カテゴリー追加系の変数
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black26, width: 1),
@@ -97,8 +98,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                         style: bigCategory.id ==
                                 _selectedBigCategoryInDropButton.id
                             ? TextStyle(
-                                color: theme[SettingData.shared.selectedTheme]!
-                                    .accentColor,
+                                color: _tlThemeData.accentColor,
                                 fontWeight: FontWeight.bold)
                             : TextStyle(
                                 color: Colors.black.withOpacity(0.5),
@@ -140,8 +140,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
 
               // smallCategoryのTextFormField
               child: TextFormField(
-                cursorColor:
-                    theme[SettingData.shared.selectedTheme]!.accentColor,
+                cursorColor: _tlThemeData.accentColor,
                 controller: _smallCategoryInputController,
                 readOnly: !_canInputSmallCategory,
                 style: TextStyle(
@@ -149,6 +148,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                   fontWeight: FontWeight.bold,
                 ),
                 decoration: tlInputDecoration(
+                    context: context,
                     labelText:
                         SettingData.shared.englishMode ? "Small" : "小カテゴリー",
                     icon: null,
@@ -162,7 +162,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
             ),
 
             // 閉じる、追加するボタン
-            ButtonBar(
+            OverflowBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
                 // 閉じるボタン
@@ -170,9 +170,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                   onPressed: () => Navigator.pop(context),
                   child: Text(
                     "閉じる",
-                    style: TextStyle(
-                        color: theme[SettingData.shared.selectedTheme]!
-                            .accentColor),
+                    style: TextStyle(color: _tlThemeData.accentColor),
                   ),
                 ),
 
@@ -197,8 +195,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                               _selectedBigCategoryInDropButton.id != noneId &&
                                       _smallCategoryNameIsEntered
                                   // 追加ボタンを使うことができる
-                                  ? theme[SettingData.shared.selectedTheme]!
-                                      .accentColor
+                                  ? _tlThemeData.accentColor
                                   : Colors.black),
                     ),
                   ),

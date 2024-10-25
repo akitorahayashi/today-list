@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../model/user/setting_data.dart';
 import '../../constants/global_keys.dart';
-import '../../constants/theme.dart';
+import '../../model/tl_theme.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
 import 'set_features_page/set_appearance_page.dart';
 import './my_page/my_page.dart';
@@ -37,6 +36,7 @@ class _SettingPageState extends State<SettingPage> {
 // --- ページ遷移系のメンバー
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return ProgressHUD(
       barrierEnabled: true,
       indicatorColor: Colors.white,
@@ -48,9 +48,7 @@ class _SettingPageState extends State<SettingPage> {
           children: [
             // 背景色
             Container(
-                decoration: BoxDecoration(
-                    color: theme[SettingData.shared.selectedTheme]!
-                        .backgroundColor)),
+                decoration: BoxDecoration(color: _tlThemeData.backgroundColor)),
             NestedScrollView(
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
@@ -155,9 +153,7 @@ class _SettingPageState extends State<SettingPage> {
                                   return Icon(
                                     _iconDataOfSettingPageContents[index][0],
                                     color: index == _selectedPageIndex
-                                        ? theme[SettingData
-                                                .shared.selectedTheme]!
-                                            .accentColor
+                                        ? _tlThemeData.accentColor
                                         : Colors.black45,
                                   );
                                 // if (todayListUser
@@ -222,9 +218,7 @@ class _SettingPageState extends State<SettingPage> {
                                           border: Border.all(
                                             width: 1.5,
                                             color: _selectedPageIndex == 2
-                                                ? theme[SettingData
-                                                        .shared.selectedTheme]!
-                                                    .accentColor
+                                                ? _tlThemeData.accentColor
                                                     .withOpacity(1)
                                                 : Colors.white.withOpacity(.8),
                                           ),
@@ -238,9 +232,7 @@ class _SettingPageState extends State<SettingPage> {
                                   return Icon(
                                     _iconDataOfSettingPageContents[index][0],
                                     color: index == _selectedPageIndex
-                                        ? theme[SettingData
-                                                .shared.selectedTheme]!
-                                            .accentColor
+                                        ? _tlThemeData.accentColor
                                         : Colors.black45,
                                   );
                               }
@@ -251,8 +243,7 @@ class _SettingPageState extends State<SettingPage> {
                                 _iconDataOfSettingPageContents[index][1],
                                 style: TextStyle(
                                   color: index == _selectedPageIndex
-                                      ? theme[SettingData.shared.selectedTheme]!
-                                          .accentColor
+                                      ? _tlThemeData.accentColor
                                       : Colors.black45,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,

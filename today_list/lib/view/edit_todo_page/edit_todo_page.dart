@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
 import '../../alerts/yes_no_alert.dart';
-import '../../constants/theme.dart';
+import '../../model/tl_theme.dart';
 import '../../model/todo/tl_step.dart';
-import '../../model/tl_category.dart';
-import '../../model/user/setting_data.dart';
+import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../model/externals/tl_ads.dart';
@@ -124,14 +123,13 @@ class EditToDoPageState extends State<EditToDoPage> {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Scaffold(
       body: Stack(
         children: [
           // 背景色
           Container(
-              decoration: BoxDecoration(
-                  color:
-                      theme[SettingData.shared.selectedTheme]!.backgroundColor),
+              decoration: BoxDecoration(color: _tlThemeData.backgroundColor),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height),
 
@@ -225,9 +223,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                                     style: oneOfBigCategory.id ==
                                             _selectedBigCategory.id
                                         ? TextStyle(
-                                            color: theme[SettingData
-                                                    .shared.selectedTheme]!
-                                                .accentColor,
+                                            color: _tlThemeData.accentColor,
                                             fontWeight: FontWeight.bold)
                                         : TextStyle(
                                             color:
@@ -287,9 +283,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                                     item.title,
                                     style: item.id == _selectedBigCategory.id
                                         ? TextStyle(
-                                            color: theme[SettingData
-                                                    .shared.selectedTheme]!
-                                                .accentColor,
+                                            color: _tlThemeData.accentColor,
                                             fontWeight: FontWeight.bold)
                                         : TextStyle(
                                             color:
@@ -334,18 +328,13 @@ class EditToDoPageState extends State<EditToDoPage> {
                               ),
                               // 背景色
                               fillColor:
-                                  theme[SettingData.shared.selectedTheme]!
-                                      .toggleButtonsBackgroundColor,
+                                  _tlThemeData.toggleButtonsBackgroundColor,
                               // 文字色
-                              selectedColor:
-                                  theme[SettingData.shared.selectedTheme]!
-                                      .accentColor,
-                              color: theme[SettingData.shared.selectedTheme]!
-                                  .accentColor,
+                              selectedColor: _tlThemeData.accentColor,
+                              color: _tlThemeData.accentColor,
                               // splashColor
-                              splashColor:
-                                  theme[SettingData.shared.selectedTheme]!
-                                      .toggleButtonsBackgroundSplashColor,
+                              splashColor: _tlThemeData
+                                  .toggleButtonsBackgroundSplashColor,
                               // 機能
                               isSelected: [_ifInToday, !_ifInToday],
                               renderBorder: true,

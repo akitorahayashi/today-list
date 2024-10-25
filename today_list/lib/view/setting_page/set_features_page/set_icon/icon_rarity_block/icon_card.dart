@@ -4,8 +4,8 @@ import 'package:today_list/model/externals/tl_ads.dart';
 import '../../../../../constants/global_keys.dart';
 import '../../../../../alerts/yes_no_alert.dart';
 import '../../../../../alerts/simple_alert.dart';
-import '../../../../../constants/icon_for_checkbox.dart';
-import '../../../../../constants/theme.dart';
+import '../../../../../constants/icon_for_checkbox_data.dart';
+import '../../../../../model/tl_theme.dart';
 import '../../../../../model/user/setting_data.dart';
 
 class IconCard extends StatefulWidget {
@@ -70,7 +70,8 @@ class _IconCardState extends State<IconCard> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: isFocused ? 0 : 3,
-          color: theme[SettingData.shared.selectedTheme]!.panelColor,
+          color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+              .panelColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Column(
@@ -92,7 +93,8 @@ class _IconCardState extends State<IconCard> {
                     color: !widget.isEarned
                         ? Colors.black26
                         : isFocused
-                            ? theme[SettingData.shared.selectedTheme]!
+                            ? tlThemeDataList[
+                                    SettingData.shared.selectedThemeIndex]!
                                 .checkmarkColor
                             : Colors.black45,
                     size: isFontawesomeCategories ? 17 : 20,
@@ -106,7 +108,8 @@ class _IconCardState extends State<IconCard> {
                       color: !widget.isEarned
                           ? Colors.black26
                           : isFocused
-                              ? theme[SettingData.shared.selectedTheme]!
+                              ? tlThemeDataList[
+                                      SettingData.shared.selectedThemeIndex]!
                                   .checkmarkColor
                               : Colors.black45),
                 )

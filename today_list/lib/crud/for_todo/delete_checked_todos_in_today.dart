@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/tl_category.dart';
+import '../../model/todo/tl_category.dart';
 import 'delete_all_checked_todo_in_todos.dart';
 
 // このworkspaceの今日でチェック済みtodoを全て削除するための関数

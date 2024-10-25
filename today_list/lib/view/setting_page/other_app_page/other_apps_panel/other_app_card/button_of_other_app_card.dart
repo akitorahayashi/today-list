@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../constants/theme.dart';
+import '../../../../../model/tl_theme.dart';
 import '../../../../../model/user/setting_data.dart';
 import '../../../../../launch_my_url.dart';
 import '../other_apps_model.dart';
@@ -50,14 +50,14 @@ class ButtonInNiceAppCard extends StatelessWidget {
         },
         style: ButtonStyle(
           overlayColor: WidgetStateProperty.all(
-              theme[SettingData.shared.selectedTheme]!
+              tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                   .niceAppsPressedElevatedButtonColor),
           backgroundColor: WidgetStateProperty.resolveWith<Color>(
             (Set<WidgetState> states) {
               if (states.contains(WidgetState.disabled)) {
                 return const Color.fromRGBO(220, 220, 220, 1);
               }
-              return theme[SettingData.shared.selectedTheme]!
+              return tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                   .niceAppsElevatedButtonColor;
             },
           ),

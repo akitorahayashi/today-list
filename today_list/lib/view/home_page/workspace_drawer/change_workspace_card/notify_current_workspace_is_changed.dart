@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../../../styles.dart';
-import '../../../../model/user/setting_data.dart';
-import '../../../../constants/theme.dart';
+import '../../../../model/tl_theme.dart';
 
 Future<void> notifyCurrentWorkspaceIsChanged({
   required BuildContext context,
   required String newWorkspaceName,
 }) async {
+  final TLThemeData _tlThemeData = TLTheme.of(context);
   return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
         return Dialog(
-          backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
+          backgroundColor: _tlThemeData.alertColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
             child: Column(
@@ -33,8 +33,7 @@ Future<void> notifyCurrentWorkspaceIsChanged({
                   child: Text(
                     newWorkspaceName,
                     style: TextStyle(
-                        color: theme[SettingData.shared.selectedTheme]!
-                            .accentColor,
+                        color: _tlThemeData.accentColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),
@@ -49,7 +48,7 @@ Future<void> notifyCurrentWorkspaceIsChanged({
                   height: 15,
                 ),
                 TextButton(
-                    style: alertButtonStyle(),
+                    style: alertButtonStyle(context: context),
                     onPressed: () => Navigator.pop(context),
                     child: const Text("OK"))
               ],

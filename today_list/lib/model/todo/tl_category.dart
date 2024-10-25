@@ -1,8 +1,6 @@
-import 'package:today_list/model/externals/tl_widgetkit.dart';
-
-import 'workspace/tl_workspace.dart';
-import 'workspace/tl_workspaces.dart';
-import 'todo/tl_todos.dart';
+import '../workspace/tl_workspace.dart';
+import '../workspace/tl_workspaces.dart';
+import 'tl_todos.dart';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../alerts/simple_alert.dart';
-import '../../constants/theme.dart';
-import '../../model/tl_category.dart';
-import '../../model/workspace/tl_workspaces.dart';
+import '../../model/tl_theme.dart';
+import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../styles.dart';
 
@@ -15,6 +13,7 @@ Future<void> confirmToDeleteThisCategory({
   required int indexOfBigCategory,
   required int? indexOfSmallCategory,
 }) async {
+  final TLThemeData _tlThemeData = TLTheme.of(context);
   // 本当に削除するか確認するアラート
   final TLCategory categoryThisBelongsTo = indexOfSmallCategory == null
       ? TLWorkspace.currentWorkspace.bigCategories[indexOfBigCategory]
@@ -27,7 +26,7 @@ Future<void> confirmToDeleteThisCategory({
       barrierDismissible: false,
       builder: (context) {
         return Dialog(
-          backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
+          backgroundColor: _tlThemeData.alertColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
             child: Column(
@@ -39,8 +38,7 @@ Future<void> confirmToDeleteThisCategory({
                   child: Text(
                     "本当にこのカテゴリーを\n削除しますか？",
                     style: TextStyle(
-                        color: theme[SettingData.shared.selectedTheme]!
-                            .accentColor,
+                        color: _tlThemeData.accentColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),
@@ -57,15 +55,15 @@ Future<void> confirmToDeleteThisCategory({
                     ),
                   ),
                 ),
-                ButtonBar(
+                OverflowBar(
                   alignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TextButton(
-                        style: alertButtonStyle(),
+                        style: alertButtonStyle(context: context),
                         onPressed: () => Navigator.pop(context),
                         child: const Text("いいえ")),
                     TextButton(
-                        style: alertButtonStyle(),
+                        style: alertButtonStyle(context: context),
                         onPressed: () async {
                           if (indexOfSmallCategory != null) {
                             // このカテゴリーがsmallCategoryの場合

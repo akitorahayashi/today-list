@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/tl_category.dart';
-import '../../model/user/setting_data.dart';
-import '../../constants/theme.dart';
+import '../../model/todo/tl_category.dart';
+import '../../model/tl_theme.dart';
 import 'category_cards/big_category_card/big_category_card.dart';
 import './add_category_parts/add_category_button.dart';
 import './add_category_parts/add_category_sheet.dart';
@@ -20,13 +19,12 @@ class CategoryListPage extends StatefulWidget {
 class CategoryListPageState extends State<CategoryListPage> {
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Scaffold(
       body: Stack(children: [
         // 背景色
         Container(
-            decoration: BoxDecoration(
-                color:
-                    theme[SettingData.shared.selectedTheme]!.backgroundColor),
+            decoration: BoxDecoration(color: _tlThemeData.backgroundColor),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height),
         CustomScrollView(

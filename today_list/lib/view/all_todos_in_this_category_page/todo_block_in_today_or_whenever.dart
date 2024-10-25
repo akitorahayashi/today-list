@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../constants/global_keys.dart';
 import '../../components/for_todo/todo_card/todo_card.dart';
 import '../../model/todo/tl_todo.dart';
-import '../../model/tl_category.dart';
+import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 
 import 'package:reorderables/reorderables.dart';

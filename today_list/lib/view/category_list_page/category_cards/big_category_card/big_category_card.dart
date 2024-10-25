@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../constants/theme.dart';
-import '../../../../model/tl_category.dart';
-import '../../../../model/user/setting_data.dart';
+import '../../../../model/tl_theme.dart';
+import '../../../../model/todo/tl_category.dart';
 import '../../../../model/workspace/tl_workspace.dart';
 import '../../../../model/workspace/tl_workspaces.dart';
 import './big_category_chip.dart';
@@ -18,6 +17,7 @@ class BigCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return GestureDetector(
       onLongPress:
           TLWorkspace.currentWorkspace.bigCategories[indexOfBigCategory].id !=
@@ -25,7 +25,7 @@ class BigCategoryCard extends StatelessWidget {
               ? null
               : () {},
       child: Card(
-        color: theme[SettingData.shared.selectedTheme]!.panelColor,
+        color: _tlThemeData.panelColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Column(
             // bigCategoryのchipを左寄せにするため

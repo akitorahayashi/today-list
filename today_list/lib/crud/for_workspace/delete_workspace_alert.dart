@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';
-import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
-import '../../constants/theme.dart';
+import '../../model/tl_theme.dart';
 import '../../constants/global_keys.dart';
 import '../../alerts/simple_alert.dart';
 import '../../styles.dart';
@@ -15,6 +14,7 @@ Future<void> deleteWorkspaceAlert({
   required BuildContext context,
   required int indexInTLWorkspaces,
 }) async {
+  final TLThemeData _tlThemeData = TLTheme.of(context);
   final TLWorkspace willDeletedWorkspace =
       TLWorkspace.fromJson(tlworkspaces[indexInTLWorkspaces]);
   return showDialog(
@@ -22,7 +22,7 @@ Future<void> deleteWorkspaceAlert({
       barrierDismissible: false,
       builder: (context) {
         return Dialog(
-          backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
+          backgroundColor: _tlThemeData.alertColor,
           child: Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
@@ -44,8 +44,7 @@ Future<void> deleteWorkspaceAlert({
                   child: Text(
                     willDeletedWorkspace.name,
                     style: TextStyle(
-                        color: theme[SettingData.shared.selectedTheme]!
-                            .accentColor,
+                        color: _tlThemeData.accentColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
                   ),
@@ -63,12 +62,12 @@ Future<void> deleteWorkspaceAlert({
                   children: [
                     // いいえボタン
                     TextButton(
-                        style: alertButtonStyle(),
+                        style: alertButtonStyle(context: context),
                         onPressed: () => Navigator.pop(context),
                         child: const Text("戻る")),
                     // はいボタン
                     TextButton(
-                        style: alertButtonStyle(),
+                        style: alertButtonStyle(context: context),
                         onPressed: () {
                           // デフォルトワークスペースは消せない
                           if (indexInTLWorkspaces == 0) {

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../constants/theme.dart';
+import 'package:today_list/components/for_todo/icon_for_checkbox.dart';
+import '../../../model/tl_theme.dart';
 import '../../../constants/global_keys.dart';
-import '../../../constants/icon_for_checkbox.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/tl_category.dart';
-import '../../../model/user/setting_data.dart';
+import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../components/for_todo/todo_card/slidable_for_todo_card.dart';
 
@@ -35,8 +34,9 @@ class ModelOfToDoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Card(
-      color: theme[SettingData.shared.selectedTheme]!.panelColor,
+      color: _tlThemeData.panelColor,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ClipRRect(
@@ -90,7 +90,7 @@ class ModelOfToDoCard extends StatelessWidget {
                         // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                         child: Transform.scale(
                           scale: 1.2,
-                          child: getIcon(isChecked: toDoData.isChecked),
+                          child: IconForCheckBox(isChecked: toDoData.isChecked),
                         )),
                     // toDoのタイトル
                     Expanded(
@@ -132,8 +132,8 @@ class ModelOfToDoCard extends StatelessWidget {
                                       const EdgeInsets.fromLTRB(4, 0, 16, 0),
                                   child: Transform.scale(
                                     scale: 1.2,
-                                    child:
-                                        getIcon(isChecked: stepData.isChecked),
+                                    child: IconForCheckBox(
+                                        isChecked: stepData.isChecked),
                                   ),
                                 ),
                                 // stepのタイトル

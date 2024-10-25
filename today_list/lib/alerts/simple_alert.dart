@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../constants/theme.dart';
-import '../model/user/setting_data.dart';
+import '../model/tl_theme.dart';
 import '../styles.dart';
 
 Future<void> simpleAlert(
@@ -8,12 +7,13 @@ Future<void> simpleAlert(
     required String title,
     required String? message,
     required String buttonText}) {
+  final TLThemeData _tlThemeData = TLTheme.of(context);
   return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
         return Dialog(
-          backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
+          backgroundColor: _tlThemeData.alertColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
             child: Padding(
@@ -27,8 +27,7 @@ Future<void> simpleAlert(
                     child: Text(
                       title,
                       style: TextStyle(
-                          color: theme[SettingData.shared.selectedTheme]!
-                              .accentColor,
+                          color: _tlThemeData.accentColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
@@ -50,7 +49,7 @@ Future<void> simpleAlert(
                     ),
                   TextButton(
                       onPressed: () => Navigator.pop(context),
-                      style: alertButtonStyle(),
+                      style: alertButtonStyle(context: context),
                       child: Text(buttonText))
                 ],
               ),

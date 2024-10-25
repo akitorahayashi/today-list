@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/externals/tl_vibration.dart';
-import '../../../../model/user/setting_data.dart';
+import '../../../../model/externals/tl_vibration.dart';
 import '../../../../model/workspace/tl_workspace.dart';
 import '../../../../model/workspace/tl_workspaces.dart';
-import '../../../../constants/theme.dart';
+import '../../../../model/tl_theme.dart';
 import '../../../../constants/global_keys.dart';
 import 'notify_current_workspace_is_changed.dart';
 import 'slidable_for_workspace_card.dart';
@@ -27,13 +26,14 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Padding(
       padding: EdgeInsets.fromLTRB(
           5, 1, 5, (isCurrentWorkspace && !widget.isInDrawerList) ? 5 : 0),
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 70),
         child: Card(
-          color: theme[SettingData.shared.selectedTheme]!.panelColor,
+          color: _tlThemeData.panelColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: ClipRRect(
@@ -76,8 +76,7 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                                   : ""),
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
-                              color: theme[SettingData.shared.selectedTheme]!
-                                  .accentColor,
+                              color: _tlThemeData.accentColor,
                               letterSpacing: 1)),
                     ),
                   ),

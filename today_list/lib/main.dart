@@ -8,6 +8,7 @@ import 'model/externals/tl_ads.dart';
 import './app.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 bool kAdTestMode = true;
 bool kDebugMode = true;
@@ -17,8 +18,9 @@ enum LanguageType { ja, en }
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await TLWorkspace.readWorkspaces();
+  await dotenv.load(fileName: ".env");
   await TLAds.initializeTLAds();
+  await TLWorkspace.readWorkspaces();
   await SettingData.shared.readSettings();
   await TLVibration.initVibrate();
   await TLConnectivity.initializeConnectivity();

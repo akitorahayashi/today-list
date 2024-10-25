@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../constants/theme.dart';
+import '../../../../../model/tl_theme.dart';
 import '../../../../../model/user/setting_data.dart';
 import '../other_apps_model.dart';
 import './button_of_other_app_card.dart';
@@ -24,8 +24,9 @@ class NiceAppCard extends StatelessWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
                 border: Border.all(
-                    color: theme[SettingData.shared.selectedTheme]!
-                        .niceAppsCardColor,
+                    color:
+                        tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                            .niceAppsCardColor,
                     width: 10)),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5, 12, 5, 5),
@@ -42,7 +43,8 @@ class NiceAppCard extends StatelessWidget {
                               fontSize: 21,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 3,
-                              color: theme[SettingData.shared.selectedTheme]!
+                              color: tlThemeDataList[
+                                      SettingData.shared.selectedThemeIndex]!
                                   .niceAppsCardColor),
                         )),
                   ),
@@ -60,10 +62,10 @@ class NiceAppCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
                                     width: 10,
-                                    color:
-                                        theme[SettingData.shared.selectedTheme]!
-                                            .niceAppsCardColor
-                                            .withOpacity(0.2))),
+                                    color: tlThemeDataList[SettingData
+                                            .shared.selectedThemeIndex]!
+                                        .niceAppsCardColor
+                                        .withOpacity(0.2))),
                             child: Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
@@ -80,7 +82,8 @@ class NiceAppCard extends StatelessWidget {
                             niceAppOfThisCard.appName,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: theme[SettingData.shared.selectedTheme]!
+                                color: tlThemeDataList[
+                                        SettingData.shared.selectedThemeIndex]!
                                     .niceAppsCardColor,
                                 fontSize: 30),
                           ),

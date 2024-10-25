@@ -1,11 +1,11 @@
-import '../../../constants/theme.dart';
+import 'package:today_list/components/for_todo/icon_for_checkbox.dart';
+
+import '../../../model/tl_theme.dart';
 import '../../../constants/global_keys.dart';
-import '../../../constants/icon_for_checkbox.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/todo/tl_step.dart';
-import '../../../model/tl_category.dart';
-import '../../../model/user/setting_data.dart';
+import '../../../model/todo/tl_category.dart';
 import '../../../model/externals/tl_vibration.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../crud/for_todo/notify_todo_or_step_is_edited.dart';
@@ -46,6 +46,7 @@ class ToDoCard extends StatefulWidget {
 class ToDoCardState extends State<ToDoCard> {
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     final TLCategory categoryOfThisToDo = widget.smallCategoryOfThisToDo == null
         ? widget.bigCategoryOfThisToDo
         : widget.smallCategoryOfThisToDo!;
@@ -83,7 +84,7 @@ class ToDoCardState extends State<ToDoCard> {
       onLongPress: toDoData.isChecked ? () {} : null,
       child: Card(
           // 色
-          color: theme[SettingData.shared.selectedTheme]!.panelColor,
+          color: _tlThemeData.panelColor,
           // 浮き具合
           elevation: 2,
           shape:
@@ -138,7 +139,8 @@ class ToDoCardState extends State<ToDoCard> {
                             // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                             child: Transform.scale(
                               scale: 1.2,
-                              child: getIcon(isChecked: toDoData.isChecked),
+                              child: IconForCheckBox(
+                                  isChecked: toDoData.isChecked),
                             )),
                         // toDoのタイトル
                         Expanded(

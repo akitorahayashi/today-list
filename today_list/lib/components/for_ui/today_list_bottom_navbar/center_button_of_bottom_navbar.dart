@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../model/user/setting_data.dart';
 
 class CenterButtonOfBottomNavBar extends StatelessWidget {
@@ -26,14 +26,15 @@ class CenterButtonOfBottomNavBar extends StatelessWidget {
             onPressed: onPressed,
             style: ButtonStyle(
               overlayColor: WidgetStateProperty.resolveWith((states) =>
-                  theme[SettingData.shared.selectedTheme]!
+                  tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                       .accentColor
                       .withOpacity(0.1)),
             ),
             child: Icon(
               Icons.add,
               size: 33,
-              color: theme[SettingData.shared.selectedTheme]!.accentColor,
+              color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                  .accentColor,
             ),
           ),
         ),

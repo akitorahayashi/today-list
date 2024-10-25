@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../model/tl_category.dart';
+import '../../model/todo/tl_category.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/workspace/tl_workspace.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../constants/icon_for_checkbox.dart';
-import '../../../../../constants/theme.dart';
+import '../../../../../constants/icon_for_checkbox_data.dart';
+import '../../../../../model/tl_theme.dart';
 import '../../../../../model/user/setting_data.dart';
 import './icon_card.dart';
 
@@ -16,7 +16,8 @@ class IconCategoryBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: theme[SettingData.shared.selectedTheme]!.settingPanelColor,
+      color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+          .settingPanelColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.all(4.0),

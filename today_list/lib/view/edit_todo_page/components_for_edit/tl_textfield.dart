@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../styles.dart';
-import '../../../constants/theme.dart';
-import '../../../model/user/setting_data.dart';
+import '../../../model/tl_theme.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -26,6 +25,7 @@ class _TLTextfieldState extends State<TLTextfield> {
   bool get isEntered => widget.controller.text.trim().isNotEmpty;
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return SizedBox(
       width: MediaQuery.of(context).size.width - 50,
       child: Padding(
@@ -40,8 +40,9 @@ class _TLTextfieldState extends State<TLTextfield> {
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: Colors.black.withOpacity(0.6)),
-          cursorColor: theme[SettingData.shared.selectedTheme]!.accentColor,
+          cursorColor: _tlThemeData.accentColor,
           decoration: tlInputDecoration(
+              context: context,
               labelText: widget.isForStep ? "Step" : "ToDo",
               icon: Icon(
                 FontAwesomeIcons.square,
@@ -54,9 +55,7 @@ class _TLTextfieldState extends State<TLTextfield> {
                   onPressed: widget.onPressed,
                   child: Icon(
                     Icons.add,
-                    color: isEntered
-                        ? theme[SettingData.shared.selectedTheme]!.accentColor
-                        : Colors.black,
+                    color: isEntered ? _tlThemeData.accentColor : Colors.black,
                     size: 25,
                   ),
                 ),

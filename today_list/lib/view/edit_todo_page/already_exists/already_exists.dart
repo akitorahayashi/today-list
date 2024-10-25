@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../constants/global_keys.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/tl_category.dart';
+import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/user/setting_data.dart';
 import './model_of_todo_card.dart';
@@ -29,6 +29,7 @@ class AlreadyExists extends StatefulWidget {
 class _AlreadyExistsState extends State<AlreadyExists> {
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     final TLCategory categoryOfThisToDo =
         widget.smallCategoryOfThisToDo ?? widget.bigCategoryOfThisToDo;
     final List<TLToDo> toDoArrayOfThisBlock = TLWorkspace
@@ -55,8 +56,7 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                             ? "Already Exists"
                             : "追加済み",
                         style: TextStyle(
-                          color: theme[SettingData.shared.selectedTheme]!
-                              .accentColor,
+                          color: _tlThemeData.accentColor,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),

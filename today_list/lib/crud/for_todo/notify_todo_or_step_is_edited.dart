@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../constants/theme.dart';
-import '../../constants/icon_for_checkbox.dart';
-import '../../model/user/setting_data.dart';
+import 'package:today_list/components/for_todo/icon_for_checkbox.dart';
+import '../../model/tl_theme.dart';
 
 void notifyToDoOrStepIsEditted({
   required BuildContext context,
@@ -9,10 +8,11 @@ void notifyToDoOrStepIsEditted({
   required bool newCheckedState,
   required bool? quickChangeToToday,
 }) {
+  final TLThemeData _tlThemeData = TLTheme.of(context);
   SnackBar snackBar = SnackBar(
     duration: const Duration(milliseconds: 900),
     behavior: SnackBarBehavior.floating,
-    backgroundColor: theme[SettingData.shared.selectedTheme]!.panelColor,
+    backgroundColor: _tlThemeData.panelColor,
     content: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -24,7 +24,7 @@ void notifyToDoOrStepIsEditted({
               child: Text(
                 quickChangeToToday ? "to Today" : "to Whenever",
                 style: TextStyle(
-                    color: theme[SettingData.shared.selectedTheme]!.accentColor,
+                    color: _tlThemeData.accentColor,
                     fontWeight: FontWeight.w600),
               ),
             ),
@@ -59,7 +59,7 @@ void notifyToDoOrStepIsEditted({
                     height: 20,
                     child: Transform.scale(
                       scale: 1.2,
-                      child: getIcon(isChecked: newCheckedState),
+                      child: IconForCheckBox(isChecked: newCheckedState),
                     ),
                   )),
               // toDoのタイトル

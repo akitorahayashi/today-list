@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constants/theme.dart';
-import '../../../model/user/setting_data.dart';
+import '../../../model/tl_theme.dart';
 
 class ContentCard extends StatelessWidget {
   final Function()? onTap;
@@ -10,6 +9,7 @@ class ContentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Padding(
         padding: const EdgeInsets.only(
           left: 5.0,
@@ -19,7 +19,7 @@ class ContentCard extends StatelessWidget {
         child: ConstrainedBox(
             constraints: const BoxConstraints(minHeight: 70),
             child: Card(
-                color: theme[SettingData.shared.selectedTheme]!.panelColor,
+                color: _tlThemeData.panelColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 child: ClipRRect(
@@ -34,8 +34,7 @@ class ContentCard extends StatelessWidget {
                         child: Text(contentName,
                             style: TextStyle(
                                 fontWeight: FontWeight.w700,
-                                color: theme[SettingData.shared.selectedTheme]!
-                                    .accentColor,
+                                color: _tlThemeData.accentColor,
                                 letterSpacing: 1)),
                       ),
                     ),

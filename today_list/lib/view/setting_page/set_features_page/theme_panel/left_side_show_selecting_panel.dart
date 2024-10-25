@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../model/user/setting_data.dart';
-import '../../../../constants/theme.dart';
+import '../../../../model/tl_theme.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,7 +19,8 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
       height: 320,
       // グラデーションと丸角
       decoration: BoxDecoration(
-          gradient: theme[SettingData.shared.selectedTheme]!.gradientOfNavBar,
+          gradient: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+              .gradientOfNavBar,
           borderRadius: BorderRadius.circular(10)),
       // ガラス
       child: GlassContainer(
@@ -29,7 +30,8 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
           // toDoカードを表示
           child: Card(
             elevation: 5,
-            color: theme[SettingData.shared.selectedTheme]!.panelColor,
+            color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                .panelColor,
             child: SizedBox(
               width: deviceWidth / 2 - 50,
               child: Padding(
@@ -41,15 +43,18 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Icon(
                         FontAwesomeIcons.solidSquareCheck,
-                        color: theme[SettingData.shared.selectedTheme]!
+                        color: tlThemeDataList[
+                                SettingData.shared.selectedThemeIndex]!
                             .checkmarkColor,
                       ),
                     ),
                     Text(
-                      theme[SettingData.shared.selectedTheme]!.themeTitle,
+                      tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                          .themeTitleInSettings,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: theme[SettingData.shared.selectedTheme]!
+                          color: tlThemeDataList[
+                                  SettingData.shared.selectedThemeIndex]!
                               .checkmarkColor,
                           fontSize: 17,
                           letterSpacing: 2,

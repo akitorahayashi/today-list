@@ -1,4 +1,4 @@
-import '../../constants/theme.dart';
+import '../../model/tl_theme.dart';
 import '../../model/user/setting_data.dart';
 import 'package:flutter/material.dart';
 
@@ -70,8 +70,8 @@ class TLSliverAppBar extends StatelessWidget {
       // AppBarのデザイン
       flexibleSpace: DecoratedBox(
         decoration: BoxDecoration(
-            gradient:
-                theme[SettingData.shared.selectedTheme]!.gradientOfNavBar),
+            gradient: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                .gradientOfNavBar),
         child: const FlexibleSpaceBar(
           title: SizedBox(),
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../model/user/setting_data.dart';
 import './side_button_of_bottom_navbar.dart';
 
@@ -25,8 +25,8 @@ class TodayListBottomNavbar extends StatelessWidget {
         children: [
           DecoratedBox(
             decoration: BoxDecoration(
-              gradient:
-                  theme[SettingData.shared.selectedTheme]!.gradientOfNavBar,
+              gradient: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                  .gradientOfNavBar,
               boxShadow: const [
                 BoxShadow(blurRadius: 8, color: Colors.black45)
               ],

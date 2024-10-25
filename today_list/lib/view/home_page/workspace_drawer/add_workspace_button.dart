@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constants/theme.dart';
-import '../../../model/user/setting_data.dart';
+import '../../../model/tl_theme.dart';
 import '../../../crud/for_workspace/add_or_edit_workspace_alert.dart';
 
 class AddWorkspaceButton extends StatelessWidget {
@@ -8,6 +7,7 @@ class AddWorkspaceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Align(
       alignment: Alignment.center,
       child: Padding(
@@ -22,7 +22,7 @@ class AddWorkspaceButton extends StatelessWidget {
               }),
           child: Icon(
             Icons.add,
-            color: theme[SettingData.shared.selectedTheme]!.accentColor,
+            color: _tlThemeData.accentColor,
           ),
         ),
       ),

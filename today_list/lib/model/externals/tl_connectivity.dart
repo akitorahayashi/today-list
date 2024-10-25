@@ -28,8 +28,8 @@ class TLConnectivity {
       bool isReachable = await TLConnectivity.connectivity.getReachability();
       if (isReachable) {
         print("start to send selectedTheme to Apple Watch");
-        await TLConnectivity.connectivity
-            .sendMessage({"selectedTheme": SettingData.shared.selectedTheme});
+        await TLConnectivity.connectivity.sendMessage(
+            {"selectedTheme": SettingData.shared.selectedThemeIndex});
       } else {
         print("sendSelectedTheme: No reachable watches.");
       }

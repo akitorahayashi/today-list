@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 import 'change_workspace_card/change_workspace_card.dart';
 import '../../../components/for_ui/tl_sliver_appbar.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../model/user/setting_data.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/workspace/tl_workspaces.dart';
@@ -20,12 +20,12 @@ class WorkspaceDrawer extends StatefulWidget {
 class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Drawer(
       child: Stack(
         children: [
           // 背景色
-          Container(
-              color: theme[SettingData.shared.selectedTheme]!.backgroundColor),
+          Container(color: _tlThemeData.backgroundColor),
           CustomScrollView(
             slivers: [
               TLSliverAppBar(
@@ -43,8 +43,7 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: theme[SettingData.shared.selectedTheme]!
-                            .panelBorderColor),
+                        color: _tlThemeData.panelBorderColor),
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -78,8 +77,7 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: theme[SettingData.shared.selectedTheme]!
-                            .panelBorderColor),
+                        color: _tlThemeData.panelBorderColor),
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../constants/theme.dart';
-import '../../model/user/setting_data.dart';
+import '../../model/tl_theme.dart';
 import '../../styles.dart';
 
-void notifyCategoryIsAdded(
+Future<void> notifyCategoryIsAdded(
     {required BuildContext context, required String addedCategoryName}) {
-  showDialog(
+  final TLThemeData _tlThemeData = TLTheme.of(context);
+  return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
         return Dialog(
-          backgroundColor: theme[SettingData.shared.selectedTheme]!.alertColor,
+          backgroundColor: _tlThemeData.alertColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
             child: Column(
@@ -22,8 +22,7 @@ void notifyCategoryIsAdded(
                   child: Text(
                     addedCategoryName,
                     style: TextStyle(
-                        color: theme[SettingData.shared.selectedTheme]!
-                            .accentColor,
+                        color: _tlThemeData.accentColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),
@@ -41,12 +40,10 @@ void notifyCategoryIsAdded(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    style: alertButtonStyle(),
+                    style: alertButtonStyle(context: context),
                     child: Text(
                       "OK",
-                      style: TextStyle(
-                          color: theme[SettingData.shared.selectedTheme]!
-                              .accentColor),
+                      style: TextStyle(color: _tlThemeData.accentColor),
                     ))
               ],
             ),

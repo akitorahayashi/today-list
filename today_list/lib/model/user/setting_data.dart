@@ -1,14 +1,12 @@
-// ignore_for_file: invalid_use_of_protected_member
-import 'package:today_list/model/externals/tl_connectivity.dart';
-import 'package:today_list/model/externals/tl_widgetkit.dart';
-
+import 'package:flutter/material.dart';
 import '../../constants/global_keys.dart';
-import '../../constants/theme.dart';
 import '../../alerts/yes_no_alert.dart';
 import '../../alerts/simple_alert.dart';
+import '../../model/externals/tl_connectivity.dart';
+import '../../model/externals/tl_widgetkit.dart';
 import '../externals/tl_vibration.dart';
 import '../../styles.dart';
-import 'package:flutter/material.dart';
+import '../tl_theme.dart';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +16,7 @@ class SettingData {
   static SettingData shared = SettingData();
 
   // テーマ
-  String selectedTheme = "Sun Orange";
+  int selectedThemeIndex = 0;
   // 英語モード
   bool englishMode = true;
   // アイコン
@@ -34,7 +32,7 @@ class SettingData {
   // 保存する際に使う
   Map<String, dynamic> toJson() {
     return {
-      "selectedTheme": selectedTheme,
+      "selectedThemeIndex": selectedThemeIndex,
       "englishMode": englishMode,
       "defaultIconCategory": defaultIconCategory,
       "defaultIconRarity": defaultIconRarity,
@@ -46,7 +44,7 @@ class SettingData {
   // JSONからインスタンスを作成するファクトリコンストラクタ
   factory SettingData.fromJson(Map<String, dynamic> jsonData) {
     return SettingData()
-      ..selectedTheme = jsonData["selectedTheme"] ?? "Sun Orange"
+      ..selectedThemeIndex = jsonData["selectedThemeIndex"] ?? "Sun Orange"
       ..englishMode = jsonData["englishMode"] ?? true
       ..defaultIconCategory = jsonData["defaultIconCategory"] ?? "Default"
       ..defaultIconRarity = jsonData["defaultIconRarity"] ?? "Common"
@@ -75,13 +73,13 @@ class SettingData {
 
   // テーマを変更する関数
   Future<void> confirmToChangeTheme(
-      {required BuildContext context, required String themeName}) {
+      {required BuildContext context, required int selectedThemeIndex}) {
     return showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
           return Dialog(
-            backgroundColor: theme[themeName]!.alertColor,
+            backgroundColor: tlThemeDataList[selectedThemeIndex].alertColor,
             child: DefaultTextStyle(
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -98,7 +96,8 @@ class SettingData {
                       height: 80,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          gradient: theme[themeName]!.gradientOfNavBar,
+                          gradient: tlThemeDataList[selectedThemeIndex]
+                              .gradientOfNavBar,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: GlassContainer(
@@ -106,15 +105,17 @@ class SettingData {
                             alignment: Alignment.center,
                             child: Card(
                               elevation: 5,
-                              color: theme[themeName]!.panelColor,
+                              color: tlThemeDataList[selectedThemeIndex]
+                                  .panelColor,
                               child: Container(
                                 width: 150,
                                 height: 50,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  themeName,
+                                  tlThemeDataList[selectedThemeIndex].themeName,
                                   style: TextStyle(
-                                      color: theme[themeName]!.checkmarkColor,
+                                      color: tlThemeDataList[selectedThemeIndex]
+                                          .checkmarkColor,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -126,7 +127,7 @@ class SettingData {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text("$themeNameに変更しますか？"),
+                    child: Text("$selectedThemeIndexに変更しますか？"),
                   ),
                   // 操作ボタン
                   OverflowBar(
@@ -134,22 +135,24 @@ class SettingData {
                     children: [
                       // 戻るボタン
                       TextButton(
-                        style: alertButtonStyle(),
+                        style: alertButtonStyle(context: context),
                         onPressed: () => Navigator.pop(context),
                         // InkWell
                         child: Text(
                           "戻る",
-                          style:
-                              TextStyle(color: theme[themeName]!.accentColor),
+                          style: TextStyle(
+                              color: tlThemeDataList[selectedThemeIndex]
+                                  .accentColor),
                         ),
                       ),
                       // 変更するボタン
                       TextButton(
-                          style: alertButtonStyle(),
+                          style: alertButtonStyle(context: context),
                           onPressed: () {
                             // このアラートを消す
                             Navigator.pop(context);
-                            SettingData.shared.selectedTheme = themeName;
+                            SettingData.shared.selectedThemeIndex =
+                                selectedThemeIndex;
                             TLConnectivity.sendSelectedThemeToAppleWatch();
                             TLWidgetKit.updateSelectedTheme();
                             todayListAppKey.currentState?.setState(() {});
@@ -168,7 +171,8 @@ class SettingData {
                           // InkWell
                           child: Text("変更",
                               style: TextStyle(
-                                  color: theme[themeName]!.accentColor))),
+                                  color: tlThemeDataList[selectedThemeIndex]
+                                      .accentColor))),
                     ],
                   )
                 ],

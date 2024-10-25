@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../../constants/theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../constants/global_keys.dart';
 import '../../../crud/for_todo/notify_todo_or_step_is_edited.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/tl_category.dart';
+import '../../../model/todo/tl_category.dart';
 import '../../../model/externals/tl_vibration.dart';
-import '../../../model/user/setting_data.dart';
 import '../../../model/workspace/tl_workspace.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -52,6 +51,7 @@ class SlidableForToDoCard extends StatefulWidget {
 class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Slidable(
       // チェックされていたらスライドできなくする
       enabled: !widget.toDoData.isChecked,
@@ -61,8 +61,8 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
         SlidableAction(
           // タップしたらクローズ
           autoClose: true,
-          backgroundColor: theme[SettingData.shared.selectedTheme]!.panelColor,
-          foregroundColor: theme[SettingData.shared.selectedTheme]!.accentColor,
+          backgroundColor: _tlThemeData.panelColor,
+          foregroundColor: _tlThemeData.accentColor,
           onPressed: (BuildContext context) async {
             // タップしたらこれをremoveする
             widget.toDoArrayOfThisToDo.removeAt(widget.indexOfThisToDoInToDos);
@@ -85,10 +85,8 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
               autoClose: true,
               flex: 10,
               spacing: 8,
-              backgroundColor:
-                  theme[SettingData.shared.selectedTheme]!.panelColor,
-              foregroundColor:
-                  theme[SettingData.shared.selectedTheme]!.accentColor,
+              backgroundColor: _tlThemeData.panelColor,
+              foregroundColor: _tlThemeData.accentColor,
               onPressed: (BuildContext context) async {
                 widget.editAction();
               },
@@ -101,10 +99,8 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
             autoClose: true,
             flex: 11,
             spacing: 8,
-            backgroundColor:
-                theme[SettingData.shared.selectedTheme]!.panelColor,
-            foregroundColor:
-                theme[SettingData.shared.selectedTheme]!.accentColor,
+            backgroundColor: _tlThemeData.panelColor,
+            foregroundColor: _tlThemeData.accentColor,
             onPressed: (BuildContext context) {
               // タップしたらtodayとwheneverを切り替える
               final TLToDo switchedToDo = widget.toDoArrayOfThisToDo
