@@ -40,11 +40,11 @@ class TLWidgetKit {
 
   static Future<void> updateSelectedTheme() async {
     if (Platform.isIOS) {
-      print(SettingData.shared.selectedTheme);
+      print(SettingData.shared.selectedThemeIndex);
       try {
         final String result = await methodChannel.invokeMethod(
           'updateSelectedTheme',
-          SettingData.shared.selectedTheme,
+          SettingData.shared.selectedThemeIndex,
         );
         print('SET setUserDefaultsForAppGroup: $result');
       } on PlatformException catch (e) {

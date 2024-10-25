@@ -63,7 +63,8 @@ class SetAppearancePageState extends State<SetAppearancePage> {
     double deviceWidth = MediaQuery.of(context).size.width;
     // テーマを表示させるための変数
     List<String> unUsingTheme = tlThemeDataList.keys
-        .where((themeName) => themeName != SettingData.shared.selectedTheme)
+        .where(
+            (themeName) => themeName != SettingData.shared.selectedThemeIndex)
         .toList();
 
     return ListView(padding: EdgeInsets.zero, children: [

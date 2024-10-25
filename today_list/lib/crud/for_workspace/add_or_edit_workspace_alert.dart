@@ -34,7 +34,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
     }
     return Dialog(
       backgroundColor:
-          tlThemeDataList[SettingData.shared.selectedTheme]!.alertColor,
+          tlThemeDataList[SettingData.shared.selectedThemeIndex]!.alertColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -61,7 +61,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                 child: TextField(
                   autofocus: true,
                   cursorColor:
-                      tlThemeDataList[SettingData.shared.selectedTheme]!
+                      tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                           .accentColor,
                   controller: _workspaceNameInputController,
                   style: TextStyle(

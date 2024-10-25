@@ -70,7 +70,8 @@ class _IconCardState extends State<IconCard> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: isFocused ? 0 : 3,
-          color: tlThemeDataList[SettingData.shared.selectedTheme]!.panelColor,
+          color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+              .panelColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Column(
@@ -92,7 +93,8 @@ class _IconCardState extends State<IconCard> {
                     color: !widget.isEarned
                         ? Colors.black26
                         : isFocused
-                            ? tlThemeDataList[SettingData.shared.selectedTheme]!
+                            ? tlThemeDataList[
+                                    SettingData.shared.selectedThemeIndex]!
                                 .checkmarkColor
                             : Colors.black45,
                     size: isFontawesomeCategories ? 17 : 20,
@@ -107,7 +109,7 @@ class _IconCardState extends State<IconCard> {
                           ? Colors.black26
                           : isFocused
                               ? tlThemeDataList[
-                                      SettingData.shared.selectedTheme]!
+                                      SettingData.shared.selectedThemeIndex]!
                                   .checkmarkColor
                               : Colors.black45),
                 )

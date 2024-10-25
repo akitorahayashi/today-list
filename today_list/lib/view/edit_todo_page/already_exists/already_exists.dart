@@ -55,9 +55,9 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                             ? "Already Exists"
                             : "追加済み",
                         style: TextStyle(
-                          color:
-                              tlThemeDataList[SettingData.shared.selectedTheme]!
-                                  .accentColor,
+                          color: tlThemeDataList[
+                                  SettingData.shared.selectedThemeIndex]!
+                              .accentColor,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),

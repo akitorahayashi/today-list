@@ -33,7 +33,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
   Widget build(BuildContext context) {
     return SimpleDialog(
       backgroundColor:
-          tlThemeDataList[SettingData.shared.selectedTheme]!.alertColor,
+          tlThemeDataList[SettingData.shared.selectedThemeIndex]!.alertColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       titlePadding: const EdgeInsets.fromLTRB(18, 24, 24, 24),
       title: Column(
@@ -51,7 +51,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
             child: Text(
               _categoryOfThisPage.title,
               style: TextStyle(
-                  color: tlThemeDataList[SettingData.shared.selectedTheme]!
+                  color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                       .accentColor,
                   fontSize: 20,
                   fontWeight: FontWeight.w600),
@@ -76,7 +76,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
             child: Text(
               "Delete",
               style: TextStyle(
-                  color: tlThemeDataList[SettingData.shared.selectedTheme]!
+                  color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                       .accentColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
@@ -101,7 +101,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
             child: Text(
               "Rename",
               style: TextStyle(
-                  color: tlThemeDataList[SettingData.shared.selectedTheme]!
+                  color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                       .accentColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),

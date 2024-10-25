@@ -19,7 +19,7 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
       height: 320,
       // グラデーションと丸角
       decoration: BoxDecoration(
-          gradient: tlThemeDataList[SettingData.shared.selectedTheme]!
+          gradient: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
               .gradientOfNavBar,
           borderRadius: BorderRadius.circular(10)),
       // ガラス
@@ -30,8 +30,8 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
           // toDoカードを表示
           child: Card(
             elevation: 5,
-            color:
-                tlThemeDataList[SettingData.shared.selectedTheme]!.panelColor,
+            color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                .panelColor,
             child: SizedBox(
               width: deviceWidth / 2 - 50,
               child: Padding(
@@ -43,19 +43,19 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Icon(
                         FontAwesomeIcons.solidSquareCheck,
-                        color:
-                            tlThemeDataList[SettingData.shared.selectedTheme]!
-                                .checkmarkColor,
+                        color: tlThemeDataList[
+                                SettingData.shared.selectedThemeIndex]!
+                            .checkmarkColor,
                       ),
                     ),
                     Text(
-                      tlThemeDataList[SettingData.shared.selectedTheme]!
+                      tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                           .themeTitleInSettings,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color:
-                              tlThemeDataList[SettingData.shared.selectedTheme]!
-                                  .checkmarkColor,
+                          color: tlThemeDataList[
+                                  SettingData.shared.selectedThemeIndex]!
+                              .checkmarkColor,
                           fontSize: 17,
                           letterSpacing: 2,
                           fontWeight: FontWeight.w800),

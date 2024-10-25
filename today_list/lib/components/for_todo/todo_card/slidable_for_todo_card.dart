@@ -62,9 +62,11 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
           // タップしたらクローズ
           autoClose: true,
           backgroundColor:
-              tlThemeDataList[SettingData.shared.selectedTheme]!.panelColor,
+              tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                  .panelColor,
           foregroundColor:
-              tlThemeDataList[SettingData.shared.selectedTheme]!.accentColor,
+              tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                  .accentColor,
           onPressed: (BuildContext context) async {
             // タップしたらこれをremoveする
             widget.toDoArrayOfThisToDo.removeAt(widget.indexOfThisToDoInToDos);
@@ -88,9 +90,10 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
               flex: 10,
               spacing: 8,
               backgroundColor:
-                  tlThemeDataList[SettingData.shared.selectedTheme]!.panelColor,
+                  tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                      .panelColor,
               foregroundColor:
-                  tlThemeDataList[SettingData.shared.selectedTheme]!
+                  tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                       .accentColor,
               onPressed: (BuildContext context) async {
                 widget.editAction();
@@ -105,9 +108,11 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
             flex: 11,
             spacing: 8,
             backgroundColor:
-                tlThemeDataList[SettingData.shared.selectedTheme]!.panelColor,
+                tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                    .panelColor,
             foregroundColor:
-                tlThemeDataList[SettingData.shared.selectedTheme]!.accentColor,
+                tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                    .accentColor,
             onPressed: (BuildContext context) {
               // タップしたらtodayとwheneverを切り替える
               final TLToDo switchedToDo = widget.toDoArrayOfThisToDo

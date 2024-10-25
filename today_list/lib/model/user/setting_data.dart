@@ -18,7 +18,7 @@ class SettingData {
   static SettingData shared = SettingData();
 
   // テーマ
-  String selectedTheme = "Sun Orange";
+  int selectedThemeIndex = 0;
   // 英語モード
   bool englishMode = true;
   // アイコン
@@ -34,7 +34,7 @@ class SettingData {
   // 保存する際に使う
   Map<String, dynamic> toJson() {
     return {
-      "selectedTheme": selectedTheme,
+      "selectedThemeIndex": selectedThemeIndex,
       "englishMode": englishMode,
       "defaultIconCategory": defaultIconCategory,
       "defaultIconRarity": defaultIconRarity,
@@ -46,7 +46,7 @@ class SettingData {
   // JSONからインスタンスを作成するファクトリコンストラクタ
   factory SettingData.fromJson(Map<String, dynamic> jsonData) {
     return SettingData()
-      ..selectedTheme = jsonData["selectedTheme"] ?? "Sun Orange"
+      ..selectedThemeIndex = jsonData["selectedThemeIndex"] ?? "Sun Orange"
       ..englishMode = jsonData["englishMode"] ?? true
       ..defaultIconCategory = jsonData["defaultIconCategory"] ?? "Default"
       ..defaultIconRarity = jsonData["defaultIconRarity"] ?? "Common"
@@ -151,7 +151,7 @@ class SettingData {
                           onPressed: () {
                             // このアラートを消す
                             Navigator.pop(context);
-                            SettingData.shared.selectedTheme = themeName;
+                            SettingData.shared.selectedThemeIndex = themeName;
                             TLConnectivity.sendSelectedThemeToAppleWatch();
                             TLWidgetKit.updateSelectedTheme();
                             todayListAppKey.currentState?.setState(() {});

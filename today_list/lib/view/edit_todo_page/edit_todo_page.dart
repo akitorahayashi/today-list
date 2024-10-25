@@ -130,7 +130,7 @@ class EditToDoPageState extends State<EditToDoPage> {
           // 背景色
           Container(
               decoration: BoxDecoration(
-                  color: tlThemeDataList[SettingData.shared.selectedTheme]!
+                  color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                       .backgroundColor),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height),
@@ -226,7 +226,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                                             _selectedBigCategory.id
                                         ? TextStyle(
                                             color: tlThemeDataList[SettingData
-                                                    .shared.selectedTheme]!
+                                                    .shared.selectedThemeIndex]!
                                                 .accentColor,
                                             fontWeight: FontWeight.bold)
                                         : TextStyle(
@@ -288,7 +288,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                                     style: item.id == _selectedBigCategory.id
                                         ? TextStyle(
                                             color: tlThemeDataList[SettingData
-                                                    .shared.selectedTheme]!
+                                                    .shared.selectedThemeIndex]!
                                                 .accentColor,
                                             fontWeight: FontWeight.bold)
                                         : TextStyle(
@@ -334,18 +334,18 @@ class EditToDoPageState extends State<EditToDoPage> {
                               ),
                               // 背景色
                               fillColor: tlThemeDataList[
-                                      SettingData.shared.selectedTheme]!
+                                      SettingData.shared.selectedThemeIndex]!
                                   .toggleButtonsBackgroundColor,
                               // 文字色
                               selectedColor: tlThemeDataList[
-                                      SettingData.shared.selectedTheme]!
+                                      SettingData.shared.selectedThemeIndex]!
                                   .accentColor,
                               color: tlThemeDataList[
-                                      SettingData.shared.selectedTheme]!
+                                      SettingData.shared.selectedThemeIndex]!
                                   .accentColor,
                               // splashColor
                               splashColor: tlThemeDataList[
-                                      SettingData.shared.selectedTheme]!
+                                      SettingData.shared.selectedThemeIndex]!
                                   .toggleButtonsBackgroundSplashColor,
                               // 機能
                               isSelected: [_ifInToday, !_ifInToday],

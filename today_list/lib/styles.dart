@@ -5,10 +5,10 @@ import 'model/user/setting_data.dart';
 // alert
 ButtonStyle alertButtonStyle() => ButtonStyle(
       foregroundColor: MaterialStateProperty.all<Color>(
-        tlThemeDataList[SettingData.shared.selectedTheme]!.accentColor,
+        tlThemeDataList[SettingData.shared.selectedThemeIndex]!.accentColor,
       ),
       overlayColor: MaterialStateProperty.all<Color>(
-        tlThemeDataList[SettingData.shared.selectedTheme]!
+        tlThemeDataList[SettingData.shared.selectedThemeIndex]!
             .accentColor
             .withOpacity(0.1),
       ),
@@ -26,12 +26,12 @@ InputDecoration tlInputDecoration({
         labelStyle: TextStyle(color: Colors.black.withOpacity(0.45)),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-              color: tlThemeDataList[SettingData.shared.selectedTheme]!
+              color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                   .accentColor),
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-              color: tlThemeDataList[SettingData.shared.selectedTheme]!
+              color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                   .accentColor),
         ),
         // 完了ボタン

@@ -25,7 +25,7 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
         children: [
           // 背景色
           Container(
-              color: tlThemeDataList[SettingData.shared.selectedTheme]!
+              color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                   .backgroundColor),
           CustomScrollView(
             slivers: [
@@ -44,9 +44,9 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color:
-                            tlThemeDataList[SettingData.shared.selectedTheme]!
-                                .panelBorderColor),
+                        color: tlThemeDataList[
+                                SettingData.shared.selectedThemeIndex]!
+                            .panelBorderColor),
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -80,9 +80,9 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color:
-                            tlThemeDataList[SettingData.shared.selectedTheme]!
-                                .panelBorderColor),
+                        color: tlThemeDataList[
+                                SettingData.shared.selectedThemeIndex]!
+                            .panelBorderColor),
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),

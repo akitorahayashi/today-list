@@ -26,14 +26,14 @@ class CenterButtonOfBottomNavBar extends StatelessWidget {
             onPressed: onPressed,
             style: ButtonStyle(
               overlayColor: WidgetStateProperty.resolveWith((states) =>
-                  tlThemeDataList[SettingData.shared.selectedTheme]!
+                  tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                       .accentColor
                       .withOpacity(0.1)),
             ),
             child: Icon(
               Icons.add,
               size: 33,
-              color: tlThemeDataList[SettingData.shared.selectedTheme]!
+              color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                   .accentColor,
             ),
           ),

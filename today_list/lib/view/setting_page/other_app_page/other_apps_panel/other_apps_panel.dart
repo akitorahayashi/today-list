@@ -26,17 +26,18 @@ class NiceAppsPanel extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 26,
-                        color:
-                            tlThemeDataList[SettingData.shared.selectedTheme]!
-                                .niceAppsCardColor),
+                        color: tlThemeDataList[
+                                SettingData.shared.selectedThemeIndex]!
+                            .niceAppsCardColor),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 24.0),
                   child: Icon(
                     Icons.thumb_up,
-                    color: tlThemeDataList[SettingData.shared.selectedTheme]!
-                        .niceAppsCardColor,
+                    color:
+                        tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                            .niceAppsCardColor,
                   ),
                 )
               ],

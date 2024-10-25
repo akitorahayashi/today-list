@@ -98,7 +98,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                                 _selectedBigCategoryInDropButton.id
                             ? TextStyle(
                                 color: tlThemeDataList[
-                                        SettingData.shared.selectedTheme]!
+                                        SettingData.shared.selectedThemeIndex]!
                                     .accentColor,
                                 fontWeight: FontWeight.bold)
                             : TextStyle(
@@ -141,8 +141,9 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
 
               // smallCategoryのTextFormField
               child: TextFormField(
-                cursorColor: tlThemeDataList[SettingData.shared.selectedTheme]!
-                    .accentColor,
+                cursorColor:
+                    tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                        .accentColor,
                 controller: _smallCategoryInputController,
                 readOnly: !_canInputSmallCategory,
                 style: TextStyle(
@@ -172,9 +173,9 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                   child: Text(
                     "閉じる",
                     style: TextStyle(
-                        color:
-                            tlThemeDataList[SettingData.shared.selectedTheme]!
-                                .accentColor),
+                        color: tlThemeDataList[
+                                SettingData.shared.selectedThemeIndex]!
+                            .accentColor),
                   ),
                 ),
 
@@ -199,8 +200,8 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                               _selectedBigCategoryInDropButton.id != noneId &&
                                       _smallCategoryNameIsEntered
                                   // 追加ボタンを使うことができる
-                                  ? tlThemeDataList[
-                                          SettingData.shared.selectedTheme]!
+                                  ? tlThemeDataList[SettingData
+                                          .shared.selectedThemeIndex]!
                                       .accentColor
                                   : Colors.black),
                     ),

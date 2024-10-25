@@ -50,14 +50,14 @@ class ButtonInNiceAppCard extends StatelessWidget {
         },
         style: ButtonStyle(
           overlayColor: WidgetStateProperty.all(
-              tlThemeDataList[SettingData.shared.selectedTheme]!
+              tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                   .niceAppsPressedElevatedButtonColor),
           backgroundColor: WidgetStateProperty.resolveWith<Color>(
             (Set<WidgetState> states) {
               if (states.contains(WidgetState.disabled)) {
                 return const Color.fromRGBO(220, 220, 220, 1);
               }
-              return tlThemeDataList[SettingData.shared.selectedTheme]!
+              return tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                   .niceAppsElevatedButtonColor;
             },
           ),

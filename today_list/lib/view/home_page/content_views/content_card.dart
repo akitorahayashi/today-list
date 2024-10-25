@@ -19,7 +19,7 @@ class ContentCard extends StatelessWidget {
         child: ConstrainedBox(
             constraints: const BoxConstraints(minHeight: 70),
             child: Card(
-                color: tlThemeDataList[SettingData.shared.selectedTheme]!
+                color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
                     .panelColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
@@ -36,7 +36,7 @@ class ContentCard extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 color: tlThemeDataList[
-                                        SettingData.shared.selectedTheme]!
+                                        SettingData.shared.selectedThemeIndex]!
                                     .accentColor,
                                 letterSpacing: 1)),
                       ),

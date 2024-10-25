@@ -22,8 +22,8 @@ class AddWorkspaceButton extends StatelessWidget {
               }),
           child: Icon(
             Icons.add,
-            color:
-                tlThemeDataList[SettingData.shared.selectedTheme]!.accentColor,
+            color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                .accentColor,
           ),
         ),
       ),

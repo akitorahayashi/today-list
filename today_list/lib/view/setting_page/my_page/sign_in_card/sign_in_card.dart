@@ -33,7 +33,8 @@ class _SignInCardState extends State<SignInCard> {
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w800,
-                      color: tlThemeDataList[SettingData.shared.selectedTheme]!
+                      color: tlThemeDataList[
+                              SettingData.shared.selectedThemeIndex]!
                           .accentColor
                           .withOpacity(0.8)),
                 ),
@@ -48,8 +49,9 @@ class _SignInCardState extends State<SignInCard> {
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                     letterSpacing: 1,
-                    color: tlThemeDataList[SettingData.shared.selectedTheme]!
-                        .accentColor),
+                    color:
+                        tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                            .accentColor),
               ),
             ),
             const Padding(
@@ -65,8 +67,9 @@ class _SignInCardState extends State<SignInCard> {
                 style: TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 20,
-                    color: tlThemeDataList[SettingData.shared.selectedTheme]!
-                        .accentColor),
+                    color:
+                        tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                            .accentColor),
               ),
             ),
             const Padding(
@@ -96,7 +99,7 @@ class _SignInCardState extends State<SignInCard> {
                             child: Icon(
                               FontAwesomeIcons.square,
                               color: tlThemeDataList[
-                                      SettingData.shared.selectedTheme]!
+                                      SettingData.shared.selectedThemeIndex]!
                                   .accentColor
                                   .withOpacity(0.84),
                             ),
@@ -105,7 +108,7 @@ class _SignInCardState extends State<SignInCard> {
                             "Sign in with Google",
                             style: TextStyle(
                                 color: tlThemeDataList[
-                                        SettingData.shared.selectedTheme]!
+                                        SettingData.shared.selectedThemeIndex]!
                                     .accentColor
                                     .withOpacity(0.84),
                                 fontSize: 20,

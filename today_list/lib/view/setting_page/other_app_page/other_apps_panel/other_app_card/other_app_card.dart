@@ -24,8 +24,9 @@ class NiceAppCard extends StatelessWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
                 border: Border.all(
-                    color: tlThemeDataList[SettingData.shared.selectedTheme]!
-                        .niceAppsCardColor,
+                    color:
+                        tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                            .niceAppsCardColor,
                     width: 10)),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5, 12, 5, 5),
@@ -43,7 +44,7 @@ class NiceAppCard extends StatelessWidget {
                               fontWeight: FontWeight.w900,
                               letterSpacing: 3,
                               color: tlThemeDataList[
-                                      SettingData.shared.selectedTheme]!
+                                      SettingData.shared.selectedThemeIndex]!
                                   .niceAppsCardColor),
                         )),
                   ),
@@ -61,8 +62,8 @@ class NiceAppCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
                                     width: 10,
-                                    color: tlThemeDataList[
-                                            SettingData.shared.selectedTheme]!
+                                    color: tlThemeDataList[SettingData
+                                            .shared.selectedThemeIndex]!
                                         .niceAppsCardColor
                                         .withOpacity(0.2))),
                             child: Card(
@@ -82,7 +83,7 @@ class NiceAppCard extends StatelessWidget {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: tlThemeDataList[
-                                        SettingData.shared.selectedTheme]!
+                                        SettingData.shared.selectedThemeIndex]!
                                     .niceAppsCardColor,
                                 fontSize: 30),
                           ),

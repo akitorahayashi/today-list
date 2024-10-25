@@ -13,7 +13,7 @@ void notifyToDoOrStepIsEditted({
     duration: const Duration(milliseconds: 900),
     behavior: SnackBarBehavior.floating,
     backgroundColor:
-        tlThemeDataList[SettingData.shared.selectedTheme]!.panelColor,
+        tlThemeDataList[SettingData.shared.selectedThemeIndex]!.panelColor,
     content: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -25,8 +25,9 @@ void notifyToDoOrStepIsEditted({
               child: Text(
                 quickChangeToToday ? "to Today" : "to Whenever",
                 style: TextStyle(
-                    color: tlThemeDataList[SettingData.shared.selectedTheme]!
-                        .accentColor,
+                    color:
+                        tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                            .accentColor,
                     fontWeight: FontWeight.w600),
               ),
             ),

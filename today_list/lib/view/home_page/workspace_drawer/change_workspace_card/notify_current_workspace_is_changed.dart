@@ -13,7 +13,8 @@ Future<void> notifyCurrentWorkspaceIsChanged({
       builder: (context) {
         return Dialog(
           backgroundColor:
-              tlThemeDataList[SettingData.shared.selectedTheme]!.alertColor,
+              tlThemeDataList[SettingData.shared.selectedThemeIndex]!
+                  .alertColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
             child: Column(
@@ -34,9 +35,9 @@ Future<void> notifyCurrentWorkspaceIsChanged({
                   child: Text(
                     newWorkspaceName,
                     style: TextStyle(
-                        color:
-                            tlThemeDataList[SettingData.shared.selectedTheme]!
-                                .accentColor,
+                        color: tlThemeDataList[
+                                SettingData.shared.selectedThemeIndex]!
+                            .accentColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 20),
                   ),

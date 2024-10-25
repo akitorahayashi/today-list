@@ -25,7 +25,8 @@ class BigCategoryCard extends StatelessWidget {
               ? null
               : () {},
       child: Card(
-        color: tlThemeDataList[SettingData.shared.selectedTheme]!.panelColor,
+        color:
+            tlThemeDataList[SettingData.shared.selectedThemeIndex]!.panelColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Column(
             // bigCategoryのchipを左寄せにするため
