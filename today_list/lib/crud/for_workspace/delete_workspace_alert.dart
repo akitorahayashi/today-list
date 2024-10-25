@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';
-import '../../model/externals/tl_vibration.dart';
+import '../../model/external/tl_vibration.dart';
+import '../../model/external/tl_pref.dart';
 import '../../model/tl_theme.dart';
 import '../../constants/global_keys.dart';
 import '../../alerts/simple_alert.dart';
 import '../../styles.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
 
 // Workspaceを消す
 Future<void> deleteWorkspaceAlert({
@@ -79,7 +78,7 @@ Future<void> deleteWorkspaceAlert({
                                 buttonText: "OK");
                           } else {
                             // TLWorkspacesから削除
-                            SharedPreferences.getInstance().then((pref) {
+                            TLPref().getPref.then((pref) {
                               if (TLWorkspace.currentWorkspaceIndex >
                                   indexInTLWorkspaces) {
                                 TLWorkspace.currentWorkspaceIndex--;

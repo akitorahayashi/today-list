@@ -1,5 +1,6 @@
+import './tl_pref.dart';
+
 import 'package:flutter_vibrate/flutter_vibrate.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TLVibration {
   static double vibrationStrength = 2.0;
@@ -9,7 +10,7 @@ class TLVibration {
     bool canVibrateOrNot = await Vibrate.canVibrate;
     canVibrate = canVibrateOrNot;
     if (canVibrate) {
-      await SharedPreferences.getInstance().then((pref) {
+      await TLPref().getPref.then((pref) {
         TLVibration.vibrationStrength =
             pref.getDouble("vibrationStrength") ?? 2.0;
       });
@@ -17,7 +18,7 @@ class TLVibration {
   }
 
   static Future<void> saveVibrationStrength() async {
-    await SharedPreferences.getInstance().then((pref) =>
+    await TLPref().getPref.then((pref) =>
         pref.setDouble("vibrationStrength", TLVibration.vibrationStrength));
   }
 

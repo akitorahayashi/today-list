@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../../constants/global_keys.dart';
 import '../../alerts/yes_no_alert.dart';
 import '../../alerts/simple_alert.dart';
-import '../../model/externals/tl_connectivity.dart';
-import '../../model/externals/tl_widgetkit.dart';
-import '../externals/tl_vibration.dart';
+import '../external/tl_connectivity.dart';
+import '../external/tl_widgetkit.dart';
+import '../external/tl_vibration.dart';
+import '../external/tl_pref.dart';
 import '../../styles.dart';
 import '../tl_theme.dart';
 import 'dart:convert';
 
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 class SettingData {
@@ -54,7 +54,7 @@ class SettingData {
 
   // 設定を読み込む関数
   Future<void> readSettings() async {
-    await SharedPreferences.getInstance().then((pref) async {
+    await TLPref().getPref.then((pref) async {
       if (pref.getString("settingData") != null) {
         SettingData.shared =
             SettingData.fromJson(json.decode(pref.getString("settingData")!));
@@ -66,7 +66,7 @@ class SettingData {
 
   // 全ての設定を保存する関数
   Future<void> saveSettings() async {
-    await SharedPreferences.getInstance().then((pref) {
+    await TLPref().getPref.then((pref) {
       pref.setString("settingData", json.encode(shared.toJson()));
     });
   }

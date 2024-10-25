@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/alerts/simple_alert.dart';
+import './tl_pref.dart';
 import 'package:today_list/main.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class TLAds {
@@ -47,7 +47,7 @@ class TLAds {
   static Future<void> initializeTLAds() async {
     await MobileAds.instance.initialize();
     // Passの起源を読み込む
-    await SharedPreferences.getInstance().then((pref) async {
+    await TLPref().getPref.then((pref) async {
       final roadedLimit = pref.getString("limitOfPass");
       // passLimitが存在するか
       if (roadedLimit != null) {
@@ -66,7 +66,7 @@ class TLAds {
   }
 
   static Future<void> saveLimitOfPass() async {
-    await SharedPreferences.getInstance().then((pref) {
+    await TLPref().getPref.then((pref) {
       pref.setString("limitOfPass", TLAds.limitOfPass);
     });
   }
