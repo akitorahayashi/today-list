@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../components/for_todo/icon_for_checkbox.dart';
 import '../../constants/global_keys.dart';
-import '../../constants/icon_for_checkbox.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/workspace/tl_workspace.dart';
@@ -68,7 +68,7 @@ class _StepInToDoCardState extends State<StepInToDoCard> {
                 padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
                 child: Transform.scale(
                   scale: 1.2,
-                  child: getIcon(isChecked: stepData.isChecked),
+                  child: IconForCheckBox(isChecked: stepData.isChecked),
                 ),
               ),
               // stepのタイトル

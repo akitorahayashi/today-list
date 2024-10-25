@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/components/for_todo/icon_for_checkbox.dart';
 import '../../../model/tl_theme.dart';
 import '../../../constants/global_keys.dart';
-import '../../../constants/icon_for_checkbox.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
@@ -90,7 +90,7 @@ class ModelOfToDoCard extends StatelessWidget {
                         // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                         child: Transform.scale(
                           scale: 1.2,
-                          child: getIcon(isChecked: toDoData.isChecked),
+                          child: IconForCheckBox(isChecked: toDoData.isChecked),
                         )),
                     // toDoのタイトル
                     Expanded(
@@ -132,8 +132,8 @@ class ModelOfToDoCard extends StatelessWidget {
                                       const EdgeInsets.fromLTRB(4, 0, 16, 0),
                                   child: Transform.scale(
                                     scale: 1.2,
-                                    child:
-                                        getIcon(isChecked: stepData.isChecked),
+                                    child: IconForCheckBox(
+                                        isChecked: stepData.isChecked),
                                   ),
                                 ),
                                 // stepのタイトル

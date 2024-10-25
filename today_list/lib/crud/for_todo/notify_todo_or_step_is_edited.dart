@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/components/for_todo/icon_for_checkbox.dart';
 import '../../model/tl_theme.dart';
-import '../../constants/icon_for_checkbox.dart';
 
 void notifyToDoOrStepIsEditted({
   required BuildContext context,
@@ -59,7 +59,7 @@ void notifyToDoOrStepIsEditted({
                     height: 20,
                     child: Transform.scale(
                       scale: 1.2,
-                      child: getIcon(isChecked: newCheckedState),
+                      child: IconForCheckBox(isChecked: newCheckedState),
                     ),
                   )),
               // toDoのタイトル
