@@ -4,7 +4,6 @@ import '../../alerts/simple_alert.dart';
 import '../../constants/global_keys.dart';
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
-import '../../model/user/setting_data.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';
 import '../../model/todo/tl_todos.dart';
@@ -27,14 +26,14 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
       TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     if (widget.oldIndexInStringWorkspaces != null && !isInitialized) {
       isInitialized = true;
       _workspaceNameInputController.text =
           tlworkspaces[widget.oldIndexInStringWorkspaces!]["name"];
     }
     return Dialog(
-      backgroundColor:
-          tlThemeDataList[SettingData.shared.selectedThemeIndex]!.alertColor,
+      backgroundColor: _tlThemeData.alertColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -60,15 +59,16 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                 width: 230,
                 child: TextField(
                   autofocus: true,
-                  cursorColor:
-                      tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                          .accentColor,
+                  cursorColor: _tlThemeData.accentColor,
                   controller: _workspaceNameInputController,
                   style: TextStyle(
                       color: Colors.black.withOpacity(0.5),
                       fontWeight: FontWeight.w600),
                   decoration: tlInputDecoration(
-                      labelText: "新しい名前", icon: null, suffixIcon: null),
+                      context: context,
+                      labelText: "新しい名前",
+                      icon: null,
+                      suffixIcon: null),
                 )),
           ),
           // 閉じる 追加するボタン
@@ -77,12 +77,12 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
             children: [
               // カテゴリーを作らずにアラートを閉じるボタン
               TextButton(
-                  style: alertButtonStyle(),
+                  style: alertButtonStyle(context: context),
                   onPressed: () => Navigator.pop(context),
                   child: const Text("閉じる")),
               // workspaceを追加するボタン
               TextButton(
-                  style: alertButtonStyle(),
+                  style: alertButtonStyle(context: context),
                   onPressed: () {
                     if (_workspaceNameInputController.text.trim().isEmpty) {
                       // 入力されていなければ退場

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/workspace/tl_workspaces.dart';
-import '../../../../model/user/setting_data.dart';
-import '../../../../model/todo/tl_category.dart';
 import '../../../../model/tl_theme.dart';
 import '../../../../constants/global_keys.dart';
 import '../../../../crud/for_workspace/delete_workspace_alert.dart';
@@ -30,6 +27,7 @@ class SlidableForWorkspaceCard extends StatefulWidget {
 class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Slidable(
       // currentWorkspaceの時や
       startActionPane: widget.isCurrentWorkspace ||
@@ -43,12 +41,8 @@ class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
                 SlidableAction(
                   autoClose: true,
                   spacing: 8,
-                  backgroundColor:
-                      tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                          .panelColor,
-                  foregroundColor:
-                      tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                          .accentColor,
+                  backgroundColor: _tlThemeData.panelColor,
+                  foregroundColor: _tlThemeData.accentColor,
                   onPressed: (BuildContext context) {
                     if (!widget.isInDrawerList) {
                       Navigator.pop(context);
@@ -72,12 +66,8 @@ class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
                     SlidableAction(
                       autoClose: true,
                       spacing: 8,
-                      backgroundColor: tlThemeDataList[
-                              SettingData.shared.selectedThemeIndex]!
-                          .panelColor,
-                      foregroundColor: tlThemeDataList[
-                              SettingData.shared.selectedThemeIndex]!
-                          .accentColor,
+                      backgroundColor: _tlThemeData.panelColor,
+                      foregroundColor: _tlThemeData.accentColor,
                       onPressed: (BuildContext context) async {
                         if (!widget.isInDrawerList) {
                           Navigator.pop(context);

@@ -8,7 +8,6 @@ import '../../components/for_ui/today_list_bottom_navbar/today_list_bottom_navba
 import '../../constants/global_keys.dart';
 import '../../model/tl_theme.dart';
 import '../../alerts/yes_no_alert.dart';
-import '../../model/user/setting_data.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';
 import '../../model/todo/tl_category.dart';
@@ -55,14 +54,13 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Scaffold(
       key: homePageScaffoldKey,
       drawer: WorkspaceDrawer(key: drawerForWorkspaceKey, isContentMode: false),
       body: Stack(children: [
         // 背景色
-        Container(
-            color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                .backgroundColor),
+        Container(color: _tlThemeData.backgroundColor),
         // 本体
         CustomScrollView(
           slivers: [

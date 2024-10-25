@@ -5,7 +5,6 @@ import '../../alerts/yes_no_alert.dart';
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_category.dart';
-import '../../model/user/setting_data.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../model/externals/tl_ads.dart';
@@ -124,14 +123,13 @@ class EditToDoPageState extends State<EditToDoPage> {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Scaffold(
       body: Stack(
         children: [
           // 背景色
           Container(
-              decoration: BoxDecoration(
-                  color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                      .backgroundColor),
+              decoration: BoxDecoration(color: _tlThemeData.backgroundColor),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height),
 
@@ -225,9 +223,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                                     style: oneOfBigCategory.id ==
                                             _selectedBigCategory.id
                                         ? TextStyle(
-                                            color: tlThemeDataList[SettingData
-                                                    .shared.selectedThemeIndex]!
-                                                .accentColor,
+                                            color: _tlThemeData.accentColor,
                                             fontWeight: FontWeight.bold)
                                         : TextStyle(
                                             color:
@@ -287,9 +283,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                                     item.title,
                                     style: item.id == _selectedBigCategory.id
                                         ? TextStyle(
-                                            color: tlThemeDataList[SettingData
-                                                    .shared.selectedThemeIndex]!
-                                                .accentColor,
+                                            color: _tlThemeData.accentColor,
                                             fontWeight: FontWeight.bold)
                                         : TextStyle(
                                             color:
@@ -333,19 +327,13 @@ class EditToDoPageState extends State<EditToDoPage> {
                                         2,
                               ),
                               // 背景色
-                              fillColor: tlThemeDataList[
-                                      SettingData.shared.selectedThemeIndex]!
-                                  .toggleButtonsBackgroundColor,
+                              fillColor:
+                                  _tlThemeData.toggleButtonsBackgroundColor,
                               // 文字色
-                              selectedColor: tlThemeDataList[
-                                      SettingData.shared.selectedThemeIndex]!
-                                  .accentColor,
-                              color: tlThemeDataList[
-                                      SettingData.shared.selectedThemeIndex]!
-                                  .accentColor,
+                              selectedColor: _tlThemeData.accentColor,
+                              color: _tlThemeData.accentColor,
                               // splashColor
-                              splashColor: tlThemeDataList[
-                                      SettingData.shared.selectedThemeIndex]!
+                              splashColor: _tlThemeData
                                   .toggleButtonsBackgroundSplashColor,
                               // 機能
                               isSelected: [_ifInToday, !_ifInToday],

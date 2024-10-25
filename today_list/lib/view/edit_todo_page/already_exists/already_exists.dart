@@ -29,6 +29,7 @@ class AlreadyExists extends StatefulWidget {
 class _AlreadyExistsState extends State<AlreadyExists> {
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     final TLCategory categoryOfThisToDo =
         widget.smallCategoryOfThisToDo ?? widget.bigCategoryOfThisToDo;
     final List<TLToDo> toDoArrayOfThisBlock = TLWorkspace
@@ -55,9 +56,7 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                             ? "Already Exists"
                             : "追加済み",
                         style: TextStyle(
-                          color: tlThemeDataList[
-                                  SettingData.shared.selectedThemeIndex]!
-                              .accentColor,
+                          color: _tlThemeData.accentColor,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),

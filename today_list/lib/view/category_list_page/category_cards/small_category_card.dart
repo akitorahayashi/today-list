@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../model/tl_theme.dart';
 import '../../../constants/global_keys.dart';
+import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_category.dart';
-import '../../../model/user/setting_data.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../view/all_todos_in_this_category_page/all_todos_in_category_page.dart';
 
@@ -22,6 +21,7 @@ class SmallCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     final int numberOfToDosInThisCategory =
         smallCategoryOfThisCard.getNumberOfToDosInThisCategory();
     return GestureDetector(
@@ -52,9 +52,7 @@ class SmallCategoryCard extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           overflow: TextOverflow.ellipsis,
                           fontSize: 15,
-                          color: tlThemeDataList[
-                                  SettingData.shared.selectedThemeIndex]!
-                              .accentColor),
+                          color: _tlThemeData.accentColor),
                     ),
                   ),
                 ),
@@ -67,9 +65,7 @@ class SmallCategoryCard extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
-                        color: tlThemeDataList[
-                                SettingData.shared.selectedThemeIndex]!
-                            .accentColor),
+                        color: _tlThemeData.accentColor),
                   ),
                 ),
             ],

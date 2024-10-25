@@ -1,134 +1,97 @@
 import 'package:flutter/material.dart';
-import '../model/user/setting_data.dart';
-import '../model/externals/tl_ads.dart';
-import '../model/tl_theme.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 final List<String> fontawesomeCategories = ["Default"];
 
-Widget getIcon({required bool isChecked, Color? iconColor, double? iconSize}) {
-  // このカテゴリーで指定されたアイコンがない場合、デフォルトのものを使う
-  IconForCheckBox thisIconData = (() {
-    // 指定したアイコンがなければ、チェックボックスを使う
-    if (iconsForCheckBox[SettingData.shared.defaultIconCategory] != null &&
-        iconsForCheckBox[SettingData.shared.defaultIconCategory]![
-                SettingData.shared.defaultIconRarity] !=
-            null &&
-        iconsForCheckBox[SettingData.shared.defaultIconCategory]![SettingData
-                .shared
-                .defaultIconRarity]![SettingData.shared.defaultIconName] !=
-            null &&
-        TLAds.isPassActive) {
-      return iconsForCheckBox[SettingData.shared.defaultIconCategory]![
-          SettingData
-              .shared.defaultIconRarity]![SettingData.shared.defaultIconName]!;
-    } else {
-      return iconsForCheckBox["Default"]!["Common"]!["box"]!;
-    }
-  }());
-  return Icon(
-    isChecked ? thisIconData.checkedIcon : thisIconData.notCheckedIcon,
-    color: iconColor ??
-        (isChecked
-            ? tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                .checkmarkColor
-            : Colors.black.withOpacity(0.56)),
-    size: iconSize ??
-        (fontawesomeCategories.contains(SettingData.shared.defaultIconCategory)
-            ? 17
-            : 19),
-  );
-}
-
-class IconForCheckBox {
+class IconForCheckBoxData {
   final IconData checkedIcon;
   final IconData notCheckedIcon;
 
   // コンストラクタ
-  IconForCheckBox({
+  IconForCheckBoxData({
     required this.checkedIcon,
     required this.notCheckedIcon,
   });
 }
 
 // カテゴリー, レア度, 名前
-Map<String, Map<String, Map<String, IconForCheckBox>>> iconsForCheckBox = {
+Map<String, Map<String, Map<String, IconForCheckBoxData>>> iconsForCheckBox = {
   "Default": {
     "Super Rare": {},
     "Rare": {},
     "Common": {
-      "box": IconForCheckBox(
+      "box": IconForCheckBoxData(
           checkedIcon: FontAwesomeIcons.solidSquareCheck,
           notCheckedIcon: FontAwesomeIcons.square),
-      "circle": IconForCheckBox(
+      "circle": IconForCheckBoxData(
           checkedIcon: FontAwesomeIcons.solidCircleCheck,
           notCheckedIcon: FontAwesomeIcons.circle)
     }
   },
   "Unit 1": {
     "Super Rare": {
-      "water": IconForCheckBox(
+      "water": IconForCheckBoxData(
           checkedIcon: Icons.water_drop,
           notCheckedIcon: Icons.water_drop_outlined),
-      "sun": IconForCheckBox(
+      "sun": IconForCheckBoxData(
           checkedIcon: Icons.brightness_7, notCheckedIcon: Icons.brightness_5),
     },
     "Rare": {
-      "star": IconForCheckBox(
+      "star": IconForCheckBoxData(
           checkedIcon: Icons.star, notCheckedIcon: Icons.star_border),
-      "fire": IconForCheckBox(
+      "fire": IconForCheckBoxData(
           checkedIcon: Icons.whatshot, notCheckedIcon: Icons.whatshot),
-      "flower": IconForCheckBox(
+      "flower": IconForCheckBoxData(
           checkedIcon: Icons.local_florist,
           notCheckedIcon: Icons.local_florist_outlined),
     },
     "Common": {
-      "tree": IconForCheckBox(
+      "tree": IconForCheckBoxData(
           checkedIcon: Icons.park, notCheckedIcon: Icons.park_outlined),
-      "hill": IconForCheckBox(
+      "hill": IconForCheckBoxData(
           checkedIcon: Icons.terrain, notCheckedIcon: Icons.terrain_outlined),
-      "moon": IconForCheckBox(
+      "moon": IconForCheckBoxData(
           checkedIcon: Icons.dark_mode,
           notCheckedIcon: Icons.dark_mode_outlined),
-      "earth": IconForCheckBox(
+      "earth": IconForCheckBoxData(
           checkedIcon: Icons.public, notCheckedIcon: Icons.public_outlined),
-      "bee": IconForCheckBox(
+      "bee": IconForCheckBoxData(
           checkedIcon: Icons.emoji_nature,
           notCheckedIcon: Icons.emoji_nature_outlined),
     }
   },
   "Unit 2": {
     "Super Rare": {
-      "rocket": IconForCheckBox(
+      "rocket": IconForCheckBoxData(
           checkedIcon: Icons.rocket_launch,
           notCheckedIcon: Icons.rocket_outlined),
-      "core": IconForCheckBox(
+      "core": IconForCheckBoxData(
           checkedIcon: Icons.token, notCheckedIcon: Icons.token_outlined),
     },
     "Rare": {
-      "bell": IconForCheckBox(
+      "bell": IconForCheckBoxData(
           checkedIcon: Icons.notifications_active,
           notCheckedIcon: Icons.notifications_outlined),
-      "ar": IconForCheckBox(
+      "ar": IconForCheckBoxData(
           checkedIcon: Icons.view_in_ar,
           notCheckedIcon: Icons.view_in_ar_outlined),
-      "flare": IconForCheckBox(
+      "flare": IconForCheckBoxData(
           checkedIcon: Icons.flare, notCheckedIcon: Icons.lens_blur_sharp),
     },
     "Common": {
-      "code": IconForCheckBox(
+      "code": IconForCheckBoxData(
           checkedIcon: Icons.qr_code_scanner, notCheckedIcon: Icons.qr_code),
-      "limit": IconForCheckBox(
+      "limit": IconForCheckBoxData(
           checkedIcon: Icons.hourglass_full,
           notCheckedIcon: Icons.hourglass_empty),
-      "robot": IconForCheckBox(
+      "robot": IconForCheckBoxData(
           checkedIcon: Icons.smart_toy,
           notCheckedIcon: Icons.smart_toy_outlined),
-      "game": IconForCheckBox(
+      "game": IconForCheckBoxData(
           checkedIcon: Icons.sports_esports,
           notCheckedIcon: Icons.sports_esports_outlined),
-      "music": IconForCheckBox(
+      "music": IconForCheckBoxData(
           checkedIcon: Icons.music_note,
           notCheckedIcon: Icons.music_note_outlined),
     }

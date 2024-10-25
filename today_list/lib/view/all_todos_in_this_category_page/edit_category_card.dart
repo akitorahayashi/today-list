@@ -1,7 +1,6 @@
 import '../../model/tl_theme.dart';
 import '../../constants/global_keys.dart';
 import '../../model/todo/tl_category.dart';
-import '../../model/user/setting_data.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces.dart';
 import '../../crud/for_todo_category/delete_category_dialog.dart';
@@ -31,9 +30,9 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return SimpleDialog(
-      backgroundColor:
-          tlThemeDataList[SettingData.shared.selectedThemeIndex]!.alertColor,
+      backgroundColor: _tlThemeData.alertColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       titlePadding: const EdgeInsets.fromLTRB(18, 24, 24, 24),
       title: Column(
@@ -51,8 +50,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
             child: Text(
               _categoryOfThisPage.title,
               style: TextStyle(
-                  color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                      .accentColor,
+                  color: _tlThemeData.accentColor,
                   fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
@@ -76,8 +74,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
             child: Text(
               "Delete",
               style: TextStyle(
-                  color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                      .accentColor,
+                  color: _tlThemeData.accentColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
@@ -101,8 +98,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
             child: Text(
               "Rename",
               style: TextStyle(
-                  color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                      .accentColor,
+                  color: _tlThemeData.accentColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
@@ -115,7 +111,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
             child: TextButton(
               onPressed: () => Navigator.pop(context),
               style: ButtonStyle(
-                overlayColor: MaterialStateProperty.resolveWith(
+                overlayColor: WidgetStateProperty.resolveWith(
                     (states) => Colors.lightGreen.withOpacity(0.1)),
               ),
               child: const Text(

@@ -1,14 +1,12 @@
-// ignore_for_file: invalid_use_of_protected_member
-import 'package:today_list/model/externals/tl_connectivity.dart';
-import 'package:today_list/model/externals/tl_widgetkit.dart';
-
+import 'package:flutter/material.dart';
 import '../../constants/global_keys.dart';
-import '../tl_theme.dart';
 import '../../alerts/yes_no_alert.dart';
 import '../../alerts/simple_alert.dart';
+import '../../model/externals/tl_connectivity.dart';
+import '../../model/externals/tl_widgetkit.dart';
 import '../externals/tl_vibration.dart';
 import '../../styles.dart';
-import 'package:flutter/material.dart';
+import '../tl_theme.dart';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,7 +96,7 @@ class SettingData {
                       height: 80,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          gradient: tlThemeDataList[selectedThemeIndex]!
+                          gradient: tlThemeDataList[selectedThemeIndex]
                               .gradientOfNavBar,
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -107,18 +105,17 @@ class SettingData {
                             alignment: Alignment.center,
                             child: Card(
                               elevation: 5,
-                              color: tlThemeDataList[selectedThemeIndex]!
+                              color: tlThemeDataList[selectedThemeIndex]
                                   .panelColor,
                               child: Container(
                                 width: 150,
                                 height: 50,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  selectedThemeIndex,
+                                  tlThemeDataList[selectedThemeIndex].themeName,
                                   style: TextStyle(
-                                      color:
-                                          tlThemeDataList[selectedThemeIndex]!
-                                              .checkmarkColor,
+                                      color: tlThemeDataList[selectedThemeIndex]
+                                          .checkmarkColor,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -138,19 +135,19 @@ class SettingData {
                     children: [
                       // 戻るボタン
                       TextButton(
-                        style: alertButtonStyle(),
+                        style: alertButtonStyle(context: context),
                         onPressed: () => Navigator.pop(context),
                         // InkWell
                         child: Text(
                           "戻る",
                           style: TextStyle(
-                              color: tlThemeDataList[selectedThemeIndex]!
+                              color: tlThemeDataList[selectedThemeIndex]
                                   .accentColor),
                         ),
                       ),
                       // 変更するボタン
                       TextButton(
-                          style: alertButtonStyle(),
+                          style: alertButtonStyle(context: context),
                           onPressed: () {
                             // このアラートを消す
                             Navigator.pop(context);
@@ -174,7 +171,7 @@ class SettingData {
                           // InkWell
                           child: Text("変更",
                               style: TextStyle(
-                                  color: tlThemeDataList[selectedThemeIndex]!
+                                  color: tlThemeDataList[selectedThemeIndex]
                                       .accentColor))),
                     ],
                   )

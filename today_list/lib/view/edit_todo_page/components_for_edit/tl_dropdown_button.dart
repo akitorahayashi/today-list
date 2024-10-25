@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../model/todo/tl_category.dart';
-import '../../../model/user/setting_data.dart';
 import '../../../model/tl_theme.dart';
 
 class TLDropDownButton extends StatefulWidget {
@@ -21,12 +20,11 @@ class TLDropDownButton extends StatefulWidget {
 class _TLDropDownButtonState extends State<TLDropDownButton> {
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
       child: DropdownButton(
-          iconEnabledColor:
-              tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                  .accentColor,
+          iconEnabledColor: _tlThemeData.accentColor,
           isExpanded: true,
           hint: Text(
             widget.hintText,

@@ -4,7 +4,6 @@ import '../../../constants/global_keys.dart';
 import '../../../constants/icon_for_checkbox.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
-import '../../../model/user/setting_data.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../components/for_todo/todo_card/slidable_for_todo_card.dart';
 
@@ -35,8 +34,9 @@ class ModelOfToDoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Card(
-      color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!.panelColor,
+      color: _tlThemeData.panelColor,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ClipRRect(

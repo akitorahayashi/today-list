@@ -7,7 +7,6 @@ import '../../model/tl_theme.dart';
 import '../../constants/global_keys.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../model/workspace/tl_workspaces.dart';
 import '../../components/for_ui/today_list_bottom_navbar/today_list_bottom_navbar.dart';
@@ -46,13 +45,12 @@ class AllToDosInThisCategoryPageState
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Scaffold(
       body: Stack(children: [
         // 背景色
         Container(
-            decoration: BoxDecoration(
-                color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                    .backgroundColor),
+            decoration: BoxDecoration(color: _tlThemeData.backgroundColor),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height),
         CustomScrollView(

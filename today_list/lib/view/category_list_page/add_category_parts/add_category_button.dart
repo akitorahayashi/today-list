@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../model/tl_theme.dart';
-import '../../../model/user/setting_data.dart';
 
 class AddCategoryButton extends StatelessWidget {
   final Function() onTap;
@@ -11,6 +10,7 @@ class AddCategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -24,8 +24,7 @@ class AddCategoryButton extends StatelessWidget {
           child: ClipOval(
             child: Icon(
               Icons.add,
-              color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                  .accentColor,
+              color: _tlThemeData.accentColor,
               size: 30,
             ),
           )),

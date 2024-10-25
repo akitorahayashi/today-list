@@ -3,7 +3,6 @@ import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/todo/tl_todos.dart';
-import '../../model/user/setting_data.dart';
 import '../../model/externals/tl_vibration.dart';
 import '../../styles.dart';
 import 'notify_category_is_added.dart';
@@ -14,14 +13,13 @@ Future<TLCategory?> addToDoCategoryAlert({
   // smallCategoryを作る際に必要
   required String? bigCategoryId,
 }) async {
+  final TLThemeData _tlThemeData = TLTheme.of(context);
   return await showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          backgroundColor:
-              tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                  .alertColor,
+          backgroundColor: _tlThemeData.alertColor,
           content: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
@@ -38,14 +36,15 @@ Future<TLCategory?> addToDoCategoryAlert({
                     child: TextField(
                       autofocus: true,
                       controller: categoryNameInputController,
-                      cursorColor: tlThemeDataList[
-                              SettingData.shared.selectedThemeIndex]!
-                          .accentColor,
+                      cursorColor: _tlThemeData.accentColor,
                       style: TextStyle(
                           color: Colors.black.withOpacity(0.5),
                           fontWeight: FontWeight.w600),
                       decoration: tlInputDecoration(
-                          labelText: "新しいカテゴリー名", icon: null, suffixIcon: null),
+                          context: context,
+                          labelText: "新しいカテゴリー名",
+                          icon: null,
+                          suffixIcon: null),
                     )),
               ),
               // 閉じる 追加するボタン
@@ -54,12 +53,12 @@ Future<TLCategory?> addToDoCategoryAlert({
                 children: [
                   // カテゴリーを作らずにアラートを閉じるボタン
                   TextButton(
-                      style: alertButtonStyle(),
+                      style: alertButtonStyle(context: context),
                       onPressed: () => Navigator.pop(context),
                       child: const Text("閉じる")),
                   // カテゴリーを追加するボタン
                   TextButton(
-                      style: alertButtonStyle(),
+                      style: alertButtonStyle(context: context),
                       onPressed: () {
                         // カテゴリー名が入力されているなら追加する
                         if (categoryNameInputController.text

@@ -20,13 +20,12 @@ class WorkspaceDrawer extends StatefulWidget {
 class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Drawer(
       child: Stack(
         children: [
           // 背景色
-          Container(
-              color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                  .backgroundColor),
+          Container(color: _tlThemeData.backgroundColor),
           CustomScrollView(
             slivers: [
               TLSliverAppBar(
@@ -44,9 +43,7 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: tlThemeDataList[
-                                SettingData.shared.selectedThemeIndex]!
-                            .panelBorderColor),
+                        color: _tlThemeData.panelBorderColor),
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -80,9 +77,7 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: tlThemeDataList[
-                                SettingData.shared.selectedThemeIndex]!
-                            .panelBorderColor),
+                        color: _tlThemeData.panelBorderColor),
                     child: Card(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
