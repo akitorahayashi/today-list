@@ -60,7 +60,6 @@ class SetAppearancePageState extends State<SetAppearancePage> {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
     double deviceWidth = MediaQuery.of(context).size.width;
     // テーマを表示させるための変数
     List<int> unUsingThemeIndices =
@@ -85,46 +84,44 @@ class SetAppearancePageState extends State<SetAppearancePage> {
       // THEME選択カード
       Padding(
         padding: const EdgeInsets.only(top: 8.0),
-        child: PanelWithTitle(
-            title: SettingData.shared.englishMode ? "THEME" : "テーマ",
-            contents: [
-              // 現在の枚数を表示する
-              ShowLimitOfPassCard(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // 現在使っているテーマ
-                      LeftSideShowingSelectingPanel(deviceWidth: deviceWidth),
-                      // 2, 3個目のテーマ
-                      SizedBox(
-                        height: 320,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            // 2個目のテーマ
-                            RightSideThemeSelectButton(
-                                IndexOfthemeData: unUsingThemeIndices[0]),
-                            // 3個目のテーマ
-                            RightSideThemeSelectButton(
-                                IndexOfthemeData: unUsingThemeIndices[1]),
-                          ],
-                        ),
-                      ),
-                    ]),
-              ),
-            ]),
+        child: PanelWithTitle(title: "THEME", contents: [
+          // 現在の枚数を表示する
+          ShowLimitOfPassCard(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // 現在使っているテーマ
+                  LeftSideShowingSelectingPanel(deviceWidth: deviceWidth),
+                  // 2, 3個目のテーマ
+                  SizedBox(
+                    height: 320,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // 2個目のテーマ
+                        RightSideThemeSelectButton(
+                            IndexOfthemeData: unUsingThemeIndices[0]),
+                        // 3個目のテーマ
+                        RightSideThemeSelectButton(
+                            IndexOfthemeData: unUsingThemeIndices[1]),
+                      ],
+                    ),
+                  ),
+                ]),
+          ),
+        ]),
       ),
       // VIBRATION設定カード
       // ignore: prefer_const_literals_to_create_immutables
       PanelWithTitle(
-          title: SettingData.shared.englishMode ? "VIBRATION" : "バイブレーション",
+          title: "VIBRATION",
           // ignore: prefer_const_literals_to_create_immutables
           contents: [SetVibrationCard()]),
       // ICONS選択カード
       PanelWithTitle(
-        title: SettingData.shared.englishMode ? "ICONS" : "チェックマーク",
+        title: "ICONS",
         contents: [
           for (String iconCategoryName in iconsForCheckBox.keys)
             IconCategoryPanel(iconCategoryName: iconCategoryName),

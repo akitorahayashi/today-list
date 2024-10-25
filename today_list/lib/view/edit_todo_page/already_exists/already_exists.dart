@@ -4,7 +4,6 @@ import '../../../constants/global_keys.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/user/setting_data.dart';
 import './model_of_todo_card.dart';
 
 import 'package:reorderables/reorderables.dart';
@@ -52,9 +51,7 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        SettingData.shared.englishMode
-                            ? "Already Exists"
-                            : "追加済み",
+                        "Already Exists",
                         style: TextStyle(
                           color: _tlThemeData.accentColor,
                           fontSize: 25,

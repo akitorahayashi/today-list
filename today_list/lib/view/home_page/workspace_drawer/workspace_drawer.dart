@@ -3,7 +3,6 @@ import 'package:reorderables/reorderables.dart';
 import 'change_workspace_card/change_workspace_card.dart';
 import '../../../components/for_ui/tl_sliver_appbar.dart';
 import '../../../model/tl_theme.dart';
-import '../../../model/user/setting_data.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/workspace/tl_workspaces.dart';
 import './add_workspace_button.dart';
@@ -29,8 +28,7 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
           CustomScrollView(
             slivers: [
               TLSliverAppBar(
-                  pageTitle:
-                      SettingData.shared.englishMode ? "Workspace" : "作業場",
+                  pageTitle: "Workspace",
                   leadingButtonOnPressed: null,
                   leadingIcon: Container(),
                   trailingButtonOnPressed: null,
@@ -52,9 +50,7 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0, bottom: 5),
                             child: Text(
-                              SettingData.shared.englishMode
-                                  ? "current workspace"
-                                  : "現在の作業場",
+                              "current workspace",
                               style: TextStyle(
                                   color: Colors.black.withOpacity(0.4),
                                   fontSize: 18,

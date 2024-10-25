@@ -4,7 +4,6 @@ import '../../../model/todo/tl_todos.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/workspace/tl_workspaces.dart';
-import '../../../model/user/setting_data.dart';
 import '../../../constants/global_keys.dart';
 import '../../../crud/for_todo_category/add_todo_category_alert.dart';
 import '../../../crud/for_todo_category/notify_category_is_added.dart';
@@ -149,8 +148,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                 ),
                 decoration: tlInputDecoration(
                     context: context,
-                    labelText:
-                        SettingData.shared.englishMode ? "Small" : "小カテゴリー",
+                    labelText: "Small",
                     icon: null,
                     suffixIcon: null),
                 onChanged: (_) => setState(() {}),
