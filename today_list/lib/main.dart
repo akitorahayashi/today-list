@@ -18,7 +18,14 @@ enum LanguageType { ja, en }
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await dotenv.load(fileName: ".env");
+  try {
+    print('Loading .env file...');
+    await dotenv.load(fileName: ".env");
+    print('.env file loaded successfully');
+  } catch (e, stackTrace) {
+    print('Failed to load .env file: ${e.toString()}');
+    print('Stack trace: $stackTrace');
+  }
   await TLAds.initializeTLAds();
   await TLWorkspace.readWorkspaces();
   await SettingData.shared.readSettings();
