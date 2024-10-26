@@ -7,7 +7,7 @@ import '../../../model/workspace/tl_workspaces.dart';
 import '../../../constants/global_keys.dart';
 import '../../../crud/for_todo_category/add_todo_category_alert.dart';
 import '../../../crud/for_todo_category/notify_category_is_added.dart';
-import '../../../styles.dart';
+import '../../../constants/styles.dart';
 
 class AddCategorySheet extends StatefulWidget {
   const AddCategorySheet({

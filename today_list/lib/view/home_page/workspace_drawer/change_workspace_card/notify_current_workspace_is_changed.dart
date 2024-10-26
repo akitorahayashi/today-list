@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../styles.dart';
+import '../../../../constants/styles.dart';
 import '../../../../model/tl_theme.dart';
 
 Future<void> notifyCurrentWorkspaceIsChanged({

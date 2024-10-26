@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../styles.dart';
+import '../../../constants/styles.dart';
 import '../../../model/tl_theme.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

@@ -6,7 +6,7 @@ import '../external/tl_connectivity.dart';
 import '../external/tl_widgetkit.dart';
 import '../external/tl_vibration.dart';
 import '../external/tl_pref.dart';
-import '../../styles.dart';
+import '../../constants/styles.dart';
 import '../tl_theme.dart';
 import 'dart:convert';
 

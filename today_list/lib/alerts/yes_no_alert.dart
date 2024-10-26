@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../model/tl_theme.dart';
-import '../styles.dart';
+import '../constants/styles.dart';
 
 Future<void> yesNoAlert(
     {required BuildContext context,
