@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../model/todo/tl_step.dart';
-import '../../../constants/global_keys.dart';
 
 import 'package:reorderables/reorderables.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,7 +23,8 @@ class _StepsColumnState extends State<StepsColumn> {
   @override
   Widget build(BuildContext context) {
     return ReorderableColumn(
-      children: List<Widget>.generate(widget.stepsOfThisToDo.length, (indexOfAStep) {
+      children:
+          List<Widget>.generate(widget.stepsOfThisToDo.length, (indexOfAStep) {
         return Padding(
           key: Key(widget.stepsOfThisToDo[indexOfAStep].id),
           padding: const EdgeInsets.only(left: 16.0, top: 1),
@@ -45,7 +45,6 @@ class _StepsColumnState extends State<StepsColumn> {
                   child: GestureDetector(
                       onTap: () {
                         widget.onTapStepRow(indexOfAStep);
-                        editToDoPageKey.currentState?.setState(() {});
                       },
                       child: Text(
                         widget.stepsOfThisToDo[indexOfAStep].title,
@@ -61,7 +60,6 @@ class _StepsColumnState extends State<StepsColumn> {
                   child: TextButton(
                     onPressed: () {
                       widget.tapToRemoveStepRow(indexOfAStep);
-                      editToDoPageKey.currentState?.setState(() {});
                     },
                     style: TextButton.styleFrom(
                       splashFactory: NoSplash.splashFactory,

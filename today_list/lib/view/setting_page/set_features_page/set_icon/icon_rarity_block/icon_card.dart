@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
 import 'package:today_list/model/external/tl_ads.dart';
-import '../../../../../constants/global_keys.dart';
 import '../../../../../alerts/yes_no_alert.dart';
 import '../../../../../alerts/simple_alert.dart';
 import '../../../../../constants/icon_for_checkbox_data.dart';
@@ -64,7 +63,6 @@ class _IconCardState extends State<IconCard> {
                       title: "PASSが延長されました!",
                       message: "3日分のPASSを獲得しました",
                       buttonText: "OK");
-                  setAppearancePageKey.currentState?.setState(() {});
                 },
               ),
             );

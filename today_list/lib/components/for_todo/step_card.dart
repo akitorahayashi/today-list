@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../components/for_todo/icon_for_checkbox.dart';
-import '../../constants/global_keys.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/workspace/tl_workspace.dart';
@@ -11,10 +10,10 @@ class StepInToDoCard extends StatefulWidget {
   final TLToDo toDoData;
   final int indexOfThisStepInToDo;
   const StepInToDoCard({
-    super.key,
+    Key? key,
     required this.toDoData,
     required this.indexOfThisStepInToDo,
-  });
+  }) : super(key: key);
 
   @override
   State<StepInToDoCard> createState() => _StepInToDoCardState();
@@ -47,7 +46,6 @@ class _StepInToDoCardState extends State<StepInToDoCard> {
         }
         setState(() {});
         TLVibration.vibrate();
-        homePageKey.currentState?.setState(() {});
         notifyToDoOrStepIsEditted(
             context: context,
             newName: stepData.title,

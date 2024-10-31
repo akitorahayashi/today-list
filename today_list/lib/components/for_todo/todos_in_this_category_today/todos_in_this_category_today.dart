@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 
 class ToDosInThisCategoryInToday extends StatefulWidget {
-  final GlobalKey superKey;
   final TLCategory bigCategoryOfThisToDo;
   final TLCategory? smallCategoryOfThisToDo;
 
@@ -19,14 +18,13 @@ class ToDosInThisCategoryInToday extends StatefulWidget {
       .toDosInToday;
 
   const ToDosInThisCategoryInToday({
-    super.key,
-    required this.superKey,
+    Key? key,
     required this.bigCategoryOfThisToDo,
     this.smallCategoryOfThisToDo,
     // workspace系
     required this.selectedWorkspaceIndex,
     required this.selectedWorkspace,
-  });
+  }) : super(key: key);
 
   @override
   State<ToDosInThisCategoryInToday> createState() =>
@@ -51,7 +49,6 @@ class _ToDosInThisCategoryInTodayState
                   ToDoCard(
                     key: Key(widget
                         .toDosInTodayInThisCategory[indexOfThisToDoInToDos].id),
-                    superKey: widget.superKey,
                     ifInToday: true,
                     indexOfThisToDoInToDos: indexOfThisToDoInToDos,
                     bigCategoryOfThisToDo: widget.bigCategoryOfThisToDo,
@@ -69,7 +66,6 @@ class _ToDosInThisCategoryInTodayState
                       widget.toDosInTodayInThisCategory.removeAt(oldIndex);
                   widget.toDosInTodayInThisCategory
                       .insert(newIndex, reorderedToDo);
-                  widget.superKey.currentState?.setState(() {});
                   // toDosを保存する
                   TLWorkspace.saveSelectedWorkspace(
                       selectedWorkspaceIndex: widget.selectedWorkspaceIndex);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../constants/global_keys.dart';
 import '../../alerts/yes_no_alert.dart';
 import '../../alerts/simple_alert.dart';
 import '../external/tl_connectivity.dart';
@@ -160,8 +159,6 @@ class SettingData {
                             SettingData.shared.selectedThemeIndex = corrIndex;
                             TLConnectivity.sendSelectedThemeToAppleWatch();
                             TLWidgetKit.updateSelectedTheme();
-                            todayListAppKey.currentState?.setState(() {});
-                            setAppearancePageKey.currentState?.setState(() {});
                             TLVibration.vibrate();
                             // thank youアラート
                             simpleAlert(
@@ -207,8 +204,6 @@ class SettingData {
         shared.defaultIconCategory = iconCategoryName;
         shared.defaultIconRarity = iconRarity;
         shared.defaultIconName = iconName;
-        todayListAppKey.currentState?.setState(() {});
-        setAppearancePageKey.currentState?.setState(() {});
         TLVibration.vibrate();
         simpleAlert(
             context: context,

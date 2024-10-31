@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../model/tl_theme.dart';
-import '../../../constants/global_keys.dart';
 import '../../../crud/for_todo/notify_todo_or_step_is_edited.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
@@ -10,7 +9,6 @@ import '../../../model/workspace/tl_workspace.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SlidableForToDoCard extends StatefulWidget {
-  final GlobalKey superKey;
   final bool isModelCard;
   // todo
   final TLToDo toDoData;
@@ -27,8 +25,7 @@ class SlidableForToDoCard extends StatefulWidget {
   final Function editAction;
   final Widget child;
   const SlidableForToDoCard({
-    super.key,
-    required this.superKey,
+    Key? key,
     required this.isModelCard,
     required this.toDoData,
     required this.toDoArrayOfThisToDo,
@@ -42,7 +39,7 @@ class SlidableForToDoCard extends StatefulWidget {
     required this.selectedWorkspace,
     required this.editAction,
     required this.child,
-  });
+  }) : super(key: key);
 
   @override
   State<SlidableForToDoCard> createState() => _SlidableForToDoCardState();
@@ -67,8 +64,6 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
             // タップしたらこれをremoveする
             widget.toDoArrayOfThisToDo.removeAt(widget.indexOfThisToDoInToDos);
             TLVibration.vibrate();
-            homePageKey.currentState?.setState(() {});
-            editToDoPageKey.currentState?.setState(() {});
             TLWorkspace.saveSelectedWorkspace(
                 selectedWorkspaceIndex: widget.selectedWorkspaceIndex);
           },
@@ -111,8 +106,6 @@ class _SlidableForToDoCardState extends State<SlidableForToDoCard> {
                       widget.bigCategoryOfThisToDo.id]!
                   .getToDoArray(inToday: !widget.ifInToday)
                   .insert(0, switchedToDo);
-              widget.superKey.currentState?.setState(() {});
-              categoryListPageKey.currentState?.setState(() {});
               TLVibration.vibrate();
               notifyToDoOrStepIsEditted(
                 context: context,

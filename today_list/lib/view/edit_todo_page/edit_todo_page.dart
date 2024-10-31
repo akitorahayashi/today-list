@@ -19,7 +19,6 @@ import 'components_for_edit/tl_dropdown_button.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class EditToDoPage extends StatefulWidget {
-  final GlobalKey superKey;
   final String toDoTitle;
   final List<TLStep> belogedSteps;
   final bool isInToday;
@@ -31,8 +30,7 @@ class EditToDoPage extends StatefulWidget {
 
   // コンストラクタ
   const EditToDoPage({
-    required Key key,
-    required this.superKey,
+    Key? key,
     required this.toDoTitle,
     required this.belogedSteps,
     required this.isInToday,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../constants/global_keys.dart';
 import '../../model/tl_theme.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
 import 'set_features_page/set_appearance_page.dart';
@@ -11,7 +10,7 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SettingPage extends StatefulWidget {
-  const SettingPage({required Key key}) : super(key: key);
+  const SettingPage({Key? key}) : super(key: key);
 
   @override
   State<SettingPage> createState() => _SettingPageState();
@@ -24,8 +23,8 @@ class _SettingPageState extends State<SettingPage> {
       PageController(initialPage: 0);
   final List<Widget> _contentsInSettingPage = [
     // const OtherAppsPage(),
-    SetAppearancePage(key: setAppearancePageKey),
-    MyPage(key: myPageKey),
+    SetAppearancePage(),
+    MyPage(),
   ];
   final List<dynamic> _iconDataOfSettingPageContents = [
     // iconData or imagePath, page name, isAsset

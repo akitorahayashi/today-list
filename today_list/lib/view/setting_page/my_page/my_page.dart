@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './sign_in_card/sign_in_card.dart';
 
 class MyPage extends StatefulWidget {
-  const MyPage({required Key key}) : super(key: key);
+  const MyPage({Key? key}) : super(key: key);
 
   @override
   State<MyPage> createState() => _MyPageState();

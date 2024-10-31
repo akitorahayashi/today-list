@@ -9,7 +9,7 @@ import './add_workspace_button.dart';
 
 class WorkspaceDrawer extends StatefulWidget {
   final bool isContentMode;
-  const WorkspaceDrawer({required Key key, required this.isContentMode})
+  const WorkspaceDrawer({Key? key, required this.isContentMode})
       : super(key: key);
 
   @override

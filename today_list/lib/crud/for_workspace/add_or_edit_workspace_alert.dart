@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../constants/styles.dart';
 import '../../alerts/simple_alert.dart';
-import '../../constants/global_keys.dart';
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
@@ -148,9 +147,6 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                         );
                       }
                       TLVibration.vibrate();
-                      homePageKey.currentState?.setState(() {});
-                      manageWorkspacePageKey.currentState?.setState(() {});
-                      drawerForWorkspaceKey.currentState?.setState(() {});
                       // workspacesをセーブする
                       TLWorkspace.saveWorkspaces();
                     }

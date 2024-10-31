@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
 import '../../../../model/tl_theme.dart';
-import '../../../../constants/global_keys.dart';
 import '../../../../alerts/yes_no_alert.dart';
 import '../../../../alerts/simple_alert.dart';
 import '../../../../model/user/setting_data.dart';
@@ -46,7 +45,6 @@ class _RightSideThemeSelectButtonState
               context: context,
               rewardAction: () {
                 TLAds.extendLimitOfPassReward(howManyDays: 3);
-                setAppearancePageKey.currentState?.setState(() {});
                 simpleAlert(
                     context: context,
                     corrThemeData: _corrThemeData,

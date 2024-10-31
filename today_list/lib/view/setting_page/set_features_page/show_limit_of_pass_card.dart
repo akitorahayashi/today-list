@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../alerts/yes_no_alert.dart';
 import '../../../alerts/simple_alert.dart';
 import '../../../model/external/tl_ads.dart';
-import '../../../constants/global_keys.dart';
 import '../../../model/tl_theme.dart';
 
 class ShowLimitOfPassCard extends StatelessWidget {
@@ -29,8 +28,6 @@ class ShowLimitOfPassCard extends StatelessWidget {
                   title: "PASSが延長されました!",
                   message: "3日分のPASSを獲得しました",
                   buttonText: "OK");
-              // ignore: invalid_use_of_protected_member
-              setAppearancePageKey.currentState?.setState(() {});
             },
           ),
         ),

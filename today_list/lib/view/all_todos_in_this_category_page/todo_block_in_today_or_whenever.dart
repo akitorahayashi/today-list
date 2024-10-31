@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../constants/global_keys.dart';
 import '../../components/for_todo/todo_card/todo_card.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_category.dart';
@@ -58,7 +57,6 @@ class _ToDoBlockInTodayOrWheneverState
               final TLToDo reorderedToDo =
                   widget.toDoArrayOfThisBlock.removeAt(oldIndex);
               widget.toDoArrayOfThisBlock.insert(newIndex, reorderedToDo);
-              allToDosInCategoryPageKey.currentState?.setState(() {});
             }
           }),
           children: [
@@ -66,8 +64,8 @@ class _ToDoBlockInTodayOrWheneverState
                 indexOfThisToDoInToDos < widget.toDoArrayOfThisBlock.length;
                 indexOfThisToDoInToDos++)
               ToDoCard(
+                // TODO ValueKeyを使う
                 key: Key(UniqueKey().toString()),
-                superKey: allToDosInCategoryPageKey,
                 ifInToday: widget.ifInToday,
                 indexOfThisToDoInToDos: indexOfThisToDoInToDos,
                 bigCategoryOfThisToDo: widget.bigCategoryThisPage,

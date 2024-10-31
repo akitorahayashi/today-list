@@ -5,7 +5,6 @@ import '../../components/for_todo/todos_in_this_category_today/header_for_todos.
 import '../../components/for_todo/todos_in_this_category_today/todos_in_this_category_today.dart';
 import '../../components/for_ui/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
 import '../../components/for_ui/today_list_bottom_navbar/today_list_bottom_navbar.dart';
-import '../../constants/global_keys.dart';
 import '../../model/tl_theme.dart';
 import '../../alerts/yes_no_alert.dart';
 import '../../model/workspace/tl_workspace.dart';
@@ -23,13 +22,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({required Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => HomePageState();
 }
 
 class HomePageState extends State<HomePage> {
+  final GlobalKey<ScaffoldState> homePageScaffoldKey =
+      GlobalKey<ScaffoldState>();
+
   bool accetColorIsChanged = false;
   bool enterSerialCodeMode = false;
 
@@ -57,7 +59,7 @@ class HomePageState extends State<HomePage> {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     return Scaffold(
       key: homePageScaffoldKey,
-      drawer: WorkspaceDrawer(key: drawerForWorkspaceKey, isContentMode: false),
+      drawer: WorkspaceDrawer(isContentMode: false),
       body: Stack(children: [
         // 背景色
         Container(color: _tlThemeData.backgroundColor),
@@ -79,12 +81,12 @@ class HomePageState extends State<HomePage> {
               trailingButtonOnPressed: () async {
                 await Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
-                  return SettingPage(key: settingPageKey);
+                  return SettingPage();
                 }));
-                homePageKey.currentState?.setState(() {});
               },
               trailingIcon: const Icon(Icons.settings, color: Colors.white),
             ),
+            // TODO ValueKeyを設定する
             SliverList(
                 delegate: SliverChildListDelegate([
               const SizedBox(
@@ -102,7 +104,6 @@ class HomePageState extends State<HomePage> {
                   .toDosInToday
                   .isNotEmpty)
                 ToDosInThisCategoryInToday(
-                  superKey: homePageKey,
                   bigCategoryOfThisToDo:
                       TLWorkspace.currentWorkspace.bigCategories[0],
                   // workspace
@@ -134,7 +135,6 @@ class HomePageState extends State<HomePage> {
                     if (TLWorkspace.currentWorkspace.toDos[bigCategory.id]!
                         .toDosInToday.isNotEmpty)
                       ToDosInThisCategoryInToday(
-                        superKey: homePageKey,
                         bigCategoryOfThisToDo: bigCategory,
                         // workspace
                         selectedWorkspaceIndex:
@@ -153,7 +153,6 @@ class HomePageState extends State<HomePage> {
                                 isBigCategory: false, category: smallCategory),
                             // small body
                             ToDosInThisCategoryInToday(
-                              superKey: homePageKey,
                               bigCategoryOfThisToDo: bigCategory,
                               smallCategoryOfThisToDo: smallCategory,
                               // workspace
@@ -199,9 +198,7 @@ class HomePageState extends State<HomePage> {
           // カテゴリーリストに移動するボタン
           tralingButtonOnPressed: () async {
             await Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return CategoryListPage(
-                key: categoryListPageKey,
-              );
+              return CategoryListPage();
             }));
           },
         ),
@@ -210,8 +207,6 @@ class HomePageState extends State<HomePage> {
           onPressed: () async {
             await Navigator.push(context, MaterialPageRoute(builder: (context) {
               return EditToDoPage(
-                key: editToDoPageKey,
-                superKey: homePageKey,
                 toDoTitle: "",
                 belogedSteps: const [],
                 isInToday: true,

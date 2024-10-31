@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../model/tl_theme.dart';
-import '../../../constants/global_keys.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
@@ -93,7 +92,6 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                       final TLToDo reorderedToDo =
                           selectedToDoArray.removeAt(oldIndex);
                       selectedToDoArray.insert(newIndex, reorderedToDo);
-                      editToDoPageKey.currentState?.setState(() {});
                       // toDosを保存する
                       TLWorkspace.saveSelectedWorkspace(
                           selectedWorkspaceIndex:

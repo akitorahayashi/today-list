@@ -1,7 +1,5 @@
 import 'package:today_list/components/for_todo/icon_for_checkbox.dart';
-
 import '../../../model/tl_theme.dart';
-import '../../../constants/global_keys.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/todo/tl_step.dart';
@@ -17,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 
 class ToDoCard extends StatefulWidget {
-  final GlobalKey superKey;
   final bool ifInToday;
   final int indexOfThisToDoInToDos;
   final TLCategory bigCategoryOfThisToDo;
@@ -28,8 +25,7 @@ class ToDoCard extends StatefulWidget {
   final TLWorkspace selectedWorkspace;
 
   const ToDoCard({
-    super.key,
-    required this.superKey,
+    Key? key,
     required this.ifInToday,
     required this.indexOfThisToDoInToDos,
     required this.bigCategoryOfThisToDo,
@@ -37,7 +33,7 @@ class ToDoCard extends StatefulWidget {
     // workspace系
     required this.selectedWorkspaceIndex,
     required this.selectedWorkspace,
-  });
+  }) : super(key: key);
 
   @override
   ToDoCardState createState() => ToDoCardState();
@@ -70,8 +66,6 @@ class ToDoCardState extends State<ToDoCard> {
             indexOfThisToDoInToDos: widget.indexOfThisToDoInToDos,
             toDoArrayOfThisToDo: toDoArrayOfThisToDo);
         TLVibration.vibrate();
-        homePageKey.currentState?.setState(() {});
-        allToDosInCategoryPageKey.currentState?.setState(() {});
         notifyToDoOrStepIsEditted(
           context: context,
           newName: toDoData.title,
@@ -92,7 +86,6 @@ class ToDoCardState extends State<ToDoCard> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: SlidableForToDoCard(
-              superKey: widget.superKey,
               isModelCard: false,
               toDoData: toDoData,
               toDoArrayOfThisToDo: toDoArrayOfThisToDo,
@@ -109,8 +102,6 @@ class ToDoCardState extends State<ToDoCard> {
                 await Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
                   return EditToDoPage(
-                    key: editToDoPageKey,
-                    superKey: widget.superKey,
                     toDoTitle: toDoData.title,
                     belogedSteps: toDoData.steps,
                     isInToday: widget.ifInToday,
@@ -121,7 +112,6 @@ class ToDoCardState extends State<ToDoCard> {
                         widget.bigCategoryOfThisToDo.id,
                   );
                 }));
-                widget.superKey.currentState?.setState(() {});
               },
               // child
               child: Column(

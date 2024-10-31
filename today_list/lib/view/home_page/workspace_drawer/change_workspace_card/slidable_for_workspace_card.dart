@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../model/tl_theme.dart';
-import '../../../../constants/global_keys.dart';
 import '../../../../crud/for_workspace/delete_workspace_alert.dart';
 import '../../../../crud/for_workspace/add_or_edit_workspace_alert.dart';
 
@@ -12,12 +11,12 @@ class SlidableForWorkspaceCard extends StatefulWidget {
   final int indexInTLWorkspaces;
   final Widget child;
   const SlidableForWorkspaceCard({
-    super.key,
+    Key? key,
     required this.isInDrawerList,
     required this.isCurrentWorkspace,
     required this.indexInTLWorkspaces,
     required this.child,
-  });
+  }) : super(key: key);
 
   @override
   State<SlidableForWorkspaceCard> createState() =>
@@ -81,7 +80,6 @@ class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
                                       widget.indexInTLWorkspaces);
                             });
                         setState(() {});
-                        drawerForWorkspaceKey.currentState?.setState(() {});
                       },
                       icon: Icons.edit,
                       label: "Edit",

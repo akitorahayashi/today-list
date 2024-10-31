@@ -4,7 +4,6 @@ import './todo_block_in_today_or_whenever.dart';
 import './edit_category_card.dart';
 import '../../alerts/yes_no_alert.dart';
 import '../../model/tl_theme.dart';
-import '../../constants/global_keys.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
@@ -20,7 +19,7 @@ class AllToDosInThisCategoryPage extends StatefulWidget {
   final int? indexOfSmallCategory;
 
   const AllToDosInThisCategoryPage({
-    required Key key,
+    Key? key,
     required this.indexOfBigCategory,
     this.indexOfSmallCategory,
   }) : super(key: key);
@@ -133,8 +132,6 @@ class AllToDosInThisCategoryPageState
                       onlyToday: false,
                       selectedToDos: TLWorkspace
                           .currentWorkspace.toDos[_categoryOfThisPage.id]!);
-                  allToDosInCategoryPageKey.currentState?.setState(() {});
-                  categoryListPageKey.currentState?.setState(() {});
                   TLVibration.vibrate();
                   TLWorkspace.saveSelectedWorkspace(
                       selectedWorkspaceIndex:
@@ -142,7 +139,7 @@ class AllToDosInThisCategoryPageState
                   simpleAlert(
                       context: context,
                       corrThemeData: _tlThemeData,
-                      title: "削除が完了しました",
+                      title: "削除が完了しました！",
                       message: null,
                       buttonText: "OK");
                 });

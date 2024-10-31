@@ -4,7 +4,6 @@ import '../../model/workspace/tl_workspaces.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/external/tl_pref.dart';
 import '../../model/tl_theme.dart';
-import '../../constants/global_keys.dart';
 import '../../alerts/simple_alert.dart';
 import '../../constants/styles.dart';
 
@@ -91,9 +90,6 @@ Future<void> deleteWorkspaceAlert({
                               tlworkspaces.removeAt(indexInTLWorkspaces);
                               // このアラートを消してsimpleアラートを表示する
                               Navigator.pop(context);
-                              // ignore: invalid_use_of_protected_member
-                              drawerForWorkspaceKey.currentState
-                                  ?.setState(() {});
                               TLVibration.vibrate();
                               simpleAlert(
                                   context: context,

@@ -3,7 +3,6 @@ import '../../../../model/external/tl_vibration.dart';
 import '../../../../model/workspace/tl_workspace.dart';
 import '../../../../model/workspace/tl_workspaces.dart';
 import '../../../../model/tl_theme.dart';
-import '../../../../constants/global_keys.dart';
 import 'notify_current_workspace_is_changed.dart';
 import 'slidable_for_workspace_card.dart';
 
@@ -11,10 +10,10 @@ class ChangeWorkspaceCard extends StatefulWidget {
   final bool isInDrawerList;
   final int indexInWorkspaces;
   const ChangeWorkspaceCard({
-    super.key,
+    Key? key,
     required this.isInDrawerList,
     required this.indexInWorkspaces,
-  });
+  }) : super(key: key);
 
   @override
   State<ChangeWorkspaceCard> createState() => _ChangeWorkspaceCardState();
@@ -47,9 +46,6 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                         newWorkspaceIndex: widget.indexInWorkspaces);
                     TLVibration.vibrate();
                     Navigator.pop(context);
-                    // ignore: invalid_use_of_protected_member
-                    homePageKey.currentState?.setState(() {});
-                    drawerForWorkspaceKey.currentState?.setState(() {});
                     notifyCurrentWorkspaceIsChanged(
                         context: context,
                         newWorkspaceName: TLWorkspace.currentWorkspace.name);

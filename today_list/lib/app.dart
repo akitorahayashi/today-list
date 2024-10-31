@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'model/user/setting_data.dart';
 import 'view/home_page/home_page.dart';
-import './constants/global_keys.dart';
 import 'model/tl_theme.dart';
 
 // import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-class TodayList extends StatefulWidget {
-  const TodayList({required Key key}) : super(key: key);
+class TodayListApp extends StatefulWidget {
+  const TodayListApp({Key? key}) : super(key: key);
 
   @override
-  State<TodayList> createState() => _TodayListState();
+  State<TodayListApp> createState() => _TodayListAppState();
 }
 
-class _TodayListState extends State<TodayList> {
+class _TodayListAppState extends State<TodayListApp> {
   @override
   Widget build(BuildContext context) {
     return TLTheme(
@@ -28,7 +27,7 @@ class _TodayListState extends State<TodayList> {
                 tlThemeDataList[SettingData.shared.selectedThemeIndex]
                     .accentColor,
           ),
-          home: HomePage(key: homePageKey)),
+          home: HomePage()),
     );
   }
 }

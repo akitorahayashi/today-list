@@ -4,7 +4,6 @@ import '../../../model/todo/tl_todos.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/workspace/tl_workspaces.dart';
-import '../../../constants/global_keys.dart';
 import '../../../crud/for_todo_category/add_todo_category_alert.dart';
 import '../../../crud/for_todo_category/notify_category_is_added.dart';
 import '../../../constants/styles.dart';
@@ -46,7 +45,6 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
         addedCategoryName: _smallCategoryInputController.text);
     // 初期化処理
     _smallCategoryInputController.clear();
-    categoryListPageKey.currentState?.setState(() {});
     // toDosとgroupedCategoriesを保存する
     TLCategory.saveSmallCategories();
     TLWorkspace.saveSelectedWorkspace(
@@ -117,7 +115,6 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                                       bigCategoryId: null) ??
                                   TLWorkspace.currentWorkspace.bigCategories[0];
                           _canInputSmallCategory = true;
-                          categoryListPageKey.currentState?.setState(() {});
                           break;
                         case noneId:
                           _selectedBigCategoryInDropButton = newBigCategory;
