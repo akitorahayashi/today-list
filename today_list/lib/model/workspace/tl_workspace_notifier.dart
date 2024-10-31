@@ -9,45 +9,48 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 const String defaultID = "defaultID";
 
 final rpUsersProvider =
-    StateNotifierProvider.autoDispose<RPUserNotifier, List<RPUser>>((ref) {
-  return RPUserNotifier();
+    StateNotifierProvider.autoDispose<TLWorkspaceNotifier, List<TLWorkspace>>(
+        (ref) {
+  return TLWorkspaceNotifier();
 });
 
 // 自分でカスタマイズしたdisposeを実装する場合
-// final counterProvider = StateNotifierProvider<RPUserNotifier, int>((ref) {
-//   final notifier = RPUserNotifier();
+final tlWorkspacesNotifier =
+    StateNotifierProvider.autoDispose<TLWorkspaceNotifier, List<TLWorkspace>>(
+        (ref) {
+  final notifier = TLWorkspaceNotifier();
 
-//   ref.onDispose(() {
-//     notifier.dispose();
-//   });
+  return notifier;
+});
 
-//   return notifier;
-// });
+class TLWorkspaceNotifier extends StateNotifier<List<TLWorkspace>> {
+  TLWorkspaceNotifier() : super(initialTLWorkspaces);
 
-// class RPUserNotifier extends StateNotifier<List<RPUser>> {
-//   RPUserNotifier() : super([]);
+  // TLWorkspaceを追加するメソッド
+  void addTLWorkspace({required TLWorkspace newTLWorkspace}) {
+    this.state = [...state, newTLWorkspace];
+  }
 
-//   // ユーザーを追加するメソッド
-//   void addUser(RPUser user) {
-//     state = [...state, user]; // 新しいユーザーをリストに追加
-//   }
+  // TLWorkspaceを削除するメソッド
+  void removeTLWorkspace({required String coorId}) {
+    this.state = this
+        .state
+        .where((oneOfTLWorkspaces) => oneOfTLWorkspaces.id != coorId)
+        .toList(); // ID でフィルタリングして削除
+  }
 
-//   // ユーザーを削除するメソッド
-//   void removeUser(String id) {
-//     state = state.where((user) => user.id != id).toList(); // ID でフィルタリングして削除
-//   }
+  // TLWorkspaceを更新するメソッド
+  void updateTLWorkspace(
+      {required int indexInUsers, required TLWorkspace updatedTLWorkspace}) {
+    // リスト全体を新しいリストとして再設定することで再描画をトリガーする
+    state = [
+      for (int i = 0; i < this.state.length; i++)
+        if (i == indexInUsers) updatedTLWorkspace else this.state[i],
+    ];
+  }
+}
 
-//   // ユーザーを更新するメソッド
-//   void updateUser({required int indexInUsers, required RPUser updatedUser}) {
-//     // リスト全体を新しいリストとして再設定することで再描画をトリガーする
-//     state = [
-//       for (int i = 0; i < state.length; i++)
-//         if (i == indexInUsers) updatedUser else state[i],
-//     ];
-//   }
-// }
-
-List<Map<String, dynamic>> tlworkspaces = [
+final List<TLWorkspace> initialTLWorkspaces = [
   TLWorkspace(id: "defaultWorkspaceId", name: "Default", bigCategories: [
     TLCategory(id: defaultID, title: "なし"),
     TLCategory(id: "superMarcketId", title: "スーパー"),
@@ -76,7 +79,7 @@ List<Map<String, dynamic>> tlworkspaces = [
     "hundredStoreId": TLToDos(
         toDosInToday: [TLToDo(id: "todo6", title: "お皿", steps: [])],
         toDosInWhenever: []),
-  }).toJson(),
+  }),
   // --- 学校
   TLWorkspace(id: "schoolWorksapceId", name: "School", bigCategories: [
     TLCategory(id: defaultID, title: "なし"),
@@ -104,5 +107,5 @@ List<Map<String, dynamic>> tlworkspaces = [
     "englishId": TLToDos(
         toDosInToday: [TLToDo(id: "todo11", title: "単語帳301~400", steps: [])],
         toDosInWhenever: []),
-  }).toJson(),
+  }),
 ];

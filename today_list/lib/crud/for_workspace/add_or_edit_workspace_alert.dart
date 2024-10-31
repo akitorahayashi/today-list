@@ -4,7 +4,7 @@ import '../../alerts/simple_alert.dart';
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/tl_workspaces_notifier.dart';
+import '../../model/workspace/tl_workspace_notifier.dart';
 import '../../model/todo/tl_todos.dart';
 import '../../model/external/tl_vibration.dart';
 import 'notify_workspace_is_added.dart';
@@ -29,7 +29,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
     if (widget.oldIndexInStringWorkspaces != null && !isInitialized) {
       isInitialized = true;
       _workspaceNameInputController.text =
-          tlworkspaces[widget.oldIndexInStringWorkspaces!]["name"];
+          initialTLWorkspaces[widget.oldIndexInStringWorkspaces!]["name"];
     }
     return Dialog(
       backgroundColor: _tlThemeData.alertColor,
@@ -108,7 +108,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                               defaultID:
                                   TLToDos(toDosInToday: [], toDosInWhenever: [])
                             }).toJson();
-                        tlworkspaces.add(createdWorkspaceJsonData);
+                        initialTLWorkspaces.add(createdWorkspaceJsonData);
                         // 追加したことを知らせる
                         notifyWorkspaceIsAdded(
                             context: context,
@@ -117,15 +117,15 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                       } else {
                         // edit action
                         final TLWorkspace editedWorkspace =
-                            TLWorkspace.fromJson(tlworkspaces[
+                            TLWorkspace.fromJson(initialTLWorkspaces[
                                 widget.oldIndexInStringWorkspaces!]);
                         // 名前だけ変える
                         editedWorkspace.name =
                             _workspaceNameInputController.text;
                         // 消して元の場所に入れる
-                        tlworkspaces
+                        initialTLWorkspaces
                             .removeAt(widget.oldIndexInStringWorkspaces!);
-                        tlworkspaces.insert(
+                        initialTLWorkspaces.insert(
                           widget.oldIndexInStringWorkspaces!,
                           editedWorkspace.toJson(),
                         );

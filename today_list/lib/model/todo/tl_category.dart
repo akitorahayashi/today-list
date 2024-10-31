@@ -1,5 +1,5 @@
 import '../workspace/tl_workspace.dart';
-import '../workspace/tl_workspaces.dart';
+import '../workspace/tl_workspace_notifier.dart';
 import 'tl_todos.dart';
 import '../external/tl_pref.dart';
 import 'dart:convert';
@@ -34,33 +34,33 @@ class TLCategory {
 
   static void saveBigAndSmallCategories() {
     final jsonCurrentWorkspace =
-        tlworkspaces[TLWorkspace.currentWorkspaceIndex];
+        initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex];
     jsonCurrentWorkspace["bigCategories"] = TLCategory.categoryArrayToJson(
         categoryArray: TLWorkspace.currentWorkspace.bigCategories);
     jsonCurrentWorkspace["smallCategories"] = TLCategory.smallCategoriesToJson(
         smallCategories: TLWorkspace.currentWorkspace.smallCategories);
     TLPref().getPref.then((pref) {
-      pref.setString("stringWorkspaces", json.encode(tlworkspaces));
+      pref.setString("stringWorkspaces", json.encode(initialTLWorkspaces));
     });
   }
 
   static void saveBigCategories() {
     // currentWorkspaceのbigCategoriesに更新したものを入れる
-    tlworkspaces[TLWorkspace.currentWorkspaceIndex]["bigCategories"] =
+    initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]["bigCategories"] =
         TLCategory.categoryArrayToJson(
             categoryArray: TLWorkspace.currentWorkspace.bigCategories);
     TLPref().getPref.then((pref) {
-      pref.setString("tlworkspaces", json.encode(tlworkspaces));
+      pref.setString("tlworkspaces", json.encode(initialTLWorkspaces));
     });
   }
 
   static void saveSmallCategories() {
     // currentWorkspaceのsmallCategoriesに更新したものを入れる
-    tlworkspaces[TLWorkspace.currentWorkspaceIndex]["smallCategories"] =
+    initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]["smallCategories"] =
         TLCategory.smallCategoriesToJson(
             smallCategories: TLWorkspace.currentWorkspace.smallCategories);
     TLPref().getPref.then((pref) {
-      pref.setString("tlworkspaces", json.encode(tlworkspaces));
+      pref.setString("tlworkspaces", json.encode(initialTLWorkspaces));
     });
   }
 

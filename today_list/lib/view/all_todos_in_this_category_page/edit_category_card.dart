@@ -1,7 +1,7 @@
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/tl_workspaces_notifier.dart';
+import '../../model/workspace/tl_workspace_notifier.dart';
 import '../../crud/for_todo_category/delete_category_dialog.dart';
 import '../../crud/for_todo_category/rename_category_dialog.dart';
 import 'package:flutter/material.dart';

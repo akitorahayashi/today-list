@@ -4,7 +4,7 @@ import 'package:today_list/model/user/setting_data.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:today_list/model/workspace/tl_workspaces.dart';
+import 'package:today_list/model/workspace/tl_workspace_notifier.dart';
 
 class TLConnectivity {
   static final FlutterWatchOsConnectivity connectivity =
@@ -41,7 +41,7 @@ class TLConnectivity {
       bool isReachable = await TLConnectivity.connectivity.getReachability();
       if (isReachable) {
         await TLConnectivity.connectivity
-            .sendMessage({"tlWorkspaces": json.encode(tlworkspaces)});
+            .sendMessage({"tlWorkspaces": json.encode(initialTLWorkspaces)});
       } else {
         print("sendSelectedTheme: No reachable watches.");
       }

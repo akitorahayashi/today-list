@@ -8,7 +8,7 @@ import '../../components/for_ui/today_list_bottom_navbar/today_list_bottom_navba
 import '../../model/tl_theme.dart';
 import '../../alerts/yes_no_alert.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/tl_workspaces_notifier.dart';
+import '../../model/workspace/tl_workspace_notifier.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../crud/for_todo/delete_checked_todos_in_today.dart';

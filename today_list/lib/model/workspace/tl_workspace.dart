@@ -3,7 +3,7 @@ import 'package:today_list/model/external/tl_widgetkit.dart';
 import 'package:today_list/model/external/tl_connectivity.dart';
 import 'package:today_list/model/external/tl_pref.dart';
 import '../todo/tl_category.dart';
-import 'tl_workspaces.dart';
+import 'tl_workspace_notifier.dart';
 import '../todo/tl_todos.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -11,9 +11,9 @@ import 'dart:io';
 class TLWorkspace {
   static int currentWorkspaceIndex = 0;
 
-  static TLWorkspace currentWorkspace =
-      TLWorkspace.fromJson(tlworkspaces[TLWorkspace.currentWorkspaceIndex]);
-  String id = UniqueKey().toString();
+  static TLWorkspace currentWorkspace = TLWorkspace.fromJson(
+      initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]);
+  String id;
   String name;
   // todo
   List<TLCategory> bigCategories;
@@ -76,8 +76,8 @@ class TLWorkspace {
     required int newWorkspaceIndex,
   }) async {
     TLWorkspace.currentWorkspaceIndex = newWorkspaceIndex;
-    TLWorkspace.currentWorkspace =
-        TLWorkspace.fromJson(tlworkspaces[TLWorkspace.currentWorkspaceIndex]);
+    TLWorkspace.currentWorkspace = TLWorkspace.fromJson(
+        initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]);
     await TLPref().getPref.then((pref) {
       pref.setInt("currentWorkspaceIndex", newWorkspaceIndex);
     });
@@ -88,7 +88,7 @@ class TLWorkspace {
     await TLPref().getPref.then((pref) {
       currentWorkspaceIndex = pref.getInt("currentWorkspaceIndex") ?? 0;
       if (pref.getString("tlworkspaces") != null) {
-        tlworkspaces = List<Map<String, dynamic>>.from(
+        initialTLWorkspaces = List<Map<String, dynamic>>.from(
           json.decode(pref.getString("tlworkspaces")!) as List,
         );
       }
@@ -102,14 +102,14 @@ class TLWorkspace {
       TLConnectivity.sendTLWorkspacesToAppleWatch();
     }
     // string workspaceを保存する
-    await TLPref().getPref.then(
-        (pref) => pref.setString("tlworkspaces", json.encode(tlworkspaces)));
+    await TLPref().getPref.then((pref) =>
+        pref.setString("tlworkspaces", json.encode(initialTLWorkspaces)));
   }
 
   static Future<void> saveSelectedWorkspace({
     required int selectedWorkspaceIndex,
   }) async {
-    tlworkspaces[selectedWorkspaceIndex] = currentWorkspace.toJson();
+    initialTLWorkspaces[selectedWorkspaceIndex] = currentWorkspace.toJson();
     await TLWorkspace.saveWorkspaces();
   }
   // --- save ---

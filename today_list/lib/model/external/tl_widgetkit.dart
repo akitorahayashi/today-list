@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:today_list/model/user/setting_data.dart';
-import 'package:today_list/model/workspace/tl_workspaces.dart';
+import 'package:today_list/model/workspace/tl_workspace_notifier.dart';
 
 import 'dart:convert';
 import 'dart:io';
@@ -29,7 +29,7 @@ class TLWidgetKit {
       try {
         final String result = await methodChannel.invokeMethod(
           'updateTLWorkspaces',
-          json.encode(tlworkspaces),
+          json.encode(initialTLWorkspaces),
         );
         print('SET setUserDefaultsForAppGroup: $result');
       } on PlatformException catch (e) {

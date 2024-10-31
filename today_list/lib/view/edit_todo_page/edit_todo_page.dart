@@ -8,7 +8,7 @@ import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/external/tl_ads.dart';
-import '../../model/workspace/tl_workspaces_notifier.dart';
+import '../../model/workspace/tl_workspace_notifier.dart';
 import '../../crud/for_todo/add_or_edit_todo_action.dart';
 import '../../crud/for_todo_category/add_todo_category_alert.dart';
 import './components_for_edit/steps_column.dart';

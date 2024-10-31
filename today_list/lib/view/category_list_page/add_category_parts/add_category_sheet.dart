@@ -3,7 +3,7 @@ import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/workspace/tl_workspaces_notifier.dart';
+import '../../../model/workspace/tl_workspace_notifier.dart';
 import '../../../crud/for_todo_category/add_todo_category_alert.dart';
 import '../../../crud/for_todo_category/notify_category_is_added.dart';
 import '../../../constants/styles.dart';

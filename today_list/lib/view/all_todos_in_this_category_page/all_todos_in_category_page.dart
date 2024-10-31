@@ -7,7 +7,7 @@ import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
-import '../../model/workspace/tl_workspaces_notifier.dart';
+import '../../model/workspace/tl_workspace_notifier.dart';
 import '../../components/for_ui/today_list_bottom_navbar/today_list_bottom_navbar.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
 import '../../crud/for_todo/delete_all_checked_todo_in_todos.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/tl_workspaces.dart';
+import '../../model/workspace/tl_workspace_notifier.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/external/tl_pref.dart';
 import '../../model/tl_theme.dart';
@@ -14,7 +14,7 @@ Future<void> deleteWorkspaceAlert({
 }) async {
   final TLThemeData _tlThemeData = TLTheme.of(context);
   final TLWorkspace willDeletedWorkspace =
-      TLWorkspace.fromJson(tlworkspaces[indexInTLWorkspaces]);
+      TLWorkspace.fromJson(initialTLWorkspaces[indexInTLWorkspaces]);
   return showDialog(
       context: context,
       barrierDismissible: false,
@@ -87,7 +87,7 @@ Future<void> deleteWorkspaceAlert({
                                 pref.setInt("currentWorkspaceIndex",
                                     TLWorkspace.currentWorkspaceIndex);
                               }
-                              tlworkspaces.removeAt(indexInTLWorkspaces);
+                              initialTLWorkspaces.removeAt(indexInTLWorkspaces);
                               // このアラートを消してsimpleアラートを表示する
                               Navigator.pop(context);
                               TLVibration.vibrate();

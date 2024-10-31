@@ -4,7 +4,7 @@ import 'change_workspace_card/change_workspace_card.dart';
 import '../../../components/for_ui/tl_sliver_appbar.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/workspace/tl_workspaces.dart';
+import '../../../model/workspace/tl_workspace_notifier.dart';
 import './add_workspace_button.dart';
 
 class WorkspaceDrawer extends StatefulWidget {
@@ -92,11 +92,12 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                               ReorderableColumn(
                                   children: [
                                     for (int indexInWorkspaces = 1;
-                                        indexInWorkspaces < tlworkspaces.length;
+                                        indexInWorkspaces <
+                                            initialTLWorkspaces.length;
                                         indexInWorkspaces++)
                                       ChangeWorkspaceCard(
-                                        key: Key(tlworkspaces[indexInWorkspaces]
-                                            ["id"]),
+                                        key: Key(initialTLWorkspaces[
+                                            indexInWorkspaces]["id"]),
                                         isInDrawerList: true,
                                         indexInWorkspaces: indexInWorkspaces,
                                       ),
@@ -106,8 +107,9 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                                     final int revisedNewIndex = newIndex += 1;
 
                                     final reorderedWorkspace =
-                                        tlworkspaces.removeAt(revisedOldIndex);
-                                    tlworkspaces.insert(
+                                        initialTLWorkspaces
+                                            .removeAt(revisedOldIndex);
+                                    initialTLWorkspaces.insert(
                                         revisedNewIndex, reorderedWorkspace);
 
 // currentWorkspaceIndex を必要に応じて更新
