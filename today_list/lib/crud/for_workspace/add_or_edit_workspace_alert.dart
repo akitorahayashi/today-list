@@ -4,7 +4,7 @@ import '../../alerts/simple_alert.dart';
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/tl_workspaces.dart';
+import '../../model/workspace/tl_workspaces_notifier.dart';
 import '../../model/todo/tl_todos.dart';
 import '../../model/external/tl_vibration.dart';
 import 'notify_workspace_is_added.dart';
@@ -99,13 +99,13 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                             id: UniqueKey().toString(),
                             name: _workspaceNameInputController.text,
                             bigCategories: [
-                              TLCategory(id: noneId, title: "なし")
+                              TLCategory(id: defaultID, title: "なし")
                             ],
                             smallCategories: {
-                              noneId: []
+                              defaultID: []
                             },
                             toDos: {
-                              noneId:
+                              defaultID:
                                   TLToDos(toDosInToday: [], toDosInWhenever: [])
                             }).toJson();
                         tlworkspaces.add(createdWorkspaceJsonData);

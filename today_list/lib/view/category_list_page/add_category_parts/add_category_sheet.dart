@@ -3,7 +3,7 @@ import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/workspace/tl_workspaces.dart';
+import '../../../model/workspace/tl_workspaces_notifier.dart';
 import '../../../crud/for_todo_category/add_todo_category_alert.dart';
 import '../../../crud/for_todo_category/notify_category_is_added.dart';
 import '../../../constants/styles.dart';
@@ -77,7 +77,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                           .where((bigCategory) =>
                               bigCategory.id ==
                               _selectedBigCategoryInDropButton.id);
-                      if (options.first.id == noneId) {
+                      if (options.first.id == defaultID) {
                         return "大カテゴリー";
                       } else {
                         return options.first.title;
@@ -116,7 +116,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                                   TLWorkspace.currentWorkspace.bigCategories[0];
                           _canInputSmallCategory = true;
                           break;
-                        case noneId:
+                        case defaultID:
                           _selectedBigCategoryInDropButton = newBigCategory;
                           _canInputSmallCategory = false;
                         default:
@@ -172,22 +172,24 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                 // 追加ボタン
                 AnimatedOpacity(
                   duration: const Duration(milliseconds: 230),
-                  opacity: _selectedBigCategoryInDropButton.id != noneId &&
+                  opacity: _selectedBigCategoryInDropButton.id != defaultID &&
                           _smallCategoryNameIsEntered
                       // 追加ボタンを使うことができる,
                       ? 1
                       : 0.5,
                   // 追加ボタン
                   child: TextButton(
-                    onPressed: _selectedBigCategoryInDropButton.id != noneId &&
-                            _smallCategoryNameIsEntered
-                        ? addSmallCategoryAction
-                        : null,
+                    onPressed:
+                        _selectedBigCategoryInDropButton.id != defaultID &&
+                                _smallCategoryNameIsEntered
+                            ? addSmallCategoryAction
+                            : null,
                     child: Text(
                       "追加する",
                       style: TextStyle(
                           color: // 新しくbigCategoryを作るモードでbigCategoryがnullではない場合や
-                              _selectedBigCategoryInDropButton.id != noneId &&
+                              _selectedBigCategoryInDropButton.id !=
+                                          defaultID &&
                                       _smallCategoryNameIsEntered
                                   // 追加ボタンを使うことができる
                                   ? _tlThemeData.accentColor

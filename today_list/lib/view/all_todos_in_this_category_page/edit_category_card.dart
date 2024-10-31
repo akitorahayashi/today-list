@@ -1,7 +1,7 @@
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/tl_workspaces.dart';
+import '../../model/workspace/tl_workspaces_notifier.dart';
 import '../../crud/for_todo_category/delete_category_dialog.dart';
 import '../../crud/for_todo_category/rename_category_dialog.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +58,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
       ),
       children: [
         // このカテゴリーを削除するボタン
-        if (_categoryOfThisPage.id != noneId)
+        if (_categoryOfThisPage.id != defaultID)
           SimpleDialogOption(
             onPressed: () async {
               Navigator.pop(context);
@@ -78,7 +78,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
             ),
           ),
         // このカテゴリーを改名するボタン
-        if (_categoryOfThisPage.id != noneId)
+        if (_categoryOfThisPage.id != defaultID)
           SimpleDialogOption(
             onPressed: () async {
               Navigator.pop(context);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../model/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/workspace/tl_workspace.dart';
-import '../../../../model/workspace/tl_workspaces.dart';
+import '../../../../model/workspace/tl_workspaces_notifier.dart';
 import './big_category_chip.dart';
 import '../small_category_card.dart';
 
@@ -21,7 +21,7 @@ class BigCategoryCard extends StatelessWidget {
     return GestureDetector(
       onLongPress:
           TLWorkspace.currentWorkspace.bigCategories[indexOfBigCategory].id !=
-                  noneId
+                  defaultID
               ? null
               : () {},
       child: Card(
