@@ -19,45 +19,12 @@ class TLCategory {
     };
   }
 
-  TLCategory.fromJson(Map<String, dynamic> jsonData)
-      : id = jsonData["id"],
-        title = jsonData["title"];
-
-// --- save ---
-
-  static void saveBigAndSmallCategories() {
-    final jsonCurrentWorkspace =
-        _initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex];
-    jsonCurrentWorkspace["bigCategories"] = TLCategory.categoryArrayToJson(
-        categoryArray: TLWorkspace.currentWorkspace.bigCategories);
-    jsonCurrentWorkspace["smallCategories"] = TLCategory.smallCategoriesToJson(
-        smallCategories: TLWorkspace.currentWorkspace.smallCategories);
-    TLPref().getPref.then((pref) {
-      pref.setString("stringWorkspaces", json.encode(_initialTLWorkspaces));
-    });
+  factory TLCategory.fromJson(Map<String, dynamic> jsonData) {
+    return TLCategory(
+      id: jsonData["id"],
+      title: jsonData["title"],
+    );
   }
-
-  static void saveBigCategories() {
-    // currentWorkspaceのbigCategoriesに更新したものを入れる
-    _initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]["bigCategories"] =
-        TLCategory.categoryArrayToJson(
-            categoryArray: TLWorkspace.currentWorkspace.bigCategories);
-    TLPref().getPref.then((pref) {
-      pref.setString("tlworkspaces", json.encode(_initialTLWorkspaces));
-    });
-  }
-
-  static void saveSmallCategories() {
-    // currentWorkspaceのsmallCategoriesに更新したものを入れる
-    _initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]["smallCategories"] =
-        TLCategory.smallCategoriesToJson(
-            smallCategories: TLWorkspace.currentWorkspace.smallCategories);
-    TLPref().getPref.then((pref) {
-      pref.setString("tlworkspaces", json.encode(_initialTLWorkspaces));
-    });
-  }
-
-// --- save ---
 
   // リストを JSON に変換
   static List<Map<String, dynamic>> categoryArrayToJson(
