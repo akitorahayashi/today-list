@@ -41,7 +41,7 @@ class TLConnectivity {
       bool isReachable = await TLConnectivity.connectivity.getReachability();
       if (isReachable) {
         await TLConnectivity.connectivity
-            .sendMessage({"tlWorkspaces": json.encode(initialTLWorkspaces)});
+            .sendMessage({"tlWorkspaces": json.encode(_initialTLWorkspaces)});
       } else {
         print("sendSelectedTheme: No reachable watches.");
       }

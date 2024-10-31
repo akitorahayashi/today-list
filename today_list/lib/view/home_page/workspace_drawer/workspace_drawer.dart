@@ -93,10 +93,10 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                                   children: [
                                     for (int indexInWorkspaces = 1;
                                         indexInWorkspaces <
-                                            initialTLWorkspaces.length;
+                                            _initialTLWorkspaces.length;
                                         indexInWorkspaces++)
                                       ChangeWorkspaceCard(
-                                        key: Key(initialTLWorkspaces[
+                                        key: Key(_initialTLWorkspaces[
                                             indexInWorkspaces]["id"]),
                                         isInDrawerList: true,
                                         indexInWorkspaces: indexInWorkspaces,
@@ -107,9 +107,9 @@ class _WorkspaceDrawerState extends State<WorkspaceDrawer> {
                                     final int revisedNewIndex = newIndex += 1;
 
                                     final reorderedWorkspace =
-                                        initialTLWorkspaces
+                                        _initialTLWorkspaces
                                             .removeAt(revisedOldIndex);
-                                    initialTLWorkspaces.insert(
+                                    _initialTLWorkspaces.insert(
                                         revisedNewIndex, reorderedWorkspace);
 
 // currentWorkspaceIndex を必要に応じて更新

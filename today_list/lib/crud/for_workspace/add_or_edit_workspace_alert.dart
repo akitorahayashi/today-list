@@ -29,7 +29,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
     if (widget.oldIndexInStringWorkspaces != null && !isInitialized) {
       isInitialized = true;
       _workspaceNameInputController.text =
-          initialTLWorkspaces[widget.oldIndexInStringWorkspaces!]["name"];
+          _initialTLWorkspaces[widget.oldIndexInStringWorkspaces!]["name"];
     }
     return Dialog(
       backgroundColor: _tlThemeData.alertColor,
@@ -108,7 +108,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                               defaultID:
                                   TLToDos(toDosInToday: [], toDosInWhenever: [])
                             }).toJson();
-                        initialTLWorkspaces.add(createdWorkspaceJsonData);
+                        _initialTLWorkspaces.add(createdWorkspaceJsonData);
                         // 追加したことを知らせる
                         notifyWorkspaceIsAdded(
                             context: context,
@@ -117,15 +117,15 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                       } else {
                         // edit action
                         final TLWorkspace editedWorkspace =
-                            TLWorkspace.fromJson(initialTLWorkspaces[
+                            TLWorkspace.fromJson(_initialTLWorkspaces[
                                 widget.oldIndexInStringWorkspaces!]);
                         // 名前だけ変える
                         editedWorkspace.name =
                             _workspaceNameInputController.text;
                         // 消して元の場所に入れる
-                        initialTLWorkspaces
+                        _initialTLWorkspaces
                             .removeAt(widget.oldIndexInStringWorkspaces!);
-                        initialTLWorkspaces.insert(
+                        _initialTLWorkspaces.insert(
                           widget.oldIndexInStringWorkspaces!,
                           editedWorkspace.toJson(),
                         );

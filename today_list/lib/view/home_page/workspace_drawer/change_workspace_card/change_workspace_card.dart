@@ -65,7 +65,7 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                                   : "") +
                               (isCurrentWorkspace
                                   ? TLWorkspace.currentWorkspace.name
-                                  : initialTLWorkspaces[
+                                  : _initialTLWorkspaces[
                                       widget.indexInWorkspaces]["name"]) +
                               ((isCurrentWorkspace && widget.isInDrawerList)
                                   ? "   "

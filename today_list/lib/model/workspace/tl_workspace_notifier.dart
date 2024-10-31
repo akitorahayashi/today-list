@@ -1,30 +1,30 @@
+import '../external/tl_pref.dart';
 import '../todo/tl_category.dart';
 import '../todo/tl_todo.dart';
 import '../todo/tl_todos.dart';
 import '../todo/tl_step.dart';
+import '../user/setting_data.dart';
 import 'tl_workspace.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 const String defaultID = "defaultID";
 
-final rpUsersProvider =
-    StateNotifierProvider.autoDispose<TLWorkspaceNotifier, List<TLWorkspace>>(
-        (ref) {
-  return TLWorkspaceNotifier();
-});
+class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
+  TLWorkspacesNotifier() : super(_initialTLWorkspaces) {
+    // sharedPreferenceからデータを取得
+    TLPref().getPref.then((pref) {
+      final savedAdminUser = pref.getString("rpAdminUser");
+      if (savedAdminUser != null) {
+        final readAdminUser = RPAdminUser.fromJson(json.decode(pref.getString(
+            "rpAdminUser")!)); // sharedPreferenceから取得したデータをRPAdminUserに変換
+        state = readAdminUser; // stateを更新
+      }
+    });
+  };
 
-// 自分でカスタマイズしたdisposeを実装する場合
-final tlWorkspacesNotifier =
-    StateNotifierProvider.autoDispose<TLWorkspaceNotifier, List<TLWorkspace>>(
-        (ref) {
-  final notifier = TLWorkspaceNotifier();
-
-  return notifier;
-});
-
-class TLWorkspaceNotifier extends StateNotifier<List<TLWorkspace>> {
-  TLWorkspaceNotifier() : super(initialTLWorkspaces);
+  // 現在のワークスペースを取得するメソッド
+  TLWorkspace get currentWorkspace => state[SettingData.shared.currentWorkspaceIndex];
 
   // TLWorkspaceを追加するメソッド
   void addTLWorkspace({required TLWorkspace newTLWorkspace}) {
@@ -50,7 +50,7 @@ class TLWorkspaceNotifier extends StateNotifier<List<TLWorkspace>> {
   }
 }
 
-final List<TLWorkspace> initialTLWorkspaces = [
+final List<TLWorkspace> _initialTLWorkspaces = [
   TLWorkspace(id: "defaultWorkspaceId", name: "Default", bigCategories: [
     TLCategory(id: defaultID, title: "なし"),
     TLCategory(id: "superMarcketId", title: "スーパー"),

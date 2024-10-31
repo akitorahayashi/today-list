@@ -34,33 +34,33 @@ class TLCategory {
 
   static void saveBigAndSmallCategories() {
     final jsonCurrentWorkspace =
-        initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex];
+        _initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex];
     jsonCurrentWorkspace["bigCategories"] = TLCategory.categoryArrayToJson(
         categoryArray: TLWorkspace.currentWorkspace.bigCategories);
     jsonCurrentWorkspace["smallCategories"] = TLCategory.smallCategoriesToJson(
         smallCategories: TLWorkspace.currentWorkspace.smallCategories);
     TLPref().getPref.then((pref) {
-      pref.setString("stringWorkspaces", json.encode(initialTLWorkspaces));
+      pref.setString("stringWorkspaces", json.encode(_initialTLWorkspaces));
     });
   }
 
   static void saveBigCategories() {
     // currentWorkspaceのbigCategoriesに更新したものを入れる
-    initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]["bigCategories"] =
+    _initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]["bigCategories"] =
         TLCategory.categoryArrayToJson(
             categoryArray: TLWorkspace.currentWorkspace.bigCategories);
     TLPref().getPref.then((pref) {
-      pref.setString("tlworkspaces", json.encode(initialTLWorkspaces));
+      pref.setString("tlworkspaces", json.encode(_initialTLWorkspaces));
     });
   }
 
   static void saveSmallCategories() {
     // currentWorkspaceのsmallCategoriesに更新したものを入れる
-    initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]["smallCategories"] =
+    _initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]["smallCategories"] =
         TLCategory.smallCategoriesToJson(
             smallCategories: TLWorkspace.currentWorkspace.smallCategories);
     TLPref().getPref.then((pref) {
-      pref.setString("tlworkspaces", json.encode(initialTLWorkspaces));
+      pref.setString("tlworkspaces", json.encode(_initialTLWorkspaces));
     });
   }
 

@@ -29,7 +29,7 @@ class TLWidgetKit {
       try {
         final String result = await methodChannel.invokeMethod(
           'updateTLWorkspaces',
-          json.encode(initialTLWorkspaces),
+          json.encode(_initialTLWorkspaces),
         );
         print('SET setUserDefaultsForAppGroup: $result');
       } on PlatformException catch (e) {

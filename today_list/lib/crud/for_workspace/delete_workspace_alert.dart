@@ -14,7 +14,7 @@ Future<void> deleteWorkspaceAlert({
 }) async {
   final TLThemeData _tlThemeData = TLTheme.of(context);
   final TLWorkspace willDeletedWorkspace =
-      TLWorkspace.fromJson(initialTLWorkspaces[indexInTLWorkspaces]);
+      TLWorkspace.fromJson(_initialTLWorkspaces[indexInTLWorkspaces]);
   return showDialog(
       context: context,
       barrierDismissible: false,
@@ -87,7 +87,8 @@ Future<void> deleteWorkspaceAlert({
                                 pref.setInt("currentWorkspaceIndex",
                                     TLWorkspace.currentWorkspaceIndex);
                               }
-                              initialTLWorkspaces.removeAt(indexInTLWorkspaces);
+                              _initialTLWorkspaces
+                                  .removeAt(indexInTLWorkspaces);
                               // このアラートを消してsimpleアラートを表示する
                               Navigator.pop(context);
                               TLVibration.vibrate();

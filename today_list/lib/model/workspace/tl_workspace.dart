@@ -11,8 +11,6 @@ import 'dart:io';
 class TLWorkspace {
   static int currentWorkspaceIndex = 0;
 
-  static TLWorkspace currentWorkspace = TLWorkspace.fromJson(
-      initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]);
   String id;
   String name;
   // todo
@@ -76,22 +74,9 @@ class TLWorkspace {
     required int newWorkspaceIndex,
   }) async {
     TLWorkspace.currentWorkspaceIndex = newWorkspaceIndex;
-    TLWorkspace.currentWorkspace = TLWorkspace.fromJson(
-        initialTLWorkspaces[TLWorkspace.currentWorkspaceIndex]);
+    // TODO indexを変えただけでいいか
     await TLPref().getPref.then((pref) {
       pref.setInt("currentWorkspaceIndex", newWorkspaceIndex);
-    });
-  }
-
-  // --- save ---
-  static Future<void> readWorkspaces() async {
-    await TLPref().getPref.then((pref) {
-      currentWorkspaceIndex = pref.getInt("currentWorkspaceIndex") ?? 0;
-      if (pref.getString("tlworkspaces") != null) {
-        initialTLWorkspaces = List<Map<String, dynamic>>.from(
-          json.decode(pref.getString("tlworkspaces")!) as List,
-        );
-      }
     });
   }
 
@@ -103,13 +88,13 @@ class TLWorkspace {
     }
     // string workspaceを保存する
     await TLPref().getPref.then((pref) =>
-        pref.setString("tlworkspaces", json.encode(initialTLWorkspaces)));
+        pref.setString("tlworkspaces", json.encode(_initialTLWorkspaces)));
   }
 
   static Future<void> saveSelectedWorkspace({
     required int selectedWorkspaceIndex,
   }) async {
-    initialTLWorkspaces[selectedWorkspaceIndex] = currentWorkspace.toJson();
+    _initialTLWorkspaces[selectedWorkspaceIndex] = currentWorkspace.toJson();
     await TLWorkspace.saveWorkspaces();
   }
   // --- save ---
