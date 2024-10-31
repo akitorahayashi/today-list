@@ -1,5 +1,4 @@
 import '../workspace/tl_workspace.dart';
-import '../workspace/tl_workspaces_provider.dart';
 import 'tl_todos.dart';
 import '../external/tl_pref.dart';
 import 'dart:convert';
@@ -23,12 +22,6 @@ class TLCategory {
   TLCategory.fromJson(Map<String, dynamic> jsonData)
       : id = jsonData["id"],
         title = jsonData["title"];
-
-  int getNumberOfToDosInThisCategory() {
-    final TLToDos selectedToDos = TLWorkspace.currentWorkspace.toDos[id]!;
-    return selectedToDos.toDosInToday.length +
-        selectedToDos.toDosInWhenever.length;
-  }
 
 // --- save ---
 

@@ -6,8 +6,11 @@ import '../todo/tl_step.dart';
 import 'tl_workspace.dart';
 
 import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+// Operations for categories are located in `tl_category.dart`.
+// Operations for todo are located in `tl_todo.dart` and `tl_todos.dart`.
+// Operations for step are located in `tl_step.dart`.
 
 // TODO defaultIDというグローバル変数を削除しても機能するようにする
 const String defaultID = "defaultID";
@@ -61,11 +64,11 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
 
   // TLWorkspaceを更新するメソッド
   Future<void> updateTLWorkspace(
-      {required int indexInUsers,
+      {required int indexInWorkspaceList,
       required TLWorkspace updatedTLWorkspace}) async {
     state = [
       for (int i = 0; i < state.length; i++)
-        if (i == indexInUsers) updatedTLWorkspace else state[i],
+        if (i == indexInWorkspaceList) updatedTLWorkspace else state[i],
     ];
     await _saveWorkspaces();
   }
