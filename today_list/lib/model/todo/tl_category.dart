@@ -1,5 +1,5 @@
 import '../workspace/tl_workspace.dart';
-import '../workspace/tl_workspace_notifier.dart';
+import '../workspace/tl_workspaces_provider.dart';
 import 'tl_todos.dart';
 import '../external/tl_pref.dart';
 import 'dart:convert';

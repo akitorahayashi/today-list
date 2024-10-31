@@ -3,7 +3,6 @@ import '../todo/tl_category.dart';
 import '../todo/tl_todo.dart';
 import '../todo/tl_todos.dart';
 import '../todo/tl_step.dart';
-import '../user/setting_data.dart';
 import 'tl_workspace.dart';
 
 import 'dart:convert';
@@ -23,41 +22,52 @@ final tlWorkspacesProvider =
 class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
   TLWorkspacesNotifier() : super(_initialTLWorkspaces) {
     // コンストラクタ、SharedPreferenceからデータを取得
-    TLPref().getPref.then((pref) {
-      final encodedTLWorkspaces = pref.getString("tlWorkspaces");
-      if (encodedTLWorkspaces != null) {
-        final List<dynamic> _jsonTLWorkspaces =
-            json.decode(encodedTLWorkspaces);
-        final List<TLWorkspace> _savedTLWorkspaces =
-            _jsonTLWorkspaces.map((jsonData) {
-          return TLWorkspace.fromJson(jsonData);
-        }).toList();
-        state = _savedTLWorkspaces;
-      }
-    });
+    _loadInitialWorkspaces();
+  }
+
+  Future<void> _loadInitialWorkspaces() async {
+    final pref = await TLPref().getPref;
+    final encodedTLWorkspaces = pref.getString("tlWorkspaces");
+    if (encodedTLWorkspaces != null) {
+      final List<dynamic> _jsonTLWorkspaces = json.decode(encodedTLWorkspaces);
+      final List<TLWorkspace> _savedTLWorkspaces =
+          _jsonTLWorkspaces.map((jsonData) {
+        return TLWorkspace.fromJson(jsonData);
+      }).toList();
+      state = _savedTLWorkspaces;
+    }
+  }
+
+  Future<void> _saveWorkspaces() async {
+    final pref = await TLPref().getPref;
+    final encodedTLWorkspaces =
+        json.encode(state.map((workspace) => workspace.toJson()).toList());
+    await pref.setString("tlWorkspaces", encodedTLWorkspaces);
   }
 
   // TLWorkspaceを追加するメソッド
-  void addTLWorkspace({required TLWorkspace newTLWorkspace}) {
-    this.state = [...state, newTLWorkspace];
+  Future<void> addTLWorkspace({required TLWorkspace newTLWorkspace}) async {
+    state = [...state, newTLWorkspace];
+    await _saveWorkspaces();
   }
 
   // TLWorkspaceを削除するメソッド
-  void removeTLWorkspace({required String coorId}) {
-    this.state = this
-        .state
+  Future<void> removeTLWorkspace({required String coorId}) async {
+    state = state
         .where((oneOfTLWorkspaces) => oneOfTLWorkspaces.id != coorId)
-        .toList(); // ID でフィルタリングして削除
+        .toList();
+    await _saveWorkspaces();
   }
 
   // TLWorkspaceを更新するメソッド
-  void updateTLWorkspace(
-      {required int indexInUsers, required TLWorkspace updatedTLWorkspace}) {
-    // リスト全体を新しいリストとして再設定することで再描画をトリガーする
+  Future<void> updateTLWorkspace(
+      {required int indexInUsers,
+      required TLWorkspace updatedTLWorkspace}) async {
     state = [
-      for (int i = 0; i < this.state.length; i++)
-        if (i == indexInUsers) updatedTLWorkspace else this.state[i],
+      for (int i = 0; i < state.length; i++)
+        if (i == indexInUsers) updatedTLWorkspace else state[i],
     ];
+    await _saveWorkspaces();
   }
 }
 

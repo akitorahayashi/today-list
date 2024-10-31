@@ -27,6 +27,7 @@ class CurrentWorkspaceIndexNotifier extends StateNotifier<int> {
     });
   }
 
+  // change currentWorkspaceの機能も担っている
   Future<void> setCurrentWorkspaceIndex(int newIndex) async {
     state = newIndex;
     await TLPref().getPref.then((pref) {

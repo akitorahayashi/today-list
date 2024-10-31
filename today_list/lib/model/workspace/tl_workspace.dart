@@ -3,7 +3,7 @@ import 'package:today_list/model/external/tl_widgetkit.dart';
 import 'package:today_list/model/external/tl_connectivity.dart';
 import 'package:today_list/model/external/tl_pref.dart';
 import '../todo/tl_category.dart';
-import 'tl_workspace_notifier.dart';
+import 'tl_workspaces_provider.dart';
 import '../todo/tl_todos.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -69,33 +69,4 @@ class TLWorkspace {
     }
     return false;
   }
-
-  static Future<void> changeCurrentWorkspace({
-    required int newWorkspaceIndex,
-  }) async {
-    TLWorkspace.currentWorkspaceIndex = newWorkspaceIndex;
-    // TODO indexを変えただけでいいか
-    await TLPref().getPref.then((pref) {
-      pref.setInt("currentWorkspaceIndex", newWorkspaceIndex);
-    });
-  }
-
-  static Future<void> saveWorkspaces() async {
-    // iosならばwidgetを更新する
-    if (Platform.isIOS) {
-      TLWidgetKit.updateTLWorkspaces();
-      TLConnectivity.sendTLWorkspacesToAppleWatch();
-    }
-    // string workspaceを保存する
-    await TLPref().getPref.then((pref) =>
-        pref.setString("tlworkspaces", json.encode(_initialTLWorkspaces)));
-  }
-
-  static Future<void> saveSelectedWorkspace({
-    required int selectedWorkspaceIndex,
-  }) async {
-    _initialTLWorkspaces[selectedWorkspaceIndex] = currentWorkspace.toJson();
-    await TLWorkspace.saveWorkspaces();
-  }
-  // --- save ---
 }
