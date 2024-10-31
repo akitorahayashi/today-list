@@ -45,18 +45,20 @@ Future<void> yesNoAlert(
                   const SizedBox(
                     height: 30,
                   ),
-                ButtonBar(
+                OverflowBar(
                   alignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TextButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        style: alertButtonStyle(context: context),
+                        style: alertButtonStyle(
+                            accentColor: _tlThemeData.accentColor),
                         child: const Text("いいえ")),
                     TextButton(
                       onPressed: yesAction,
-                      style: alertButtonStyle(context: context),
+                      style: alertButtonStyle(
+                          accentColor: _tlThemeData.accentColor),
                       child: const Text("はい"),
                     ),
                   ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../model/user/setting_data.dart';
 import '../../../../model/tl_theme.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
@@ -14,13 +13,13 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Container(
       width: deviceWidth / 2 - 20,
       height: 320,
       // グラデーションと丸角
       decoration: BoxDecoration(
-          gradient: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-              .gradientOfNavBar,
+          gradient: _tlThemeData.gradientOfNavBar,
           borderRadius: BorderRadius.circular(10)),
       // ガラス
       child: GlassContainer(
@@ -30,8 +29,7 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
           // toDoカードを表示
           child: Card(
             elevation: 5,
-            color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                .panelColor,
+            color: _tlThemeData.panelColor,
             child: SizedBox(
               width: deviceWidth / 2 - 50,
               child: Padding(
@@ -43,19 +41,14 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Icon(
                         FontAwesomeIcons.solidSquareCheck,
-                        color: tlThemeDataList[
-                                SettingData.shared.selectedThemeIndex]!
-                            .checkmarkColor,
+                        color: _tlThemeData.checkmarkColor,
                       ),
                     ),
                     Text(
-                      tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                          .themeTitleInSettings,
+                      _tlThemeData.themeTitleInSettings,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: tlThemeDataList[
-                                  SettingData.shared.selectedThemeIndex]!
-                              .checkmarkColor,
+                          color: _tlThemeData.checkmarkColor,
                           fontSize: 17,
                           letterSpacing: 2,
                           fontWeight: FontWeight.w800),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/alerts/simple_alert.dart';
+import 'package:today_list/model/tl_theme.dart';
 import 'tl_pref.dart';
 import 'package:today_list/main.dart';
 import 'package:intl/intl.dart';
@@ -88,6 +89,7 @@ class TLAds {
 
   static Future<void> showRewardedAd(
       {required BuildContext context, required Function rewardAction}) async {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     if (TLAds.rewardedAd != null) {
       await TLAds.rewardedAd!.show(onUserEarnedReward: (_, reward) {
         rewardAction();
@@ -103,6 +105,7 @@ class TLAds {
           // それでも無理だったら
           simpleAlert(
               context: context,
+              corrThemeData: _tlThemeData,
               title: "エラー",
               message: "インターネット環境の調子が悪いようです...",
               buttonText: "OK");

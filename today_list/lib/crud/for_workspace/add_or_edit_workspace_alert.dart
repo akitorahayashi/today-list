@@ -77,12 +77,14 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
             children: [
               // カテゴリーを作らずにアラートを閉じるボタン
               TextButton(
-                  style: alertButtonStyle(context: context),
+                  style:
+                      alertButtonStyle(accentColor: _tlThemeData.accentColor),
                   onPressed: () => Navigator.pop(context),
                   child: const Text("閉じる")),
               // workspaceを追加するボタン
               TextButton(
-                  style: alertButtonStyle(context: context),
+                  style:
+                      alertButtonStyle(accentColor: _tlThemeData.accentColor),
                   onPressed: () {
                     if (_workspaceNameInputController.text.trim().isEmpty) {
                       // 入力されていなければ退場
@@ -139,6 +141,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                         }
                         simpleAlert(
                           context: context,
+                          corrThemeData: _tlThemeData,
                           title: "変更することに\n成功しました!!",
                           message: null,
                           buttonText: "OK",

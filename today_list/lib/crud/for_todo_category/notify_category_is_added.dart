@@ -40,7 +40,8 @@ Future<void> notifyCategoryIsAdded(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    style: alertButtonStyle(context: context),
+                    style:
+                        alertButtonStyle(accentColor: _tlThemeData.accentColor),
                     child: Text(
                       "OK",
                       style: TextStyle(color: _tlThemeData.accentColor),

@@ -61,18 +61,21 @@ Future<void> deleteWorkspaceAlert({
                   children: [
                     // いいえボタン
                     TextButton(
-                        style: alertButtonStyle(context: context),
+                        style: alertButtonStyle(
+                            accentColor: _tlThemeData.accentColor),
                         onPressed: () => Navigator.pop(context),
                         child: const Text("戻る")),
                     // はいボタン
                     TextButton(
-                        style: alertButtonStyle(context: context),
+                        style: alertButtonStyle(
+                            accentColor: _tlThemeData.accentColor),
                         onPressed: () {
                           // デフォルトワークスペースは消せない
                           if (indexInTLWorkspaces == 0) {
                             Navigator.pop(context);
                             simpleAlert(
                                 context: context,
+                                corrThemeData: _tlThemeData,
                                 title: "エラー",
                                 message: '"デフォルト"のWorkspaceは\n削除できません',
                                 buttonText: "OK");
@@ -94,6 +97,7 @@ Future<void> deleteWorkspaceAlert({
                               TLVibration.vibrate();
                               simpleAlert(
                                   context: context,
+                                  corrThemeData: _tlThemeData,
                                   title: "削除することに\n成功しました!",
                                   message: null,
                                   buttonText: "OK");

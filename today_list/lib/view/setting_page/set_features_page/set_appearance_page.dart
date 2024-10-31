@@ -102,10 +102,10 @@ class SetAppearancePageState extends State<SetAppearancePage> {
                       children: [
                         // 2個目のテーマ
                         RightSideThemeSelectButton(
-                            IndexOfthemeData: unUsingThemeIndices[0]),
+                            corrIndex: unUsingThemeIndices[0]),
                         // 3個目のテーマ
                         RightSideThemeSelectButton(
-                            IndexOfthemeData: unUsingThemeIndices[1]),
+                            corrIndex: unUsingThemeIndices[1]),
                       ],
                     ),
                   ),

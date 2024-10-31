@@ -31,6 +31,7 @@ class _IconCardState extends State<IconCard> {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     final bool isCurrentIcon =
         widget.iconCategoryName == SettingData.shared.defaultIconCategory &&
             widget.selectedIconRarity == SettingData.shared.defaultIconRarity &&
@@ -59,6 +60,7 @@ class _IconCardState extends State<IconCard> {
                   TLAds.extendLimitOfPassReward(howManyDays: 3);
                   simpleAlert(
                       context: context,
+                      corrThemeData: _tlThemeData,
                       title: "PASSが延長されました!",
                       message: "3日分のPASSを獲得しました",
                       buttonText: "OK");
@@ -72,8 +74,7 @@ class _IconCardState extends State<IconCard> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: isCurrentIcon ? 0 : 3,
-          color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-              .panelColor,
+          color: _tlThemeData.panelColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Column(
@@ -95,9 +96,7 @@ class _IconCardState extends State<IconCard> {
                     color: !widget.isEarned
                         ? Colors.black26
                         : isCurrentIcon
-                            ? tlThemeDataList[
-                                    SettingData.shared.selectedThemeIndex]!
-                                .checkmarkColor
+                            ? _tlThemeData.checkmarkColor
                             : Colors.black45,
                     size: isFontawesomeCategories ? 17 : 20,
                   ),
@@ -110,9 +109,7 @@ class _IconCardState extends State<IconCard> {
                       color: !widget.isEarned
                           ? Colors.black26
                           : isCurrentIcon
-                              ? tlThemeDataList[
-                                      SettingData.shared.selectedThemeIndex]!
-                                  .checkmarkColor
+                              ? _tlThemeData.checkmarkColor
                               : Colors.black45),
                 )
               ],

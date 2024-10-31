@@ -141,6 +141,7 @@ class AllToDosInThisCategoryPageState
                           TLWorkspace.currentWorkspaceIndex);
                   simpleAlert(
                       context: context,
+                      corrThemeData: _tlThemeData,
                       title: "削除が完了しました",
                       message: null,
                       buttonText: "OK");

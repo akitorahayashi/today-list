@@ -123,6 +123,7 @@ Widget renameCategoryDialog({
                       TLVibration.vibrate();
                       simpleAlert(
                           context: context,
+                          corrThemeData: _tlThemeData,
                           title: "変更することに\n成功しました!",
                           message: null,
                           buttonText: "OK");

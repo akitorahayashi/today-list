@@ -4,16 +4,16 @@ import '../constants/styles.dart';
 
 Future<void> simpleAlert(
     {required BuildContext context,
+    required TLThemeData corrThemeData,
     required String title,
     required String? message,
     required String buttonText}) {
-  final TLThemeData _tlThemeData = TLTheme.of(context);
   return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
         return Dialog(
-          backgroundColor: _tlThemeData.alertColor,
+          backgroundColor: corrThemeData.alertColor,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
             child: Padding(
@@ -27,7 +27,7 @@ Future<void> simpleAlert(
                     child: Text(
                       title,
                       style: TextStyle(
-                          color: _tlThemeData.accentColor,
+                          color: corrThemeData.accentColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
@@ -49,7 +49,8 @@ Future<void> simpleAlert(
                     ),
                   TextButton(
                       onPressed: () => Navigator.pop(context),
-                      style: alertButtonStyle(context: context),
+                      style: alertButtonStyle(
+                          accentColor: corrThemeData.accentColor),
                       child: Text(buttonText))
                 ],
               ),

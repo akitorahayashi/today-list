@@ -25,6 +25,7 @@ class ShowLimitOfPassCard extends StatelessWidget {
               TLAds.extendLimitOfPassReward(howManyDays: 3);
               simpleAlert(
                   context: context,
+                  corrThemeData: _tlThemeData,
                   title: "PASSが延長されました!",
                   message: "3日分のPASSを獲得しました",
                   buttonText: "OK");
