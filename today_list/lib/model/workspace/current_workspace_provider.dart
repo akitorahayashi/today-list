@@ -1,20 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../external/tl_pref.dart';
 import './tl_workspace.dart';
-import './tl_workspace_notifier.dart';
-
-// TLWorkspacesを提供するProvider
-final tlWorkspacesProvider =
-    StateNotifierProvider.autoDispose<TLWorkspacesNotifier, List<TLWorkspace>>(
-        (ref) {
-  return TLWorkspacesNotifier();
-});
+import './tl_workspaces_provider.dart';
 
 // currentWorkspaceを提供するProvider
 final currentWorkspaceProvider = Provider.autoDispose<TLWorkspace>((ref) {
-  final workspaces = ref.watch(tlWorkspacesProvider);
-  final selectedIndex = ref.watch(selectedWorkspaceIndexProvider);
-  return workspaces[selectedIndex];
+  final _tlWorkspaces = ref.watch(tlWorkspacesProvider);
+  final _correntIndex = ref.watch(selectedWorkspaceIndexProvider);
+  return _tlWorkspaces[_correntIndex];
 });
 
 // currentWorkspaceIndexを提供するProvider
@@ -24,6 +17,7 @@ final selectedWorkspaceIndexProvider =
   return CurrentWorkspaceIndexNotifier();
 });
 
+// currentWorkspaceIndexを管理するNotifier
 class CurrentWorkspaceIndexNotifier extends StateNotifier<int> {
   CurrentWorkspaceIndexNotifier() : super(0) {
     // コンストラクタ

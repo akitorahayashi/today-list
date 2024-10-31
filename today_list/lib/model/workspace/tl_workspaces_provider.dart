@@ -6,25 +6,36 @@ import '../todo/tl_step.dart';
 import '../user/setting_data.dart';
 import 'tl_workspace.dart';
 
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// TODO defaultIDというグローバル変数を削除しても機能するようにする
 const String defaultID = "defaultID";
+
+// TLWorkspacesを提供するProvider
+final tlWorkspacesProvider =
+    StateNotifierProvider.autoDispose<TLWorkspacesNotifier, List<TLWorkspace>>(
+        (ref) {
+  return TLWorkspacesNotifier();
+});
 
 class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
   TLWorkspacesNotifier() : super(_initialTLWorkspaces) {
-    // sharedPreferenceからデータを取得
+    // コンストラクタ、SharedPreferenceからデータを取得
     TLPref().getPref.then((pref) {
-      final savedAdminUser = pref.getString("rpAdminUser");
-      if (savedAdminUser != null) {
-        final readAdminUser = RPAdminUser.fromJson(json.decode(pref.getString(
-            "rpAdminUser")!)); // sharedPreferenceから取得したデータをRPAdminUserに変換
-        state = readAdminUser; // stateを更新
+      final encodedTLWorkspaces = pref.getString("tlWorkspaces");
+      if (encodedTLWorkspaces != null) {
+        final List<dynamic> _jsonTLWorkspaces =
+            json.decode(encodedTLWorkspaces);
+        final List<TLWorkspace> _savedTLWorkspaces =
+            _jsonTLWorkspaces.map((jsonData) {
+          return TLWorkspace.fromJson(jsonData);
+        }).toList();
+        state = _savedTLWorkspaces;
       }
     });
-  };
-
-  // 現在のワークスペースを取得するメソッド
-  TLWorkspace get currentWorkspace => state[SettingData.shared.currentWorkspaceIndex];
+  }
 
   // TLWorkspaceを追加するメソッド
   void addTLWorkspace({required TLWorkspace newTLWorkspace}) {
