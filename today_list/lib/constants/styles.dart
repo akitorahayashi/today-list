@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import '../model/tl_theme.dart';
 
 // alert
-ButtonStyle alertButtonStyle({required BuildContext context}) {
-  final TLThemeData _tlThemeData = TLTheme.of(context);
+ButtonStyle alertButtonStyle({required Color accentColor}) {
   return ButtonStyle(
     foregroundColor: WidgetStateProperty.all<Color>(
-      _tlThemeData.accentColor,
+      accentColor,
     ),
     overlayColor: WidgetStateProperty.all<Color>(
-      _tlThemeData.accentColor.withOpacity(0.1),
+      accentColor.withOpacity(0.1),
     ),
   );
 }

@@ -59,11 +59,13 @@ Future<void> confirmToDeleteThisCategory({
                   alignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TextButton(
-                        style: alertButtonStyle(context: context),
+                        style: alertButtonStyle(
+                            accentColor: _tlThemeData.accentColor),
                         onPressed: () => Navigator.pop(context),
                         child: const Text("いいえ")),
                     TextButton(
-                        style: alertButtonStyle(context: context),
+                        style: alertButtonStyle(
+                            accentColor: _tlThemeData.accentColor),
                         onPressed: () async {
                           if (indexOfSmallCategory != null) {
                             // このカテゴリーがsmallCategoryの場合
@@ -115,6 +117,7 @@ Future<void> confirmToDeleteThisCategory({
                           // 知らせるアラート
                           simpleAlert(
                             context: context,
+                            corrThemeData: _tlThemeData,
                             title: "削除することに成功しました!",
                             message: null,
                             buttonText: "OK",

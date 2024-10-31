@@ -81,13 +81,15 @@ class SettingData {
 
   // テーマを変更する関数
   Future<void> confirmToChangeTheme(
-      {required BuildContext context, required int selectedThemeIndex}) {
+      {required BuildContext context,
+      required TLThemeData corrThemeData,
+      required int corrIndex}) {
     return showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
           return Dialog(
-            backgroundColor: tlThemeDataList[selectedThemeIndex].alertColor,
+            backgroundColor: corrThemeData.alertColor,
             child: DefaultTextStyle(
               style: const TextStyle(
                   fontWeight: FontWeight.bold,
@@ -104,8 +106,7 @@ class SettingData {
                       height: 80,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          gradient: tlThemeDataList[selectedThemeIndex]
-                              .gradientOfNavBar,
+                          gradient: corrThemeData.gradientOfNavBar,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: GlassContainer(
@@ -113,17 +114,15 @@ class SettingData {
                             alignment: Alignment.center,
                             child: Card(
                               elevation: 5,
-                              color: tlThemeDataList[selectedThemeIndex]
-                                  .panelColor,
+                              color: corrThemeData.panelColor,
                               child: Container(
                                 width: 150,
                                 height: 50,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  tlThemeDataList[selectedThemeIndex].themeName,
+                                  corrThemeData.themeName,
                                   style: TextStyle(
-                                      color: tlThemeDataList[selectedThemeIndex]
-                                          .checkmarkColor,
+                                      color: corrThemeData.checkmarkColor,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -135,7 +134,7 @@ class SettingData {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text("$selectedThemeIndexに変更しますか？"),
+                    child: Text("${corrThemeData.themeName}に変更しますか？"),
                   ),
                   // 操作ボタン
                   OverflowBar(
@@ -143,24 +142,22 @@ class SettingData {
                     children: [
                       // 戻るボタン
                       TextButton(
-                        style: alertButtonStyle(context: context),
+                        style: alertButtonStyle(
+                            accentColor: corrThemeData.accentColor),
                         onPressed: () => Navigator.pop(context),
                         // InkWell
                         child: Text(
                           "戻る",
-                          style: TextStyle(
-                              color: tlThemeDataList[selectedThemeIndex]
-                                  .accentColor),
                         ),
                       ),
                       // 変更するボタン
                       TextButton(
-                          style: alertButtonStyle(context: context),
+                          style: alertButtonStyle(
+                              accentColor: corrThemeData.accentColor),
                           onPressed: () {
                             // このアラートを消す
                             Navigator.pop(context);
-                            SettingData.shared.selectedThemeIndex =
-                                selectedThemeIndex;
+                            SettingData.shared.selectedThemeIndex = corrIndex;
                             TLConnectivity.sendSelectedThemeToAppleWatch();
                             TLWidgetKit.updateSelectedTheme();
                             todayListAppKey.currentState?.setState(() {});
@@ -169,6 +166,7 @@ class SettingData {
                             // thank youアラート
                             simpleAlert(
                               context: context,
+                              corrThemeData: corrThemeData,
                               title: "変更が完了しました",
                               message: null,
                               buttonText: "OK",
@@ -177,10 +175,9 @@ class SettingData {
                             SettingData.shared.saveSettings();
                           },
                           // InkWell
-                          child: Text("変更",
-                              style: TextStyle(
-                                  color: tlThemeDataList[selectedThemeIndex]
-                                      .accentColor))),
+                          child: Text(
+                            "変更",
+                          )),
                     ],
                   )
                 ],
@@ -215,6 +212,8 @@ class SettingData {
         TLVibration.vibrate();
         simpleAlert(
             context: context,
+            corrThemeData:
+                tlThemeDataList[SettingData.shared.selectedThemeIndex],
             title: "変更が完了しました!",
             message: null,
             buttonText: "OK");

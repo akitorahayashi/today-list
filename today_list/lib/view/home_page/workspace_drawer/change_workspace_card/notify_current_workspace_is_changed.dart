@@ -48,7 +48,8 @@ Future<void> notifyCurrentWorkspaceIsChanged({
                   height: 15,
                 ),
                 TextButton(
-                    style: alertButtonStyle(context: context),
+                    style:
+                        alertButtonStyle(accentColor: _tlThemeData.accentColor),
                     onPressed: () => Navigator.pop(context),
                     child: const Text("OK"))
               ],

@@ -11,10 +11,10 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RightSideThemeSelectButton extends StatefulWidget {
-  final int IndexOfthemeData;
+  final int corrIndex;
   const RightSideThemeSelectButton({
     super.key,
-    required this.IndexOfthemeData,
+    required this.corrIndex,
   });
 
   @override
@@ -26,14 +26,15 @@ class _RightSideThemeSelectButtonState
     extends State<RightSideThemeSelectButton> {
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _themeData = TLTheme.of(context);
+    final TLThemeData _corrThemeData = tlThemeDataList[widget.corrIndex];
     final double deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () async {
         if (TLAds.isPassActive || kDebugMode) {
           SettingData.shared.confirmToChangeTheme(
             context: context,
-            selectedThemeIndex: widget.IndexOfthemeData,
+            corrThemeData: _corrThemeData,
+            corrIndex: widget.corrIndex,
           );
         } else {
           await yesNoAlert(
@@ -48,6 +49,7 @@ class _RightSideThemeSelectButtonState
                 setAppearancePageKey.currentState?.setState(() {});
                 simpleAlert(
                     context: context,
+                    corrThemeData: _corrThemeData,
                     title: "PASSが延長されました!",
                     message: "3日分のPASSを獲得しました",
                     buttonText: "OK");
@@ -60,8 +62,7 @@ class _RightSideThemeSelectButtonState
           width: deviceWidth / 2 - 50,
           height: 150,
           decoration: BoxDecoration(
-              gradient:
-                  tlThemeDataList[widget.IndexOfthemeData]!.gradientOfNavBar,
+              gradient: _corrThemeData.gradientOfNavBar,
               borderRadius: BorderRadius.circular(10)),
           // ガラス
           child: GlassContainer(
@@ -71,7 +72,7 @@ class _RightSideThemeSelectButtonState
               // todoのカードを表示
               child: Card(
                 elevation: 5,
-                color: tlThemeDataList[widget.IndexOfthemeData]!.panelColor,
+                color: _corrThemeData.panelColor,
                 child: SizedBox(
                   width: deviceWidth / 2 - 70,
                   child: Padding(
@@ -83,17 +84,14 @@ class _RightSideThemeSelectButtonState
                           padding: const EdgeInsets.only(right: 8.0),
                           child: FaIcon(
                             FontAwesomeIcons.square,
-                            color: tlThemeDataList[widget.IndexOfthemeData]!
-                                .checkmarkColor,
+                            color: _corrThemeData.checkmarkColor,
                           ),
                         ),
                         Text(
-                          tlThemeDataList[widget.IndexOfthemeData]!
-                              .themeTitleInSettings,
+                          _corrThemeData.themeTitleInSettings,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: tlThemeDataList[widget.IndexOfthemeData]!
-                                  .checkmarkColor,
+                              color: _corrThemeData.checkmarkColor,
                               fontSize: 12,
                               letterSpacing: 2,
                               fontWeight: FontWeight.w800),

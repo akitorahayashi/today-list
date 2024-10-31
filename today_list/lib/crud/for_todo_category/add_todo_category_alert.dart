@@ -53,12 +53,14 @@ Future<TLCategory?> addToDoCategoryAlert({
                 children: [
                   // カテゴリーを作らずにアラートを閉じるボタン
                   TextButton(
-                      style: alertButtonStyle(context: context),
+                      style: alertButtonStyle(
+                          accentColor: _tlThemeData.accentColor),
                       onPressed: () => Navigator.pop(context),
                       child: const Text("閉じる")),
                   // カテゴリーを追加するボタン
                   TextButton(
-                      style: alertButtonStyle(context: context),
+                      style: alertButtonStyle(
+                          accentColor: _tlThemeData.accentColor),
                       onPressed: () {
                         // カテゴリー名が入力されているなら追加する
                         if (categoryNameInputController.text
