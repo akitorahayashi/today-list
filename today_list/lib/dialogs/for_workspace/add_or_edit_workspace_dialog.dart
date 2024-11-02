@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../dialogs/common/single_option_dialog.dart';
-import '../../model/workspace/current_tl_workspace_provider.dart';
-import '../../constants/styles.dart';
-import '../../model/tl_theme.dart';
-import '../../model/todo/tl_category.dart';
-import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/tl_workspaces_provider.dart';
-import '../../model/todo/tl_todos.dart';
-import '../../model/external/tl_vibration.dart';
+import '../../../dialogs/common/single_option_dialog.dart';
+import '../../../model/workspace/current_tl_workspace_provider.dart';
+import '../../../constants/styles.dart';
+import '../../../model/tl_theme.dart';
+import '../../../model/todo/tl_category.dart';
+import '../../../model/workspace/tl_workspace.dart';
+import '../../../model/workspace/tl_workspaces_provider.dart';
+import '../../../model/todo/tl_todos.dart';
+import '../../../model/external/tl_vibration.dart';
 
 class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget {
   final int? oldIndexInStringWorkspaces;
