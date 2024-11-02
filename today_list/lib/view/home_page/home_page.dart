@@ -13,7 +13,6 @@ import '../../model/workspace/tl_workspaces_provider.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/workspace/current_workspace_provider.dart';
-import '../../deprecated_crud/for_todo/delete_checked_todos_in_today.dart';
 import '../edit_todo_page/edit_todo_page.dart';
 import '../category_list_page/category_list_page.dart';
 import '../setting_page/setting_page.dart';
@@ -32,7 +31,10 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     final TLWorkspace _currentWorkspace = ref.watch(currentWorkspaceProvider);
-    final int _currentWorkspaceIndex = ref.watch(currentWorkspaceIndexProvider);
+    final currentWorkspaceNotifier =
+        ref.read(currentWorkspaceProvider.notifier);
+    final int _currentWorkspaceIndex =
+        currentWorkspaceNotifier.currentWorkspaceIndex;
 
     return Scaffold(
       key: homePageScaffoldKey,
@@ -63,7 +65,6 @@ class HomePage extends ConsumerWidget {
               },
               trailingIcon: const Icon(Icons.settings, color: Colors.white),
             ),
-            // TODO ValueKeyを設定する
             SliverList(
                 delegate: SliverChildListDelegate([
               const SizedBox(
@@ -151,10 +152,8 @@ class HomePage extends ConsumerWidget {
                     message: null,
                     yesAction: () async {
                       Navigator.pop(context);
-                      deleteCheckedToDosInTodayInAWorkspace(
-                          context: context,
-                          selectedWorkspaceIndex: _currentWorkspaceIndex,
-                          selectedWorkspace: _currentWorkspace);
+                      await currentWorkspaceNotifier
+                          .deleteCheckedToDosInTodayInAWorkspace();
                       TLVibration.vibrate();
                       showDialog(
                         context: context,
