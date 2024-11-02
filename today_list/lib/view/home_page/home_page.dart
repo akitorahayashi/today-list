@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/dialogs/common/single_option_dialog.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
 import '../../components/for_todo/todos_in_this_category_today/header_for_todos.dart';
@@ -11,6 +12,7 @@ import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces_provider.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
+import '../../model/workspace/current_workspace_provider.dart';
 import '../../deprecated_crud/for_todo/delete_checked_todos_in_today.dart';
 import '../edit_todo_page/edit_todo_page.dart';
 import '../category_list_page/category_list_page.dart';
@@ -19,44 +21,19 @@ import './workspace_drawer/workspace_drawer.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-// import 'package:intl/intl.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage extends ConsumerWidget {
+  HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => HomePageState();
-}
-
-class HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> homePageScaffoldKey =
       GlobalKey<ScaffoldState>();
 
-  bool accetColorIsChanged = false;
-  bool enterSerialCodeMode = false;
-
   @override
-  void initState() {
-    super.initState();
-    // 画面の描画が終わったタイミングで処理
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!accetColorIsChanged) {
-        accetColorIsChanged = true;
-        print("accetColor is changed");
-        setState(() {});
-        FlutterNativeSplash.remove();
-      }
-      // if (settingData.isFirstEntry) {
-      //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-      //     return const ShowTutorialPage();
-      //   }));
-      // }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLWorkspace _currentWorkspace = ref.watch(currentWorkspaceProvider);
+    final int _currentWorkspaceIndex = ref.watch(currentWorkspaceIndexProvider);
+
     return Scaffold(
       key: homePageScaffoldKey,
       drawer: WorkspaceDrawer(isContentMode: false),
@@ -67,9 +44,9 @@ class HomePageState extends State<HomePage> {
         CustomScrollView(
           slivers: [
             TLSliverAppBar(
-              pageTitle: TLWorkspace.currentWorkspaceIndex == 0
+              pageTitle: _currentWorkspaceIndex == 0
                   ? "Today List"
-                  : TLWorkspace.currentWorkspace.name,
+                  : _currentWorkspace.name,
               // drawerを表示するボタン
               leadingButtonOnPressed: () =>
                   homePageScaffoldKey.currentState!.openDrawer(),
@@ -92,60 +69,55 @@ class HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 10,
               ),
-              if (TLWorkspace
-                  .currentWorkspace
-                  .toDos[TLWorkspace.currentWorkspace.bigCategories[0].id]!
+              if (_currentWorkspace
+                  .toDos[_currentWorkspace.bigCategories[0].id]!
                   .toDosInToday
                   .isNotEmpty)
                 const SizedBox(height: 7),
-              if (TLWorkspace
-                  .currentWorkspace
-                  .toDos[TLWorkspace.currentWorkspace.bigCategories[0].id]!
+              if (_currentWorkspace
+                  .toDos[_currentWorkspace.bigCategories[0].id]!
                   .toDosInToday
                   .isNotEmpty)
                 ToDosInThisCategoryInToday(
-                  bigCategoryOfThisToDo:
-                      TLWorkspace.currentWorkspace.bigCategories[0],
+                  bigCategoryOfThisToDo: _currentWorkspace.bigCategories[0],
                   // workspace
-                  selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
-                  selectedWorkspace: TLWorkspace.currentWorkspace,
+                  selectedWorkspaceIndex: _currentWorkspaceIndex,
+                  selectedWorkspace: _currentWorkspace,
                 ),
               // なし以外のbigCategoryの処理
               for (TLCategory bigCategory
-                  in TLWorkspace.currentWorkspace.bigCategories.sublist(1))
+                  in _currentWorkspace.bigCategories.sublist(1))
                 Column(
                   children: [
                     // big header
-                    if (TLWorkspace.currentWorkspace.toDos[bigCategory.id]!
-                            .toDosInToday.isNotEmpty ||
+                    if (_currentWorkspace
+                            .toDos[bigCategory.id]!.toDosInToday.isNotEmpty ||
                         // そのsmallCategoryがToDoを持っていたら、bigHeaderを表示
-                        (TLWorkspace.currentWorkspace
+                        (_currentWorkspace
                                 .smallCategories[bigCategory.id]!.isNotEmpty &&
-                            TLWorkspace.currentWorkspace
-                                    .smallCategories[bigCategory.id]!
-                                    .indexWhere((smallCategory) => TLWorkspace
-                                        .currentWorkspace
-                                        .toDos[smallCategory.id]!
-                                        .toDosInToday
-                                        .isNotEmpty) !=
+                            _currentWorkspace.smallCategories[bigCategory.id]!
+                                    .indexWhere((smallCategory) =>
+                                        _currentWorkspace
+                                            .toDos[smallCategory.id]!
+                                            .toDosInToday
+                                            .isNotEmpty) !=
                                 -1))
                       HeaderForToDos(
                           isBigCategory: true, category: bigCategory),
                     // big body
-                    if (TLWorkspace.currentWorkspace.toDos[bigCategory.id]!
-                        .toDosInToday.isNotEmpty)
+                    if (_currentWorkspace
+                        .toDos[bigCategory.id]!.toDosInToday.isNotEmpty)
                       ToDosInThisCategoryInToday(
                         bigCategoryOfThisToDo: bigCategory,
                         // workspace
-                        selectedWorkspaceIndex:
-                            TLWorkspace.currentWorkspaceIndex,
-                        selectedWorkspace: TLWorkspace.currentWorkspace,
+                        selectedWorkspaceIndex: _currentWorkspaceIndex,
+                        selectedWorkspace: _currentWorkspace,
                       ),
-                    for (TLCategory smallCategory in TLWorkspace
-                            .currentWorkspace.smallCategories[bigCategory.id] ??
-                        [])
-                      if (TLWorkspace.currentWorkspace.toDos[smallCategory.id]!
-                          .toDosInToday.isNotEmpty)
+                    for (TLCategory smallCategory
+                        in _currentWorkspace.smallCategories[bigCategory.id] ??
+                            [])
+                      if (_currentWorkspace
+                          .toDos[smallCategory.id]!.toDosInToday.isNotEmpty)
                         Column(
                           children: [
                             // small header
@@ -156,9 +128,8 @@ class HomePageState extends State<HomePage> {
                               bigCategoryOfThisToDo: bigCategory,
                               smallCategoryOfThisToDo: smallCategory,
                               // workspace
-                              selectedWorkspaceIndex:
-                                  TLWorkspace.currentWorkspaceIndex,
-                              selectedWorkspace: TLWorkspace.currentWorkspace,
+                              selectedWorkspaceIndex: _currentWorkspaceIndex,
+                              selectedWorkspace: _currentWorkspace,
                             )
                           ],
                         ),
@@ -173,27 +144,28 @@ class HomePageState extends State<HomePage> {
         TodayListBottomNavbar(
           leadingIconData: FontAwesomeIcons.squareCheck,
           //　今日のチェック済みtodoを全て削除するボタン
-          leadingButtonOnPressed: () => yesNoAlert(
+          leadingButtonOnPressed: () => showDialog(
               context: context,
-              title: "チェック済みToDoを\n削除しますか?",
-              message: null,
-              yesAction: () async {
-                Navigator.pop(context);
-                deleteCheckedToDosInToday(
-                    context: context,
-                    selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
-                    selectedWorkspace: TLWorkspace.currentWorkspace);
-                TLVibration.vibrate();
-                simpleAlert(
-                    context: context,
-                    corrThemeData: _tlThemeData,
-                    title: "削除が完了しました",
+              builder: ((context) => YesNoDialog(
+                    title: "チェック済みToDoを\n削除しますか?",
                     message: null,
-                    buttonText: "OK");
-                setState(() {});
-                await TLWorkspace.saveSelectedWorkspace(
-                    selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex);
-              }),
+                    yesAction: () async {
+                      Navigator.pop(context);
+                      deleteCheckedToDosInTodayInAWorkspace(
+                          context: context,
+                          selectedWorkspaceIndex: _currentWorkspaceIndex,
+                          selectedWorkspace: _currentWorkspace);
+                      TLVibration.vibrate();
+                      showDialog(
+                        context: context,
+                        builder: ((context) => SingleOptionDialog(
+                              title: "削除が完了しました",
+                              message: null,
+                              buttonText: "OK",
+                            )),
+                      );
+                    },
+                  ))),
           trailingIconData: FontAwesomeIcons.list,
           // カテゴリーリストに移動するボタン
           tralingButtonOnPressed: () async {
@@ -216,7 +188,6 @@ class HomePageState extends State<HomePage> {
                 oldCategoryId: null,
               );
             }));
-            setState(() {});
           },
         ),
       ]),

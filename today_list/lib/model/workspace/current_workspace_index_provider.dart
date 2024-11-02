@@ -1,14 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../external/tl_pref.dart';
-import './tl_workspace.dart';
-import './tl_workspaces_provider.dart';
+import 'package:today_list/model/external/tl_pref.dart';
 
-// currentWorkspaceを提供するProvider
-final currentWorkspaceProvider = Provider.autoDispose<TLWorkspace>((ref) {
-  final _tlWorkspaces = ref.watch(tlWorkspacesProvider);
-  final _correntIndex = ref.watch(currentWorkspaceIndexProvider);
-  return _tlWorkspaces[_correntIndex];
-});
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // currentWorkspaceIndexを提供するProvider
 final currentWorkspaceIndexProvider =

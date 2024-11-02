@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/external/tl_connectivity.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
-import 'model/workspace/tl_workspace.dart';
 import 'model/user/setting_data.dart';
 import 'model/external/tl_ads.dart';
 import './app.dart';
