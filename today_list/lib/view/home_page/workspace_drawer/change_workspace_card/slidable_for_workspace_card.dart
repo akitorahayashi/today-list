@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../model/tl_theme.dart';
-import '../../../../crud/for_workspace/delete_workspace_alert.dart';
-import '../../../../crud/for_workspace/add_or_edit_workspace_alert.dart';
+import '../../../../deprecated_crud/for_workspace/delete_workspace_alert.dart';
+import '../../../../deprecated_crud/for_workspace/add_or_edit_workspace_alert.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/alerts/simple_alert.dart';
+import 'package:today_list/dialogs/common/single_option_dialog.dart';
 import './todo_block_in_today_or_whenever.dart';
 import './edit_category_card.dart';
-import '../../alerts/yes_no_alert.dart';
+import '../../dialogs/common/yes_no_dialog.dart';
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
-import '../../model/workspace/tl_workspace_notifier.dart';
+import '../../model/workspace/tl_workspaces_provider.dart';
 import '../../components/for_ui/today_list_bottom_navbar/today_list_bottom_navbar.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
-import '../../crud/for_todo/delete_all_checked_todo_in_todos.dart';
+import '../../deprecated_crud/for_todo/delete_all_checked_todo_in_todos.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

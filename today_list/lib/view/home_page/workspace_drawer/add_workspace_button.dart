@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../model/tl_theme.dart';
-import '../../../crud/for_workspace/add_or_edit_workspace_alert.dart';
+import '../../../deprecated_crud/for_workspace/add_or_edit_workspace_alert.dart';
 
 class AddWorkspaceButton extends StatelessWidget {
   const AddWorkspaceButton({Key? key}) : super(key: key);

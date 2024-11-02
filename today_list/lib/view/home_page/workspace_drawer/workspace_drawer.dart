@@ -4,7 +4,7 @@ import 'change_workspace_card/change_workspace_card.dart';
 import '../../../components/for_ui/tl_sliver_appbar.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/workspace/tl_workspace_notifier.dart';
+import '../../../model/workspace/tl_workspaces_provider.dart';
 import './add_workspace_button.dart';
 
 class WorkspaceDrawer extends StatefulWidget {

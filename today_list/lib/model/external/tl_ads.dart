@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/alerts/simple_alert.dart';
+import 'package:today_list/dialogs/common/single_option_dialog.dart';
 import 'package:today_list/model/tl_theme.dart';
 import 'tl_pref.dart';
 import 'package:today_list/main.dart';
@@ -89,7 +89,6 @@ class TLAds {
 
   static Future<void> showRewardedAd(
       {required BuildContext context, required Function rewardAction}) async {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
     if (TLAds.rewardedAd != null) {
       await TLAds.rewardedAd!.show(onUserEarnedReward: (_, reward) {
         rewardAction();
@@ -102,13 +101,16 @@ class TLAds {
             rewardAction(_, reward);
           });
         } else {
-          // それでも無理だったら
-          simpleAlert(
+          // それでも無理だったらエラーを出す
+          showDialog(
               context: context,
-              corrThemeData: _tlThemeData,
-              title: "エラー",
-              message: "インターネット環境の調子が悪いようです...",
-              buttonText: "OK");
+              builder: ((context) {
+                return SingleOptionDialog(
+                  title: "エラー",
+                  message: "インターネット環境の調子が悪いようです...",
+                  buttonText: "OK",
+                );
+              }));
         }
       });
     }
