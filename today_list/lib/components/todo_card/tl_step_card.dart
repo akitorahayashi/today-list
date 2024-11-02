@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
+import 'package:today_list/components/todo_card/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import 'package:today_list/model/workspace/tl_workspace.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_todo.dart';
@@ -8,11 +10,11 @@ import '../../model/workspace/current_workspace_provider.dart';
 import '../../model/workspace/tl_workspaces_provider.dart';
 import '../../model/external/tl_vibration.dart';
 
-class StepInToDoCard extends ConsumerWidget {
+class TLStepCard extends ConsumerWidget {
   final TLToDo toDoData;
   final int indexInToDo;
 
-  const StepInToDoCard({
+  const TLStepCard({
     super.key,
     required this.toDoData,
     required this.indexInToDo,
@@ -60,16 +62,10 @@ class StepInToDoCard extends ConsumerWidget {
             indexInWorkspaceList: _currentTLWorkspaceIndex,
             updatedTLWorkspace: _currentTLWorkspace);
 
-        // ワークスペースの状態を更新
-        ref.read(tlWorkspacesProvider.notifier).updateTLWorkspace(
-              indexInWorkspaceList: _currentTLWorkspaceIndex,
-              updatedTLWorkspace: workspaces[_currentTLWorkspaceIndex],
-            );
-
         TLVibration.vibrate();
-        notifyToDoOrStepIsEditted(
+        SnackBarToNotifyTodoOrStepIsEdited.show(
           context: context,
-          newName: stepData.title,
+          newTitle: stepData.title,
           newCheckedState: stepData.isChecked,
           quickChangeToToday: null,
         );
@@ -78,49 +74,25 @@ class StepInToDoCard extends ConsumerWidget {
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
           child: Row(
             children: [
-              Checkbox(
-                value: stepData.isChecked,
-                onChanged: (bool? value) {
-                  stepData.isChecked = value ?? false;
-                  toDoData.steps[toDoData.steps.indexOf(stepData)] = stepData;
-
-                  // 更新されたToDoをワークスペースに反映
-                  workspaces[_currentTLWorkspaceIndex]
-                      .toDos[toDoData.categoryId]!
-                      .updateToDo(
-                        todoId: toDoData.id,
-                        updatedToDo: toDoData,
-                      );
-
-                  // ワークスペースの状態を更新
-                  ref.read(tlWorkspacesProvider.notifier).updateTLWorkspace(
-                        indexInWorkspaceList: _currentTLWorkspaceIndex,
-                        updatedTLWorkspace:
-                            workspaces[_currentTLWorkspaceIndex],
-                      );
-
-                  TLVibration.vibrate();
-                  notifyToDoOrStepIsEditted(
-                    context: context,
-                    newName: stepData.title,
-                    newCheckedState: stepData.isChecked,
-                    quickChangeToToday: null,
-                  );
-                },
-              ),
-              Expanded(
-                child: Text(
-                  stepData.title,
-                  style: TextStyle(
-                    decoration:
-                        stepData.isChecked ? TextDecoration.lineThrough : null,
-                    color: Colors.black
-                        .withOpacity(stepData.isChecked ? 0.3 : 0.6),
-                  ),
+              // 左側のチェックボックス
+              Padding(
+                padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
+                child: Transform.scale(
+                  scale: 1.2,
+                  child: IconForCheckBox(isChecked: stepData.isChecked),
                 ),
+              ),
+              // stepのタイトル
+              Expanded(
+                child: Text(stepData.title,
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black
+                            .withOpacity(stepData.isChecked ? 0.3 : 0.6))),
               ),
             ],
           ),

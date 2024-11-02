@@ -2,19 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
 import 'package:today_list/model/tl_theme.dart';
 
-class NotifyTodoOrStepIsEditedSnackBar extends StatelessWidget {
-  final String newTitle;
-  final bool newCheckedState;
-  final bool? quickChangeToToday;
-  const NotifyTodoOrStepIsEditedSnackBar({
-    super.key,
-    required this.newTitle,
-    required this.newCheckedState,
-    this.quickChangeToToday,
-  });
+class SnackBarToNotifyTodoOrStepIsEdited {
+  static void show({
+    required BuildContext context,
+    required String newTitle,
+    required bool newCheckedState,
+    required bool? quickChangeToToday,
+  }) {
+    final SnackBar snackBar = _createSnackBar(
+      context: context,
+      newTitle: newTitle,
+      newCheckedState: newCheckedState,
+      quickChangeToToday: quickChangeToToday,
+    );
+    // スナックバーが表示されていたら消す
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 
-  @override
-  Widget build(BuildContext context) {
+  static SnackBar _createSnackBar({
+    required BuildContext context,
+    required String newTitle,
+    required bool newCheckedState,
+    bool? quickChangeToToday,
+  }) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     return SnackBar(
       duration: const Duration(milliseconds: 900),

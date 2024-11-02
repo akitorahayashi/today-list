@@ -1,15 +1,15 @@
-import 'package:today_list/components/for_todo/icon_for_checkbox.dart';
-import '../../../model/tl_theme.dart';
-import '../../../model/todo/tl_todo.dart';
-import '../../../model/todo/tl_todos.dart';
-import '../../../model/todo/tl_step.dart';
-import '../../../model/todo/tl_category.dart';
-import '../../../model/external/tl_vibration.dart';
-import '../../../model/workspace/tl_workspace.dart';
-import '../../../dialogs/notify_todo_or_step_is_edited.dart';
-import '../../../view/edit_todo_page/edit_todo_page.dart';
-import '../step_card.dart';
-import './slidable_for_todo_card.dart';
+import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
+import '../../model/tl_theme.dart';
+import '../../model/todo/tl_todo.dart';
+import '../../model/todo/tl_todos.dart';
+import '../../model/todo/tl_step.dart';
+import '../../model/todo/tl_category.dart';
+import '../../model/external/tl_vibration.dart';
+import '../../model/workspace/tl_workspace.dart';
+import 'notify_todo_or_step_is_edited.dart';
+import '../../view/edit_todo_page/edit_todo_page.dart';
+import 'tl_step_card.dart';
+import '../../slidables/slidable_for_todo_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:reorderables/reorderables.dart';
@@ -160,7 +160,7 @@ class ToDoCardState extends State<ToDoCard> {
                                   key: Key(UniqueKey().toString()),
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 0, 2, 0),
-                                  child: StepInToDoCard(
+                                  child: TLStepCard(
                                     toDoData: toDoData,
                                     indexOfThisStepInToDo:
                                         indexOfThisStepInToDo,
