@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/dialogs/common/single_option_dialog.dart';
-import '../../components/for_ui/tl_sliver_appbar.dart';
-import '../../components/for_todo/todos_in_this_category_today/header_for_todos.dart';
-import '../../components/for_todo/todos_in_this_category_today/todos_in_this_category_today.dart';
-import '../../components/for_ui/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
-import '../../components/for_ui/today_list_bottom_navbar/today_list_bottom_navbar.dart';
+import '../../components/common/tl_sliver_appbar.dart';
+import '../../components/todo_card/todos_in_this_category_today/header_for_todos.dart';
+import '../../components/todo_card/todos_in_this_category_today/todos_in_this_category_today.dart';
+import '../../components/common/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
+import '../../components/common/today_list_bottom_navbar/today_list_bottom_navbar.dart';
 import '../../model/tl_theme.dart';
 import '../../dialogs/common/yes_no_dialog.dart';
 import '../../model/workspace/tl_workspace.dart';

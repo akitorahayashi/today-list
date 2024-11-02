@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../model/tl_theme.dart';
-import '../../components/for_ui/tl_sliver_appbar.dart';
+import '../../components/common/tl_sliver_appbar.dart';
 import 'set_features_page/set_appearance_page.dart';
 import './my_page/my_page.dart';
 // import './other_app_page/other_app_page.dart';

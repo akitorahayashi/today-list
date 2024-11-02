@@ -4,14 +4,14 @@ import '../../../../model/workspace/tl_workspace.dart';
 import '../../../../model/workspace/tl_workspaces_provider.dart';
 import '../../../../model/tl_theme.dart';
 import 'notify_current_workspace_is_changed.dart';
-import 'slidable_for_workspace_card.dart';
+import '../../../../slidables/slidable_for_workspace_card.dart';
 
 class ChangeWorkspaceCard extends StatefulWidget {
-  final bool isDisplayMode;
+  final bool isInDrawerList;
   final int indexInWorkspaces;
   const ChangeWorkspaceCard({
     Key? key,
-    required this.isDisplayMode,
+    required this.isInDrawerList,
     required this.indexInWorkspaces,
   }) : super(key: key);
 
@@ -28,7 +28,7 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     return Padding(
       padding: EdgeInsets.fromLTRB(
-          5, 1, 5, (isCurrentWorkspace && !widget.isDisplayMode) ? 5 : 0),
+          5, 1, 5, (isCurrentWorkspace && !widget.isInDrawerList) ? 5 : 0),
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 70),
         child: Card(
@@ -60,14 +60,14 @@ class _ChangeWorkspaceCardState extends State<ChangeWorkspaceCard> {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                       child: Text(
-                          (isCurrentWorkspace && widget.isDisplayMode
+                          (isCurrentWorkspace && widget.isInDrawerList
                                   ? "☆ "
                                   : "") +
                               (isCurrentWorkspace
                                   ? TLWorkspace.currentWorkspace.name
                                   : _initialTLWorkspaces[
                                       widget.indexInWorkspaces]["name"]) +
-                              ((isCurrentWorkspace && widget.isDisplayMode)
+                              ((isCurrentWorkspace && widget.isInDrawerList)
                                   ? "   "
                                   : ""),
                           style: TextStyle(

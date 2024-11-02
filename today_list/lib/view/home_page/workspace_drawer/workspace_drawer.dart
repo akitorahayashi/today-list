@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:today_list/model/workspace/current_workspace_provider.dart';
 import 'change_workspace_card/change_workspace_card.dart';
-import '../../../components/for_ui/tl_sliver_appbar.dart';
+import '../../../components/common/tl_sliver_appbar.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/workspace/tl_workspaces_provider.dart';
@@ -21,7 +21,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
     final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
     final TLWorkspacesNotifier _tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
-    final CurrentWorkspaceNotifier _currentWorkspaceNotifier =
+    final CurrentTLWorkspaceNotifier _currentWorkspaceNotifier =
         ref.read(currentTLWorkspaceProvider.notifier);
     final int _currentTLWorkspaceIndex =
         _currentWorkspaceNotifier.currentTLWorkspaceIndex;
