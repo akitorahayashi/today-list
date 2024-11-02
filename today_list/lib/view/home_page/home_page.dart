@@ -12,7 +12,7 @@ import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/tl_workspaces_provider.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
-import '../../model/workspace/current_workspace_provider.dart';
+import '../../model/workspace/current_tl_workspace_provider.dart';
 import '../edit_todo_page/edit_todo_page.dart';
 import '../category_list_page/category_list_page.dart';
 import '../setting_page/setting_page.dart';
@@ -184,9 +184,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                       showDialog(
                         context: context,
                         builder: ((context) => SingleOptionDialog(
-                              title: "削除が完了しました",
+                              title: "削除が完了しました！",
                               message: null,
-                              buttonText: "OK",
                             )),
                       );
                     },

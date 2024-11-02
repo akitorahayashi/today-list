@@ -63,7 +63,6 @@ class _IconCardState extends State<IconCard> {
                           builder: ((context) => SingleOptionDialog(
                                 title: "PASSが延長されました!",
                                 message: "3日分のPASSを獲得しました",
-                                buttonText: "OK",
                               )),
                         );
                       },

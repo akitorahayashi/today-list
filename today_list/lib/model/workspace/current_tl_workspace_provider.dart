@@ -31,7 +31,8 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
   }
 
   // 現在のワークスペースインデックスを変更する関数
-  Future<void> changeCurrentWorkspaceIndex(int newCurrentWorkspaceIndex) async {
+  Future<void> changeCurrentWorkspaceIndex(
+      {required int newCurrentWorkspaceIndex}) async {
     currentTLWorkspaceIndex = newCurrentWorkspaceIndex;
     state = ref.read(tlWorkspacesProvider)[currentTLWorkspaceIndex];
     await TLPref().getPref.then((pref) {

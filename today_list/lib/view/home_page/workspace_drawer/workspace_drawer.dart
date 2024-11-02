@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
-import 'package:today_list/model/workspace/current_workspace_provider.dart';
+import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
 import 'change_workspace_card/change_workspace_card.dart';
 import '../../../components/common/tl_sliver_appbar.dart';
 import '../../../model/tl_theme.dart';
@@ -67,8 +67,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                             ),
                             ChangeWorkspaceCard(
                               isInDrawerList: false,
-                              indexInWorkspaces:
-                                  TLWorkspace.currentWorkspaceIndex,
+                              indexInWorkspaces: _currentTLWorkspaceIndex,
                             )
                           ],
                         ),
@@ -124,7 +123,8 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                       // 移動したWorkspaceが現在のWorkspaceだった場合
                                       _currentWorkspaceNotifier
                                           .changeCurrentWorkspaceIndex(
-                                              revisedNewIndex);
+                                              newCurrentWorkspaceIndex:
+                                                  revisedNewIndex);
                                     } else if (revisedOldIndex <
                                             _currentWorkspaceNotifier
                                                 .currentTLWorkspaceIndex &&
@@ -134,9 +134,10 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                       // currentWorkspaceIndexが移動範囲内にある場合（下方向に移動）
                                       _currentWorkspaceNotifier
                                           .changeCurrentWorkspaceIndex(
-                                              _currentWorkspaceNotifier
-                                                      .currentTLWorkspaceIndex -
-                                                  1);
+                                              newCurrentWorkspaceIndex:
+                                                  _currentWorkspaceNotifier
+                                                          .currentTLWorkspaceIndex -
+                                                      1);
                                     } else if (revisedOldIndex >
                                             _currentWorkspaceNotifier
                                                 .currentTLWorkspaceIndex &&
@@ -146,9 +147,10 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                       // currentWorkspaceIndexが移動範囲内にある場合（上方向に移動）
                                       _currentWorkspaceNotifier
                                           .changeCurrentWorkspaceIndex(
-                                              _currentWorkspaceNotifier
-                                                      .currentTLWorkspaceIndex +
-                                                  1);
+                                              newCurrentWorkspaceIndex:
+                                                  _currentWorkspaceNotifier
+                                                          .currentTLWorkspaceIndex +
+                                                      1);
                                     }
 
                                     // toDosを保存する

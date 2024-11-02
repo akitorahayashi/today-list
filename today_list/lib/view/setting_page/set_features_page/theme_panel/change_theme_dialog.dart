@@ -98,7 +98,6 @@ class ChangeThemeDialog extends StatelessWidget {
                             return SingleOptionDialog(
                               title: "変更が完了しました",
                               message: null,
-                              buttonText: "OK",
                             );
                           });
 

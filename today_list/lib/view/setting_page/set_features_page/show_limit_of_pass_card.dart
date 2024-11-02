@@ -28,7 +28,6 @@ class ShowLimitOfPassCard extends StatelessWidget {
                   builder: ((context) => SingleOptionDialog(
                         title: "PASSが延長されました!",
                         message: "3日分のPASSを獲得しました",
-                        buttonText: "OK",
                       )),
                 );
               },

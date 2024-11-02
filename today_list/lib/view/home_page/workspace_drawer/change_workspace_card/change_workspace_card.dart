@@ -18,20 +18,24 @@ class ChangeWorkspaceCard extends ConsumerWidget {
     required this.indexInWorkspaces,
   }) : super(key: key);
 
-  bool get  =>
-      widget.indexInWorkspaces == TLWorkspace.currentWorkspaceIndex;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
+    // provider
+    final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    final TLWorkspace _currentTLWorkspace =
+        ref.watch(currentTLWorkspaceProvider);
+    // notifier
     final CurrentTLWorkspaceNotifier _currentTLWorkspaceNotifier =
         ref.read(currentTLWorkspaceProvider.notifier);
-        final int _currentTLWorkspaceIndex = _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
+    // other
+    final int _currentTLWorkspaceIndex =
+        _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
     final bool _isCurrentWorkspace =
-        indexInWorkspaces == TLWorkspace.currentWorkspaceIndex;
+        indexInWorkspaces == _currentTLWorkspaceIndex;
     return Padding(
       padding: EdgeInsets.fromLTRB(
-          5, 1, 5, (_isCurrentWorkspace && !widget.isInDrawerList) ? 5 : 0),
+          5, 1, 5, (_isCurrentWorkspace && !isInDrawerList) ? 5 : 0),
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 70),
         child: Card(
@@ -45,35 +49,32 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                   if (_isCurrentWorkspace) {
                     Navigator.pop(context);
                   } else {
-                    TLWorkspace.changeCurrentWorkspace(
-                        newWorkspaceIndex: widget.indexInWorkspaces);
+                    _currentTLWorkspaceNotifier.changeCurrentWorkspaceIndex(
+                        newCurrentWorkspaceIndex: indexInWorkspaces);
                     TLVibration.vibrate();
                     Navigator.pop(context);
-                    showDialog(context: context, builder: (context) => SingleOptionDialog(title: title, message: message, buttonText: buttonText))
+                    showDialog(
+                        context: context,
+                        builder: (context) => SingleOptionDialog(
+                            title: _currentTLWorkspace.name,
+                            message: "workspaceを変更しました！"));
                     notifyCurrentWorkspaceIsChanged(
                         context: context,
-                        newWorkspaceName: TLWorkspace.currentWorkspace.name);
+                        newWorkspaceName: _currentTLWorkspace.name);
                   }
                 },
                 child: SlidableForWorkspaceCard(
                   isInDrawerList: true,
                   isCurrentWorkspace: _isCurrentWorkspace,
-                  indexInTLWorkspaces: widget.indexInWorkspaces,
+                  indexInTLWorkspaces: indexInWorkspaces,
                   child: Align(
                     alignment: Alignment.center,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                       child: Text(
-                          (_isCurrentWorkspace && widget.isInDrawerList
-                                  ? "☆ "
-                                  : "") +
-                              (_isCurrentWorkspace
-                                  ? TLWorkspace.currentWorkspace.name
-                                  : _initialTLWorkspaces[
-                                      widget.indexInWorkspaces]["name"]) +
-                              ((_isCurrentWorkspace && widget.isInDrawerList)
-                                  ? "   "
-                                  : ""),
+                          _isCurrentWorkspace && isInDrawerList
+                              ? ("☆ " + _currentTLWorkspace.name + "   ")
+                              : _tlWorkspaces[indexInWorkspaces].name,
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: _tlThemeData.accentColor,

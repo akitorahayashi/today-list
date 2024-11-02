@@ -5,13 +5,11 @@ import '../../constants/styles.dart';
 class SingleOptionDialog extends StatelessWidget {
   final String title;
   final String? message;
-  final String buttonText;
 
   SingleOptionDialog({
     super.key,
     required this.title,
     required this.message,
-    required this.buttonText,
   });
   @override
   Widget build(BuildContext context) {
@@ -55,7 +53,7 @@ class SingleOptionDialog extends StatelessWidget {
                   onPressed: () => Navigator.pop(context),
                   style:
                       alertButtonStyle(accentColor: corrThemeData.accentColor),
-                  child: Text(buttonText))
+                  child: Text("OK"))
             ],
           ),
         ),
