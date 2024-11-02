@@ -8,8 +8,8 @@ import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/workspace/tl_workspaces_provider.dart';
-import '../../components/for_ui/today_list_bottom_navbar/today_list_bottom_navbar.dart';
-import '../../components/for_ui/tl_sliver_appbar.dart';
+import '../../components/common/today_list_bottom_navbar/today_list_bottom_navbar.dart';
+import '../../components/common/tl_sliver_appbar.dart';
 import '../../deprecated_crud/for_todo/delete_all_checked_todo_in_todos.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

@@ -107,7 +107,6 @@ class TLAds {
                 return SingleOptionDialog(
                   title: "エラー",
                   message: "インターネット環境の調子が悪いようです...",
-                  buttonText: "OK",
                 );
               }));
         }

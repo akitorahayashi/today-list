@@ -1,3 +1,5 @@
+import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
+
 import '../external/tl_pref.dart';
 import '../todo/tl_category.dart';
 import '../todo/tl_todo.dart';
@@ -19,16 +21,17 @@ const String defaultID = "defaultID";
 final tlWorkspacesProvider =
     StateNotifierProvider.autoDispose<TLWorkspacesNotifier, List<TLWorkspace>>(
         (ref) {
-  return TLWorkspacesNotifier();
+  return TLWorkspacesNotifier(ref);
 });
 
 class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
-  TLWorkspacesNotifier() : super(_initialTLWorkspaces) {
+  final Ref ref;
+  TLWorkspacesNotifier(this.ref) : super(_initialTLWorkspaces) {
     // コンストラクタ、SharedPreferenceからデータを取得
-    _loadInitialWorkspaces();
+    _loadTLWorkspaces();
   }
 
-  Future<void> _loadInitialWorkspaces() async {
+  Future<void> _loadTLWorkspaces() async {
     final pref = await TLPref().getPref;
     final encodedTLWorkspaces = pref.getString("tlWorkspaces");
     if (encodedTLWorkspaces != null) {
@@ -41,7 +44,7 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
     }
   }
 
-  Future<void> _saveWorkspaces() async {
+  Future<void> _saveTLWorkspaces() async {
     final pref = await TLPref().getPref;
     final encodedTLWorkspaces =
         json.encode(state.map((workspace) => workspace.toJson()).toList());
@@ -51,31 +54,31 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
   // TLWorkspaceを追加するメソッド
   Future<void> addTLWorkspace({required TLWorkspace newTLWorkspace}) async {
     state = [...state, newTLWorkspace];
-    await _saveWorkspaces();
+    await _saveTLWorkspaces();
   }
 
   // TLWorkspaceを削除するメソッド
   Future<void> removeTLWorkspace({required String workspaceId}) async {
     state = state.where((workspace) => workspace.id != workspaceId).toList();
-    await _saveWorkspaces();
+    await _saveTLWorkspaces();
   }
 
-  // 単体のTLWorkspaceを更新するメソッド
-  Future<void> updateTLWorkspace({
-    required int indexInWorkspaceList,
-    required TLWorkspace updatedTLWorkspace,
-  }) async {
+  // CurrentTLWorkspaceを更新するメソッド
+  Future<void> updateCurrentTLWorkspace() async {
+    final CurrentTLWorkspaceNotifier _currentTLWorkspaceNotifier =
+        ref.read(currentTLWorkspaceProvider.notifier);
     final newList = [...state];
-    newList[indexInWorkspaceList] = updatedTLWorkspace;
+    newList[_currentTLWorkspaceNotifier.currentTLWorkspaceIndex] =
+        ref.read(currentTLWorkspaceProvider);
     state = newList;
-    await _saveWorkspaces();
+    await _saveTLWorkspaces();
   }
 
   // List<TLWorkspace>を更新するメソッド
   Future<void> updateTLWorkspaceList(
       {required List<TLWorkspace> updatedTLWorkspaceList}) async {
     state = updatedTLWorkspaceList;
-    await _saveWorkspaces();
+    await _saveTLWorkspaces();
   }
 }
 

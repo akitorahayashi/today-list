@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/dialogs/common/single_option_dialog.dart';
-import 'package:today_list/model/workspace/current_workspace_provider.dart';
+import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
 import '../../constants/styles.dart';
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
@@ -41,8 +41,8 @@ class _AddOrEditWorkspaceDialogState
   Widget build(BuildContext context) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
-    // final _currentTLWorkspaceNotifier =
-    ref.read(currentTLWorkspaceProvider.notifier);
+    final _currentTLWorkspaceNotifier =
+        ref.read(currentTLWorkspaceProvider.notifier);
     final _currentTLWorkspaceIndex =
         _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
 
@@ -141,7 +141,7 @@ class _AddOrEditWorkspaceDialogState
                         // 更新する
                         ref
                             .read(tlWorkspacesProvider.notifier)
-                            .updateTLWorkspace(
+                            .updateCurrentTLWorkspace(
                               indexInWorkspaceList:
                                   widget.oldIndexInStringWorkspaces!,
                               updatedTLWorkspace: editedWorkspace,

@@ -19,15 +19,17 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
   final Ref ref;
   int currentTLWorkspaceIndex;
 
-  CurrentTLWorkspaceNotifier(this.ref, List<TLWorkspace> workspaces)
+  CurrentTLWorkspaceNotifier(this.ref, List<TLWorkspace> tlWorkspaces)
       : currentTLWorkspaceIndex = 0,
-        super(workspaces[0]) {
+        super(tlWorkspaces[0]) {
     // 初期化処理
-    TLPref().getPref.then((pref) {
-      final initialIndex = pref.getInt('currentWorkspaceIndex') ?? 0;
-      currentTLWorkspaceIndex = initialIndex;
-      state = workspaces[currentTLWorkspaceIndex];
-    });
+    _loadCurrentWorkspace(tlWorkspaces);
+  }
+
+  Future<void> _loadCurrentWorkspace(List<TLWorkspace> tlWorkspaces) async {
+    final pref = await TLPref().getPref;
+    this.currentTLWorkspaceIndex = pref.getInt('currentWorkspaceIndex') ?? 0;
+    state = tlWorkspaces[currentTLWorkspaceIndex];
   }
 
   // 現在のワークスペースインデックスを変更する関数
@@ -65,7 +67,7 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
     }
 
     // 更新されたワークスペースを保存
-    tlWorkspacesNotifier.updateTLWorkspace(
+    tlWorkspacesNotifier.updateCurrentTLWorkspace(
         indexInWorkspaceList: currentTLWorkspaceIndex,
         updatedTLWorkspace: selectedWorkspace);
   }
