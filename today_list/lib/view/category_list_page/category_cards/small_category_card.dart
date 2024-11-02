@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../constants/global_keys.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
@@ -30,7 +29,6 @@ class SmallCategoryCard extends StatelessWidget {
             context: context,
             enableDrag: false,
             builder: (context) => AllToDosInThisCategoryPage(
-                  key: allToDosInCategoryPageKey,
                   indexOfBigCategory: indexOfBigCategory,
                   indexOfSmallCategory: indexOfSmallCategory,
                 ));

@@ -1,20 +1,19 @@
 import '../../model/tl_theme.dart';
-import '../../constants/global_keys.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/tl_workspaces.dart';
-import '../../crud/for_todo_category/delete_category_dialog.dart';
-import '../../crud/for_todo_category/rename_category_dialog.dart';
+import '../../model/workspace/tl_workspaces_provider.dart';
+import '../../deprecated_crud/for_todo_category/delete_category_dialog.dart';
+import '../../deprecated_crud/for_todo_category/rename_category_dialog.dart';
 import 'package:flutter/material.dart';
 
 class EditCatedgoryCard extends StatefulWidget {
   final int indexOfBigCategory;
   final int? indexOfSmallCategory;
   const EditCatedgoryCard({
-    super.key,
+    Key? key,
     required this.indexOfBigCategory,
     required this.indexOfSmallCategory,
-  });
+  }) : super(key: key);
 
   @override
   State<EditCatedgoryCard> createState() => _EditCatedgoryCardState();
@@ -59,7 +58,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
       ),
       children: [
         // このカテゴリーを削除するボタン
-        if (_categoryOfThisPage.id != noneId)
+        if (_categoryOfThisPage.id != defaultID)
           SimpleDialogOption(
             onPressed: () async {
               Navigator.pop(context);
@@ -69,7 +68,6 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
                 indexOfBigCategory: widget.indexOfBigCategory,
                 indexOfSmallCategory: widget.indexOfSmallCategory,
               );
-              categoryListPageKey.currentState?.setState(() {});
             },
             child: Text(
               "Delete",
@@ -80,7 +78,7 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
             ),
           ),
         // このカテゴリーを改名するボタン
-        if (_categoryOfThisPage.id != noneId)
+        if (_categoryOfThisPage.id != defaultID)
           SimpleDialogOption(
             onPressed: () async {
               Navigator.pop(context);
@@ -93,7 +91,6 @@ class _EditCatedgoryCardState extends State<EditCatedgoryCard> {
                   indexOfSmallCategory: widget.indexOfSmallCategory,
                 ),
               );
-              categoryListPageKey.currentState?.setState(() {});
             },
             child: Text(
               "Rename",

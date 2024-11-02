@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
 import '../../../../model/tl_theme.dart';
-import '../../../../constants/global_keys.dart';
-import '../../../../alerts/yes_no_alert.dart';
-import '../../../../alerts/simple_alert.dart';
-import '../../../../model/user/setting_data.dart';
+import '../../../../dialogs/common/yes_no_dialog.dart';
+import '../../../../dialogs/common/single_option_dialog.dart';
 import '../../../../model/external/tl_ads.dart';
+import 'change_theme_dialog.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -31,31 +30,36 @@ class _RightSideThemeSelectButtonState
     return GestureDetector(
       onTap: () async {
         if (TLAds.isPassActive || kDebugMode) {
-          SettingData.shared.confirmToChangeTheme(
-            context: context,
-            corrThemeData: _corrThemeData,
-            corrIndex: widget.corrIndex,
-          );
-        } else {
-          await yesNoAlert(
-            context: context,
-            title: "PASSを獲得しよう!",
-            message:
-                "\n・広告を見てPASSの期間を増やすことでチェックボックスのアイコンやカラーテーマを変更することができます!\n\n・1回の動画広告で3日分獲得できます",
-            yesAction: () => TLAds.showRewardedAd(
+          showDialog(
               context: context,
-              rewardAction: () {
-                TLAds.extendLimitOfPassReward(howManyDays: 3);
-                setAppearancePageKey.currentState?.setState(() {});
-                simpleAlert(
-                    context: context,
+              builder: ((context) => ChangeThemeDialog(
+                    corrIndex: widget.corrIndex,
                     corrThemeData: _corrThemeData,
-                    title: "PASSが延長されました!",
-                    message: "3日分のPASSを獲得しました",
-                    buttonText: "OK");
-              },
-            ),
-          );
+                  )));
+        } else {
+          await showDialog(
+              context: context,
+              builder: ((context) {
+                return YesNoDialog(
+                  title: "PASSを獲得しよう!",
+                  message:
+                      "\n・広告を見てPASSの期間を増やすことでチェックボックスのアイコンやカラーテーマを変更することができます!\n\n・1回の動画広告で3日分獲得できます",
+                  yesAction: () => TLAds.showRewardedAd(
+                    context: context,
+                    rewardAction: () async {
+                      TLAds.extendLimitOfPassReward(howManyDays: 3);
+                      await showDialog(
+                          context: context,
+                          builder: (context) {
+                            return SingleOptionDialog(
+                              title: "PASSが延長されました!",
+                              message: "3日分のPASSを獲得しました",
+                            );
+                          });
+                    },
+                  ),
+                );
+              }));
         }
       },
       child: Container(

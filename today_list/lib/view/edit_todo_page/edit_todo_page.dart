@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
 import '../../components/for_ui/tl_sliver_appbar.dart';
-import '../../alerts/yes_no_alert.dart';
+import '../../dialogs/common/yes_no_dialog.dart';
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/external/tl_ads.dart';
-import '../../model/workspace/tl_workspaces.dart';
-import '../../crud/for_todo/add_or_edit_todo_action.dart';
-import '../../crud/for_todo_category/add_todo_category_alert.dart';
+import '../../model/workspace/tl_workspaces_provider.dart';
+import '../../deprecated_crud/for_todo/add_or_edit_todo_action.dart';
+import '../../deprecated_crud/for_todo_category/add_todo_category_alert.dart';
 import './components_for_edit/steps_column.dart';
 import './components_for_edit/tl_textfield.dart';
 import './already_exists/already_exists.dart';
@@ -19,7 +19,6 @@ import 'components_for_edit/tl_dropdown_button.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class EditToDoPage extends StatefulWidget {
-  final GlobalKey superKey;
   final String toDoTitle;
   final List<TLStep> belogedSteps;
   final bool isInToday;
@@ -31,8 +30,7 @@ class EditToDoPage extends StatefulWidget {
 
   // コンストラクタ
   const EditToDoPage({
-    required Key key,
-    required this.superKey,
+    Key? key,
     required this.toDoTitle,
     required this.belogedSteps,
     required this.isInToday,
@@ -203,7 +201,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                         child: Column(children: [
                           // ビッグカテゴリーを選択してsmallCategory選択のためのdropdownを更新する
                           TLDropDownButton(
-                              hintText: _selectedBigCategory.id == noneId
+                              hintText: _selectedBigCategory.id == defaultID
                                   ? "大カテゴリー"
                                   : TLWorkspace.currentWorkspace.bigCategories
                                       .where((oneOfBigCategory) =>
@@ -236,7 +234,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                                 if (newBigCategory != null) {
                                   _selectedSmallCategory = null;
                                   switch (newBigCategory.id) {
-                                    case noneId:
+                                    case defaultID:
                                       _selectedBigCategory = TLWorkspace
                                           .currentWorkspace.bigCategories[0];
                                       break;
@@ -270,10 +268,10 @@ class EditToDoPageState extends State<EditToDoPage> {
                                       .first
                                       .title,
                               items: [
-                                TLCategory(id: noneId, title: "なし"),
+                                TLCategory(id: defaultID, title: "なし"),
                                 ...TLWorkspace.currentWorkspace
                                     .smallCategories[_selectedBigCategory.id]!,
-                                if (_selectedBigCategory.id != noneId)
+                                if (_selectedBigCategory.id != defaultID)
                                   TLCategory(
                                       id: "---smallCategory", title: "新しく作る"),
                               ].map((TLCategory item) {
@@ -295,7 +293,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                               onChanged: (TLCategory? newSmallCategory) async {
                                 if (newSmallCategory != null) {
                                   switch (newSmallCategory.id) {
-                                    case noneId:
+                                    case defaultID:
                                       _selectedSmallCategory = null;
                                       break;
                                     case "---smallCategory":

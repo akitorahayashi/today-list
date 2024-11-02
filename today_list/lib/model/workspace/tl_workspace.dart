@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/external/tl_widgetkit.dart';
-import 'package:today_list/model/external/tl_connectivity.dart';
-import 'package:today_list/model/external/tl_pref.dart';
 import '../todo/tl_category.dart';
-import 'tl_workspaces.dart';
 import '../todo/tl_todos.dart';
-import 'dart:convert';
-import 'dart:io';
 
 class TLWorkspace {
-  static int currentWorkspaceIndex = 0;
-
-  static TLWorkspace currentWorkspace =
-      TLWorkspace.fromJson(tlworkspaces[TLWorkspace.currentWorkspaceIndex]);
-  String id = UniqueKey().toString();
+  String id;
   String name;
   // todo
   List<TLCategory> bigCategories;
@@ -71,46 +61,4 @@ class TLWorkspace {
     }
     return false;
   }
-
-  static Future<void> changeCurrentWorkspace({
-    required int newWorkspaceIndex,
-  }) async {
-    TLWorkspace.currentWorkspaceIndex = newWorkspaceIndex;
-    TLWorkspace.currentWorkspace =
-        TLWorkspace.fromJson(tlworkspaces[TLWorkspace.currentWorkspaceIndex]);
-    await TLPref().getPref.then((pref) {
-      pref.setInt("currentWorkspaceIndex", newWorkspaceIndex);
-    });
-  }
-
-  // --- save ---
-  static Future<void> readWorkspaces() async {
-    await TLPref().getPref.then((pref) {
-      currentWorkspaceIndex = pref.getInt("currentWorkspaceIndex") ?? 0;
-      if (pref.getString("tlworkspaces") != null) {
-        tlworkspaces = List<Map<String, dynamic>>.from(
-          json.decode(pref.getString("tlworkspaces")!) as List,
-        );
-      }
-    });
-  }
-
-  static Future<void> saveWorkspaces() async {
-    // iosならばwidgetを更新する
-    if (Platform.isIOS) {
-      TLWidgetKit.updateTLWorkspaces();
-      TLConnectivity.sendTLWorkspacesToAppleWatch();
-    }
-    // string workspaceを保存する
-    await TLPref().getPref.then(
-        (pref) => pref.setString("tlworkspaces", json.encode(tlworkspaces)));
-  }
-
-  static Future<void> saveSelectedWorkspace({
-    required int selectedWorkspaceIndex,
-  }) async {
-    tlworkspaces[selectedWorkspaceIndex] = currentWorkspace.toJson();
-    await TLWorkspace.saveWorkspaces();
-  }
-  // --- save ---
 }

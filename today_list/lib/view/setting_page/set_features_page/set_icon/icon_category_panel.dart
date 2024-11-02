@@ -1,6 +1,5 @@
 import '../../../../constants/icon_for_checkbox_data.dart';
 import '../../../../model/tl_theme.dart';
-import '../../../../model/user/setting_data.dart';
 import 'icon_rarity_block/icon_rarity_block.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +9,7 @@ class IconCategoryPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Column(
@@ -22,8 +22,7 @@ class IconCategoryPanel extends StatelessWidget {
               style: TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w800,
-                  color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                      .checkmarkColor),
+                  color: _tlThemeData.checkmarkColor),
             ),
           ),
           // Super Rare, Rare

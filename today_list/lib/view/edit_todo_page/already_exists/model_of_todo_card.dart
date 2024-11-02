@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/components/for_todo/icon_for_checkbox.dart';
 import '../../../model/tl_theme.dart';
-import '../../../constants/global_keys.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
@@ -20,7 +19,7 @@ class ModelOfToDoCard extends StatelessWidget {
   final int? indexOfEditingToDo;
   final Function tapToEditAction;
   const ModelOfToDoCard({
-    super.key,
+    Key? key,
     // todoのデータ
     required this.toDoData,
     required this.ifInToday,
@@ -30,7 +29,7 @@ class ModelOfToDoCard extends StatelessWidget {
     // 編集系の変数
     required this.indexOfEditingToDo,
     required this.tapToEditAction,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,6 @@ class ModelOfToDoCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: SlidableForToDoCard(
-          superKey: editToDoPageKey,
           isModelCard: true,
           toDoData: toDoData,
           ifInToday: ifInToday,

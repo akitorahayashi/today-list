@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../constants/global_keys.dart';
-import '../../alerts/yes_no_alert.dart';
-import '../../alerts/simple_alert.dart';
+import '../../dialogs/common/yes_no_dialog.dart';
+import '../../dialogs/common/single_option_dialog.dart';
 import '../external/tl_connectivity.dart';
 import '../external/tl_widgetkit.dart';
 import '../external/tl_vibration.dart';
@@ -79,114 +78,6 @@ class SettingData {
     });
   }
 
-  // テーマを変更する関数
-  Future<void> confirmToChangeTheme(
-      {required BuildContext context,
-      required TLThemeData corrThemeData,
-      required int corrIndex}) {
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          return Dialog(
-            backgroundColor: corrThemeData.alertColor,
-            child: DefaultTextStyle(
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 13,
-                  color: Colors.black45),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // テーマの模型
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: SizedBox(
-                      width: 250,
-                      height: 80,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          gradient: corrThemeData.gradientOfNavBar,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: GlassContainer(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Card(
-                              elevation: 5,
-                              color: corrThemeData.panelColor,
-                              child: Container(
-                                width: 150,
-                                height: 50,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  corrThemeData.themeName,
-                                  style: TextStyle(
-                                      color: corrThemeData.checkmarkColor,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text("${corrThemeData.themeName}に変更しますか？"),
-                  ),
-                  // 操作ボタン
-                  OverflowBar(
-                    alignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // 戻るボタン
-                      TextButton(
-                        style: alertButtonStyle(
-                            accentColor: corrThemeData.accentColor),
-                        onPressed: () => Navigator.pop(context),
-                        // InkWell
-                        child: Text(
-                          "戻る",
-                        ),
-                      ),
-                      // 変更するボタン
-                      TextButton(
-                          style: alertButtonStyle(
-                              accentColor: corrThemeData.accentColor),
-                          onPressed: () {
-                            // このアラートを消す
-                            Navigator.pop(context);
-                            SettingData.shared.selectedThemeIndex = corrIndex;
-                            TLConnectivity.sendSelectedThemeToAppleWatch();
-                            TLWidgetKit.updateSelectedTheme();
-                            todayListAppKey.currentState?.setState(() {});
-                            setAppearancePageKey.currentState?.setState(() {});
-                            TLVibration.vibrate();
-                            // thank youアラート
-                            simpleAlert(
-                              context: context,
-                              corrThemeData: corrThemeData,
-                              title: "変更が完了しました",
-                              message: null,
-                              buttonText: "OK",
-                            );
-
-                            SettingData.shared.saveSettings();
-                          },
-                          // InkWell
-                          child: Text(
-                            "変更",
-                          )),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          );
-        });
-  }
-
   // チェックマークのアイコンを変える関数
   Future<void> askToSetDefaultIcon({
     required BuildContext context,
@@ -207,8 +98,6 @@ class SettingData {
         shared.defaultIconCategory = iconCategoryName;
         shared.defaultIconRarity = iconRarity;
         shared.defaultIconName = iconName;
-        todayListAppKey.currentState?.setState(() {});
-        setAppearancePageKey.currentState?.setState(() {});
         TLVibration.vibrate();
         simpleAlert(
             context: context,

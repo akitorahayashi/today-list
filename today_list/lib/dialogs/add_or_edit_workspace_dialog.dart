@@ -1,37 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/dialogs/common/single_option_dialog.dart';
+import 'package:today_list/model/workspace/current_workspace_provider.dart';
 import '../../constants/styles.dart';
-import '../../alerts/simple_alert.dart';
-import '../../constants/global_keys.dart';
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/tl_workspaces.dart';
+import '../../model/workspace/tl_workspaces_provider.dart';
 import '../../model/todo/tl_todos.dart';
 import '../../model/external/tl_vibration.dart';
-import 'notify_workspace_is_added.dart';
 
-class AddOrEditWorkspaceDialog extends StatefulWidget {
+class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget {
   final int? oldIndexInStringWorkspaces;
   const AddOrEditWorkspaceDialog(
       {super.key, required this.oldIndexInStringWorkspaces});
 
   @override
-  State<AddOrEditWorkspaceDialog> createState() =>
+  _AddOrEditWorkspaceDialogState createState() =>
       _AddOrEditWorkspaceDialogState();
 }
 
-class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
-  bool isInitialized = false;
+class _AddOrEditWorkspaceDialogState
+    extends ConsumerState<AddOrEditWorkspaceDialog> {
   final TextEditingController _workspaceNameInputController =
       TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.oldIndexInStringWorkspaces != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final List<TLWorkspace> workspaces = ref.read(tlWorkspacesProvider);
+        _workspaceNameInputController.text =
+            workspaces[widget.oldIndexInStringWorkspaces!].name;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
-    if (widget.oldIndexInStringWorkspaces != null && !isInitialized) {
-      isInitialized = true;
-      _workspaceNameInputController.text =
-          tlworkspaces[widget.oldIndexInStringWorkspaces!]["name"];
-    }
+    final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    // final _currentTLWorkspaceNotifier =
+    ref.read(currentTLWorkspaceProvider.notifier);
+    final _currentTLWorkspaceIndex =
+        _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
+
     return Dialog(
       backgroundColor: _tlThemeData.alertColor,
       child: Column(
@@ -39,7 +53,7 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Padding(
-            padding: const EdgeInsets.only(top: 28.0),
+            padding: EdgeInsets.only(top: 28.0),
             child: Text(
               "Workspace",
               style: TextStyle(
@@ -96,20 +110,22 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                       if (widget.oldIndexInStringWorkspaces == null) {
                         // add action
                         // 新しくできたWorkspace
-                        final createdWorkspaceJsonData = TLWorkspace(
+                        final createdWorkspace = TLWorkspace(
                             id: UniqueKey().toString(),
                             name: _workspaceNameInputController.text,
                             bigCategories: [
-                              TLCategory(id: noneId, title: "なし")
+                              TLCategory(id: defaultID, title: "なし")
                             ],
                             smallCategories: {
-                              noneId: []
+                              defaultID: []
                             },
                             toDos: {
-                              noneId:
+                              defaultID:
                                   TLToDos(toDosInToday: [], toDosInWhenever: [])
-                            }).toJson();
-                        tlworkspaces.add(createdWorkspaceJsonData);
+                            });
+                        ref
+                            .read(tlWorkspacesProvider.notifier)
+                            .addTLWorkspace(newTLWorkspace: createdWorkspace);
                         // 追加したことを知らせる
                         notifyWorkspaceIsAdded(
                             context: context,
@@ -118,41 +134,36 @@ class _AddOrEditWorkspaceDialogState extends State<AddOrEditWorkspaceDialog> {
                       } else {
                         // edit action
                         final TLWorkspace editedWorkspace =
-                            TLWorkspace.fromJson(tlworkspaces[
-                                widget.oldIndexInStringWorkspaces!]);
+                            _tlWorkspaces[widget.oldIndexInStringWorkspaces!];
                         // 名前だけ変える
                         editedWorkspace.name =
                             _workspaceNameInputController.text;
-                        // 消して元の場所に入れる
-                        tlworkspaces
-                            .removeAt(widget.oldIndexInStringWorkspaces!);
-                        tlworkspaces.insert(
-                          widget.oldIndexInStringWorkspaces!,
-                          editedWorkspace.toJson(),
-                        );
+                        // 更新する
+                        ref
+                            .read(tlWorkspacesProvider.notifier)
+                            .updateTLWorkspace(
+                              indexInWorkspaceList:
+                                  widget.oldIndexInStringWorkspaces!,
+                              updatedTLWorkspace: editedWorkspace,
+                            );
 
                         // currentWorkspaceの時
-                        if (TLWorkspace.currentWorkspaceIndex ==
+                        if (_currentTLWorkspaceIndex ==
                             widget.oldIndexInStringWorkspaces!) {
-                          TLWorkspace.currentWorkspace = editedWorkspace;
-                          TLWorkspace.changeCurrentWorkspace(
-                              newWorkspaceIndex:
+                          _currentTLWorkspaceNotifier
+                              .changeCurrentWorkspaceIndex(
                                   widget.oldIndexInStringWorkspaces!);
                         }
-                        simpleAlert(
+                        showDialog(
                           context: context,
-                          corrThemeData: _tlThemeData,
-                          title: "変更することに\n成功しました!!",
-                          message: null,
-                          buttonText: "OK",
+                          builder: (context) => SingleOptionDialog(
+                            title: "変更することに\n成功しました!",
+                            message: null,
+                            buttonText: "OK",
+                          ),
                         );
                       }
                       TLVibration.vibrate();
-                      homePageKey.currentState?.setState(() {});
-                      manageWorkspacePageKey.currentState?.setState(() {});
-                      drawerForWorkspaceKey.currentState?.setState(() {});
-                      // workspacesをセーブする
-                      TLWorkspace.saveWorkspaces();
                     }
                   },
                   child: Text(

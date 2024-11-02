@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/external/tl_connectivity.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
-import 'model/workspace/tl_workspace.dart';
-import './constants/global_keys.dart';
 import 'model/user/setting_data.dart';
 import 'model/external/tl_ads.dart';
 import './app.dart';
@@ -20,10 +19,11 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await dotenv.load(fileName: ".env");
   await TLAds.initializeTLAds();
-  await TLWorkspace.readWorkspaces();
   await SettingData.shared.readSettings();
   await TLVibration.initVibrate();
   await TLConnectivity.initializeConnectivity();
   // await todayListUser.initializeFirebase();
-  runApp(TodayList(key: todayListAppKey));
+  runApp(ProviderScope(
+    child: TodayListApp(),
+  ));
 }

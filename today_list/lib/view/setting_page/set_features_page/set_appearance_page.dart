@@ -16,9 +16,7 @@ import 'show_limit_of_pass_card.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class SetAppearancePage extends StatefulWidget {
-  const SetAppearancePage({
-    super.key,
-  });
+  const SetAppearancePage({Key? key}) : super(key: key);
 
   @override
   SetAppearancePageState createState() => SetAppearancePageState();

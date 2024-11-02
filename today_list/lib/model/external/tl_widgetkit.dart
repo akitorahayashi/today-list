@@ -1,9 +1,10 @@
 import 'package:flutter/services.dart';
 import 'package:today_list/model/user/setting_data.dart';
-import 'package:today_list/model/workspace/tl_workspaces.dart';
 
 import 'dart:convert';
 import 'dart:io';
+
+import 'package:today_list/model/workspace/tl_workspace.dart';
 
 class TLWidgetKit {
   static const methodChannel = MethodChannel(
@@ -24,12 +25,16 @@ class TLWidgetKit {
   //   }
   // }
 
-  static Future<void> updateTLWorkspaces() async {
+  static Future<void> updateTLWorkspaces(
+      {required List<TLWorkspace> tlWorkspaces}) async {
     if (Platform.isIOS) {
+      final List<dynamic> _jsonWorkspaces = tlWorkspaces.map((workspace) {
+        workspace.toJson();
+      }).toList();
       try {
         final String result = await methodChannel.invokeMethod(
           'updateTLWorkspaces',
-          json.encode(tlworkspaces),
+          json.encode(_jsonWorkspaces),
         );
         print('SET setUserDefaultsForAppGroup: $result');
       } on PlatformException catch (e) {

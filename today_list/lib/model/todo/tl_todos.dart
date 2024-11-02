@@ -5,7 +5,14 @@ class TLToDos {
   List<TLToDo> toDosInToday;
   List<TLToDo> toDosInWhenever;
 
-  TLToDos({required this.toDosInToday, required this.toDosInWhenever});
+  TLToDos({
+    required this.toDosInToday,
+    required this.toDosInWhenever,
+  });
+
+  List<TLToDo> operator []({required bool ifInToday}) {
+    return ifInToday ? toDosInToday : toDosInWhenever;
+  }
 
   List<TLToDo> getToDoArray({required bool inToday}) {
     if (inToday) {
