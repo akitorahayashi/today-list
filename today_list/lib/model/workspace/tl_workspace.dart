@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/external/tl_widgetkit.dart';
-import 'package:today_list/model/external/tl_connectivity.dart';
-import 'package:today_list/model/external/tl_pref.dart';
 import '../todo/tl_category.dart';
-import 'tl_workspaces_provider.dart';
 import '../todo/tl_todos.dart';
-import 'dart:convert';
-import 'dart:io';
 
 class TLWorkspace {
   static int currentWorkspaceIndex = 0;

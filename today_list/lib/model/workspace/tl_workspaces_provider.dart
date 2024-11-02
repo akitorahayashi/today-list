@@ -55,10 +55,8 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
   }
 
   // TLWorkspaceを削除するメソッド
-  Future<void> removeTLWorkspace({required String coorId}) async {
-    state = state
-        .where((oneOfTLWorkspaces) => oneOfTLWorkspaces.id != coorId)
-        .toList();
+  Future<void> removeTLWorkspace({required String workspaceId}) async {
+    state = state.where((workspace) => workspace.id != workspaceId).toList();
     await _saveWorkspaces();
   }
 

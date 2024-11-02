@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/dialogs/common/single_option_dialog.dart';
-import 'package:today_list/model/tl_theme.dart';
 import 'tl_pref.dart';
 import 'package:today_list/main.dart';
 import 'package:intl/intl.dart';

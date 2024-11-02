@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../external/tl_pref.dart';
+import '../todo/tl_todo.dart';
 import './tl_workspace.dart';
 import './tl_workspaces_provider.dart';
 import '../todo/tl_category.dart';
+import '../todo/tl_todos.dart';
 
 // currentWorkspaceを提供するProvider
 final currentWorkspaceProvider =
@@ -43,8 +45,8 @@ class CurrentWorkspaceNotifier extends StateNotifier<TLWorkspace> {
     final TLWorkspace selectedWorkspace = state;
 
     for (TLCategory bigCategory in selectedWorkspace.bigCategories) {
-      // bigCategoryに関するcheckのsort
-      deleteAllCheckedToDosInThisToDos(
+      // bigCategoryに関するチェック済みToDoの削除
+      deleteAllCheckedToDosInAToDos(
         onlyToday: true,
         selectedWorkspaceIndex: currentWorkspaceIndex,
         selectedWorkspace: selectedWorkspace,
@@ -52,8 +54,8 @@ class CurrentWorkspaceNotifier extends StateNotifier<TLWorkspace> {
       );
       for (TLCategory smallCategory
           in selectedWorkspace.smallCategories[bigCategory.id]!) {
-        // smallCategoryに関するcheckのsort
-        deleteAllCheckedToDosInThisToDos(
+        // smallCategoryに関するチェック済みToDoの削除
+        deleteAllCheckedToDosInAToDos(
             onlyToday: true,
             selectedWorkspaceIndex: currentWorkspaceIndex,
             selectedWorkspace: selectedWorkspace,
@@ -61,35 +63,30 @@ class CurrentWorkspaceNotifier extends StateNotifier<TLWorkspace> {
       }
     }
 
-    void deleteAllCheckedToDosInThisToDos({
-      required bool onlyToday,
-      int? selectedWorkspaceIndex,
-      TLWorkspace? selectedWorkspace,
-      required TLToDos selectedToDos,
-    }) {
-      // effortなどを更新する
-      // ToDos.countDeletedToDo(
-      //     selectedWorkspaceIndex: selectedWorkspaceIndex,
-      //     selectedWorkspace: selectedWorkspace,
-      //     numberOfDeletedToDo: selectedToDos.countCheckedToDosAndStepsInThisToDos(
-      //         selectedToDos: selectedToDos));
-      // チェックされているtodoを消す
-      selectedToDos.toDosInToday.removeWhere((todo) => todo.isChecked);
-      if (!onlyToday) {
-        selectedToDos.toDosInWhenever.removeWhere((todo) => todo.isChecked);
-      }
-      // 残っているものでstepがチェックされているものを消す
-      for (TLToDo todo in selectedToDos.toDosInToday) {
-        todo.steps.removeWhere((step) => step.isChecked);
-      }
-      for (TLToDo todo in selectedToDos.toDosInWhenever) {
-        todo.steps.removeWhere((step) => step.isChecked);
-      }
-      // ここでセーブとかvibrateしたら複数になることがある
-    }
-
     // 更新されたワークスペースを保存
-    tlWorkspacesNotifier.updateWorkspace(
-        currentWorkspaceIndex, selectedWorkspace);
+    tlWorkspacesNotifier.updateTLWorkspace(
+        indexInWorkspaceList: currentWorkspaceIndex,
+        updatedTLWorkspace: selectedWorkspace);
+  }
+
+  // 指定されたToDos内のチェック済みToDoを全て削除する関数
+  void deleteAllCheckedToDosInAToDos({
+    required bool onlyToday,
+    int? selectedWorkspaceIndex,
+    TLWorkspace? selectedWorkspace,
+    required TLToDos selectedToDos,
+  }) {
+    // チェックされているToDoを削除
+    selectedToDos.toDosInToday.removeWhere((todo) => todo.isChecked);
+    if (!onlyToday) {
+      selectedToDos.toDosInWhenever.removeWhere((todo) => todo.isChecked);
+    }
+    // 残っているToDo内のチェックされているステップを削除
+    for (TLToDo todo in selectedToDos.toDosInToday) {
+      todo.steps.removeWhere((step) => step.isChecked);
+    }
+    for (TLToDo todo in selectedToDos.toDosInWhenever) {
+      todo.steps.removeWhere((step) => step.isChecked);
+    }
   }
 }
