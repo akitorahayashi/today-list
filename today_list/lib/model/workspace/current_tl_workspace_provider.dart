@@ -44,32 +44,31 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
 
   // 現在のworkspaceの今日でチェック済みtodoを全て削除するための関数
   Future<void> deleteCheckedToDosInTodayInCurrentWorkspace() async {
-    final tlWorkspacesNotifier = ref.read(tlWorkspacesProvider.notifier);
-    final TLWorkspace selectedWorkspace = state;
+    final _tlWorkspacesNotifier = ref.read(tlWorkspacesProvider.notifier);
+    final _updatedCurrentTLWorkspace = state;
 
-    for (TLCategory bigCategory in selectedWorkspace.bigCategories) {
+    for (TLCategory bigCategory in _updatedCurrentTLWorkspace.bigCategories) {
       // bigCategoryに関するチェック済みToDoの削除
       deleteAllCheckedToDosInAToDos(
         onlyToday: true,
         selectedWorkspaceIndex: currentTLWorkspaceIndex,
-        selectedWorkspace: selectedWorkspace,
-        selectedToDos: selectedWorkspace.toDos[bigCategory.id]!,
+        selectedWorkspace: _updatedCurrentTLWorkspace,
+        selectedToDos: _updatedCurrentTLWorkspace.toDos[bigCategory.id]!,
       );
       for (TLCategory smallCategory
-          in selectedWorkspace.smallCategories[bigCategory.id]!) {
+          in _updatedCurrentTLWorkspace.smallCategories[bigCategory.id]!) {
         // smallCategoryに関するチェック済みToDoの削除
         deleteAllCheckedToDosInAToDos(
             onlyToday: true,
             selectedWorkspaceIndex: currentTLWorkspaceIndex,
-            selectedWorkspace: selectedWorkspace,
-            selectedToDos: selectedWorkspace.toDos[smallCategory.id]!);
+            selectedWorkspace: _updatedCurrentTLWorkspace,
+            selectedToDos: _updatedCurrentTLWorkspace.toDos[smallCategory.id]!);
       }
     }
 
     // 更新されたワークスペースを保存
-    tlWorkspacesNotifier.updateCurrentTLWorkspace(
-        indexInWorkspaceList: currentTLWorkspaceIndex,
-        updatedTLWorkspace: selectedWorkspace);
+    _tlWorkspacesNotifier.updateCurrentTLWorkspace(
+        updatedCurrentWorkspace: _updatedCurrentTLWorkspace);
   }
 
   // 指定されたToDos内のチェック済みToDoを全て削除する関数
