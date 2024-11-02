@@ -21,14 +21,39 @@ import './workspace_drawer/workspace_drawer.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class HomePage extends ConsumerWidget {
-  HomePage({super.key});
+class HomePage extends ConsumerStatefulWidget {
+  const HomePage({super.key});
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  bool _accetColorIsChanged = false;
   final GlobalKey<ScaffoldState> homePageScaffoldKey =
       GlobalKey<ScaffoldState>();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void initState() {
+    super.initState();
+    // 画面の描画が終わったタイミングで処理
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_accetColorIsChanged) {
+        _accetColorIsChanged = true;
+        print("accetColor is changed");
+        setState(() {});
+        FlutterNativeSplash.remove();
+      }
+      // if (settingData.isFirstEntry) {
+      //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+      //     return const ShowTutorialPage();
+      //   }));
+      // }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     final TLWorkspace _currentWorkspace = ref.watch(currentWorkspaceProvider);
     final currentWorkspaceNotifier =
@@ -65,6 +90,7 @@ class HomePage extends ConsumerWidget {
               },
               trailingIcon: const Icon(Icons.settings, color: Colors.white),
             ),
+            // TODO ValueKeyを設定する
             SliverList(
                 delegate: SliverChildListDelegate([
               const SizedBox(
@@ -153,7 +179,7 @@ class HomePage extends ConsumerWidget {
                     yesAction: () async {
                       Navigator.pop(context);
                       await currentWorkspaceNotifier
-                          .deleteCheckedToDosInTodayInAWorkspace();
+                          .deleteCheckedToDosInTodayInCurrentWorkspace();
                       TLVibration.vibrate();
                       showDialog(
                         context: context,

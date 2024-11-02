@@ -40,7 +40,7 @@ class CurrentWorkspaceNotifier extends StateNotifier<TLWorkspace> {
   }
 
   // 現在のworkspaceの今日でチェック済みtodoを全て削除するための関数
-  Future<void> deleteCheckedToDosInTodayInAWorkspace() async {
+  Future<void> deleteCheckedToDosInTodayInCurrentWorkspace() async {
     final tlWorkspacesNotifier = ref.read(tlWorkspacesProvider.notifier);
     final TLWorkspace selectedWorkspace = state;
 
