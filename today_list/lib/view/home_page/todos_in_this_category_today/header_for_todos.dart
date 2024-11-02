@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../../model/todo/tl_category.dart';
 
-class HeaderForToDos extends StatelessWidget {
+class CategoryHeaderForToDos extends StatelessWidget {
   final bool isBigCategory;
-  final TLCategory category;
-  const HeaderForToDos(
-      {super.key, required this.isBigCategory, required this.category});
+  final TLCategory corrCategory;
+  const CategoryHeaderForToDos(
+      {super.key, required this.isBigCategory, required this.corrCategory});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class HeaderForToDos extends StatelessWidget {
           margin: EdgeInsets.only(
               left: isBigCategory ? 10 : 30, bottom: isBigCategory ? 3 : 0),
           child: Text(
-            category.title,
+            corrCategory.title,
             style: isBigCategory
                 ? const TextStyle(
                     fontSize: 19,

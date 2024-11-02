@@ -55,9 +55,9 @@ class TLStepCard extends ConsumerWidget {
         }
 
         // 更新されたToDoをワークスペースに反映
-        _tlWorkspacesNotifier.updateCurrentTLWorkspace(
-            indexInWorkspaceList: _currentTLWorkspaceIndex,
-            updatedTLWorkspace: _currentTLWorkspace);
+        _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+            specificWorkspaceIndex: _currentTLWorkspaceIndex,
+            updatedWorkspace: _currentTLWorkspace);
 
         TLVibration.vibrate();
         SnackBarToNotifyTodoOrStepIsEdited.show(

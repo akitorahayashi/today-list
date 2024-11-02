@@ -64,12 +64,14 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
   }
 
   // CurrentTLWorkspaceを更新するメソッド
-  Future<void> updateCurrentTLWorkspace(
-      {required TLWorkspace updatedCurrentWorkspace}) async {
+  Future<void> updateSpecificTLWorkspace({
+    required int specificWorkspaceIndex,
+    required TLWorkspace updatedWorkspace,
+  }) async {
     final newList = [...state];
     newList[ref
         .read(currentTLWorkspaceProvider.notifier)
-        .currentTLWorkspaceIndex] = updatedCurrentWorkspace;
+        .currentTLWorkspaceIndex] = updatedWorkspace;
     state = newList;
     await _saveTLWorkspaces();
   }

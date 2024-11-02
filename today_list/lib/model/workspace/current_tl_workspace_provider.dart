@@ -60,15 +60,16 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
         // smallCategoryに関するチェック済みToDoの削除
         deleteAllCheckedToDosInAToDos(
             onlyToday: true,
-            selectedWorkspaceIndex: currentTLWorkspaceIndex,
+            selectedWorkspaceIndex: this.currentTLWorkspaceIndex,
             selectedWorkspace: _updatedCurrentTLWorkspace,
             selectedToDos: _updatedCurrentTLWorkspace.toDos[smallCategory.id]!);
       }
     }
 
     // 更新されたワークスペースを保存
-    _tlWorkspacesNotifier.updateCurrentTLWorkspace(
-        updatedCurrentWorkspace: _updatedCurrentTLWorkspace);
+    _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+        specificWorkspaceIndex: currentTLWorkspaceIndex,
+        updatedWorkspace: _updatedCurrentTLWorkspace);
   }
 
   // 指定されたToDos内のチェック済みToDoを全て削除する関数

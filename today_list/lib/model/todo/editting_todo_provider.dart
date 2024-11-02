@@ -40,11 +40,11 @@ class EditingToDoNotifier extends StateNotifier<TLToDo?> {
     final TLToDos _corrToDos = _currentTLWorkspace.toDos[corrCategoryId]!;
     _corrToDos[ifInToday].add(state!);
 
-    await ref.read(tlWorkspacesProvider.notifier).updateCurrentTLWorkspace(
-          indexInWorkspaceList: ref
+    await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
+          specificWorkspaceIndex: ref
               .read(currentTLWorkspaceProvider.notifier)
               .currentTLWorkspaceIndex,
-          updatedTLWorkspace: _currentTLWorkspace,
+          updatedWorkspace: _currentTLWorkspace,
         );
 
     state = null;
