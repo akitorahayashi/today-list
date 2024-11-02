@@ -1,4 +1,7 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
+import 'package:today_list/model/workspace/current_workspace_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_todos.dart';
@@ -6,7 +9,6 @@ import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/workspace/tl_workspace.dart';
-import 'notify_todo_or_step_is_edited.dart';
 import '../../view/edit_todo_page/edit_todo_page.dart';
 import 'tl_step_card.dart';
 import '../../slidables/slidable_for_todo_card.dart';
@@ -14,44 +16,43 @@ import 'package:flutter/material.dart';
 
 import 'package:reorderables/reorderables.dart';
 
-class ToDoCard extends StatefulWidget {
+class TLToDoCard extends ConsumerWidget {
   final bool ifInToday;
   final int indexOfThisToDoInToDos;
   final TLCategory bigCategoryOfThisToDo;
   // smallCategoryならこれがある
   final TLCategory? smallCategoryOfThisToDo;
-  // workspace系
-  final int selectedWorkspaceIndex;
-  final TLWorkspace selectedWorkspace;
 
-  const ToDoCard({
-    Key? key,
+  TLToDoCard({
+    super.key,
     required this.ifInToday,
     required this.indexOfThisToDoInToDos,
     required this.bigCategoryOfThisToDo,
     this.smallCategoryOfThisToDo,
-    // workspace系
-    required this.selectedWorkspaceIndex,
-    required this.selectedWorkspace,
-  }) : super(key: key);
+  });
 
   @override
-  ToDoCardState createState() => ToDoCardState();
-}
-
-class ToDoCardState extends State<ToDoCard> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
-    final TLCategory categoryOfThisToDo = widget.smallCategoryOfThisToDo == null
-        ? widget.bigCategoryOfThisToDo
-        : widget.smallCategoryOfThisToDo!;
+    // provider
+    final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    final TLWorkspace _currentTLWorkspace =
+        ref.watch(currentTLWorkspaceProvider);
+    // notifier
+    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+        ref.read(tlWorkspacesProvider.notifier);
+    final CurrentTLWorkspaceNotifier _currentTLWorkspaceNotifier =
+        ref.read(currentTLWorkspaceProvider.notifier);
+    // category
+    final TLCategory categoryOfThisToDo = smallCategoryOfThisToDo == null
+        ? bigCategoryOfThisToDo
+        : smallCategoryOfThisToDo!;
     final TLToDos toDosOfThisCardBelong =
-        widget.selectedWorkspace.toDos[categoryOfThisToDo.id]!;
-    List<TLToDo> toDoArrayOfThisToDo = widget.ifInToday
+        _currentTLWorkspace.toDos[categoryOfThisToDo.id]!;
+    List<TLToDo> toDoArrayOfThisToDo = ifInToday
         ? toDosOfThisCardBelong.toDosInToday
         : toDosOfThisCardBelong.toDosInWhenever;
-    final TLToDo toDoData = toDoArrayOfThisToDo[widget.indexOfThisToDoInToDos];
+    final TLToDo toDoData = toDoArrayOfThisToDo[indexOfThisToDoInToDos];
     // 全体を囲むカード
     return GestureDetector(
       onTap: () {

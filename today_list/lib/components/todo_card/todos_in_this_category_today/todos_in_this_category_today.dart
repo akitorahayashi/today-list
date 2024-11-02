@@ -1,4 +1,4 @@
-import '../todo_card/todo_card.dart';
+import '../tl_todo_card.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
@@ -46,7 +46,7 @@ class _ToDosInThisCategoryInTodayState
                     indexOfThisToDoInToDos <
                         widget.toDosInTodayInThisCategory.length;
                     indexOfThisToDoInToDos++)
-                  ToDoCard(
+                  TLToDoCard(
                     key: Key(widget
                         .toDosInTodayInThisCategory[indexOfThisToDoInToDos].id),
                     ifInToday: true,

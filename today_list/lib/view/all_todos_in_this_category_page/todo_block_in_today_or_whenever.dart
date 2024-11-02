@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../components/for_todo/todo_card/todo_card.dart';
+import '../../components/todo_card/tl_todo_card.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
@@ -63,7 +63,7 @@ class _ToDoBlockInTodayOrWheneverState
             for (int indexOfThisToDoInToDos = 0;
                 indexOfThisToDoInToDos < widget.toDoArrayOfThisBlock.length;
                 indexOfThisToDoInToDos++)
-              ToDoCard(
+              TLToDoCard(
                 // TODO ValueKeyを使う
                 key: Key(UniqueKey().toString()),
                 ifInToday: widget.ifInToday,
