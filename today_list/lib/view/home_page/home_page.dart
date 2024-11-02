@@ -64,7 +64,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     return Scaffold(
       key: homePageScaffoldKey,
-      drawer: WorkspaceDrawer(isContentMode: false),
+      drawer: TLWorkspaceDrawer(isContentMode: false),
       body: Stack(children: [
         // 背景色
         Container(color: _tlThemeData.backgroundColor),

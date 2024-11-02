@@ -10,9 +10,9 @@ import './add_workspace_button.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class WorkspaceDrawer extends ConsumerWidget {
+class TLWorkspaceDrawer extends ConsumerWidget {
   final bool isContentMode;
-  const WorkspaceDrawer({Key? key, required this.isContentMode})
+  const TLWorkspaceDrawer({Key? key, required this.isContentMode})
       : super(key: key);
 
   @override
