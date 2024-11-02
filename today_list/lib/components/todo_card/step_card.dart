@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../components/for_todo/icon_for_checkbox.dart';
+import 'icon_for_checkbox.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/workspace/tl_workspace.dart';

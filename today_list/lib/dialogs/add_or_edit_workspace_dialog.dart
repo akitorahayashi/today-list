@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/dialogs/common/single_option_dialog.dart';
 import 'package:today_list/model/workspace/current_workspace_provider.dart';
 import '../../constants/styles.dart';
 import '../../model/tl_theme.dart';
@@ -40,8 +41,10 @@ class _AddOrEditWorkspaceDialogState
   Widget build(BuildContext context) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
-    final _currentWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+    // final _currentTLWorkspaceNotifier =
+    ref.read(currentTLWorkspaceProvider.notifier);
+    final _currentTLWorkspaceIndex =
+        _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
 
     return Dialog(
       backgroundColor: _tlThemeData.alertColor,
@@ -145,17 +148,19 @@ class _AddOrEditWorkspaceDialogState
                             );
 
                         // currentWorkspaceの時
-                        if (_currentWorkspaceNotifier.currentWorkspaceIndex ==
+                        if (_currentTLWorkspaceIndex ==
                             widget.oldIndexInStringWorkspaces!) {
-                          _currentWorkspaceNotifier.changeCurrentWorkspaceIndex(
-                              widget.oldIndexInStringWorkspaces!);
+                          _currentTLWorkspaceNotifier
+                              .changeCurrentWorkspaceIndex(
+                                  widget.oldIndexInStringWorkspaces!);
                         }
-                        simpleAlert(
+                        showDialog(
                           context: context,
-                          corrThemeData: _tlThemeData,
-                          title: "変更することに\n成功しました!",
-                          message: null,
-                          buttonText: "OK",
+                          builder: (context) => SingleOptionDialog(
+                            title: "変更することに\n成功しました!",
+                            message: null,
+                            buttonText: "OK",
+                          ),
                         );
                       }
                       TLVibration.vibrate();
