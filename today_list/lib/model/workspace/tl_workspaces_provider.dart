@@ -60,7 +60,7 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
     await _saveWorkspaces();
   }
 
-  // TLWorkspaceを更新するメソッド
+  // 単体のTLWorkspaceを更新するメソッド
   Future<void> updateTLWorkspace(
       {required int indexInWorkspaceList,
       required TLWorkspace updatedTLWorkspace}) async {
@@ -68,6 +68,13 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
       for (int i = 0; i < state.length; i++)
         if (i == indexInWorkspaceList) updatedTLWorkspace else state[i],
     ];
+    await _saveWorkspaces();
+  }
+
+  // List<TLWorkspace>を更新するメソッド
+  Future<void> updateTLWorkspaceList(
+      {required List<TLWorkspace> updatedTLWorkspaceList}) async {
+    state = updatedTLWorkspaceList;
     await _saveWorkspaces();
   }
 }

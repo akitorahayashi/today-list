@@ -55,11 +55,12 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
-    final TLWorkspace _currentWorkspace = ref.watch(currentWorkspaceProvider);
-    final currentWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
-    final int _currentWorkspaceIndex =
-        currentWorkspaceNotifier.currentWorkspaceIndex;
+    final TLWorkspace _currentTLWorkspace =
+        ref.watch(currentTLWorkspaceProvider);
+    final currentTLWorkspaceNotifier =
+        ref.read(currentTLWorkspaceProvider.notifier);
+    final int _currentTLWorkspaceIndex =
+        currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
 
     return Scaffold(
       key: homePageScaffoldKey,
@@ -71,9 +72,9 @@ class _HomePageState extends ConsumerState<HomePage> {
         CustomScrollView(
           slivers: [
             TLSliverAppBar(
-              pageTitle: _currentWorkspaceIndex == 0
+              pageTitle: _currentTLWorkspaceIndex == 0
                   ? "Today List"
-                  : _currentWorkspace.name,
+                  : _currentTLWorkspace.name,
               // drawerを表示するボタン
               leadingButtonOnPressed: () =>
                   homePageScaffoldKey.currentState!.openDrawer(),
@@ -90,41 +91,40 @@ class _HomePageState extends ConsumerState<HomePage> {
               },
               trailingIcon: const Icon(Icons.settings, color: Colors.white),
             ),
-            // TODO ValueKeyを設定する
             SliverList(
                 delegate: SliverChildListDelegate([
               const SizedBox(
                 height: 10,
               ),
-              if (_currentWorkspace
-                  .toDos[_currentWorkspace.bigCategories[0].id]!
+              if (_currentTLWorkspace
+                  .toDos[_currentTLWorkspace.bigCategories[0].id]!
                   .toDosInToday
                   .isNotEmpty)
                 const SizedBox(height: 7),
-              if (_currentWorkspace
-                  .toDos[_currentWorkspace.bigCategories[0].id]!
+              if (_currentTLWorkspace
+                  .toDos[_currentTLWorkspace.bigCategories[0].id]!
                   .toDosInToday
                   .isNotEmpty)
                 ToDosInThisCategoryInToday(
-                  bigCategoryOfThisToDo: _currentWorkspace.bigCategories[0],
+                  bigCategoryOfThisToDo: _currentTLWorkspace.bigCategories[0],
                   // workspace
-                  selectedWorkspaceIndex: _currentWorkspaceIndex,
-                  selectedWorkspace: _currentWorkspace,
+                  selectedWorkspaceIndex: _currentTLWorkspaceIndex,
+                  selectedWorkspace: _currentTLWorkspace,
                 ),
               // なし以外のbigCategoryの処理
               for (TLCategory bigCategory
-                  in _currentWorkspace.bigCategories.sublist(1))
+                  in _currentTLWorkspace.bigCategories.sublist(1))
                 Column(
                   children: [
                     // big header
-                    if (_currentWorkspace
+                    if (_currentTLWorkspace
                             .toDos[bigCategory.id]!.toDosInToday.isNotEmpty ||
                         // そのsmallCategoryがToDoを持っていたら、bigHeaderを表示
-                        (_currentWorkspace
+                        (_currentTLWorkspace
                                 .smallCategories[bigCategory.id]!.isNotEmpty &&
-                            _currentWorkspace.smallCategories[bigCategory.id]!
+                            _currentTLWorkspace.smallCategories[bigCategory.id]!
                                     .indexWhere((smallCategory) =>
-                                        _currentWorkspace
+                                        _currentTLWorkspace
                                             .toDos[smallCategory.id]!
                                             .toDosInToday
                                             .isNotEmpty) !=
@@ -132,18 +132,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                       HeaderForToDos(
                           isBigCategory: true, category: bigCategory),
                     // big body
-                    if (_currentWorkspace
+                    if (_currentTLWorkspace
                         .toDos[bigCategory.id]!.toDosInToday.isNotEmpty)
                       ToDosInThisCategoryInToday(
                         bigCategoryOfThisToDo: bigCategory,
                         // workspace
-                        selectedWorkspaceIndex: _currentWorkspaceIndex,
-                        selectedWorkspace: _currentWorkspace,
+                        selectedWorkspaceIndex: _currentTLWorkspaceIndex,
+                        selectedWorkspace: _currentTLWorkspace,
                       ),
-                    for (TLCategory smallCategory
-                        in _currentWorkspace.smallCategories[bigCategory.id] ??
-                            [])
-                      if (_currentWorkspace
+                    for (TLCategory smallCategory in _currentTLWorkspace
+                            .smallCategories[bigCategory.id] ??
+                        [])
+                      if (_currentTLWorkspace
                           .toDos[smallCategory.id]!.toDosInToday.isNotEmpty)
                         Column(
                           children: [
@@ -155,8 +155,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                               bigCategoryOfThisToDo: bigCategory,
                               smallCategoryOfThisToDo: smallCategory,
                               // workspace
-                              selectedWorkspaceIndex: _currentWorkspaceIndex,
-                              selectedWorkspace: _currentWorkspace,
+                              selectedWorkspaceIndex: _currentTLWorkspaceIndex,
+                              selectedWorkspace: _currentTLWorkspace,
                             )
                           ],
                         ),
@@ -178,7 +178,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     message: null,
                     yesAction: () async {
                       Navigator.pop(context);
-                      await currentWorkspaceNotifier
+                      await currentTLWorkspaceNotifier
                           .deleteCheckedToDosInTodayInCurrentWorkspace();
                       TLVibration.vibrate();
                       showDialog(
