@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/dialogs/common/single_option_dialog.dart';
 import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
-import '../../../../model/external/tl_vibration.dart';
-import '../../../../model/workspace/tl_workspace.dart';
-import '../../../../model/workspace/tl_workspaces_provider.dart';
-import '../../../../model/tl_theme.dart';
-import 'notify_current_workspace_is_changed.dart';
-import '../../../../slidables/slidable_for_workspace_card.dart';
+import '../../../model/external/tl_vibration.dart';
+import '../../../model/workspace/tl_workspace.dart';
+import '../../../model/workspace/tl_workspaces_provider.dart';
+import '../../../model/tl_theme.dart';
+import 'change_workspace_card/notify_current_workspace_is_changed.dart';
+import '../../../slidables/slidable_for_workspace_card.dart';
 
 class ChangeWorkspaceCard extends ConsumerWidget {
   final bool isInDrawerList;
@@ -58,9 +58,6 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                         builder: (context) => SingleOptionDialog(
                             title: _currentTLWorkspace.name,
                             message: "workspaceを変更しました！"));
-                    notifyCurrentWorkspaceIsChanged(
-                        context: context,
-                        newWorkspaceName: _currentTLWorkspace.name);
                   }
                 },
                 child: SlidableForWorkspaceCard(
