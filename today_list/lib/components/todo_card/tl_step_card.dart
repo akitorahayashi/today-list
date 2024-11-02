@@ -3,11 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
 import 'package:today_list/components/todo_card/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import 'package:today_list/model/workspace/tl_workspace.dart';
-import '../../model/todo/tl_step.dart';
-import '../../model/todo/tl_todo.dart';
-import '../../model/tl_theme.dart';
 import '../../model/workspace/current_workspace_provider.dart';
 import '../../model/workspace/tl_workspaces_provider.dart';
+import '../../model/todo/tl_step.dart';
+import '../../model/todo/tl_todo.dart';
 import '../../model/external/tl_vibration.dart';
 
 class TLStepCard extends ConsumerWidget {
@@ -22,9 +21,7 @@ class TLStepCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
     // provider
-    final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
     final TLWorkspace _currentTLWorkspace =
         ref.watch(currentTLWorkspaceProvider);
     // notifier

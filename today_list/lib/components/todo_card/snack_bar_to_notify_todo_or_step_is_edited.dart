@@ -40,7 +40,7 @@ class SnackBarToNotifyTodoOrStepIsEdited {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  quickChangeToToday! ? "to Today" : "to Whenever",
+                  quickChangeToToday ? "to Today" : "to Whenever",
                   style: TextStyle(
                       color: _tlThemeData.accentColor,
                       fontWeight: FontWeight.w600),

@@ -3,8 +3,6 @@ import '../todo/tl_category.dart';
 import '../todo/tl_todos.dart';
 
 class TLWorkspace {
-  static int currentWorkspaceIndex = 0;
-
   String id;
   String name;
   // todo
