@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../dialogs/common/yes_no_dialog.dart';
 import '../../dialogs/common/single_option_dialog.dart';
-import '../external/tl_connectivity.dart';
-import '../external/tl_widgetkit.dart';
 import '../external/tl_vibration.dart';
 import '../external/tl_pref.dart';
-import '../../constants/styles.dart';
-import '../tl_theme.dart';
 import 'dart:convert';
-
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 class SettingData {
   static SettingData shared = SettingData(
@@ -88,27 +82,26 @@ class SettingData {
     // final bool isEarned = settingData.earnedIcons[iconCategoryName] != null &&
     //     settingData.earnedIcons[iconCategoryName]!.contains(iconName);
     // if (isEarned) {
-    await yesNoAlert(
-      context: context,
-      title: "アイコンの変更",
-      message: "チェックマークのアイコンを\n変更しますか?",
-      yesAction: () {
-        Navigator.pop(context);
-        // if (settingData.userLevel >= 10) {
-        shared.defaultIconCategory = iconCategoryName;
-        shared.defaultIconRarity = iconRarity;
-        shared.defaultIconName = iconName;
-        TLVibration.vibrate();
-        simpleAlert(
-            context: context,
-            corrThemeData:
-                tlThemeDataList[SettingData.shared.selectedThemeIndex],
-            title: "変更が完了しました!",
-            message: null,
-            buttonText: "OK");
-        shared.saveSettings();
-      },
-    );
+    await showDialog(
+        context: context,
+        builder: (context) => YesNoDialog(
+              title: "アイコンの変更",
+              message: "チェックマークのアイコンを\n変更しますか?",
+              yesAction: () {
+                Navigator.pop(context);
+                shared.defaultIconCategory = iconCategoryName;
+                shared.defaultIconRarity = iconRarity;
+                shared.defaultIconName = iconName;
+                TLVibration.vibrate();
+                showDialog(
+                    context: context,
+                    builder: (context) => SingleOptionDialog(
+                          title: "変更が完了しました!",
+                          message: null,
+                        ));
+                shared.saveSettings();
+              },
+            ));
     // } else {
     // await yesNoAlert(
     //   context: context,

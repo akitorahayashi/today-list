@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/dialogs/common/single_option_dialog.dart';
-import 'package:today_list/model/workspace/current_workspace_provider.dart';
-import '../../constants/styles.dart';
-import '../../model/tl_theme.dart';
-import '../../model/todo/tl_category.dart';
-import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/tl_workspaces_provider.dart';
-import '../../model/todo/tl_todos.dart';
-import '../../model/external/tl_vibration.dart';
+import '../../../dialogs/common/single_option_dialog.dart';
+import '../../../model/workspace/current_tl_workspace_provider.dart';
+import '../../../constants/styles.dart';
+import '../../../model/tl_theme.dart';
+import '../../../model/todo/tl_category.dart';
+import '../../../model/workspace/tl_workspace.dart';
+import '../../../model/workspace/tl_workspaces_provider.dart';
+import '../../../model/todo/tl_todos.dart';
+import '../../../model/external/tl_vibration.dart';
 
 class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget {
   final int? oldIndexInStringWorkspaces;
@@ -41,8 +41,8 @@ class _AddOrEditWorkspaceDialogState
   Widget build(BuildContext context) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
-    // final _currentTLWorkspaceNotifier =
-    ref.read(currentTLWorkspaceProvider.notifier);
+    final _currentTLWorkspaceNotifier =
+        ref.read(currentTLWorkspaceProvider.notifier);
     final _currentTLWorkspaceIndex =
         _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
 
@@ -127,10 +127,11 @@ class _AddOrEditWorkspaceDialogState
                             .read(tlWorkspacesProvider.notifier)
                             .addTLWorkspace(newTLWorkspace: createdWorkspace);
                         // 追加したことを知らせる
-                        notifyWorkspaceIsAdded(
+                        showDialog(
                             context: context,
-                            newWorkspaceName:
-                                _workspaceNameInputController.text);
+                            builder: (context) => SingleOptionDialog(
+                                title: _workspaceNameInputController.text,
+                                message: "が追加されました!"));
                       } else {
                         // edit action
                         final TLWorkspace editedWorkspace =
@@ -141,10 +142,10 @@ class _AddOrEditWorkspaceDialogState
                         // 更新する
                         ref
                             .read(tlWorkspacesProvider.notifier)
-                            .updateTLWorkspace(
-                              indexInWorkspaceList:
+                            .updateSpecificTLWorkspace(
+                              specificWorkspaceIndex:
                                   widget.oldIndexInStringWorkspaces!,
-                              updatedTLWorkspace: editedWorkspace,
+                              updatedWorkspace: editedWorkspace,
                             );
 
                         // currentWorkspaceの時
@@ -152,14 +153,14 @@ class _AddOrEditWorkspaceDialogState
                             widget.oldIndexInStringWorkspaces!) {
                           _currentTLWorkspaceNotifier
                               .changeCurrentWorkspaceIndex(
-                                  widget.oldIndexInStringWorkspaces!);
+                                  newCurrentWorkspaceIndex:
+                                      widget.oldIndexInStringWorkspaces!);
                         }
                         showDialog(
                           context: context,
                           builder: (context) => SingleOptionDialog(
-                            title: "変更することに\n成功しました!",
+                            title: "変更することに\n成功しました！",
                             message: null,
-                            buttonText: "OK",
                           ),
                         );
                       }

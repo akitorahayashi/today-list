@@ -16,7 +16,7 @@ class EditingToDoNotifier extends StateNotifier<TLToDo?> {
 
   EditingToDoNotifier(this.ref) : super(null);
 
-  void start({required TLToDo? edittedToDo}) {
+  void initialize({required TLToDo? edittedToDo}) {
     if (edittedToDo != null) {
       state = edittedToDo;
     } else {
@@ -34,24 +34,18 @@ class EditingToDoNotifier extends StateNotifier<TLToDo?> {
     required String corrCategoryId,
   }) async {
     if (state == null) return;
-
-    final _currentWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+    ;
     final _currentTLWorkspace = ref.read(currentTLWorkspaceProvider);
 
     final TLToDos _corrToDos = _currentTLWorkspace.toDos[corrCategoryId]!;
-    _corrToDos[ifInToday] = _corrToDos[ifInToday];
-    if (ifInToday) {
-      _corrToDos.toDosInToday.add(state!);
-    } else {
-      _corrToDos.toDosInWhenever.add(state!);
-    }
+    _corrToDos[ifInToday].add(state!);
 
-    await _currentWorkspaceNotifier.
-    (
-      indexInWorkspaceList: _currentWorkspaceNotifier.currentTLWorkspaceIndex,
-      updatedTLWorkspace: _currentTLWorkspace,
-    );
+    await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
+          specificWorkspaceIndex: ref
+              .read(currentTLWorkspaceProvider.notifier)
+              .currentTLWorkspaceIndex,
+          updatedWorkspace: _currentTLWorkspace,
+        );
 
     state = null;
   }

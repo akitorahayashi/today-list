@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/dialogs/common/single_option_dialog.dart';
 import '../../components/common/tl_sliver_appbar.dart';
-import '../../components/todo_card/todos_in_this_category_today/header_for_todos.dart';
-import '../../components/todo_card/todos_in_this_category_today/todos_in_this_category_today.dart';
+import 'todos_in_this_category_today/header_for_todos.dart';
+import 'todos_in_this_category_today/todos_in_this_category_in_today.dart';
 import '../../components/common/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
 import '../../components/common/today_list_bottom_navbar/today_list_bottom_navbar.dart';
 import '../../model/tl_theme.dart';
@@ -107,9 +107,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   .isNotEmpty)
                 ToDosInThisCategoryInToday(
                   bigCategoryOfThisToDo: _currentTLWorkspace.bigCategories[0],
-                  // workspace
-                  selectedWorkspaceIndex: _currentTLWorkspaceIndex,
-                  selectedWorkspace: _currentTLWorkspace,
+                  smallCategoryOfThisToDo: null,
                 ),
               // なし以外のbigCategoryの処理
               for (TLCategory bigCategory
@@ -129,16 +127,14 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             .toDosInToday
                                             .isNotEmpty) !=
                                 -1))
-                      HeaderForToDos(
-                          isBigCategory: true, category: bigCategory),
+                      CategoryHeaderForToDos(
+                          isBigCategory: true, corrCategory: bigCategory),
                     // big body
                     if (_currentTLWorkspace
                         .toDos[bigCategory.id]!.toDosInToday.isNotEmpty)
                       ToDosInThisCategoryInToday(
                         bigCategoryOfThisToDo: bigCategory,
-                        // workspace
-                        selectedWorkspaceIndex: _currentTLWorkspaceIndex,
-                        selectedWorkspace: _currentTLWorkspace,
+                        smallCategoryOfThisToDo: null,
                       ),
                     for (TLCategory smallCategory in _currentTLWorkspace
                             .smallCategories[bigCategory.id] ??
@@ -148,15 +144,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                         Column(
                           children: [
                             // small header
-                            HeaderForToDos(
-                                isBigCategory: false, category: smallCategory),
+                            CategoryHeaderForToDos(
+                                isBigCategory: false,
+                                corrCategory: smallCategory),
                             // small body
                             ToDosInThisCategoryInToday(
                               bigCategoryOfThisToDo: bigCategory,
                               smallCategoryOfThisToDo: smallCategory,
-                              // workspace
-                              selectedWorkspaceIndex: _currentTLWorkspaceIndex,
-                              selectedWorkspace: _currentTLWorkspace,
                             )
                           ],
                         ),

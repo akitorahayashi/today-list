@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
 import 'package:today_list/components/todo_card/snack_bar_to_notify_todo_or_step_is_edited.dart';
-import 'package:today_list/model/workspace/current_workspace_provider.dart';
+import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
 import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
 import '../../model/tl_theme.dart';
 import '../../model/todo/tl_todo.dart';
@@ -36,7 +36,6 @@ class TLToDoCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     // provider
-    final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
     final TLWorkspace _currentTLWorkspace =
         ref.watch(currentTLWorkspaceProvider);
     // notifier
@@ -76,6 +75,7 @@ class TLToDoCard extends ConsumerWidget {
           quickChangeToToday: null,
         );
       },
+      // チェック済みのreorder阻止のためのlongPress
       onLongPress: _corrToDoData.isChecked ? () {} : null,
       child: Card(
           // 色
@@ -95,9 +95,6 @@ class TLToDoCard extends ConsumerWidget {
               // category
               bigCategoryOfThisToDo: bigCategoryOfThisToDo,
               smallCategoryOfThisToDo: smallCategoryOfThisToDo,
-              // workspace
-              selectedWorkspaceIndex: selectedWorkspaceIndex,
-              selectedWorkspace: selectedWorkspace,
               editAction: () async {
                 // タップしたらEditToDoCardをpushする
                 await Navigator.push(context,
@@ -163,21 +160,19 @@ class TLToDoCard extends ConsumerWidget {
                                       const EdgeInsets.fromLTRB(8, 0, 2, 0),
                                   child: TLStepCard(
                                     toDoData: _corrToDoData,
-                                    indexOfThisStepInToDo:
-                                        indexOfThisStepInToDo,
+                                    indexInToDo: indexOfThisStepInToDo,
                                   ),
                                 )),
                         onReorder: (oldIndex, newIndex) {
-                          if (oldIndex != newIndex) {
-                            final reOrderedToDo = _corrToDoData.steps[oldIndex];
-                            _corrToDoData.steps.remove(reOrderedToDo);
-                            _corrToDoData.steps.insert(newIndex, reOrderedToDo);
-                            setState(() {});
-                            // toDosを保存する
-                            TLWorkspace.saveSelectedWorkspace(
-                                selectedWorkspaceIndex:
-                                    widget.selectedWorkspaceIndex);
-                          }
+                          final reOrderedToDo = _corrToDoData.steps[oldIndex];
+                          _corrToDoData.steps.remove(reOrderedToDo);
+                          _corrToDoData.steps.insert(newIndex, reOrderedToDo);
+                          // toDosを保存する
+                          _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                            specificWorkspaceIndex: _currentTLWorkspaceNotifier
+                                .currentTLWorkspaceIndex,
+                            updatedWorkspace: _currentTLWorkspace,
+                          );
                         },
                       ),
                     )
