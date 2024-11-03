@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
-import '../model/workspace/current_tl_workspace_provider.dart';
-import '../model/workspace/tl_workspaces_provider.dart';
-import '../model/tl_theme.dart';
-import '../model/todo/tl_todo.dart';
-import '../model/todo/tl_category.dart';
-import '../model/external/tl_vibration.dart';
-import '../model/workspace/tl_workspace.dart';
+import '../../model/workspace/current_tl_workspace_provider.dart';
+import '../../model/workspace/tl_workspaces_provider.dart';
+import '../../model/design/tl_theme.dart';
+import '../../model/todo/tl_todo.dart';
+import '../../model/todo/tl_category.dart';
+import '../../model/external/tl_vibration.dart';
+import '../../model/workspace/tl_workspace.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SlidableForToDoCard extends ConsumerWidget {
   final bool isForModelCard;
   // todo
-  final TLToDo toDoData;
-  final List<TLToDo> toDoArrayOfThisToDo;
+  final TLToDo corrTLToDo;
   final int _indexOfThisToDoInToDos;
   final bool ifInToday;
   // category
@@ -27,8 +26,7 @@ class SlidableForToDoCard extends ConsumerWidget {
   const SlidableForToDoCard({
     super.key,
     required this.isForModelCard,
-    required this.toDoData,
-    required this.toDoArrayOfThisToDo,
+    required this.corrTLToDo,
     required int indexOfThisToDoInToDos,
     required this.ifInToday,
     // category
@@ -59,7 +57,7 @@ class SlidableForToDoCard extends ConsumerWidget {
         _currentTLWorkspace.toDos[_corrCategoryID]![ifInToday];
     return Slidable(
       // チェックされていたらスライドできなくする
-      enabled: !toDoData.isChecked,
+      enabled: !corrTLToDo.isChecked,
       startActionPane:
           ActionPane(motion: const ScrollMotion(), extentRatio: 0.2, children: [
         // editAction
@@ -111,23 +109,21 @@ class SlidableForToDoCard extends ConsumerWidget {
               _currentTLWorkspace.toDos[_corrCategoryID]![!ifInToday]
                   .insert(0, switchedToDo);
               TLVibration.vibrate();
-              NotifyTodoOrStepIsEditedSnackBar();
-
-              notifyToDoOrStepIsEditted(
-                context: context,
-                newName: widget.toDoData.title,
-                newCheckedState: widget.toDoData.isChecked,
-                quickChangeToToday: !widget.ifInToday,
-              );
-              TLWorkspace.saveSelectedWorkspace(
-                  selectedWorkspaceIndex: widget.selectedWorkspaceIndex);
+              NotifyTodoOrStepIsEditedSnackBar.show(
+                  context: context,
+                  newTitle: corrTLToDo.title,
+                  newCheckedState: corrTLToDo.isChecked,
+                  quickChangeToToday: !ifInToday);
+              _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                  specificWorkspaceIndex: _currentTLWorkspaceIndex,
+                  updatedWorkspace: _currentTLWorkspace);
             },
-            icon: widget.ifInToday ? Icons.schedule : Icons.light_mode,
-            label: widget.ifInToday ? "whenever" : "today",
+            icon: ifInToday ? Icons.schedule : Icons.light_mode,
+            label: ifInToday ? "whenever" : "today",
           ),
         ],
       ),
-      child: widget.child,
+      child: child,
     );
   }
 }

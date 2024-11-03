@@ -7,7 +7,7 @@ import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../slidables/slidable_for_todo_card.dart';
+import '../../../components/slidables/slidable_for_todo_card.dart';
 
 import 'package:reorderables/reorderables.dart';
 
@@ -52,7 +52,7 @@ class ModelOfToDoCard extends ConsumerWidget {
         borderRadius: BorderRadius.circular(10),
         child: SlidableForToDoCard(
           isForModelCard: true,
-          toDoData: corrTLToDo,
+          corrTLToDo: corrTLToDo,
           ifInToday: ifInToday,
           toDoArrayOfThisToDo: _currentWorkspace.toDos[
               smallCategoryOfThisToDo?.id ??

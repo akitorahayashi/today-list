@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../dialogs/common/yes_no_dialog.dart';
-import '../../dialogs/common/single_option_dialog.dart';
+import '../../components/dialog/common/yes_no_dialog.dart';
+import '../../components/dialog/common/single_option_dialog.dart';
 import '../external/tl_vibration.dart';
 import '../external/tl_pref.dart';
 import 'dart:convert';
