@@ -79,7 +79,7 @@ class TLStepCard extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
                 child: Transform.scale(
                   scale: 1.2,
-                  child: IconForCheckBox(isChecked: stepData.isChecked),
+                  child: TLCheckBox(isChecked: stepData.isChecked),
                 ),
               ),
               // stepのタイトル

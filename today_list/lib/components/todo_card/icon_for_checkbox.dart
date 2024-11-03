@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/constants/icon_for_checkbox_data.dart';
-import 'package:today_list/model/tl_theme.dart';
+import 'package:today_list/model/design/icon_for_checkbox_data.dart';
+import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/user/setting_data.dart';
 import 'package:today_list/model/external/tl_ads.dart';
 
-class IconForCheckBox extends StatelessWidget {
+class TLCheckBox extends StatelessWidget {
   final bool isChecked;
   final Color? iconColor;
   final double? iconSize;
 
-  IconForCheckBox({
+  TLCheckBox({
     required this.isChecked,
     this.iconColor,
     this.iconSize,
@@ -19,7 +19,7 @@ class IconForCheckBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     // このカテゴリーで指定されたアイコンがない場合、デフォルトのものを使う
-    IconForCheckBoxData thisIconData = (() {
+    IconForCheckBox thisIconData = (() {
       // 指定したアイコンがなければ、チェックボックスを使う
       if (iconsForCheckBox[SettingData.shared.defaultIconCategory] != null &&
           iconsForCheckBox[SettingData.shared.defaultIconCategory]![

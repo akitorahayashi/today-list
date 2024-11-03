@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
 import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
 import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
-import '../../../model/tl_theme.dart';
+import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
@@ -97,8 +97,7 @@ class ModelOfToDoCard extends ConsumerWidget {
                         // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                         child: Transform.scale(
                           scale: 1.2,
-                          child:
-                              IconForCheckBox(isChecked: corrTLToDo.isChecked),
+                          child: TLCheckBox(isChecked: corrTLToDo.isChecked),
                         )),
                     // toDoのタイトル
                     Expanded(
@@ -140,7 +139,7 @@ class ModelOfToDoCard extends ConsumerWidget {
                                       const EdgeInsets.fromLTRB(4, 0, 16, 0),
                                   child: Transform.scale(
                                     scale: 1.2,
-                                    child: IconForCheckBox(
+                                    child: TLCheckBox(
                                         isChecked: stepData.isChecked),
                                   ),
                                 ),
