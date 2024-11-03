@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/main.dart';
+import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
+import 'package:today_list/model/provider/editting_todo_provider.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/design/tl_theme.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
-import '../../model/external/tl_ads.dart';
 import '../../model/provider/tl_workspaces_provider.dart';
 import './components_for_edit/steps_column.dart';
 import './components_for_edit/tl_textfield.dart';
@@ -15,7 +15,17 @@ import './already_exists/already_exists.dart';
 import 'components_for_edit/tl_dropdown_button.dart';
 
 class EditToDoPage extends ConsumerStatefulWidget {
-  const EditToDoPage({super.key});
+  final bool ifInToday;
+  final TLCategory selectedBigCategory;
+  final TLCategory? selectedSmallCategory;
+  final int? indexOfEdittedTodo;
+  EditToDoPage({
+    super.key,
+    required this.ifInToday,
+    required this.selectedBigCategory,
+    required this.selectedSmallCategory,
+    required this.indexOfEdittedTodo,
+  });
 
   @override
   ConsumerState<EditToDoPage> createState() => EditToDoPageState();
@@ -37,19 +47,36 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
 
 // ---
 
+  TLCategory get _corrCategory =>
+      widget.selectedSmallCategory ?? widget.selectedBigCategory;
+
   @override
   void initState() {
     super.initState();
     // TODO 広告を読み込む
 
-    _indexOfThisToDoInToDos = widget.indexOfThisToDoInToDos;
-    _toDoTitleInputController.text = widget.toDoTitle;
-    for (TLStep step in widget.belogedSteps) {
-      _stepsOfThisToDo.add(step);
+    // provider
+    final TLWorkspace _currentWorkspace = ref.read(currentTLWorkspaceProvider);
+    // notifier
+    final EditingToDoNotifier _edittingToDoNotifier =
+        ref.read(edittingToDoProvider.notifier);
+    // _edittingToDoNotifierの値を初期化する
+    if (widget.indexOfEdittedTodo == null) {
+      _edittingToDoNotifier.setInitialValue();
+    } else {
+      // すでにあるTLToDoを経集する
+      _edittingToDoNotifier.setEditedToDo(
+        ifInToday: widget.ifInToday,
+        selectedBigCategory: widget.selectedBigCategory,
+        selectedSmallCategory: widget.selectedSmallCategory,
+        indexOfEditingToDo: widget.indexOfEdittedTodo!,
+      );
+      // textControllerに入力済みのtitleを表示
+      _toDoTitleInputController.text = _currentWorkspace
+          .toDos[_corrCategory.id]![widget.ifInToday]
+              [widget.indexOfEdittedTodo!]
+          .title;
     }
-    _ifInToday = widget.isInToday;
-    _selectedBigCategory = widget.bigCategory;
-    _selectedSmallCategory = widget.smallCategory;
   }
 
   @override
@@ -57,7 +84,6 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
     super.dispose();
     _toDoTitleInputController.dispose();
     _stepTitleInputController.dispose();
-    _categoryNameInputController.dispose();
     // TODO 広告を破棄する
     // _bannerAd?.dispose();
   }
