@@ -97,16 +97,7 @@ class TLToDoCard extends ConsumerWidget {
                 // TODO タップしたらEditToDoCardをpushする
                 await Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
-                  return EditToDoPage(
-                    toDoTitle: _corrToDoData.title,
-                    belogedSteps: _corrToDoData.steps,
-                    isInToday: ifInToday,
-                    indexOfThisToDoInToDos: indexOfThisToDoInToDos,
-                    bigCategory: bigCategoryOfThisToDo,
-                    smallCategory: smallCategoryOfThisToDo,
-                    oldCategoryId:
-                        smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id,
-                  );
+                  return EditToDoPage();
                 }));
               },
               // child

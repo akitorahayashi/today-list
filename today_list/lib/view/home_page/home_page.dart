@@ -196,15 +196,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         CenterButtonOfBottomNavBar(
           onPressed: () async {
             await Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return EditToDoPage(
-                toDoTitle: "",
-                belogedSteps: const [],
-                isInToday: true,
-                bigCategory: TLCategory(id: noneID, title: "なし"),
-                smallCategory: null,
-                indexOfThisToDoInToDos: null,
-                oldCategoryId: null,
-              );
+              return EditToDoPage();
             }));
           },
         ),
