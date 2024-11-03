@@ -1,11 +1,11 @@
-import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
+import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 
 import '../external/tl_pref.dart';
 import '../todo/tl_category.dart';
 import '../todo/tl_todo.dart';
 import '../todo/tl_todos.dart';
 import '../todo/tl_step.dart';
-import 'tl_workspace.dart';
+import '../tl_workspace.dart';
 
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

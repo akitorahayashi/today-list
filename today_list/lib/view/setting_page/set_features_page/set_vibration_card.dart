@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../model/tl_theme.dart';
+import '../../../model/design/tl_theme.dart';
 import '../../../model/external/tl_vibration.dart';
 
 class SetVibrationCard extends StatefulWidget {

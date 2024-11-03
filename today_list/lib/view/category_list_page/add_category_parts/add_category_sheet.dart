@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/todo/tl_category.dart';
-import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/workspace/tl_workspaces_provider.dart';
+import '../../../model/tl_workspace.dart';
+import '../../../model/provider/tl_workspaces_provider.dart';
 import '../../../styles/styles.dart';
 
 class AddCategorySheet extends ConsumerStatefulWidget {

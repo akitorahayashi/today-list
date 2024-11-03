@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../model/tl_theme.dart';
+import '../model/design/tl_theme.dart';
 
 // alert
 ButtonStyle alertButtonStyle({required Color accentColor}) {

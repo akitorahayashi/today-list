@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../model/workspace/current_tl_workspace_provider.dart';
+import '../../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
-import '../../../../model/workspace/tl_workspace.dart';
+import '../../../../model/tl_workspace.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

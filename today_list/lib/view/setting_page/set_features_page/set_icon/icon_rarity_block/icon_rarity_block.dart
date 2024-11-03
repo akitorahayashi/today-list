@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../constants/icon_for_checkbox_data.dart';
-import '../../../../../model/tl_theme.dart';
+import '../../../../../model/design/icon_for_checkbox.dart';
+import '../../../../../model/design/tl_theme.dart';
 import './icon_card.dart';
 
 class IconCategoryBlock extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:today_list/model/user/setting_data.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:today_list/model/workspace/tl_workspace.dart';
+import 'package:today_list/model/tl_workspace.dart';
 
 class TLConnectivity {
   static final FlutterWatchOsConnectivity connectivity =
