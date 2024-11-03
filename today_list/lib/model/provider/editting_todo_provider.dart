@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/todo/tl_todos.dart';
-import 'tl_todo.dart';
-import '../workspace/current_tl_workspace_provider.dart';
-import '../workspace/tl_workspaces_provider.dart';
+import '../todo/tl_todo.dart';
+import 'current_tl_workspace_provider.dart';
+import 'tl_workspaces_provider.dart';
 
 final edittingToDoProvider =
     StateNotifierProvider<EditingToDoNotifier, TLToDo?>((ref) {

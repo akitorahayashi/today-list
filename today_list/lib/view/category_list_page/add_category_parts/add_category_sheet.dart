@@ -27,30 +27,15 @@ class _AddCategorySheetState extends ConsumerState<AddCategorySheet> {
   TLCategory _selectedBigCategoryInDropButton =
       TLWorkspace.currentWorkspace.bigCategories[0];
 
-  void addSmallCategoryAction() {
-    final String newSmallCategoryId = UniqueKey().toString();
-    // small categoryの追加
-    TLWorkspace
-        .currentWorkspace.smallCategories[_selectedBigCategoryInDropButton.id]!
-        .add(TLCategory(
-            id: newSmallCategoryId, title: _smallCategoryInputController.text));
-    // todosを更新する
-    TLWorkspace.currentWorkspace.toDos[newSmallCategoryId] =
-        TLToDos(toDosInToday: [], toDosInWhenever: []);
-    notifyCategoryIsAdded(
-        context: context,
-        addedCategoryName: _smallCategoryInputController.text);
-    // 初期化処理
-    _smallCategoryInputController.clear();
-    // toDosとgroupedCategoriesを保存する
-    TLCategory.saveSmallCategories();
-    TLWorkspace.saveSelectedWorkspace(
-        selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex);
+  @override
+  void dispose() {
+    _smallCategoryInputController.dispose();
+    super.dispose();
   }
 
-// ---  カテゴリー追加系の変数
+  // ---  カテゴリー追加系の変数
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -178,7 +163,27 @@ class _AddCategorySheetState extends ConsumerState<AddCategorySheet> {
                   child: TextButton(
                     onPressed: _selectedBigCategoryInDropButton.id != noneID &&
                             _smallCategoryNameIsEntered
-                        ? addSmallCategoryAction
+                        ? () {
+                            // small categoryの追加
+                            TLWorkspace
+                                .currentWorkspace
+                                .smallCategories[
+                                    _selectedBigCategoryInDropButton.id]!
+                                .add(TLCategory(
+                                    id: UniqueKey().toString(),
+                                    title: _smallCategoryInputController.text));
+                            // todosを更新する
+                            TLWorkspace.currentWorkspace
+                                    .toDos[newSmallCategoryId] =
+                                TLToDos(toDosInToday: [], toDosInWhenever: []);
+                            notifyCategoryIsAdded(
+                                context: context,
+                                addedCategoryName:
+                                    _smallCategoryInputController.text);
+                            // 初期化処理
+                            _smallCategoryInputController.clear();
+                            // toDosとgroupedCategoriesを保存する
+                          }
                         : null,
                     child: Text(
                       "追加する",
