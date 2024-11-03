@@ -1,38 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
+import '../todo/tl_todos.dart';
 import '../todo/tl_todo.dart';
-import 'current_tl_workspace_provider.dart';
-import 'tl_workspaces_provider.dart';
+import './current_tl_workspace_provider.dart';
+import './tl_workspaces_provider.dart';
 
 final edittingToDoProvider =
     StateNotifierProvider<EditingToDoNotifier, TLToDo?>((ref) {
-  return EditingToDoNotifier(ref, null);
+  return EditingToDoNotifier(ref);
 });
 
 class EditingToDoNotifier extends StateNotifier<TLToDo?> {
   final Ref ref;
-  int? indexOfEditingToDo;
+  bool ifInToday = true;
+  String corrCategoryId = '';
+  int? indexOfEditingToDo = null;
 
-  EditingToDoNotifier(this.ref, this.indexOfEditingToDo) : super(null);
+  EditingToDoNotifier(this.ref) : super(null);
 
-  void startToEdit({required TLToDo? edittedToDo}) {
-    if (edittedToDo != null) {
-      state = edittedToDo;
-    } else {
-      state = TLToDo(
-        id: UniqueKey().toString(),
-        title: '',
-        steps: [],
-        isChecked: false,
-      );
-    }
+  void setInitialValue() {
+    this.ifInToday = true;
+    indexOfEditingToDo = null;
+    state = TLToDo(
+      id: UniqueKey().toString(),
+      title: '',
+      steps: [],
+      isChecked: false,
+    );
   }
 
-  Future<void> completeEditting({
+  void setEditedToDo({
     required bool ifInToday,
-    required String corrCategoryId,
-  }) async {
+    required int indexOfEditingToDo,
+    required TLToDo edittedToDo,
+  }) {
+    this.ifInToday = ifInToday;
+    this.indexOfEditingToDo = indexOfEditingToDo;
+    state = edittedToDo;
+  }
+
+  void clearValue() {
+    this.ifInToday = true;
+    this.indexOfEditingToDo = null;
+    state = null;
+  }
+
+  Future<void> completeEditting() async {
     if (state == null) return;
     // provider
     final _currentTLWorkspace = ref.read(currentTLWorkspaceProvider);
@@ -43,7 +56,7 @@ class EditingToDoNotifier extends StateNotifier<TLToDo?> {
     final TLToDos _corrToDos = _currentTLWorkspace.toDos[corrCategoryId]!;
     if (this.indexOfEditingToDo == null) {
       // add
-      _corrToDos[ifInToday].add(state!);
+      _corrToDos[this.ifInToday].add(state!);
     } else {
       // edit
       _corrToDos[ifInToday][indexOfEditingToDo!] = state!;

@@ -60,7 +60,6 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                   }
                 },
                 child: SlidableForWorkspaceCard(
-                  isInDrawerList: true,
                   isCurrentWorkspace: _isCurrentWorkspace,
                   indexInTLWorkspaces: indexInWorkspaces,
                   child: Align(

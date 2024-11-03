@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/main.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/design/tl_theme.dart';
@@ -13,37 +14,14 @@ import './components_for_edit/tl_textfield.dart';
 import './already_exists/already_exists.dart';
 import 'components_for_edit/tl_dropdown_button.dart';
 
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-class EditToDoPage extends StatefulWidget {
-  final String toDoTitle;
-  final List<TLStep> belogedSteps;
-  final bool isInToday;
-  final TLCategory bigCategory;
-  final TLCategory? smallCategory;
-  // editするための変数
-  final int? indexOfThisToDoInToDos;
-  final String? oldCategoryId;
-
-  // コンストラクタ
-  const EditToDoPage({
-    Key? key,
-    required this.toDoTitle,
-    required this.belogedSteps,
-    required this.isInToday,
-    required this.bigCategory,
-    required this.smallCategory,
-    required this.indexOfThisToDoInToDos,
-    required this.oldCategoryId,
-  }) : super(key: key);
+class EditToDoPage extends ConsumerStatefulWidget {
+  const EditToDoPage({super.key});
 
   @override
-  EditToDoPageState createState() => EditToDoPageState();
+  ConsumerState<EditToDoPage> createState() => EditToDoPageState();
 }
 
-class EditToDoPageState extends State<EditToDoPage> {
-// 広告
-  BannerAd? _bannerAd;
+class EditToDoPageState extends ConsumerState<EditToDoPage> {
 // --- textController
   // todo
   final TextEditingController _toDoTitleInputController =
@@ -51,51 +29,18 @@ class EditToDoPageState extends State<EditToDoPage> {
   // steps
   final TextEditingController _stepTitleInputController =
       TextEditingController();
-  // category
-  final TextEditingController _categoryNameInputController =
-      TextEditingController();
   // 入力途中かどうか知る
   bool get toDoTitleIsEntered =>
       _toDoTitleInputController.text.trim().isNotEmpty;
   bool get stepTitleIsEntered =>
       _stepTitleInputController.text.trim().isNotEmpty;
-  // カテゴリー
-  List<TLStep> _stepsOfThisToDo = [];
-  bool _ifInToday = true;
-  TLCategory _selectedBigCategory =
-      TLWorkspace.currentWorkspace.bigCategories[0];
-  TLCategory? _selectedSmallCategory;
-  // 編集系
-  int? _indexOfThisToDoInToDos;
-  // step編集
-  int? _edittedStepIndex;
-
-  String get selectedCategoryId =>
-      _selectedSmallCategory?.id ?? _selectedBigCategory.id;
 
 // ---
 
   @override
   void initState() {
     super.initState();
-    // 広告を読み込む
-    BannerAd(
-      adUnitId: TLAds.editPageBannerAdUnitId(isTestMode: kAdTestMode),
-      // ignore: prefer_const_constructors
-      request: AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            _bannerAd = ad as BannerAd;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
-          ad.dispose();
-        },
-      ),
-    ).load();
+    // TODO 広告を読み込む
 
     _indexOfThisToDoInToDos = widget.indexOfThisToDoInToDos;
     _toDoTitleInputController.text = widget.toDoTitle;
@@ -113,7 +58,8 @@ class EditToDoPageState extends State<EditToDoPage> {
     _toDoTitleInputController.dispose();
     _stepTitleInputController.dispose();
     _categoryNameInputController.dispose();
-    _bannerAd?.dispose();
+    // TODO 広告を破棄する
+    // _bannerAd?.dispose();
   }
 
   @override
