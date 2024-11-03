@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
+import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
@@ -8,7 +11,7 @@ import '../../../slidables/slidable_for_todo_card.dart';
 
 import 'package:reorderables/reorderables.dart';
 
-class ModelOfToDoCard extends StatelessWidget {
+class ModelOfToDoCard extends ConsumerWidget {
   // todoのデータ
   final TLToDo toDoData;
   final bool ifInToday;
@@ -32,8 +35,15 @@ class ModelOfToDoCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
+    // provider
+    final TLWorkspace _currentWorkspace = ref.watch(currentTLWorkspaceProvider);
+    // notifier
+    final CurrentTLWorkspaceNotifier _currentWorkspaceNotifier =
+        ref.read(currentTLWorkspaceProvider.notifier);
+    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+        ref.read(tlWorkspacesProvider.notifier);
     return Card(
       color: _tlThemeData.panelColor,
       elevation: 2,
@@ -44,7 +54,7 @@ class ModelOfToDoCard extends StatelessWidget {
           isModelCard: true,
           toDoData: toDoData,
           ifInToday: ifInToday,
-          toDoArrayOfThisToDo: TLWorkspace.currentWorkspace
+          toDoArrayOfThisToDo: _currentWorkspace
               .toDos[smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
               .getToDoArray(inToday: ifInToday),
           bigCategoryOfThisToDo: bigCategoryOfThisToDo,

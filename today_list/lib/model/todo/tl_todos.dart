@@ -14,14 +14,6 @@ class TLToDos {
     return ifInToday ? toDosInToday : toDosInWhenever;
   }
 
-  List<TLToDo> getToDoArray({required bool inToday}) {
-    if (inToday) {
-      return toDosInToday;
-    } else {
-      return toDosInWhenever;
-    }
-  }
-
   Map<String, dynamic> toJson() {
     return {
       "toDosInToday": toDosInToday.map((todo) {
