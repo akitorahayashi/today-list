@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../model/tl_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
+import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
@@ -7,7 +10,7 @@ import './model_of_todo_card.dart';
 
 import 'package:reorderables/reorderables.dart';
 
-class AlreadyExists extends StatefulWidget {
+class AlreadyExists extends ConsumerWidget {
   final TLCategory bigCategoryOfThisToDo;
   final TLCategory? smallCategoryOfThisToDo;
   final bool ifInToday;
@@ -21,18 +24,20 @@ class AlreadyExists extends StatefulWidget {
   });
 
   @override
-  State<AlreadyExists> createState() => _AlreadyExistsState();
-}
-
-class _AlreadyExistsState extends State<AlreadyExists> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
+    // provider
+    final TLWorkspace _currentWorkspace = ref.watch(currentTLWorkspaceProvider);
+    // notifier
+    final CurrentTLWorkspaceNotifier _currentWorkspaceNotifier =
+        ref.read(currentTLWorkspaceProvider.notifier);
+    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+        ref.read(tlWorkspacesProvider.notifier);
+    // others
     final TLCategory categoryOfThisToDo =
-        widget.smallCategoryOfThisToDo ?? widget.bigCategoryOfThisToDo;
-    final List<TLToDo> toDoArrayOfThisBlock = TLWorkspace
-        .currentWorkspace.toDos[categoryOfThisToDo.id]!
-        .getToDoArray(inToday: widget.ifInToday);
+        smallCategoryOfThisToDo ?? bigCategoryOfThisToDo;
+    final List<TLToDo> toDoArrayOfThisBlock =
+        _currentWorkspace.toDos[categoryOfThisToDo.id]![ifInToday];
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Card(
@@ -68,34 +73,36 @@ class _AlreadyExistsState extends State<AlreadyExists> {
                         indexOfThisToDoInToDos < toDoArrayOfThisBlock.length;
                         indexOfThisToDoInToDos++)
                       ModelOfToDoCard(
-                        key: Key(
+                        key: ValueKey(
                             toDoArrayOfThisBlock[indexOfThisToDoInToDos].id),
                         // todoのメンバー
-                        toDoData: toDoArrayOfThisBlock[indexOfThisToDoInToDos],
-                        ifInToday: widget.ifInToday,
-                        bigCategoryOfThisToDo: widget.bigCategoryOfThisToDo,
-                        smallCategoryOfThisToDo: widget.smallCategoryOfThisToDo,
+                        corrTLToDo:
+                            toDoArrayOfThisBlock[indexOfThisToDoInToDos],
+                        ifInToday: ifInToday,
+                        bigCategoryOfThisToDo: bigCategoryOfThisToDo,
+                        smallCategoryOfThisToDo: smallCategoryOfThisToDo,
                         indexOfThisToDoInToDoArrray: indexOfThisToDoInToDos,
                         // 編集系のメンバー
                         indexOfEditingToDo: indexOfThisToDoInToDos,
-                        tapToEditAction: widget.tapToEditAction,
+                        tapToEditAction: tapToEditAction,
                       ),
                   ],
                   onReorder: (oldIndex, newIndex) {
-                    List<TLToDo> selectedToDoArray = TLWorkspace
-                        .currentWorkspace.toDos[categoryOfThisToDo.id]!
-                        .getToDoArray(inToday: widget.ifInToday);
+                    List<TLToDo> corrToDoArray = _currentWorkspace
+                        .toDos[categoryOfThisToDo.id]![ifInToday];
                     final int indexOfCheckedToDo =
-                        selectedToDoArray.indexWhere((todo) => todo.isChecked);
+                        corrToDoArray.indexWhere((todo) => todo.isChecked);
+                    // チェック済みToDoよりも下に移動させない
                     if (indexOfCheckedToDo == -1 ||
-                        indexOfCheckedToDo > newIndex) {
+                        newIndex < indexOfCheckedToDo) {
                       final TLToDo reorderedToDo =
-                          selectedToDoArray.removeAt(oldIndex);
-                      selectedToDoArray.insert(newIndex, reorderedToDo);
+                          corrToDoArray.removeAt(oldIndex);
+                      corrToDoArray.insert(newIndex, reorderedToDo);
                       // toDosを保存する
-                      TLWorkspace.saveSelectedWorkspace(
-                          selectedWorkspaceIndex:
-                              TLWorkspace.currentWorkspaceIndex);
+                      _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                          specificWorkspaceIndex:
+                              _currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                          updatedWorkspace: _currentWorkspace);
                     }
                   }),
             ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../model/tl_theme.dart';
-import '../../constants/styles.dart';
+import '../../../model/design/tl_theme.dart';
+import '../../../styles/styles.dart';
 
 class SingleOptionDialog extends StatelessWidget {
   final String title;

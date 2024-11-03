@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../components/for_ui/tl_sliver_appbar.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
+import '../../model/workspace/current_tl_workspace_provider.dart';
+import '../../components/common/tl_sliver_appbar.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/tl_theme.dart';
@@ -9,17 +12,20 @@ import './add_category_parts/add_category_sheet.dart';
 
 import 'package:reorderables/reorderables.dart';
 
-class CategoryListPage extends StatefulWidget {
+class CategoryListPage extends ConsumerWidget {
   const CategoryListPage({super.key});
 
   @override
-  CategoryListPageState createState() => CategoryListPageState();
-}
-
-class CategoryListPageState extends State<CategoryListPage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
+    // provider
+    final TLWorkspace _currentTLWorkspace =
+        ref.watch(currentTLWorkspaceProvider);
+    // notifier
+    final CurrentTLWorkspaceNotifier _currentWorkspaceNotifier =
+        ref.read(currentTLWorkspaceProvider.notifier);
+    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+        ref.read(tlWorkspacesProvider.notifier);
     return Scaffold(
       body: Stack(children: [
         // 背景色
@@ -47,32 +53,30 @@ class CategoryListPageState extends State<CategoryListPage> {
               const SizedBox(
                 height: 5,
               ),
+              // BigCategoryのリスト
               ReorderableColumn(
                   children: [
                     // bigCategoryがなしではない場合、bigCategoryの並び替え可能カードを表示する
-                    for (int indexOfBigCategory = 0;
-                        indexOfBigCategory <
-                            TLWorkspace.currentWorkspace.bigCategories.length;
-                        indexOfBigCategory++)
+                    for (int i = 0;
+                        i < _currentTLWorkspace.bigCategories.length;
+                        i++)
                       BigCategoryCard(
-                          key: Key(TLWorkspace.currentWorkspace
-                              .bigCategories[indexOfBigCategory].id),
-                          indexOfBigCategory: indexOfBigCategory),
+                          key:
+                              ValueKey(_currentTLWorkspace.bigCategories[i].id),
+                          indexOfBigCategory: i),
                   ],
                   onReorder: (oldIndex, newIndex) {
-                    if (newIndex != 0) {
-                      if (newIndex != oldIndex) {
-                        // 抜き出して
-                        TLCategory reOrderedBigCategory = TLWorkspace
-                            .currentWorkspace.bigCategories
-                            .removeAt(oldIndex);
-                        TLWorkspace.currentWorkspace.bigCategories
-                            .insert(newIndex, reOrderedBigCategory);
-                        setState(() {});
-                        // categorisを保存する
-                        TLCategory.saveBigCategories();
-                      }
-                    }
+                    if (newIndex == 0) return;
+                    // 抜き出して
+                    TLCategory reOrderedBigCategory =
+                        _currentTLWorkspace.bigCategories.removeAt(oldIndex);
+                    _currentTLWorkspace.bigCategories
+                        .insert(newIndex, reOrderedBigCategory);
+                    // categoriesを保存する
+                    _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                        specificWorkspaceIndex:
+                            _currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                        updatedWorkspace: _currentTLWorkspace);
                   }),
               const SizedBox(
                 height: 300,

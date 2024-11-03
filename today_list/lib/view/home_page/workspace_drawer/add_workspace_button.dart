@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../dialogs/add_or_edit_workspace_dialog.dart';
-import '../../../model/tl_theme.dart';
+import '../../../components/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
+import '../../../model/design/tl_theme.dart';
 
 class AddWorkspaceButton extends StatelessWidget {
   const AddWorkspaceButton({Key? key}) : super(key: key);

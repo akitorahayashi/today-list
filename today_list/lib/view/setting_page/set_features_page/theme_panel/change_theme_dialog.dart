@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/constants/styles.dart';
-import 'package:today_list/dialogs/common/single_option_dialog.dart';
-import '../../../../model/tl_theme.dart';
+import 'package:today_list/styles/styles.dart';
+import 'package:today_list/components/dialog/common/single_option_dialog.dart';
+import '../../../../model/design/tl_theme.dart';
 import '../../../../model/user/setting_data.dart';
 import '../../../../model/external/tl_connectivity.dart';
 import '../../../../model/external/tl_widgetkit.dart';

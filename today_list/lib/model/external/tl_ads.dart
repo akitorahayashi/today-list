@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/dialogs/common/single_option_dialog.dart';
-import 'tl_pref.dart';
-import 'package:today_list/main.dart';
-import 'package:intl/intl.dart';
+import '../../components/dialog/common/single_option_dialog.dart';
+import './tl_pref.dart';
+import '../../main.dart';
 import 'dart:io';
 
+import 'package:intl/intl.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 

@@ -1,18 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
-import 'package:today_list/components/todo_card/snack_bar_to_notify_todo_or_step_is_edited.dart';
+import 'package:today_list/components/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
 import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
-import '../../model/tl_theme.dart';
+import '../../model/design/tl_theme.dart';
 import '../../model/todo/tl_todo.dart';
-import '../../model/todo/tl_todos.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../view/edit_todo_page/edit_todo_page.dart';
 import 'tl_step_card.dart';
-import '../../slidables/slidable_for_todo_card.dart';
+import '../slidables/slidable_for_todo_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:reorderables/reorderables.dart';
@@ -68,7 +67,7 @@ class TLToDoCard extends ConsumerWidget {
             indexOfThisToDoInToDos: indexOfThisToDoInToDos,
             toDoArrayOfThisToDo: _toDoArrayThatContainsThisToDo);
         TLVibration.vibrate();
-        SnackBarToNotifyTodoOrStepIsEdited.show(
+        NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,
           newTitle: _corrToDoData.title,
           newCheckedState: _corrToDoData.isChecked,
@@ -87,27 +86,26 @@ class TLToDoCard extends ConsumerWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: SlidableForToDoCard(
-              isModelCard: false,
-              toDoData: _corrToDoData,
-              toDoArrayOfThisToDo: _toDoArrayThatContainsThisToDo,
+              isForModelCard: false,
+              corrTLToDo: _corrToDoData,
               indexOfThisToDoInToDos: indexOfThisToDoInToDos,
               ifInToday: ifInToday,
               // category
               bigCategoryOfThisToDo: bigCategoryOfThisToDo,
               smallCategoryOfThisToDo: smallCategoryOfThisToDo,
               editAction: () async {
-                // タップしたらEditToDoCardをpushする
+                // TODO タップしたらEditToDoCardをpushする
                 await Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
                   return EditToDoPage(
                     toDoTitle: _corrToDoData.title,
                     belogedSteps: _corrToDoData.steps,
-                    isInToday: widget.ifInToday,
-                    indexOfThisToDoInToDos: widget.indexOfThisToDoInToDos,
-                    bigCategory: widget.bigCategoryOfThisToDo,
-                    smallCategory: widget.smallCategoryOfThisToDo,
-                    oldCategoryId: widget.smallCategoryOfThisToDo?.id ??
-                        widget.bigCategoryOfThisToDo.id,
+                    isInToday: ifInToday,
+                    indexOfThisToDoInToDos: indexOfThisToDoInToDos,
+                    bigCategory: bigCategoryOfThisToDo,
+                    smallCategory: smallCategoryOfThisToDo,
+                    oldCategoryId:
+                        smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id,
                   );
                 }));
               },
@@ -127,7 +125,7 @@ class TLToDoCard extends ConsumerWidget {
                             // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                             child: Transform.scale(
                               scale: 1.2,
-                              child: IconForCheckBox(
+                              child: TLCheckBox(
                                   isChecked: _corrToDoData.isChecked),
                             )),
                         // toDoのタイトル

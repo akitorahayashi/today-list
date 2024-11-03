@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/components/for_todo/icon_for_checkbox.dart';
-import '../../../model/tl_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
+import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
+import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../components/for_todo/todo_card/slidable_for_todo_card.dart';
+import '../../../components/slidables/slidable_for_todo_card.dart';
 
 import 'package:reorderables/reorderables.dart';
 
-class ModelOfToDoCard extends StatelessWidget {
+class ModelOfToDoCard extends ConsumerWidget {
   // todoのデータ
-  final TLToDo toDoData;
+  final TLToDo corrTLToDo;
   final bool ifInToday;
   final TLCategory bigCategoryOfThisToDo;
   final TLCategory? smallCategoryOfThisToDo;
@@ -21,7 +24,7 @@ class ModelOfToDoCard extends StatelessWidget {
   const ModelOfToDoCard({
     Key? key,
     // todoのデータ
-    required this.toDoData,
+    required this.corrTLToDo,
     required this.ifInToday,
     required this.bigCategoryOfThisToDo,
     required this.smallCategoryOfThisToDo,
@@ -32,8 +35,15 @@ class ModelOfToDoCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
+    // provider
+    final TLWorkspace _currentWorkspace = ref.watch(currentTLWorkspaceProvider);
+    // notifier
+    final CurrentTLWorkspaceNotifier _currentWorkspaceNotifier =
+        ref.read(currentTLWorkspaceProvider.notifier);
+    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+        ref.read(tlWorkspacesProvider.notifier);
     return Card(
       color: _tlThemeData.panelColor,
       elevation: 2,
@@ -41,17 +51,13 @@ class ModelOfToDoCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: SlidableForToDoCard(
-          isModelCard: true,
-          toDoData: toDoData,
+          isForModelCard: true,
+          corrTLToDo: corrTLToDo,
           ifInToday: ifInToday,
-          toDoArrayOfThisToDo: TLWorkspace.currentWorkspace
-              .toDos[smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
-              .getToDoArray(inToday: ifInToday),
+          // category
           bigCategoryOfThisToDo: bigCategoryOfThisToDo,
           smallCategoryOfThisToDo: smallCategoryOfThisToDo,
           indexOfThisToDoInToDos: indexOfThisToDoInToDoArrray,
-          selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
-          selectedWorkspace: TLWorkspace.currentWorkspace,
           editAction: tapToEditAction,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +84,7 @@ class ModelOfToDoCard extends StatelessWidget {
                     // toDoData.scheduledDate != null ? 10 :
                     18,
                     16,
-                    toDoData.steps.isNotEmpty ? 15 : 18),
+                    corrTLToDo.steps.isNotEmpty ? 15 : 18),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -88,19 +94,19 @@ class ModelOfToDoCard extends StatelessWidget {
                         // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                         child: Transform.scale(
                           scale: 1.2,
-                          child: IconForCheckBox(isChecked: toDoData.isChecked),
+                          child: TLCheckBox(isChecked: corrTLToDo.isChecked),
                         )),
                     // toDoのタイトル
                     Expanded(
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          toDoData.title,
+                          corrTLToDo.title,
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
-                              color: Colors.black
-                                  .withOpacity(toDoData.isChecked ? 0.3 : 0.6)),
+                              color: Colors.black.withOpacity(
+                                  corrTLToDo.isChecked ? 0.3 : 0.6)),
                         ),
                       ),
                     ),
@@ -108,11 +114,11 @@ class ModelOfToDoCard extends StatelessWidget {
                 ),
               ),
               // steps
-              if (toDoData.steps.isNotEmpty)
+              if (corrTLToDo.steps.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: ReorderableColumn(
-                    children: toDoData.steps.map((stepData) {
+                    children: corrTLToDo.steps.map((stepData) {
                       return Padding(
                         key: Key(UniqueKey().toString()),
                         padding: const EdgeInsets.fromLTRB(8, 0, 2, 0),
@@ -130,7 +136,7 @@ class ModelOfToDoCard extends StatelessWidget {
                                       const EdgeInsets.fromLTRB(4, 0, 16, 0),
                                   child: Transform.scale(
                                     scale: 1.2,
-                                    child: IconForCheckBox(
+                                    child: TLCheckBox(
                                         isChecked: stepData.isChecked),
                                   ),
                                 ),
@@ -150,15 +156,15 @@ class ModelOfToDoCard extends StatelessWidget {
                       );
                     }).toList(),
                     onReorder: (oldIndex, newIndex) {
-                      if (oldIndex != newIndex) {
-                        final reOrderedToDo = toDoData.steps[oldIndex];
-                        toDoData.steps.remove(reOrderedToDo);
-                        toDoData.steps.insert(newIndex, reOrderedToDo);
-                        // toDosを保存する
-                        TLWorkspace.saveSelectedWorkspace(
-                            selectedWorkspaceIndex:
-                                TLWorkspace.currentWorkspaceIndex);
-                      }
+                      final reOrderedStep = corrTLToDo.steps.removeAt(oldIndex);
+                      if (oldIndex < newIndex) newIndex -= 1;
+                      corrTLToDo.steps.insert(newIndex, reOrderedStep);
+                      // currentWorkspaceを更新
+                      _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                        specificWorkspaceIndex:
+                            _currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                        updatedWorkspace: _currentWorkspace,
+                      );
                     },
                   ),
                 )

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../constants/styles.dart';
-import '../../dialogs/common/single_option_dialog.dart';
-import '../../model/tl_theme.dart';
+import 'package:today_list/styles/styles.dart';
+import '../../styles/styles.dart';
+import '../common/single_option_dialog.dart';
+import '../../model/design/tl_theme.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/external/tl_pref.dart';
 import '../../model/external/tl_vibration.dart';

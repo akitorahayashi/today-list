@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
-import 'package:today_list/model/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme.dart';
 
-class SnackBarToNotifyTodoOrStepIsEdited {
+class NotifyTodoOrStepIsEditedSnackBar {
   static void show({
     required BuildContext context,
     required String newTitle,
@@ -77,7 +77,7 @@ class SnackBarToNotifyTodoOrStepIsEdited {
                       height: 20,
                       child: Transform.scale(
                         scale: 1.2,
-                        child: IconForCheckBox(isChecked: newCheckedState),
+                        child: TLCheckBox(isChecked: newCheckedState),
                       ),
                     )),
                 // toDoのタイトル
