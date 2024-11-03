@@ -1,6 +1,5 @@
-import '../../model/user/setting_data.dart';
-import '../../model/tl_theme.dart';
 import 'package:flutter/material.dart';
+import '../../model/design/tl_theme.dart';
 
 class DoubleCard extends StatelessWidget {
   final Widget child;
@@ -8,9 +7,9 @@ class DoubleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Card(
-      color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-          .niceAppsCardColor,
+      color: _tlThemeData.niceAppsCardColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
