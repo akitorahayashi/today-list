@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/design/icon_for_checkbox_data.dart';
+import 'package:today_list/model/design/icon_for_checkbox.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/user/setting_data.dart';
 import 'package:today_list/model/external/tl_ads.dart';
