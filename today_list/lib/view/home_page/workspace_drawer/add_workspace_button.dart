@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../dialogs/add_or_edit_workspace_dialog.dart';
+import '../../../dialogs/for_workspace/add_or_edit_workspace_dialog.dart';
 import '../../../model/tl_theme.dart';
 
 class AddWorkspaceButton extends StatelessWidget {

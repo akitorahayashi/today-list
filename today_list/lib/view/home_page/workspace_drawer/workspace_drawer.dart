@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
-import 'change_workspace_card/change_workspace_card.dart';
+import 'change_workspace_card.dart';
 import '../../../components/common/tl_sliver_appbar.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/workspace/tl_workspace.dart';

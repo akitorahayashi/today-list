@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/components/for_todo/icon_for_checkbox.dart';
+import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../components/for_todo/todo_card/slidable_for_todo_card.dart';
+import '../../../slidables/slidable_for_todo_card.dart';
 
 import 'package:reorderables/reorderables.dart';
 
@@ -50,8 +50,6 @@ class ModelOfToDoCard extends StatelessWidget {
           bigCategoryOfThisToDo: bigCategoryOfThisToDo,
           smallCategoryOfThisToDo: smallCategoryOfThisToDo,
           indexOfThisToDoInToDos: indexOfThisToDoInToDoArrray,
-          selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex,
-          selectedWorkspace: TLWorkspace.currentWorkspace,
           editAction: tapToEditAction,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
