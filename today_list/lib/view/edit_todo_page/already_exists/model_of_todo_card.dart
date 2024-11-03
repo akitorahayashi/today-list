@@ -54,9 +54,6 @@ class ModelOfToDoCard extends ConsumerWidget {
           isForModelCard: true,
           corrTLToDo: corrTLToDo,
           ifInToday: ifInToday,
-          toDoArrayOfThisToDo: _currentWorkspace.toDos[
-              smallCategoryOfThisToDo?.id ??
-                  bigCategoryOfThisToDo.id]![ifInToday],
           // category
           bigCategoryOfThisToDo: bigCategoryOfThisToDo,
           smallCategoryOfThisToDo: smallCategoryOfThisToDo,

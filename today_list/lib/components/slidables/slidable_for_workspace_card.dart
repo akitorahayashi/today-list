@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/dialogs/common/yes_no_dialog.dart';
-import '../model/tl_theme.dart';
-import '../deprecated_crud/for_workspace/delete_workspace_alert.dart';
-import '../deprecated_crud/for_workspace/add_or_edit_workspace_alert.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../model/workspace/current_tl_workspace_provider.dart';
+import '../../model/workspace/tl_workspace.dart';
+import '../../model/workspace/tl_workspaces_provider.dart';
+import '../../components/dialog/common/yes_no_dialog.dart';
+import '../../model/design/tl_theme.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class SlidableForWorkspaceCard extends StatefulWidget {
+class SlidableForWorkspaceCard extends ConsumerWidget {
   final bool isInDrawerList;
   final bool isCurrentWorkspace;
   final int indexInTLWorkspaces;
   final Widget child;
   const SlidableForWorkspaceCard({
-    Key? key,
+    super.key,
     required this.isInDrawerList,
     required this.isCurrentWorkspace,
     required this.indexInTLWorkspaces,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
-  State<SlidableForWorkspaceCard> createState() =>
-      _SlidableForWorkspaceCardState();
-}
-
-class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
+    // provider
+    final TLWorkspace _currentTLWorkspace =
+        ref.watch(currentTLWorkspaceProvider);
+    // notifier
+    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+        ref.read(tlWorkspacesProvider.notifier);
+    final CurrentTLWorkspaceNotifier _currentTLWorkspaceNotifier =
+        ref.read(currentTLWorkspaceProvider.notifier);
     return Slidable(
       // currentWorkspaceの時や
       startActionPane: widget.isCurrentWorkspace ||
@@ -47,11 +51,17 @@ class _SlidableForWorkspaceCardState extends State<SlidableForWorkspaceCard> {
                     if (!widget.isInDrawerList) {
                       Navigator.pop(context);
                     }
-                    showDialog(context: context, builder: (context) => YesNoDialog(title: title, message: message, yesAction: () async {
-                      await deleteWorkspaceAlert(
-                          context: context,
-                          indexInTLWorkspaces: widget.indexInTLWorkspaces);
-                    }));
+                    showDialog(
+                        context: context,
+                        builder: (context) => YesNoDialog(
+                            title: title,
+                            message: message,
+                            yesAction: () async {
+                              await deleteWorkspaceAlert(
+                                  context: context,
+                                  indexInTLWorkspaces:
+                                      widget.indexInTLWorkspaces);
+                            }));
                     deleteWorkspaceAlert(
                         context: context,
                         indexInTLWorkspaces: widget.indexInTLWorkspaces);

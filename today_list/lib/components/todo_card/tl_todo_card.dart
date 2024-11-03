@@ -5,7 +5,6 @@ import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
 import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
 import '../../model/design/tl_theme.dart';
 import '../../model/todo/tl_todo.dart';
-import '../../model/todo/tl_todos.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
@@ -89,7 +88,6 @@ class TLToDoCard extends ConsumerWidget {
             child: SlidableForToDoCard(
               isForModelCard: false,
               corrTLToDo: _corrToDoData,
-              toDoArrayOfThisToDo: _toDoArrayThatContainsThisToDo,
               indexOfThisToDoInToDos: indexOfThisToDoInToDos,
               ifInToday: ifInToday,
               // category
@@ -102,12 +100,12 @@ class TLToDoCard extends ConsumerWidget {
                   return EditToDoPage(
                     toDoTitle: _corrToDoData.title,
                     belogedSteps: _corrToDoData.steps,
-                    isInToday: widget.ifInToday,
-                    indexOfThisToDoInToDos: widget.indexOfThisToDoInToDos,
-                    bigCategory: widget.bigCategoryOfThisToDo,
-                    smallCategory: widget.smallCategoryOfThisToDo,
-                    oldCategoryId: widget.smallCategoryOfThisToDo?.id ??
-                        widget.bigCategoryOfThisToDo.id,
+                    isInToday: ifInToday,
+                    indexOfThisToDoInToDos: indexOfThisToDoInToDos,
+                    bigCategory: bigCategoryOfThisToDo,
+                    smallCategory: smallCategoryOfThisToDo,
+                    oldCategoryId:
+                        smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id,
                   );
                 }));
               },

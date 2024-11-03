@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../components/dialogs/common/yes_no_dialog.dart';
+import '../../../components/dialog/common/yes_no_dialog.dart';
 import '../../../components/dialog/common/single_option_dialog.dart';
 import '../../../model/external/tl_ads.dart';
 import '../../../model/design/tl_theme.dart';

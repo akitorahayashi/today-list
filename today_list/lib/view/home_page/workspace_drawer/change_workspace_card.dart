@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../dialogs/common/single_option_dialog.dart';
+import '../../../components/dialog/common/single_option_dialog.dart';
 import '../../../model/workspace/current_tl_workspace_provider.dart';
 import '../../../model/external/tl_vibration.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/workspace/tl_workspaces_provider.dart';
-import '../../../model/tl_theme.dart';
-import '../../../slidables/slidable_for_workspace_card.dart';
+import '../../../model/design/tl_theme.dart';
+import '../../../components/slidables/slidable_for_workspace_card.dart';
 
 class ChangeWorkspaceCard extends ConsumerWidget {
   final bool isInDrawerList;

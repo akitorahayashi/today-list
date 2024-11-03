@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../model/tl_theme.dart';
+import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/workspace/tl_workspace.dart';
-import '../../../all_todos_in_this_category_page/all_todos_in_category_page.dart';
 
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BigCategoryChip extends StatelessWidget {

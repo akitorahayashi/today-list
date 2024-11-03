@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../model/tl_theme.dart';
+import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../view/all_todos_in_this_category_page/all_todos_in_category_page.dart';
-
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class SmallCategoryCard extends StatelessWidget {
   final int indexOfBigCategory;

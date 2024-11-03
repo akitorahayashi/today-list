@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/dialogs/common/single_option_dialog.dart';
-import 'package:today_list/dialogs/common/yes_no_dialog.dart';
-import 'package:today_list/main.dart';
-import 'package:today_list/model/external/tl_ads.dart';
-import '../../../../../constants/icon_for_checkbox_data.dart';
-import '../../../../../model/tl_theme.dart';
+import '../../../../../components/dialog/common/single_option_dialog.dart';
+import '../../../../../components/dialog/common/yes_no_dialog.dart';
+import '../../../../../main.dart';
+import '../../../../../model/external/tl_ads.dart';
+import '../../../../../model/design/icon_for_checkbox.dart';
+import '../../../../../model/design/tl_theme.dart';
 import '../../../../../model/user/setting_data.dart';
 
 class IconCard extends StatefulWidget {
