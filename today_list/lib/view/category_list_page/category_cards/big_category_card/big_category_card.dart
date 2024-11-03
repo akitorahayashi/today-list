@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../model/tl_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/workspace/tl_workspace.dart';
 import '../../../../model/workspace/tl_workspaces_provider.dart';
@@ -8,7 +9,7 @@ import '../small_category_card.dart';
 
 import 'package:reorderables/reorderables.dart';
 
-class BigCategoryCard extends StatelessWidget {
+class BigCategoryCard extends ConsumerWidget {
   final int indexOfBigCategory;
   const BigCategoryCard({
     super.key,
@@ -16,7 +17,7 @@ class BigCategoryCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     return GestureDetector(
       onLongPress:

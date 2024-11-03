@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../model/workspace/current_tl_workspace_provider.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/workspace/tl_workspace.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class BigCategoryChip extends StatelessWidget {
+class BigCategoryChip extends ConsumerWidget {
   final int indexOfBigCategory;
   const BigCategoryChip({super.key, required this.indexOfBigCategory});
 
-  TLCategory get bigCategoryInThisChip =>
-      TLWorkspace.currentWorkspace.bigCategories[indexOfBigCategory];
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
+    // provider
+    final TLWorkspace _currentTLWorkspace =
+        ref.watch(currentTLWorkspaceProvider);
+    // others
+    TLCategory bigCategoryOfThisChip =
+        _currentTLWorkspace.bigCategories[indexOfBigCategory];
     final int numberOfToDosInThisCategory =
-        bigCategoryInThisChip.getNumberOfToDosInThisCategory();
+        bigCategoryOfThisChip.getNumberOfToDosInThisCategory();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: SizedBox(
@@ -32,7 +37,7 @@ class BigCategoryChip extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      bigCategoryInThisChip.title,
+                      bigCategoryOfThisChip.title,
                     ),
                   ),
                 ),

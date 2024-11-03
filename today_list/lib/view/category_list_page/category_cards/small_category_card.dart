@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
-import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
+import '../../../model/workspace/current_tl_workspace_provider.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
@@ -25,12 +24,8 @@ class SmallCategoryCard extends ConsumerWidget {
     final TLCategory _smallCategoryOfThisCard = _currentTLWorkspace
         .smallCategories[corrBigCategoryID]![corrIndexOfSmallCategory];
     // getNumberOfToDosInThisCategory
-    final int _numberOfToDoInThisSmallCategory = (() {
-      TLToDos _coorToDos =
-          _currentTLWorkspace.toDos[_smallCategoryOfThisCard.id]!;
-      final int _answer = _coorToDos[true].length + _coorToDos[false].length;
-      return _answer;
-    })();
+    final int _numberOfToDoInThisSmallCategory = _smallCategoryOfThisCard
+        .getNumberOfToDosInThisCategory(corrToDos: _currentTLWorkspace.toDos);
     return GestureDetector(
       // TODO カテゴリーを編集するDialogを表示
       onTap: () {},
