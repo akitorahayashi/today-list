@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
-import 'package:today_list/components/todo_card/snack_bar_to_notify_todo_or_step_is_edited.dart';
+import 'package:today_list/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import 'package:today_list/model/workspace/tl_workspace.dart';
 import '../../model/workspace/current_tl_workspace_provider.dart';
 import '../../model/workspace/tl_workspaces_provider.dart';
@@ -60,7 +60,7 @@ class TLStepCard extends ConsumerWidget {
             updatedWorkspace: _currentTLWorkspace);
 
         TLVibration.vibrate();
-        SnackBarToNotifyTodoOrStepIsEdited.show(
+        NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,
           newTitle: stepData.title,
           newCheckedState: stepData.isChecked,

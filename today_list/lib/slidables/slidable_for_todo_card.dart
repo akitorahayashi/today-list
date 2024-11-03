@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../model/workspace/current_tl_workspace_provider.dart';
 import '../model/workspace/tl_workspaces_provider.dart';
 import '../model/tl_theme.dart';
@@ -15,7 +16,7 @@ class SlidableForToDoCard extends ConsumerWidget {
   // todo
   final TLToDo toDoData;
   final List<TLToDo> toDoArrayOfThisToDo;
-  final int indexOfThisToDoInToDos;
+  final int _indexOfThisToDoInToDos;
   final bool ifInToday;
   // category
   final TLCategory bigCategoryOfThisToDo;
@@ -28,7 +29,7 @@ class SlidableForToDoCard extends ConsumerWidget {
     required this.isForModelCard,
     required this.toDoData,
     required this.toDoArrayOfThisToDo,
-    required this.indexOfThisToDoInToDos,
+    required int indexOfThisToDoInToDos,
     required this.ifInToday,
     // category
     required this.bigCategoryOfThisToDo,
@@ -36,7 +37,7 @@ class SlidableForToDoCard extends ConsumerWidget {
     // workspace
     required this.editAction,
     required this.child,
-  });
+  }) : _indexOfThisToDoInToDos = indexOfThisToDoInToDos;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -52,6 +53,10 @@ class SlidableForToDoCard extends ConsumerWidget {
     // other
     final int _currentTLWorkspaceIndex =
         _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
+    final String _corrCategoryID =
+        smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id;
+    final List<TLToDo> _toDoArrayOfThisToDoBelongs =
+        _currentTLWorkspace.toDos[_corrCategoryID]![ifInToday];
     return Slidable(
       // チェックされていたらスライドできなくする
       enabled: !toDoData.isChecked,
@@ -65,10 +70,11 @@ class SlidableForToDoCard extends ConsumerWidget {
           foregroundColor: _tlThemeData.accentColor,
           onPressed: (BuildContext context) async {
             // タップしたらこれをremoveする
-            widget.toDoArrayOfThisToDo.removeAt(widget.indexOfThisToDoInToDos);
+            _toDoArrayOfThisToDoBelongs.removeAt(_indexOfThisToDoInToDos);
             TLVibration.vibrate();
-            TLWorkspace.saveSelectedWorkspace(
-                selectedWorkspaceIndex: widget.selectedWorkspaceIndex);
+            _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                specificWorkspaceIndex: _currentTLWorkspaceIndex,
+                updatedWorkspace: _currentTLWorkspace);
           },
           icon: Icons.remove,
         ),
@@ -78,16 +84,15 @@ class SlidableForToDoCard extends ConsumerWidget {
         motion: const ScrollMotion(),
         extentRatio: 0.6,
         children: [
-          if (!widget.isModelCard)
+          if (!isForModelCard)
             SlidableAction(
               autoClose: true,
               flex: 10,
               spacing: 8,
               backgroundColor: _tlThemeData.panelColor,
               foregroundColor: _tlThemeData.accentColor,
-              onPressed: (BuildContext context) async {
-                widget.editAction();
-              },
+              // TODO 編集画面に遷移
+              onPressed: (BuildContext context) async {},
               icon: Icons.edit,
               label: 'Edit',
             ),
@@ -101,15 +106,13 @@ class SlidableForToDoCard extends ConsumerWidget {
             foregroundColor: _tlThemeData.accentColor,
             onPressed: (BuildContext context) {
               // タップしたらtodayとwheneverを切り替える
-              final TLToDo switchedToDo = widget.toDoArrayOfThisToDo
-                  .removeAt(widget.indexOfThisToDoInToDos);
-              widget
-                  .selectedWorkspace
-                  .toDos[widget.smallCategoryOfThisToDo?.id ??
-                      widget.bigCategoryOfThisToDo.id]!
-                  .getToDoArray(inToday: !widget.ifInToday)
+              final TLToDo switchedToDo =
+                  _toDoArrayOfThisToDoBelongs.removeAt(_indexOfThisToDoInToDos);
+              _currentTLWorkspace.toDos[_corrCategoryID]![!ifInToday]
                   .insert(0, switchedToDo);
               TLVibration.vibrate();
+              NotifyTodoOrStepIsEditedSnackBar();
+
               notifyToDoOrStepIsEditted(
                 context: context,
                 newName: widget.toDoData.title,

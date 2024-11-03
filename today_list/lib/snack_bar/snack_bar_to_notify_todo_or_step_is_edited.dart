@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
 import 'package:today_list/model/tl_theme.dart';
 
-class SnackBarToNotifyTodoOrStepIsEdited {
+class NotifyTodoOrStepIsEditedSnackBar {
   static void show({
     required BuildContext context,
     required String newTitle,
