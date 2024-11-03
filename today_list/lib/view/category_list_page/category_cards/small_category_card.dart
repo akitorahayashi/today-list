@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/todo/tl_todos.dart';
+import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
 
-class SmallCategoryCard extends StatelessWidget {
-  final int indexOfBigCategory;
-  final int indexOfSmallCategory;
-  const SmallCategoryCard(
-      {super.key,
-      required this.indexOfBigCategory,
-      required this.indexOfSmallCategory});
-
-  TLCategory get smallCategoryOfThisCard =>
-      TLWorkspace.currentWorkspace.smallCategories[TLWorkspace.currentWorkspace
-          .bigCategories[indexOfBigCategory].id]![indexOfSmallCategory];
+class SmallCategoryCard extends ConsumerWidget {
+  final String corrBigCategoryID;
+  final int corrIndexOfSmallCategory;
+  const SmallCategoryCard({
+    super.key,
+    required this.corrBigCategoryID,
+    required this.corrIndexOfSmallCategory,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
-    final int numberOfToDosInThisCategory =
-        smallCategoryOfThisCard.getNumberOfToDosInThisCategory();
+    // provider
+    final TLWorkspace _currentTLWorkspace =
+        ref.watch(currentTLWorkspaceProvider);
+    // others
+    final TLCategory _smallCategoryOfThisCard = _currentTLWorkspace
+        .smallCategories[corrBigCategoryID]![corrIndexOfSmallCategory];
+    // getNumberOfToDosInThisCategory
+    final int _numberOfToDoInThisSmallCategory = (() {
+      TLToDos _coorToDos =
+          _currentTLWorkspace.toDos[_smallCategoryOfThisCard.id]!;
+      final int _answer = _coorToDos[true].length + _coorToDos[false].length;
+      return _answer;
+    })();
     return GestureDetector(
       // TODO カテゴリーを編集するDialogを表示
       onTap: () {},
@@ -35,7 +46,7 @@ class SmallCategoryCard extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      smallCategoryOfThisCard.title,
+                      _smallCategoryOfThisCard.title,
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           overflow: TextOverflow.ellipsis,
@@ -45,11 +56,11 @@ class SmallCategoryCard extends StatelessWidget {
                   ),
                 ),
               ),
-              if (numberOfToDosInThisCategory != 0)
+              if (_numberOfToDoInThisSmallCategory != 0)
                 Padding(
                   padding: const EdgeInsets.only(right: 24.0),
                   child: Text(
-                    "$numberOfToDosInThisCategory",
+                    "$_numberOfToDoInThisSmallCategory",
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
