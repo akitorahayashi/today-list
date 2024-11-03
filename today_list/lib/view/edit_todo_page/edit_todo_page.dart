@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/components/dialog/common/single_option_dialog.dart';
+import 'package:today_list/components/dialog/common/yes_no_dialog.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/provider/editting_todo_provider.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
@@ -81,9 +83,10 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
 
   @override
   void dispose() {
-    super.dispose();
+    ref.read(edittingToDoProvider.notifier).clearValue();
     _toDoTitleInputController.dispose();
     _stepTitleInputController.dispose();
+    super.dispose();
     // TODO 広告を破棄する
     // _bannerAd?.dispose();
   }
@@ -109,14 +112,15 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                     // 元のページに戻る
                     Navigator.pop(context);
                   } else {
-                    yesNoAlert(
+                    showDialog(
                         context: context,
-                        title: "本当に戻りますか?",
-                        message: "ToDoは + から保存できます",
-                        yesAction: () {
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                        });
+                        builder: (context) => YesNoDialog(
+                            title: "本当に戻りますか？",
+                            message: "ToDoは + から保存できます",
+                            yesAction: () {
+                              Navigator.pop(context);
+                              Navigator.pop(context);
+                            }));
                   }
                 },
                 leadingIcon: const Icon(
