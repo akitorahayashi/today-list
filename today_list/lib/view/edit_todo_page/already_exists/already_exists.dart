@@ -76,7 +76,8 @@ class AlreadyExists extends ConsumerWidget {
                         key: ValueKey(
                             toDoArrayOfThisBlock[indexOfThisToDoInToDos].id),
                         // todoのメンバー
-                        toDoData: toDoArrayOfThisBlock[indexOfThisToDoInToDos],
+                        corrTLToDo:
+                            toDoArrayOfThisBlock[indexOfThisToDoInToDos],
                         ifInToday: ifInToday,
                         bigCategoryOfThisToDo: bigCategoryOfThisToDo,
                         smallCategoryOfThisToDo: smallCategoryOfThisToDo,

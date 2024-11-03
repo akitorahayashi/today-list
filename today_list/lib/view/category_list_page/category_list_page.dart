@@ -53,6 +53,7 @@ class CategoryListPage extends ConsumerWidget {
               const SizedBox(
                 height: 5,
               ),
+              // BigCategoryのリスト
               ReorderableColumn(
                   children: [
                     // bigCategoryがなしではない場合、bigCategoryの並び替え可能カードを表示する

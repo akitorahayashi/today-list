@@ -53,14 +53,8 @@ class BigCategoryChip extends StatelessWidget {
               color: Colors.white),
           pressElevation: 3,
           elevation: 3,
-          onPressed: () => showCupertinoModalBottomSheet(
-              context: context,
-              enableDrag: false,
-              builder: (context) {
-                return AllToDosInThisCategoryPage(
-                  indexOfBigCategory: indexOfBigCategory,
-                );
-              }),
+          // TODO カテゴリーを編集するDialogを表示
+          onPressed: () => {},
         ),
       ),
     );

@@ -24,15 +24,8 @@ class SmallCategoryCard extends StatelessWidget {
     final int numberOfToDosInThisCategory =
         smallCategoryOfThisCard.getNumberOfToDosInThisCategory();
     return GestureDetector(
-      onTap: () {
-        showCupertinoModalBottomSheet(
-            context: context,
-            enableDrag: false,
-            builder: (context) => AllToDosInThisCategoryPage(
-                  indexOfBigCategory: indexOfBigCategory,
-                  indexOfSmallCategory: indexOfSmallCategory,
-                ));
-      },
+      // TODO カテゴリーを編集するDialogを表示
+      onTap: () {},
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: SizedBox(
