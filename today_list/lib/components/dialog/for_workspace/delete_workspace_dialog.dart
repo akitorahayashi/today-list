@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/styles/styles.dart';
-import '../../styles/styles.dart';
+import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
 import '../common/single_option_dialog.dart';
-import '../../model/design/tl_theme.dart';
-import '../../model/workspace/tl_workspace.dart';
-import '../../model/external/tl_pref.dart';
-import '../../model/external/tl_vibration.dart';
+import '../../../model/workspace/current_tl_workspace_provider.dart';
+import '../../../model/design/tl_theme.dart';
+import '../../../model/workspace/tl_workspace.dart';
+import '../../../model/external/tl_vibration.dart';
+import '../../../styles/styles.dart';
 
 class DeleteWorkspaceDialog extends ConsumerWidget {
-  final int coorrWorkspaceIndex;
+  final int corrWorkspaceIndex;
   final TLWorkspace willDeletedWorkspace;
   const DeleteWorkspaceDialog(
       {super.key,
-      required this.coorrWorkspaceIndex,
+      required this.corrWorkspaceIndex,
       required this.willDeletedWorkspace});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
+    // notifier
+    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+        ref.read(tlWorkspacesProvider.notifier);
+    final CurrentTLWorkspaceNotifier _currentTLWorkspaceNotifier =
+        ref.read(currentTLWorkspaceProvider.notifier);
     return Dialog(
       backgroundColor: _tlThemeData.alertColor,
       child: Padding(
@@ -68,9 +73,9 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                 TextButton(
                     style:
                         alertButtonStyle(accentColor: _tlThemeData.accentColor),
-                    onPressed: () {
+                    onPressed: () async {
                       // デフォルトワークスペースは消せない
-                      if (coorrWorkspaceIndex == 0) {
+                      if (corrWorkspaceIndex == 0) {
                         Navigator.pop(context);
                         showDialog(
                             context: context,
@@ -80,28 +85,27 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                                 ));
                       } else {
                         // TLWorkspacesから削除
-                        TLPref().getPref.then((pref) {
-                          if (TLWorkspace.currentWorkspaceIndex >
-                              indexInTLWorkspaces) {
-                            TLWorkspace.currentWorkspaceIndex--;
-                            pref.setInt("currentWorkspaceIndex",
-                                TLWorkspace.currentWorkspaceIndex);
-                          }
-                          _initialTLWorkspaces.removeAt(indexInTLWorkspaces);
-                          // このアラートを消してsimpleアラートを表示する
-                          Navigator.pop(context);
-                          TLVibration.vibrate();
-                          showDialog(
-                              context: context,
-                              builder: (context) => SingleOptionDialog(
-                                    title: "削除することに\n成功しました！",
-                                    message: null,
-                                  ));
-                          // セーブする
-                          TLWorkspace.saveSelectedWorkspace(
-                              selectedWorkspaceIndex:
-                                  TLWorkspace.currentWorkspaceIndex);
-                        });
+                        _tlWorkspacesNotifier.removeTLWorkspace(
+                            corrWorkspaceId: willDeletedWorkspace.id);
+                        // currentWorkspaceIndexが削除するWorkspaceよりも大きい場合は1減らす
+                        if (corrWorkspaceIndex <
+                            _currentTLWorkspaceNotifier.currentTLWorkspaceIndex)
+                          _currentTLWorkspaceNotifier
+                              .changeCurrentWorkspaceIndex(
+                                  newCurrentWorkspaceIndex:
+                                      _currentTLWorkspaceNotifier
+                                              .currentTLWorkspaceIndex -
+                                          1);
+
+                        // このアラートを消してsimpleアラートを表示する
+                        Navigator.pop(context);
+                        TLVibration.vibrate();
+                        showDialog(
+                            context: context,
+                            builder: (context) => SingleOptionDialog(
+                                  title: "削除することに\n成功しました！",
+                                  message: null,
+                                ));
                       }
                     },
                     child: const Text("削除"))

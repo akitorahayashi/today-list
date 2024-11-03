@@ -200,7 +200,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 toDoTitle: "",
                 belogedSteps: const [],
                 isInToday: true,
-                bigCategory: TLCategory(id: defaultID, title: "なし"),
+                bigCategory: TLCategory(id: noneID, title: "なし"),
                 smallCategory: null,
                 indexOfThisToDoInToDos: null,
                 oldCategoryId: null,

@@ -28,13 +28,17 @@ class _AddOrEditWorkspaceDialogState
   @override
   void initState() {
     super.initState();
-    if (widget.oldIndexInStringWorkspaces != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final List<TLWorkspace> workspaces = ref.read(tlWorkspacesProvider);
-        _workspaceNameInputController.text =
-            workspaces[widget.oldIndexInStringWorkspaces!].name;
-      });
-    }
+    if (widget.oldIndexInStringWorkspaces == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final List<TLWorkspace> workspaces = ref.read(tlWorkspacesProvider);
+      _workspaceNameInputController.text =
+          workspaces[widget.oldIndexInStringWorkspaces!].name;
+    });
+  }
+
+  dispose() {
+    _workspaceNameInputController.dispose();
+    super.dispose();
   }
 
   @override
@@ -114,13 +118,13 @@ class _AddOrEditWorkspaceDialogState
                             id: UniqueKey().toString(),
                             name: _workspaceNameInputController.text,
                             bigCategories: [
-                              TLCategory(id: defaultID, title: "なし")
+                              TLCategory(id: noneID, title: "なし")
                             ],
                             smallCategories: {
-                              defaultID: []
+                              noneID: []
                             },
                             toDos: {
-                              defaultID:
+                              noneID:
                                   TLToDos(toDosInToday: [], toDosInWhenever: [])
                             });
                         ref

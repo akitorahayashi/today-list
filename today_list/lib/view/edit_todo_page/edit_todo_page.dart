@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
-import '../../components/common/tl_sliver_appbar.dart';
-import '../../model/tl_theme.dart';
+import '../../components/common_ui_part/tl_sliver_appbar.dart';
+import '../../model/design/tl_theme.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/workspace/tl_workspace.dart';
@@ -198,7 +198,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                         child: Column(children: [
                           // ビッグカテゴリーを選択してsmallCategory選択のためのdropdownを更新する
                           TLDropDownButton(
-                              hintText: _selectedBigCategory.id == defaultID
+                              hintText: _selectedBigCategory.id == noneID
                                   ? "大カテゴリー"
                                   : TLWorkspace.currentWorkspace.bigCategories
                                       .where((oneOfBigCategory) =>
@@ -231,7 +231,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                                 if (newBigCategory != null) {
                                   _selectedSmallCategory = null;
                                   switch (newBigCategory.id) {
-                                    case defaultID:
+                                    case noneID:
                                       _selectedBigCategory = TLWorkspace
                                           .currentWorkspace.bigCategories[0];
                                       break;
@@ -265,10 +265,10 @@ class EditToDoPageState extends State<EditToDoPage> {
                                       .first
                                       .title,
                               items: [
-                                TLCategory(id: defaultID, title: "なし"),
+                                TLCategory(id: noneID, title: "なし"),
                                 ...TLWorkspace.currentWorkspace
                                     .smallCategories[_selectedBigCategory.id]!,
-                                if (_selectedBigCategory.id != defaultID)
+                                if (_selectedBigCategory.id != noneID)
                                   TLCategory(
                                       id: "---smallCategory", title: "新しく作る"),
                               ].map((TLCategory item) {
@@ -290,7 +290,7 @@ class EditToDoPageState extends State<EditToDoPage> {
                               onChanged: (TLCategory? newSmallCategory) async {
                                 if (newSmallCategory != null) {
                                   switch (newSmallCategory.id) {
-                                    case defaultID:
+                                    case noneID:
                                       _selectedSmallCategory = null;
                                       break;
                                     case "---smallCategory":

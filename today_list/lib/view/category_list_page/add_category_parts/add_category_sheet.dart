@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/todo/tl_category.dart';
@@ -6,16 +7,14 @@ import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/workspace/tl_workspaces_provider.dart';
 import '../../../styles/styles.dart';
 
-class AddCategorySheet extends StatefulWidget {
-  const AddCategorySheet({
-    super.key,
-  });
+class AddCategorySheet extends ConsumerStatefulWidget {
+  const AddCategorySheet({super.key});
 
   @override
-  State<AddCategorySheet> createState() => _AddCategorySheetState();
+  ConsumerState<AddCategorySheet> createState() => _AddCategorySheetState();
 }
 
-class _AddCategorySheetState extends State<AddCategorySheet> {
+class _AddCategorySheetState extends ConsumerState<AddCategorySheet> {
   // smallカテゴリーの入力
   bool _canInputSmallCategory = false;
   final TextEditingController _smallCategoryInputController =
@@ -51,7 +50,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
 
 // ---  カテゴリー追加系の変数
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -75,7 +74,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                           .where((bigCategory) =>
                               bigCategory.id ==
                               _selectedBigCategoryInDropButton.id);
-                      if (options.first.id == defaultID) {
+                      if (options.first.id == noneID) {
                         return "大カテゴリー";
                       } else {
                         return options.first.title;
@@ -114,7 +113,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                                   TLWorkspace.currentWorkspace.bigCategories[0];
                           _canInputSmallCategory = true;
                           break;
-                        case defaultID:
+                        case noneID:
                           _selectedBigCategoryInDropButton = newBigCategory;
                           _canInputSmallCategory = false;
                         default:
@@ -170,24 +169,22 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                 // 追加ボタン
                 AnimatedOpacity(
                   duration: const Duration(milliseconds: 230),
-                  opacity: _selectedBigCategoryInDropButton.id != defaultID &&
+                  opacity: _selectedBigCategoryInDropButton.id != noneID &&
                           _smallCategoryNameIsEntered
                       // 追加ボタンを使うことができる,
                       ? 1
                       : 0.5,
                   // 追加ボタン
                   child: TextButton(
-                    onPressed:
-                        _selectedBigCategoryInDropButton.id != defaultID &&
-                                _smallCategoryNameIsEntered
-                            ? addSmallCategoryAction
-                            : null,
+                    onPressed: _selectedBigCategoryInDropButton.id != noneID &&
+                            _smallCategoryNameIsEntered
+                        ? addSmallCategoryAction
+                        : null,
                     child: Text(
                       "追加する",
                       style: TextStyle(
                           color: // 新しくbigCategoryを作るモードでbigCategoryがnullではない場合や
-                              _selectedBigCategoryInDropButton.id !=
-                                          defaultID &&
+                              _selectedBigCategoryInDropButton.id != noneID &&
                                       _smallCategoryNameIsEntered
                                   // 追加ボタンを使うことができる
                                   ? _tlThemeData.accentColor

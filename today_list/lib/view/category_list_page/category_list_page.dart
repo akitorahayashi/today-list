@@ -63,7 +63,7 @@ class CategoryListPage extends ConsumerWidget {
                       GestureDetector(
                         key: ValueKey(_currentTLWorkspace.bigCategories[i].id),
                         onLongPress:
-                            _currentTLWorkspace.bigCategories[i].id != defaultID
+                            _currentTLWorkspace.bigCategories[i].id != noneID
                                 ? null
                                 : () {},
                         child: BigCategoryCard(indexOfBigCategory: i),
