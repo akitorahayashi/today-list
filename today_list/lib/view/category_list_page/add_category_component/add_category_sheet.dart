@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/todo/tl_category.dart';
-import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/workspace/tl_workspaces_provider.dart';
+import '../../../model/tl_workspace.dart';
+import '../../../model/provider/tl_workspaces_provider.dart';
 import '../../../styles/styles.dart';
 
-class AddCategorySheet extends StatefulWidget {
-  const AddCategorySheet({
-    super.key,
-  });
+class AddCategorySheet extends ConsumerStatefulWidget {
+  const AddCategorySheet({super.key});
 
   @override
-  State<AddCategorySheet> createState() => _AddCategorySheetState();
+  ConsumerState<AddCategorySheet> createState() => _AddCategorySheetState();
 }
 
-class _AddCategorySheetState extends State<AddCategorySheet> {
+class _AddCategorySheetState extends ConsumerState<AddCategorySheet> {
   // smallカテゴリーの入力
   bool _canInputSmallCategory = false;
   final TextEditingController _smallCategoryInputController =
@@ -28,28 +27,13 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
   TLCategory _selectedBigCategoryInDropButton =
       TLWorkspace.currentWorkspace.bigCategories[0];
 
-  void addSmallCategoryAction() {
-    final String newSmallCategoryId = UniqueKey().toString();
-    // small categoryの追加
-    TLWorkspace
-        .currentWorkspace.smallCategories[_selectedBigCategoryInDropButton.id]!
-        .add(TLCategory(
-            id: newSmallCategoryId, title: _smallCategoryInputController.text));
-    // todosを更新する
-    TLWorkspace.currentWorkspace.toDos[newSmallCategoryId] =
-        TLToDos(toDosInToday: [], toDosInWhenever: []);
-    notifyCategoryIsAdded(
-        context: context,
-        addedCategoryName: _smallCategoryInputController.text);
-    // 初期化処理
-    _smallCategoryInputController.clear();
-    // toDosとgroupedCategoriesを保存する
-    TLCategory.saveSmallCategories();
-    TLWorkspace.saveSelectedWorkspace(
-        selectedWorkspaceIndex: TLWorkspace.currentWorkspaceIndex);
+  @override
+  void dispose() {
+    _smallCategoryInputController.dispose();
+    super.dispose();
   }
 
-// ---  カテゴリー追加系の変数
+  // ---  カテゴリー追加系の変数
   @override
   Widget build(BuildContext context) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
@@ -75,7 +59,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                           .where((bigCategory) =>
                               bigCategory.id ==
                               _selectedBigCategoryInDropButton.id);
-                      if (options.first.id == defaultID) {
+                      if (options.first.id == noneID) {
                         return "大カテゴリー";
                       } else {
                         return options.first.title;
@@ -114,7 +98,7 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                                   TLWorkspace.currentWorkspace.bigCategories[0];
                           _canInputSmallCategory = true;
                           break;
-                        case defaultID:
+                        case noneID:
                           _selectedBigCategoryInDropButton = newBigCategory;
                           _canInputSmallCategory = false;
                         default:
@@ -170,24 +154,42 @@ class _AddCategorySheetState extends State<AddCategorySheet> {
                 // 追加ボタン
                 AnimatedOpacity(
                   duration: const Duration(milliseconds: 230),
-                  opacity: _selectedBigCategoryInDropButton.id != defaultID &&
+                  opacity: _selectedBigCategoryInDropButton.id != noneID &&
                           _smallCategoryNameIsEntered
                       // 追加ボタンを使うことができる,
                       ? 1
                       : 0.5,
                   // 追加ボタン
                   child: TextButton(
-                    onPressed:
-                        _selectedBigCategoryInDropButton.id != defaultID &&
-                                _smallCategoryNameIsEntered
-                            ? addSmallCategoryAction
-                            : null,
+                    onPressed: _selectedBigCategoryInDropButton.id != noneID &&
+                            _smallCategoryNameIsEntered
+                        ? () {
+                            // small categoryの追加
+                            TLWorkspace
+                                .currentWorkspace
+                                .smallCategories[
+                                    _selectedBigCategoryInDropButton.id]!
+                                .add(TLCategory(
+                                    id: UniqueKey().toString(),
+                                    title: _smallCategoryInputController.text));
+                            // todosを更新する
+                            TLWorkspace.currentWorkspace
+                                    .toDos[newSmallCategoryId] =
+                                TLToDos(toDosInToday: [], toDosInWhenever: []);
+                            notifyCategoryIsAdded(
+                                context: context,
+                                addedCategoryName:
+                                    _smallCategoryInputController.text);
+                            // 初期化処理
+                            _smallCategoryInputController.clear();
+                            // toDosとgroupedCategoriesを保存する
+                          }
+                        : null,
                     child: Text(
                       "追加する",
                       style: TextStyle(
                           color: // 新しくbigCategoryを作るモードでbigCategoryがnullではない場合や
-                              _selectedBigCategoryInDropButton.id !=
-                                          defaultID &&
+                              _selectedBigCategoryInDropButton.id != noneID &&
                                       _smallCategoryNameIsEntered
                                   // 追加ボタンを使うことができる
                                   ? _tlThemeData.accentColor

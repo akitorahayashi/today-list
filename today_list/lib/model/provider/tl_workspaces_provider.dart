@@ -1,21 +1,17 @@
-import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
+import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 
 import '../external/tl_pref.dart';
 import '../todo/tl_category.dart';
 import '../todo/tl_todo.dart';
 import '../todo/tl_todos.dart';
 import '../todo/tl_step.dart';
-import 'tl_workspace.dart';
+import '../tl_workspace.dart';
 
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// Operations for categories are located in `tl_category.dart`.
-// Operations for todo are located in `tl_todo.dart` and `tl_todos.dart`.
-// Operations for step are located in `tl_step.dart`.
-
 // TODO defaultIDというグローバル変数を削除しても機能するようにする
-const String defaultID = "defaultID";
+const String noneID = "defaultID";
 
 // TLWorkspacesを提供するProvider
 final tlWorkspacesProvider =
@@ -58,8 +54,9 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
   }
 
   // TLWorkspaceを削除するメソッド
-  Future<void> removeTLWorkspace({required String workspaceId}) async {
-    state = state.where((workspace) => workspace.id != workspaceId).toList();
+  Future<void> removeTLWorkspace({required String corrWorkspaceId}) async {
+    state =
+        state.where((workspace) => workspace.id != corrWorkspaceId).toList();
     await _saveTLWorkspaces();
   }
 
@@ -86,17 +83,17 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
 
 final List<TLWorkspace> _initialTLWorkspaces = [
   TLWorkspace(id: "defaultWorkspaceId", name: "Default", bigCategories: [
-    TLCategory(id: defaultID, title: "なし"),
+    TLCategory(id: noneID, title: "なし"),
     TLCategory(id: "superMarcketId", title: "スーパー"),
     TLCategory(id: "hundredStoreId", title: "100均"),
   ], smallCategories: {
-    defaultID: [],
+    noneID: [],
     "superMarcketId": [
       TLCategory(id: "vegetableId", title: "野菜"),
     ],
     "hundredStoreId": [],
   }, toDos: {
-    defaultID: TLToDos(toDosInToday: [
+    noneID: TLToDos(toDosInToday: [
       TLToDo(id: "todo1", title: "のり", steps: []),
       TLToDo(id: "todo2", title: "まくらカバー", steps: []),
     ], toDosInWhenever: []),
@@ -116,18 +113,18 @@ final List<TLWorkspace> _initialTLWorkspaces = [
   }),
   // --- 学校
   TLWorkspace(id: "schoolWorksapceId", name: "School", bigCategories: [
-    TLCategory(id: defaultID, title: "なし"),
+    TLCategory(id: noneID, title: "なし"),
     TLCategory(id: "mathId", title: "数学"),
     TLCategory(id: "englishId", title: "英語"),
   ], smallCategories: {
-    defaultID: [],
+    noneID: [],
     "mathId": [
       TLCategory(id: "mathAId", title: "数学A"),
       TLCategory(id: "mathIId", title: "数学I")
     ],
     "englishId": []
   }, toDos: {
-    defaultID: TLToDos(
+    noneID: TLToDos(
         toDosInToday: [TLToDo(id: "todo7", title: "~のプリントを出す", steps: [])],
         toDosInWhenever: []),
     "mathId": TLToDos(toDosInToday: [], toDosInWhenever: []),

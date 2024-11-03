@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../todo/tl_category.dart';
-import '../todo/tl_todos.dart';
+import 'todo/tl_category.dart';
+import 'todo/tl_todos.dart';
 
 class TLWorkspace {
   String id;

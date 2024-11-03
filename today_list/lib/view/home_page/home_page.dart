@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/dialog/common/single_option_dialog.dart';
-import 'package:today_list/components/dialog/common/yes_no_dialog.dart';
-import '../../components/common_ui_part/tl_sliver_appbar.dart';
-import 'todos_in_this_category_today/header_for_todos.dart';
-import 'todos_in_this_category_today/todos_in_this_category_in_today.dart';
 import '../../components/common_ui_part/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
 import '../../components/common_ui_part/today_list_bottom_navbar/today_list_bottom_navbar.dart';
+import '../../components/dialog/common/single_option_dialog.dart';
+import '../../components/dialog/common/yes_no_dialog.dart';
+import '../../components/common_ui_part/tl_sliver_appbar.dart';
+import './todos_in_this_category_today/header_for_todos.dart';
+import './todos_in_this_category_today/todos_in_this_category_in_today.dart';
 import '../../model/design/tl_theme.dart';
-import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/tl_workspaces_provider.dart';
+import '../../model/tl_workspace.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
-import '../../model/workspace/current_tl_workspace_provider.dart';
+import '../../model/provider/current_tl_workspace_provider.dart';
 import '../edit_todo_page/edit_todo_page.dart';
 import '../category_list_page/category_list_page.dart';
 import '../setting_page/setting_page.dart';
@@ -196,15 +195,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         CenterButtonOfBottomNavBar(
           onPressed: () async {
             await Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return EditToDoPage(
-                toDoTitle: "",
-                belogedSteps: const [],
-                isInToday: true,
-                bigCategory: TLCategory(id: defaultID, title: "なし"),
-                smallCategory: null,
-                indexOfThisToDoInToDos: null,
-                oldCategoryId: null,
-              );
+              return EditToDoPage();
             }));
           },
         ),

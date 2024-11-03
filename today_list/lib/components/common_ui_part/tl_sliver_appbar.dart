@@ -1,6 +1,5 @@
-import '../../model/tl_theme.dart';
-import '../../model/user/setting_data.dart';
 import 'package:flutter/material.dart';
+import '../../model/design/tl_theme.dart';
 
 class TLSliverAppBar extends StatelessWidget {
   final double? titleFontSize;
@@ -25,6 +24,7 @@ class TLSliverAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return SliverAppBar(
       expandedHeight: 110,
       pinned: true,
@@ -69,9 +69,7 @@ class TLSliverAppBar extends StatelessWidget {
       ),
       // AppBarのデザイン
       flexibleSpace: DecoratedBox(
-        decoration: BoxDecoration(
-            gradient: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-                .gradientOfNavBar),
+        decoration: BoxDecoration(gradient: _tlThemeData.gradientOfNavBar),
         child: const FlexibleSpaceBar(
           title: SizedBox(),
         ),

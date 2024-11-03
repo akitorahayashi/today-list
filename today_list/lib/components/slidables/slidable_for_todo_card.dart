@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
-import '../../model/workspace/current_tl_workspace_provider.dart';
-import '../../model/workspace/tl_workspaces_provider.dart';
+import '../../model/provider/current_tl_workspace_provider.dart';
+import '../../model/provider/tl_workspaces_provider.dart';
 import '../../model/design/tl_theme.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
-import '../../model/workspace/tl_workspace.dart';
+import '../../model/tl_workspace.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 

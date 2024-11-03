@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
-import '../../model/workspace/current_tl_workspace_provider.dart';
-import '../../components/common/tl_sliver_appbar.dart';
-import '../../model/workspace/tl_workspace.dart';
+import 'package:today_list/model/provider/tl_workspaces_provider.dart';
+import '../../model/provider/current_tl_workspace_provider.dart';
+import '../../components/common_ui_part/tl_sliver_appbar.dart';
+import '../../model/tl_workspace.dart';
 import '../../model/todo/tl_category.dart';
-import '../../model/tl_theme.dart';
+import '../../model/design/tl_theme.dart';
 import 'category_cards/big_category_card/big_category_card.dart';
 import './add_category_parts/add_category_button.dart';
 import './add_category_parts/add_category_sheet.dart';
@@ -60,10 +60,14 @@ class CategoryListPage extends ConsumerWidget {
                     for (int i = 0;
                         i < _currentTLWorkspace.bigCategories.length;
                         i++)
-                      BigCategoryCard(
-                          key:
-                              ValueKey(_currentTLWorkspace.bigCategories[i].id),
-                          indexOfBigCategory: i),
+                      GestureDetector(
+                        key: ValueKey(_currentTLWorkspace.bigCategories[i].id),
+                        onLongPress:
+                            _currentTLWorkspace.bigCategories[i].id != noneID
+                                ? null
+                                : () {},
+                        child: BigCategoryCard(indexOfBigCategory: i),
+                      ),
                   ],
                   onReorder: (oldIndex, newIndex) {
                     if (newIndex == 0) return;

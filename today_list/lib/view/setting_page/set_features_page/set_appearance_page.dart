@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
-import '../../../model/tl_theme.dart';
-import '../../../constants/icon_for_checkbox_data.dart';
-import '../../../components/common/panel_with_title.dart';
+import '../../../model/design/tl_theme.dart';
+import '../../../model/design/icon_for_checkbox.dart';
+import '../../../components/common_ui_part/panel_with_title.dart';
 import '../../../model/user/setting_data.dart';
 import '../../../model/external/tl_ads.dart';
 import './set_icon/icon_category_panel.dart';

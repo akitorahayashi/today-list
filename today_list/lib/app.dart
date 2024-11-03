@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'model/user/setting_data.dart';
 import 'view/home_page/home_page.dart';
-import 'model/tl_theme.dart';
+import 'model/design/tl_theme.dart';
 
 // import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';

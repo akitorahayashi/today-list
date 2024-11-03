@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../model/tl_theme.dart';
-import '../../model/user/setting_data.dart';
+import '../../model/design/tl_theme.dart';
 
 class PanelWithTitle extends StatelessWidget {
   final String title;
@@ -13,9 +12,9 @@ class PanelWithTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeData _tlThemeData = TLTheme.of(context);
     return Card(
-      color: tlThemeDataList[SettingData.shared.selectedThemeIndex]!
-          .settingPanelColor,
+      color: _tlThemeData.settingPanelColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 3.5,
       child: Padding(
@@ -31,9 +30,7 @@ class PanelWithTitle extends StatelessWidget {
                         fontSize: 26,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 3,
-                        color: tlThemeDataList[
-                                SettingData.shared.selectedThemeIndex]!
-                            .titleColorOfSettingPage)),
+                        color: _tlThemeData.titleColorOfSettingPage)),
               ),
             ),
             Card(

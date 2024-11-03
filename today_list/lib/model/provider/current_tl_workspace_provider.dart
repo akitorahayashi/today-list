@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../external/tl_pref.dart';
 import '../todo/tl_todo.dart';
-import './tl_workspace.dart';
-import './tl_workspaces_provider.dart';
+import '../tl_workspace.dart';
+import 'tl_workspaces_provider.dart';
 import '../todo/tl_category.dart';
 import '../todo/tl_todos.dart';
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../components/dialog/common/single_option_dialog.dart';
-import '../../../model/workspace/current_tl_workspace_provider.dart';
+import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../styles/styles.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_category.dart';
-import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/workspace/tl_workspaces_provider.dart';
+import '../../../model/tl_workspace.dart';
+import '../../../model/provider/tl_workspaces_provider.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/external/tl_vibration.dart';
 
@@ -28,13 +28,17 @@ class _AddOrEditWorkspaceDialogState
   @override
   void initState() {
     super.initState();
-    if (widget.oldIndexInStringWorkspaces != null) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final List<TLWorkspace> workspaces = ref.read(tlWorkspacesProvider);
-        _workspaceNameInputController.text =
-            workspaces[widget.oldIndexInStringWorkspaces!].name;
-      });
-    }
+    if (widget.oldIndexInStringWorkspaces == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final List<TLWorkspace> workspaces = ref.read(tlWorkspacesProvider);
+      _workspaceNameInputController.text =
+          workspaces[widget.oldIndexInStringWorkspaces!].name;
+    });
+  }
+
+  dispose() {
+    _workspaceNameInputController.dispose();
+    super.dispose();
   }
 
   @override
@@ -114,13 +118,13 @@ class _AddOrEditWorkspaceDialogState
                             id: UniqueKey().toString(),
                             name: _workspaceNameInputController.text,
                             bigCategories: [
-                              TLCategory(id: defaultID, title: "なし")
+                              TLCategory(id: noneID, title: "なし")
                             ],
                             smallCategories: {
-                              defaultID: []
+                              noneID: []
                             },
                             toDos: {
-                              defaultID:
+                              noneID:
                                   TLToDos(toDosInToday: [], toDosInWhenever: [])
                             });
                         ref

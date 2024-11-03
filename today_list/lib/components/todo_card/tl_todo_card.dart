@@ -1,14 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
 import 'package:today_list/components/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
-import 'package:today_list/model/workspace/current_tl_workspace_provider.dart';
-import 'package:today_list/model/workspace/tl_workspaces_provider.dart';
+import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
+import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import '../../model/design/tl_theme.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
-import '../../model/workspace/tl_workspace.dart';
+import '../../model/tl_workspace.dart';
 import '../../view/edit_todo_page/edit_todo_page.dart';
 import 'tl_step_card.dart';
 import '../slidables/slidable_for_todo_card.dart';
@@ -97,16 +97,7 @@ class TLToDoCard extends ConsumerWidget {
                 // TODO タップしたらEditToDoCardをpushする
                 await Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
-                  return EditToDoPage(
-                    toDoTitle: _corrToDoData.title,
-                    belogedSteps: _corrToDoData.steps,
-                    isInToday: ifInToday,
-                    indexOfThisToDoInToDos: indexOfThisToDoInToDos,
-                    bigCategory: bigCategoryOfThisToDo,
-                    smallCategory: smallCategoryOfThisToDo,
-                    oldCategoryId:
-                        smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id,
-                  );
+                  return EditToDoPage();
                 }));
               },
               // child

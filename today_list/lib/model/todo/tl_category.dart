@@ -1,3 +1,5 @@
+import 'package:today_list/model/todo/tl_todos.dart';
+
 class TLCategory {
   String id;
   String title;
@@ -19,6 +21,14 @@ class TLCategory {
       id: jsonData["id"],
       title: jsonData["title"],
     );
+  }
+
+  // このカテゴリーに含まれるToDoの数を返す
+  int getNumberOfToDosInThisCategory(
+      {required Map<String, TLToDos> corrToDos}) {
+    final TLToDos _coorTLToDos = corrToDos[this.id]!;
+    final int _count = _coorTLToDos[true].length + _coorTLToDos[false].length;
+    return _count;
   }
 
   // リストを JSON に変換
