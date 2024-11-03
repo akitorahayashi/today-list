@@ -87,7 +87,7 @@ class TLToDoCard extends ConsumerWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: SlidableForToDoCard(
-              isModelCard: false,
+              isForModelCard: false,
               toDoData: _corrToDoData,
               toDoArrayOfThisToDo: _toDoArrayThatContainsThisToDo,
               indexOfThisToDoInToDos: indexOfThisToDoInToDos,

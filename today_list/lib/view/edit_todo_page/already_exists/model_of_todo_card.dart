@@ -51,12 +51,13 @@ class ModelOfToDoCard extends ConsumerWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: SlidableForToDoCard(
-          isModelCard: true,
+          isForModelCard: true,
           toDoData: toDoData,
           ifInToday: ifInToday,
-          toDoArrayOfThisToDo: _currentWorkspace
-              .toDos[smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
-              .getToDoArray(inToday: ifInToday),
+          toDoArrayOfThisToDo: _currentWorkspace.toDos[
+              smallCategoryOfThisToDo?.id ??
+                  bigCategoryOfThisToDo.id]![ifInToday],
+          // category
           bigCategoryOfThisToDo: bigCategoryOfThisToDo,
           smallCategoryOfThisToDo: smallCategoryOfThisToDo,
           indexOfThisToDoInToDos: indexOfThisToDoInToDoArrray,
@@ -158,15 +159,15 @@ class ModelOfToDoCard extends ConsumerWidget {
                       );
                     }).toList(),
                     onReorder: (oldIndex, newIndex) {
-                      if (oldIndex != newIndex) {
-                        final reOrderedToDo = toDoData.steps[oldIndex];
-                        toDoData.steps.remove(reOrderedToDo);
-                        toDoData.steps.insert(newIndex, reOrderedToDo);
-                        // toDosを保存する
-                        TLWorkspace.saveSelectedWorkspace(
-                            selectedWorkspaceIndex:
-                                TLWorkspace.currentWorkspaceIndex);
-                      }
+                      final reOrderedToDo = toDoData.steps.removeAt(oldIndex);
+                      if (oldIndex < newIndex) newIndex -= 1;
+                      toDoData.steps.insert(newIndex, reOrderedToDo);
+                      // currentWorkspaceを更新
+                      _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                        specificWorkspaceIndex:
+                            _currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                        updatedWorkspace: _currentWorkspace,
+                      );
                     },
                   ),
                 )

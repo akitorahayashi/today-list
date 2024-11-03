@@ -11,7 +11,7 @@ import '../model/workspace/tl_workspace.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SlidableForToDoCard extends ConsumerWidget {
-  final bool isModelCard;
+  final bool isForModelCard;
   // todo
   final TLToDo toDoData;
   final List<TLToDo> toDoArrayOfThisToDo;
@@ -25,7 +25,7 @@ class SlidableForToDoCard extends ConsumerWidget {
   final Widget child;
   const SlidableForToDoCard({
     super.key,
-    required this.isModelCard,
+    required this.isForModelCard,
     required this.toDoData,
     required this.toDoArrayOfThisToDo,
     required this.indexOfThisToDoInToDos,
