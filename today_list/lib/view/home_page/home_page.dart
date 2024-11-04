@@ -24,7 +24,7 @@ class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
@@ -53,27 +53,27 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
-    final TLWorkspace _currentTLWorkspace =
+    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLWorkspace currentTLWorkspace =
         ref.watch(currentTLWorkspaceProvider);
     final currentTLWorkspaceNotifier =
         ref.read(currentTLWorkspaceProvider.notifier);
-    final int _currentTLWorkspaceIndex =
+    final int currentTLWorkspaceIndex =
         currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
 
     return Scaffold(
       key: homePageScaffoldKey,
-      drawer: TLWorkspaceDrawer(isContentMode: false),
+      drawer: const TLWorkspaceDrawer(isContentMode: false),
       body: Stack(children: [
         // 背景色
-        Container(color: _tlThemeData.backgroundColor),
+        Container(color: tlThemeData.backgroundColor),
         // 本体
         CustomScrollView(
           slivers: [
             TLSliverAppBar(
-              pageTitle: _currentTLWorkspaceIndex == 0
+              pageTitle: currentTLWorkspaceIndex == 0
                   ? "Today List"
-                  : _currentTLWorkspace.name,
+                  : currentTLWorkspace.name,
               // drawerを表示するボタン
               leadingButtonOnPressed: () =>
                   homePageScaffoldKey.currentState!.openDrawer(),
@@ -85,7 +85,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               trailingButtonOnPressed: () async {
                 await Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
-                  return SettingPage();
+                  return const SettingPage();
                 }));
               },
               trailingIcon: const Icon(Icons.settings, color: Colors.white),
@@ -95,33 +95,33 @@ class _HomePageState extends ConsumerState<HomePage> {
               const SizedBox(
                 height: 10,
               ),
-              if (_currentTLWorkspace
-                  .toDos[_currentTLWorkspace.bigCategories[0].id]!
+              if (currentTLWorkspace
+                  .toDos[currentTLWorkspace.bigCategories[0].id]!
                   .toDosInToday
                   .isNotEmpty)
                 const SizedBox(height: 7),
-              if (_currentTLWorkspace
-                  .toDos[_currentTLWorkspace.bigCategories[0].id]!
+              if (currentTLWorkspace
+                  .toDos[currentTLWorkspace.bigCategories[0].id]!
                   .toDosInToday
                   .isNotEmpty)
                 ToDosInThisCategoryInToday(
-                  bigCategoryOfThisToDo: _currentTLWorkspace.bigCategories[0],
+                  bigCategoryOfThisToDo: currentTLWorkspace.bigCategories[0],
                   smallCategoryOfThisToDo: null,
                 ),
               // なし以外のbigCategoryの処理
               for (TLCategory bigCategory
-                  in _currentTLWorkspace.bigCategories.sublist(1))
+                  in currentTLWorkspace.bigCategories.sublist(1))
                 Column(
                   children: [
                     // big header
-                    if (_currentTLWorkspace
+                    if (currentTLWorkspace
                             .toDos[bigCategory.id]!.toDosInToday.isNotEmpty ||
                         // そのsmallCategoryがToDoを持っていたら、bigHeaderを表示
-                        (_currentTLWorkspace
+                        (currentTLWorkspace
                                 .smallCategories[bigCategory.id]!.isNotEmpty &&
-                            _currentTLWorkspace.smallCategories[bigCategory.id]!
+                            currentTLWorkspace.smallCategories[bigCategory.id]!
                                     .indexWhere((smallCategory) =>
-                                        _currentTLWorkspace
+                                        currentTLWorkspace
                                             .toDos[smallCategory.id]!
                                             .toDosInToday
                                             .isNotEmpty) !=
@@ -129,16 +129,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                       CategoryHeaderForToDos(
                           isBigCategory: true, corrCategory: bigCategory),
                     // big body
-                    if (_currentTLWorkspace
+                    if (currentTLWorkspace
                         .toDos[bigCategory.id]!.toDosInToday.isNotEmpty)
                       ToDosInThisCategoryInToday(
                         bigCategoryOfThisToDo: bigCategory,
                         smallCategoryOfThisToDo: null,
                       ),
-                    for (TLCategory smallCategory in _currentTLWorkspace
-                            .smallCategories[bigCategory.id] ??
-                        [])
-                      if (_currentTLWorkspace
+                    for (TLCategory smallCategory
+                        in currentTLWorkspace.smallCategories[bigCategory.id] ??
+                            [])
+                      if (currentTLWorkspace
                           .toDos[smallCategory.id]!.toDosInToday.isNotEmpty)
                         Column(
                           children: [
