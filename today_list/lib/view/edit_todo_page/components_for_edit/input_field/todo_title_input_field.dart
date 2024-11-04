@@ -1,66 +1,55 @@
 import 'package:flutter/material.dart';
-import '../../../../styles/styles.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../model/provider/editting_todo_provider.dart';
 import '../../../../model/design/tl_theme.dart';
+import '../../../../styles/styles.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ToDoTitleInputField extends StatefulWidget {
-  final bool isForStep;
-  final TextEditingController controller;
-  final Function(String) onChanged;
-  final Function() onPressed;
-  const ToDoTitleInputField({
-    super.key,
-    required this.isForStep,
-    required this.controller,
-    required this.onChanged,
-    required this.onPressed,
-  });
+class ToDoTitleInputField extends ConsumerWidget {
+  const ToDoTitleInputField({super.key});
 
   @override
-  State<ToDoTitleInputField> createState() => _ToDoTitleInputFieldState();
-}
-
-class _ToDoTitleInputFieldState extends State<ToDoTitleInputField> {
-  bool get isEntered => widget.controller.text.trim().isNotEmpty;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
+    final EditingToDoNotifier edittingToDoNotifier =
+        ref.read(edittingToDoProvider.notifier);
     return SizedBox(
       width: MediaQuery.of(context).size.width - 50,
-      child: Padding(
-        padding: widget.isForStep
-            ? const EdgeInsets.only(left: 16)
-            : EdgeInsets.zero,
-        child: TextField(
-          autofocus: true,
-          controller: widget.controller,
-          onChanged: widget.onChanged,
-          style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Colors.black.withOpacity(0.6)),
-          cursorColor: tlThemeData.accentColor,
-          decoration: tlInputDecoration(
-              context: context,
-              labelText: widget.isForStep ? "Step" : "ToDo",
-              icon: Icon(
-                FontAwesomeIcons.square,
-                color: Colors.black.withOpacity(0.35),
-              ),
-              suffixIcon: AnimatedOpacity(
-                duration: const Duration(milliseconds: 300),
-                opacity: isEntered ? 1 : 0.25,
-                child: TextButton(
-                  onPressed: widget.onPressed,
-                  child: Icon(
-                    Icons.add,
-                    color: isEntered ? tlThemeData.accentColor : Colors.black,
-                    size: 25,
-                  ),
+      child: TextField(
+        autofocus: true,
+        controller: edittingToDoNotifier.toDoTitleInputController,
+        onChanged: (String s) => edittingToDoNotifier.onChangedToDoTitle(s),
+        style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Colors.black.withOpacity(0.6)),
+        cursorColor: tlThemeData.accentColor,
+        decoration: tlInputDecoration(
+            context: context,
+            labelText: "ToDo",
+            icon: Icon(
+              FontAwesomeIcons.square,
+              color: Colors.black.withOpacity(0.35),
+            ),
+            suffixIcon: AnimatedOpacity(
+              duration: const Duration(milliseconds: 300),
+              opacity:
+                  edittingToDoNotifier.toDoTitleInputController.text.isNotEmpty
+                      ? 1
+                      : 0.25,
+              child: TextButton(
+                onPressed: () => edittingToDoNotifier.completeEditting(),
+                child: Icon(
+                  Icons.add,
+                  color: edittingToDoNotifier
+                          .toDoTitleInputController.text.isNotEmpty
+                      ? tlThemeData.accentColor
+                      : Colors.black,
+                  size: 25,
                 ),
-              )),
-        ),
+              ),
+            )),
       ),
     );
   }

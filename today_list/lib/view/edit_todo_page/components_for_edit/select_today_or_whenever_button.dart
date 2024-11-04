@@ -14,14 +14,6 @@ class SelectTodayOrWheneverButton extends ConsumerStatefulWidget {
 class _SelectTodayOrWheneverButtonState
     extends ConsumerState<SelectTodayOrWheneverButton> {
   @override
-  void initState() {
-    super.initState();
-    if (ref.read(edittingToDoProvider) == null) {
-      ref.read(edittingToDoProvider.notifier).setInitialValue();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // notifier
