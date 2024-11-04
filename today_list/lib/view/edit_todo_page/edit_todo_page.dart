@@ -21,7 +21,7 @@ class EditToDoPage extends ConsumerStatefulWidget {
   final TLCategory selectedBigCategory;
   final TLCategory? selectedSmallCategory;
   final int? indexOfEdittedTodo;
-  EditToDoPage({
+  const EditToDoPage({
     super.key,
     required this.ifInToday,
     required this.selectedBigCategory,
@@ -34,21 +34,6 @@ class EditToDoPage extends ConsumerStatefulWidget {
 }
 
 class EditToDoPageState extends ConsumerState<EditToDoPage> {
-// --- textController
-  // todo
-  final TextEditingController _toDoTitleInputController =
-      TextEditingController();
-  // steps
-  final TextEditingController _stepTitleInputController =
-      TextEditingController();
-  // 入力途中かどうか知る
-  bool get toDoTitleIsEntered =>
-      _toDoTitleInputController.text.trim().isNotEmpty;
-  bool get stepTitleIsEntered =>
-      _stepTitleInputController.text.trim().isNotEmpty;
-
-// ---
-
   TLCategory get _corrCategory =>
       widget.selectedSmallCategory ?? widget.selectedBigCategory;
 
@@ -58,23 +43,23 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
     // TODO 広告を読み込む
 
     // provider
-    final TLWorkspace _currentWorkspace = ref.read(currentTLWorkspaceProvider);
+    final TLWorkspace currentWorkspace = ref.read(currentTLWorkspaceProvider);
     // notifier
-    final EditingToDoNotifier _edittingToDoNotifier =
+    final EditingToDoNotifier edittingToDoNotifier =
         ref.read(edittingToDoProvider.notifier);
     // _edittingToDoNotifierの値を初期化する
     if (widget.indexOfEdittedTodo == null) {
-      _edittingToDoNotifier.setInitialValue();
+      edittingToDoNotifier.setInitialValue();
     } else {
       // すでにあるTLToDoを経集する
-      _edittingToDoNotifier.setEditedToDo(
+      edittingToDoNotifier.setEditedToDo(
         ifInToday: widget.ifInToday,
         selectedBigCategory: widget.selectedBigCategory,
         selectedSmallCategory: widget.selectedSmallCategory,
         indexOfEditingToDo: widget.indexOfEdittedTodo!,
       );
       // textControllerに入力済みのtitleを表示
-      _toDoTitleInputController.text = _currentWorkspace
+      _toDoTitleInputController.text = currentWorkspace
           .toDos[_corrCategory.id]![widget.ifInToday]
               [widget.indexOfEdittedTodo!]
           .title;
@@ -83,7 +68,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
 
   @override
   void dispose() {
-    ref.read(edittingToDoProvider.notifier).clearValue();
+    ref.read(edittingToDoProvider.notifier).disposeValue();
     _toDoTitleInputController.dispose();
     _stepTitleInputController.dispose();
     super.dispose();

@@ -15,23 +15,27 @@ final edittingToDoProvider =
 class EditingToDoNotifier extends StateNotifier<TLToDo?> {
   final Ref ref;
   bool ifInToday = true;
+  late TextEditingController toDoTitleInputController;
+  late TextEditingController stepTitleInputController;
   TLCategory selectedBigCategory;
-  TLCategory? selectedSmallCategory = null;
-  int? indexOfEditingToDo = null;
+  TLCategory? selectedSmallCategory;
+  int? indexOfEditingToDo;
 
   EditingToDoNotifier(this.ref, this.selectedBigCategory) : super(null);
 
   void setInitialValue() {
-    this.selectedBigCategory =
+    ifInToday = true;
+    toDoTitleInputController = TextEditingController();
+    stepTitleInputController = TextEditingController();
+    selectedBigCategory =
         ref.watch(currentTLWorkspaceProvider).bigCategories[0];
-    this.ifInToday = true;
-    indexOfEditingToDo = null;
     state = TLToDo(
       id: UniqueKey().toString(),
       title: '',
       steps: [],
       isChecked: false,
     );
+    indexOfEditingToDo = null;
   }
 
   void setEditedToDo({
@@ -40,50 +44,57 @@ class EditingToDoNotifier extends StateNotifier<TLToDo?> {
     required TLCategory? selectedSmallCategory,
     required int indexOfEditingToDo,
   }) {
+    final TLWorkspace currentWorkspace = ref.watch(currentTLWorkspaceProvider);
+    final String corrCategoryID =
+        selectedSmallCategory?.id ?? selectedBigCategory.id;
+    final TLToDo edittedToDo =
+        currentWorkspace.toDos[corrCategoryID]![ifInToday][indexOfEditingToDo];
+    // setValues
     this.ifInToday = ifInToday;
+    toDoTitleInputController = TextEditingController()
+      ..text = edittedToDo.title;
+    stepTitleInputController = TextEditingController();
     this.selectedBigCategory = selectedBigCategory;
     this.selectedSmallCategory = selectedSmallCategory;
     this.indexOfEditingToDo = indexOfEditingToDo;
-    final TLWorkspace _currentWorkspace = ref.watch(currentTLWorkspaceProvider);
-    final String _corrCategoryID =
-        selectedSmallCategory?.id ?? selectedBigCategory.id;
-    state = _currentWorkspace.toDos[_corrCategoryID]![ifInToday]
-        [indexOfEditingToDo];
-  }
-
-  void clearValue() {
-    this.ifInToday = true;
-    this.selectedBigCategory = TLCategory(id: noneID, title: "Error");
-    this.selectedSmallCategory = null;
-    this.indexOfEditingToDo = null;
-    state = null;
+    state = edittedToDo;
   }
 
   Future<void> completeEditting() async {
     if (state == null) return;
     // provider
-    final _currentTLWorkspace = ref.read(currentTLWorkspaceProvider);
+    final currentTLWorkspace = ref.read(currentTLWorkspaceProvider);
     // notifier
-    final _currentTLWorkspaceNotifier =
+    final currentTLWorkspaceNotifier =
         ref.read(currentTLWorkspaceProvider.notifier);
 
-    final String _corrCategoryID =
+    final String corrCategoryID =
         selectedSmallCategory?.id ?? selectedBigCategory.id;
-    final TLToDos _corrToDos = _currentTLWorkspace.toDos[_corrCategoryID]!;
-    if (this.indexOfEditingToDo == null) {
+    final TLToDos corrToDos = currentTLWorkspace.toDos[corrCategoryID]!;
+    if (indexOfEditingToDo == null) {
       // add
-      _corrToDos[this.ifInToday].add(state!);
+      corrToDos[ifInToday].add(state!);
     } else {
       // edit
-      _corrToDos[this.ifInToday][indexOfEditingToDo!] = state!;
-      this.indexOfEditingToDo = null;
+      corrToDos[ifInToday][indexOfEditingToDo!] = state!;
+      indexOfEditingToDo = null;
     }
     await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
           specificWorkspaceIndex:
-              _currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
-          updatedWorkspace: _currentTLWorkspace,
+              currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
+          updatedWorkspace: currentTLWorkspace,
         );
 
+    state = null;
+  }
+
+  void disposeValue() {
+    ifInToday = true;
+    toDoTitleInputController.dispose();
+    stepTitleInputController.dispose();
+    selectedBigCategory;
+    selectedSmallCategory = null;
+    indexOfEditingToDo = null;
     state = null;
   }
 }
