@@ -8,11 +8,11 @@ import './current_tl_workspace_provider.dart';
 import './tl_workspaces_provider.dart';
 
 final edittingToDoProvider =
-    StateNotifierProvider<EditingToDoNotifier, TLToDo?>((ref) {
+    StateNotifierProvider<EditingToDoNotifier, TLToDo>((ref) {
   return EditingToDoNotifier(ref, TLCategory(id: noneID, title: "Error"));
 });
 
-class EditingToDoNotifier extends StateNotifier<TLToDo?> {
+class EditingToDoNotifier extends StateNotifier<TLToDo> {
   final Ref ref;
   bool ifInToday = true;
   late TextEditingController toDoTitleInputController;
@@ -21,7 +21,22 @@ class EditingToDoNotifier extends StateNotifier<TLToDo?> {
   TLCategory? selectedSmallCategory;
   int? indexOfEditingToDo;
 
-  EditingToDoNotifier(this.ref, this.selectedBigCategory) : super(null);
+  EditingToDoNotifier(this.ref, this.selectedBigCategory)
+      : super(TLToDo(
+          id: UniqueKey().toString(),
+          title: 'Error',
+          steps: [],
+          isChecked: false,
+        ));
+
+  TLToDo _getDefaultToDo() {
+    return TLToDo(
+      id: UniqueKey().toString(),
+      title: '',
+      steps: [],
+      isChecked: false,
+    );
+  }
 
   void setInitialValue() {
     ifInToday = true;
@@ -29,12 +44,7 @@ class EditingToDoNotifier extends StateNotifier<TLToDo?> {
     stepTitleInputController = TextEditingController();
     selectedBigCategory =
         ref.watch(currentTLWorkspaceProvider).bigCategories[0];
-    state = TLToDo(
-      id: UniqueKey().toString(),
-      title: '',
-      steps: [],
-      isChecked: false,
-    );
+    state = _getDefaultToDo();
     indexOfEditingToDo = null;
   }
 
@@ -61,7 +71,6 @@ class EditingToDoNotifier extends StateNotifier<TLToDo?> {
   }
 
   Future<void> completeEditting() async {
-    if (state == null) return;
     // provider
     final currentTLWorkspace = ref.read(currentTLWorkspaceProvider);
     // notifier
@@ -73,10 +82,10 @@ class EditingToDoNotifier extends StateNotifier<TLToDo?> {
     final TLToDos corrToDos = currentTLWorkspace.toDos[corrCategoryID]!;
     if (indexOfEditingToDo == null) {
       // add
-      corrToDos[ifInToday].add(state!);
+      corrToDos[ifInToday].add(state);
     } else {
       // edit
-      corrToDos[ifInToday][indexOfEditingToDo!] = state!;
+      corrToDos[ifInToday][indexOfEditingToDo!] = state;
       indexOfEditingToDo = null;
     }
     await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
@@ -84,8 +93,10 @@ class EditingToDoNotifier extends StateNotifier<TLToDo?> {
               currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
           updatedWorkspace: currentTLWorkspace,
         );
-
-    state = null;
+    // 入力事項の初期化
+    state = _getDefaultToDo();
+    toDoTitleInputController.clear();
+    stepTitleInputController.clear();
   }
 
   void disposeValue() {
@@ -95,6 +106,6 @@ class EditingToDoNotifier extends StateNotifier<TLToDo?> {
     selectedBigCategory;
     selectedSmallCategory = null;
     indexOfEditingToDo = null;
-    state = null;
+    state = _getDefaultToDo();
   }
 }

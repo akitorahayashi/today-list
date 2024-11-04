@@ -25,7 +25,7 @@ class _StepTitleInputFieldState extends State<StepTitleInputField> {
   bool get isEntered => widget.controller.text.trim().isNotEmpty;
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return SizedBox(
       width: MediaQuery.of(context).size.width - 50,
       child: Padding(
@@ -40,7 +40,7 @@ class _StepTitleInputFieldState extends State<StepTitleInputField> {
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: Colors.black.withOpacity(0.6)),
-          cursorColor: _tlThemeData.accentColor,
+          cursorColor: tlThemeData.accentColor,
           decoration: tlInputDecoration(
               context: context,
               labelText: widget.isForStep ? "Step" : "ToDo",
@@ -55,7 +55,7 @@ class _StepTitleInputFieldState extends State<StepTitleInputField> {
                   onPressed: widget.onPressed,
                   child: Icon(
                     Icons.add,
-                    color: isEntered ? _tlThemeData.accentColor : Colors.black,
+                    color: isEntered ? tlThemeData.accentColor : Colors.black,
                     size: 25,
                   ),
                 ),
