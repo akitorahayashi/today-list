@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/dialog/common/single_option_dialog.dart';
 import 'package:today_list/components/dialog/common/yes_no_dialog.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/provider/editting_todo_provider.dart';
+import 'package:today_list/view/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/design/tl_theme.dart';
 import '../../model/todo/tl_step.dart';
@@ -12,9 +12,8 @@ import '../../model/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/provider/tl_workspaces_provider.dart';
 import './components_for_edit/steps_column.dart';
-import './components_for_edit/tl_textfield.dart';
 import './already_exists/already_exists.dart';
-import 'components_for_edit/tl_dropdown_button.dart';
+import 'components_for_edit/select_category_dropdown/select_big_category_dropdown.dart';
 
 class EditToDoPage extends ConsumerStatefulWidget {
   final bool ifInToday;
@@ -58,33 +57,26 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
         selectedSmallCategory: widget.selectedSmallCategory,
         indexOfEditingToDo: widget.indexOfEdittedTodo!,
       );
-      // textControllerに入力済みのtitleを表示
-      _toDoTitleInputController.text = currentWorkspace
-          .toDos[_corrCategory.id]![widget.ifInToday]
-              [widget.indexOfEdittedTodo!]
-          .title;
     }
   }
 
   @override
   void dispose() {
     ref.read(edittingToDoProvider.notifier).disposeValue();
-    _toDoTitleInputController.dispose();
-    _stepTitleInputController.dispose();
-    super.dispose();
     // TODO 広告を破棄する
     // _bannerAd?.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return Scaffold(
       body: Stack(
         children: [
           // 背景色
           Container(
-              decoration: BoxDecoration(color: _tlThemeData.backgroundColor),
+              decoration: BoxDecoration(color: tlThemeData.backgroundColor),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height),
 
@@ -158,7 +150,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                             borderRadius: BorderRadius.circular(20)),
                         child: Column(children: [
                           // ビッグカテゴリーを選択してsmallCategory選択のためのdropdownを更新する
-                          TLDropDownButton(
+                          SelectCategoryDropDown(
                               hintText: _selectedBigCategory.id == noneID
                                   ? "大カテゴリー"
                                   : TLWorkspace.currentWorkspace.bigCategories
@@ -179,7 +171,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                                     style: oneOfBigCategory.id ==
                                             _selectedBigCategory.id
                                         ? TextStyle(
-                                            color: _tlThemeData.accentColor,
+                                            color: tlThemeData.accentColor,
                                             fontWeight: FontWeight.bold)
                                         : TextStyle(
                                             color:
@@ -215,7 +207,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                           // --- ビッグカテゴリーを選択する
 
                           // スモールカテゴリーを選択する
-                          TLDropDownButton(
+                          SelectCategoryDropDown(
                               hintText: _selectedSmallCategory == null
                                   ? "小カテゴリー"
                                   : TLWorkspace.currentWorkspace
@@ -239,7 +231,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                                     item.title,
                                     style: item.id == _selectedBigCategory.id
                                         ? TextStyle(
-                                            color: _tlThemeData.accentColor,
+                                            color: tlThemeData.accentColor,
                                             fontWeight: FontWeight.bold)
                                         : TextStyle(
                                             color:
@@ -272,37 +264,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                           // --- スモールカテゴリーを選択する
 
                           // 一列目 今日かいつでもか選択する
-                          Padding(
-                            padding: const EdgeInsets.only(top: 12.0),
-                            child: ToggleButtons(
-                              // 大きさ
-                              constraints: BoxConstraints(
-                                minHeight: 35,
-                                minWidth:
-                                    (MediaQuery.of(context).size.width - 50) /
-                                        2,
-                              ),
-                              // 背景色
-                              fillColor:
-                                  _tlThemeData.toggleButtonsBackgroundColor,
-                              // 文字色
-                              selectedColor: _tlThemeData.accentColor,
-                              color: _tlThemeData.accentColor,
-                              // splashColor
-                              splashColor: _tlThemeData
-                                  .toggleButtonsBackgroundSplashColor,
-                              // 機能
-                              isSelected: [_ifInToday, !_ifInToday],
-                              renderBorder: true,
-                              onPressed: (int index) => setState(() {
-                                _ifInToday = index == 0;
-                              }),
-                              children: const [
-                                Text("今日"),
-                                Text(" いつでも "),
-                              ],
-                            ),
-                          ),
+                          const SelectTodayOrWheneverButton()
                           // --- 今日かいつでもか選択する
 
                           // ToDoのタイトルを入力するTextFormField
