@@ -13,6 +13,29 @@ ButtonStyle alertButtonStyle({required Color accentColor}) {
   );
 }
 
+// text field
+InputDecoration tlInputDecoration({
+  required BuildContext context,
+  required String labelText,
+  required Widget? icon,
+  required Widget? suffixIcon,
+}) {
+  final TLThemeData tlThemeData = TLTheme.of(context);
+  return InputDecoration(
+      icon: icon,
+      label: Text(labelText),
+      labelStyle: TextStyle(color: Colors.black.withOpacity(0.45)),
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: tlThemeData.accentColor),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: tlThemeData.accentColor),
+      ),
+      // 完了ボタン
+      suffixIcon: suffixIcon);
+}
+
+
 // ButtonStyle(
 
 //       foregroundColor: WidgetStateProperty.all<Color>(
@@ -24,25 +47,3 @@ ButtonStyle alertButtonStyle({required Color accentColor}) {
 //             .withOpacity(0.1),
 //       ),
 //     );
-
-// text field
-InputDecoration tlInputDecoration({
-  required BuildContext context,
-  required String labelText,
-  required Widget? icon,
-  required Widget? suffixIcon,
-}) {
-  final TLThemeData _tlThemeData = TLTheme.of(context);
-  return InputDecoration(
-      icon: icon,
-      label: Text(labelText),
-      labelStyle: TextStyle(color: Colors.black.withOpacity(0.45)),
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: _tlThemeData.accentColor),
-      ),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: _tlThemeData.accentColor),
-      ),
-      // 完了ボタン
-      suffixIcon: suffixIcon);
-}

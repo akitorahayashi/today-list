@@ -195,7 +195,12 @@ class _HomePageState extends ConsumerState<HomePage> {
         CenterButtonOfBottomNavBar(
           onPressed: () async {
             await Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return EditToDoPage();
+              return EditToDoPage(
+                ifInToday: true,
+                selectedBigCategory: currentTLWorkspace.bigCategories[0],
+                selectedSmallCategory: null,
+                indexOfEdittedTodo: null,
+              );
             }));
           },
         ),

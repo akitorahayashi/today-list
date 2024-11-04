@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../../model/todo/tl_category.dart';
-import '../../../model/design/tl_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../model/todo/tl_category.dart';
+import '../../../../../model/design/tl_theme.dart';
 
-class TLDropDownButton extends StatefulWidget {
+class SelectCategoryDropDown extends ConsumerWidget {
   final String hintText;
   final List<DropdownMenuItem<TLCategory>>? items;
   final Function(TLCategory?)? onChanged;
-  const TLDropDownButton({
+  const SelectCategoryDropDown({
     super.key,
     required this.hintText,
     required this.items,
@@ -14,20 +15,15 @@ class TLDropDownButton extends StatefulWidget {
   });
 
   @override
-  State<TLDropDownButton> createState() => _TLDropDownButtonState();
-}
-
-class _TLDropDownButtonState extends State<TLDropDownButton> {
-  @override
-  Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
       child: DropdownButton(
-          iconEnabledColor: _tlThemeData.accentColor,
+          iconEnabledColor: tlThemeData.accentColor,
           isExpanded: true,
           hint: Text(
-            widget.hintText,
+            hintText,
             style: const TextStyle(
               color: Colors.black45,
               fontWeight: FontWeight.bold,
@@ -37,10 +33,10 @@ class _TLDropDownButtonState extends State<TLDropDownButton> {
             color: Colors.black45,
             fontWeight: FontWeight.bold,
           ),
-          items: widget.items,
+          items: items,
 
           // カテゴリー変更
-          onChanged: widget.onChanged),
+          onChanged: onChanged),
     );
   }
 }
