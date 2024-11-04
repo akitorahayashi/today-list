@@ -4,12 +4,12 @@ import '../../../../model/design/tl_theme.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class TLTextfield extends StatefulWidget {
+class ToDoTitleInputField extends StatefulWidget {
   final bool isForStep;
   final TextEditingController controller;
   final Function(String) onChanged;
   final Function() onPressed;
-  const TLTextfield({
+  const ToDoTitleInputField({
     super.key,
     required this.isForStep,
     required this.controller,
@@ -18,14 +18,14 @@ class TLTextfield extends StatefulWidget {
   });
 
   @override
-  State<TLTextfield> createState() => _TLTextfieldState();
+  State<ToDoTitleInputField> createState() => _ToDoTitleInputFieldState();
 }
 
-class _TLTextfieldState extends State<TLTextfield> {
+class _ToDoTitleInputFieldState extends State<ToDoTitleInputField> {
   bool get isEntered => widget.controller.text.trim().isNotEmpty;
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return SizedBox(
       width: MediaQuery.of(context).size.width - 50,
       child: Padding(
@@ -40,7 +40,7 @@ class _TLTextfieldState extends State<TLTextfield> {
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: Colors.black.withOpacity(0.6)),
-          cursorColor: _tlThemeData.accentColor,
+          cursorColor: tlThemeData.accentColor,
           decoration: tlInputDecoration(
               context: context,
               labelText: widget.isForStep ? "Step" : "ToDo",
@@ -55,7 +55,7 @@ class _TLTextfieldState extends State<TLTextfield> {
                   onPressed: widget.onPressed,
                   child: Icon(
                     Icons.add,
-                    color: isEntered ? _tlThemeData.accentColor : Colors.black,
+                    color: isEntered ? tlThemeData.accentColor : Colors.black,
                     size: 25,
                   ),
                 ),

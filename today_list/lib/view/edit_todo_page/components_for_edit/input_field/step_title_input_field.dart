@@ -4,12 +4,12 @@ import '../../../../model/design/tl_theme.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class TLTextfield extends StatefulWidget {
+class StepTitleInputField extends StatefulWidget {
   final bool isForStep;
   final TextEditingController controller;
   final Function(String) onChanged;
   final Function() onPressed;
-  const TLTextfield({
+  const StepTitleInputField({
     super.key,
     required this.isForStep,
     required this.controller,
@@ -18,10 +18,10 @@ class TLTextfield extends StatefulWidget {
   });
 
   @override
-  State<TLTextfield> createState() => _TLTextfieldState();
+  State<StepTitleInputField> createState() => _StepTitleInputFieldState();
 }
 
-class _TLTextfieldState extends State<TLTextfield> {
+class _StepTitleInputFieldState extends State<StepTitleInputField> {
   bool get isEntered => widget.controller.text.trim().isNotEmpty;
   @override
   Widget build(BuildContext context) {
