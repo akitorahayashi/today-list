@@ -3,16 +3,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/provider/editting_todo_provider.dart';
 
-class SelectTodayOrWheneverButton extends ConsumerWidget {
+class SelectTodayOrWheneverButton extends ConsumerStatefulWidget {
   const SelectTodayOrWheneverButton({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SelectTodayOrWheneverButton> createState() =>
+      _SelectTodayOrWheneverButtonState();
+}
+
+class _SelectTodayOrWheneverButtonState
+    extends ConsumerState<SelectTodayOrWheneverButton> {
+  @override
+  Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // notifier
     final EditingToDoNotifier edittingToDoNotifier =
         ref.read(edittingToDoProvider.notifier);
-
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: ToggleButtons(
@@ -34,11 +40,9 @@ class SelectTodayOrWheneverButton extends ConsumerWidget {
           !edittingToDoNotifier.ifInToday,
         ],
         onPressed: (int index) {
-          edittingToDoNotifier.ifInToday = index == 0;
-          ref.read(edittingToDoProvider.notifier).state = ref
-              .read(edittingToDoProvider.notifier)
-              .state
-              ?.copyWith(isInToday: index == 0);
+          setState(() {
+            edittingToDoNotifier.ifInToday = index == 0;
+          });
         },
         children: const [
           Text("今日"),
