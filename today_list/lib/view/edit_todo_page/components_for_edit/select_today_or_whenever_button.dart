@@ -12,6 +12,7 @@ class SelectTodayOrWheneverButton extends ConsumerWidget {
     // notifier
     final EditingToDoNotifier edittingToDoNotifier =
         ref.read(edittingToDoProvider.notifier);
+
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: ToggleButtons(
@@ -33,9 +34,11 @@ class SelectTodayOrWheneverButton extends ConsumerWidget {
           !edittingToDoNotifier.ifInToday,
         ],
         onPressed: (int index) {
-          setState(() {
-            edittingToDoNotifier.ifInToday = index == 0;
-          });
+          edittingToDoNotifier.ifInToday = index == 0;
+          ref.read(edittingToDoProvider.notifier).state = ref
+              .read(edittingToDoProvider.notifier)
+              .state
+              ?.copyWith(isInToday: index == 0);
         },
         children: const [
           Text("今日"),

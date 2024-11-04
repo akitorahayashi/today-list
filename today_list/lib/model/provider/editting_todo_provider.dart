@@ -29,15 +29,6 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
           isChecked: false,
         ));
 
-  TLToDo _getDefaultToDo() {
-    return TLToDo(
-      id: UniqueKey().toString(),
-      title: '',
-      steps: [],
-      isChecked: false,
-    );
-  }
-
   void setInitialValue() {
     ifInToday = true;
     toDoTitleInputController = TextEditingController();
