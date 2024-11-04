@@ -3,26 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/provider/editting_todo_provider.dart';
 
-class SelectTodayOrWheneverButton extends ConsumerStatefulWidget {
+class SelectTodayOrWheneverButton extends ConsumerWidget {
   const SelectTodayOrWheneverButton({super.key});
 
   @override
-  ConsumerState<SelectTodayOrWheneverButton> createState() =>
-      _SelectTodayOrWheneverButtonState();
-}
-
-class _SelectTodayOrWheneverButtonState
-    extends ConsumerState<SelectTodayOrWheneverButton> {
-  @override
-  void initState() {
-    super.initState();
-    if (ref.read(edittingToDoProvider) == null) {
-      ref.read(edittingToDoProvider.notifier).setInitialValue();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // notifier
     final EditingToDoNotifier edittingToDoNotifier =
