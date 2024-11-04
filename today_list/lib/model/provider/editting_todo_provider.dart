@@ -35,7 +35,7 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
     stepTitleInputController = TextEditingController();
     selectedBigCategory =
         ref.watch(currentTLWorkspaceProvider).bigCategories[0];
-    state = _getDefaultToDo();
+    state = TLToDo.getDefaultToDo();
     indexOfEditingToDo = null;
   }
 
@@ -73,10 +73,10 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
     final TLToDos corrToDos = currentTLWorkspace.toDos[corrCategoryID]!;
     if (indexOfEditingToDo == null) {
       // add
-      corrToDos[ifInToday].add(state);
+      corrToDos[ifInToday].add(state.copyWith());
     } else {
       // edit
-      corrToDos[ifInToday][indexOfEditingToDo!] = state;
+      corrToDos[ifInToday][indexOfEditingToDo!] = state.copyWith();
       indexOfEditingToDo = null;
     }
     await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
@@ -85,7 +85,7 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
           updatedWorkspace: currentTLWorkspace,
         );
     // 入力事項の初期化
-    state = _getDefaultToDo();
+    state = TLToDo.getDefaultToDo();
     toDoTitleInputController.clear();
     stepTitleInputController.clear();
   }
@@ -97,6 +97,6 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
     selectedBigCategory;
     selectedSmallCategory = null;
     indexOfEditingToDo = null;
-    state = _getDefaultToDo();
+    state = TLToDo.getDefaultToDo();
   }
 }
