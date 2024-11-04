@@ -5,17 +5,7 @@ import '../../../../model/design/tl_theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class StepTitleInputField extends StatefulWidget {
-  final bool isForStep;
-  final TextEditingController controller;
-  final Function(String) onChanged;
-  final Function() onPressed;
-  const StepTitleInputField({
-    super.key,
-    required this.isForStep,
-    required this.controller,
-    required this.onChanged,
-    required this.onPressed,
-  });
+  const StepTitleInputField({super.key});
 
   @override
   State<StepTitleInputField> createState() => _StepTitleInputFieldState();

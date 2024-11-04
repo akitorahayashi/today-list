@@ -61,6 +61,10 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
     state = edittedToDo;
   }
 
+  void onChangedToDoTitle(String newTitle) {
+    state = state.copyWith(title: newTitle);
+  }
+
   Future<void> completeEditting() async {
     // provider
     final currentTLWorkspace = ref.read(currentTLWorkspaceProvider);
