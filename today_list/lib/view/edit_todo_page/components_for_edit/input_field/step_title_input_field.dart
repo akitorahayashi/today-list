@@ -1,31 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/provider/editting_todo_provider.dart';
 import '../../../../styles/styles.dart';
 import '../../../../model/design/tl_theme.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class StepTitleInputField extends StatefulWidget {
+class StepTitleInputField extends ConsumerWidget {
   const StepTitleInputField({super.key});
-
   @override
-  State<StepTitleInputField> createState() => _StepTitleInputFieldState();
-}
-
-class _StepTitleInputFieldState extends State<StepTitleInputField> {
-  bool get isEntered => widget.controller.text.trim().isNotEmpty;
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
+    // notifier
+    final EditingToDoNotifier edittingToDoNotifier =
+        ref.read(edittingToDoProvider.notifier);
     return SizedBox(
       width: MediaQuery.of(context).size.width - 50,
       child: Padding(
-        padding: widget.isForStep
-            ? const EdgeInsets.only(left: 16)
-            : EdgeInsets.zero,
+        padding: const EdgeInsets.only(left: 16),
         child: TextField(
           autofocus: true,
-          controller: widget.controller,
-          onChanged: widget.onChanged,
+          controller: edittingToDoNotifier.stepTitleInputController,
           style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -33,19 +28,33 @@ class _StepTitleInputFieldState extends State<StepTitleInputField> {
           cursorColor: tlThemeData.accentColor,
           decoration: tlInputDecoration(
               context: context,
-              labelText: widget.isForStep ? "Step" : "ToDo",
+              labelText: "Step",
               icon: Icon(
                 FontAwesomeIcons.square,
                 color: Colors.black.withOpacity(0.35),
               ),
               suffixIcon: AnimatedOpacity(
                 duration: const Duration(milliseconds: 300),
-                opacity: isEntered ? 1 : 0.25,
+                opacity: edittingToDoNotifier
+                        .stepTitleInputController.text.isNotEmpty
+                    ? 1
+                    : 0.25,
                 child: TextButton(
-                  onPressed: widget.onPressed,
+                  // edittingToDoのstepsに追加
+                  onPressed: () {
+                    final stepTitle =
+                        edittingToDoNotifier.stepTitleInputController.text;
+                    if (stepTitle.isNotEmpty) {
+                      edittingToDoNotifier.addStep(stepTitle);
+                      edittingToDoNotifier.stepTitleInputController.clear();
+                    }
+                  },
                   child: Icon(
                     Icons.add,
-                    color: isEntered ? tlThemeData.accentColor : Colors.black,
+                    color: edittingToDoNotifier
+                            .stepTitleInputController.text.isNotEmpty
+                        ? tlThemeData.accentColor
+                        : Colors.black,
                     size: 25,
                   ),
                 ),

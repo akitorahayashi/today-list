@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/tl_workspace.dart';
 import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_step.dart';
 import '../todo/tl_todos.dart';
 import '../todo/tl_todo.dart';
 import './current_tl_workspace_provider.dart';
@@ -63,6 +64,12 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
 
   void onChangedToDoTitle(String newTitle) {
     state = state.copyWith(title: newTitle);
+  }
+
+  void addStep(String stepTitle) {
+    final newStep = TLStep(id: UniqueKey().toString(), title: stepTitle);
+    final updatedSteps = List<TLStep>.from(state.steps)..add(newStep);
+    state = state.copyWith(steps: updatedSteps);
   }
 
   Future<void> completeEditting() async {

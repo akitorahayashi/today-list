@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/dialog/common/yes_no_dialog.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/provider/editting_todo_provider.dart';
+import 'package:today_list/view/edit_todo_page/components_for_edit/input_field/step_title_input_field.dart';
+import 'package:today_list/view/edit_todo_page/components_for_edit/input_field/todo_title_input_field.dart';
 import 'package:today_list/view/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/design/tl_theme.dart';
@@ -264,37 +266,11 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                           // --- スモールカテゴリーを選択する
 
                           // 一列目 今日かいつでもか選択する
-                          const SelectTodayOrWheneverButton()
+                          const SelectTodayOrWheneverButton(),
                           // --- 今日かいつでもか選択する
 
                           // ToDoのタイトルを入力するTextFormField
-                          TLTextfield(
-                            isForStep: false,
-                            controller: _toDoTitleInputController,
-                            onChanged: (_) => setState(() {}),
-                            onPressed: !toDoTitleIsEntered
-                                ? () => {}
-                                : () {
-                                    addOrEditToDoAction(
-                                      context: context,
-                                      indexOfEditedToDo:
-                                          _indexOfThisToDoInToDos,
-                                      ifInToday: _ifInToday,
-                                      bigCategoryOfToDo: _selectedBigCategory,
-                                      smallCategoryOfToDo:
-                                          _selectedSmallCategory,
-                                      toDoInputController:
-                                          _toDoTitleInputController,
-                                      addedSteps: _stepsOfThisToDo,
-                                      oldCategoryId: widget.oldCategoryId,
-                                    );
-                                    TLVibration.vibrate();
-                                    _indexOfThisToDoInToDos = null;
-                                    _edittedStepIndex = null;
-                                    _stepsOfThisToDo = [];
-                                    setState(() {});
-                                  },
-                          ),
+                          const ToDoTitleInputField(),
 
                           // 入力したstepsを表示
                           Padding(
@@ -316,32 +292,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                           ),
 
                           // steps入力のtextFormField
-                          TLTextfield(
-                            isForStep: true,
-                            controller: _stepTitleInputController,
-                            onChanged: (_) => setState(() {}),
-                            onPressed: !stepTitleIsEntered
-                                ? () => {}
-                                : () {
-                                    if (_edittedStepIndex == null) {
-                                      _stepsOfThisToDo.add(TLStep(
-                                          id: UniqueKey().toString(),
-                                          title:
-                                              _stepTitleInputController.text));
-                                    } else {
-                                      _stepsOfThisToDo
-                                          .removeAt(_edittedStepIndex!);
-                                      _stepsOfThisToDo.insert(
-                                          _edittedStepIndex!,
-                                          TLStep(
-                                              id: UniqueKey().toString(),
-                                              title: _stepTitleInputController
-                                                  .text));
-                                    }
-                                    _stepTitleInputController.clear();
-                                    setState(() {});
-                                  },
-                          ),
+                          const StepTitleInputField(),
                           const SizedBox(
                             height: 45,
                           ),
