@@ -73,6 +73,8 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
+    final EditingToDoNotifier edittingToDoNotifier =
+        ref.read(edittingToDoProvider.notifier);
     return Scaffold(
       body: Stack(
         children: [
@@ -87,7 +89,8 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
               TLSliverAppBar(
                 pageTitle: "ToDo",
                 leadingButtonOnPressed: () async {
-                  if (!toDoTitleIsEntered) {
+                  if (edittingToDoNotifier
+                      .toDoTitleInputController.text.isEmpty) {
                     // 元のページに戻る
                     Navigator.pop(context);
                   } else {
