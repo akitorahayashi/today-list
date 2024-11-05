@@ -10,7 +10,7 @@ class AddCategoryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -24,7 +24,7 @@ class AddCategoryButton extends StatelessWidget {
           child: ClipOval(
             child: Icon(
               Icons.add,
-              color: _tlThemeData.accentColor,
+              color: tlThemeData.accentColor,
               size: 30,
             ),
           )),

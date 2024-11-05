@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../components/dialog/common/single_option_dialog.dart';
+import '../common/single_option_dialog.dart';
 import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../styles/styles.dart';
 import '../../../model/design/tl_theme.dart';
@@ -16,7 +16,7 @@ class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget {
       {super.key, required this.oldIndexInStringWorkspaces});
 
   @override
-  _AddOrEditWorkspaceDialogState createState() =>
+  ConsumerState<AddOrEditWorkspaceDialog> createState() =>
       _AddOrEditWorkspaceDialogState();
 }
 

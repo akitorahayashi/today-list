@@ -17,20 +17,20 @@ class CategoryListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace _currentTLWorkspace =
+    final TLWorkspace currentTLWorkspace =
         ref.watch(currentTLWorkspaceProvider);
     // notifier
-    final CurrentTLWorkspaceNotifier _currentWorkspaceNotifier =
+    final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
         ref.read(currentTLWorkspaceProvider.notifier);
-    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+    final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     return Scaffold(
       body: Stack(children: [
         // 背景色
         Container(
-            decoration: BoxDecoration(color: _tlThemeData.backgroundColor),
+            decoration: BoxDecoration(color: tlThemeData.backgroundColor),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height),
         CustomScrollView(
@@ -58,12 +58,12 @@ class CategoryListPage extends ConsumerWidget {
                   children: [
                     // bigCategoryがなしではない場合、bigCategoryの並び替え可能カードを表示する
                     for (int i = 0;
-                        i < _currentTLWorkspace.bigCategories.length;
+                        i < currentTLWorkspace.bigCategories.length;
                         i++)
                       GestureDetector(
-                        key: ValueKey(_currentTLWorkspace.bigCategories[i].id),
+                        key: ValueKey(currentTLWorkspace.bigCategories[i].id),
                         onLongPress:
-                            _currentTLWorkspace.bigCategories[i].id != noneID
+                            currentTLWorkspace.bigCategories[i].id != noneID
                                 ? null
                                 : () {},
                         child: BigCategoryCard(indexOfBigCategory: i),
@@ -73,14 +73,14 @@ class CategoryListPage extends ConsumerWidget {
                     if (newIndex == 0) return;
                     // 抜き出して
                     TLCategory reOrderedBigCategory =
-                        _currentTLWorkspace.bigCategories.removeAt(oldIndex);
-                    _currentTLWorkspace.bigCategories
+                        currentTLWorkspace.bigCategories.removeAt(oldIndex);
+                    currentTLWorkspace.bigCategories
                         .insert(newIndex, reOrderedBigCategory);
                     // categoriesを保存する
-                    _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                    tlWorkspacesNotifier.updateSpecificTLWorkspace(
                         specificWorkspaceIndex:
-                            _currentWorkspaceNotifier.currentTLWorkspaceIndex,
-                        updatedWorkspace: _currentTLWorkspace);
+                            currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                        updatedWorkspace: currentTLWorkspace);
                   }),
               const SizedBox(
                 height: 300,

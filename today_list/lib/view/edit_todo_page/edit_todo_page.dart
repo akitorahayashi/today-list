@@ -155,64 +155,14 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                             borderRadius: BorderRadius.circular(20)),
                         child: Column(children: [
                           // ビッグカテゴリーを選択してsmallCategory選択のためのdropdownを更新する
-                          SelectCategoryDropDown(
-                              hintText: _selectedBigCategory.id == noneID
-                                  ? "大カテゴリー"
-                                  : TLWorkspace.currentWorkspace.bigCategories
-                                      .where((oneOfBigCategory) =>
-                                          oneOfBigCategory.id ==
-                                          _selectedBigCategory.id)
-                                      .first
-                                      .title,
-                              items: [
-                                ...TLWorkspace.currentWorkspace.bigCategories,
-                                TLCategory(
-                                    id: "---bigCategory", title: "新しく作る"),
-                              ].map((TLCategory oneOfBigCategory) {
-                                return DropdownMenuItem(
-                                  value: oneOfBigCategory,
-                                  child: Text(
-                                    oneOfBigCategory.title,
-                                    style: oneOfBigCategory.id ==
-                                            _selectedBigCategory.id
-                                        ? TextStyle(
-                                            color: tlThemeData.accentColor,
-                                            fontWeight: FontWeight.bold)
-                                        : TextStyle(
-                                            color:
-                                                Colors.black.withOpacity(0.5),
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (TLCategory? newBigCategory) async {
-                                if (newBigCategory != null) {
-                                  _selectedSmallCategory = null;
-                                  switch (newBigCategory.id) {
-                                    case noneID:
-                                      _selectedBigCategory = TLWorkspace
-                                          .currentWorkspace.bigCategories[0];
-                                      break;
-                                    case "---bigCategory":
-                                      _selectedBigCategory =
-                                          await addToDoCategoryAlert(
-                                                  context: context,
-                                                  categoryNameInputController:
-                                                      _categoryNameInputController,
-                                                  bigCategoryId: null) ??
-                                              TLWorkspace.currentWorkspace
-                                                  .bigCategories[0];
-                                      break;
-                                    default:
-                                      _selectedBigCategory = newBigCategory;
-                                  }
-                                  setState(() {});
-                                }
-                              }),
+                          SelectBigCategoryDropDown(
+                              hintText: 
+                              items: ,
+                              onChanged: ),
                           // --- ビッグカテゴリーを選択する
 
                           // スモールカテゴリーを選択する
-                          SelectCategoryDropDown(
+                          SelectBigCategoryDropDown(
                               hintText: _selectedSmallCategory == null
                                   ? "小カテゴリー"
                                   : TLWorkspace.currentWorkspace

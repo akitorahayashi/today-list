@@ -17,6 +17,22 @@ class TLWorkspace {
     required this.toDos,
   });
 
+  TLWorkspace copyWith({
+    String? id,
+    String? name,
+    List<TLCategory>? bigCategories,
+    Map<String, List<TLCategory>>? smallCategories,
+    Map<String, TLToDos>? toDos,
+  }) {
+    return TLWorkspace(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      bigCategories: bigCategories ?? this.bigCategories,
+      smallCategories: smallCategories ?? this.smallCategories,
+      toDos: toDos ?? this.toDos,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       "id": id,
