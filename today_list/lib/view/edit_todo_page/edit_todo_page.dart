@@ -13,7 +13,7 @@ import '../../model/todo/tl_category.dart';
 import '../../model/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/provider/tl_workspaces_provider.dart';
-import './components_for_edit/steps_column.dart';
+import 'components_for_edit/added_steps_column.dart';
 import './already_exists/already_exists.dart';
 import 'components_for_edit/select_category_dropdown/select_big_category_dropdown.dart';
 
@@ -273,29 +273,12 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                           const ToDoTitleInputField(),
 
                           // 入力したstepsを表示
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: StepsColumn(
-                                stepsOfThisToDo: _stepsOfThisToDo,
-                                onTapStepRow: (index) {
-                                  _stepTitleInputController.text =
-                                      _stepsOfThisToDo[index].title;
-                                  _edittedStepIndex = index;
-                                  TLVibration.vibrate();
-                                  setState(() {});
-                                },
-                                tapToRemoveStepRow: (index) {
-                                  _stepsOfThisToDo.removeAt(index);
-                                  _edittedStepIndex = null;
-                                  TLVibration.vibrate();
-                                }),
-                          ),
+                          const AddedStepsColumn(),
 
                           // steps入力のtextFormField
                           const StepTitleInputField(),
-                          const SizedBox(
-                            height: 45,
-                          ),
+
+                          const SizedBox(height: 45),
                         ]),
                       ),
                     ),

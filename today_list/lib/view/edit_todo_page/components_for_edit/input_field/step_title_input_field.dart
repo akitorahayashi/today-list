@@ -44,10 +44,11 @@ class StepTitleInputField extends ConsumerWidget {
                   onPressed: () {
                     final stepTitle =
                         edittingToDoNotifier.stepTitleInputController.text;
-                    if (stepTitle.isNotEmpty) {
-                      edittingToDoNotifier.addStep(stepTitle);
-                      edittingToDoNotifier.stepTitleInputController.clear();
-                    }
+                    if (stepTitle.isEmpty) return;
+                    // add or edit
+                    edittingToDoNotifier.addToStepList(
+                        stepTitle, edittingToDoNotifier.indexOfEditingStep);
+                    edittingToDoNotifier.stepTitleInputController.clear();
                   },
                   child: Icon(
                     Icons.add,
