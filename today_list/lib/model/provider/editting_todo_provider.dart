@@ -21,6 +21,7 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
   TLCategory selectedBigCategory;
   TLCategory? selectedSmallCategory;
   int? indexOfEditingToDo;
+  int? indexOfEditingStep;
 
   EditingToDoNotifier(this.ref, this.selectedBigCategory)
       : super(TLToDo(
@@ -38,6 +39,7 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
         ref.watch(currentTLWorkspaceProvider).bigCategories[0];
     state = TLToDo.getDefaultToDo();
     indexOfEditingToDo = null;
+    indexOfEditingStep = null;
   }
 
   void setEditedToDo({
@@ -59,6 +61,7 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
     this.selectedBigCategory = selectedBigCategory;
     this.selectedSmallCategory = selectedSmallCategory;
     this.indexOfEditingToDo = indexOfEditingToDo;
+    indexOfEditingStep = null;
     state = edittedToDo;
   }
 
@@ -66,10 +69,17 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
     state = state.copyWith(title: newTitle);
   }
 
-  void addStep(String stepTitle) {
+  void addToStepList(String stepTitle, int? indexOfEditingStep) {
     final newStep = TLStep(id: UniqueKey().toString(), title: stepTitle);
-    final updatedSteps = List<TLStep>.from(state.steps)..add(newStep);
-    state = state.copyWith(steps: updatedSteps);
+    if (indexOfEditingStep == null) {
+      final updatedSteps = List<TLStep>.from(state.steps)..add(newStep);
+      state = state.copyWith(steps: updatedSteps);
+    } else {
+      final updatedSteps = List<TLStep>.from(state.steps);
+      updatedSteps[indexOfEditingStep] = newStep;
+      state = state.copyWith(steps: updatedSteps);
+      this.indexOfEditingStep = null;
+    }
   }
 
   Future<void> completeEditting() async {
@@ -108,6 +118,7 @@ class EditingToDoNotifier extends StateNotifier<TLToDo> {
     selectedBigCategory;
     selectedSmallCategory = null;
     indexOfEditingToDo = null;
+    indexOfEditingStep = null;
     state = TLToDo.getDefaultToDo();
   }
 }

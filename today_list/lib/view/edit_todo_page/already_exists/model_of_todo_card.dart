@@ -58,7 +58,6 @@ class ModelOfToDoCard extends ConsumerWidget {
           bigCategoryOfThisToDo: bigCategoryOfThisToDo,
           smallCategoryOfThisToDo: smallCategoryOfThisToDo,
           indexOfThisToDoInToDos: indexOfThisToDoInToDoArrray,
-          editAction: tapToEditAction,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -33,52 +33,52 @@ class TLToDoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace _currentTLWorkspace =
+    final TLWorkspace currentTLWorkspace =
         ref.watch(currentTLWorkspaceProvider);
     // notifier
-    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+    final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
-    final CurrentTLWorkspaceNotifier _currentTLWorkspaceNotifier =
+    final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
         ref.read(currentTLWorkspaceProvider.notifier);
     // category
-    final TLCategory _categoryOfThisToDo = smallCategoryOfThisToDo == null
+    final TLCategory categoryOfThisToDo = smallCategoryOfThisToDo == null
         ? bigCategoryOfThisToDo
         : smallCategoryOfThisToDo!;
 
-    List<TLToDo> _toDoArrayThatContainsThisToDo =
-        _currentTLWorkspace.toDos[_categoryOfThisToDo.id]![ifInToday];
+    List<TLToDo> toDoArrayThatContainsThisToDo =
+        currentTLWorkspace.toDos[categoryOfThisToDo.id]![ifInToday];
 
-    final TLToDo _corrToDoData =
-        _toDoArrayThatContainsThisToDo[indexOfThisToDoInToDos];
+    final TLToDo corrToDoData =
+        toDoArrayThatContainsThisToDo[indexOfThisToDoInToDos];
     // 全体を囲むカード
     return GestureDetector(
       onTap: () {
         // チェックの状態を切り替える
-        _corrToDoData.isChecked = !_corrToDoData.isChecked;
+        corrToDoData.isChecked = !corrToDoData.isChecked;
         // stepsがあるならその全てのstepsのcheck状態を同じにする
-        for (TLStep step in _corrToDoData.steps) {
-          step.isChecked = _corrToDoData.isChecked;
+        for (TLStep step in corrToDoData.steps) {
+          step.isChecked = corrToDoData.isChecked;
         }
         // 並び替え + 保存
         TLToDo.reorderWhenToggle(
-            categoryId: _categoryOfThisToDo.id,
+            categoryId: categoryOfThisToDo.id,
             indexOfThisToDoInToDos: indexOfThisToDoInToDos,
-            toDoArrayOfThisToDo: _toDoArrayThatContainsThisToDo);
+            toDoArrayOfThisToDo: toDoArrayThatContainsThisToDo);
         TLVibration.vibrate();
         NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,
-          newTitle: _corrToDoData.title,
-          newCheckedState: _corrToDoData.isChecked,
+          newTitle: corrToDoData.title,
+          newCheckedState: corrToDoData.isChecked,
           quickChangeToToday: null,
         );
       },
       // チェック済みのreorder阻止のためのlongPress
-      onLongPress: _corrToDoData.isChecked ? () {} : null,
+      onLongPress: corrToDoData.isChecked ? () {} : null,
       child: Card(
           // 色
-          color: _tlThemeData.panelColor,
+          color: tlThemeData.panelColor,
           // 浮き具合
           elevation: 2,
           shape:
@@ -87,26 +87,19 @@ class TLToDoCard extends ConsumerWidget {
             borderRadius: BorderRadius.circular(10),
             child: SlidableForToDoCard(
               isForModelCard: false,
-              corrTLToDo: _corrToDoData,
+              corrTLToDo: corrToDoData,
               indexOfThisToDoInToDos: indexOfThisToDoInToDos,
               ifInToday: ifInToday,
               // category
               bigCategoryOfThisToDo: bigCategoryOfThisToDo,
               smallCategoryOfThisToDo: smallCategoryOfThisToDo,
-              editAction: () async {
-                // TODO タップしたらEditToDoCardをpushする
-                await Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                  return EditToDoPage();
-                }));
-              },
               // child
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: EdgeInsets.fromLTRB(
-                        16, 18, 16, _corrToDoData.steps.isNotEmpty ? 15 : 18),
+                        16, 18, 16, corrToDoData.steps.isNotEmpty ? 15 : 18),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -116,20 +109,20 @@ class TLToDoCard extends ConsumerWidget {
                             // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                             child: Transform.scale(
                               scale: 1.2,
-                              child: TLCheckBox(
-                                  isChecked: _corrToDoData.isChecked),
+                              child:
+                                  TLCheckBox(isChecked: corrToDoData.isChecked),
                             )),
                         // toDoのタイトル
                         Expanded(
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              _corrToDoData.title,
+                              corrToDoData.title,
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black.withOpacity(
-                                      _corrToDoData.isChecked ? 0.3 : 0.6)),
+                                      corrToDoData.isChecked ? 0.3 : 0.6)),
                             ),
                           ),
                         ),
@@ -137,30 +130,30 @@ class TLToDoCard extends ConsumerWidget {
                     ),
                   ),
                   // stepsのリスト
-                  if (_corrToDoData.steps.isNotEmpty)
+                  if (corrToDoData.steps.isNotEmpty)
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: ReorderableColumn(
                         children: List<Widget>.generate(
-                            _corrToDoData.steps.length,
+                            corrToDoData.steps.length,
                             (int indexOfThisStepInToDo) => Padding(
                                   key: Key(UniqueKey().toString()),
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 0, 2, 0),
                                   child: TLStepCard(
-                                    toDoData: _corrToDoData,
+                                    toDoData: corrToDoData,
                                     indexInToDo: indexOfThisStepInToDo,
                                   ),
                                 )),
                         onReorder: (oldIndex, newIndex) {
-                          final reOrderedToDo = _corrToDoData.steps[oldIndex];
-                          _corrToDoData.steps.remove(reOrderedToDo);
-                          _corrToDoData.steps.insert(newIndex, reOrderedToDo);
+                          final reOrderedToDo = corrToDoData.steps[oldIndex];
+                          corrToDoData.steps.remove(reOrderedToDo);
+                          corrToDoData.steps.insert(newIndex, reOrderedToDo);
                           // toDosを保存する
-                          _tlWorkspacesNotifier.updateSpecificTLWorkspace(
-                            specificWorkspaceIndex: _currentTLWorkspaceNotifier
+                          tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                            specificWorkspaceIndex: currentTLWorkspaceNotifier
                                 .currentTLWorkspaceIndex,
-                            updatedWorkspace: _currentTLWorkspace,
+                            updatedWorkspace: currentTLWorkspace,
                           );
                         },
                       ),
