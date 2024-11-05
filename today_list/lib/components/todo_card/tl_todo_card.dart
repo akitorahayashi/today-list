@@ -9,7 +9,6 @@ import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/tl_workspace.dart';
-import '../../view/edit_todo_page/edit_todo_page.dart';
 import 'tl_step_card.dart';
 import '../slidables/slidable_for_todo_card.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class TLToDoCard extends ConsumerWidget {
   // smallCategoryならこれがある
   final TLCategory? smallCategoryOfThisToDo;
 
-  TLToDoCard({
+  const TLToDoCard({
     super.key,
     required this.ifInToday,
     required this.indexOfThisToDoInToDos,
@@ -62,10 +61,11 @@ class TLToDoCard extends ConsumerWidget {
           step.isChecked = corrToDoData.isChecked;
         }
         // 並び替え + 保存
-        TLToDo.reorderWhenToggle(
-            categoryId: categoryOfThisToDo.id,
-            indexOfThisToDoInToDos: indexOfThisToDoInToDos,
-            toDoArrayOfThisToDo: toDoArrayThatContainsThisToDo);
+        currentTLWorkspaceNotifier.reorderWhenToggle(
+          categoryId: categoryOfThisToDo.id,
+          ifInToday: ifInToday,
+          indexOfThisToDoInToDos: indexOfThisToDoInToDos,
+        );
         TLVibration.vibrate();
         NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,

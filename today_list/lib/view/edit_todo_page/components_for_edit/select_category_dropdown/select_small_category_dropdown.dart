@@ -4,11 +4,11 @@ import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/provider/editting_todo_provider.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import 'package:today_list/model/tl_workspace.dart';
-import 'package:today_list/model/todo/tl_category.dart';
-import '../../../../../model/design/tl_theme.dart';
+import '../../../../model/todo/tl_category.dart';
+import '../../../../model/design/tl_theme.dart';
 
-class SelectBigCategoryDropDown extends ConsumerWidget {
-  const SelectBigCategoryDropDown({super.key});
+class SelectSmallCategoryDropDown extends ConsumerWidget {
+  const SelectSmallCategoryDropDown({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,14 +23,14 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
       child: DropdownButton(
           iconEnabledColor: tlThemeData.accentColor,
           isExpanded: true,
-          // hint text
           hint: Text(
-            edittingToDoNotifier.selectedBigCategory.id == noneID
-                ? "大カテゴリー"
-                : currentWorkspace.bigCategories
-                    .where((oneOfBigCategory) =>
-                        oneOfBigCategory.id ==
-                        edittingToDoNotifier.selectedBigCategory.id)
+            edittingToDoNotifier.selectedSmallCategory == null
+                ? "小カテゴリー"
+                : currentWorkspace.smallCategories[
+                        edittingToDoNotifier.selectedBigCategory.id]!
+                    .where((oneOfSmallCategory) =>
+                        oneOfSmallCategory.id ==
+                        edittingToDoNotifier.selectedSmallCategory!.id)
                     .first
                     .title,
             style: const TextStyle(
@@ -42,17 +42,18 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
             color: Colors.black45,
             fontWeight: FontWeight.bold,
           ),
-          // list of big categories
           items: [
-            ...currentWorkspace.bigCategories,
-            TLCategory(id: "---createBigCategory", title: "新しく作る"),
-          ].map((TLCategory oneOfBigCategory) {
+            TLCategory(id: noneID, title: "なし"),
+            ...currentWorkspace
+                .smallCategories[edittingToDoNotifier.selectedBigCategory.id]!,
+            if (edittingToDoNotifier.selectedBigCategory.id != noneID)
+              TLCategory(id: "---createSmallCategory", title: "新しく作る"),
+          ].map((TLCategory item) {
             return DropdownMenuItem(
-              value: oneOfBigCategory,
+              value: item,
               child: Text(
-                oneOfBigCategory.title,
-                style: oneOfBigCategory.id ==
-                        edittingToDoNotifier.selectedBigCategory.id
+                item.title,
+                style: item.id == edittingToDoNotifier.selectedBigCategory.id
                     ? TextStyle(
                         color: tlThemeData.accentColor,
                         fontWeight: FontWeight.bold)
@@ -64,25 +65,22 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
           }).toList(),
 
           // カテゴリー変更
-          onChanged: (TLCategory? newBigCategory) async {
-            if (newBigCategory != null) {
-              edittingToDoNotifier.selectedSmallCategory = null;
-              switch (newBigCategory.id) {
+          onChanged: (TLCategory? newSmallCategory) async {
+            if (newSmallCategory != null) {
+              switch (newSmallCategory.id) {
                 case noneID:
-                  edittingToDoNotifier.selectedBigCategory =
-                      currentWorkspace.bigCategories[0];
+                  edittingToDoNotifier.selectedSmallCategory = null;
                   break;
-                case "---createBigCategory":
-                  edittingToDoNotifier.selectedBigCategory =
+                case "---createSmallCategory":
+                  edittingToDoNotifier.selectedSmallCategory =
                       await addToDoCategoryAlert(
-                              context: context,
-                              categoryNameInputController:
-                                  _categoryNameInputController,
-                              bigCategoryId: null) ??
-                          currentWorkspace.bigCategories[0];
+                          context: context,
+                          categoryNameInputController:
+                              _categoryNameInputController,
+                          bigCategoryId: _selectedBigCategory.id);
                   break;
                 default:
-                  edittingToDoNotifier.selectedBigCategory = newBigCategory;
+                  edittingToDoNotifier.selectedSmallCategory = newSmallCategory;
               }
             }
           }),

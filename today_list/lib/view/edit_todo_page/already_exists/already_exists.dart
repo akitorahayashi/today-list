@@ -25,19 +25,19 @@ class AlreadyExists extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace _currentWorkspace = ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace currentWorkspace = ref.watch(currentTLWorkspaceProvider);
     // notifier
-    final CurrentTLWorkspaceNotifier _currentWorkspaceNotifier =
+    final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
         ref.read(currentTLWorkspaceProvider.notifier);
-    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+    final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     // others
     final TLCategory categoryOfThisToDo =
         smallCategoryOfThisToDo ?? bigCategoryOfThisToDo;
     final List<TLToDo> toDoArrayOfThisBlock =
-        _currentWorkspace.toDos[categoryOfThisToDo.id]![ifInToday];
+        currentWorkspace.toDos[categoryOfThisToDo.id]![ifInToday];
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Card(
@@ -57,7 +57,7 @@ class AlreadyExists extends ConsumerWidget {
                       child: Text(
                         "Already Exists",
                         style: TextStyle(
-                          color: _tlThemeData.accentColor,
+                          color: tlThemeData.accentColor,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),
@@ -88,7 +88,7 @@ class AlreadyExists extends ConsumerWidget {
                       ),
                   ],
                   onReorder: (oldIndex, newIndex) {
-                    List<TLToDo> corrToDoArray = _currentWorkspace
+                    List<TLToDo> corrToDoArray = currentWorkspace
                         .toDos[categoryOfThisToDo.id]![ifInToday];
                     final int indexOfCheckedToDo =
                         corrToDoArray.indexWhere((todo) => todo.isChecked);
@@ -99,10 +99,10 @@ class AlreadyExists extends ConsumerWidget {
                           corrToDoArray.removeAt(oldIndex);
                       corrToDoArray.insert(newIndex, reorderedToDo);
                       // toDosを保存する
-                      _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                      tlWorkspacesNotifier.updateSpecificTLWorkspace(
                           specificWorkspaceIndex:
-                              _currentWorkspaceNotifier.currentTLWorkspaceIndex,
-                          updatedWorkspace: _currentWorkspace);
+                              currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                          updatedWorkspace: currentWorkspace);
                     }
                   }),
             ],

@@ -3,11 +3,11 @@ import '../../../components/dialog/for_workspace/add_or_edit_workspace_dialog.da
 import '../../../model/design/tl_theme.dart';
 
 class AddWorkspaceButton extends StatelessWidget {
-  const AddWorkspaceButton({Key? key}) : super(key: key);
+  const AddWorkspaceButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return Align(
       alignment: Alignment.center,
       child: Padding(
@@ -22,7 +22,7 @@ class AddWorkspaceButton extends StatelessWidget {
               }),
           child: Icon(
             Icons.add,
-            color: _tlThemeData.accentColor,
+            color: tlThemeData.accentColor,
           ),
         ),
       ),
