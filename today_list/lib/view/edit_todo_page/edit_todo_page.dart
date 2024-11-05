@@ -8,11 +8,8 @@ import 'package:today_list/view/edit_todo_page/components_for_edit/input_field/t
 import 'package:today_list/view/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/design/tl_theme.dart';
-import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/tl_workspace.dart';
-import '../../model/external/tl_vibration.dart';
-import '../../model/provider/tl_workspaces_provider.dart';
 import 'components_for_edit/added_steps_column.dart';
 import './already_exists/already_exists.dart';
 import 'components_for_edit/select_category_dropdown/select_big_category_dropdown.dart';
@@ -111,36 +108,6 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                 ),
                 trailingButtonOnPressed: null,
                 trailingIcon: null,
-                // trailingButtonOnPressed: adIsClosed
-                //     ? null
-                //     : () async {
-                //         await Navigator.push(context,
-                //             MaterialPageRoute(builder: (context) {
-                //           return ProPage(
-                //             key: proPageKey,
-                //           );
-                //         }));
-                //         editToDoPageKey.currentState?.setState(() {});
-                //       },
-                // trailingIcon: adIsClosed
-                //     ? null
-                //     : isDevelopperMode
-                //         ? const Icon(
-                //             Icons.construction,
-                //             color: Colors.white,
-                //           )
-                //         : purchase.havePurchased
-                //             ? const Icon(
-                //                 FontAwesomeIcons.crown,
-                //                 color: Colors.white,
-                //                 size: 17,
-                //               )
-                //             : Transform.rotate(
-                //                 angle: 3.14,
-                //                 child: const Icon(
-                //                   Icons.auto_awesome,
-                //                   color: Colors.white,
-                //                 ))
               ),
               // 入力部分の本体
               SliverList(
@@ -153,85 +120,26 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                       child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        child: Column(children: [
+                        child: const Column(children: [
                           // ビッグカテゴリーを選択してsmallCategory選択のためのdropdownを更新する
-                          SelectBigCategoryDropDown(
-                              hintText: 
-                              items: ,
-                              onChanged: ),
-                          // --- ビッグカテゴリーを選択する
+                          SelectBigCategoryDropDown(),
 
                           // スモールカテゴリーを選択する
-                          SelectBigCategoryDropDown(
-                              hintText: _selectedSmallCategory == null
-                                  ? "小カテゴリー"
-                                  : TLWorkspace.currentWorkspace
-                                      .smallCategories[_selectedBigCategory.id]!
-                                      .where((oneOfSmallCategory) =>
-                                          oneOfSmallCategory.id ==
-                                          _selectedSmallCategory!.id)
-                                      .first
-                                      .title,
-                              items: [
-                                TLCategory(id: noneID, title: "なし"),
-                                ...TLWorkspace.currentWorkspace
-                                    .smallCategories[_selectedBigCategory.id]!,
-                                if (_selectedBigCategory.id != noneID)
-                                  TLCategory(
-                                      id: "---smallCategory", title: "新しく作る"),
-                              ].map((TLCategory item) {
-                                return DropdownMenuItem(
-                                  value: item,
-                                  child: Text(
-                                    item.title,
-                                    style: item.id == _selectedBigCategory.id
-                                        ? TextStyle(
-                                            color: tlThemeData.accentColor,
-                                            fontWeight: FontWeight.bold)
-                                        : TextStyle(
-                                            color:
-                                                Colors.black.withOpacity(0.5),
-                                            fontWeight: FontWeight.bold),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (TLCategory? newSmallCategory) async {
-                                if (newSmallCategory != null) {
-                                  switch (newSmallCategory.id) {
-                                    case noneID:
-                                      _selectedSmallCategory = null;
-                                      break;
-                                    case "---smallCategory":
-                                      _selectedSmallCategory =
-                                          await addToDoCategoryAlert(
-                                              context: context,
-                                              categoryNameInputController:
-                                                  _categoryNameInputController,
-                                              bigCategoryId:
-                                                  _selectedBigCategory.id);
-                                      break;
-                                    default:
-                                      _selectedSmallCategory = newSmallCategory;
-                                  }
-                                  setState(() {});
-                                }
-                              }),
-                          // --- スモールカテゴリーを選択する
+                          SelectBigCategoryDropDown(),
 
-                          // 一列目 今日かいつでもか選択する
-                          const SelectTodayOrWheneverButton(),
-                          // --- 今日かいつでもか選択する
+                          // 今日かいつでもか選択する
+                          SelectTodayOrWheneverButton(),
 
                           // ToDoのタイトルを入力するTextFormField
-                          const ToDoTitleInputField(),
+                          ToDoTitleInputField(),
 
                           // 入力したstepsを表示
-                          const AddedStepsColumn(),
+                          AddedStepsColumn(),
 
                           // steps入力のtextFormField
-                          const StepTitleInputField(),
+                          StepTitleInputField(),
 
-                          const SizedBox(height: 45),
+                          SizedBox(height: 45),
                         ]),
                       ),
                     ),

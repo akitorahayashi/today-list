@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../model/design/tl_theme.dart';
-import '../../../model/user/setting_data.dart';
 import 'side_button_of_bottom_navbar.dart';
 
 class TodayListBottomNavbar extends StatelessWidget {
