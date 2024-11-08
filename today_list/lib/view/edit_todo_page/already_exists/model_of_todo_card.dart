@@ -5,7 +5,6 @@ import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/todo/tl_category.dart';
 import '../../../model/tl_workspace.dart';
 import '../../../components/slidables/slidable_for_todo_card.dart';
 
@@ -15,37 +14,37 @@ class ModelOfToDoCard extends ConsumerWidget {
   // todoのデータ
   final TLToDo corrTLToDo;
   final bool ifInToday;
-  final TLCategory bigCategoryOfThisToDo;
-  final TLCategory? smallCategoryOfThisToDo;
+  final String bigCategoryID;
+  final String? smallCategoryID;
   final int indexOfThisToDoInToDoArrray;
   // 編集系の変数
   final int? indexOfEditingToDo;
   final Function tapToEditAction;
   const ModelOfToDoCard({
-    Key? key,
+    super.key,
     // todoのデータ
     required this.corrTLToDo,
     required this.ifInToday,
-    required this.bigCategoryOfThisToDo,
-    required this.smallCategoryOfThisToDo,
+    required this.bigCategoryID,
+    required this.smallCategoryID,
     required this.indexOfThisToDoInToDoArrray,
     // 編集系の変数
     required this.indexOfEditingToDo,
     required this.tapToEditAction,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace _currentWorkspace = ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace currentWorkspace = ref.watch(currentTLWorkspaceProvider);
     // notifier
-    final CurrentTLWorkspaceNotifier _currentWorkspaceNotifier =
+    final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
         ref.read(currentTLWorkspaceProvider.notifier);
-    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+    final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     return Card(
-      color: _tlThemeData.panelColor,
+      color: tlThemeData.panelColor,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ClipRRect(
@@ -55,8 +54,8 @@ class ModelOfToDoCard extends ConsumerWidget {
           corrTLToDo: corrTLToDo,
           ifInToday: ifInToday,
           // category
-          bigCategoryOfThisToDo: bigCategoryOfThisToDo,
-          smallCategoryOfThisToDo: smallCategoryOfThisToDo,
+          bigCategoryID: bigCategoryID,
+          smallCategoryID: smallCategoryID,
           indexOfThisToDoInToDos: indexOfThisToDoInToDoArrray,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -159,10 +158,10 @@ class ModelOfToDoCard extends ConsumerWidget {
                       if (oldIndex < newIndex) newIndex -= 1;
                       corrTLToDo.steps.insert(newIndex, reOrderedStep);
                       // currentWorkspaceを更新
-                      _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                      tlWorkspacesNotifier.updateSpecificTLWorkspace(
                         specificWorkspaceIndex:
-                            _currentWorkspaceNotifier.currentTLWorkspaceIndex,
-                        updatedWorkspace: _currentWorkspace,
+                            currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                        updatedWorkspace: currentWorkspace,
                       );
                     },
                   ),

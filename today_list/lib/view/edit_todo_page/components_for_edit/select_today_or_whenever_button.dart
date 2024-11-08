@@ -16,9 +16,11 @@ class _SelectTodayOrWheneverButtonState
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
+    // provider
+    final EdittingTodo edittingTodo = ref.watch(edittingToDoProvider);
     // notifier
     final EditingToDoNotifier edittingToDoNotifier =
-        ref.read(edittingToDoProvider.notifier);
+        ref.watch(edittingToDoProvider.notifier);
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: ToggleButtons(
@@ -36,13 +38,11 @@ class _SelectTodayOrWheneverButtonState
         splashColor: tlThemeData.toggleButtonsBackgroundSplashColor,
         // isSelected
         isSelected: [
-          edittingToDoNotifier.ifInToday,
-          !edittingToDoNotifier.ifInToday,
+          edittingTodo.ifInToday,
+          !edittingTodo.ifInToday,
         ],
         onPressed: (int index) {
-          setState(() {
-            edittingToDoNotifier.ifInToday = index == 0;
-          });
+          edittingToDoNotifier.setIfInToday(ifInToday: index == 0);
         },
         children: const [
           Text("今日"),
