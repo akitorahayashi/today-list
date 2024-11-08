@@ -197,8 +197,8 @@ class _HomePageState extends ConsumerState<HomePage> {
             await Navigator.push(context, MaterialPageRoute(builder: (context) {
               return EditToDoPage(
                 ifInToday: true,
-                selectedBigCategory: currentTLWorkspace.bigCategories[0],
-                selectedSmallCategory: null,
+                selectedBigCategoryID: currentTLWorkspace.bigCategories[0],
+                selectedSmallCategoryID: null,
                 indexOfEdittedTodo: null,
               );
             }));

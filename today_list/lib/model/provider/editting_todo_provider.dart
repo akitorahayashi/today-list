@@ -83,26 +83,27 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
 
   void setEditedToDo({
     required bool ifInToday,
-    required TLCategory selectedBigCategory,
-    required TLCategory? selectedSmallCategory,
+    required String selectedBigCategoryID,
+    required String? selectedSmallCategoryID,
     required int indexOfEditingToDo,
   }) {
     final TLWorkspace currentWorkspace = ref.watch(currentTLWorkspaceProvider);
     final String corrCategoryID =
-        selectedSmallCategory?.id ?? selectedBigCategory.id;
+        selectedSmallCategoryID ?? selectedBigCategoryID;
     final TLToDo edittedToDo =
         currentWorkspace.toDos[corrCategoryID]![ifInToday][indexOfEditingToDo];
     // setValues
     state = state.copyWith(
-        toDoTitleInputController: TextEditingController()
-          ..text = edittedToDo.title,
-        stepTitleInputController: TextEditingController(),
-        steps: edittedToDo.steps,
-        bigCatgoeyID: selectedBigCategory.id,
-        smallCategoryID: selectedSmallCategory?.id,
-        ifInToday: ifInToday,
-        indexOfEditingToDo: indexOfEditingToDo,
-        indexOfEditingStep: null);
+      toDoTitleInputController: TextEditingController()
+        ..text = edittedToDo.title,
+      stepTitleInputController: TextEditingController(),
+      steps: edittedToDo.steps,
+      bigCatgoeyID: selectedBigCategoryID,
+      smallCategoryID: selectedSmallCategoryID,
+      ifInToday: ifInToday,
+      indexOfEditingToDo: indexOfEditingToDo,
+      indexOfEditingStep: null,
+    );
   }
 
   void addToStepList(String stepTitle, int? indexOfEditingStep) {

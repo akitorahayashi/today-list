@@ -11,14 +11,14 @@ import './model_of_todo_card.dart';
 import 'package:reorderables/reorderables.dart';
 
 class AlreadyExists extends ConsumerWidget {
-  final TLCategory bigCategoryOfThisToDo;
-  final TLCategory? smallCategoryOfThisToDo;
+  final String bigCategoryID;
+  final String? smallCategoryID;
   final bool ifInToday;
   final Function tapToEditAction;
   const AlreadyExists({
     super.key,
-    required this.bigCategoryOfThisToDo,
-    required this.smallCategoryOfThisToDo,
+    required this.bigCategoryID,
+    required this.smallCategoryID,
     required this.ifInToday,
     required this.tapToEditAction,
   });
@@ -34,10 +34,9 @@ class AlreadyExists extends ConsumerWidget {
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     // others
-    final TLCategory categoryOfThisToDo =
-        smallCategoryOfThisToDo ?? bigCategoryOfThisToDo;
+    final String categoryOfThisToDo = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisBlock =
-        currentWorkspace.toDos[categoryOfThisToDo.id]![ifInToday];
+        currentWorkspace.toDos[categoryOfThisToDo]![ifInToday];
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Card(
@@ -79,8 +78,8 @@ class AlreadyExists extends ConsumerWidget {
                         corrTLToDo:
                             toDoArrayOfThisBlock[indexOfThisToDoInToDos],
                         ifInToday: ifInToday,
-                        bigCategoryOfThisToDo: bigCategoryOfThisToDo,
-                        smallCategoryOfThisToDo: smallCategoryOfThisToDo,
+                        bigCategoryID: bigCategoryID,
+                        smallCategoryID: smallCategoryID,
                         indexOfThisToDoInToDoArrray: indexOfThisToDoInToDos,
                         // 編集系のメンバー
                         indexOfEditingToDo: indexOfThisToDoInToDos,

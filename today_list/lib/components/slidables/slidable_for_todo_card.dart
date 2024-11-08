@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/edit_todo_page/edit_todo_page.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../model/provider/current_tl_workspace_provider.dart';
 import '../../model/provider/tl_workspaces_provider.dart';
 import '../../model/design/tl_theme.dart';
 import '../../model/todo/tl_todo.dart';
-import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/tl_workspace.dart';
 
@@ -18,8 +18,8 @@ class SlidableForToDoCard extends ConsumerWidget {
   final int _indexOfThisToDoInToDos;
   final bool ifInToday;
   // category
-  final TLCategory bigCategoryOfThisToDo;
-  final TLCategory? smallCategoryOfThisToDo;
+  final String bigCategoryID;
+  final String? smallCategoryID;
   // child
   final Widget child;
   const SlidableForToDoCard({
@@ -29,8 +29,8 @@ class SlidableForToDoCard extends ConsumerWidget {
     required int indexOfThisToDoInToDos,
     required this.ifInToday,
     // category
-    required this.bigCategoryOfThisToDo,
-    required this.smallCategoryOfThisToDo,
+    required this.bigCategoryID,
+    required this.smallCategoryID,
     // child
     required this.child,
   }) : _indexOfThisToDoInToDos = indexOfThisToDoInToDos;
@@ -49,8 +49,7 @@ class SlidableForToDoCard extends ConsumerWidget {
     // other
     final int currentTLWorkspaceIndex =
         currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
-    final String corrCategoryID =
-        smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id;
+    final String corrCategoryID = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisToDoBelongs =
         currentTLWorkspace.toDos[corrCategoryID]![ifInToday];
     return Slidable(
@@ -88,7 +87,11 @@ class SlidableForToDoCard extends ConsumerWidget {
               backgroundColor: tlThemeData.panelColor,
               foregroundColor: tlThemeData.accentColor,
               // TODO 編集画面に遷移
-              onPressed: (BuildContext context) async {},
+              onPressed: (BuildContext context) async {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return EditToDoPage(ifInToday: true, selectedBigCategoryID: selectedBigCategory, selectedSmallCategoryID: selectedSmallCategory, indexOfEdittedTodo: indexOfEdittedTodo)
+                }));
+              },
               icon: Icons.edit,
               label: 'Edit',
             ),

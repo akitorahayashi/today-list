@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/dialog/common/yes_no_dialog.dart';
-import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
-import 'package:today_list/model/provider/editting_todo_provider.dart';
-import 'package:today_list/view/edit_todo_page/components_for_edit/input_field/step_title_input_field.dart';
-import 'package:today_list/view/edit_todo_page/components_for_edit/input_field/todo_title_input_field.dart';
-import 'package:today_list/view/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
+import '../../view/edit_todo_page/components_for_edit/input_field/step_title_input_field.dart';
+import '../../view/edit_todo_page/components_for_edit/input_field/todo_title_input_field.dart';
+import '../../view/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
+import 'components_for_edit/select_category_dropdown/select_big_category_dropdown.dart';
+import 'components_for_edit/added_steps_column.dart';
+import '../../components/dialog/common/yes_no_dialog.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/design/tl_theme.dart';
-import '../../model/todo/tl_category.dart';
-import '../../model/tl_workspace.dart';
-import 'components_for_edit/added_steps_column.dart';
+import '../../model/provider/editting_todo_provider.dart';
 import './already_exists/already_exists.dart';
-import 'components_for_edit/select_category_dropdown/select_big_category_dropdown.dart';
+
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class EditToDoPage extends ConsumerStatefulWidget {
   final bool ifInToday;
-  final TLCategory selectedBigCategory;
-  final TLCategory? selectedSmallCategory;
+  final String selectedBigCategoryID;
+  final String? selectedSmallCategoryID;
   final int? indexOfEdittedTodo;
   const EditToDoPage({
     super.key,
     required this.ifInToday,
-    required this.selectedBigCategory,
-    required this.selectedSmallCategory,
+    required this.selectedBigCategoryID,
+    required this.selectedSmallCategoryID,
     required this.indexOfEdittedTodo,
   });
 
@@ -32,16 +31,12 @@ class EditToDoPage extends ConsumerStatefulWidget {
 }
 
 class EditToDoPageState extends ConsumerState<EditToDoPage> {
-  TLCategory get _corrCategory =>
-      widget.selectedSmallCategory ?? widget.selectedBigCategory;
+  BannerAd? _bannerAd;
 
   @override
   void initState() {
     super.initState();
-    // TODO 広告を読み込む
-
-    // provider
-    final TLWorkspace currentWorkspace = ref.read(currentTLWorkspaceProvider);
+    _bannerAd?.load();
     // notifier
     final EditingToDoNotifier edittingToDoNotifier =
         ref.read(edittingToDoProvider.notifier);
@@ -52,8 +47,8 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
       // すでにあるTLToDoを経集する
       edittingToDoNotifier.setEditedToDo(
         ifInToday: widget.ifInToday,
-        selectedBigCategory: widget.selectedBigCategory,
-        selectedSmallCategory: widget.selectedSmallCategory,
+        selectedBigCategoryID: widget.selectedBigCategoryID,
+        selectedSmallCategoryID: widget.selectedSmallCategoryID,
         indexOfEditingToDo: widget.indexOfEdittedTodo!,
       );
     }
@@ -62,16 +57,15 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
   @override
   void dispose() {
     ref.read(edittingToDoProvider.notifier).disposeValue();
-    // TODO 広告を破棄する
-    // _bannerAd?.dispose();
+    _bannerAd?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    final EditingToDoNotifier edittingToDoNotifier =
-        ref.read(edittingToDoProvider.notifier);
+    // provider
+    final EdittingTodo edittingToDo = ref.watch(edittingToDoProvider);
     return Scaffold(
       body: Stack(
         children: [
@@ -86,8 +80,8 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
               TLSliverAppBar(
                 pageTitle: "ToDo",
                 leadingButtonOnPressed: () async {
-                  if (edittingToDoNotifier
-                      .toDoTitleInputController.text.isEmpty) {
+                  if (edittingToDo.toDoTitleInputController?.text.isEmpty ??
+                      true) {
                     // 元のページに戻る
                     Navigator.pop(context);
                   } else {
@@ -158,9 +152,9 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                       ),
                     // already exists
                     AlreadyExists(
-                        ifInToday: _ifInToday,
-                        bigCategoryOfThisToDo: _selectedBigCategory,
-                        smallCategoryOfThisToDo: _selectedSmallCategory,
+                        ifInToday: edittingToDo.ifInToday,
+                        bigCategoryID: edittingToDo.bigCatgoeyID,
+                        smallCategoryID: edittingToDo.smallCategoryID,
                         tapToEditAction: () async {
                           Navigator.pop(context);
                         }),
