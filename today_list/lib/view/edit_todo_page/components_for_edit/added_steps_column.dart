@@ -6,7 +6,6 @@ import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../model/provider/editting_todo_provider.dart';
 import '../../../model/provider/tl_workspaces_provider.dart';
 import '../../../model/tl_workspace.dart';
-import '../../../model/todo/tl_todo.dart';
 
 import 'package:reorderables/reorderables.dart';
 
@@ -16,8 +15,7 @@ class AddedStepsColumn extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final TLToDo edittingToDo = ref.watch(edittingToDoProvider);
-    final TLToDo corrToDo = edittingToDo;
+    final EdittingTodo edittingToDo = ref.watch(edittingToDoProvider);
     final TLWorkspace currentTLWorkspace =
         ref.watch(currentTLWorkspaceProvider);
     // notifier
@@ -27,13 +25,12 @@ class AddedStepsColumn extends ConsumerWidget {
         ref.read(currentTLWorkspaceProvider.notifier);
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
-    final stepList = corrToDo.steps;
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: ReorderableColumn(
-        children: List<Widget>.generate(stepList.length, (i) {
+        children: List<Widget>.generate(edittingToDo.steps.length, (i) {
           return Padding(
-            key: ValueKey(stepList[i].id),
+            key: ValueKey(edittingToDo.steps[i].id),
             padding: const EdgeInsets.only(left: 37.0, top: 1),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,13 +46,13 @@ class AddedStepsColumn extends ConsumerWidget {
                 Expanded(
                   child: GestureDetector(
                       onTap: () {
-                        edittingToDoNotifier.stepTitleInputController.text =
-                            stepList[i].title;
-                        edittingToDoNotifier.indexOfEditingStep = i;
+                        edittingToDo.stepTitleInputController?.text =
+                            edittingToDo.steps[i].title;
+                        edittingToDo.indexOfEditingStep = i;
                         TLVibration.vibrate();
                       },
                       child: Text(
-                        stepList[i].title,
+                        edittingToDo.steps[i].title,
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -67,8 +64,8 @@ class AddedStepsColumn extends ConsumerWidget {
                   padding: const EdgeInsets.only(right: 16.0),
                   child: TextButton(
                     onPressed: () {
-                      stepList.removeAt(i);
-                      edittingToDoNotifier.indexOfEditingStep = null;
+                      edittingToDo.steps.removeAt(i);
+                      edittingToDo.indexOfEditingStep = null;
                       TLVibration.vibrate();
                     },
                     style: TextButton.styleFrom(
@@ -89,9 +86,10 @@ class AddedStepsColumn extends ConsumerWidget {
         }),
         onReorder: (oldIndex, newIndex) {
           if (oldIndex == newIndex) return;
-          final reOrderedToDo = stepList.removeAt(oldIndex);
+          final reOrderedToDo = edittingToDo.steps.removeAt(oldIndex);
           if (newIndex > oldIndex) newIndex--;
-          stepList.insert(newIndex, reOrderedToDo);
+          edittingToDo.steps.insert(newIndex, reOrderedToDo);
+          edittingToDoNotifier.updateEdittingTodo(steps: edittingToDo.steps);
           tlWorkspacesNotifier.updateSpecificTLWorkspace(
               specificWorkspaceIndex:
                   currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
