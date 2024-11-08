@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/tl_workspace.dart';
-import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import '../todo/tl_todos.dart';
@@ -103,6 +102,28 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
       ifInToday: ifInToday,
       indexOfEditingToDo: indexOfEditingToDo,
       indexOfEditingStep: null,
+    );
+  }
+
+  void updateEdittingTodo({
+    TextEditingController? toDoTitleInputController,
+    TextEditingController? stepTitleInputController,
+    List<TLStep>? steps,
+    String? bigCatgoeyID,
+    String? smallCategoryID,
+    bool? ifInToday,
+    int? indexOfEditingToDo,
+    int? indexOfEditingStep,
+  }) {
+    state = state.copyWith(
+      toDoTitleInputController: toDoTitleInputController,
+      stepTitleInputController: stepTitleInputController,
+      steps: steps,
+      bigCatgoeyID: bigCatgoeyID,
+      smallCategoryID: smallCategoryID,
+      ifInToday: ifInToday,
+      indexOfEditingToDo: indexOfEditingToDo,
+      indexOfEditingStep: indexOfEditingStep,
     );
   }
 
