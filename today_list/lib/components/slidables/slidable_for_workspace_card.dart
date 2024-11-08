@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../components/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
-import '../../components/dialog/for_workspace/delete_workspace_dialog.dart';
+import '../dialog/for_workspace/add_or_edit_workspace_dialog.dart';
+import '../dialog/for_workspace/delete_workspace_dialog.dart';
 import '../../model/tl_workspace.dart';
 import '../../model/provider/tl_workspaces_provider.dart';
 import '../../model/design/tl_theme.dart';

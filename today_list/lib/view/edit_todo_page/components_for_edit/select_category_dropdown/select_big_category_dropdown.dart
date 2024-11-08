@@ -13,6 +13,7 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
+    final EdittingTodo edittingTodo = ref.watch(edittingToDoProvider);
     final currentWorkspace = ref.watch(currentTLWorkspaceProvider);
     // notifier
     final EditingToDoNotifier edittingToDoNotifier =
@@ -24,12 +25,11 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
           isExpanded: true,
           // hint text
           hint: Text(
-            edittingToDoNotifier.selectedBigCategory.id == noneID
+            edittingTodo.bigCatgoeyID == noneID
                 ? "大カテゴリー"
                 : currentWorkspace.bigCategories
                     .where((oneOfBigCategory) =>
-                        oneOfBigCategory.id ==
-                        edittingToDoNotifier.selectedBigCategory.id)
+                        oneOfBigCategory.id == edittingTodo.bigCatgoeyID)
                     .first
                     .title,
             style: const TextStyle(
@@ -50,8 +50,7 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
               value: oneOfBigCategory,
               child: Text(
                 oneOfBigCategory.title,
-                style: oneOfBigCategory.id ==
-                        edittingToDoNotifier.selectedBigCategory.id
+                style: oneOfBigCategory.id == edittingTodo.bigCatgoeyID
                     ? TextStyle(
                         color: tlThemeData.accentColor,
                         fontWeight: FontWeight.bold)
@@ -63,26 +62,22 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
           }).toList(),
 
           // カテゴリー変更
-          onChanged: (TLCategory? newBigCategory) async {
-            if (newBigCategory != null) {
-              edittingToDoNotifier.selectedSmallCategory = null;
-              switch (newBigCategory.id) {
-                case noneID:
-                  edittingToDoNotifier.selectedBigCategory =
-                      currentWorkspace.bigCategories[0];
-                  break;
-                case "---createBigCategory":
-                  edittingToDoNotifier.selectedBigCategory =
-                      await addToDoCategoryAlert(
-                              context: context,
-                              categoryNameInputController:
-                                  _categoryNameInputController,
-                              bigCategoryId: null) ??
-                          currentWorkspace.bigCategories[0];
-                  break;
-                default:
-                  edittingToDoNotifier.selectedBigCategory = newBigCategory;
-              }
+          onChanged: (TLCategory? selectedBigCategory) async {
+            if (selectedBigCategory == null) return;
+            edittingToDoNotifier.updateEdittingTodo(smallCategoryID: null);
+            if (selectedBigCategory.id != "---createBigCategory") {
+              edittingToDoNotifier.updateEdittingTodo(
+                  bigCatgoeyID: selectedBigCategory.id);
+              edittingTodo.bigCatgoeyID = selectedBigCategory.id;
+            } else {
+              final String createdBigCategoryID = await addToDoCategoryAlert(
+                      context: context,
+                      categoryNameInputController: _categoryNameInputController,
+                      bigCategoryId: null) ??
+                  currentWorkspace.bigCategories[0];
+              edittingToDoNotifier.updateEdittingTodo(
+                  bigCatgoeyID: createdBigCategoryID);
+              return;
             }
           }),
     );
