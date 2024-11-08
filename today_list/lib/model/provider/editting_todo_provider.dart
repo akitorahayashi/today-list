@@ -8,28 +8,60 @@ import '../todo/tl_todo.dart';
 import './current_tl_workspace_provider.dart';
 import './tl_workspaces_provider.dart';
 
-final edittingToDoProvider =
-    StateNotifierProvider<EditingToDoNotifier, TLToDo>((ref) {
-  return EditingToDoNotifier(ref, TLCategory(id: noneID, title: "Error"));
-});
-
-class EditingToDoNotifier extends StateNotifier<TLToDo> {
-  final Ref ref;
-  bool ifInToday = true;
-  late TextEditingController toDoTitleInputController;
-  late TextEditingController stepTitleInputController;
-  TLCategory selectedBigCategory;
-  TLCategory? selectedSmallCategory;
+class EdittingTodo {
+  TextEditingController toDoTitleInputController;
+  TextEditingController stepTitleInputController;
+  List<TLStep> tlSteps;
+  String bigCatgoeyID;
+  String? smallCategoryID;
+  bool ifInToday;
+  // 編集関係のメンバー
   int? indexOfEditingToDo;
   int? indexOfEditingStep;
 
-  EditingToDoNotifier(this.ref, this.selectedBigCategory)
-      : super(TLToDo(
-          id: UniqueKey().toString(),
-          title: 'Error',
-          steps: [],
-          isChecked: false,
-        ));
+  EdittingTodo(
+    this.toDoTitleInputController,
+    this.stepTitleInputController,
+    this.tlSteps,
+    this.bigCatgoeyID,
+    this.smallCategoryID,
+    this.ifInToday,
+    this.indexOfEditingToDo,
+    this.indexOfEditingStep,
+  );
+
+  EdittingTodo copyWith({
+    required TextEditingController? toDoTitleInputController,
+    required TextEditingController? stepTitleInputController,
+    required List<TLStep>? tlSteps,
+    required String? bigCatgoeyID,
+    required String? smallCategoryID,
+    required bool? ifInToday,
+    required int? indexOfEditingToDo,
+    required int? indexOfEditingStep,
+  }) {
+    return EdittingTodo(
+      toDoTitleInputController ?? this.toDoTitleInputController,
+      stepTitleInputController ?? this.stepTitleInputController,
+      tlSteps ?? this.tlSteps,
+      bigCatgoeyID ?? this.bigCatgoeyID,
+      smallCategoryID ?? this.smallCategoryID,
+      ifInToday ?? this.ifInToday,
+      indexOfEditingToDo ?? indexOfEditingToDo,
+      indexOfEditingStep ?? indexOfEditingStep,
+    );
+  }
+}
+
+final edittingToDoProvider =
+    StateNotifierProvider<EditingToDoNotifier, EdittingTodo>((ref) {
+  return EditingToDoNotifier(ref);
+});
+
+class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
+  final Ref ref;
+
+  EditingToDoNotifier(this.ref) : super(EdittingTodo());
 
   void setInitialValue() {
     ifInToday = true;

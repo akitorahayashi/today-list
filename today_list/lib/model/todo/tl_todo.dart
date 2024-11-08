@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './tl_category.dart';
 import './tl_step.dart';
 
-class TLToDo {
+class EdittingTodoTLToDo {
   // todo別のメンバー
   String id;
   String title;
