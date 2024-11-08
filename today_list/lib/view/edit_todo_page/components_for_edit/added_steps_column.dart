@@ -6,7 +6,6 @@ import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../model/provider/editting_todo_provider.dart';
 import '../../../model/provider/tl_workspaces_provider.dart';
 import '../../../model/tl_workspace.dart';
-import '../../../model/todo/tl_todo.dart';
 
 import 'package:reorderables/reorderables.dart';
 
@@ -87,9 +86,10 @@ class AddedStepsColumn extends ConsumerWidget {
         }),
         onReorder: (oldIndex, newIndex) {
           if (oldIndex == newIndex) return;
-          final reOrderedToDo = edittingToDo.removeAt(oldIndex);
+          final reOrderedToDo = edittingToDo.steps.removeAt(oldIndex);
           if (newIndex > oldIndex) newIndex--;
-          stepList.insert(newIndex, reOrderedToDo);
+          edittingToDo.steps.insert(newIndex, reOrderedToDo);
+          edittingToDoNotifier.updateEdittingTodo(steps: edittingToDo.steps);
           tlWorkspacesNotifier.updateSpecificTLWorkspace(
               specificWorkspaceIndex:
                   currentTLWorkspaceNotifier.currentTLWorkspaceIndex,

@@ -42,7 +42,7 @@ class _SelectTodayOrWheneverButtonState
           !edittingTodo.ifInToday,
         ],
         onPressed: (int index) {
-          edittingToDoNotifier.setIfInToday(ifInToday: index == 0);
+          edittingToDoNotifier.updateEdittingTodo(ifInToday: index == 0);
         },
         children: const [
           Text("今日"),

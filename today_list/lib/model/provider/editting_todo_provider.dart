@@ -127,10 +127,6 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
     );
   }
 
-  void setIfInToday({required bool ifInToday}) {
-    state = state.copyWith(ifInToday: ifInToday);
-  }
-
   void addToStepList(String stepTitle, int? indexOfEditingStep) {
     final newStep = TLStep(id: UniqueKey().toString(), title: stepTitle);
     if (state.indexOfEditingStep == null) {
