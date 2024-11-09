@@ -21,7 +21,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
     final int currentTLWorkspaceIndex =
         currentWorkspaceNotifier.currentTLWorkspaceIndex;
 

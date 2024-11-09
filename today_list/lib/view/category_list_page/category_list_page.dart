@@ -19,11 +19,10 @@ class CategoryListPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace currentTLWorkspace =
-        ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
     final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     return Scaffold(

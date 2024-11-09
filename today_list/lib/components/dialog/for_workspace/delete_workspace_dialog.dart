@@ -18,14 +18,14 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     // notifier
-    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+    final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
-    final CurrentTLWorkspaceNotifier _currentTLWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+    final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
+        ref.read(currentWorkspaceProvider.notifier);
     return Dialog(
-      backgroundColor: _tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertColor,
       child: Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: Column(
@@ -47,7 +47,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
               child: Text(
                 willDeletedWorkspace.name,
                 style: TextStyle(
-                    color: _tlThemeData.accentColor,
+                    color: tlThemeData.accentColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 18),
               ),
@@ -66,13 +66,13 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                 // いいえボタン
                 TextButton(
                     style:
-                        alertButtonStyle(accentColor: _tlThemeData.accentColor),
+                        alertButtonStyle(accentColor: tlThemeData.accentColor),
                     onPressed: () => Navigator.pop(context),
                     child: const Text("戻る")),
                 // はいボタン
                 TextButton(
                     style:
-                        alertButtonStyle(accentColor: _tlThemeData.accentColor),
+                        alertButtonStyle(accentColor: tlThemeData.accentColor),
                     onPressed: () async {
                       // デフォルトワークスペースは消せない
                       if (corrWorkspaceIndex == 0) {
@@ -85,17 +85,19 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                                 ));
                       } else {
                         // TLWorkspacesから削除
-                        _tlWorkspacesNotifier.removeTLWorkspace(
+                        tlWorkspacesNotifier.removeTLWorkspace(
                             corrWorkspaceId: willDeletedWorkspace.id);
                         // currentWorkspaceIndexが削除するWorkspaceよりも大きい場合は1減らす
                         if (corrWorkspaceIndex <
-                            _currentTLWorkspaceNotifier.currentTLWorkspaceIndex)
-                          _currentTLWorkspaceNotifier
+                            currentTLWorkspaceNotifier
+                                .currentTLWorkspaceIndex) {
+                          currentTLWorkspaceNotifier
                               .changeCurrentWorkspaceIndex(
                                   newCurrentWorkspaceIndex:
-                                      _currentTLWorkspaceNotifier
+                                      currentTLWorkspaceNotifier
                                               .currentTLWorkspaceIndex -
                                           1);
+                        }
 
                         // このアラートを消してsimpleアラートを表示する
                         Navigator.pop(context);

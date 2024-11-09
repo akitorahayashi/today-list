@@ -22,13 +22,12 @@ class ToDosInThisCategoryInToday extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final TLWorkspace currentTLWorkspace =
-        ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
     List<TLToDo> toDosInTodayInThisCategory = currentTLWorkspace
         .toDos[smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
         .toDosInToday;

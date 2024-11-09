@@ -22,13 +22,12 @@ class TLStepCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final TLWorkspace _currentTLWorkspace =
-        ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace _currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
     final TLWorkspacesNotifier _tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     final CurrentTLWorkspaceNotifier _currentTLWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
     // other
     final int _currentTLWorkspaceIndex =
         _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;

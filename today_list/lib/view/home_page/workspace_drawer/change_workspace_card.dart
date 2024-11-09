@@ -22,11 +22,10 @@ class ChangeWorkspaceCard extends ConsumerWidget {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
-    final TLWorkspace currentTLWorkspace =
-        ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
     final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
     // other
     final int currentTLWorkspaceIndex =
         currentTLWorkspaceNotifier.currentTLWorkspaceIndex;

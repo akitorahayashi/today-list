@@ -86,7 +86,7 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
     required String? selectedSmallCategoryID,
     required int indexOfEditingToDo,
   }) {
-    final TLWorkspace currentWorkspace = ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace currentWorkspace = ref.watch(currentWorkspaceProvider);
     final String corrCategoryID =
         selectedSmallCategoryID ?? selectedBigCategoryID;
     final TLToDo edittedToDo =
@@ -141,10 +141,10 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
 
   Future<void> completeEditting() async {
     // provider
-    final currentTLWorkspace = ref.read(currentTLWorkspaceProvider);
+    final currentTLWorkspace = ref.read(currentWorkspaceProvider);
     // notifier
     final currentTLWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
 

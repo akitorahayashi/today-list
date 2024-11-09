@@ -66,7 +66,7 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
   }) async {
     final newList = [...state];
     newList[ref
-        .read(currentTLWorkspaceProvider.notifier)
+        .read(currentWorkspaceProvider.notifier)
         .currentTLWorkspaceIndex] = updatedWorkspace;
     state = newList;
     await _saveTLWorkspaces();

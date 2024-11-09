@@ -16,13 +16,12 @@ class AddedStepsColumn extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
     final EdittingTodo edittingToDo = ref.watch(edittingToDoProvider);
-    final TLWorkspace currentTLWorkspace =
-        ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
     final EditingToDoNotifier edittingToDoNotifier =
         ref.read(edittingToDoProvider.notifier);
     final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     return Padding(

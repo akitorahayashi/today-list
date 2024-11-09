@@ -30,13 +30,13 @@ class EdittingCategory {
 
   EdittingCategory copyWith({
     TextEditingController? categoryTitleInputController,
-    String? bigCatgoeyID,
+    String? bigCatgoeyIDForSmallCategory,
     int? indexOfEditingBigCategory,
     int? indexOfEditingSmallCategory,
   }) {
     return EdittingCategory(
       categoryTitleInputController ?? this.categoryTitleInputController,
-      bigCatgoeyID ?? this.bigCatgoeyID,
+      bigCatgoeyIDForSmallCategory ?? this.bigCatgoeyID,
       indexOfEditingBigCategory ?? this.indexOfEditingBigCategory,
       indexOfEditingSmallCategory ?? this.indexOfEditingSmallCategory,
     );
@@ -44,14 +44,14 @@ class EdittingCategory {
 }
 
 final edittingCategoryProvider =
-    StateNotifierProvider<EditingCategoryNotifier, EdittingCategory>((ref) {
-  return EditingCategoryNotifier(ref);
+    StateNotifierProvider<EdittingCategoryNotifier, EdittingCategory>((ref) {
+  return EdittingCategoryNotifier(ref);
 });
 
-class EditingCategoryNotifier extends StateNotifier<EdittingCategory> {
+class EdittingCategoryNotifier extends StateNotifier<EdittingCategory> {
   final Ref ref;
 
-  EditingCategoryNotifier(this.ref)
+  EdittingCategoryNotifier(this.ref)
       : super(EdittingCategory.generateInitialEdittingCategory());
 
   void setInitialValue() {
@@ -62,7 +62,7 @@ class EditingCategoryNotifier extends StateNotifier<EdittingCategory> {
     required int indexOfEditingBigCategory,
     required int? indexOfEditingSmallCategory,
   }) {
-    final TLWorkspace currentWorkspace = ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace currentWorkspace = ref.watch(currentWorkspaceProvider);
     final TLCategory corrBigCategory =
         currentWorkspace.bigCategories[indexOfEditingBigCategory];
     final TLCategory corrCategory = indexOfEditingSmallCategory == null
@@ -73,7 +73,8 @@ class EditingCategoryNotifier extends StateNotifier<EdittingCategory> {
     state = state.copyWith(
       categoryTitleInputController:
           TextEditingController(text: corrCategory.title),
-      bigCatgoeyID: corrBigCategory.id,
+      bigCatgoeyIDForSmallCategory:
+          indexOfEditingSmallCategory == null ? null : corrBigCategory.id,
       indexOfEditingBigCategory: indexOfEditingBigCategory,
       indexOfEditingSmallCategory: indexOfEditingSmallCategory,
     );
@@ -87,7 +88,7 @@ class EditingCategoryNotifier extends StateNotifier<EdittingCategory> {
   }) {
     state = state.copyWith(
       categoryTitleInputController: categoryTitleInputController,
-      bigCatgoeyID: bigCatgoeyID,
+      bigCatgoeyIDForSmallCategory: bigCatgoeyID,
       indexOfEditingBigCategory: indexOfEditingBigCategory,
       indexOfEditingSmallCategory: indexOfEditingSmallCategory,
     );
@@ -95,10 +96,10 @@ class EditingCategoryNotifier extends StateNotifier<EdittingCategory> {
 
   Future<void> completeEditting() async {
     // provider
-    final currentTLWorkspace = ref.watch(currentTLWorkspaceProvider);
+    final currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
     final currentTLWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
 
     final TLCategory createdCategory = TLCategory(
         id: UniqueKey().toString(),
@@ -144,7 +145,7 @@ class EditingCategoryNotifier extends StateNotifier<EdittingCategory> {
     }
     // 入力事項の初期化
     state.copyWith(
-        bigCatgoeyID: null,
+        bigCatgoeyIDForSmallCategory: null,
         indexOfEditingBigCategory: null,
         indexOfEditingSmallCategory: null);
     state.categoryTitleInputController?.clear();
@@ -155,7 +156,7 @@ class EditingCategoryNotifier extends StateNotifier<EdittingCategory> {
     state.categoryTitleInputController?.dispose();
     state = state.copyWith(
       categoryTitleInputController: null,
-      bigCatgoeyID: null,
+      bigCatgoeyIDForSmallCategory: null,
       indexOfEditingBigCategory: null,
       indexOfEditingSmallCategory: null,
     );

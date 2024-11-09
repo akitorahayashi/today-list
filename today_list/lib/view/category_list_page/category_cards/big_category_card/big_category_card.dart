@@ -21,13 +21,12 @@ class BigCategoryCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace _currentTLWorkspace =
-        ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace _currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     final TLWorkspacesNotifier _tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     // notifier
     final CurrentTLWorkspaceNotifier _currentWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
     // others
     final TLCategory _coorBigCategory =
         _currentTLWorkspace.bigCategories[indexOfBigCategory];

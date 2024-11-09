@@ -14,7 +14,7 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final EdittingTodo edittingTodo = ref.watch(edittingToDoProvider);
-    final currentWorkspace = ref.watch(currentTLWorkspaceProvider);
+    final currentWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
     final EditingToDoNotifier edittingToDoNotifier =
         ref.watch(edittingToDoProvider.notifier);
