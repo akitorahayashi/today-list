@@ -58,7 +58,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     final currentTLWorkspaceNotifier =
         ref.read(currentWorkspaceProvider.notifier);
     final int currentTLWorkspaceIndex =
-        currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
+        currentTLWorkspaceNotifier.currentWorkspaceIndex;
 
     return Scaffold(
       key: homePageScaffoldKey,

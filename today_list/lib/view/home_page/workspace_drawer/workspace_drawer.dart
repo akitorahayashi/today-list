@@ -23,7 +23,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
     final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
         ref.read(currentWorkspaceProvider.notifier);
     final int currentTLWorkspaceIndex =
-        currentWorkspaceNotifier.currentTLWorkspaceIndex;
+        currentWorkspaceNotifier.currentWorkspaceIndex;
 
     return Drawer(
       child: Stack(
@@ -126,29 +126,29 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                                   revisedNewIndex);
                                     } else if (revisedOldIndex <
                                             currentWorkspaceNotifier
-                                                .currentTLWorkspaceIndex &&
+                                                .currentWorkspaceIndex &&
                                         revisedNewIndex >=
                                             currentWorkspaceNotifier
-                                                .currentTLWorkspaceIndex) {
+                                                .currentWorkspaceIndex) {
                                       // currentWorkspaceIndexが移動範囲内にある場合（下方向に移動）
                                       currentWorkspaceNotifier
                                           .changeCurrentWorkspaceIndex(
                                               newCurrentWorkspaceIndex:
                                                   currentWorkspaceNotifier
-                                                          .currentTLWorkspaceIndex -
+                                                          .currentWorkspaceIndex -
                                                       1);
                                     } else if (revisedOldIndex >
                                             currentWorkspaceNotifier
-                                                .currentTLWorkspaceIndex &&
+                                                .currentWorkspaceIndex &&
                                         revisedNewIndex <=
                                             currentWorkspaceNotifier
-                                                .currentTLWorkspaceIndex) {
+                                                .currentWorkspaceIndex) {
                                       // currentWorkspaceIndexが移動範囲内にある場合（上方向に移動）
                                       currentWorkspaceNotifier
                                           .changeCurrentWorkspaceIndex(
                                               newCurrentWorkspaceIndex:
                                                   currentWorkspaceNotifier
-                                                          .currentTLWorkspaceIndex +
+                                                          .currentWorkspaceIndex +
                                                       1);
                                     }
 

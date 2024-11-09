@@ -99,7 +99,7 @@ class AlreadyExists extends ConsumerWidget {
                       // toDosを保存する
                       tlWorkspacesNotifier.updateSpecificTLWorkspace(
                           specificWorkspaceIndex:
-                              currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                              currentWorkspaceNotifier.currentWorkspaceIndex,
                           updatedWorkspace: currentWorkspace);
                     }
                   }),

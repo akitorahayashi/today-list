@@ -17,10 +17,10 @@ final currentWorkspaceProvider =
 // currentWorkspaceを管理するNotifier
 class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
   final Ref ref;
-  int currentTLWorkspaceIndex;
+  int currentWorkspaceIndex;
 
   CurrentTLWorkspaceNotifier(this.ref, List<TLWorkspace> tlWorkspaces)
-      : currentTLWorkspaceIndex = 0,
+      : currentWorkspaceIndex = 0,
         super(tlWorkspaces[0]) {
     // 初期化処理
     _loadCurrentWorkspace(tlWorkspaces);
@@ -28,15 +28,15 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
 
   Future<void> _loadCurrentWorkspace(List<TLWorkspace> tlWorkspaces) async {
     final pref = await TLPref().getPref;
-    currentTLWorkspaceIndex = pref.getInt('currentWorkspaceIndex') ?? 0;
-    state = tlWorkspaces[currentTLWorkspaceIndex];
+    currentWorkspaceIndex = pref.getInt('currentWorkspaceIndex') ?? 0;
+    state = tlWorkspaces[currentWorkspaceIndex];
   }
 
   // 現在のワークスペースインデックスを変更する関数
   Future<void> changeCurrentWorkspaceIndex(
       {required int newCurrentWorkspaceIndex}) async {
-    currentTLWorkspaceIndex = newCurrentWorkspaceIndex;
-    state = ref.read(tlWorkspacesProvider)[currentTLWorkspaceIndex];
+    currentWorkspaceIndex = newCurrentWorkspaceIndex;
+    state = ref.read(tlWorkspacesProvider)[currentWorkspaceIndex];
     await TLPref().getPref.then((pref) {
       pref.setInt('currentWorkspaceIndex', newCurrentWorkspaceIndex);
     });
@@ -70,7 +70,7 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
       // bigCategoryに関するチェック済みToDoの削除
       deleteAllCheckedToDosInAToDos(
         onlyToday: true,
-        selectedWorkspaceIndex: currentTLWorkspaceIndex,
+        selectedWorkspaceIndex: currentWorkspaceIndex,
         selectedWorkspace: updatedCurrentTLWorkspace,
         selectedToDos: updatedCurrentTLWorkspace.toDos[bigCategory.id]!,
       );
@@ -79,7 +79,7 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
         // smallCategoryに関するチェック済みToDoの削除
         deleteAllCheckedToDosInAToDos(
             onlyToday: true,
-            selectedWorkspaceIndex: currentTLWorkspaceIndex,
+            selectedWorkspaceIndex: currentWorkspaceIndex,
             selectedWorkspace: updatedCurrentTLWorkspace,
             selectedToDos: updatedCurrentTLWorkspace.toDos[smallCategory.id]!);
       }
@@ -87,7 +87,7 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
 
     // 更新されたワークスペースを保存
     tlWorkspacesNotifier.updateSpecificTLWorkspace(
-        specificWorkspaceIndex: currentTLWorkspaceIndex,
+        specificWorkspaceIndex: currentWorkspaceIndex,
         updatedWorkspace: updatedCurrentTLWorkspace);
   }
 

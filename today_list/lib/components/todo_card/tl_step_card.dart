@@ -30,7 +30,7 @@ class TLStepCard extends ConsumerWidget {
         ref.read(currentWorkspaceProvider.notifier);
     // other
     final int _currentTLWorkspaceIndex =
-        _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
+        _currentTLWorkspaceNotifier.currentWorkspaceIndex;
     final TLStep stepData = toDoData.steps[indexInToDo];
 
     return GestureDetector(

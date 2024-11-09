@@ -61,7 +61,7 @@ class ToDosInThisCategoryInToday extends ConsumerWidget {
                   // 更新されたワークスペースを保存
                   tlWorkspacesNotifier.updateSpecificTLWorkspace(
                     specificWorkspaceIndex:
-                        currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
+                        currentTLWorkspaceNotifier.currentWorkspaceIndex,
                     updatedWorkspace: currentTLWorkspace,
                   );
                 }

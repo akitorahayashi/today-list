@@ -77,7 +77,7 @@ class CategoryListPage extends ConsumerWidget {
                     // categoriesを保存する
                     tlWorkspacesNotifier.updateSpecificTLWorkspace(
                         specificWorkspaceIndex:
-                            currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                            currentWorkspaceNotifier.currentWorkspaceIndex,
                         updatedWorkspace: currentTLWorkspace);
                   }),
               const SizedBox(

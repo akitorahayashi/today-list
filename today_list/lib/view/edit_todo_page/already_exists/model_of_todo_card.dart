@@ -160,7 +160,7 @@ class ModelOfToDoCard extends ConsumerWidget {
                       // currentWorkspaceを更新
                       tlWorkspacesNotifier.updateSpecificTLWorkspace(
                         specificWorkspaceIndex:
-                            currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                            currentWorkspaceNotifier.currentWorkspaceIndex,
                         updatedWorkspace: currentWorkspace,
                       );
                     },

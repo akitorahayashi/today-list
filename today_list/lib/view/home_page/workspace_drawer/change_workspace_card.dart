@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../components/dialog/common/single_option_dialog.dart';
+import '../../../components/dialog/common/tl_single_option_dialog.dart';
 import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../model/external/tl_vibration.dart';
 import '../../../model/tl_workspace.dart';
@@ -28,7 +28,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
         ref.read(currentWorkspaceProvider.notifier);
     // other
     final int currentTLWorkspaceIndex =
-        currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
+        currentTLWorkspaceNotifier.currentWorkspaceIndex;
     final bool isCurrentWorkspace =
         indexInWorkspaces == currentTLWorkspaceIndex;
     return Padding(

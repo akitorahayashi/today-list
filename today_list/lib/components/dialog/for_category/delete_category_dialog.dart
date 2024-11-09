@@ -4,7 +4,9 @@ import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
+import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todos.dart';
 import 'package:today_list/styles/styles.dart';
 
 class DeleteCategoryDialog extends ConsumerWidget {
@@ -21,8 +23,12 @@ class DeleteCategoryDialog extends ConsumerWidget {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final currentWorkspace = ref.watch(currentWorkspaceProvider);
+    // notifier
+    final TLWorkspacesNotifier tlWorkspacesNotifier =
+        ref.read(tlWorkspacesProvider.notifier);
+    final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
+        ref.read(currentWorkspaceProvider.notifier);
     // other
-    final oldBigCategory = currentWorkspace.bigCategories[indexOfBigCategory];
     final TLCategory categoryThisBelongsTo = indexOfSmallCategory == null
         ? currentWorkspace.bigCategories[indexOfBigCategory]
         : currentWorkspace.smallCategories[currentWorkspace
@@ -76,6 +82,8 @@ class DeleteCategoryDialog extends ConsumerWidget {
                             in currentWorkspace.smallCategories.entries)
                           entry.key: List<TLCategory>.from(entry.value)
                       };
+                      final corrCategoryIDToToDos =
+                          Map<String, TLToDos>.from(currentWorkspace.toDos);
                       if (indexOfSmallCategory != null) {
                         // このカテゴリーがsmallCategoryの場合
                         // カテゴリーのリストから削除する
@@ -84,33 +92,30 @@ class DeleteCategoryDialog extends ConsumerWidget {
                             .removeWhere(((TLCategory smallCategory) =>
                                 smallCategory.id == categoryThisBelongsTo.id));
                         // toDosに入っているものを消す
-                        currentWorkspace.toDos.remove(categoryThisBelongsTo.id);
+                        corrCategoryIDToToDos.remove(categoryThisBelongsTo.id);
                       } else {
                         // このカテゴリーがbigCategoryの場合
                         // bigCategoryのsmallCategoryでtoDosに入っているものを消す
-                        for (TLCategory smallCategory in currentWorkspace
-                            .smallCategories[corrBigCategory.id]!) {
-                          currentWorkspace.toDos.remove(smallCategory.id);
-                        } // toDosに入っているものを消す
-                        currentWorkspace.toDos.remove(categoryThisBelongsTo.id);
+                        for (TLCategory smallCategory
+                            in corrSmallCategories[categoryThisBelongsTo.id]!) {
+                          corrCategoryIDToToDos.remove(smallCategory.id);
+                        }
+                        // toDosに入っているものを消す
+                        corrCategoryIDToToDos.remove(categoryThisBelongsTo.id);
                         // カテゴリーのリストからbigCategoryとsmallCategoryを削除する
-                        currentWorkspace.bigCategories
-                            .removeAt(indexOfBigCategory);
-                        currentWorkspace.smallCategories
-                            .remove(categoryThisBelongsTo.id);
+                        corrBigCategories.removeAt(indexOfBigCategory);
+                        corrSmallCategories.remove(categoryThisBelongsTo.id);
                       }
 
                       // categoriesとtoDosを保存する
-                      if (indexOfSmallCategory == null) {
-                        Category.saveBigCategories();
-                      } else {
-                        Category.saveSmallCategories();
-                      }
-                      Workspace.saveSelectedWorkspace(
-                        selectedWorkspaceCategoryId: currentWorkspaceCategoryId,
-                        selectedWorkspaceIndex: currentWorkspaceIndex,
-                        selectedWorkspace: currentWorkspace,
-                      );
+                      tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                          specificWorkspaceIndex:
+                              currentWorkspaceNotifier.currentWorkspaceIndex,
+                          updatedWorkspace: currentWorkspace.copyWith(
+                              bigCategories: corrBigCategories,
+                              smallCategories: corrSmallCategories,
+                              toDos: corrCategoryIDToToDos));
+
                       Navigator.pop(context);
                       // アラートを消す
                       Navigator.pop(context);

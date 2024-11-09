@@ -164,8 +164,7 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
       corrToDos[state.ifInToday][state.indexOfEditingToDo!] = createdToDo;
     }
     await tlWorkspacesNotifier.updateSpecificTLWorkspace(
-      specificWorkspaceIndex:
-          currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
+      specificWorkspaceIndex: currentTLWorkspaceNotifier.currentWorkspaceIndex,
       updatedWorkspace: currentTLWorkspace..toDos[corrCategoryID] = corrToDos,
     );
     // 入力事項の初期化

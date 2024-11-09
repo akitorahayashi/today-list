@@ -151,7 +151,7 @@ class TLToDoCard extends ConsumerWidget {
                           // toDosを保存する
                           tlWorkspacesNotifier.updateSpecificTLWorkspace(
                             specificWorkspaceIndex: currentTLWorkspaceNotifier
-                                .currentTLWorkspaceIndex,
+                                .currentWorkspaceIndex,
                             updatedWorkspace: currentTLWorkspace,
                           );
                         },
