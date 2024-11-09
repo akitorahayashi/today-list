@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/editing_provider/editing_todo_provider.dart';
+import '../../../../model/editing_provider/editing_todo_provider.dart';
 import '../../../../styles/styles.dart';
 import '../../../../model/design/tl_theme.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class StepTitleInputField extends ConsumerWidget {
+class StepTitleInputField extends ConsumerStatefulWidget {
   const StepTitleInputField({super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<StepTitleInputField> createState() =>
+      StepTitleInputFieldState();
+}
+
+class StepTitleInputFieldState extends ConsumerState<StepTitleInputField> {
+  String _enteredStepTitle = "";
+  @override
+  Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final EditingTodo editingTodo = ref.watch(editingToDoProvider);
@@ -23,6 +31,11 @@ class StepTitleInputField extends ConsumerWidget {
         child: TextField(
           autofocus: true,
           controller: EditingTodo.stepTitleInputController,
+          onChanged: (t) {
+            setState(() {
+              _enteredStepTitle = t;
+            });
+          },
           style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -37,29 +50,26 @@ class StepTitleInputField extends ConsumerWidget {
               ),
               suffixIcon: AnimatedOpacity(
                 duration: const Duration(milliseconds: 300),
-                opacity:
-                    EditingTodo.stepTitleInputController?.text.isNotEmpty ??
-                            false
-                        ? 1
-                        : 0.25,
+                opacity: _enteredStepTitle.trim().isNotEmpty ? 1 : 0.25,
                 child: TextButton(
                   // edittingToDoのstepsに追加
-                  onPressed: () {
-                    final stepTitle =
-                        EditingTodo.stepTitleInputController?.text;
-                    if (stepTitle == null || stepTitle.isEmpty == true) return;
-                    // add or edit
-                    editingToDoNotifier.addToStepList(
-                        stepTitle, editingTodo.indexOfEditingStep);
-                    EditingTodo.stepTitleInputController?.clear();
-                  },
+                  onPressed: _enteredStepTitle.trim().isEmpty
+                      ? null
+                      : () {
+                          final stepTitle =
+                              EditingTodo.stepTitleInputController?.text;
+                          if (stepTitle == null || stepTitle.isEmpty == true)
+                            return;
+                          // add or edit
+                          editingToDoNotifier.addToStepList(
+                              stepTitle, editingTodo.indexOfEditingStep);
+                          EditingTodo.stepTitleInputController?.clear();
+                        },
                   child: Icon(
                     Icons.add,
-                    color:
-                        EditingTodo.stepTitleInputController?.text.isNotEmpty ??
-                                false
-                            ? tlThemeData.accentColor
-                            : Colors.black,
+                    color: _enteredStepTitle.trim().isNotEmpty
+                        ? tlThemeData.accentColor
+                        : Colors.black,
                     size: 25,
                   ),
                 ),
