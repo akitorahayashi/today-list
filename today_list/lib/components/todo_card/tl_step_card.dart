@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
-import 'package:today_list/components/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
-import 'package:today_list/model/tl_workspace.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
+import '../../components/todo_card/icon_for_checkbox.dart';
+import '../../components/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
+import '../../model/tl_workspace.dart';
 import '../../model/provider/current_tl_workspace_provider.dart';
 import '../../model/provider/tl_workspaces_provider.dart';
 import '../../model/todo/tl_step.dart';
@@ -32,13 +31,12 @@ class TLStepCard extends ConsumerWidget {
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     // other
-    final Map<String, TLToDos> copiedIDToToDos =
-        Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
-    final TLToDos corrToDos = copiedIDToToDos[corrCategoryID]!;
+    final corrToDos = currentTLWorkspace.categoryIDToToDos[corrCategoryID]!;
     final TLToDo corrToDoData = corrToDos[ifInToday][indexInToDos];
     final TLStep corrStepData = corrToDoData.steps[indexInSteps];
 
     return GestureDetector(
+      // TODO 関数を渡して親のwidgetで処理する
       onTap: () {
         // stepのチェック状態を変更
         corrStepData.isChecked = !corrStepData.isChecked;
@@ -60,8 +58,7 @@ class TLStepCard extends ConsumerWidget {
 
         // 更新されたToDoをワークスペースに反映
         tlWorkspacesNotifier.updateCurrentWorkspace(
-            updatedWorkspace: currentTLWorkspace
-              ..categoryIDToToDos = copiedIDToToDos);
+            updatedWorkspace: currentTLWorkspace.copyWith());
 
         TLVibration.vibrate();
         NotifyTodoOrStepIsEditedSnackBar.show(

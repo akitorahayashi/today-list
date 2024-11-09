@@ -37,21 +37,23 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
   void initState() {
     super.initState();
     _bannerAd?.load();
-    // notifier
-    final EditingToDoNotifier edittingToDoNotifier =
-        ref.read(edittingToDoProvider.notifier);
-    // _edittingToDoNotifierの値を初期化する
-    if (widget.indexOfEdittedTodo == null) {
-      edittingToDoNotifier.setInitialValue();
-    } else {
-      // すでにあるTLToDoを経集する
-      edittingToDoNotifier.setEditedToDo(
-        ifInToday: widget.ifInToday,
-        selectedBigCategoryID: widget.selectedBigCategoryID,
-        selectedSmallCategoryID: widget.selectedSmallCategoryID,
-        indexOfEditingToDo: widget.indexOfEdittedTodo!,
-      );
-    }
+
+    // ウィジェットツリーが構築された後に状態を変更
+    Future.microtask(() {
+      final EditingToDoNotifier edittingToDoNotifier =
+          ref.read(edittingToDoProvider.notifier);
+
+      if (widget.indexOfEdittedTodo == null) {
+        edittingToDoNotifier.setInitialValue();
+      } else {
+        edittingToDoNotifier.setEditedToDo(
+          ifInToday: widget.ifInToday,
+          selectedBigCategoryID: widget.selectedBigCategoryID,
+          selectedSmallCategoryID: widget.selectedSmallCategoryID,
+          indexOfEditingToDo: widget.indexOfEdittedTodo!,
+        );
+      }
+    });
   }
 
   @override

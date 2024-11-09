@@ -3,7 +3,6 @@ import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
 import 'package:today_list/components/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
 import '../../model/design/tl_theme.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/todo/tl_step.dart';
@@ -45,11 +44,12 @@ class TLToDoCard extends ConsumerWidget {
     final TLCategory categoryOfThisToDo = smallCategoryOfThisToDo == null
         ? bigCategoryOfThisToDo
         : smallCategoryOfThisToDo!;
-    // todos
-    final Map<String, TLToDos> copiedIDToToDos =
-        Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
-    final TLToDos corrToDos = copiedIDToToDos[categoryOfThisToDo.id]!;
-    final TLToDo corrToDoData = corrToDos[ifInToday][indexOfThisToDoInToDos];
+
+    List<TLToDo> toDoArrayThatContainsThisToDo =
+        currentTLWorkspace.categoryIDToToDos[categoryOfThisToDo.id]![ifInToday];
+
+    final TLToDo corrToDoData =
+        toDoArrayThatContainsThisToDo[indexOfThisToDoInToDos];
     // 全体を囲むカード
     return GestureDetector(
       onTap: () {
@@ -147,15 +147,12 @@ class TLToDoCard extends ConsumerWidget {
                                   ),
                                 )),
                         onReorder: (oldIndex, newIndex) {
-                          if (oldIndex == newIndex) return;
                           final reOrderedToDo = corrToDoData.steps[oldIndex];
                           corrToDoData.steps.remove(reOrderedToDo);
-                          if (oldIndex < newIndex) newIndex--;
                           corrToDoData.steps.insert(newIndex, reOrderedToDo);
                           // toDosを保存する
                           tlWorkspacesNotifier.updateCurrentWorkspace(
-                            updatedWorkspace: currentTLWorkspace
-                              ..categoryIDToToDos = copiedIDToToDos,
+                            updatedWorkspace: currentTLWorkspace.copyWith(),
                           );
                         },
                       ),

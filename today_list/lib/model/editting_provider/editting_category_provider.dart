@@ -36,7 +36,7 @@ class EdittingCategory {
   }) {
     return EdittingCategory(
       categoryTitleInputController ?? this.categoryTitleInputController,
-      bigCatgoeyIDForSmallCategory ?? this.bigCatgoeyID,
+      bigCatgoeyIDForSmallCategory ?? bigCatgoeyID,
       indexOfEditingBigCategory ?? this.indexOfEditingBigCategory,
       indexOfEditingSmallCategory ?? this.indexOfEditingSmallCategory,
     );
@@ -97,9 +97,6 @@ class EdittingCategoryNotifier extends StateNotifier<EdittingCategory> {
   Future<void> completeEditting() async {
     // provider
     final currentTLWorkspace = ref.watch(currentWorkspaceProvider);
-    // notifier
-    final currentTLWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
 
     // 追加、編集処理
     if (state.bigCatgoeyID == null) {

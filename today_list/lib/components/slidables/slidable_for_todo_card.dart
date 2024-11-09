@@ -63,7 +63,7 @@ class SlidableForToDoCard extends ConsumerWidget {
             toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
             TLVibration.vibrate();
             tlWorkspacesNotifier.updateCurrentWorkspace(
-                updatedWorkspace: currentTLWorkspace);
+                updatedWorkspace: currentTLWorkspace.copyWith());
           },
           icon: Icons.remove,
         ),
