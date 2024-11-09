@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../components/dialog/common/single_option_dialog.dart';
-import '../../../../../components/dialog/common/yes_no_dialog.dart';
+import '../../../../../components/dialog/common/tl_single_option_dialog.dart';
+import '../../../../../components/dialog/common/tl_yes_no_dialog.dart';
 import '../../../../../main.dart';
 import '../../../../../model/external/tl_ads.dart';
 import '../../../../../model/design/icon_for_checkbox.dart';
@@ -50,7 +50,7 @@ class _IconCardState extends State<IconCard> {
           } else {
             await showDialog(
               context: context,
-              builder: ((context) => YesNoDialog(
+              builder: ((context) => TLYesNoDialog(
                     title: "PASSを獲得しよう!",
                     message:
                         "\n・広告を見てPASSの期間を増やすことでチェックボックスのアイコンやカラーテーマを変更することができます!\n\n・1回の動画広告で3日分獲得できます",
@@ -60,7 +60,7 @@ class _IconCardState extends State<IconCard> {
                         TLAds.extendLimitOfPassReward(howManyDays: 3);
                         showDialog(
                           context: context,
-                          builder: ((context) => SingleOptionDialog(
+                          builder: ((context) => TLSingleOptionDialog(
                                 title: "PASSが延長されました!",
                                 message: "3日分のPASSを獲得しました",
                               )),

@@ -104,7 +104,7 @@ class TLAds {
           showDialog(
               context: context,
               builder: ((context) {
-                return SingleOptionDialog(
+                return TLSingleOptionDialog(
                   title: "エラー",
                   message: "インターネット環境の調子が悪いようです...",
                 );

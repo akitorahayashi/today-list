@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
 import '../../../../model/design/tl_theme.dart';
-import '../../../../components/dialog/common/single_option_dialog.dart';
-import '../../../../components/dialog/common/yes_no_dialog.dart';
+import '../../../../components/dialog/common/tl_single_option_dialog.dart';
+import '../../../../components/dialog/common/tl_yes_no_dialog.dart';
 import '../../../../model/external/tl_ads.dart';
 import 'change_theme_dialog.dart';
 
@@ -40,7 +40,7 @@ class _RightSideThemeSelectButtonState
           await showDialog(
               context: context,
               builder: ((context) {
-                return YesNoDialog(
+                return TLYesNoDialog(
                   title: "PASSを獲得しよう!",
                   message:
                       "\n・広告を見てPASSの期間を増やすことでチェックボックスのアイコンやカラーテーマを変更することができます!\n\n・1回の動画広告で3日分獲得できます",
@@ -51,7 +51,7 @@ class _RightSideThemeSelectButtonState
                       await showDialog(
                           context: context,
                           builder: (context) {
-                            return SingleOptionDialog(
+                            return TLSingleOptionDialog(
                               title: "PASSが延長されました!",
                               message: "3日分のPASSを獲得しました",
                             );

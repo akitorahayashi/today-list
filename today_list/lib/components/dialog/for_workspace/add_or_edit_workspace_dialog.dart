@@ -131,7 +131,7 @@ class _AddOrEditWorkspaceDialogState
                         // 追加したことを知らせる
                         showDialog(
                             context: context,
-                            builder: (context) => SingleOptionDialog(
+                            builder: (context) => TLSingleOptionDialog(
                                 title: _workspaceNameInputController.text,
                                 message: "が追加されました!"));
                       } else {
@@ -160,7 +160,7 @@ class _AddOrEditWorkspaceDialogState
                         }
                         showDialog(
                           context: context,
-                          builder: (context) => SingleOptionDialog(
+                          builder: (context) => TLSingleOptionDialog(
                             title: "変更することに\n成功しました！",
                             message: null,
                           ),

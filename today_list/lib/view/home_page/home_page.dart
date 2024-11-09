@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../components/common_ui_part/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
 import '../../components/common_ui_part/today_list_bottom_navbar/today_list_bottom_navbar.dart';
-import '../../components/dialog/common/single_option_dialog.dart';
-import '../../components/dialog/common/yes_no_dialog.dart';
+import '../../components/dialog/common/tl_single_option_dialog.dart';
+import '../../components/dialog/common/tl_yes_no_dialog.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
 import './todos_in_this_category_today/header_for_todos.dart';
 import './todos_in_this_category_today/todos_in_this_category_in_today.dart';
@@ -165,7 +165,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           //　今日のチェック済みtodoを全て削除するボタン
           leadingButtonOnPressed: () => showDialog(
               context: context,
-              builder: ((context) => YesNoDialog(
+              builder: ((context) => TLYesNoDialog(
                     title: "チェック済みToDoを\n削除しますか?",
                     message: null,
                     yesAction: () async {
@@ -175,7 +175,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       if (context.mounted) {
                         showDialog(
                           context: context,
-                          builder: (context) => SingleOptionDialog(
+                          builder: (context) => TLSingleOptionDialog(
                             title: "削除が完了しました！",
                             message: null,
                           ),

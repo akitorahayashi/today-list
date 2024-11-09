@@ -53,7 +53,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                     Navigator.pop(context);
                     showDialog(
                         context: context,
-                        builder: (context) => SingleOptionDialog(
+                        builder: (context) => TLSingleOptionDialog(
                             title: currentTLWorkspace.name,
                             message: "workspaceを変更しました！"));
                   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../components/dialog/common/yes_no_dialog.dart';
-import '../../components/dialog/common/single_option_dialog.dart';
+import '../../components/dialog/common/tl_yes_no_dialog.dart';
+import '../../components/dialog/common/tl_single_option_dialog.dart';
 import '../external/tl_vibration.dart';
 import '../external/tl_pref.dart';
 import 'dart:convert';
@@ -84,7 +84,7 @@ class SettingData {
     // if (isEarned) {
     await showDialog(
         context: context,
-        builder: (context) => YesNoDialog(
+        builder: (context) => TLYesNoDialog(
               title: "アイコンの変更",
               message: "チェックマークのアイコンを\n変更しますか?",
               yesAction: () {
@@ -95,7 +95,7 @@ class SettingData {
                 TLVibration.vibrate();
                 showDialog(
                     context: context,
-                    builder: (context) => SingleOptionDialog(
+                    builder: (context) => TLSingleOptionDialog(
                           title: "変更が完了しました!",
                           message: null,
                         ));

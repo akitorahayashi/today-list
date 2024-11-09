@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../components/dialog/common/yes_no_dialog.dart';
-import '../../../components/dialog/common/single_option_dialog.dart';
+import '../../../components/dialog/common/tl_yes_no_dialog.dart';
+import '../../../components/dialog/common/tl_single_option_dialog.dart';
 import '../../../model/external/tl_ads.dart';
 import '../../../model/design/tl_theme.dart';
 
@@ -15,7 +15,7 @@ class ShowLimitOfPassCard extends StatelessWidget {
       child: InkWell(
         onTap: () => showDialog(
           context: context,
-          builder: (context) => YesNoDialog(
+          builder: (context) => TLYesNoDialog(
             title: "PASSを獲得しよう!",
             message:
                 "\n・広告を見てPASSの期間を増やすことでチェックボックスのアイコンやカラーテーマを変更することができます!\n\n・1回の動画広告で3日分獲得できます",
@@ -25,7 +25,7 @@ class ShowLimitOfPassCard extends StatelessWidget {
                 TLAds.extendLimitOfPassReward(howManyDays: 3);
                 showDialog(
                   context: context,
-                  builder: ((context) => SingleOptionDialog(
+                  builder: ((context) => TLSingleOptionDialog(
                         title: "PASSが延長されました!",
                         message: "3日分のPASSを獲得しました",
                       )),

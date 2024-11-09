@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../styles/styles.dart';
 
-class SingleOptionDialog extends StatelessWidget {
+class TLSingleOptionDialog extends StatelessWidget {
   final String title;
   final String? message;
 
-  SingleOptionDialog({
+  const TLSingleOptionDialog({
     super.key,
     required this.title,
     required this.message,

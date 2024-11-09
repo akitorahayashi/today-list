@@ -95,7 +95,7 @@ class ChangeThemeDialog extends StatelessWidget {
                       showDialog(
                           context: context,
                           builder: (context) {
-                            return SingleOptionDialog(
+                            return TLSingleOptionDialog(
                               title: "変更が完了しました",
                               message: null,
                             );

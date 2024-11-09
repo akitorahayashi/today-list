@@ -130,7 +130,7 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                             showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return SingleOptionDialog(
+                                  return TLSingleOptionDialog(
                                       title: "変更することに\n成功しました!", message: null);
                                 });
                           },

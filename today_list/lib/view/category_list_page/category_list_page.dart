@@ -7,8 +7,7 @@ import '../../model/tl_workspace.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/design/tl_theme.dart';
 import 'category_cards/big_category_card/big_category_card.dart';
-import 'add_category_component/add_category_button.dart';
-import 'add_category_component/add_category_sheet.dart';
+import 'add_category_button.dart';
 
 import 'package:reorderables/reorderables.dart';
 
