@@ -26,16 +26,20 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
   @override
   void initState() {
     super.initState();
-    // stateのbigCategoryIDはsetEditedCategoryで設定
-    ref.read(edittingCategoryProvider.notifier).setEditedCategory(
-          indexOfEditingBigCategory: widget.indexOfBigCategory,
-          indexOfEditingSmallCategory: widget.indexOfSmallCategory,
-        );
+    Future.microtask(() {
+      // stateのbigCategoryIDはsetEditedCategoryで設定
+      ref.read(edittingCategoryProvider.notifier).setEditedCategory(
+            indexOfEditingBigCategory: widget.indexOfBigCategory,
+            indexOfEditingSmallCategory: widget.indexOfSmallCategory,
+          );
+    });
   }
 
   @override
   void dispose() {
-    ref.read(edittingCategoryProvider.notifier).disposeValue();
+    Future.microtask(() {
+      ref.read(edittingCategoryProvider.notifier).disposeValue();
+    });
     super.dispose();
   }
 

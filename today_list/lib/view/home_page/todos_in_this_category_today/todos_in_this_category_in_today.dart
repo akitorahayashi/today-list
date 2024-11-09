@@ -27,8 +27,6 @@ class ToDosInThisCategoryInToday extends ConsumerWidget {
     // notifier
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
-    final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
     final coorCategoryIDToToDos =
         Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
     List<TLToDo> toDosInTodayInThisCategory = coorCategoryIDToToDos[

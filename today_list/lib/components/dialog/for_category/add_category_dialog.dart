@@ -17,12 +17,16 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
   @override
   void initState() {
     super.initState();
-    ref.read(edittingCategoryProvider.notifier).setInitialValue();
+    Future.microtask(() {
+      ref.read(edittingCategoryProvider.notifier).setInitialValue();
+    });
   }
 
   @override
   void dispose() {
-    ref.read(edittingCategoryProvider.notifier).disposeValue();
+    Future.microtask(() {
+      ref.read(edittingCategoryProvider.notifier).disposeValue();
+    });
     super.dispose();
   }
 

@@ -58,7 +58,10 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
 
   @override
   void dispose() {
-    ref.read(edittingToDoProvider.notifier).disposeValue();
+    // ウィジェットツリーが破棄された後に状態を変更
+    Future.microtask(() {
+      ref.read(edittingToDoProvider.notifier).disposeValue();
+    });
     _bannerAd?.dispose();
     super.dispose();
   }
