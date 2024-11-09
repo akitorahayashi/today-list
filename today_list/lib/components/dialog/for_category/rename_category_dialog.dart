@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/dialog/common/single_option_dialog.dart';
 import 'package:today_list/model/editting_provider/editting_category_provider.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/styles/styles.dart';
@@ -125,18 +124,19 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                         : () {
                             edittingCategoryNotifier.completeEditting();
                             // to category list
-                            Navigator.pop(context);
+                            Navigator.pop(context, null);
                             TLVibration.vibrate();
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return SingleOptionDialog(
-                                      title: "変更することに\n成功しました!", message: null);
-                                });
+                            // categoryListでDialogを表示
+                            // showDialog(
+                            //     context: context,
+                            //     builder: (context) {
+                            //       return SingleOptionDialog(
+                            //           title: "変更することに\n成功しました!", message: null);
+                            //     });
                           },
                     child: Text(
                       "完了",
-                      style: TextStyle(color: tlThemeData!.accentColor),
+                      style: TextStyle(color: tlThemeData.accentColor),
                     ),
                   )
                 ],
