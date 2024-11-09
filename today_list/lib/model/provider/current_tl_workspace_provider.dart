@@ -91,7 +91,7 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
 
     // 更新されたワークスペースを保存
     tlWorkspacesNotifier.updateCurrentWorkspace(
-        updatedWorkspace: updatedCurrentTLWorkspace);
+        updatedWorkspace: updatedCurrentTLWorkspace.copyWith());
   }
 
   // 指定されたToDos内のチェック済みToDoを全て削除する関数
