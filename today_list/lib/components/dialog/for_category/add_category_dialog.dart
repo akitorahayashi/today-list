@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/dialog/common/single_option_dialog.dart';
+import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/styles/styles.dart';
@@ -90,7 +90,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                           showDialog(
                               context: context,
                               builder: (context) {
-                                return SingleOptionDialog(
+                                return const TLSingleOptionDialog(
                                     title: "カテゴリーが\n追加されました！", message: null);
                               });
                         },

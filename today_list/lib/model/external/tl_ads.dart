@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../components/dialog/common/single_option_dialog.dart';
+import '../../components/dialog/common/tl_single_option_dialog.dart';
 import './tl_pref.dart';
 import '../../main.dart';
 import 'dart:io';
@@ -104,7 +104,7 @@ class TLAds {
           showDialog(
               context: context,
               builder: ((context) {
-                return SingleOptionDialog(
+                return TLSingleOptionDialog(
                   title: "エラー",
                   message: "インターネット環境の調子が悪いようです...",
                 );

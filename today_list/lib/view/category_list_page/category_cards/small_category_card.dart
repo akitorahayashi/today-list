@@ -23,8 +23,9 @@ class SmallCategoryCard extends ConsumerWidget {
     final TLCategory _smallCategoryOfThisCard = _currentTLWorkspace
         .smallCategories[corrBigCategoryID]![corrIndexOfSmallCategory];
     // getNumberOfToDosInThisCategory
-    final int _numberOfToDoInThisSmallCategory = _smallCategoryOfThisCard
-        .getNumberOfToDosInThisCategory(corrToDos: _currentTLWorkspace.toDos);
+    final int _numberOfToDoInThisSmallCategory =
+        _smallCategoryOfThisCard.getNumberOfToDosInThisCategory(
+            corrToDos: _currentTLWorkspace.categoryIDToToDos);
     return GestureDetector(
       // TODO カテゴリーを編集するDialogを表示
       onTap: () {},

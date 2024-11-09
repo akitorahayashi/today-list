@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
-import '../common/single_option_dialog.dart';
+import '../common/tl_single_option_dialog.dart';
 import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/tl_workspace.dart';
@@ -79,23 +79,22 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                         Navigator.pop(context);
                         showDialog(
                             context: context,
-                            builder: (context) => SingleOptionDialog(
+                            builder: (context) => TLSingleOptionDialog(
                                   title: "エラー",
                                   message: '"デフォルト"のWorkspaceは\n削除できません',
                                 ));
                       } else {
                         // TLWorkspacesから削除
-                        tlWorkspacesNotifier.removeTLWorkspace(
+                        tlWorkspacesNotifier.removeWorkspace(
                             corrWorkspaceId: willDeletedWorkspace.id);
                         // currentWorkspaceIndexが削除するWorkspaceよりも大きい場合は1減らす
                         if (corrWorkspaceIndex <
-                            currentTLWorkspaceNotifier
-                                .currentTLWorkspaceIndex) {
+                            currentTLWorkspaceNotifier.currentWorkspaceIndex) {
                           currentTLWorkspaceNotifier
                               .changeCurrentWorkspaceIndex(
                                   newCurrentWorkspaceIndex:
                                       currentTLWorkspaceNotifier
-                                              .currentTLWorkspaceIndex -
+                                              .currentWorkspaceIndex -
                                           1);
                         }
 
@@ -104,7 +103,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                         TLVibration.vibrate();
                         showDialog(
                             context: context,
-                            builder: (context) => SingleOptionDialog(
+                            builder: (context) => TLSingleOptionDialog(
                                   title: "削除することに\n成功しました！",
                                   message: null,
                                 ));

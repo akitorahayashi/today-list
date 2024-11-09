@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
+import 'package:today_list/model/todo/tl_todos.dart';
 import '../../../components/todo_card/tl_todo_card.dart';
 import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../model/tl_workspace.dart';
@@ -28,8 +29,10 @@ class ToDosInThisCategoryInToday extends ConsumerWidget {
         ref.read(tlWorkspacesProvider.notifier);
     final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
         ref.read(currentWorkspaceProvider.notifier);
-    List<TLToDo> toDosInTodayInThisCategory = currentTLWorkspace
-        .toDos[smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
+    final coorCategoryIDToToDos =
+        Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
+    List<TLToDo> toDosInTodayInThisCategory = coorCategoryIDToToDos[
+            smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
         .toDosInToday;
     return Column(
       children: [
@@ -53,16 +56,15 @@ class ToDosInThisCategoryInToday extends ConsumerWidget {
               onReorder: (oldIndex, newIndex) {
                 final int indexOfCheckedToDo = toDosInTodayInThisCategory
                     .indexWhere((todo) => todo.isChecked);
-                if (indexOfCheckedToDo == -1 || indexOfCheckedToDo > newIndex) {
+                if (indexOfCheckedToDo == -1 || newIndex < indexOfCheckedToDo) {
                   final TLToDo reorderedToDo =
                       toDosInTodayInThisCategory.removeAt(oldIndex);
                   toDosInTodayInThisCategory.insert(newIndex, reorderedToDo);
 
                   // 更新されたワークスペースを保存
-                  tlWorkspacesNotifier.updateSpecificTLWorkspace(
-                    specificWorkspaceIndex:
-                        currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
-                    updatedWorkspace: currentTLWorkspace,
+                  tlWorkspacesNotifier.updateCurrentWorkspace(
+                    updatedWorkspace: currentTLWorkspace.copyWith(
+                        categoryIDToToDos: coorCategoryIDToToDos),
                   );
                 }
               }),

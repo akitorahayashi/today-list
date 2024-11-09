@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../styles/styles.dart';
 
-class YesNoDialog extends StatelessWidget {
+class TLYesNoDialog extends StatelessWidget {
   final String title;
   final String? message;
   final Function()? yesAction;
 
-  YesNoDialog({
+  const TLYesNoDialog({
     super.key,
     required this.title,
     required this.message,

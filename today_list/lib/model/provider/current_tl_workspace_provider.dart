@@ -17,10 +17,10 @@ final currentWorkspaceProvider =
 // currentWorkspaceを管理するNotifier
 class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
   final Ref ref;
-  int currentTLWorkspaceIndex;
+  int currentWorkspaceIndex;
 
   CurrentTLWorkspaceNotifier(this.ref, List<TLWorkspace> tlWorkspaces)
-      : currentTLWorkspaceIndex = 0,
+      : currentWorkspaceIndex = 0,
         super(tlWorkspaces[0]) {
     // 初期化処理
     _loadCurrentWorkspace(tlWorkspaces);
@@ -28,15 +28,15 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
 
   Future<void> _loadCurrentWorkspace(List<TLWorkspace> tlWorkspaces) async {
     final pref = await TLPref().getPref;
-    currentTLWorkspaceIndex = pref.getInt('currentWorkspaceIndex') ?? 0;
-    state = tlWorkspaces[currentTLWorkspaceIndex];
+    currentWorkspaceIndex = pref.getInt('currentWorkspaceIndex') ?? 0;
+    state = tlWorkspaces[currentWorkspaceIndex];
   }
 
   // 現在のワークスペースインデックスを変更する関数
   Future<void> changeCurrentWorkspaceIndex(
       {required int newCurrentWorkspaceIndex}) async {
-    currentTLWorkspaceIndex = newCurrentWorkspaceIndex;
-    state = ref.read(tlWorkspacesProvider)[currentTLWorkspaceIndex];
+    currentWorkspaceIndex = newCurrentWorkspaceIndex;
+    state = ref.read(tlWorkspacesProvider)[currentWorkspaceIndex];
     await TLPref().getPref.then((pref) {
       pref.setInt('currentWorkspaceIndex', newCurrentWorkspaceIndex);
     });
@@ -47,8 +47,9 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
     required bool ifInToday,
     required int indexOfThisToDoInToDos,
   }) async {
-    final toDoArrayOfThisToDo =
-        state.copyWith(toDos: state.toDos).toDos[categoryId]![ifInToday];
+    final toDoArrayOfThisToDo = state
+        .copyWith(categoryIDToToDos: state.categoryIDToToDos)
+        .categoryIDToToDos[categoryId]![ifInToday];
     final TLToDo toDoCheckStateHasChanged =
         toDoArrayOfThisToDo.removeAt(indexOfThisToDoInToDos);
     final int indexOfCheckedToDo =
@@ -58,7 +59,7 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
     } else {
       toDoArrayOfThisToDo.insert(indexOfCheckedToDo, toDoCheckStateHasChanged);
     }
-    state = state.copyWith(toDos: state.toDos);
+    state = state.copyWith(categoryIDToToDos: state.categoryIDToToDos);
   }
 
   // 現在のworkspaceの今日でチェック済みtodoを全て削除するための関数
@@ -70,24 +71,25 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
       // bigCategoryに関するチェック済みToDoの削除
       deleteAllCheckedToDosInAToDos(
         onlyToday: true,
-        selectedWorkspaceIndex: currentTLWorkspaceIndex,
+        selectedWorkspaceIndex: currentWorkspaceIndex,
         selectedWorkspace: updatedCurrentTLWorkspace,
-        selectedToDos: updatedCurrentTLWorkspace.toDos[bigCategory.id]!,
+        selectedToDos:
+            updatedCurrentTLWorkspace.categoryIDToToDos[bigCategory.id]!,
       );
       for (TLCategory smallCategory
           in updatedCurrentTLWorkspace.smallCategories[bigCategory.id]!) {
         // smallCategoryに関するチェック済みToDoの削除
         deleteAllCheckedToDosInAToDos(
             onlyToday: true,
-            selectedWorkspaceIndex: currentTLWorkspaceIndex,
+            selectedWorkspaceIndex: currentWorkspaceIndex,
             selectedWorkspace: updatedCurrentTLWorkspace,
-            selectedToDos: updatedCurrentTLWorkspace.toDos[smallCategory.id]!);
+            selectedToDos:
+                updatedCurrentTLWorkspace.categoryIDToToDos[smallCategory.id]!);
       }
     }
 
     // 更新されたワークスペースを保存
-    tlWorkspacesNotifier.updateSpecificTLWorkspace(
-        specificWorkspaceIndex: currentTLWorkspaceIndex,
+    tlWorkspacesNotifier.updateCurrentWorkspace(
         updatedWorkspace: updatedCurrentTLWorkspace);
   }
 

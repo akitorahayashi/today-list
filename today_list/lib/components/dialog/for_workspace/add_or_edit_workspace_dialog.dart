@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../common/single_option_dialog.dart';
+import '../common/tl_single_option_dialog.dart';
 import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../styles/styles.dart';
 import '../../../model/design/tl_theme.dart';
@@ -48,7 +48,7 @@ class _AddOrEditWorkspaceDialogState
     final currentTLWorkspaceNotifier =
         ref.read(currentWorkspaceProvider.notifier);
     final currentTLWorkspaceIndex =
-        currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
+        currentTLWorkspaceNotifier.currentWorkspaceIndex;
 
     return Dialog(
       backgroundColor: tlThemeData.alertColor,
@@ -121,17 +121,17 @@ class _AddOrEditWorkspaceDialogState
                             smallCategories: {
                               noneID: []
                             },
-                            toDos: {
+                            categoryIDToToDos: {
                               noneID:
                                   TLToDos(toDosInToday: [], toDosInWhenever: [])
                             });
                         ref
                             .read(tlWorkspacesProvider.notifier)
-                            .addTLWorkspace(newTLWorkspace: createdWorkspace);
+                            .addWorkspace(newTLWorkspace: createdWorkspace);
                         // 追加したことを知らせる
                         showDialog(
                             context: context,
-                            builder: (context) => SingleOptionDialog(
+                            builder: (context) => TLSingleOptionDialog(
                                 title: _workspaceNameInputController.text,
                                 message: "が追加されました!"));
                       } else {
@@ -144,9 +144,7 @@ class _AddOrEditWorkspaceDialogState
                         // 更新する
                         ref
                             .read(tlWorkspacesProvider.notifier)
-                            .updateSpecificTLWorkspace(
-                              specificWorkspaceIndex:
-                                  widget.oldIndexInStringWorkspaces!,
+                            .updateCurrentWorkspace(
                               updatedWorkspace: editedWorkspace,
                             );
 
@@ -160,7 +158,7 @@ class _AddOrEditWorkspaceDialogState
                         }
                         showDialog(
                           context: context,
-                          builder: (context) => SingleOptionDialog(
+                          builder: (context) => TLSingleOptionDialog(
                             title: "変更することに\n成功しました！",
                             message: null,
                           ),

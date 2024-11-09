@@ -158,9 +158,7 @@ class ModelOfToDoCard extends ConsumerWidget {
                       if (oldIndex < newIndex) newIndex -= 1;
                       corrTLToDo.steps.insert(newIndex, reOrderedStep);
                       // currentWorkspaceを更新
-                      tlWorkspacesNotifier.updateSpecificTLWorkspace(
-                        specificWorkspaceIndex:
-                            currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                      tlWorkspacesNotifier.updateCurrentWorkspace(
                         updatedWorkspace: currentWorkspace,
                       );
                     },

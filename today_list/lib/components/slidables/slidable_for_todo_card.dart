@@ -47,10 +47,10 @@ class SlidableForToDoCard extends ConsumerWidget {
         ref.read(currentWorkspaceProvider.notifier);
     // other
     final int currentTLWorkspaceIndex =
-        currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
+        currentTLWorkspaceNotifier.currentWorkspaceIndex;
     final String corrCategoryID = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisToDoBelongs =
-        currentTLWorkspace.toDos[corrCategoryID]![ifInToday];
+        currentTLWorkspace.categoryIDToToDos[corrCategoryID]![ifInToday];
     return Slidable(
       // チェックされていたらスライドできなくする
       enabled: !corrTLToDo.isChecked,
@@ -66,8 +66,7 @@ class SlidableForToDoCard extends ConsumerWidget {
             // タップしたらこれをremoveする
             toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
             TLVibration.vibrate();
-            tlWorkspacesNotifier.updateSpecificTLWorkspace(
-                specificWorkspaceIndex: currentTLWorkspaceIndex,
+            tlWorkspacesNotifier.updateCurrentWorkspace(
                 updatedWorkspace: currentTLWorkspace);
           },
           icon: Icons.remove,
@@ -110,7 +109,7 @@ class SlidableForToDoCard extends ConsumerWidget {
               // タップしたらtodayとwheneverを切り替える
               final TLToDo switchedToDo =
                   toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
-              currentTLWorkspace.toDos[corrCategoryID]![!ifInToday]
+              currentTLWorkspace.categoryIDToToDos[corrCategoryID]![!ifInToday]
                   .insert(0, switchedToDo);
               TLVibration.vibrate();
               NotifyTodoOrStepIsEditedSnackBar.show(
@@ -118,8 +117,7 @@ class SlidableForToDoCard extends ConsumerWidget {
                   newTitle: corrTLToDo.title,
                   newCheckedState: corrTLToDo.isChecked,
                   quickChangeToToday: !ifInToday);
-              tlWorkspacesNotifier.updateSpecificTLWorkspace(
-                  specificWorkspaceIndex: currentTLWorkspaceIndex,
+              tlWorkspacesNotifier.updateCurrentWorkspace(
                   updatedWorkspace: currentTLWorkspace);
             },
             icon: ifInToday ? Icons.schedule : Icons.light_mode,

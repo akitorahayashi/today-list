@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/components/dialog/for_category/add_category_dialog.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import '../../model/provider/current_tl_workspace_provider.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
@@ -7,8 +8,7 @@ import '../../model/tl_workspace.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/design/tl_theme.dart';
 import 'category_cards/big_category_card/big_category_card.dart';
-import 'add_category_component/add_category_button.dart';
-import 'add_category_component/add_category_sheet.dart';
+import 'add_category_button.dart';
 
 import 'package:reorderables/reorderables.dart';
 
@@ -76,9 +76,7 @@ class CategoryListPage extends ConsumerWidget {
                     currentTLWorkspace.bigCategories
                         .insert(newIndex, reOrderedBigCategory);
                     // categoriesを保存する
-                    tlWorkspacesNotifier.updateSpecificTLWorkspace(
-                        specificWorkspaceIndex:
-                            currentWorkspaceNotifier.currentTLWorkspaceIndex,
+                    tlWorkspacesNotifier.updateCurrentWorkspace(
                         updatedWorkspace: currentTLWorkspace);
                   }),
               const SizedBox(
@@ -92,13 +90,11 @@ class CategoryListPage extends ConsumerWidget {
           right: 50,
           bottom: 70,
           child: AddCategoryButton(
-            onTap: () => showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                builder: (context) {
-                  return const AddCategorySheet();
-                }),
-          ),
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const AddCategoryDialog();
+                  })),
         ),
       ]),
     );

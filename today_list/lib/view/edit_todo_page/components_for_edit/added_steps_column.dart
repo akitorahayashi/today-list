@@ -89,9 +89,7 @@ class AddedStepsColumn extends ConsumerWidget {
           if (newIndex > oldIndex) newIndex--;
           edittingToDo.steps.insert(newIndex, reOrderedToDo);
           edittingToDoNotifier.updateEdittingTodo(steps: edittingToDo.steps);
-          tlWorkspacesNotifier.updateSpecificTLWorkspace(
-              specificWorkspaceIndex:
-                  currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
+          tlWorkspacesNotifier.updateCurrentWorkspace(
               updatedWorkspace: currentTLWorkspace);
         },
       ),

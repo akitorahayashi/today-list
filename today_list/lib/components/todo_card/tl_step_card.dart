@@ -30,7 +30,7 @@ class TLStepCard extends ConsumerWidget {
         ref.read(currentWorkspaceProvider.notifier);
     // other
     final int _currentTLWorkspaceIndex =
-        _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
+        _currentTLWorkspaceNotifier.currentWorkspaceIndex;
     final TLStep stepData = toDoData.steps[indexInToDo];
 
     return GestureDetector(
@@ -54,8 +54,7 @@ class TLStepCard extends ConsumerWidget {
         }
 
         // 更新されたToDoをワークスペースに反映
-        _tlWorkspacesNotifier.updateSpecificTLWorkspace(
-            specificWorkspaceIndex: _currentTLWorkspaceIndex,
+        _tlWorkspacesNotifier.updateCurrentWorkspace(
             updatedWorkspace: _currentTLWorkspace);
 
         TLVibration.vibrate();
