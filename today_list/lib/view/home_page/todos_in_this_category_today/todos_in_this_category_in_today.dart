@@ -27,8 +27,6 @@ class ToDosInThisCategoryInToday extends ConsumerWidget {
     // notifier
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
-    final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
     final coorCategoryIDToToDos =
         Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
     List<TLToDo> toDosInTodayInThisCategory = coorCategoryIDToToDos[
@@ -41,14 +39,11 @@ class ToDosInThisCategoryInToday extends ConsumerWidget {
               EdgeInsets.only(left: smallCategoryOfThisToDo == null ? 5 : 18),
           child: ReorderableColumn(
               children: [
-                for (int indexOfThisToDoInToDos = 0;
-                    indexOfThisToDoInToDos < toDosInTodayInThisCategory.length;
-                    indexOfThisToDoInToDos++)
+                for (int i = 0; i < toDosInTodayInThisCategory.length; i++)
                   TLToDoCard(
-                    key: ValueKey(
-                        toDosInTodayInThisCategory[indexOfThisToDoInToDos].id),
+                    key: ValueKey(toDosInTodayInThisCategory[i].id),
                     ifInToday: true,
-                    indexOfThisToDoInToDos: indexOfThisToDoInToDos,
+                    indexOfThisToDoInToDos: i,
                     bigCategoryOfThisToDo: bigCategoryOfThisToDo,
                     smallCategoryOfThisToDo: smallCategoryOfThisToDo,
                   ),

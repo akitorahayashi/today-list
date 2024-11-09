@@ -8,8 +8,7 @@ import '../todo/tl_todos.dart';
 
 // currentWorkspaceを提供するProvider
 final currentWorkspaceProvider =
-    StateNotifierProvider.autoDispose<CurrentTLWorkspaceNotifier, TLWorkspace>(
-        (ref) {
+    StateNotifierProvider<CurrentTLWorkspaceNotifier, TLWorkspace>((ref) {
   final tlWorkspaces = ref.watch(tlWorkspacesProvider);
   return CurrentTLWorkspaceNotifier(ref, tlWorkspaces);
 });
@@ -29,7 +28,9 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
   Future<void> _loadCurrentWorkspace(List<TLWorkspace> tlWorkspaces) async {
     final pref = await TLPref().getPref;
     currentWorkspaceIndex = pref.getInt('currentWorkspaceIndex') ?? 0;
-    state = tlWorkspaces[currentWorkspaceIndex];
+    if (mounted) {
+      state = tlWorkspaces[currentWorkspaceIndex];
+    }
   }
 
   // 現在のワークスペースインデックスを変更する関数

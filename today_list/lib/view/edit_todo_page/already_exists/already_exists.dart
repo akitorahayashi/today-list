@@ -28,8 +28,6 @@ class AlreadyExists extends ConsumerWidget {
     // provider
     final TLWorkspace currentWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
-    final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     // others

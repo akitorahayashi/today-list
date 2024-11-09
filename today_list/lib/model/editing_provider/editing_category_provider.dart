@@ -5,22 +5,22 @@ import 'package:today_list/model/todo/tl_category.dart';
 import '../provider/current_tl_workspace_provider.dart';
 import '../provider/tl_workspaces_provider.dart';
 
-class EdittingCategory {
+class EditingCategory {
   TextEditingController? categoryTitleInputController;
   String? bigCatgoeyID;
   // 編集関係のメンバー
   int? indexOfEditingBigCategory;
   int? indexOfEditingSmallCategory;
 
-  EdittingCategory(
+  EditingCategory(
     this.categoryTitleInputController,
     this.bigCatgoeyID,
     this.indexOfEditingBigCategory,
     this.indexOfEditingSmallCategory,
   );
 
-  static EdittingCategory generateInitialEdittingCategory() {
-    return EdittingCategory(
+  static EditingCategory generateInitialEdittingCategory() {
+    return EditingCategory(
       TextEditingController(),
       noneID,
       null,
@@ -28,15 +28,15 @@ class EdittingCategory {
     );
   }
 
-  EdittingCategory copyWith({
+  EditingCategory copyWith({
     TextEditingController? categoryTitleInputController,
     String? bigCatgoeyIDForSmallCategory,
     int? indexOfEditingBigCategory,
     int? indexOfEditingSmallCategory,
   }) {
-    return EdittingCategory(
+    return EditingCategory(
       categoryTitleInputController ?? this.categoryTitleInputController,
-      bigCatgoeyIDForSmallCategory ?? this.bigCatgoeyID,
+      bigCatgoeyIDForSmallCategory ?? bigCatgoeyID,
       indexOfEditingBigCategory ?? this.indexOfEditingBigCategory,
       indexOfEditingSmallCategory ?? this.indexOfEditingSmallCategory,
     );
@@ -44,18 +44,18 @@ class EdittingCategory {
 }
 
 final edittingCategoryProvider =
-    StateNotifierProvider<EdittingCategoryNotifier, EdittingCategory>((ref) {
+    StateNotifierProvider<EdittingCategoryNotifier, EditingCategory>((ref) {
   return EdittingCategoryNotifier(ref);
 });
 
-class EdittingCategoryNotifier extends StateNotifier<EdittingCategory> {
+class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
   final Ref ref;
 
   EdittingCategoryNotifier(this.ref)
-      : super(EdittingCategory.generateInitialEdittingCategory());
+      : super(EditingCategory.generateInitialEdittingCategory());
 
   void setInitialValue() {
-    state = EdittingCategory.generateInitialEdittingCategory();
+    state = EditingCategory.generateInitialEdittingCategory();
   }
 
   void setEditedCategory({
@@ -97,9 +97,6 @@ class EdittingCategoryNotifier extends StateNotifier<EdittingCategory> {
   Future<void> completeEditting() async {
     // provider
     final currentTLWorkspace = ref.watch(currentWorkspaceProvider);
-    // notifier
-    final currentTLWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
 
     // 追加、編集処理
     if (state.bigCatgoeyID == null) {

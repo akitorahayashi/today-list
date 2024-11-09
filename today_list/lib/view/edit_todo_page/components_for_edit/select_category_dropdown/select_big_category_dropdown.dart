@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/dialog/for_category/add_category_dialog.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
-import 'package:today_list/model/editting_provider/editting_todo_provider.dart';
+import 'package:today_list/model/editing_provider/editing_todo_provider.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import '../../../../../model/design/tl_theme.dart';
@@ -14,11 +14,11 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final EdittingTodo edittingTodo = ref.watch(edittingToDoProvider);
+    final EditingTodo editingTodo = ref.watch(editingToDoProvider);
     final currentWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
-    final EditingToDoNotifier edittingToDoNotifier =
-        ref.watch(edittingToDoProvider.notifier);
+    final EditingToDoNotifier editingToDoNotifier =
+        ref.watch(editingToDoProvider.notifier);
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
       child: DropdownButton(
@@ -26,11 +26,11 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
           isExpanded: true,
           // hint text
           hint: Text(
-            edittingTodo.bigCatgoeyID == noneID
+            editingTodo.bigCatgoeyID == noneID
                 ? "大カテゴリー"
                 : currentWorkspace.bigCategories
                     .where((oneOfBigCategory) =>
-                        oneOfBigCategory.id == edittingTodo.bigCatgoeyID)
+                        oneOfBigCategory.id == editingTodo.bigCatgoeyID)
                     .first
                     .title,
             style: const TextStyle(
@@ -51,7 +51,7 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
               value: oneOfBigCategory,
               child: Text(
                 oneOfBigCategory.title,
-                style: oneOfBigCategory.id == edittingTodo.bigCatgoeyID
+                style: oneOfBigCategory.id == editingTodo.bigCatgoeyID
                     ? TextStyle(
                         color: tlThemeData.accentColor,
                         fontWeight: FontWeight.bold)
@@ -65,7 +65,7 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
           // カテゴリー変更
           onChanged: (TLCategory? selectedBigCategory) async {
             if (selectedBigCategory == null) return;
-            edittingToDoNotifier.updateEdittingTodo(smallCategoryID: null);
+            editingToDoNotifier.updateEdittingTodo(smallCategoryID: null);
             if (selectedBigCategory.id == "---createBigCategory") {
               await showDialog(
                   context: context,
@@ -73,7 +73,7 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
                     return const AddCategoryDialog();
                   });
             } else {
-              edittingToDoNotifier.updateEdittingTodo(
+              editingToDoNotifier.updateEdittingTodo(
                   bigCatgoeyID: selectedBigCategory.id);
             }
           }),

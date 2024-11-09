@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme.dart';
-import 'package:today_list/model/editting_provider/editting_todo_provider.dart';
+import 'package:today_list/model/editing_provider/editing_todo_provider.dart';
 
 class SelectTodayOrWheneverButton extends ConsumerStatefulWidget {
   const SelectTodayOrWheneverButton({super.key});
@@ -17,10 +17,10 @@ class _SelectTodayOrWheneverButtonState
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final EdittingTodo edittingTodo = ref.watch(edittingToDoProvider);
+    final EditingTodo editingTodo = ref.watch(editingToDoProvider);
     // notifier
-    final EditingToDoNotifier edittingToDoNotifier =
-        ref.watch(edittingToDoProvider.notifier);
+    final EditingToDoNotifier editingToDoNotifier =
+        ref.watch(editingToDoProvider.notifier);
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: ToggleButtons(
@@ -38,11 +38,11 @@ class _SelectTodayOrWheneverButtonState
         splashColor: tlThemeData.toggleButtonsBackgroundSplashColor,
         // isSelected
         isSelected: [
-          edittingTodo.ifInToday,
-          !edittingTodo.ifInToday,
+          editingTodo.ifInToday,
+          !editingTodo.ifInToday,
         ],
         onPressed: (int index) {
-          edittingToDoNotifier.updateEdittingTodo(ifInToday: index == 0);
+          editingToDoNotifier.updateEdittingTodo(ifInToday: index == 0);
         },
         children: const [
           Text("今日"),

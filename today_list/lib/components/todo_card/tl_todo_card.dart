@@ -140,8 +140,10 @@ class TLToDoCard extends ConsumerWidget {
                                   padding:
                                       const EdgeInsets.fromLTRB(8, 0, 2, 0),
                                   child: TLStepCard(
-                                    toDoData: corrToDoData,
-                                    indexInToDo: indexOfThisStepInToDo,
+                                    corrCategoryID: categoryOfThisToDo.id,
+                                    ifInToday: ifInToday,
+                                    indexInToDos: indexOfThisToDoInToDos,
+                                    indexInSteps: indexOfThisStepInToDo,
                                   ),
                                 )),
                         onReorder: (oldIndex, newIndex) {
@@ -150,7 +152,7 @@ class TLToDoCard extends ConsumerWidget {
                           corrToDoData.steps.insert(newIndex, reOrderedToDo);
                           // toDosを保存する
                           tlWorkspacesNotifier.updateCurrentWorkspace(
-                            updatedWorkspace: currentTLWorkspace,
+                            updatedWorkspace: currentTLWorkspace.copyWith(),
                           );
                         },
                       ),

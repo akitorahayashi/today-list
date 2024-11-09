@@ -26,11 +26,11 @@ class NotifyTodoOrStepIsEditedSnackBar {
     required bool newCheckedState,
     bool? quickChangeToToday,
   }) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return SnackBar(
       duration: const Duration(milliseconds: 900),
       behavior: SnackBarBehavior.floating,
-      backgroundColor: _tlThemeData.panelColor,
+      backgroundColor: tlThemeData.panelColor,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -42,7 +42,7 @@ class NotifyTodoOrStepIsEditedSnackBar {
                 child: Text(
                   quickChangeToToday ? "to Today" : "to Whenever",
                   style: TextStyle(
-                      color: _tlThemeData.accentColor,
+                      color: tlThemeData.accentColor,
                       fontWeight: FontWeight.w600),
                 ),
               ),
@@ -90,7 +90,7 @@ class NotifyTodoOrStepIsEditedSnackBar {
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                           color: Colors.black
-                              .withOpacity(newCheckedState ? 0.3 : 0.5)),
+                              .withOpacity(newCheckedState ? 0.3 : 0.6)),
                     ),
                   ),
                 ),

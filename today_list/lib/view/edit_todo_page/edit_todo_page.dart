@@ -8,7 +8,7 @@ import 'components_for_edit/added_steps_column.dart';
 import '../../components/dialog/common/tl_yes_no_dialog.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/design/tl_theme.dart';
-import '../../model/editting_provider/editting_todo_provider.dart';
+import '../../model/editing_provider/editing_todo_provider.dart';
 import './already_exists/already_exists.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -17,12 +17,14 @@ class EditToDoPage extends ConsumerStatefulWidget {
   final bool ifInToday;
   final String selectedBigCategoryID;
   final String? selectedSmallCategoryID;
+  final String? editedToDoTitle;
   final int? indexOfEdittedTodo;
   const EditToDoPage({
     super.key,
     required this.ifInToday,
     required this.selectedBigCategoryID,
     required this.selectedSmallCategoryID,
+    required this.editedToDoTitle,
     required this.indexOfEdittedTodo,
   });
 
@@ -31,32 +33,38 @@ class EditToDoPage extends ConsumerStatefulWidget {
 }
 
 class EditToDoPageState extends ConsumerState<EditToDoPage> {
+  late EditingToDoNotifier edittingToDoNotifier;
   BannerAd? _bannerAd;
 
   @override
   void initState() {
     super.initState();
     _bannerAd?.load();
-    // notifier
-    final EditingToDoNotifier edittingToDoNotifier =
-        ref.read(edittingToDoProvider.notifier);
-    // _edittingToDoNotifierの値を初期化する
-    if (widget.indexOfEdittedTodo == null) {
-      edittingToDoNotifier.setInitialValue();
-    } else {
-      // すでにあるTLToDoを経集する
-      edittingToDoNotifier.setEditedToDo(
-        ifInToday: widget.ifInToday,
-        selectedBigCategoryID: widget.selectedBigCategoryID,
-        selectedSmallCategoryID: widget.selectedSmallCategoryID,
-        indexOfEditingToDo: widget.indexOfEdittedTodo!,
-      );
-    }
+    EditingTodo.updateTextEdittingController(
+        editedToDoTitle: widget.editedToDoTitle);
+    // ウィジェットツリーが構築された後に状態を変更
+    Future.microtask(() {
+      edittingToDoNotifier = ref.read(editingToDoProvider.notifier);
+
+      if (widget.indexOfEdittedTodo == null) {
+        edittingToDoNotifier.setInitialValue();
+      } else {
+        edittingToDoNotifier.setEditedToDo(
+          ifInToday: widget.ifInToday,
+          selectedBigCategoryID: widget.selectedBigCategoryID,
+          selectedSmallCategoryID: widget.selectedSmallCategoryID,
+          indexOfEditingToDo: widget.indexOfEdittedTodo!,
+        );
+      }
+    });
   }
 
   @override
   void dispose() {
-    ref.read(edittingToDoProvider.notifier).disposeValue();
+    // ウィジェットツリーが破棄された後に状態を変更
+    Future.microtask(() {
+      edittingToDoNotifier.disposeValue();
+    });
     _bannerAd?.dispose();
     super.dispose();
   }
@@ -65,7 +73,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final EdittingTodo edittingToDo = ref.watch(edittingToDoProvider);
+    final EditingTodo editingToDo = ref.watch(editingToDoProvider);
     return Scaffold(
       body: Stack(
         children: [
@@ -80,7 +88,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
               TLSliverAppBar(
                 pageTitle: "ToDo",
                 leadingButtonOnPressed: () async {
-                  if (edittingToDo.toDoTitleInputController?.text.isEmpty ??
+                  if (EditingTodo.toDoTitleInputController?.text.isEmpty ??
                       true) {
                     // 元のページに戻る
                     Navigator.pop(context);
@@ -152,9 +160,9 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                       ),
                     // already exists
                     AlreadyExists(
-                        ifInToday: edittingToDo.ifInToday,
-                        bigCategoryID: edittingToDo.bigCatgoeyID,
-                        smallCategoryID: edittingToDo.smallCategoryID,
+                        ifInToday: editingToDo.ifInToday,
+                        bigCategoryID: editingToDo.bigCatgoeyID,
+                        smallCategoryID: editingToDo.smallCategoryID,
                         tapToEditAction: () async {
                           Navigator.pop(context);
                         }),
