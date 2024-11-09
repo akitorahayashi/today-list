@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/components/dialog/for_category/add_category_dialog.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/editting_provider/editting_todo_provider.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
@@ -65,19 +66,15 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
           onChanged: (TLCategory? selectedBigCategory) async {
             if (selectedBigCategory == null) return;
             edittingToDoNotifier.updateEdittingTodo(smallCategoryID: null);
-            if (selectedBigCategory.id != "---createBigCategory") {
-              // edittingToDoNotifier.updateEdittingTodo(
-              //     bigCatgoeyID: selectedBigCategory.id);
-              edittingTodo.bigCatgoeyID = selectedBigCategory.id;
+            if (selectedBigCategory.id == "---createBigCategory") {
+              await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const AddCategoryDialog();
+                  });
             } else {
-              final String createdBigCategoryID = await addToDoCategoryAlert(
-                      context: context,
-                      categoryNameInputController: _categoryNameInputController,
-                      bigCategoryId: null) ??
-                  currentWorkspace.bigCategories[0];
               edittingToDoNotifier.updateEdittingTodo(
-                  bigCatgoeyID: createdBigCategoryID);
-              return;
+                  bigCatgoeyID: selectedBigCategory.id);
             }
           }),
     );
