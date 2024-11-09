@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './tl_category.dart';
 import './tl_step.dart';
 
 class TLToDo {
@@ -17,20 +16,6 @@ class TLToDo {
     required this.steps,
     this.isChecked = false,
   });
-
-  TLToDo copyWith({
-    String? id,
-    String? title,
-    List<TLStep>? steps,
-    bool? isChecked,
-  }) {
-    return TLToDo(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      steps: steps ?? this.steps,
-      isChecked: isChecked ?? this.isChecked,
-    );
-  }
 
   // 保存する際に使う
   Map<String, dynamic> toJson() {
@@ -61,23 +46,6 @@ class TLToDo {
       title: '',
       steps: [],
       isChecked: false,
-    );
-  }
-
-  TLToDo copyWith({
-    String? id,
-    String? title,
-    List<TLStep>? steps,
-    bool? isChecked,
-    bool? isInToday,
-    TLCategory? bigCategory,
-    TLCategory? smallCategory,
-  }) {
-    return TLToDo(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      steps: steps ?? this.steps,
-      isChecked: isChecked ?? this.isChecked,
     );
   }
 }

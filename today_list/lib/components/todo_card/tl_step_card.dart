@@ -31,16 +31,14 @@ class TLStepCard extends ConsumerWidget {
     // notifier
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
-    final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
     // other
-    final Map<String, TLToDos> corrIDToToDos = Map<String, TLToDos>.from();
-    currentTLWorkspace.categoryIDToToDos[corrCategoryID]!;
+    final Map<String, TLToDos> copiedIDToToDos =
+        Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
+    final TLToDos corrToDos = copiedIDToToDos[corrCategoryID]!;
     final TLToDo corrToDoData = corrToDos[ifInToday][indexInToDos];
     final TLStep corrStepData = corrToDoData.steps[indexInSteps];
 
     return GestureDetector(
-      // TODO 関数を渡して親のwidgetで処理する
       onTap: () {
         // stepのチェック状態を変更
         corrStepData.isChecked = !corrStepData.isChecked;
@@ -62,7 +60,8 @@ class TLStepCard extends ConsumerWidget {
 
         // 更新されたToDoをワークスペースに反映
         tlWorkspacesNotifier.updateCurrentWorkspace(
-            updatedWorkspace: currentTLWorkspace);
+            updatedWorkspace: currentTLWorkspace
+              ..categoryIDToToDos = copiedIDToToDos);
 
         TLVibration.vibrate();
         NotifyTodoOrStepIsEditedSnackBar.show(
