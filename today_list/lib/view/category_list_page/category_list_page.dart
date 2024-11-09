@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/components/dialog/for_category/add_category_dialog.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import '../../model/provider/current_tl_workspace_provider.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
@@ -76,8 +77,6 @@ class CategoryListPage extends ConsumerWidget {
                         .insert(newIndex, reOrderedBigCategory);
                     // categoriesを保存する
                     tlWorkspacesNotifier.updateCurrentWorkspace(
-                        specificWorkspaceIndex:
-                            currentWorkspaceNotifier.currentWorkspaceIndex,
                         updatedWorkspace: currentTLWorkspace);
                   }),
               const SizedBox(
@@ -91,13 +90,11 @@ class CategoryListPage extends ConsumerWidget {
           right: 50,
           bottom: 70,
           child: AddCategoryButton(
-            onTap: () => showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                builder: (context) {
-                  return const AddCategorySheet();
-                }),
-          ),
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const AddCategoryDialog();
+                  })),
         ),
       ]),
     );

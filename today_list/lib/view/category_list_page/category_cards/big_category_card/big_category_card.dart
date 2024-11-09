@@ -19,19 +19,18 @@ class BigCategoryCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace _currentTLWorkspace = ref.watch(currentWorkspaceProvider);
-    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
+    final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     // notifier
-    final CurrentTLWorkspaceNotifier _currentWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
+    ref.read(currentWorkspaceProvider.notifier);
     // others
-    final TLCategory _coorBigCategory =
-        _currentTLWorkspace.bigCategories[indexOfBigCategory];
+    final TLCategory coorBigCategory =
+        currentTLWorkspace.bigCategories[indexOfBigCategory];
     return Card(
-      color: _tlThemeData.panelColor,
+      color: tlThemeData.panelColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Column(
           // bigCategoryのchipを左寄せにするため
@@ -45,29 +44,29 @@ class BigCategoryCard extends ConsumerWidget {
               children: [
                 for (int i = 0;
                     i <
-                        _currentTLWorkspace
-                            .smallCategories[_coorBigCategory.id]!.length;
+                        currentTLWorkspace
+                            .smallCategories[coorBigCategory.id]!.length;
                     i++)
                   SmallCategoryCard(
-                      key: ValueKey(_currentTLWorkspace
-                          .smallCategories[_coorBigCategory.id]![i].id),
-                      corrBigCategoryID: _coorBigCategory.id,
+                      key: ValueKey(currentTLWorkspace
+                          .smallCategories[coorBigCategory.id]![i].id),
+                      corrBigCategoryID: coorBigCategory.id,
                       corrIndexOfSmallCategory: i)
               ],
               // smallCategoryの並び替え
               onReorder: (oldIndex, newIndex) {
                 if (oldIndex == newIndex) return;
                 // 抜き出して
-                TLCategory reOrderedSmallCategory = _currentTLWorkspace
-                    .smallCategories[_coorBigCategory.id]!
+                TLCategory reOrderedSmallCategory = currentTLWorkspace
+                    .smallCategories[coorBigCategory.id]!
                     .removeAt(oldIndex);
                 if (oldIndex < newIndex) newIndex--;
                 // 入れる
-                _currentTLWorkspace.smallCategories[_coorBigCategory.id]!
+                currentTLWorkspace.smallCategories[coorBigCategory.id]!
                     .insert(newIndex, reOrderedSmallCategory);
                 // categorisを保存する
-                _tlWorkspacesNotifier.updateCurrentWorkspace(
-                  updatedWorkspace: _currentTLWorkspace,
+                tlWorkspacesNotifier.updateCurrentWorkspace(
+                  updatedWorkspace: currentTLWorkspace,
                 );
               },
             )
