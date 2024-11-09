@@ -14,8 +14,7 @@ const String noneID = "defaultID";
 
 // TLWorkspacesを提供するProvider
 final tlWorkspacesProvider =
-    StateNotifierProvider.autoDispose<TLWorkspacesNotifier, List<TLWorkspace>>(
-        (ref) {
+    StateNotifierProvider<TLWorkspacesNotifier, List<TLWorkspace>>((ref) {
   return TLWorkspacesNotifier(ref);
 });
 
@@ -67,6 +66,7 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
     newList[ref.read(currentWorkspaceProvider.notifier).currentWorkspaceIndex] =
         updatedWorkspace;
     state = newList;
+    print("updatedWorkspace");
     await _saveWorkspaces();
   }
 

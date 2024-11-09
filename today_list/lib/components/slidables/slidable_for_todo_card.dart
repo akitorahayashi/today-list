@@ -43,8 +43,6 @@ class SlidableForToDoCard extends ConsumerWidget {
     // notifier
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
-    final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
     // other
     final String corrCategoryID = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisToDoBelongs =
@@ -65,7 +63,7 @@ class SlidableForToDoCard extends ConsumerWidget {
             toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
             TLVibration.vibrate();
             tlWorkspacesNotifier.updateCurrentWorkspace(
-                updatedWorkspace: currentTLWorkspace);
+                updatedWorkspace: currentTLWorkspace.copyWith());
           },
           icon: Icons.remove,
         ),
@@ -82,15 +80,22 @@ class SlidableForToDoCard extends ConsumerWidget {
               spacing: 8,
               backgroundColor: tlThemeData.panelColor,
               foregroundColor: tlThemeData.accentColor,
-              // TODO 編集画面に遷移
               onPressed: (BuildContext context) async {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return EditToDoPage(
-                      ifInToday: true,
-                      selectedBigCategoryID: bigCategoryID,
-                      selectedSmallCategoryID: smallCategoryID,
-                      indexOfEdittedTodo: indexOfThisToDoInToDos);
-                }));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return EditToDoPage(
+                          ifInToday: true,
+                          selectedBigCategoryID: bigCategoryID,
+                          selectedSmallCategoryID: smallCategoryID,
+                          editedToDoTitle:
+                              toDoArrayOfThisToDoBelongs[indexOfThisToDoInToDos]
+                                  .title,
+                          indexOfEdittedTodo: indexOfThisToDoInToDos);
+                    },
+                  ),
+                );
               },
               icon: Icons.edit,
               label: 'Edit',

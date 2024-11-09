@@ -26,8 +26,6 @@ class DeleteCategoryDialog extends ConsumerWidget {
     // notifier
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
-    final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
     // other
     final TLCategory categoryThisBelongsTo = indexOfSmallCategory == null
         ? currentWorkspace.bigCategories[indexOfBigCategory]

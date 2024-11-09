@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/model/editting_provider/editting_category_provider.dart';
+import 'package:today_list/model/editing_provider/editing_category_provider.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/styles/styles.dart';
 import '../../../model/todo/tl_category.dart';
@@ -26,16 +26,20 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
   @override
   void initState() {
     super.initState();
-    // stateのbigCategoryIDはsetEditedCategoryで設定
-    ref.read(edittingCategoryProvider.notifier).setEditedCategory(
-          indexOfEditingBigCategory: widget.indexOfBigCategory,
-          indexOfEditingSmallCategory: widget.indexOfSmallCategory,
-        );
+    Future.microtask(() {
+      // stateのbigCategoryIDはsetEditedCategoryで設定
+      ref.read(edittingCategoryProvider.notifier).setEditedCategory(
+            indexOfEditingBigCategory: widget.indexOfBigCategory,
+            indexOfEditingSmallCategory: widget.indexOfSmallCategory,
+          );
+    });
   }
 
   @override
   void dispose() {
-    ref.read(edittingCategoryProvider.notifier).disposeValue();
+    Future.microtask(() {
+      ref.read(edittingCategoryProvider.notifier).disposeValue();
+    });
     super.dispose();
   }
 
@@ -44,7 +48,7 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final currentWorkspace = ref.watch(currentWorkspaceProvider);
-    final EdittingCategory edittingCategory =
+    final EditingCategory edittingCategory =
         ref.watch(edittingCategoryProvider);
     // notifier
     final edittingCategoryNotifier =

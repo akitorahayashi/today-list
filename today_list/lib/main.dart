@@ -23,7 +23,7 @@ void main() async {
   await TLVibration.initVibrate();
   await TLConnectivity.initializeConnectivity();
   // await todayListUser.initializeFirebase();
-  runApp(ProviderScope(
+  runApp(const ProviderScope(
     child: TodayListApp(),
   ));
 }

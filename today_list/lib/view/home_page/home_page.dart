@@ -157,7 +157,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                   ],
                 ),
-              // なしではない時の処理
+              // スペーサー
               const SizedBox(height: 250)
             ])),
           ],
@@ -178,7 +178,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       if (context.mounted) {
                         showDialog(
                           context: context,
-                          builder: (context) => TLSingleOptionDialog(
+                          builder: (context) => const TLSingleOptionDialog(
                             title: "削除が完了しました！",
                             message: null,
                           ),
@@ -191,7 +191,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           // カテゴリーリストに移動するボタン
           tralingButtonOnPressed: () async {
             await Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return CategoryListPage();
+              return const CategoryListPage();
             }));
           },
         ),
@@ -203,6 +203,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ifInToday: true,
                 selectedBigCategoryID: currentTLWorkspace.bigCategories[0].id,
                 selectedSmallCategoryID: null,
+                editedToDoTitle: null,
                 indexOfEdittedTodo: null,
               );
             }));

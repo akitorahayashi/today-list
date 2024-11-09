@@ -4,7 +4,7 @@ import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/styles/styles.dart';
-import '../../../model/editting_provider/editting_category_provider.dart';
+import '../../../model/editing_provider/editing_category_provider.dart';
 
 class AddCategoryDialog extends ConsumerStatefulWidget {
   const AddCategoryDialog({super.key});
@@ -17,12 +17,16 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
   @override
   void initState() {
     super.initState();
-    ref.read(edittingCategoryProvider.notifier).setInitialValue();
+    Future.microtask(() {
+      ref.read(edittingCategoryProvider.notifier).setInitialValue();
+    });
   }
 
   @override
   void dispose() {
-    ref.read(edittingCategoryProvider.notifier).disposeValue();
+    Future.microtask(() {
+      ref.read(edittingCategoryProvider.notifier).disposeValue();
+    });
     super.dispose();
   }
 
@@ -30,7 +34,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final EdittingCategory edittingCategory =
+    final EditingCategory edittingCategory =
         ref.watch(edittingCategoryProvider);
     // notifier
     final edittingCategoryNotifier =
