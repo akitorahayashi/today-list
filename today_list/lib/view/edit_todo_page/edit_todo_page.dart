@@ -44,7 +44,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
         editedToDoTitle: widget.editedToDoTitle);
     // ウィジェットツリーが構築された後に状態を変更
     Future.microtask(() {
-      edittingToDoNotifier = ref.read(edittingToDoProvider.notifier);
+      edittingToDoNotifier = ref.read(editingToDoProvider.notifier);
 
       if (widget.indexOfEdittedTodo == null) {
         edittingToDoNotifier.setInitialValue();
@@ -73,7 +73,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final EditingTodo editingToDo = ref.watch(edittingToDoProvider);
+    final EditingTodo editingToDo = ref.watch(editingToDoProvider);
     return Scaffold(
       body: Stack(
         children: [

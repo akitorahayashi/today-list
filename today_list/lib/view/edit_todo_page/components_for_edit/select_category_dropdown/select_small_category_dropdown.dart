@@ -14,22 +14,22 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final EditingTodo edittingTodo = ref.watch(edittingToDoProvider);
+    final EditingTodo editingTodo = ref.watch(editingToDoProvider);
     final currentWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
-    final EditingToDoNotifier edittingToDoNotifier =
-        ref.read(edittingToDoProvider.notifier);
+    final EditingToDoNotifier editingToDoNotifier =
+        ref.read(editingToDoProvider.notifier);
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
       child: DropdownButton(
         iconEnabledColor: tlThemeData.accentColor,
         isExpanded: true,
         hint: Text(
-          edittingTodo.smallCategoryID == null
+          editingTodo.smallCategoryID == null
               ? "小カテゴリー"
-              : currentWorkspace.smallCategories[edittingTodo.bigCatgoeyID]!
+              : currentWorkspace.smallCategories[editingTodo.bigCatgoeyID]!
                   .where((oneOfSmallCategory) =>
-                      oneOfSmallCategory.id == edittingTodo.smallCategoryID)
+                      oneOfSmallCategory.id == editingTodo.smallCategoryID)
                   .first
                   .title,
           style: const TextStyle(
@@ -43,15 +43,15 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
         ),
         items: [
           TLCategory(id: noneID, title: "なし"),
-          ...currentWorkspace.smallCategories[edittingTodo.bigCatgoeyID]!,
-          if (edittingTodo.bigCatgoeyID != noneID)
+          ...currentWorkspace.smallCategories[editingTodo.bigCatgoeyID]!,
+          if (editingTodo.bigCatgoeyID != noneID)
             TLCategory(id: "---createSmallCategory", title: "新しく作る"),
         ].map((TLCategory item) {
           return DropdownMenuItem(
             value: item,
             child: Text(
               item.title,
-              style: item.id == edittingTodo.smallCategoryID
+              style: item.id == editingTodo.smallCategoryID
                   ? TextStyle(
                       color: tlThemeData.accentColor,
                       fontWeight: FontWeight.bold)
@@ -74,7 +74,7 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
               },
             );
           } else {
-            edittingToDoNotifier.updateEdittingTodo(
+            editingToDoNotifier.updateEdittingTodo(
               smallCategoryID: selectedSmallCategory.id == noneID
                   ? null
                   : selectedSmallCategory.id,

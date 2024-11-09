@@ -12,10 +12,10 @@ class StepTitleInputField extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final EditingTodo edittingTodo = ref.watch(edittingToDoProvider);
+    final EditingTodo editingTodo = ref.watch(editingToDoProvider);
     // notifier
-    final EditingToDoNotifier edittingToDoNotifier =
-        ref.read(edittingToDoProvider.notifier);
+    final EditingToDoNotifier editingToDoNotifier =
+        ref.read(editingToDoProvider.notifier);
     return SizedBox(
       width: MediaQuery.of(context).size.width - 50,
       child: Padding(
@@ -49,8 +49,8 @@ class StepTitleInputField extends ConsumerWidget {
                         EditingTodo.stepTitleInputController?.text;
                     if (stepTitle == null || stepTitle.isEmpty == true) return;
                     // add or edit
-                    edittingToDoNotifier.addToStepList(
-                        stepTitle, edittingTodo.indexOfEditingStep);
+                    editingToDoNotifier.addToStepList(
+                        stepTitle, editingTodo.indexOfEditingStep);
                     EditingTodo.stepTitleInputController?.clear();
                   },
                   child: Icon(

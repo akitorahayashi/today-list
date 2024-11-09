@@ -20,10 +20,10 @@ class ToDoTitleInputFieldState extends ConsumerState<ToDoTitleInputField> {
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final EditingTodo edittingTodo = ref.watch(edittingToDoProvider);
+    ref.watch(editingToDoProvider);
     // notifier
-    final EditingToDoNotifier edittingToDoNotifier =
-        ref.read(edittingToDoProvider.notifier);
+    final EditingToDoNotifier editingToDoNotifier =
+        ref.read(editingToDoProvider.notifier);
     return SizedBox(
       width: MediaQuery.of(context).size.width - 50,
       child: TextField(
@@ -52,7 +52,7 @@ class ToDoTitleInputFieldState extends ConsumerState<ToDoTitleInputField> {
               child: TextButton(
                 onPressed: _enteredToDoTitle.trim().isEmpty
                     ? null
-                    : () => edittingToDoNotifier.completeEditting(),
+                    : () => editingToDoNotifier.completeEditting(),
                 child: Icon(
                   Icons.add,
                   color: _enteredToDoTitle.trim().isNotEmpty

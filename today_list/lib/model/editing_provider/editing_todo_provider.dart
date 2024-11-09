@@ -63,7 +63,7 @@ class EditingTodo {
   }
 }
 
-final edittingToDoProvider =
+final editingToDoProvider =
     StateNotifierProvider<EditingToDoNotifier, EditingTodo>((ref) {
   return EditingToDoNotifier(ref);
 });
