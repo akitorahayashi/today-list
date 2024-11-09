@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/components/dialog/for_category/rename_category_dialog.dart';
 import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
+import 'package:today_list/model/provider/tl_workspaces_provider.dart';
+import 'package:today_list/model/todo/tl_category.dart';
 
-class SelectEditMethodDialog extends StatelessWidget {
-  const SelectEditMethodDialog({super.key});
+class SelectEditMethodDialog extends ConsumerWidget {
+  final int indexOfBigCategory;
+  final int? indexOfSmallCategory;
+  const SelectEditMethodDialog(
+      {super.key, required this.indexOfBigCategory, this.indexOfSmallCategory});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
+    // provider
+    final currentWorkspace = ref.watch(currentWorkspaceProvider);
+    // notifier
+    // other
+    final TLCategory corrbigCategory =
+        currentWorkspace.bigCategories[indexOfBigCategory];
+    final TLCategory categoryOfThisPage = indexOfSmallCategory == null
+        ? corrbigCategory
+        : currentWorkspace
+            .smallCategories[corrbigCategory.id]![indexOfSmallCategory!];
     return SimpleDialog(
-      backgroundColor: theme[settingData.selectedTheme]!.alertColor,
+      backgroundColor: tlThemeData.alertColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       titlePadding: const EdgeInsets.fromLTRB(18, 24, 24, 24),
       title: Column(
@@ -24,9 +42,9 @@ class SelectEditMethodDialog extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: Text(
-              _categoryOfThisPage.title,
+              categoryOfThisPage.title,
               style: TextStyle(
-                  color: theme[settingData.selectedTheme]!.accentColor,
+                  color: tlThemeData.accentColor,
                   fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
@@ -34,48 +52,42 @@ class SelectEditMethodDialog extends StatelessWidget {
         ],
       ),
       children: [
-        // このカテゴリーを削除するボタン
-        if (_categoryOfThisPage.id != noneId)
-          SimpleDialogOption(
-            onPressed: () async {
-              Navigator.pop(context);
-              await confirmToDeleteThisCategory(
-                context: context,
-                indexOfWorkspaceCategory: null,
-                indexOfBigCategory: widget.indexOfBigCategory,
-                indexOfSmallCategory: widget.indexOfSmallCategory,
-              );
-              categoryListPageKey.currentState?.setState(() {});
-            },
-            child: Text(
-              "Delete",
-              style: TextStyle(
-                  color: theme[settingData.selectedTheme]!.accentColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
         // このカテゴリーを改名するボタン
-        if (_categoryOfThisPage.id != noneId)
+        if (categoryOfThisPage.id != noneID)
           SimpleDialogOption(
             onPressed: () async {
               Navigator.pop(context);
               await showDialog(
                 context: context,
                 barrierDismissible: false,
-                builder: (context) => renameCategoryDialog(
-                  context: context,
-                  indexOfWorkspaceCategory: null,
-                  indexOfBigCategory: widget.indexOfBigCategory,
-                  indexOfSmallCategory: widget.indexOfSmallCategory,
+                builder: (context) => RenameCategoryDialog(
+                  indexOfBigCategory: indexOfBigCategory,
+                  indexOfSmallCategory: indexOfSmallCategory,
                 ),
               );
-              categoryListPageKey.currentState?.setState(() {});
             },
             child: Text(
               "Rename",
               style: TextStyle(
-                  color: theme[settingData.selectedTheme]!.accentColor,
+                  color: tlThemeData.accentColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        // このカテゴリーを削除するボタン
+        if (categoryOfThisPage.id != noneID)
+          SimpleDialogOption(
+            onPressed: () async {
+              Navigator.pop(context);
+              await confirmToDeleteThisCategory(
+                indexOfBigCategory: indexOfBigCategory,
+                indexOfSmallCategory: indexOfSmallCategory,
+              );
+            },
+            child: Text(
+              "Delete",
+              style: TextStyle(
+                  color: tlThemeData.accentColor,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
