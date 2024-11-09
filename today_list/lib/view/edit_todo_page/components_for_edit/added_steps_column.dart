@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import '../../../components/todo_card/icon_for_checkbox.dart';
 import '../../../model/provider/current_tl_workspace_provider.dart';
-import '../../../model/editting_provider/editting_todo_provider.dart';
+import '../../../model/editing_provider/editing_todo_provider.dart';
 import '../../../model/provider/tl_workspaces_provider.dart';
 import '../../../model/tl_workspace.dart';
 
@@ -15,7 +15,7 @@ class AddedStepsColumn extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final EdittingTodo edittingToDo = ref.watch(edittingToDoProvider);
+    final EditingTodo edittingToDo = ref.watch(edittingToDoProvider);
     final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
     final EditingToDoNotifier edittingToDoNotifier =
@@ -43,7 +43,7 @@ class AddedStepsColumn extends ConsumerWidget {
                 Expanded(
                   child: GestureDetector(
                       onTap: () {
-                        edittingToDo.stepTitleInputController?.text =
+                        EditingTodo.stepTitleInputController?.text =
                             edittingToDo.steps[i].title;
                         edittingToDo.indexOfEditingStep = i;
                         TLVibration.vibrate();

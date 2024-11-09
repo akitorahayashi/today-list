@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/editting_provider/editting_todo_provider.dart';
+import 'package:today_list/model/editing_provider/editing_todo_provider.dart';
 import '../../../../styles/styles.dart';
 import '../../../../model/design/tl_theme.dart';
 
@@ -12,7 +12,7 @@ class StepTitleInputField extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final EdittingTodo edittingTodo = ref.watch(edittingToDoProvider);
+    final EditingTodo edittingTodo = ref.watch(edittingToDoProvider);
     // notifier
     final EditingToDoNotifier edittingToDoNotifier =
         ref.read(edittingToDoProvider.notifier);
@@ -22,7 +22,7 @@ class StepTitleInputField extends ConsumerWidget {
         padding: const EdgeInsets.only(left: 16),
         child: TextField(
           autofocus: true,
-          controller: edittingTodo.stepTitleInputController,
+          controller: EditingTodo.stepTitleInputController,
           style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -38,7 +38,7 @@ class StepTitleInputField extends ConsumerWidget {
               suffixIcon: AnimatedOpacity(
                 duration: const Duration(milliseconds: 300),
                 opacity:
-                    edittingTodo.stepTitleInputController?.text.isNotEmpty ??
+                    EditingTodo.stepTitleInputController?.text.isNotEmpty ??
                             false
                         ? 1
                         : 0.25,
@@ -46,20 +46,20 @@ class StepTitleInputField extends ConsumerWidget {
                   // edittingToDoのstepsに追加
                   onPressed: () {
                     final stepTitle =
-                        edittingTodo.stepTitleInputController?.text;
+                        EditingTodo.stepTitleInputController?.text;
                     if (stepTitle == null || stepTitle.isEmpty == true) return;
                     // add or edit
                     edittingToDoNotifier.addToStepList(
                         stepTitle, edittingTodo.indexOfEditingStep);
-                    edittingTodo.stepTitleInputController?.clear();
+                    EditingTodo.stepTitleInputController?.clear();
                   },
                   child: Icon(
                     Icons.add,
-                    color: edittingTodo
-                                .stepTitleInputController?.text.isNotEmpty ??
-                            false
-                        ? tlThemeData.accentColor
-                        : Colors.black,
+                    color:
+                        EditingTodo.stepTitleInputController?.text.isNotEmpty ??
+                                false
+                            ? tlThemeData.accentColor
+                            : Colors.black,
                     size: 25,
                   ),
                 ),

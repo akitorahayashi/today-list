@@ -89,6 +89,9 @@ class SlidableForToDoCard extends ConsumerWidget {
                           ifInToday: true,
                           selectedBigCategoryID: bigCategoryID,
                           selectedSmallCategoryID: smallCategoryID,
+                          editedToDoTitle:
+                              toDoArrayOfThisToDoBelongs[indexOfThisToDoInToDos]
+                                  .title,
                           indexOfEdittedTodo: indexOfThisToDoInToDos);
                     },
                   ),

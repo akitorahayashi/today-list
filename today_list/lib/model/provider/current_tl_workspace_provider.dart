@@ -8,8 +8,7 @@ import '../todo/tl_todos.dart';
 
 // currentWorkspaceを提供するProvider
 final currentWorkspaceProvider =
-    StateNotifierProvider.autoDispose<CurrentTLWorkspaceNotifier, TLWorkspace>(
-        (ref) {
+    StateNotifierProvider<CurrentTLWorkspaceNotifier, TLWorkspace>((ref) {
   final tlWorkspaces = ref.watch(tlWorkspacesProvider);
   return CurrentTLWorkspaceNotifier(ref, tlWorkspaces);
 });

@@ -7,9 +7,9 @@ import '../todo/tl_todos.dart';
 import '../provider/current_tl_workspace_provider.dart';
 import '../provider/tl_workspaces_provider.dart';
 
-class EdittingTodo {
-  TextEditingController? toDoTitleInputController;
-  TextEditingController? stepTitleInputController;
+class EditingTodo {
+  static TextEditingController? toDoTitleInputController;
+  static TextEditingController? stepTitleInputController;
   List<TLStep> steps;
   String bigCatgoeyID;
   String? smallCategoryID;
@@ -18,9 +18,7 @@ class EdittingTodo {
   int? indexOfEditingToDo;
   int? indexOfEditingStep;
 
-  EdittingTodo(
-    this.toDoTitleInputController,
-    this.stepTitleInputController,
+  EditingTodo(
     this.steps,
     this.bigCatgoeyID,
     this.smallCategoryID,
@@ -29,10 +27,8 @@ class EdittingTodo {
     this.indexOfEditingStep,
   );
 
-  static EdittingTodo generateInitialEdittingToDo() {
-    return EdittingTodo(
-      TextEditingController(),
-      TextEditingController(),
+  static EditingTodo generateInitialEdittingToDo() {
+    return EditingTodo(
       [],
       noneID,
       null,
@@ -42,9 +38,13 @@ class EdittingTodo {
     );
   }
 
-  EdittingTodo update({
-    TextEditingController? toDoTitleInputController,
-    TextEditingController? stepTitleInputController,
+  static void updateTextEdittingController({required String? editedToDoTitle}) {
+    EditingTodo.toDoTitleInputController = TextEditingController()
+      ..text = editedToDoTitle ?? "";
+    EditingTodo.stepTitleInputController = TextEditingController();
+  }
+
+  EditingTodo update({
     List<TLStep>? steps,
     String? bigCatgoeyID,
     String? smallCategoryID,
@@ -52,9 +52,7 @@ class EdittingTodo {
     int? indexOfEditingToDo,
     int? indexOfEditingStep,
   }) {
-    return EdittingTodo(
-      toDoTitleInputController ?? this.toDoTitleInputController,
-      stepTitleInputController ?? this.stepTitleInputController,
+    return EditingTodo(
       steps ?? this.steps,
       bigCatgoeyID ?? this.bigCatgoeyID,
       smallCategoryID ?? this.smallCategoryID,
@@ -66,18 +64,18 @@ class EdittingTodo {
 }
 
 final edittingToDoProvider =
-    StateNotifierProvider<EditingToDoNotifier, EdittingTodo>((ref) {
+    StateNotifierProvider<EditingToDoNotifier, EditingTodo>((ref) {
   return EditingToDoNotifier(ref);
 });
 
-class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
+class EditingToDoNotifier extends StateNotifier<EditingTodo> {
   final Ref ref;
 
   EditingToDoNotifier(this.ref)
-      : super(EdittingTodo.generateInitialEdittingToDo());
+      : super(EditingTodo.generateInitialEdittingToDo());
 
   void setInitialValue() {
-    state = EdittingTodo.generateInitialEdittingToDo();
+    state = EditingTodo.generateInitialEdittingToDo();
   }
 
   void setEditedToDo({
@@ -93,9 +91,6 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
         .categoryIDToToDos[corrCategoryID]![ifInToday][indexOfEditingToDo];
     // setValues
     state = state.update(
-      toDoTitleInputController: TextEditingController()
-        ..text = edittedToDo.title,
-      stepTitleInputController: TextEditingController(),
       steps: edittedToDo.steps,
       bigCatgoeyID: selectedBigCategoryID,
       smallCategoryID: selectedSmallCategoryID,
@@ -116,8 +111,6 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
     int? indexOfEditingStep,
   }) {
     state = state.update(
-      toDoTitleInputController: toDoTitleInputController,
-      stepTitleInputController: stepTitleInputController,
       steps: steps,
       bigCatgoeyID: bigCatgoeyID,
       smallCategoryID: smallCategoryID,
@@ -148,11 +141,11 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
 
     final String corrCategoryID = state.smallCategoryID ?? state.bigCatgoeyID;
     final TLToDos corrToDos =
-        currentTLWorkspace.categoryIDToToDos[corrCategoryID]!.copyWith();
+        currentTLWorkspace.categoryIDToToDos[corrCategoryID]!;
 
     final TLToDo createdToDo = TLToDo(
         id: state.smallCategoryID ?? state.bigCatgoeyID,
-        title: state.toDoTitleInputController?.text ?? "Error",
+        title: EditingTodo.toDoTitleInputController?.text ?? "Error",
         steps: state.steps);
     if (state.indexOfEditingToDo == null) {
       // add
@@ -162,22 +155,19 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
       corrToDos[state.ifInToday][state.indexOfEditingToDo!] = createdToDo;
     }
     await tlWorkspacesNotifier.updateCurrentWorkspace(
-      updatedWorkspace: currentTLWorkspace
-        ..categoryIDToToDos[corrCategoryID] = corrToDos,
+      updatedWorkspace: currentTLWorkspace.copyWith(),
     );
     // 入力事項の初期化
     state.update(indexOfEditingToDo: null, indexOfEditingStep: null);
-    state.toDoTitleInputController?.clear();
-    state.stepTitleInputController?.clear();
+    EditingTodo.toDoTitleInputController?.clear();
+    EditingTodo.stepTitleInputController?.clear();
   }
 
   // ページを離れた時の処理
   void disposeValue() {
-    state.toDoTitleInputController?.dispose();
-    state.stepTitleInputController?.dispose();
+    EditingTodo.toDoTitleInputController?.dispose();
+    EditingTodo.stepTitleInputController?.dispose();
     state = state.update(
-      toDoTitleInputController: null,
-      stepTitleInputController: null,
       ifInToday: true,
       bigCatgoeyID: noneID,
       smallCategoryID: null,

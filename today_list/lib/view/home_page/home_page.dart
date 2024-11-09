@@ -203,6 +203,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ifInToday: true,
                 selectedBigCategoryID: currentTLWorkspace.bigCategories[0].id,
                 selectedSmallCategoryID: null,
+                editedToDoTitle: null,
                 indexOfEdittedTodo: null,
               );
             }));

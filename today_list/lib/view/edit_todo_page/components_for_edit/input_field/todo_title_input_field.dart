@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../model/editting_provider/editting_todo_provider.dart';
+import '../../../../model/editing_provider/editing_todo_provider.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../styles/styles.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ToDoTitleInputField extends ConsumerWidget {
+class ToDoTitleInputField extends ConsumerStatefulWidget {
   const ToDoTitleInputField({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ToDoTitleInputField> createState() =>
+      ToDoTitleInputFieldState();
+}
+
+class ToDoTitleInputFieldState extends ConsumerState<ToDoTitleInputField> {
+  String _enteredToDoTitle = "";
+  @override
+  Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final EdittingTodo edittingTodo = ref.watch(edittingToDoProvider);
+    final EditingTodo edittingTodo = ref.watch(edittingToDoProvider);
     // notifier
     final EditingToDoNotifier edittingToDoNotifier =
         ref.read(edittingToDoProvider.notifier);
@@ -21,7 +28,12 @@ class ToDoTitleInputField extends ConsumerWidget {
       width: MediaQuery.of(context).size.width - 50,
       child: TextField(
         autofocus: true,
-        controller: edittingTodo.toDoTitleInputController,
+        controller: EditingTodo.toDoTitleInputController,
+        onChanged: (s) {
+          setState(() {
+            _enteredToDoTitle = s;
+          });
+        },
         style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
@@ -36,19 +48,16 @@ class ToDoTitleInputField extends ConsumerWidget {
             ),
             suffixIcon: AnimatedOpacity(
               duration: const Duration(milliseconds: 300),
-              opacity: edittingTodo.toDoTitleInputController?.text.isNotEmpty ??
-                      false
-                  ? 1
-                  : 0.25,
+              opacity: _enteredToDoTitle.trim().isNotEmpty ? 1 : 0.25,
               child: TextButton(
-                onPressed: () => edittingToDoNotifier.completeEditting(),
+                onPressed: _enteredToDoTitle.trim().isEmpty
+                    ? null
+                    : () => edittingToDoNotifier.completeEditting(),
                 child: Icon(
                   Icons.add,
-                  color:
-                      edittingTodo.toDoTitleInputController?.text.isNotEmpty ??
-                              false
-                          ? tlThemeData.accentColor
-                          : Colors.black,
+                  color: _enteredToDoTitle.trim().isNotEmpty
+                      ? tlThemeData.accentColor
+                      : Colors.black,
                   size: 25,
                 ),
               ),
