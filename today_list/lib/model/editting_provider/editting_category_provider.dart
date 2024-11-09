@@ -31,7 +31,6 @@ class EdittingCategory {
   EdittingCategory copyWith({
     TextEditingController? categoryTitleInputController,
     String? bigCatgoeyID,
-    bool? ifInToday,
     int? indexOfEditingBigCategory,
     int? indexOfEditingSmallCategory,
   }) {
@@ -104,42 +103,61 @@ class EditingCategoryNotifier extends StateNotifier<EdittingCategory> {
     final TLCategory createdCategory = TLCategory(
         id: UniqueKey().toString(),
         title: state.categoryTitleInputController?.text ?? "Error");
-    if (state.indexOfEditingBigCategory == null) {
-      // add
-      currentTLWorkspaceNotifier.corrToDos[state.ifInToday]
-          .add(createdCategory);
-    } else if (state.indexOfEditingSmallCategory == null) {
-      // edit bigCategory
-      corrToDos[state.ifInToday][state.indexOfEditingToDo!] = createdCategory;
+    // 追加、編集処理
+    if (state.bigCatgoeyID == null) {
+      final List<TLCategory> corrBigCategories =
+          List<TLCategory>.from(currentTLWorkspace.bigCategories);
+      if (state.indexOfEditingBigCategory == null) {
+        // add bigCategory
+        corrBigCategories.add(createdCategory);
+      } else {
+        // edit bigCategory
+        corrBigCategories[state.indexOfEditingBigCategory!] = createdCategory;
+      }
+      // 保存
+      await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
+            specificWorkspaceIndex:
+                currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
+            updatedWorkspace: currentTLWorkspace
+              ..bigCategories = corrBigCategories,
+          );
     } else {
-      // edit smallCategory
-      corrToDos[state.ifInToday][state.indexOfEditingToDo!]
-          .add(createdCategory);
+      final Map<String, List<TLCategory>> corrSmallCategories = {
+        for (var entry in currentTLWorkspace.smallCategories.entries)
+          entry.key: List<TLCategory>.from(entry.value)
+      };
+      if (state.indexOfEditingSmallCategory == null) {
+        // add smallCategory
+        corrSmallCategories[state.bigCatgoeyID!]!.add(createdCategory);
+      } else {
+        // edit smallCategory
+        corrSmallCategories[state.bigCatgoeyID!]![
+            state.indexOfEditingSmallCategory!] = createdCategory;
+      }
+      // 保存
+      await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
+            specificWorkspaceIndex:
+                currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
+            updatedWorkspace: currentTLWorkspace
+              ..smallCategories = corrSmallCategories,
+          );
     }
-    // 保存
-    await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
-          specificWorkspaceIndex:
-              currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
-          updatedWorkspace: currentTLWorkspace,
-        );
     // 入力事項の初期化
-    state.copyWith(indexOfEditingToDo: null, indexOfEditingStep: null);
-    state.toDoTitleInputController?.clear();
-    state.stepTitleInputController?.clear();
+    state.copyWith(
+        bigCatgoeyID: null,
+        indexOfEditingBigCategory: null,
+        indexOfEditingSmallCategory: null);
+    state.categoryTitleInputController?.clear();
   }
 
   // ページを離れた時の処理
   void disposeValue() {
-    state.toDoTitleInputController?.dispose();
-    state.stepTitleInputController?.dispose();
+    state.categoryTitleInputController?.dispose();
     state = state.copyWith(
-      toDoTitleInputController: null,
-      stepTitleInputController: null,
-      ifInToday: true,
-      bigCatgoeyID: noneID,
-      smallCategoryID: null,
-      indexOfEditingToDo: null,
-      indexOfEditingStep: null,
+      categoryTitleInputController: null,
+      bigCatgoeyID: null,
+      indexOfEditingBigCategory: null,
+      indexOfEditingSmallCategory: null,
     );
   }
 }
