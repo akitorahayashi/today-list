@@ -18,6 +18,20 @@ class TLToDo {
     this.isChecked = false,
   });
 
+  TLToDo copyWith({
+    String? id,
+    String? title,
+    List<TLStep>? steps,
+    bool? isChecked,
+  }) {
+    return TLToDo(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      steps: steps ?? this.steps,
+      isChecked: isChecked ?? this.isChecked,
+    );
+  }
+
   // 保存する際に使う
   Map<String, dynamic> toJson() {
     return {

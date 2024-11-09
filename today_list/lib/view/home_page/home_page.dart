@@ -157,7 +157,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                   ],
                 ),
-              // なしではない時の処理
+              // スペーサー
               const SizedBox(height: 250)
             ])),
           ],
