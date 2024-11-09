@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/dialog/common/single_option_dialog.dart';
+import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/model/editting_provider/editting_category_provider.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/styles/styles.dart';
@@ -130,7 +130,7 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                             showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return TLSingleOptionDialog(
+                                  return const TLSingleOptionDialog(
                                       title: "変更することに\n成功しました!", message: null);
                                 });
                           },

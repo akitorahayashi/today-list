@@ -101,19 +101,24 @@ class EdittingCategoryNotifier extends StateNotifier<EdittingCategory> {
     final currentTLWorkspaceNotifier =
         ref.read(currentWorkspaceProvider.notifier);
 
-    final TLCategory createdCategory = TLCategory(
-        id: UniqueKey().toString(),
-        title: state.categoryTitleInputController?.text ?? "Error");
     // 追加、編集処理
     if (state.bigCatgoeyID == null) {
+      // bigCategory
       final List<TLCategory> corrBigCategories =
           List<TLCategory>.from(currentTLWorkspace.bigCategories);
       if (state.indexOfEditingBigCategory == null) {
         // add bigCategory
-        corrBigCategories.add(createdCategory);
+        final TLCategory createdBigCategory = TLCategory(
+            id: UniqueKey().toString(),
+            title: state.categoryTitleInputController?.text ?? "Error");
+        corrBigCategories.add(createdBigCategory);
       } else {
         // edit bigCategory
-        corrBigCategories[state.indexOfEditingBigCategory!] = createdCategory;
+        final TLCategory renamedBigCategory = TLCategory(
+            id: corrBigCategories[state.indexOfEditingBigCategory!].id,
+            title: state.categoryTitleInputController?.text ?? "Error");
+        corrBigCategories[state.indexOfEditingBigCategory!] =
+            renamedBigCategory;
       }
       // 保存
       await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
@@ -123,17 +128,26 @@ class EdittingCategoryNotifier extends StateNotifier<EdittingCategory> {
               ..bigCategories = corrBigCategories,
           );
     } else {
+      // smallCategory
       final Map<String, List<TLCategory>> corrSmallCategories = {
         for (var entry in currentTLWorkspace.smallCategories.entries)
           entry.key: List<TLCategory>.from(entry.value)
       };
       if (state.indexOfEditingSmallCategory == null) {
         // add smallCategory
-        corrSmallCategories[state.bigCatgoeyID!]!.add(createdCategory);
+        final TLCategory createdSmallCategory = TLCategory(
+            id: UniqueKey().toString(),
+            title: state.categoryTitleInputController?.text ?? "Error");
+        corrSmallCategories[state.bigCatgoeyID!]!.add(createdSmallCategory);
       } else {
         // edit smallCategory
+        final TLCategory renamedSmallCategory = TLCategory(
+            id: corrSmallCategories[state.bigCatgoeyID!]![
+                    state.indexOfEditingSmallCategory!]
+                .id,
+            title: state.categoryTitleInputController?.text ?? "Error");
         corrSmallCategories[state.bigCatgoeyID!]![
-            state.indexOfEditingSmallCategory!] = createdCategory;
+            state.indexOfEditingSmallCategory!] = renamedSmallCategory;
       }
       // 保存
       await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
