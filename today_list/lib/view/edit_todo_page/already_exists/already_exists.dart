@@ -4,7 +4,6 @@ import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/todo/tl_category.dart';
 import '../../../model/tl_workspace.dart';
 import './model_of_todo_card.dart';
 
@@ -87,8 +86,8 @@ class AlreadyExists extends ConsumerWidget {
                       ),
                   ],
                   onReorder: (oldIndex, newIndex) {
-                    List<TLToDo> corrToDoArray = currentWorkspace
-                        .toDos[categoryOfThisToDo.id]![ifInToday];
+                    List<TLToDo> corrToDoArray =
+                        currentWorkspace.toDos[categoryOfThisToDo]![ifInToday];
                     final int indexOfCheckedToDo =
                         corrToDoArray.indexWhere((todo) => todo.isChecked);
                     // チェック済みToDoよりも下に移動させない
