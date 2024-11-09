@@ -22,14 +22,14 @@ class ToDosInThisCategoryInToday extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final TLWorkspace _currentTLWorkspace =
+    final TLWorkspace currentTLWorkspace =
         ref.watch(currentTLWorkspaceProvider);
     // notifier
-    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+    final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
-    final CurrentTLWorkspaceNotifier _currentTLWorkspaceNotifier =
+    final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
         ref.read(currentTLWorkspaceProvider.notifier);
-    List<TLToDo> toDosInTodayInThisCategory = _currentTLWorkspace
+    List<TLToDo> toDosInTodayInThisCategory = currentTLWorkspace
         .toDos[smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
         .toDosInToday;
     return Column(
@@ -60,10 +60,10 @@ class ToDosInThisCategoryInToday extends ConsumerWidget {
                   toDosInTodayInThisCategory.insert(newIndex, reorderedToDo);
 
                   // 更新されたワークスペースを保存
-                  _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                  tlWorkspacesNotifier.updateSpecificTLWorkspace(
                     specificWorkspaceIndex:
-                        _currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
-                    updatedWorkspace: _currentTLWorkspace,
+                        currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
+                    updatedWorkspace: currentTLWorkspace,
                   );
                 }
               }),

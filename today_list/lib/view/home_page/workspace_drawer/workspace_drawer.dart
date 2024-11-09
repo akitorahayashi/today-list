@@ -12,25 +12,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TLWorkspaceDrawer extends ConsumerWidget {
   final bool isContentMode;
-  const TLWorkspaceDrawer({Key? key, required this.isContentMode})
-      : super(key: key);
+  const TLWorkspaceDrawer({super.key, required this.isContentMode});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
-    final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
-    final TLWorkspacesNotifier _tlWorkspacesNotifier =
+    final TLThemeData tlThemeData = TLTheme.of(context);
+    final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
-    final CurrentTLWorkspaceNotifier _currentWorkspaceNotifier =
+    final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
         ref.read(currentTLWorkspaceProvider.notifier);
-    final int _currentTLWorkspaceIndex =
-        _currentWorkspaceNotifier.currentTLWorkspaceIndex;
+    final int currentTLWorkspaceIndex =
+        currentWorkspaceNotifier.currentTLWorkspaceIndex;
 
     return Drawer(
       child: Stack(
         children: [
           // 背景色
-          Container(color: _tlThemeData.backgroundColor),
+          Container(color: tlThemeData.backgroundColor),
           CustomScrollView(
             slivers: [
               TLSliverAppBar(
@@ -48,7 +47,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: _tlThemeData.panelBorderColor),
+                          color: tlThemeData.panelBorderColor),
                       child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
@@ -67,7 +66,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                             ),
                             ChangeWorkspaceCard(
                               isInDrawerList: false,
-                              indexInWorkspaces: _currentTLWorkspaceIndex,
+                              indexInWorkspaces: currentTLWorkspaceIndex,
                             )
                           ],
                         ),
@@ -80,7 +79,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: _tlThemeData.panelBorderColor),
+                          color: tlThemeData.panelBorderColor),
                       child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
@@ -92,7 +91,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                             child: Column(
                               children: [
                                 // 独立して表示してデフォルトワークスペースの並び替え阻止
-                                ChangeWorkspaceCard(
+                                const ChangeWorkspaceCard(
                                   // TODO isInDrawerListの名前を変更する
                                   isInDrawerList: false,
                                   indexInWorkspaces: 0,
@@ -100,10 +99,10 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                 ReorderableColumn(
                                   children: [
                                     for (int i = 1;
-                                        i < _tlWorkspaces.length;
+                                        i < tlWorkspaces.length;
                                         i++)
                                       ChangeWorkspaceCard(
-                                        key: ValueKey(_tlWorkspaces[i].id),
+                                        key: ValueKey(tlWorkspaces[i].id),
                                         isInDrawerList: true,
                                         indexInWorkspaces: i,
                                       ),
@@ -113,49 +112,49 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                     final int revisedNewIndex = newIndex += 1;
 
                                     final reorderedWorkspace =
-                                        _tlWorkspaces.removeAt(revisedOldIndex);
-                                    _tlWorkspaces.insert(
+                                        tlWorkspaces.removeAt(revisedOldIndex);
+                                    tlWorkspaces.insert(
                                         revisedNewIndex, reorderedWorkspace);
 
                                     // currentWorkspaceIndex を必要に応じて更新
                                     if (revisedOldIndex ==
-                                        _currentTLWorkspaceIndex) {
+                                        currentTLWorkspaceIndex) {
                                       // 移動したWorkspaceが現在のWorkspaceだった場合
-                                      _currentWorkspaceNotifier
+                                      currentWorkspaceNotifier
                                           .changeCurrentWorkspaceIndex(
                                               newCurrentWorkspaceIndex:
                                                   revisedNewIndex);
                                     } else if (revisedOldIndex <
-                                            _currentWorkspaceNotifier
+                                            currentWorkspaceNotifier
                                                 .currentTLWorkspaceIndex &&
                                         revisedNewIndex >=
-                                            _currentWorkspaceNotifier
+                                            currentWorkspaceNotifier
                                                 .currentTLWorkspaceIndex) {
                                       // currentWorkspaceIndexが移動範囲内にある場合（下方向に移動）
-                                      _currentWorkspaceNotifier
+                                      currentWorkspaceNotifier
                                           .changeCurrentWorkspaceIndex(
                                               newCurrentWorkspaceIndex:
-                                                  _currentWorkspaceNotifier
+                                                  currentWorkspaceNotifier
                                                           .currentTLWorkspaceIndex -
                                                       1);
                                     } else if (revisedOldIndex >
-                                            _currentWorkspaceNotifier
+                                            currentWorkspaceNotifier
                                                 .currentTLWorkspaceIndex &&
                                         revisedNewIndex <=
-                                            _currentWorkspaceNotifier
+                                            currentWorkspaceNotifier
                                                 .currentTLWorkspaceIndex) {
                                       // currentWorkspaceIndexが移動範囲内にある場合（上方向に移動）
-                                      _currentWorkspaceNotifier
+                                      currentWorkspaceNotifier
                                           .changeCurrentWorkspaceIndex(
                                               newCurrentWorkspaceIndex:
-                                                  _currentWorkspaceNotifier
+                                                  currentWorkspaceNotifier
                                                           .currentTLWorkspaceIndex +
                                                       1);
                                     }
 
                                     // toDosを保存する
-                                    _tlWorkspacesNotifier.updateTLWorkspaceList(
-                                        updatedTLWorkspaceList: _tlWorkspaces);
+                                    tlWorkspacesNotifier.updateTLWorkspaceList(
+                                        updatedTLWorkspaceList: tlWorkspaces);
                                   },
                                 ),
                                 // 新しくworkspaceを追加する,

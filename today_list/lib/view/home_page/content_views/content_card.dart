@@ -9,7 +9,7 @@ class ContentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return Padding(
         padding: const EdgeInsets.only(
           left: 5.0,
@@ -19,7 +19,7 @@ class ContentCard extends StatelessWidget {
         child: ConstrainedBox(
             constraints: const BoxConstraints(minHeight: 70),
             child: Card(
-                color: _tlThemeData.panelColor,
+                color: tlThemeData.panelColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 child: ClipRRect(
@@ -34,7 +34,7 @@ class ContentCard extends StatelessWidget {
                         child: Text(contentName,
                             style: TextStyle(
                                 fontWeight: FontWeight.w700,
-                                color: _tlThemeData.accentColor,
+                                color: tlThemeData.accentColor,
                                 letterSpacing: 1)),
                       ),
                     ),

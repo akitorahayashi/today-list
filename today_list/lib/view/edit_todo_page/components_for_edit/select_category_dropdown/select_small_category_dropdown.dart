@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
-import 'package:today_list/model/provider/editting_todo_provider.dart';
+import 'package:today_list/model/editting_provider/editting_todo_provider.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/design/tl_theme.dart';

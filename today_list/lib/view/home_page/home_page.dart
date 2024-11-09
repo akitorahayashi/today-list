@@ -173,14 +173,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                       Navigator.pop(context);
                       await currentTLWorkspaceNotifier
                           .deleteCheckedToDosInTodayInCurrentWorkspace();
+                      if (context.mounted) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => SingleOptionDialog(
+                            title: "削除が完了しました！",
+                            message: null,
+                          ),
+                        );
+                      }
                       TLVibration.vibrate();
-                      showDialog(
-                        context: context,
-                        builder: ((context) => SingleOptionDialog(
-                              title: "削除が完了しました！",
-                              message: null,
-                            )),
-                      );
                     },
                   ))),
           trailingIconData: FontAwesomeIcons.list,
@@ -197,7 +199,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             await Navigator.push(context, MaterialPageRoute(builder: (context) {
               return EditToDoPage(
                 ifInToday: true,
-                selectedBigCategoryID: currentTLWorkspace.bigCategories[0],
+                selectedBigCategoryID: currentTLWorkspace.bigCategories[0].id,
                 selectedSmallCategoryID: null,
                 indexOfEdittedTodo: null,
               );
