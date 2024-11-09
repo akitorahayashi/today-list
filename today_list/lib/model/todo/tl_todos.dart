@@ -10,7 +10,7 @@ class TLToDos {
     required this.toDosInWhenever,
   });
 
-  List<TLToDo> operator []({required bool ifInToday}) {
+  List<TLToDo> operator [](bool ifInToday) {
     return ifInToday ? toDosInToday : toDosInWhenever;
   }
 

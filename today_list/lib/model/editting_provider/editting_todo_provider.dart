@@ -143,8 +143,6 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
     // provider
     final currentTLWorkspace = ref.read(currentWorkspaceProvider);
     // notifier
-    final currentTLWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
 

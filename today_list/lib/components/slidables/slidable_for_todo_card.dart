@@ -46,8 +46,6 @@ class SlidableForToDoCard extends ConsumerWidget {
     final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
         ref.read(currentWorkspaceProvider.notifier);
     // other
-    final int currentTLWorkspaceIndex =
-        currentTLWorkspaceNotifier.currentWorkspaceIndex;
     final String corrCategoryID = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisToDoBelongs =
         currentTLWorkspace.categoryIDToToDos[corrCategoryID]![ifInToday];
