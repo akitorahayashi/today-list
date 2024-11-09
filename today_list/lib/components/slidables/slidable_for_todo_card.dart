@@ -15,7 +15,7 @@ class SlidableForToDoCard extends ConsumerWidget {
   final bool isForModelCard;
   // todo
   final TLToDo corrTLToDo;
-  final int _indexOfThisToDoInToDos;
+  final int indexOfThisToDoInToDos;
   final bool ifInToday;
   // category
   final String bigCategoryID;
@@ -26,26 +26,25 @@ class SlidableForToDoCard extends ConsumerWidget {
     super.key,
     required this.isForModelCard,
     required this.corrTLToDo,
-    required int indexOfThisToDoInToDos,
+    required this.indexOfThisToDoInToDos,
     required this.ifInToday,
     // category
     required this.bigCategoryID,
     required this.smallCategoryID,
     // child
     required this.child,
-  }) : _indexOfThisToDoInToDos = indexOfThisToDoInToDos;
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace currentTLWorkspace =
-        ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
     // other
     final int currentTLWorkspaceIndex =
         currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
@@ -65,7 +64,7 @@ class SlidableForToDoCard extends ConsumerWidget {
           foregroundColor: tlThemeData.accentColor,
           onPressed: (BuildContext context) async {
             // タップしたらこれをremoveする
-            toDoArrayOfThisToDoBelongs.removeAt(_indexOfThisToDoInToDos);
+            toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
             TLVibration.vibrate();
             tlWorkspacesNotifier.updateSpecificTLWorkspace(
                 specificWorkspaceIndex: currentTLWorkspaceIndex,
@@ -89,7 +88,11 @@ class SlidableForToDoCard extends ConsumerWidget {
               // TODO 編集画面に遷移
               onPressed: (BuildContext context) async {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return EditToDoPage(ifInToday: true, selectedBigCategoryID: selectedBigCategory, selectedSmallCategoryID: selectedSmallCategory, indexOfEdittedTodo: indexOfEdittedTodo)
+                  return EditToDoPage(
+                      ifInToday: true,
+                      selectedBigCategoryID: bigCategoryID,
+                      selectedSmallCategoryID: smallCategoryID,
+                      indexOfEdittedTodo: indexOfThisToDoInToDos);
                 }));
               },
               icon: Icons.edit,
@@ -106,7 +109,7 @@ class SlidableForToDoCard extends ConsumerWidget {
             onPressed: (BuildContext context) {
               // タップしたらtodayとwheneverを切り替える
               final TLToDo switchedToDo =
-                  toDoArrayOfThisToDoBelongs.removeAt(_indexOfThisToDoInToDos);
+                  toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
               currentTLWorkspace.toDos[corrCategoryID]![!ifInToday]
                   .insert(0, switchedToDo);
               TLVibration.vibrate();

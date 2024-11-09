@@ -27,10 +27,10 @@ class AlreadyExists extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace currentWorkspace = ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace currentWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
     final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     // others

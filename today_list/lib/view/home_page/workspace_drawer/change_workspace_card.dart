@@ -12,67 +12,66 @@ class ChangeWorkspaceCard extends ConsumerWidget {
   final bool isInDrawerList;
   final int indexInWorkspaces;
   const ChangeWorkspaceCard({
-    Key? key,
+    super.key,
     required this.isInDrawerList,
     required this.indexInWorkspaces,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
-    final TLWorkspace _currentTLWorkspace =
-        ref.watch(currentTLWorkspaceProvider);
+    final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
-    final CurrentTLWorkspaceNotifier _currentTLWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+    final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
+        ref.read(currentWorkspaceProvider.notifier);
     // other
-    final int _currentTLWorkspaceIndex =
-        _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
-    final bool _isCurrentWorkspace =
-        indexInWorkspaces == _currentTLWorkspaceIndex;
+    final int currentTLWorkspaceIndex =
+        currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
+    final bool isCurrentWorkspace =
+        indexInWorkspaces == currentTLWorkspaceIndex;
     return Padding(
       padding: EdgeInsets.fromLTRB(
-          5, 1, 5, (_isCurrentWorkspace && !isInDrawerList) ? 5 : 0),
+          5, 1, 5, (isCurrentWorkspace && !isInDrawerList) ? 5 : 0),
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 70),
         child: Card(
-          color: _tlThemeData.panelColor,
+          color: tlThemeData.panelColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: GestureDetector(
                 onTap: () async {
-                  if (_isCurrentWorkspace) {
+                  if (isCurrentWorkspace) {
                     Navigator.pop(context);
                   } else {
-                    _currentTLWorkspaceNotifier.changeCurrentWorkspaceIndex(
+                    currentTLWorkspaceNotifier.changeCurrentWorkspaceIndex(
                         newCurrentWorkspaceIndex: indexInWorkspaces);
                     TLVibration.vibrate();
                     Navigator.pop(context);
                     showDialog(
                         context: context,
                         builder: (context) => SingleOptionDialog(
-                            title: _currentTLWorkspace.name,
+                            title: currentTLWorkspace.name,
                             message: "workspaceを変更しました！"));
                   }
                 },
                 child: SlidableForWorkspaceCard(
-                  isCurrentWorkspace: _isCurrentWorkspace,
+                  isCurrentWorkspace: isCurrentWorkspace,
                   indexInTLWorkspaces: indexInWorkspaces,
                   child: Align(
                     alignment: Alignment.center,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                       child: Text(
-                          _isCurrentWorkspace && isInDrawerList
-                              ? ("☆ " + _currentTLWorkspace.name + "   ")
-                              : _tlWorkspaces[indexInWorkspaces].name,
+                          isCurrentWorkspace && isInDrawerList
+                              ? ("☆ ${currentTLWorkspace.name}   ")
+                              : tlWorkspaces[indexInWorkspaces].name,
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
-                              color: _tlThemeData.accentColor,
+                              color: tlThemeData.accentColor,
                               letterSpacing: 1)),
                     ),
                   ),

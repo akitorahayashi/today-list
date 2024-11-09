@@ -43,15 +43,15 @@ class _AddOrEditWorkspaceDialogState
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
-    final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
-    final _currentTLWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
-    final _currentTLWorkspaceIndex =
-        _currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
+    final TLThemeData tlThemeData = TLTheme.of(context);
+    final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    final currentTLWorkspaceNotifier =
+        ref.read(currentWorkspaceProvider.notifier);
+    final currentTLWorkspaceIndex =
+        currentTLWorkspaceNotifier.currentTLWorkspaceIndex;
 
     return Dialog(
-      backgroundColor: _tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -77,7 +77,7 @@ class _AddOrEditWorkspaceDialogState
                 width: 230,
                 child: TextField(
                   autofocus: true,
-                  cursorColor: _tlThemeData.accentColor,
+                  cursorColor: tlThemeData.accentColor,
                   controller: _workspaceNameInputController,
                   style: TextStyle(
                       color: Colors.black.withOpacity(0.5),
@@ -95,14 +95,12 @@ class _AddOrEditWorkspaceDialogState
             children: [
               // カテゴリーを作らずにアラートを閉じるボタン
               TextButton(
-                  style:
-                      alertButtonStyle(accentColor: _tlThemeData.accentColor),
+                  style: alertButtonStyle(accentColor: tlThemeData.accentColor),
                   onPressed: () => Navigator.pop(context),
                   child: const Text("閉じる")),
               // workspaceを追加するボタン
               TextButton(
-                  style:
-                      alertButtonStyle(accentColor: _tlThemeData.accentColor),
+                  style: alertButtonStyle(accentColor: tlThemeData.accentColor),
                   onPressed: () {
                     if (_workspaceNameInputController.text.trim().isEmpty) {
                       // 入力されていなければ退場
@@ -139,7 +137,7 @@ class _AddOrEditWorkspaceDialogState
                       } else {
                         // edit action
                         final TLWorkspace editedWorkspace =
-                            _tlWorkspaces[widget.oldIndexInStringWorkspaces!];
+                            tlWorkspaces[widget.oldIndexInStringWorkspaces!];
                         // 名前だけ変える
                         editedWorkspace.name =
                             _workspaceNameInputController.text;
@@ -153,9 +151,9 @@ class _AddOrEditWorkspaceDialogState
                             );
 
                         // currentWorkspaceの時
-                        if (_currentTLWorkspaceIndex ==
+                        if (currentTLWorkspaceIndex ==
                             widget.oldIndexInStringWorkspaces!) {
-                          _currentTLWorkspaceNotifier
+                          currentTLWorkspaceNotifier
                               .changeCurrentWorkspaceIndex(
                                   newCurrentWorkspaceIndex:
                                       widget.oldIndexInStringWorkspaces!);

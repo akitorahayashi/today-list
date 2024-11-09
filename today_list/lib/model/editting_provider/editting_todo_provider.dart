@@ -4,8 +4,8 @@ import 'package:today_list/model/tl_workspace.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import '../todo/tl_todos.dart';
-import './current_tl_workspace_provider.dart';
-import './tl_workspaces_provider.dart';
+import '../provider/current_tl_workspace_provider.dart';
+import '../provider/tl_workspaces_provider.dart';
 
 class EdittingTodo {
   TextEditingController? toDoTitleInputController;
@@ -42,7 +42,7 @@ class EdittingTodo {
     );
   }
 
-  EdittingTodo copyWith({
+  EdittingTodo update({
     TextEditingController? toDoTitleInputController,
     TextEditingController? stepTitleInputController,
     List<TLStep>? steps,
@@ -86,13 +86,13 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
     required String? selectedSmallCategoryID,
     required int indexOfEditingToDo,
   }) {
-    final TLWorkspace currentWorkspace = ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace currentWorkspace = ref.watch(currentWorkspaceProvider);
     final String corrCategoryID =
         selectedSmallCategoryID ?? selectedBigCategoryID;
     final TLToDo edittedToDo =
         currentWorkspace.toDos[corrCategoryID]![ifInToday][indexOfEditingToDo];
     // setValues
-    state = state.copyWith(
+    state = state.update(
       toDoTitleInputController: TextEditingController()
         ..text = edittedToDo.title,
       stepTitleInputController: TextEditingController(),
@@ -115,7 +115,7 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
     int? indexOfEditingToDo,
     int? indexOfEditingStep,
   }) {
-    state = state.copyWith(
+    state = state.update(
       toDoTitleInputController: toDoTitleInputController,
       stepTitleInputController: stepTitleInputController,
       steps: steps,
@@ -131,20 +131,22 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
     final newStep = TLStep(id: UniqueKey().toString(), title: stepTitle);
     if (state.indexOfEditingStep == null) {
       final updatedSteps = List<TLStep>.from(state.steps)..add(newStep);
-      state = state.copyWith(steps: updatedSteps);
+      state = state.update(steps: updatedSteps);
     } else {
       final updatedSteps = List<TLStep>.from(state.steps);
       updatedSteps[state.indexOfEditingStep!] = newStep;
-      state = state.copyWith(steps: updatedSteps, indexOfEditingStep: null);
+      state = state.update(steps: updatedSteps, indexOfEditingStep: null);
     }
   }
 
   Future<void> completeEditting() async {
     // provider
-    final currentTLWorkspace = ref.read(currentTLWorkspaceProvider);
+    final currentTLWorkspace = ref.read(currentWorkspaceProvider);
     // notifier
     final currentTLWorkspaceNotifier =
-        ref.read(currentTLWorkspaceProvider.notifier);
+        ref.read(currentWorkspaceProvider.notifier);
+    final TLWorkspacesNotifier tlWorkspacesNotifier =
+        ref.read(tlWorkspacesProvider.notifier);
 
     final String corrCategoryID = state.smallCategoryID ?? state.bigCatgoeyID;
     final TLToDos corrToDos = currentTLWorkspace.toDos[corrCategoryID]!;
@@ -160,14 +162,13 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
       // edit
       corrToDos[state.ifInToday][state.indexOfEditingToDo!] = createdToDo;
     }
-    // 保存
-    await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
-          specificWorkspaceIndex:
-              currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
-          updatedWorkspace: currentTLWorkspace,
-        );
+    await tlWorkspacesNotifier.updateSpecificTLWorkspace(
+      specificWorkspaceIndex:
+          currentTLWorkspaceNotifier.currentTLWorkspaceIndex,
+      updatedWorkspace: currentTLWorkspace..toDos[corrCategoryID] = corrToDos,
+    );
     // 入力事項の初期化
-    state.copyWith(indexOfEditingToDo: null, indexOfEditingStep: null);
+    state.update(indexOfEditingToDo: null, indexOfEditingStep: null);
     state.toDoTitleInputController?.clear();
     state.stepTitleInputController?.clear();
   }
@@ -176,7 +177,7 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
   void disposeValue() {
     state.toDoTitleInputController?.dispose();
     state.stepTitleInputController?.dispose();
-    state = state.copyWith(
+    state = state.update(
       toDoTitleInputController: null,
       stepTitleInputController: null,
       ifInToday: true,

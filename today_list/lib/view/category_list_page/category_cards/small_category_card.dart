@@ -18,8 +18,7 @@ class SmallCategoryCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData _tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace _currentTLWorkspace =
-        ref.watch(currentTLWorkspaceProvider);
+    final TLWorkspace _currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // others
     final TLCategory _smallCategoryOfThisCard = _currentTLWorkspace
         .smallCategories[corrBigCategoryID]![corrIndexOfSmallCategory];
