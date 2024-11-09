@@ -149,7 +149,8 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
         ref.read(tlWorkspacesProvider.notifier);
 
     final String corrCategoryID = state.smallCategoryID ?? state.bigCatgoeyID;
-    final TLToDos corrToDos = currentTLWorkspace.toDos[corrCategoryID]!;
+    final TLToDos corrToDos =
+        currentTLWorkspace.toDos[corrCategoryID]!.copyWith();
 
     final TLToDo createdToDo = TLToDo(
         id: state.smallCategoryID ?? state.bigCatgoeyID,

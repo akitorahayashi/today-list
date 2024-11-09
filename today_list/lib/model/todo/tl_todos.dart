@@ -14,6 +14,16 @@ class TLToDos {
     return ifInToday ? toDosInToday : toDosInWhenever;
   }
 
+  TLToDos copyWith({
+    List<TLToDo>? toDosInToday,
+    List<TLToDo>? toDosInWhenever,
+  }) {
+    return TLToDos(
+      toDosInToday: toDosInToday ?? this.toDosInToday,
+      toDosInWhenever: toDosInWhenever ?? this.toDosInWhenever,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       "toDosInToday": toDosInToday.map((todo) {

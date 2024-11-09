@@ -1,15 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
+import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
+import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/styles/styles.dart';
 
-class DeleteCategoryDialog extends StatelessWidget {
-  const DeleteCategoryDialog({super.key});
+class DeleteCategoryDialog extends ConsumerWidget {
+  final int indexOfBigCategory;
+  final int? indexOfSmallCategory;
+  const DeleteCategoryDialog({
+    super.key,
+    required this.indexOfBigCategory,
+    required this.indexOfSmallCategory,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
+    // provider
+    final currentWorkspace = ref.watch(currentWorkspaceProvider);
+    // other
+    final oldBigCategory = currentWorkspace.bigCategories[indexOfBigCategory];
+    final TLCategory categoryThisBelongsTo = indexOfSmallCategory == null
+        ? currentWorkspace.bigCategories[indexOfBigCategory]
+        : currentWorkspace.smallCategories[currentWorkspace
+            .bigCategories[indexOfBigCategory].id]![indexOfSmallCategory!];
     return Dialog(
       backgroundColor: tlThemeData.alertColor,
       child: Padding(
@@ -50,21 +67,29 @@ class DeleteCategoryDialog extends StatelessWidget {
                     style:
                         alertButtonStyle(accentColor: tlThemeData.accentColor),
                     onPressed: () async {
+                      // corrElements
+                      final List<TLCategory> corrBigCategories =
+                          List<TLCategory>.from(currentWorkspace.bigCategories);
+                      final Map<String, List<TLCategory>> corrSmallCategories =
+                          {
+                        for (var entry
+                            in currentWorkspace.smallCategories.entries)
+                          entry.key: List<TLCategory>.from(entry.value)
+                      };
                       if (indexOfSmallCategory != null) {
                         // このカテゴリーがsmallCategoryの場合
                         // カテゴリーのリストから削除する
-                        currentWorkspace.smallCategories[currentWorkspace
+                        corrSmallCategories[currentWorkspace
                                 .bigCategories[indexOfBigCategory].id]!
-                            .removeWhere(((Category smallCategory) =>
+                            .removeWhere(((TLCategory smallCategory) =>
                                 smallCategory.id == categoryThisBelongsTo.id));
                         // toDosに入っているものを消す
                         currentWorkspace.toDos.remove(categoryThisBelongsTo.id);
                       } else {
                         // このカテゴリーがbigCategoryの場合
                         // bigCategoryのsmallCategoryでtoDosに入っているものを消す
-                        for (Category smallCategory
-                            in currentWorkspace.smallCategories[currentWorkspace
-                                .bigCategories[indexOfBigCategory].id]!) {
+                        for (TLCategory smallCategory in currentWorkspace
+                            .smallCategories[corrBigCategory.id]!) {
                           currentWorkspace.toDos.remove(smallCategory.id);
                         } // toDosに入っているものを消す
                         currentWorkspace.toDos.remove(categoryThisBelongsTo.id);
