@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/components/dialog/common/single_option_dialog.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/styles/styles.dart';
@@ -71,6 +72,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
               // カテゴリーを追加するボタン
               TextButton(
                   style: alertButtonStyle(accentColor: tlThemeData.accentColor),
+                  // 入力がなければ非活性
                   onPressed: (edittingCategory
                               .categoryTitleInputController?.text
                               .trim()
@@ -83,9 +85,14 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                           TLVibration.vibrate();
                           // to category list
                           Navigator.pop(
-                              context,
-                              edittingCategory
-                                  .categoryTitleInputController?.text);
+                            context,
+                          );
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return SingleOptionDialog(
+                                    title: "カテゴリーが\n追加されました！", message: null);
+                              });
                         },
                   child: const Text("追加"))
             ],

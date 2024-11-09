@@ -90,8 +90,8 @@ class TLToDoCard extends ConsumerWidget {
               indexOfThisToDoInToDos: indexOfThisToDoInToDos,
               ifInToday: ifInToday,
               // category
-              bigCategoryID: bigCategoryOfThisToDo,
-              smallCategoryID: smallCategoryOfThisToDo,
+              bigCategoryID: bigCategoryOfThisToDo.id,
+              smallCategoryID: smallCategoryOfThisToDo?.id,
               // child
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -66,8 +66,8 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
             if (selectedBigCategory == null) return;
             edittingToDoNotifier.updateEdittingTodo(smallCategoryID: null);
             if (selectedBigCategory.id != "---createBigCategory") {
-              edittingToDoNotifier.updateEdittingTodo(
-                  bigCatgoeyID: selectedBigCategory.id);
+              // edittingToDoNotifier.updateEdittingTodo(
+              //     bigCatgoeyID: selectedBigCategory.id);
               edittingTodo.bigCatgoeyID = selectedBigCategory.id;
             } else {
               final String createdBigCategoryID = await addToDoCategoryAlert(
