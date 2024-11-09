@@ -164,7 +164,6 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
       corrToDos[state.ifInToday][state.indexOfEditingToDo!] = createdToDo;
     }
     await tlWorkspacesNotifier.updateCurrentWorkspace(
-      specificWorkspaceIndex: currentTLWorkspaceNotifier.currentWorkspaceIndex,
       updatedWorkspace: currentTLWorkspace
         ..categoryIDToToDos[corrCategoryID] = corrToDos,
     );

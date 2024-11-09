@@ -67,7 +67,6 @@ class SlidableForToDoCard extends ConsumerWidget {
             toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
             TLVibration.vibrate();
             tlWorkspacesNotifier.updateCurrentWorkspace(
-                specificWorkspaceIndex: currentTLWorkspaceIndex,
                 updatedWorkspace: currentTLWorkspace);
           },
           icon: Icons.remove,
@@ -119,7 +118,6 @@ class SlidableForToDoCard extends ConsumerWidget {
                   newCheckedState: corrTLToDo.isChecked,
                   quickChangeToToday: !ifInToday);
               tlWorkspacesNotifier.updateCurrentWorkspace(
-                  specificWorkspaceIndex: currentTLWorkspaceIndex,
                   updatedWorkspace: currentTLWorkspace);
             },
             icon: ifInToday ? Icons.schedule : Icons.light_mode,

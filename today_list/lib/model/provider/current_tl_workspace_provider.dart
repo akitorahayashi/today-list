@@ -90,7 +90,6 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
 
     // 更新されたワークスペースを保存
     tlWorkspacesNotifier.updateCurrentWorkspace(
-        specificWorkspaceIndex: currentWorkspaceIndex,
         updatedWorkspace: updatedCurrentTLWorkspace);
   }
 

@@ -98,8 +98,6 @@ class AlreadyExists extends ConsumerWidget {
                       corrToDoArray.insert(newIndex, reorderedToDo);
                       // toDosを保存する
                       tlWorkspacesNotifier.updateCurrentWorkspace(
-                          specificWorkspaceIndex:
-                              currentWorkspaceNotifier.currentWorkspaceIndex,
                           updatedWorkspace: currentWorkspace);
                     }
                   }),

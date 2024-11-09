@@ -150,8 +150,6 @@ class TLToDoCard extends ConsumerWidget {
                           corrToDoData.steps.insert(newIndex, reOrderedToDo);
                           // toDosを保存する
                           tlWorkspacesNotifier.updateCurrentWorkspace(
-                            specificWorkspaceIndex: currentTLWorkspaceNotifier
-                                .currentWorkspaceIndex,
                             updatedWorkspace: currentTLWorkspace,
                           );
                         },

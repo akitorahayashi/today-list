@@ -109,8 +109,6 @@ class DeleteCategoryDialog extends ConsumerWidget {
 
                       // categoriesとtoDosを保存する
                       tlWorkspacesNotifier.updateCurrentWorkspace(
-                          specificWorkspaceIndex:
-                              currentWorkspaceNotifier.currentWorkspaceIndex,
                           updatedWorkspace: currentWorkspace.copyWith(
                               bigCategories: corrBigCategories,
                               smallCategories: corrSmallCategories,

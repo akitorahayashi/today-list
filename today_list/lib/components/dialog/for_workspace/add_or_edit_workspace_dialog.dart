@@ -145,8 +145,6 @@ class _AddOrEditWorkspaceDialogState
                         ref
                             .read(tlWorkspacesProvider.notifier)
                             .updateCurrentWorkspace(
-                              specificWorkspaceIndex:
-                                  widget.oldIndexInStringWorkspaces!,
                               updatedWorkspace: editedWorkspace,
                             );
 
