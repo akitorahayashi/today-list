@@ -8,13 +8,13 @@ class TLWorkspace {
   // todo
   List<TLCategory> bigCategories;
   Map<String, List<TLCategory>> smallCategories;
-  Map<String, TLToDos> toDos;
+  Map<String, TLToDos> categoryIDToToDos;
   TLWorkspace({
     required this.id,
     required this.name,
     required this.bigCategories,
     required this.smallCategories,
-    required this.toDos,
+    required this.categoryIDToToDos,
   });
 
   TLWorkspace copyWith({
@@ -22,14 +22,14 @@ class TLWorkspace {
     String? name,
     List<TLCategory>? bigCategories,
     Map<String, List<TLCategory>>? smallCategories,
-    Map<String, TLToDos>? toDos,
+    Map<String, TLToDos>? categoryIDToToDos,
   }) {
     return TLWorkspace(
       id: id ?? this.id,
       name: name ?? this.name,
       bigCategories: bigCategories ?? this.bigCategories,
       smallCategories: smallCategories ?? this.smallCategories,
-      toDos: toDos ?? this.toDos,
+      categoryIDToToDos: categoryIDToToDos ?? this.categoryIDToToDos,
     );
   }
 
@@ -41,7 +41,8 @@ class TLWorkspace {
           TLCategory.categoryArrayToJson(categoryArray: bigCategories),
       "smallCategories":
           TLCategory.smallCategoriesToJson(smallCategories: smallCategories),
-      "toDos": toDos.map((key, toDos) => MapEntry(key, toDos.toJson())),
+      "categoryIDToToDos":
+          categoryIDToToDos.map((key, toDos) => MapEntry(key, toDos.toJson())),
     };
   }
 
@@ -55,7 +56,8 @@ class TLWorkspace {
         // _TypeError (type '_Map<String, dynamic>' is not a subtype of type 'String')
         jsonSmallCategoriesData: jsonData["smallCategories"]!,
       ),
-      toDos: (jsonData["toDos"] as Map<String, dynamic>).map(
+      categoryIDToToDos:
+          (jsonData["categoryIDToToDos"] as Map<String, dynamic>).map(
         (key, jsonTLToDosData) => MapEntry(
           key,
           TLToDos.fromJson(jsonTLToDosData as Map<String, dynamic>),
@@ -66,11 +68,11 @@ class TLWorkspace {
 
   bool checkIfThisWorkspaceContainsToDoInToday() {
     for (TLCategory bigCategory in bigCategories) {
-      if (toDos[bigCategory.id]!.toDosInToday.isNotEmpty) {
+      if (categoryIDToToDos[bigCategory.id]!.toDosInToday.isNotEmpty) {
         return true;
       }
       for (TLCategory smallCategory in smallCategories[bigCategory.id]!) {
-        if (toDos[smallCategory.id]!.toDosInToday.isNotEmpty) {
+        if (categoryIDToToDos[smallCategory.id]!.toDosInToday.isNotEmpty) {
           return true;
         }
       }

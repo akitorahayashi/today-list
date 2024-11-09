@@ -89,8 +89,8 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
     final TLWorkspace currentWorkspace = ref.watch(currentWorkspaceProvider);
     final String corrCategoryID =
         selectedSmallCategoryID ?? selectedBigCategoryID;
-    final TLToDo edittedToDo =
-        currentWorkspace.toDos[corrCategoryID]![ifInToday][indexOfEditingToDo];
+    final TLToDo edittedToDo = currentWorkspace
+        .categoryIDToToDos[corrCategoryID]![ifInToday][indexOfEditingToDo];
     // setValues
     state = state.update(
       toDoTitleInputController: TextEditingController()
@@ -150,7 +150,7 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
 
     final String corrCategoryID = state.smallCategoryID ?? state.bigCatgoeyID;
     final TLToDos corrToDos =
-        currentTLWorkspace.toDos[corrCategoryID]!.copyWith();
+        currentTLWorkspace.categoryIDToToDos[corrCategoryID]!.copyWith();
 
     final TLToDo createdToDo = TLToDo(
         id: state.smallCategoryID ?? state.bigCatgoeyID,
@@ -163,9 +163,10 @@ class EditingToDoNotifier extends StateNotifier<EdittingTodo> {
       // edit
       corrToDos[state.ifInToday][state.indexOfEditingToDo!] = createdToDo;
     }
-    await tlWorkspacesNotifier.updateSpecificTLWorkspace(
+    await tlWorkspacesNotifier.updateCurrentWorkspace(
       specificWorkspaceIndex: currentTLWorkspaceNotifier.currentWorkspaceIndex,
-      updatedWorkspace: currentTLWorkspace..toDos[corrCategoryID] = corrToDos,
+      updatedWorkspace: currentTLWorkspace
+        ..categoryIDToToDos[corrCategoryID] = corrToDos,
     );
     // 入力事項の初期化
     state.update(indexOfEditingToDo: null, indexOfEditingStep: null);

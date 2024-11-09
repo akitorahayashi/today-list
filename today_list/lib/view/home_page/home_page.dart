@@ -95,12 +95,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                 height: 10,
               ),
               if (currentTLWorkspace
-                  .toDos[currentTLWorkspace.bigCategories[0].id]!
+                  .categoryIDToToDos[currentTLWorkspace.bigCategories[0].id]!
                   .toDosInToday
                   .isNotEmpty)
                 const SizedBox(height: 7),
               if (currentTLWorkspace
-                  .toDos[currentTLWorkspace.bigCategories[0].id]!
+                  .categoryIDToToDos[currentTLWorkspace.bigCategories[0].id]!
                   .toDosInToday
                   .isNotEmpty)
                 ToDosInThisCategoryInToday(
@@ -113,23 +113,24 @@ class _HomePageState extends ConsumerState<HomePage> {
                 Column(
                   children: [
                     // big header
-                    if (currentTLWorkspace
-                            .toDos[bigCategory.id]!.toDosInToday.isNotEmpty ||
+                    if (currentTLWorkspace.categoryIDToToDos[bigCategory.id]!
+                            .toDosInToday.isNotEmpty ||
                         // そのsmallCategoryがToDoを持っていたら、bigHeaderを表示
                         (currentTLWorkspace
                                 .smallCategories[bigCategory.id]!.isNotEmpty &&
                             currentTLWorkspace.smallCategories[bigCategory.id]!
                                     .indexWhere((smallCategory) =>
                                         currentTLWorkspace
-                                            .toDos[smallCategory.id]!
+                                            .categoryIDToToDos[
+                                                smallCategory.id]!
                                             .toDosInToday
                                             .isNotEmpty) !=
                                 -1))
                       CategoryHeaderForToDos(
                           isBigCategory: true, corrCategory: bigCategory),
                     // big body
-                    if (currentTLWorkspace
-                        .toDos[bigCategory.id]!.toDosInToday.isNotEmpty)
+                    if (currentTLWorkspace.categoryIDToToDos[bigCategory.id]!
+                        .toDosInToday.isNotEmpty)
                       ToDosInThisCategoryInToday(
                         bigCategoryOfThisToDo: bigCategory,
                         smallCategoryOfThisToDo: null,
@@ -138,7 +139,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                         in currentTLWorkspace.smallCategories[bigCategory.id] ??
                             [])
                       if (currentTLWorkspace
-                          .toDos[smallCategory.id]!.toDosInToday.isNotEmpty)
+                          .categoryIDToToDos[smallCategory.id]!
+                          .toDosInToday
+                          .isNotEmpty)
                         Column(
                           children: [
                             // small header

@@ -66,7 +66,7 @@ class BigCategoryCard extends ConsumerWidget {
                 _currentTLWorkspace.smallCategories[_coorBigCategory.id]!
                     .insert(newIndex, reOrderedSmallCategory);
                 // categorisを保存する
-                _tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                _tlWorkspacesNotifier.updateCurrentWorkspace(
                   specificWorkspaceIndex:
                       _currentWorkspaceNotifier.currentWorkspaceIndex,
                   updatedWorkspace: _currentTLWorkspace,

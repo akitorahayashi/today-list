@@ -82,8 +82,8 @@ class DeleteCategoryDialog extends ConsumerWidget {
                             in currentWorkspace.smallCategories.entries)
                           entry.key: List<TLCategory>.from(entry.value)
                       };
-                      final corrCategoryIDToToDos =
-                          Map<String, TLToDos>.from(currentWorkspace.toDos);
+                      final corrCategoryIDToToDos = Map<String, TLToDos>.from(
+                          currentWorkspace.categoryIDToToDos);
                       if (indexOfSmallCategory != null) {
                         // このカテゴリーがsmallCategoryの場合
                         // カテゴリーのリストから削除する
@@ -108,13 +108,13 @@ class DeleteCategoryDialog extends ConsumerWidget {
                       }
 
                       // categoriesとtoDosを保存する
-                      tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                      tlWorkspacesNotifier.updateCurrentWorkspace(
                           specificWorkspaceIndex:
                               currentWorkspaceNotifier.currentWorkspaceIndex,
                           updatedWorkspace: currentWorkspace.copyWith(
                               bigCategories: corrBigCategories,
                               smallCategories: corrSmallCategories,
-                              toDos: corrCategoryIDToToDos));
+                              categoryIDToToDos: corrCategoryIDToToDos));
 
                       Navigator.pop(context);
                       // アラートを消す

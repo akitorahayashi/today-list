@@ -35,7 +35,7 @@ class AlreadyExists extends ConsumerWidget {
     // others
     final String categoryOfThisToDo = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisBlock =
-        currentWorkspace.toDos[categoryOfThisToDo]![ifInToday];
+        currentWorkspace.categoryIDToToDos[categoryOfThisToDo]![ifInToday];
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Card(
@@ -86,8 +86,8 @@ class AlreadyExists extends ConsumerWidget {
                       ),
                   ],
                   onReorder: (oldIndex, newIndex) {
-                    List<TLToDo> corrToDoArray =
-                        currentWorkspace.toDos[categoryOfThisToDo]![ifInToday];
+                    List<TLToDo> corrToDoArray = currentWorkspace
+                        .categoryIDToToDos[categoryOfThisToDo]![ifInToday];
                     final int indexOfCheckedToDo =
                         corrToDoArray.indexWhere((todo) => todo.isChecked);
                     // チェック済みToDoよりも下に移動させない
@@ -97,7 +97,7 @@ class AlreadyExists extends ConsumerWidget {
                           corrToDoArray.removeAt(oldIndex);
                       corrToDoArray.insert(newIndex, reorderedToDo);
                       // toDosを保存する
-                      tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                      tlWorkspacesNotifier.updateCurrentWorkspace(
                           specificWorkspaceIndex:
                               currentWorkspaceNotifier.currentWorkspaceIndex,
                           updatedWorkspace: currentWorkspace);

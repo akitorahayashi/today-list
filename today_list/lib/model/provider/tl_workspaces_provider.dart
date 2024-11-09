@@ -30,16 +30,16 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
     final pref = await TLPref().getPref;
     final encodedTLWorkspaces = pref.getString("tlWorkspaces");
     if (encodedTLWorkspaces != null) {
-      final List<dynamic> _jsonTLWorkspaces = json.decode(encodedTLWorkspaces);
-      final List<TLWorkspace> _savedTLWorkspaces =
-          _jsonTLWorkspaces.map((jsonData) {
+      final List<dynamic> jsonTLWorkspaces = json.decode(encodedTLWorkspaces);
+      final List<TLWorkspace> savedTLWorkspaces =
+          jsonTLWorkspaces.map((jsonData) {
         return TLWorkspace.fromJson(jsonData);
       }).toList();
-      state = _savedTLWorkspaces;
+      state = savedTLWorkspaces;
     }
   }
 
-  Future<void> _saveTLWorkspaces() async {
+  Future<void> _saveWorkspaces() async {
     final pref = await TLPref().getPref;
     final encodedTLWorkspaces =
         json.encode(state.map((workspace) => workspace.toJson()).toList());
@@ -47,35 +47,34 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
   }
 
   // TLWorkspaceを追加するメソッド
-  Future<void> addTLWorkspace({required TLWorkspace newTLWorkspace}) async {
+  Future<void> addWorkspace({required TLWorkspace newTLWorkspace}) async {
     state = [...state, newTLWorkspace];
-    await _saveTLWorkspaces();
+    await _saveWorkspaces();
   }
 
   // TLWorkspaceを削除するメソッド
-  Future<void> removeTLWorkspace({required String corrWorkspaceId}) async {
+  Future<void> removeWorkspace({required String corrWorkspaceId}) async {
     state =
         state.where((workspace) => workspace.id != corrWorkspaceId).toList();
-    await _saveTLWorkspaces();
+    await _saveWorkspaces();
   }
 
   // CurrentTLWorkspaceを更新するメソッド
-  Future<void> updateSpecificTLWorkspace({
-    required int specificWorkspaceIndex,
+  Future<void> updateCurrentWorkspace({
     required TLWorkspace updatedWorkspace,
   }) async {
     final newList = [...state];
     newList[ref.read(currentWorkspaceProvider.notifier).currentWorkspaceIndex] =
         updatedWorkspace;
     state = newList;
-    await _saveTLWorkspaces();
+    await _saveWorkspaces();
   }
 
   // List<TLWorkspace>を更新するメソッド
   Future<void> updateTLWorkspaceList(
       {required List<TLWorkspace> updatedTLWorkspaceList}) async {
     state = updatedTLWorkspaceList;
-    await _saveTLWorkspaces();
+    await _saveWorkspaces();
   }
 }
 
@@ -90,7 +89,7 @@ final List<TLWorkspace> _initialTLWorkspaces = [
       TLCategory(id: "vegetableId", title: "野菜"),
     ],
     "hundredStoreId": [],
-  }, toDos: {
+  }, categoryIDToToDos: {
     noneID: TLToDos(toDosInToday: [
       TLToDo(id: "todo1", title: "のり", steps: []),
       TLToDo(id: "todo2", title: "まくらカバー", steps: []),
@@ -121,7 +120,7 @@ final List<TLWorkspace> _initialTLWorkspaces = [
       TLCategory(id: "mathIId", title: "数学I")
     ],
     "englishId": []
-  }, toDos: {
+  }, categoryIDToToDos: {
     noneID: TLToDos(
         toDosInToday: [TLToDo(id: "todo7", title: "~のプリントを出す", steps: [])],
         toDosInWhenever: []),

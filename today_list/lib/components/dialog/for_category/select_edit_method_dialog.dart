@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/components/dialog/for_category/delete_category_dialog.dart';
 import 'package:today_list/components/dialog/for_category/rename_category_dialog.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
@@ -79,10 +80,14 @@ class SelectEditMethodDialog extends ConsumerWidget {
           SimpleDialogOption(
             onPressed: () async {
               Navigator.pop(context);
-              await confirmToDeleteThisCategory(
-                indexOfBigCategory: indexOfBigCategory,
-                indexOfSmallCategory: indexOfSmallCategory,
-              );
+              await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return DeleteCategoryDialog(
+                      indexOfBigCategory: indexOfBigCategory,
+                      indexOfSmallCategory: indexOfSmallCategory,
+                    );
+                  });
             },
             child: Text(
               "Delete",

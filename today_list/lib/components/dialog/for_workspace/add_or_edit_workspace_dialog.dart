@@ -121,13 +121,13 @@ class _AddOrEditWorkspaceDialogState
                             smallCategories: {
                               noneID: []
                             },
-                            toDos: {
+                            categoryIDToToDos: {
                               noneID:
                                   TLToDos(toDosInToday: [], toDosInWhenever: [])
                             });
                         ref
                             .read(tlWorkspacesProvider.notifier)
-                            .addTLWorkspace(newTLWorkspace: createdWorkspace);
+                            .addWorkspace(newTLWorkspace: createdWorkspace);
                         // 追加したことを知らせる
                         showDialog(
                             context: context,
@@ -144,7 +144,7 @@ class _AddOrEditWorkspaceDialogState
                         // 更新する
                         ref
                             .read(tlWorkspacesProvider.notifier)
-                            .updateSpecificTLWorkspace(
+                            .updateCurrentWorkspace(
                               specificWorkspaceIndex:
                                   widget.oldIndexInStringWorkspaces!,
                               updatedWorkspace: editedWorkspace,

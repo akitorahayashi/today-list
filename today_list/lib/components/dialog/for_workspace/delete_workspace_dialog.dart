@@ -85,7 +85,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                                 ));
                       } else {
                         // TLWorkspacesから削除
-                        tlWorkspacesNotifier.removeTLWorkspace(
+                        tlWorkspacesNotifier.removeWorkspace(
                             corrWorkspaceId: willDeletedWorkspace.id);
                         // currentWorkspaceIndexが削除するWorkspaceよりも大きい場合は1減らす
                         if (corrWorkspaceIndex <

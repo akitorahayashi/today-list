@@ -46,7 +46,7 @@ class TLToDoCard extends ConsumerWidget {
         : smallCategoryOfThisToDo!;
 
     List<TLToDo> toDoArrayThatContainsThisToDo =
-        currentTLWorkspace.toDos[categoryOfThisToDo.id]![ifInToday];
+        currentTLWorkspace.categoryIDToToDos[categoryOfThisToDo.id]![ifInToday];
 
     final TLToDo corrToDoData =
         toDoArrayThatContainsThisToDo[indexOfThisToDoInToDos];
@@ -149,7 +149,7 @@ class TLToDoCard extends ConsumerWidget {
                           corrToDoData.steps.remove(reOrderedToDo);
                           corrToDoData.steps.insert(newIndex, reOrderedToDo);
                           // toDosを保存する
-                          tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                          tlWorkspacesNotifier.updateCurrentWorkspace(
                             specificWorkspaceIndex: currentTLWorkspaceNotifier
                                 .currentWorkspaceIndex,
                             updatedWorkspace: currentTLWorkspace,

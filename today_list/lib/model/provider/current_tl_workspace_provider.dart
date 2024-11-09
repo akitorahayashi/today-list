@@ -47,8 +47,9 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
     required bool ifInToday,
     required int indexOfThisToDoInToDos,
   }) async {
-    final toDoArrayOfThisToDo =
-        state.copyWith(toDos: state.toDos).toDos[categoryId]![ifInToday];
+    final toDoArrayOfThisToDo = state
+        .copyWith(categoryIDToToDos: state.categoryIDToToDos)
+        .categoryIDToToDos[categoryId]![ifInToday];
     final TLToDo toDoCheckStateHasChanged =
         toDoArrayOfThisToDo.removeAt(indexOfThisToDoInToDos);
     final int indexOfCheckedToDo =
@@ -58,7 +59,7 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
     } else {
       toDoArrayOfThisToDo.insert(indexOfCheckedToDo, toDoCheckStateHasChanged);
     }
-    state = state.copyWith(toDos: state.toDos);
+    state = state.copyWith(categoryIDToToDos: state.categoryIDToToDos);
   }
 
   // 現在のworkspaceの今日でチェック済みtodoを全て削除するための関数
@@ -72,7 +73,8 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
         onlyToday: true,
         selectedWorkspaceIndex: currentWorkspaceIndex,
         selectedWorkspace: updatedCurrentTLWorkspace,
-        selectedToDos: updatedCurrentTLWorkspace.toDos[bigCategory.id]!,
+        selectedToDos:
+            updatedCurrentTLWorkspace.categoryIDToToDos[bigCategory.id]!,
       );
       for (TLCategory smallCategory
           in updatedCurrentTLWorkspace.smallCategories[bigCategory.id]!) {
@@ -81,12 +83,13 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
             onlyToday: true,
             selectedWorkspaceIndex: currentWorkspaceIndex,
             selectedWorkspace: updatedCurrentTLWorkspace,
-            selectedToDos: updatedCurrentTLWorkspace.toDos[smallCategory.id]!);
+            selectedToDos:
+                updatedCurrentTLWorkspace.categoryIDToToDos[smallCategory.id]!);
       }
     }
 
     // 更新されたワークスペースを保存
-    tlWorkspacesNotifier.updateSpecificTLWorkspace(
+    tlWorkspacesNotifier.updateCurrentWorkspace(
         specificWorkspaceIndex: currentWorkspaceIndex,
         updatedWorkspace: updatedCurrentTLWorkspace);
   }

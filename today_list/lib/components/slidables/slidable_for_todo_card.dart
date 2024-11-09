@@ -50,7 +50,7 @@ class SlidableForToDoCard extends ConsumerWidget {
         currentTLWorkspaceNotifier.currentWorkspaceIndex;
     final String corrCategoryID = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisToDoBelongs =
-        currentTLWorkspace.toDos[corrCategoryID]![ifInToday];
+        currentTLWorkspace.categoryIDToToDos[corrCategoryID]![ifInToday];
     return Slidable(
       // チェックされていたらスライドできなくする
       enabled: !corrTLToDo.isChecked,
@@ -66,7 +66,7 @@ class SlidableForToDoCard extends ConsumerWidget {
             // タップしたらこれをremoveする
             toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
             TLVibration.vibrate();
-            tlWorkspacesNotifier.updateSpecificTLWorkspace(
+            tlWorkspacesNotifier.updateCurrentWorkspace(
                 specificWorkspaceIndex: currentTLWorkspaceIndex,
                 updatedWorkspace: currentTLWorkspace);
           },
@@ -110,7 +110,7 @@ class SlidableForToDoCard extends ConsumerWidget {
               // タップしたらtodayとwheneverを切り替える
               final TLToDo switchedToDo =
                   toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
-              currentTLWorkspace.toDos[corrCategoryID]![!ifInToday]
+              currentTLWorkspace.categoryIDToToDos[corrCategoryID]![!ifInToday]
                   .insert(0, switchedToDo);
               TLVibration.vibrate();
               NotifyTodoOrStepIsEditedSnackBar.show(
@@ -118,7 +118,7 @@ class SlidableForToDoCard extends ConsumerWidget {
                   newTitle: corrTLToDo.title,
                   newCheckedState: corrTLToDo.isChecked,
                   quickChangeToToday: !ifInToday);
-              tlWorkspacesNotifier.updateSpecificTLWorkspace(
+              tlWorkspacesNotifier.updateCurrentWorkspace(
                   specificWorkspaceIndex: currentTLWorkspaceIndex,
                   updatedWorkspace: currentTLWorkspace);
             },

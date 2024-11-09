@@ -121,7 +121,7 @@ class EdittingCategoryNotifier extends StateNotifier<EdittingCategory> {
             renamedBigCategory;
       }
       // 保存
-      await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
+      await ref.read(tlWorkspacesProvider.notifier).updateCurrentWorkspace(
             specificWorkspaceIndex:
                 currentTLWorkspaceNotifier.currentWorkspaceIndex,
             updatedWorkspace: currentTLWorkspace
@@ -150,7 +150,7 @@ class EdittingCategoryNotifier extends StateNotifier<EdittingCategory> {
             state.indexOfEditingSmallCategory!] = renamedSmallCategory;
       }
       // 保存
-      await ref.read(tlWorkspacesProvider.notifier).updateSpecificTLWorkspace(
+      await ref.read(tlWorkspacesProvider.notifier).updateCurrentWorkspace(
             specificWorkspaceIndex:
                 currentTLWorkspaceNotifier.currentWorkspaceIndex,
             updatedWorkspace: currentTLWorkspace

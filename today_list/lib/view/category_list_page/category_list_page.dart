@@ -75,7 +75,7 @@ class CategoryListPage extends ConsumerWidget {
                     currentTLWorkspace.bigCategories
                         .insert(newIndex, reOrderedBigCategory);
                     // categoriesを保存する
-                    tlWorkspacesNotifier.updateSpecificTLWorkspace(
+                    tlWorkspacesNotifier.updateCurrentWorkspace(
                         specificWorkspaceIndex:
                             currentWorkspaceNotifier.currentWorkspaceIndex,
                         updatedWorkspace: currentTLWorkspace);

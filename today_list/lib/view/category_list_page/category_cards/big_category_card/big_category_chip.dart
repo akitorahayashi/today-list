@@ -19,8 +19,9 @@ class BigCategoryChip extends ConsumerWidget {
     // others
     TLCategory bigCategoryOfThisChip =
         _currentTLWorkspace.bigCategories[indexOfBigCategory];
-    final int numberOfToDosInThisCategory = bigCategoryOfThisChip
-        .getNumberOfToDosInThisCategory(corrToDos: _currentTLWorkspace.toDos);
+    final int numberOfToDosInThisCategory =
+        bigCategoryOfThisChip.getNumberOfToDosInThisCategory(
+            corrToDos: _currentTLWorkspace.categoryIDToToDos);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: SizedBox(
