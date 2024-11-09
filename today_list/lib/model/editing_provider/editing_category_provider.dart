@@ -97,10 +97,6 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
   Future<void> completeEditting() async {
     // provider
     final currentTLWorkspace = ref.watch(currentWorkspaceProvider);
-<<<<<<< HEAD:today_list/lib/model/editting_provider/editting_category_provider.dart
-    // notifier
-=======
->>>>>>> issues/106:today_list/lib/model/editing_provider/editing_category_provider.dart
 
     // 追加、編集処理
     if (state.bigCatgoeyID == null) {
