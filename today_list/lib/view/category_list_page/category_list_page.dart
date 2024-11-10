@@ -7,7 +7,7 @@ import '../../components/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/tl_workspace.dart';
 import '../../model/todo/tl_category.dart';
 import '../../model/design/tl_theme.dart';
-import 'category_cards/big_category_card/big_and_small_category_card.dart';
+import 'big_and_small_category_card/big_and_small_category_card.dart';
 import 'add_category_button.dart';
 
 import 'package:reorderables/reorderables.dart';

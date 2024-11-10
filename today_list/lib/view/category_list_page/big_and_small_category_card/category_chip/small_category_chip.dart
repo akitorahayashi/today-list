@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/dialog/for_category/select_edit_method_dialog.dart';
-import '../../../model/provider/current_tl_workspace_provider.dart';
-import '../../../model/design/tl_theme.dart';
-import '../../../model/todo/tl_category.dart';
-import '../../../model/tl_workspace.dart';
+import '../../../../model/provider/current_tl_workspace_provider.dart';
+import '../../../../model/design/tl_theme.dart';
+import '../../../../model/todo/tl_category.dart';
+import '../../../../model/tl_workspace.dart';
 
-class SmallCategoryCard extends ConsumerWidget {
+class SmallCategoryChip extends ConsumerWidget {
   final TLCategory corrBigCategory;
   final int corrIndexOfBigCategory;
   final int corrIndexOfSmallCategory;
-  const SmallCategoryCard({
+  const SmallCategoryChip({
     super.key,
     required this.corrBigCategory,
     required this.corrIndexOfBigCategory,
@@ -30,7 +30,6 @@ class SmallCategoryCard extends ConsumerWidget {
         smallCategoryOfThisCard.getNumberOfToDosInThisCategory(
             corrToDos: currentTLWorkspace.categoryIDToToDos);
     return GestureDetector(
-      // TODO カテゴリーを編集するDialogを表示
       onTap: () async {
         await showDialog(
             context: context,

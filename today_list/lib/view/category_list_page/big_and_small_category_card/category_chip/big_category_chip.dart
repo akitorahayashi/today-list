@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/components/dialog/for_category/select_edit_method_dialog.dart';
 import '../../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
@@ -13,21 +14,21 @@ class BigCategoryChip extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace _currentTLWorkspace = ref.watch(currentWorkspaceProvider);
+    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // others
     TLCategory bigCategoryOfThisChip =
-        _currentTLWorkspace.bigCategories[indexOfBigCategory];
+        currentTLWorkspace.bigCategories[indexOfBigCategory];
     final int numberOfToDosInThisCategory =
         bigCategoryOfThisChip.getNumberOfToDosInThisCategory(
-            corrToDos: _currentTLWorkspace.categoryIDToToDos);
+            corrToDos: currentTLWorkspace.categoryIDToToDos);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: SizedBox(
         height: 80,
         child: InputChip(
-          backgroundColor: _tlThemeData.bigCategoryChipColor,
+          backgroundColor: tlThemeData.bigCategoryChipColor,
           avatar: const Icon(FontAwesomeIcons.rectangleList),
           label: SizedBox(
             height: 35,
@@ -56,8 +57,17 @@ class BigCategoryChip extends ConsumerWidget {
               color: Colors.white),
           pressElevation: 3,
           elevation: 3,
-          // TODO カテゴリーを編集するDialogを表示
-          onPressed: () => {},
+          onPressed: () => {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return SelectEditMethodDialog(
+                    categoryOfThisPage: bigCategoryOfThisChip,
+                    indexOfBigCategory: indexOfBigCategory,
+                    indexOfSmallCategory: null,
+                  );
+                })
+          },
         ),
       ),
     );
