@@ -1,10 +1,8 @@
-import 'package:flutter_watch_os_connectivity/flutter_watch_os_connectivity.dart';
-import 'package:today_list/model/user/setting_data.dart';
-
+import 'package:today_list/model/tl_workspace.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:today_list/model/tl_workspace.dart';
+import 'package:flutter_watch_os_connectivity/flutter_watch_os_connectivity.dart';
 
 class TLConnectivity {
   static final FlutterWatchOsConnectivity connectivity =
@@ -23,13 +21,14 @@ class TLConnectivity {
     }
   }
 
-  static Future<void> sendSelectedThemeToAppleWatch() async {
+  static Future<void> sendSelectedThemeToAppleWatch(
+      {required int selectedThemeIndex}) async {
     if (Platform.isIOS) {
       bool isReachable = await TLConnectivity.connectivity.getReachability();
       if (isReachable) {
         print("start to send selectedTheme to Apple Watch");
-        await TLConnectivity.connectivity.sendMessage(
-            {"selectedTheme": SettingData.shared.selectedThemeIndex});
+        await TLConnectivity.connectivity
+            .sendMessage({"selectedTheme": selectedThemeIndex});
       } else {
         print("sendSelectedTheme: No reachable watches.");
       }

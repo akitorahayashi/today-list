@@ -88,8 +88,10 @@ class ChangeThemeDialog extends ConsumerWidget {
                       // このアラートを消す
                       Navigator.pop(context);
                       selectedThemeIndexNotifier.changeThemeIndex(corrIndex);
-                      TLConnectivity.sendSelectedThemeToAppleWatch();
-                      TLWidgetKit.updateSelectedTheme();
+                      TLConnectivity.sendSelectedThemeToAppleWatch(
+                          selectedThemeIndex: corrIndex);
+                      TLWidgetKit.updateSelectedTheme(
+                          selectedThemeIndex: corrIndex);
                       TLVibration.vibrate();
                       // 完了を知らせるアラートを表示
                       showDialog(
