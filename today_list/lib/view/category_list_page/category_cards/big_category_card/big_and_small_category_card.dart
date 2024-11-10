@@ -10,9 +10,9 @@ import '../small_category_card.dart';
 
 import 'package:reorderables/reorderables.dart';
 
-class BigCategoryCard extends ConsumerWidget {
+class BigAndSmallCategoryCard extends ConsumerWidget {
   final int indexOfBigCategory;
-  const BigCategoryCard({
+  const BigAndSmallCategoryCard({
     super.key,
     required this.indexOfBigCategory,
   });
@@ -50,7 +50,8 @@ class BigCategoryCard extends ConsumerWidget {
                   SmallCategoryCard(
                       key: ValueKey(currentTLWorkspace
                           .smallCategories[coorBigCategory.id]![i].id),
-                      corrBigCategoryID: coorBigCategory.id,
+                      corrBigCategory: coorBigCategory,
+                      corrIndexOfBigCategory: i,
                       corrIndexOfSmallCategory: i)
               ],
               // smallCategoryの並び替え
