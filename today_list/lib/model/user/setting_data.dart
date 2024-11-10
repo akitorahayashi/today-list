@@ -7,14 +7,11 @@ import 'dart:convert';
 
 class SettingData {
   static SettingData shared = SettingData(
-      selectedThemeIndex: 0,
       defaultIconRarity: "Common",
       defaultIconName: "box",
       defaultIconCategory: "Default",
       isFirstEntry: true);
 
-  // テーマ
-  int selectedThemeIndex;
   // アイコン
   String defaultIconCategory;
   String defaultIconRarity;
@@ -24,7 +21,6 @@ class SettingData {
 
   // コンストラクタ
   SettingData({
-    required this.selectedThemeIndex,
     required this.defaultIconRarity,
     required this.defaultIconName,
     required this.defaultIconCategory,
@@ -34,7 +30,6 @@ class SettingData {
   // 保存する際に使う
   Map<String, dynamic> toJson() {
     return {
-      "selectedThemeIndex": selectedThemeIndex,
       "defaultIconCategory": defaultIconCategory,
       "defaultIconRarity": defaultIconRarity,
       "defaultIconName": defaultIconName,
@@ -45,7 +40,6 @@ class SettingData {
   // JSONからインスタンスを作成するファクトリコンストラクタ
   factory SettingData.fromJson(Map<String, dynamic> jsonData) {
     return SettingData(
-      selectedThemeIndex: jsonData["selectedThemeIndex"] ?? 0,
       defaultIconCategory: jsonData["defaultIconCategory"] ?? "Default",
       defaultIconRarity: jsonData["defaultIconRarity"] ?? "Common",
       defaultIconName: jsonData["defaultIconName"] ?? "box",
@@ -95,7 +89,7 @@ class SettingData {
                 TLVibration.vibrate();
                 showDialog(
                     context: context,
-                    builder: (context) => TLSingleOptionDialog(
+                    builder: (context) => const TLSingleOptionDialog(
                           title: "変更が完了しました!",
                           message: null,
                         ));
