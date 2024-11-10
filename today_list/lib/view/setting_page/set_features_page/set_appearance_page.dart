@@ -1,11 +1,9 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:today_list/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../main.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/design/icon_for_checkbox.dart';
 import '../../../components/common_ui_part/panel_with_title.dart';
-import '../../../model/user/setting_data.dart';
 import '../../../model/external/tl_ads.dart';
 import './set_icon/icon_category_panel.dart';
 import './set_vibration_card.dart';
@@ -15,14 +13,14 @@ import 'show_limit_of_pass_card.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class SetAppearancePage extends StatefulWidget {
-  const SetAppearancePage({Key? key}) : super(key: key);
+class SetAppearancePage extends ConsumerStatefulWidget {
+  const SetAppearancePage({super.key});
 
   @override
   SetAppearancePageState createState() => SetAppearancePageState();
 }
 
-class SetAppearancePageState extends State<SetAppearancePage> {
+class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
   // 広告
   BannerAd? _bannerAd;
 
@@ -33,7 +31,7 @@ class SetAppearancePageState extends State<SetAppearancePage> {
     // 広告を読み込む
     BannerAd(
       adUnitId: TLAds.setFeaturesBannerAdUnitId(isTestMode: kAdTestMode),
-      request: AdRequest(),
+      request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
@@ -58,11 +56,12 @@ class SetAppearancePageState extends State<SetAppearancePage> {
 
   @override
   Widget build(BuildContext context) {
+    final int selectedThemeIndex = ref.watch(selectedThemeIndexProvider);
     double deviceWidth = MediaQuery.of(context).size.width;
     // テーマを表示させるための変数
     List<int> unUsingThemeIndices =
         List<int>.generate(tlThemeDataList.length, (index) => index)
-            .where((index) => index != SettingData.shared.selectedThemeIndex)
+            .where((index) => index != selectedThemeIndex)
             .toList();
 
     return ListView(padding: EdgeInsets.zero, children: [
@@ -84,7 +83,7 @@ class SetAppearancePageState extends State<SetAppearancePage> {
         padding: const EdgeInsets.only(top: 8.0),
         child: PanelWithTitle(title: "THEME", contents: [
           // 現在の枚数を表示する
-          ShowLimitOfPassCard(),
+          const ShowLimitOfPassCard(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
@@ -112,8 +111,7 @@ class SetAppearancePageState extends State<SetAppearancePage> {
         ]),
       ),
       // VIBRATION設定カード
-      // ignore: prefer_const_literals_to_create_immutables
-      PanelWithTitle(
+      const PanelWithTitle(
           title: "VIBRATION",
           // ignore: prefer_const_literals_to_create_immutables
           contents: [SetVibrationCard()]),

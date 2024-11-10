@@ -1,33 +1,24 @@
 import 'package:flutter/material.dart';
-import 'model/user/setting_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'view/home_page/home_page.dart';
 import 'model/design/tl_theme.dart';
 
-// import 'package:flutter_localizations/flutter_localizations.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
-
-class TodayListApp extends StatefulWidget {
-  const TodayListApp({Key? key}) : super(key: key);
+class TodayListApp extends ConsumerWidget {
+  const TodayListApp({super.key});
 
   @override
-  State<TodayListApp> createState() => _TodayListAppState();
-}
-
-class _TodayListAppState extends State<TodayListApp> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final int selectedThemeIndex = ref.watch(selectedThemeIndexProvider);
     return TLTheme(
-      data: tlThemeDataList[SettingData.shared.selectedThemeIndex],
+      data: tlThemeDataList[selectedThemeIndex],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: "Today List",
           // ライト用テーマ
           theme: ThemeData(
-            primarySwatch:
-                tlThemeDataList[SettingData.shared.selectedThemeIndex]
-                    .accentColor,
+            primarySwatch: tlThemeDataList[selectedThemeIndex].accentColor,
           ),
-          home: HomePage()),
+          home: const HomePage()),
     );
   }
 }

@@ -10,7 +10,7 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SettingPage extends StatefulWidget {
-  const SettingPage({Key? key}) : super(key: key);
+  const SettingPage({super.key});
 
   @override
   State<SettingPage> createState() => _SettingPageState();
@@ -35,7 +35,7 @@ class _SettingPageState extends State<SettingPage> {
 // --- ページ遷移系のメンバー
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return ProgressHUD(
       barrierEnabled: true,
       indicatorColor: Colors.white,
@@ -47,7 +47,7 @@ class _SettingPageState extends State<SettingPage> {
           children: [
             // 背景色
             Container(
-                decoration: BoxDecoration(color: _tlThemeData.backgroundColor)),
+                decoration: BoxDecoration(color: tlThemeData.backgroundColor)),
             NestedScrollView(
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
@@ -152,7 +152,7 @@ class _SettingPageState extends State<SettingPage> {
                                   return Icon(
                                     _iconDataOfSettingPageContents[index][0],
                                     color: index == _selectedPageIndex
-                                        ? _tlThemeData.accentColor
+                                        ? tlThemeData.accentColor
                                         : Colors.black45,
                                   );
                                 // if (todayListUser
@@ -217,7 +217,7 @@ class _SettingPageState extends State<SettingPage> {
                                           border: Border.all(
                                             width: 1.5,
                                             color: _selectedPageIndex == 2
-                                                ? _tlThemeData.accentColor
+                                                ? tlThemeData.accentColor
                                                     .withOpacity(1)
                                                 : Colors.white.withOpacity(.8),
                                           ),
@@ -231,7 +231,7 @@ class _SettingPageState extends State<SettingPage> {
                                   return Icon(
                                     _iconDataOfSettingPageContents[index][0],
                                     color: index == _selectedPageIndex
-                                        ? _tlThemeData.accentColor
+                                        ? tlThemeData.accentColor
                                         : Colors.black45,
                                   );
                               }
@@ -242,7 +242,7 @@ class _SettingPageState extends State<SettingPage> {
                                 _iconDataOfSettingPageContents[index][1],
                                 style: TextStyle(
                                   color: index == _selectedPageIndex
-                                      ? _tlThemeData.accentColor
+                                      ? tlThemeData.accentColor
                                       : Colors.black45,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,

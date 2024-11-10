@@ -1,10 +1,7 @@
+import 'package:today_list/model/tl_workspace.dart';
 import 'package:flutter/services.dart';
-import 'package:today_list/model/user/setting_data.dart';
-
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:today_list/model/tl_workspace.dart';
 
 class TLWidgetKit {
   static const methodChannel = MethodChannel(
@@ -28,13 +25,13 @@ class TLWidgetKit {
   static Future<void> updateTLWorkspaces(
       {required List<TLWorkspace> tlWorkspaces}) async {
     if (Platform.isIOS) {
-      final List<dynamic> _jsonWorkspaces = tlWorkspaces.map((workspace) {
+      final List<dynamic> jsonWorkspaces = tlWorkspaces.map((workspace) {
         workspace.toJson();
       }).toList();
       try {
         final String result = await methodChannel.invokeMethod(
           'updateTLWorkspaces',
-          json.encode(_jsonWorkspaces),
+          json.encode(jsonWorkspaces),
         );
         print('SET setUserDefaultsForAppGroup: $result');
       } on PlatformException catch (e) {
@@ -43,13 +40,13 @@ class TLWidgetKit {
     }
   }
 
-  static Future<void> updateSelectedTheme() async {
+  static Future<void> updateSelectedTheme(
+      {required int selectedThemeIndex}) async {
     if (Platform.isIOS) {
-      print(SettingData.shared.selectedThemeIndex);
       try {
         final String result = await methodChannel.invokeMethod(
           'updateSelectedTheme',
-          SettingData.shared.selectedThemeIndex,
+          selectedThemeIndex,
         );
         print('SET setUserDefaultsForAppGroup: $result');
       } on PlatformException catch (e) {
