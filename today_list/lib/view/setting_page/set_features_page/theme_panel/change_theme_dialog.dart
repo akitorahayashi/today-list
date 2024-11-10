@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/styles/styles.dart';
 import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart';
 import '../../../../model/design/tl_theme.dart';
-import '../../../../model/user/setting_data.dart';
 import '../../../../model/external/tl_connectivity.dart';
 import '../../../../model/external/tl_widgetkit.dart';
 import '../../../../model/external/tl_vibration.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
-class ChangeThemeDialog extends StatelessWidget {
+class ChangeThemeDialog extends ConsumerWidget {
   final int corrIndex;
   final TLThemeData corrThemeData;
   const ChangeThemeDialog({
@@ -19,7 +19,9 @@ class ChangeThemeDialog extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final SelectedThemeIndexNotifier selectedThemeIndexNotifier =
+        ref.read(selectedThemeIndexProvider.notifier);
     return Dialog(
       backgroundColor: corrThemeData.alertColor,
       child: DefaultTextStyle(
@@ -76,9 +78,7 @@ class ChangeThemeDialog extends StatelessWidget {
                       alertButtonStyle(accentColor: corrThemeData.accentColor),
                   onPressed: () => Navigator.pop(context),
                   // InkWell
-                  child: Text(
-                    "戻る",
-                  ),
+                  child: const Text("戻る"),
                 ),
                 // 変更するボタン
                 TextButton(
@@ -87,26 +87,23 @@ class ChangeThemeDialog extends StatelessWidget {
                     onPressed: () {
                       // このアラートを消す
                       Navigator.pop(context);
-                      SettingData.shared.selectedThemeIndex = corrIndex;
+                      selectedThemeIndexNotifier.changeThemeIndex(corrIndex);
                       TLConnectivity.sendSelectedThemeToAppleWatch();
                       TLWidgetKit.updateSelectedTheme();
                       TLVibration.vibrate();
                       // 完了を知らせるアラートを表示
                       showDialog(
-                          context: context,
-                          builder: (context) {
-                            return TLSingleOptionDialog(
-                              title: "変更が完了しました",
-                              message: null,
-                            );
-                          });
-
-                      SettingData.shared.saveSettings();
+                        context: context,
+                        builder: (context) {
+                          return const TLSingleOptionDialog(
+                            title: "変更が完了しました",
+                            message: null,
+                          );
+                        },
+                      );
                     },
                     // InkWell
-                    child: Text(
-                      "変更",
-                    )),
+                    child: const Text("変更")),
               ],
             )
           ],
