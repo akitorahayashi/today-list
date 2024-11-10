@@ -3,29 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/dialog/for_category/delete_category_dialog.dart';
 import 'package:today_list/components/dialog/for_category/rename_category_dialog.dart';
 import 'package:today_list/model/design/tl_theme.dart';
-import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 
 class SelectEditMethodDialog extends ConsumerWidget {
+  final TLCategory categoryOfThisPage;
   final int indexOfBigCategory;
   final int? indexOfSmallCategory;
-  const SelectEditMethodDialog(
-      {super.key, required this.indexOfBigCategory, this.indexOfSmallCategory});
+  const SelectEditMethodDialog({
+    super.key,
+    required this.categoryOfThisPage,
+    required this.indexOfBigCategory,
+    this.indexOfSmallCategory,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    // provider
-    final currentWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
-    // other
-    final TLCategory corrbigCategory =
-        currentWorkspace.bigCategories[indexOfBigCategory];
-    final TLCategory categoryOfThisPage = indexOfSmallCategory == null
-        ? corrbigCategory
-        : currentWorkspace
-            .smallCategories[corrbigCategory.id]![indexOfSmallCategory!];
     return SimpleDialog(
       backgroundColor: tlThemeData.alertColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

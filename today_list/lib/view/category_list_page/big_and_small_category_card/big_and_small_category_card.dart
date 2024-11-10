@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
-import '../../../../model/design/tl_theme.dart';
-import '../../../../model/todo/tl_category.dart';
-import '../../../../model/tl_workspace.dart';
-import '../../../../model/provider/tl_workspaces_provider.dart';
-import './big_category_chip.dart';
-import '../small_category_card.dart';
+import '../../../model/design/tl_theme.dart';
+import '../../../model/todo/tl_category.dart';
+import '../../../model/tl_workspace.dart';
+import '../../../model/provider/tl_workspaces_provider.dart';
+import 'category_chip/big_category_chip.dart';
+import 'category_chip/small_category_chip.dart';
 
 import 'package:reorderables/reorderables.dart';
 
-class BigCategoryCard extends ConsumerWidget {
+class BigAndSmallCategoryCard extends ConsumerWidget {
   final int indexOfBigCategory;
-  const BigCategoryCard({
+  const BigAndSmallCategoryCard({
     super.key,
     required this.indexOfBigCategory,
   });
@@ -47,10 +47,11 @@ class BigCategoryCard extends ConsumerWidget {
                         currentTLWorkspace
                             .smallCategories[coorBigCategory.id]!.length;
                     i++)
-                  SmallCategoryCard(
+                  SmallCategoryChip(
                       key: ValueKey(currentTLWorkspace
                           .smallCategories[coorBigCategory.id]![i].id),
-                      corrBigCategoryID: coorBigCategory.id,
+                      corrBigCategory: coorBigCategory,
+                      corrIndexOfBigCategory: i,
                       corrIndexOfSmallCategory: i)
               ],
               // smallCategoryの並び替え
