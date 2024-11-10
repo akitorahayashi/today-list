@@ -6,14 +6,13 @@ import '../provider/current_tl_workspace_provider.dart';
 import '../provider/tl_workspaces_provider.dart';
 
 class EditingCategory {
-  TextEditingController? categoryTitleInputController;
+  static TextEditingController? categoryTitleInputController;
   String? bigCatgoeyID;
   // 編集関係のメンバー
   int? indexOfEditingBigCategory;
   int? indexOfEditingSmallCategory;
 
   EditingCategory(
-    this.categoryTitleInputController,
     this.bigCatgoeyID,
     this.indexOfEditingBigCategory,
     this.indexOfEditingSmallCategory,
@@ -21,21 +20,24 @@ class EditingCategory {
 
   static EditingCategory generateInitialEdittingCategory() {
     return EditingCategory(
-      TextEditingController(),
       noneID,
       null,
       null,
     );
   }
 
+  static void updateTextEdittingController(
+      {required String? editedCategoryTitle}) {
+    categoryTitleInputController = TextEditingController()
+      ..text = editedCategoryTitle ?? "";
+  }
+
   EditingCategory copyWith({
-    TextEditingController? categoryTitleInputController,
     String? bigCatgoeyIDForSmallCategory,
     int? indexOfEditingBigCategory,
     int? indexOfEditingSmallCategory,
   }) {
     return EditingCategory(
-      categoryTitleInputController ?? this.categoryTitleInputController,
       bigCatgoeyIDForSmallCategory ?? bigCatgoeyID,
       indexOfEditingBigCategory ?? this.indexOfEditingBigCategory,
       indexOfEditingSmallCategory ?? this.indexOfEditingSmallCategory,
@@ -65,14 +67,8 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
     final TLWorkspace currentWorkspace = ref.watch(currentWorkspaceProvider);
     final TLCategory corrBigCategory =
         currentWorkspace.bigCategories[indexOfEditingBigCategory];
-    final TLCategory corrCategory = indexOfEditingSmallCategory == null
-        ? corrBigCategory
-        : currentWorkspace
-            .smallCategories[corrBigCategory.id]![indexOfEditingSmallCategory];
     // setValues
     state = state.copyWith(
-      categoryTitleInputController:
-          TextEditingController(text: corrCategory.title),
       bigCatgoeyIDForSmallCategory:
           indexOfEditingSmallCategory == null ? null : corrBigCategory.id,
       indexOfEditingBigCategory: indexOfEditingBigCategory,
@@ -87,7 +83,6 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
     int? indexOfEditingSmallCategory,
   }) {
     state = state.copyWith(
-      categoryTitleInputController: categoryTitleInputController,
       bigCatgoeyIDForSmallCategory: bigCatgoeyID,
       indexOfEditingBigCategory: indexOfEditingBigCategory,
       indexOfEditingSmallCategory: indexOfEditingSmallCategory,
@@ -107,13 +102,15 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
         // add bigCategory
         final TLCategory createdBigCategory = TLCategory(
             id: UniqueKey().toString(),
-            title: state.categoryTitleInputController?.text ?? "Error");
+            title:
+                EditingCategory.categoryTitleInputController?.text ?? "Error");
         corrBigCategories.add(createdBigCategory);
       } else {
         // edit bigCategory
         final TLCategory renamedBigCategory = TLCategory(
             id: corrBigCategories[state.indexOfEditingBigCategory!].id,
-            title: state.categoryTitleInputController?.text ?? "Error");
+            title:
+                EditingCategory.categoryTitleInputController?.text ?? "Error");
         corrBigCategories[state.indexOfEditingBigCategory!] =
             renamedBigCategory;
       }
@@ -132,7 +129,8 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
         // add smallCategory
         final TLCategory createdSmallCategory = TLCategory(
             id: UniqueKey().toString(),
-            title: state.categoryTitleInputController?.text ?? "Error");
+            title:
+                EditingCategory.categoryTitleInputController?.text ?? "Error");
         corrSmallCategories[state.bigCatgoeyID!]!.add(createdSmallCategory);
       } else {
         // edit smallCategory
@@ -140,7 +138,8 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
             id: corrSmallCategories[state.bigCatgoeyID!]![
                     state.indexOfEditingSmallCategory!]
                 .id,
-            title: state.categoryTitleInputController?.text ?? "Error");
+            title:
+                EditingCategory.categoryTitleInputController?.text ?? "Error");
         corrSmallCategories[state.bigCatgoeyID!]![
             state.indexOfEditingSmallCategory!] = renamedSmallCategory;
       }
@@ -155,14 +154,13 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
         bigCatgoeyIDForSmallCategory: null,
         indexOfEditingBigCategory: null,
         indexOfEditingSmallCategory: null);
-    state.categoryTitleInputController?.clear();
+    EditingCategory.categoryTitleInputController?.clear();
   }
 
   // ページを離れた時の処理
   void disposeValue() {
-    state.categoryTitleInputController?.dispose();
+    EditingCategory.categoryTitleInputController?.dispose();
     state = state.copyWith(
-      categoryTitleInputController: null,
       bigCatgoeyIDForSmallCategory: null,
       indexOfEditingBigCategory: null,
       indexOfEditingSmallCategory: null,

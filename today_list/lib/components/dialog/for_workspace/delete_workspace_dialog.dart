@@ -79,7 +79,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                         Navigator.pop(context);
                         showDialog(
                             context: context,
-                            builder: (context) => TLSingleOptionDialog(
+                            builder: (context) => const TLSingleOptionDialog(
                                   title: "エラー",
                                   message: '"デフォルト"のWorkspaceは\n削除できません',
                                 ));
@@ -103,7 +103,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                         TLVibration.vibrate();
                         showDialog(
                             context: context,
-                            builder: (context) => TLSingleOptionDialog(
+                            builder: (context) => const TLSingleOptionDialog(
                                   title: "削除することに\n成功しました！",
                                   message: null,
                                 ));

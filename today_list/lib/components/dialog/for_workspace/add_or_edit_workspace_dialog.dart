@@ -11,9 +11,9 @@ import '../../../model/todo/tl_todos.dart';
 import '../../../model/external/tl_vibration.dart';
 
 class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget {
-  final int? oldIndexInStringWorkspaces;
+  final int? oldIndexInWorkspaces;
   const AddOrEditWorkspaceDialog(
-      {super.key, required this.oldIndexInStringWorkspaces});
+      {super.key, required this.oldIndexInWorkspaces});
 
   @override
   ConsumerState<AddOrEditWorkspaceDialog> createState() =>
@@ -28,14 +28,15 @@ class _AddOrEditWorkspaceDialogState
   @override
   void initState() {
     super.initState();
-    if (widget.oldIndexInStringWorkspaces == null) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (widget.oldIndexInWorkspaces == null) return;
+    Future.microtask(() {
       final List<TLWorkspace> workspaces = ref.read(tlWorkspacesProvider);
       _workspaceNameInputController.text =
-          workspaces[widget.oldIndexInStringWorkspaces!].name;
+          workspaces[widget.oldIndexInWorkspaces!].name;
     });
   }
 
+  @override
   dispose() {
     _workspaceNameInputController.dispose();
     super.dispose();
@@ -109,7 +110,7 @@ class _AddOrEditWorkspaceDialogState
                       // アラートを閉じる
                       Navigator.pop(context);
                       // workspacesを更新
-                      if (widget.oldIndexInStringWorkspaces == null) {
+                      if (widget.oldIndexInWorkspaces == null) {
                         // add action
                         // 新しくできたWorkspace
                         final createdWorkspace = TLWorkspace(
@@ -137,7 +138,7 @@ class _AddOrEditWorkspaceDialogState
                       } else {
                         // edit action
                         final TLWorkspace editedWorkspace =
-                            tlWorkspaces[widget.oldIndexInStringWorkspaces!];
+                            tlWorkspaces[widget.oldIndexInWorkspaces!];
                         // 名前だけ変える
                         editedWorkspace.name =
                             _workspaceNameInputController.text;
@@ -150,11 +151,11 @@ class _AddOrEditWorkspaceDialogState
 
                         // currentWorkspaceの時
                         if (currentTLWorkspaceIndex ==
-                            widget.oldIndexInStringWorkspaces!) {
+                            widget.oldIndexInWorkspaces!) {
                           currentTLWorkspaceNotifier
                               .changeCurrentWorkspaceIndex(
                                   newCurrentWorkspaceIndex:
-                                      widget.oldIndexInStringWorkspaces!);
+                                      widget.oldIndexInWorkspaces!);
                         }
                         showDialog(
                           context: context,
@@ -167,8 +168,8 @@ class _AddOrEditWorkspaceDialogState
                       TLVibration.vibrate();
                     }
                   },
-                  child: Text(
-                      widget.oldIndexInStringWorkspaces == null ? "追加" : "編集"))
+                  child:
+                      Text(widget.oldIndexInWorkspaces == null ? "追加" : "編集"))
             ],
           ),
           const SizedBox(
