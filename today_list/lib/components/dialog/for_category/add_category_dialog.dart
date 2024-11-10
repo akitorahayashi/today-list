@@ -17,6 +17,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
   @override
   void initState() {
     super.initState();
+    EditingCategory.updateTextEdittingController(editedCategoryTitle: null);
     Future.microtask(() {
       ref.read(edittingCategoryProvider.notifier).setInitialValue();
     });
@@ -33,9 +34,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    // provider
-    final EditingCategory edittingCategory =
-        ref.watch(edittingCategoryProvider);
+    String _enteredCategoryTitle = "";
     // notifier
     final edittingCategoryNotifier =
         ref.read(edittingCategoryProvider.notifier);
@@ -52,7 +51,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                 // 新しいカテゴリー名を入力するTextFormField
                 child: TextField(
                   autofocus: true,
-                  controller: edittingCategory.categoryTitleInputController,
+                  controller: EditingCategory.categoryTitleInputController,
                   cursorColor: tlThemeData.accentColor,
                   style: TextStyle(
                       color: Colors.black.withOpacity(0.5),
@@ -77,11 +76,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
               TextButton(
                   style: alertButtonStyle(accentColor: tlThemeData.accentColor),
                   // 入力がなければ非活性
-                  onPressed: (edittingCategory
-                              .categoryTitleInputController?.text
-                              .trim()
-                              .isEmpty ??
-                          true)
+                  onPressed: _enteredCategoryTitle.trim().isEmpty
                       ? null
                       : () {
                           // カテゴリー名が入力されているなら追加する

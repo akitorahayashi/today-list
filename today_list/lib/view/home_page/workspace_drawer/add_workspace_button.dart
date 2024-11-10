@@ -18,7 +18,7 @@ class AddWorkspaceButton extends StatelessWidget {
               barrierDismissible: false,
               builder: (context) {
                 return const AddOrEditWorkspaceDialog(
-                    oldIndexInStringWorkspaces: null);
+                    oldIndexInWorkspaces: null);
               }),
           child: Icon(
             Icons.add,

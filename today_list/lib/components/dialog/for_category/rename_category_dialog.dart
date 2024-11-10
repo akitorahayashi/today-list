@@ -23,9 +23,21 @@ class RenameCategoryDialog extends ConsumerStatefulWidget {
 }
 
 class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
+  String _enteredCategoryTitle = "";
+
   @override
   void initState() {
     super.initState();
+    final currentWorkspace = ref.read(currentWorkspaceProvider);
+    final corrCategoryName = widget.indexOfSmallCategory == null
+        ? currentWorkspace.bigCategories[widget.indexOfBigCategory].title
+        : currentWorkspace
+            .smallCategories[currentWorkspace
+                .bigCategories[widget.indexOfBigCategory]
+                .id]![widget.indexOfSmallCategory!]
+            .title;
+    EditingCategory.updateTextEdittingController(
+        editedCategoryTitle: corrCategoryName);
     Future.microtask(() {
       // stateのbigCategoryIDはsetEditedCategoryで設定
       ref.read(edittingCategoryProvider.notifier).setEditedCategory(
@@ -48,8 +60,6 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final currentWorkspace = ref.watch(currentWorkspaceProvider);
-    final EditingCategory edittingCategory =
-        ref.watch(edittingCategoryProvider);
     // notifier
     final edittingCategoryNotifier =
         ref.read(edittingCategoryProvider.notifier);
@@ -93,7 +103,12 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                   width: 230,
                   child: TextFormField(
                     autofocus: true,
-                    controller: edittingCategory.categoryTitleInputController,
+                    controller: EditingCategory.categoryTitleInputController,
+                    onChanged: (s) {
+                      setState(() {
+                        _enteredCategoryTitle = s;
+                      });
+                    },
                     cursorColor: tlThemeData.accentColor,
                     style: TextStyle(
                         color: Colors.black.withOpacity(0.5),
@@ -120,11 +135,7 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                   ),
                   // 完了ボタン
                   TextButton(
-                    onPressed: (edittingCategory
-                                .categoryTitleInputController?.text
-                                .trim()
-                                .isEmpty ??
-                            true)
+                    onPressed: _enteredCategoryTitle.trim().trim().isEmpty
                         ? null
                         : () {
                             edittingCategoryNotifier.completeEditting();

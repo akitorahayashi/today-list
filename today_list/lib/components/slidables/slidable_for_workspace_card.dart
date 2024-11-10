@@ -72,8 +72,7 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                             barrierDismissible: false,
                             builder: (context) {
                               return AddOrEditWorkspaceDialog(
-                                  oldIndexInStringWorkspaces:
-                                      indexInTLWorkspaces);
+                                  oldIndexInWorkspaces: indexInTLWorkspaces);
                             });
                       },
                       icon: Icons.edit,
