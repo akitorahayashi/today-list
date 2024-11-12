@@ -8,7 +8,7 @@ import 'components_for_edit/added_steps_column.dart';
 import '../../components/dialog/common/tl_yes_no_dialog.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/design/tl_theme.dart';
-import '../../model/editing_provider/editing_todo_provider.dart';
+import '../../model/provider/editing_provider/editing_todo_provider.dart';
 import './already_exists/already_exists.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';

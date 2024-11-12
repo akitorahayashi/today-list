@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../model/editing_provider/editing_todo_provider.dart';
+import '../../../../model/provider/editing_provider/editing_todo_provider.dart';
 import '../../../../styles/styles.dart';
 import '../../../../model/design/tl_theme.dart';
 

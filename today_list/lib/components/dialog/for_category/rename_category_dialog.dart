@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/model/editing_provider/editing_category_provider.dart';
+import 'package:today_list/model/provider/editing_provider/editing_category_provider.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/styles/styles.dart';
 import '../../../model/todo/tl_category.dart';
@@ -23,6 +23,7 @@ class RenameCategoryDialog extends ConsumerStatefulWidget {
 }
 
 class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
+  late EdittingCategoryNotifier edittingCategoryNotifier;
   String _enteredCategoryTitle = "";
 
   @override
@@ -36,11 +37,13 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                 .bigCategories[widget.indexOfBigCategory]
                 .id]![widget.indexOfSmallCategory!]
             .title;
-    EditingCategory.updateTextEdittingController(
+    // notifier
+    edittingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
+    EditingCategory.updateTextEditingController(
         editedCategoryTitle: corrCategoryName);
     Future.microtask(() {
       // stateのbigCategoryIDはsetEditedCategoryで設定
-      ref.read(edittingCategoryProvider.notifier).setEditedCategory(
+      ref.read(editingCategoryProvider.notifier).setEditedCategory(
             indexOfEditingBigCategory: widget.indexOfBigCategory,
             indexOfEditingSmallCategory: widget.indexOfSmallCategory,
           );
@@ -50,7 +53,7 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
   @override
   void dispose() {
     Future.microtask(() {
-      ref.read(edittingCategoryProvider.notifier).disposeValue();
+      edittingCategoryNotifier.disposeValue();
     });
     super.dispose();
   }
@@ -61,8 +64,7 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
     // provider
     final currentWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
-    final edittingCategoryNotifier =
-        ref.read(edittingCategoryProvider.notifier);
+    final edittingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
     // other
     final corrBigCategory =
         currentWorkspace.bigCategories[widget.indexOfBigCategory];

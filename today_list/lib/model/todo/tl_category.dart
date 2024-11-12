@@ -26,9 +26,9 @@ class TLCategory {
   // このカテゴリーに含まれるToDoの数を返す
   int getNumberOfToDosInThisCategory(
       {required Map<String, TLToDos> corrToDos}) {
-    final TLToDos _coorTLToDos = corrToDos[this.id]!;
-    final int _count = _coorTLToDos[true].length + _coorTLToDos[false].length;
-    return _count;
+    final TLToDos coorTLToDos = corrToDos[id]!;
+    final int count = coorTLToDos[true].length + coorTLToDos[false].length;
+    return count;
   }
 
   // リストを JSON に変換
