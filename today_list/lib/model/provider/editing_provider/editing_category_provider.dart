@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/tl_workspace.dart';
 import 'package:today_list/model/todo/tl_category.dart';
-import '../provider/current_tl_workspace_provider.dart';
-import '../provider/tl_workspaces_provider.dart';
+import 'package:today_list/model/todo/tl_todos.dart';
+import '../current_tl_workspace_provider.dart';
+import '../tl_workspaces_provider.dart';
 
 class EditingCategory {
   static TextEditingController? categoryTitleInputController;
-  String? bigCatgoeyID;
+  String? selecteBigCategoryID;
   // 編集関係のメンバー
   int? indexOfEditingBigCategory;
   int? indexOfEditingSmallCategory;
 
   EditingCategory(
-    this.bigCatgoeyID,
+    this.selecteBigCategoryID,
     this.indexOfEditingBigCategory,
     this.indexOfEditingSmallCategory,
   );
 
-  static EditingCategory generateInitialEdittingCategory() {
+  static EditingCategory generateInitialEditingCategory() {
     return EditingCategory(
       noneID,
       null,
@@ -26,38 +27,39 @@ class EditingCategory {
     );
   }
 
-  static void updateTextEdittingController(
+  static void updateTextEditingController(
       {required String? editedCategoryTitle}) {
     categoryTitleInputController = TextEditingController()
       ..text = editedCategoryTitle ?? "";
   }
 
   EditingCategory copyWith({
-    String? bigCatgoeyIDForSmallCategory,
+    String? selectedBigCatgoeyID,
     int? indexOfEditingBigCategory,
     int? indexOfEditingSmallCategory,
   }) {
     return EditingCategory(
-      bigCatgoeyIDForSmallCategory ?? bigCatgoeyID,
-      indexOfEditingBigCategory ?? this.indexOfEditingBigCategory,
-      indexOfEditingSmallCategory ?? this.indexOfEditingSmallCategory,
+      selectedBigCatgoeyID,
+      indexOfEditingBigCategory,
+      indexOfEditingSmallCategory,
     );
   }
 }
 
-final edittingCategoryProvider =
-    StateNotifierProvider<EdittingCategoryNotifier, EditingCategory>((ref) {
-  return EdittingCategoryNotifier(ref);
+final editingCategoryProvider =
+    StateNotifierProvider.autoDispose<EditingCategoryNotifier, EditingCategory>(
+        (ref) {
+  return EditingCategoryNotifier(ref);
 });
 
-class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
+class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
   final Ref ref;
 
-  EdittingCategoryNotifier(this.ref)
-      : super(EditingCategory.generateInitialEdittingCategory());
+  EditingCategoryNotifier(this.ref)
+      : super(EditingCategory.generateInitialEditingCategory());
 
   void setInitialValue() {
-    state = EditingCategory.generateInitialEdittingCategory();
+    state = EditingCategory.generateInitialEditingCategory();
   }
 
   void setEditedCategory({
@@ -69,35 +71,45 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
         currentWorkspace.bigCategories[indexOfEditingBigCategory];
     // setValues
     state = state.copyWith(
-      bigCatgoeyIDForSmallCategory:
+      selectedBigCatgoeyID:
           indexOfEditingSmallCategory == null ? null : corrBigCategory.id,
       indexOfEditingBigCategory: indexOfEditingBigCategory,
       indexOfEditingSmallCategory: indexOfEditingSmallCategory,
     );
   }
 
-  void updateEdittingCategory({
-    TextEditingController? categoryTitleInputController,
-    String? bigCatgoeyID,
+  void updateEditingCategory({
+    String? selectedBigCatgoeyID,
     int? indexOfEditingBigCategory,
     int? indexOfEditingSmallCategory,
   }) {
     state = state.copyWith(
-      bigCatgoeyIDForSmallCategory: bigCatgoeyID,
+      selectedBigCatgoeyID: selectedBigCatgoeyID,
       indexOfEditingBigCategory: indexOfEditingBigCategory,
       indexOfEditingSmallCategory: indexOfEditingSmallCategory,
     );
   }
 
-  Future<void> completeEditting() async {
+  Future<void> completeEditing() async {
     // provider
     final currentTLWorkspace = ref.watch(currentWorkspaceProvider);
+    // TLWorkspaceのcopyWthで使用
+    final List<TLCategory> corrBigCategories =
+        List<TLCategory>.from(currentTLWorkspace.bigCategories);
+    final Map<String, List<TLCategory>> corrSmallCategories = {
+      for (var entry in currentTLWorkspace.smallCategories.entries)
+        entry.key: List<TLCategory>.from(entry.value)
+    };
+    final Map<String, TLToDos> corrCategoryIDToToDos =
+        Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
+
+    if (state.selecteBigCategoryID == noneID) {
+      state = state.copyWith(selectedBigCatgoeyID: null);
+    }
 
     // 追加、編集処理
-    if (state.bigCatgoeyID == null) {
+    if (state.selecteBigCategoryID == null) {
       // bigCategory
-      final List<TLCategory> corrBigCategories =
-          List<TLCategory>.from(currentTLWorkspace.bigCategories);
       if (state.indexOfEditingBigCategory == null) {
         // add bigCategory
         final TLCategory createdBigCategory = TLCategory(
@@ -105,6 +117,9 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
             title:
                 EditingCategory.categoryTitleInputController?.text ?? "Error");
         corrBigCategories.add(createdBigCategory);
+        corrSmallCategories[createdBigCategory.id] = [];
+        corrCategoryIDToToDos[createdBigCategory.id] =
+            TLToDos(toDosInToday: [], toDosInWhenever: []);
       } else {
         // edit bigCategory
         final TLCategory renamedBigCategory = TLCategory(
@@ -114,56 +129,39 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
         corrBigCategories[state.indexOfEditingBigCategory!] =
             renamedBigCategory;
       }
-      // 保存
-      await ref.read(tlWorkspacesProvider.notifier).updateCurrentWorkspace(
-            updatedWorkspace: currentTLWorkspace
-              ..bigCategories = corrBigCategories,
-          );
     } else {
       // smallCategory
-      final Map<String, List<TLCategory>> corrSmallCategories = {
-        for (var entry in currentTLWorkspace.smallCategories.entries)
-          entry.key: List<TLCategory>.from(entry.value)
-      };
       if (state.indexOfEditingSmallCategory == null) {
         // add smallCategory
         final TLCategory createdSmallCategory = TLCategory(
             id: UniqueKey().toString(),
             title:
                 EditingCategory.categoryTitleInputController?.text ?? "Error");
-        corrSmallCategories[state.bigCatgoeyID!]!.add(createdSmallCategory);
+        corrSmallCategories[state.selecteBigCategoryID]!
+            .add(createdSmallCategory);
+        corrCategoryIDToToDos[createdSmallCategory.id] =
+            TLToDos(toDosInToday: [], toDosInWhenever: []);
       } else {
         // edit smallCategory
         final TLCategory renamedSmallCategory = TLCategory(
-            id: corrSmallCategories[state.bigCatgoeyID!]![
+            id: corrSmallCategories[state.selecteBigCategoryID!]![
                     state.indexOfEditingSmallCategory!]
                 .id,
             title:
                 EditingCategory.categoryTitleInputController?.text ?? "Error");
-        corrSmallCategories[state.bigCatgoeyID!]![
+        corrSmallCategories[state.selecteBigCategoryID]![
             state.indexOfEditingSmallCategory!] = renamedSmallCategory;
       }
-      // 保存
-      await ref.read(tlWorkspacesProvider.notifier).updateCurrentWorkspace(
-            updatedWorkspace: currentTLWorkspace
-              ..smallCategories = corrSmallCategories,
-          );
     }
-    // 入力事項の初期化
-    state.copyWith(
-        bigCatgoeyIDForSmallCategory: null,
-        indexOfEditingBigCategory: null,
-        indexOfEditingSmallCategory: null);
-    EditingCategory.categoryTitleInputController?.clear();
+    // 保存
+    await ref.read(tlWorkspacesProvider.notifier).updateCurrentWorkspace(
+          updatedWorkspace: currentTLWorkspace.copyWith(
+            categoryIDToToDos: corrCategoryIDToToDos,
+            bigCategories: corrBigCategories,
+            smallCategories: corrSmallCategories,
+          ),
+        );
   }
 
-  // ページを離れた時の処理
-  void disposeValue() {
-    EditingCategory.categoryTitleInputController?.dispose();
-    state = state.copyWith(
-      bigCatgoeyIDForSmallCategory: null,
-      indexOfEditingBigCategory: null,
-      indexOfEditingSmallCategory: null,
-    );
-  }
+  Future<void> completeEditting() async {}
 }

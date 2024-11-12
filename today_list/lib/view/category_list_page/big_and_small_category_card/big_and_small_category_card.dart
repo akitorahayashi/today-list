@@ -51,23 +51,27 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
                       key: ValueKey(currentTLWorkspace
                           .smallCategories[coorBigCategory.id]![i].id),
                       corrBigCategory: coorBigCategory,
-                      corrIndexOfBigCategory: i,
+                      corrIndexOfBigCategory: indexOfBigCategory,
                       corrIndexOfSmallCategory: i)
               ],
               // smallCategoryの並び替え
               onReorder: (oldIndex, newIndex) {
                 if (oldIndex == newIndex) return;
+                final Map<String, List<TLCategory>> corrSmallCategories = {
+                  for (var entry in currentTLWorkspace.smallCategories.entries)
+                    entry.key: List<TLCategory>.from(entry.value)
+                };
                 // 抜き出して
-                TLCategory reOrderedSmallCategory = currentTLWorkspace
-                    .smallCategories[coorBigCategory.id]!
-                    .removeAt(oldIndex);
-                if (oldIndex < newIndex) newIndex--;
+                TLCategory reOrderedSmallCategory =
+                    corrSmallCategories[coorBigCategory.id]!.removeAt(oldIndex);
                 // 入れる
-                currentTLWorkspace.smallCategories[coorBigCategory.id]!
+                corrSmallCategories[coorBigCategory.id]!
                     .insert(newIndex, reOrderedSmallCategory);
                 // categorisを保存する
                 tlWorkspacesNotifier.updateCurrentWorkspace(
-                  updatedWorkspace: currentTLWorkspace,
+                  updatedWorkspace: currentTLWorkspace.copyWith(
+                    smallCategories: corrSmallCategories,
+                  ),
                 );
               },
             )

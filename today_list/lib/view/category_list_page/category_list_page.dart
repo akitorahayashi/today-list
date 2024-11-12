@@ -68,14 +68,16 @@ class CategoryListPage extends ConsumerWidget {
                   ],
                   onReorder: (oldIndex, newIndex) {
                     if (newIndex == 0) return;
+                    final corrBigCategories =
+                        List<TLCategory>.from(currentTLWorkspace.bigCategories);
                     // 抜き出して
                     TLCategory reOrderedBigCategory =
-                        currentTLWorkspace.bigCategories.removeAt(oldIndex);
-                    currentTLWorkspace.bigCategories
-                        .insert(newIndex, reOrderedBigCategory);
+                        corrBigCategories.removeAt(oldIndex);
+                    corrBigCategories.insert(newIndex, reOrderedBigCategory);
                     // categoriesを保存する
                     tlWorkspacesNotifier.updateCurrentWorkspace(
-                        updatedWorkspace: currentTLWorkspace);
+                        updatedWorkspace: currentTLWorkspace.copyWith(
+                            bigCategories: corrBigCategories));
                   }),
               const SizedBox(
                 height: 300,
