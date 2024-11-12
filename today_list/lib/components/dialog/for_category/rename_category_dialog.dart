@@ -23,7 +23,7 @@ class RenameCategoryDialog extends ConsumerStatefulWidget {
 }
 
 class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
-  late EdittingCategoryNotifier edittingCategoryNotifier;
+  late EditingCategoryNotifier edittingCategoryNotifier;
   String _enteredCategoryTitle = "";
 
   @override

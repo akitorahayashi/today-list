@@ -40,21 +40,22 @@ class EditingCategory {
   }) {
     return EditingCategory(
       selectedBigCatgoeyID,
-      indexOfEditingBigCategory ?? this.indexOfEditingBigCategory,
-      indexOfEditingSmallCategory ?? this.indexOfEditingSmallCategory,
+      indexOfEditingBigCategory,
+      indexOfEditingSmallCategory,
     );
   }
 }
 
 final editingCategoryProvider =
-    StateNotifierProvider<EdittingCategoryNotifier, EditingCategory>((ref) {
-  return EdittingCategoryNotifier(ref);
+    StateNotifierProvider.autoDispose<EditingCategoryNotifier, EditingCategory>(
+        (ref) {
+  return EditingCategoryNotifier(ref);
 });
 
-class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
+class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
   final Ref ref;
 
-  EdittingCategoryNotifier(this.ref)
+  EditingCategoryNotifier(this.ref)
       : super(EditingCategory.generateInitialEditingCategory());
 
   void setInitialValue() {
@@ -103,7 +104,8 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
         Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
 
     // 追加、編集処理
-    if (state.selecteBigCategoryID == null) {
+    if (state.selecteBigCategoryID == null ||
+        state.selecteBigCategoryID == noneID) {
       // bigCategory
       if (state.indexOfEditingBigCategory == null) {
         // add bigCategory
@@ -157,10 +159,11 @@ class EdittingCategoryNotifier extends StateNotifier<EditingCategory> {
           ),
         );
     // 入力事項の初期化
-    state = state.copyWith(
-        selectedBigCatgoeyID: null,
-        indexOfEditingBigCategory: null,
-        indexOfEditingSmallCategory: null);
+    // state = state.copyWith(
+    //     selectedBigCatgoeyID: null,
+    //     indexOfEditingBigCategory: null,
+    //     indexOfEditingSmallCategory: null);
+
     EditingCategory.categoryTitleInputController?.clear();
   }
 

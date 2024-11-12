@@ -17,22 +17,28 @@ class AddCategoryDialog extends ConsumerStatefulWidget {
 }
 
 class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
-  late EdittingCategoryNotifier edittingCategoryNotifier;
+  late EditingCategoryNotifier editingCategoryNotifier;
   String enteredCategoryTitle = "";
   @override
   void initState() {
     super.initState();
+    editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
     EditingCategory.updateTextEditingController(editedCategoryTitle: null);
     Future.microtask(() {
-      edittingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
-      edittingCategoryNotifier.setInitialValue();
+      editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
+      editingCategoryNotifier.setInitialValue();
     });
   }
 
   @override
   void dispose() {
     Future.microtask(() {
-      edittingCategoryNotifier.disposeValue();
+      if (mounted) {
+        editingCategoryNotifier.disposeValue();
+        print("value disposed");
+      } else {
+        print("value not disposed");
+      }
     });
     super.dispose();
   }
@@ -59,7 +65,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                 isExpanded: true,
                 hint: Text(
                   editingCategory.selecteBigCategoryID == null
-                      ? "Big Category"
+                      ? "なし"
                       : (() {
                           final hintArray = currentWorkspace.bigCategories
                               .where((bigCategory) =>
@@ -67,7 +73,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                                   editingCategory.selecteBigCategoryID);
                           if (hintArray.isEmpty) {
                             editingCategory.selecteBigCategoryID = null;
-                            return "Big Category";
+                            return "なし";
                           } else {
                             return hintArray.first.title;
                           }
@@ -150,18 +156,20 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                   // 入力がなければ非活性
                   onPressed: enteredCategoryTitle.trim().isEmpty
                       ? null
-                      : () {
+                      : () async {
                           // カテゴリー名が入力されているなら追加する
-                          editingCategoryNotifier.completeEditting();
+                          await editingCategoryNotifier.completeEditting();
                           TLVibration.vibrate();
                           // to category list
-                          Navigator.pop(context);
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return const TLSingleOptionDialog(
-                                    title: "カテゴリーが\n追加されました！", message: null);
-                              });
+                          if (context.mounted) {
+                            Navigator.pop(context);
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const TLSingleOptionDialog(
+                                      title: "カテゴリーが\n追加されました！", message: null);
+                                });
+                          }
                         },
                   child: const Text("追加"))
             ],
