@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/model/provider/editing_provider/editing_category_provider.dart';
-import 'package:today_list/model/external/tl_vibration.dart';
-import 'package:today_list/model/provider/tl_workspaces_provider.dart';
-import 'package:today_list/model/tl_workspace.dart';
-import 'package:today_list/styles/styles.dart';
+import '../../../components/dialog/common/tl_single_option_dialog.dart';
+import '../../../model/provider/editing_provider/editing_category_provider.dart';
+import '../../../model/provider/current_tl_workspace_provider.dart';
+import '../../../model/external/tl_vibration.dart';
+import '../../../model/provider/tl_workspaces_provider.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/design/tl_theme.dart';
-import '../../../model/provider/current_tl_workspace_provider.dart';
+import '../../../styles/styles.dart';
 
 class RenameCategoryDialog extends ConsumerStatefulWidget {
   final int indexOfBigCategory;

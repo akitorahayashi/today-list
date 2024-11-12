@@ -103,6 +103,10 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
     final Map<String, TLToDos> corrCategoryIDToToDos =
         Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
 
+    if (state.selecteBigCategoryID == noneID) {
+      state = state.copyWith(selectedBigCatgoeyID: null);
+    }
+
     // 追加、編集処理
     if (state.selecteBigCategoryID == null) {
       // bigCategory

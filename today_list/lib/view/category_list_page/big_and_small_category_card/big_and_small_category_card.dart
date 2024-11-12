@@ -51,7 +51,7 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
                       key: ValueKey(currentTLWorkspace
                           .smallCategories[coorBigCategory.id]![i].id),
                       corrBigCategory: coorBigCategory,
-                      corrIndexOfBigCategory: i,
+                      corrIndexOfBigCategory: indexOfBigCategory,
                       corrIndexOfSmallCategory: i)
               ],
               // smallCategoryの並び替え
