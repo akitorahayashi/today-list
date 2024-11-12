@@ -14,19 +14,21 @@ class AddCategoryDialog extends ConsumerStatefulWidget {
 }
 
 class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
+  late EdittingCategoryNotifier edittingCategoryNotifier;
   @override
   void initState() {
     super.initState();
     EditingCategory.updateTextEdittingController(editedCategoryTitle: null);
     Future.microtask(() {
-      ref.read(edittingCategoryProvider.notifier).setInitialValue();
+      edittingCategoryNotifier = ref.read(edittingCategoryProvider.notifier);
+      edittingCategoryNotifier.setInitialValue();
     });
   }
 
   @override
   void dispose() {
     Future.microtask(() {
-      ref.read(edittingCategoryProvider.notifier).disposeValue();
+      edittingCategoryNotifier.disposeValue();
     });
     super.dispose();
   }
@@ -34,7 +36,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    String _enteredCategoryTitle = "";
+    String enteredCategoryTitle = "";
     // notifier
     final edittingCategoryNotifier =
         ref.read(edittingCategoryProvider.notifier);
@@ -52,6 +54,11 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                 child: TextField(
                   autofocus: true,
                   controller: EditingCategory.categoryTitleInputController,
+                  onChanged: (s) {
+                    setState(() {
+                      enteredCategoryTitle = s;
+                    });
+                  },
                   cursorColor: tlThemeData.accentColor,
                   style: TextStyle(
                       color: Colors.black.withOpacity(0.5),
@@ -76,16 +83,14 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
               TextButton(
                   style: alertButtonStyle(accentColor: tlThemeData.accentColor),
                   // 入力がなければ非活性
-                  onPressed: _enteredCategoryTitle.trim().isEmpty
+                  onPressed: enteredCategoryTitle.trim().isEmpty
                       ? null
                       : () {
                           // カテゴリー名が入力されているなら追加する
                           edittingCategoryNotifier.completeEditting();
                           TLVibration.vibrate();
                           // to category list
-                          Navigator.pop(
-                            context,
-                          );
+                          Navigator.pop(context);
                           showDialog(
                               context: context,
                               builder: (context) {
