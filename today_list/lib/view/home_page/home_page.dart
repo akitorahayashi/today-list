@@ -39,7 +39,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!_accetColorIsChanged) {
         _accetColorIsChanged = true;
-        print("accetColor is changed");
+        // accetColor is changed
         setState(() {});
         FlutterNativeSplash.remove();
       }
@@ -167,26 +167,27 @@ class _HomePageState extends ConsumerState<HomePage> {
           leadingIconData: FontAwesomeIcons.squareCheck,
           //　今日のチェック済みtodoを全て削除するボタン
           leadingButtonOnPressed: () => showDialog(
-              context: context,
-              builder: ((context) => TLYesNoDialog(
-                    title: "チェック済みToDoを\n削除しますか?",
-                    message: null,
-                    yesAction: () async {
-                      Navigator.pop(context);
-                      await currentTLWorkspaceNotifier
-                          .deleteCheckedToDosInTodayInCurrentWorkspace();
-                      if (context.mounted) {
-                        showDialog(
-                          context: context,
-                          builder: (context) => const TLSingleOptionDialog(
-                            title: "削除が完了しました！",
-                            message: null,
-                          ),
-                        );
-                      }
-                      TLVibration.vibrate();
-                    },
-                  ))),
+            context: context,
+            builder: ((context) => TLYesNoDialog(
+                  title: "チェック済みToDoを\n削除しますか?",
+                  message: null,
+                  yesAction: () async {
+                    Navigator.pop(context);
+                    await currentTLWorkspaceNotifier
+                        .deleteCheckedToDosInTodayInCurrentWorkspace();
+                    if (context.mounted) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => const TLSingleOptionDialog(
+                          title: "削除が完了しました！",
+                          message: null,
+                        ),
+                      );
+                    }
+                    TLVibration.vibrate();
+                  },
+                )),
+          ),
           trailingIconData: FontAwesomeIcons.list,
           // カテゴリーリストに移動するボタン
           tralingButtonOnPressed: () async {

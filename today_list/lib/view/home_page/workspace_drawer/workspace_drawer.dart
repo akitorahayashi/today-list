@@ -93,7 +93,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                 // 独立して表示してデフォルトワークスペースの並び替え阻止
                                 const ChangeWorkspaceCard(
                                   // TODO isInDrawerListの名前を変更する
-                                  isInDrawerList: false,
+                                  isInDrawerList: true,
                                   indexInWorkspaces: 0,
                                 ),
                                 ReorderableColumn(
@@ -152,9 +152,11 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                                       1);
                                     }
 
-                                    // toDosを保存する
+                                    // workspaceListを保存する
                                     tlWorkspacesNotifier.updateTLWorkspaceList(
-                                        updatedTLWorkspaceList: tlWorkspaces);
+                                        updatedTLWorkspaceList:
+                                            List<TLWorkspace>.from(
+                                                tlWorkspaces));
                                   },
                                 ),
                                 // 新しくworkspaceを追加する,

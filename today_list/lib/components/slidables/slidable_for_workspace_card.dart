@@ -21,11 +21,11 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final List<TLWorkspace> _tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
     // other
-    final TLWorkspace _corrWorkspace = _tlWorkspaces[indexInTLWorkspaces];
+    final TLWorkspace corrWorkspace = tlWorkspaces[indexInTLWorkspaces];
     return Slidable(
       // currentWorkspaceの時や
       startActionPane: isCurrentWorkspace ||
@@ -40,14 +40,14 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                 SlidableAction(
                   autoClose: true,
                   spacing: 8,
-                  backgroundColor: _tlThemeData.panelColor,
-                  foregroundColor: _tlThemeData.accentColor,
+                  backgroundColor: tlThemeData.panelColor,
+                  foregroundColor: tlThemeData.accentColor,
                   onPressed: (BuildContext context) async {
                     await showDialog(
                         context: context,
                         builder: (context) => DeleteWorkspaceDialog(
                             corrWorkspaceIndex: indexInTLWorkspaces,
-                            willDeletedWorkspace: _corrWorkspace));
+                            willDeletedWorkspace: corrWorkspace));
                   },
                   icon: Icons.remove,
                   label: "Delete",
@@ -64,8 +64,8 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                     SlidableAction(
                       autoClose: true,
                       spacing: 8,
-                      backgroundColor: _tlThemeData.panelColor,
-                      foregroundColor: _tlThemeData.accentColor,
+                      backgroundColor: tlThemeData.panelColor,
+                      foregroundColor: tlThemeData.accentColor,
                       onPressed: (BuildContext context) async {
                         await showDialog(
                             context: context,
