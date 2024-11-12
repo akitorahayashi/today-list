@@ -27,10 +27,37 @@ class DeleteCategoryDialog extends ConsumerWidget {
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
     // other
-    final TLCategory categoryThisBelongsTo = indexOfSmallCategory == null
-        ? currentWorkspace.bigCategories[indexOfBigCategory]
-        : currentWorkspace.smallCategories[currentWorkspace
-            .bigCategories[indexOfBigCategory].id]![indexOfSmallCategory!];
+    TLCategory? categoryThisBelongsTo;
+    if (indexOfSmallCategory == null) {
+      if (indexOfBigCategory >= 0 &&
+          indexOfBigCategory < currentWorkspace.bigCategories.length) {
+        categoryThisBelongsTo =
+            currentWorkspace.bigCategories[indexOfBigCategory];
+      }
+    } else {
+      final bigCategoryId =
+          currentWorkspace.bigCategories[indexOfBigCategory].id;
+      final smallCategories = currentWorkspace.smallCategories[bigCategoryId];
+      if (smallCategories != null &&
+          indexOfSmallCategory! >= 0 &&
+          indexOfSmallCategory! < smallCategories.length) {
+        categoryThisBelongsTo = smallCategories[indexOfSmallCategory!];
+      }
+    }
+
+    if (categoryThisBelongsTo == null) {
+      return Dialog(
+        backgroundColor: tlThemeData.alertColor,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            "カテゴリーが見つかりませんでした。",
+            style: TextStyle(color: tlThemeData.accentColor, fontSize: 20),
+          ),
+        ),
+      );
+    }
+
     return Dialog(
       backgroundColor: tlThemeData.alertColor,
       child: Padding(
@@ -88,14 +115,14 @@ class DeleteCategoryDialog extends ConsumerWidget {
                         corrSmallCategories[currentWorkspace
                                 .bigCategories[indexOfBigCategory].id]!
                             .removeWhere(((TLCategory smallCategory) =>
-                                smallCategory.id == categoryThisBelongsTo.id));
+                                smallCategory.id == categoryThisBelongsTo!.id));
                         // toDosに入っているものを消す
-                        corrCategoryIDToToDos.remove(categoryThisBelongsTo.id);
+                        corrCategoryIDToToDos.remove(categoryThisBelongsTo!.id);
                       } else {
                         // このカテゴリーがbigCategoryの場合
                         // bigCategoryのsmallCategoryでtoDosに入っているものを消す
-                        for (TLCategory smallCategory
-                            in corrSmallCategories[categoryThisBelongsTo.id]!) {
+                        for (TLCategory smallCategory in corrSmallCategories[
+                            categoryThisBelongsTo!.id]!) {
                           corrCategoryIDToToDos.remove(smallCategory.id);
                         }
                         // toDosに入っているものを消す
@@ -112,7 +139,6 @@ class DeleteCategoryDialog extends ConsumerWidget {
                               smallCategories: corrSmallCategories,
                               categoryIDToToDos: corrCategoryIDToToDos));
 
-                      Navigator.pop(context);
                       // アラートを消す
                       Navigator.pop(context);
                       TLVibration.vibrate();

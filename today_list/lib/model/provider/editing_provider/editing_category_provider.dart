@@ -84,13 +84,13 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
     int? indexOfEditingSmallCategory,
   }) {
     state = state.copyWith(
-      selectedBigCatgoeyID: selectedBigCatgoeyID ?? null,
+      selectedBigCatgoeyID: selectedBigCatgoeyID,
       indexOfEditingBigCategory: indexOfEditingBigCategory,
       indexOfEditingSmallCategory: indexOfEditingSmallCategory,
     );
   }
 
-  Future<void> completeEditting() async {
+  Future<void> completeAdding() async {
     // provider
     final currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // TLWorkspaceのcopyWthで使用
@@ -104,8 +104,7 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
         Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
 
     // 追加、編集処理
-    if (state.selecteBigCategoryID == null ||
-        state.selecteBigCategoryID == noneID) {
+    if (state.indexOfEditingSmallCategory == null) {
       // bigCategory
       if (state.indexOfEditingBigCategory == null) {
         // add bigCategory
@@ -158,21 +157,7 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
             smallCategories: corrSmallCategories,
           ),
         );
-    // 入力事項の初期化
-    // state = state.copyWith(
-    //     selectedBigCatgoeyID: null,
-    //     indexOfEditingBigCategory: null,
-    //     indexOfEditingSmallCategory: null);
-
-    EditingCategory.categoryTitleInputController?.clear();
   }
 
-  // ページを離れた時の処理
-  void disposeValue() {
-    state = state.copyWith(
-      selectedBigCatgoeyID: null,
-      indexOfEditingBigCategory: null,
-      indexOfEditingSmallCategory: null,
-    );
-  }
+  Future<void> completeEditting() async {}
 }

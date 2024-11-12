@@ -23,13 +23,13 @@ class RenameCategoryDialog extends ConsumerStatefulWidget {
 }
 
 class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
-  late EditingCategoryNotifier edittingCategoryNotifier;
+  late EditingCategoryNotifier editingCategoryNotifier;
   String _enteredCategoryTitle = "";
 
   @override
   void initState() {
     super.initState();
-    final currentWorkspace = ref.read(currentWorkspaceProvider);
+    final currentWorkspace = ref.watch(currentWorkspaceProvider);
     final corrCategoryName = widget.indexOfSmallCategory == null
         ? currentWorkspace.bigCategories[widget.indexOfBigCategory].title
         : currentWorkspace
@@ -38,9 +38,10 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                 .id]![widget.indexOfSmallCategory!]
             .title;
     // notifier
-    edittingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
+    editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
     EditingCategory.updateTextEditingController(
         editedCategoryTitle: corrCategoryName);
+    _enteredCategoryTitle = corrCategoryName;
     Future.microtask(() {
       // stateのbigCategoryIDはsetEditedCategoryで設定
       ref.read(editingCategoryProvider.notifier).setEditedCategory(
@@ -52,9 +53,7 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
 
   @override
   void dispose() {
-    Future.microtask(() {
-      edittingCategoryNotifier.disposeValue();
-    });
+    EditingCategory.categoryTitleInputController?.dispose();
     super.dispose();
   }
 
@@ -63,8 +62,6 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final currentWorkspace = ref.watch(currentWorkspaceProvider);
-    // notifier
-    final edittingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
     // other
     final corrBigCategory =
         currentWorkspace.bigCategories[widget.indexOfBigCategory];
@@ -139,17 +136,20 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                   TextButton(
                     onPressed: _enteredCategoryTitle.trim().trim().isEmpty
                         ? null
-                        : () {
-                            edittingCategoryNotifier.completeEditting();
+                        : () async {
+                            editingCategoryNotifier.completeAdding();
                             TLVibration.vibrate();
                             // to category list
-                            Navigator.pop(context, null);
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const TLSingleOptionDialog(
-                                      title: "変更することに\n成功しました!", message: null);
-                                });
+                            if (context.mounted) {
+                              Navigator.pop(context);
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const TLSingleOptionDialog(
+                                        title: "変更することに\n成功しました!",
+                                        message: null);
+                                  });
+                            }
                           },
                     child: Text(
                       "完了",

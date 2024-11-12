@@ -151,7 +151,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                       ? null
                       : () async {
                           // カテゴリー名が入力されているなら追加する
-                          await editingCategoryNotifier.completeEditting();
+                          await editingCategoryNotifier.completeAdding();
                           TLVibration.vibrate();
                           // to category list
                           if (context.mounted) {
