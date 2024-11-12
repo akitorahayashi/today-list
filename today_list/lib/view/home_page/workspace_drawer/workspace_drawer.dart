@@ -93,7 +93,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                 // 独立して表示してデフォルトワークスペースの並び替え阻止
                                 const ChangeWorkspaceCard(
                                   // TODO isInDrawerListの名前を変更する
-                                  isInDrawerList: false,
+                                  isInDrawerList: true,
                                   indexInWorkspaces: 0,
                                 ),
                                 ReorderableColumn(
