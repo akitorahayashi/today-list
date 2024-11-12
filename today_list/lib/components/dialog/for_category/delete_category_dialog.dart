@@ -51,7 +51,7 @@ class DeleteCategoryDialog extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            "カテゴリーが見つかりませんでした。",
+            "Error: カテゴリーが見つかりませんでした",
             style: TextStyle(color: tlThemeData.accentColor, fontSize: 20),
           ),
         ),

@@ -90,7 +90,7 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
     );
   }
 
-  Future<void> completeAdding() async {
+  Future<void> completeEditing() async {
     // provider
     final currentTLWorkspace = ref.watch(currentWorkspaceProvider);
     // TLWorkspaceのcopyWthで使用
@@ -104,7 +104,7 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
         Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
 
     // 追加、編集処理
-    if (state.indexOfEditingSmallCategory == null) {
+    if (state.selecteBigCategoryID == null) {
       // bigCategory
       if (state.indexOfEditingBigCategory == null) {
         // add bigCategory

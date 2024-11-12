@@ -99,12 +99,19 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                   );
                 }).toList(),
                 onChanged: (String? newBigCategoryId) async {
-                  if (newBigCategoryId == noneID || newBigCategoryId == null) {
+                  if (newBigCategoryId == null) return;
+                  if (newBigCategoryId == noneID) {
                     editingCategoryNotifier.updateEditingCategory(
-                        selectedBigCatgoeyID: null);
+                      selectedBigCatgoeyID: null,
+                      indexOfEditingBigCategory: null,
+                      indexOfEditingSmallCategory: null,
+                    );
                   } else {
                     editingCategoryNotifier.updateEditingCategory(
-                        selectedBigCatgoeyID: newBigCategoryId);
+                      selectedBigCatgoeyID: newBigCategoryId,
+                      indexOfEditingBigCategory: null,
+                      indexOfEditingSmallCategory: null,
+                    );
                   }
                 },
               ),
@@ -151,7 +158,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                       ? null
                       : () async {
                           // カテゴリー名が入力されているなら追加する
-                          await editingCategoryNotifier.completeAdding();
+                          await editingCategoryNotifier.completeEditing();
                           TLVibration.vibrate();
                           // to category list
                           if (context.mounted) {
