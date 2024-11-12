@@ -32,14 +32,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
 
   @override
   void dispose() {
-    Future.microtask(() {
-      if (mounted) {
-        editingCategoryNotifier.disposeValue();
-        print("value disposed");
-      } else {
-        print("value not disposed");
-      }
-    });
+    EditingCategory.categoryTitleInputController?.dispose();
     super.dispose();
   }
 

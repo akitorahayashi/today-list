@@ -169,7 +169,6 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
 
   // ページを離れた時の処理
   void disposeValue() {
-    EditingCategory.categoryTitleInputController?.dispose();
     state = state.copyWith(
       selectedBigCatgoeyID: null,
       indexOfEditingBigCategory: null,
