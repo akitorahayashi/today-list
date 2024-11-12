@@ -32,8 +32,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
     final bool isCurrentWorkspace =
         indexInWorkspaces == currentTLWorkspaceIndex;
     return Padding(
-      padding: EdgeInsets.fromLTRB(
-          5, 1, 5, (isCurrentWorkspace && !isInDrawerList) ? 5 : 0),
+      padding: EdgeInsets.fromLTRB(5, 1, 5, (!isInDrawerList) ? 5 : 0),
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 70),
         child: Card(
@@ -55,7 +54,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                         context: context,
                         builder: (context) => TLSingleOptionDialog(
                             title: currentTLWorkspace.name,
-                            message: "workspaceを変更しました！"));
+                            message: "に変更しました！"));
                   }
                 },
                 child: SlidableForWorkspaceCard(

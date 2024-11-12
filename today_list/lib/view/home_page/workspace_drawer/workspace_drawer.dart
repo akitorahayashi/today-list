@@ -152,9 +152,11 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                                       1);
                                     }
 
-                                    // toDosを保存する
+                                    // workspaceListを保存する
                                     tlWorkspacesNotifier.updateTLWorkspaceList(
-                                        updatedTLWorkspaceList: tlWorkspaces);
+                                        updatedTLWorkspaceList:
+                                            List<TLWorkspace>.from(
+                                                tlWorkspaces));
                                   },
                                 ),
                                 // 新しくworkspaceを追加する,
