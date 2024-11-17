@@ -66,6 +66,20 @@ class TLWorkspace {
     );
   }
 
+  int getNumOfToDo({required bool ifInToday}) {
+    int todoCount = 0;
+    for (TLCategory bigCategory in bigCategories) {
+      todoCount += bigCategory.getNumberOfToDosInThisCategory(
+          ifInToday: ifInToday, corrToDos: categoryIDToToDos[bigCategory.id]!);
+      for (TLCategory smallCategory in smallCategories[bigCategory.id]!) {
+        todoCount += smallCategory.getNumberOfToDosInThisCategory(
+            ifInToday: ifInToday,
+            corrToDos: categoryIDToToDos[smallCategory.id]!);
+      }
+    }
+    return todoCount;
+  }
+
   bool checkIfThisWorkspaceContainsToDoInToday() {
     for (TLCategory bigCategory in bigCategories) {
       if (categoryIDToToDos[bigCategory.id]!.toDosInToday.isNotEmpty) {
