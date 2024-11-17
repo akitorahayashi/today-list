@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
 import 'package:today_list/view/home_page/num_todos_card.dart';
+import 'package:today_list/view/home_page/todos_block.dart';
 import '../../components/common_ui_part/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
 import '../../components/common_ui_part/today_list_bottom_navbar/today_list_bottom_navbar.dart';
 import '../../components/dialog/common/tl_single_option_dialog.dart';
 import '../../components/dialog/common/tl_yes_no_dialog.dart';
 import '../../components/common_ui_part/tl_sliver_appbar.dart';
-import './todos_in_this_category_today/header_for_todos.dart';
-import './todos_in_this_category_today/todos_in_this_category_in_today.dart';
 import '../../model/design/tl_theme.dart';
 import '../../model/tl_workspace.dart';
-import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/provider/current_tl_workspace_provider.dart';
 import '../edit_todo_page/edit_todo_page.dart';
@@ -99,71 +96,24 @@ class _HomePageState extends ConsumerState<HomePage> {
               NumToDosCard(
                   ifInToday: true,
                   numTodos: currentTLWorkspace.getNumOfToDo(ifInToday: true)),
-              if (currentTLWorkspace
-                  .categoryIDToToDos[currentTLWorkspace.bigCategories[0].id]!
-                  .toDosInToday
-                  .isNotEmpty)
-                const SizedBox(height: 7),
-              if (currentTLWorkspace
-                  .categoryIDToToDos[currentTLWorkspace.bigCategories[0].id]!
-                  .toDosInToday
-                  .isNotEmpty)
-                ToDosInThisCategoryInCurrentWorkspace(
-                  ifInToday: true,
-                  bigCategoryOfThisToDo: currentTLWorkspace.bigCategories[0],
-                  smallCategoryOfThisToDo: null,
-                ),
-              // なし以外のbigCategoryの処理
-              for (TLCategory bigCategory
-                  in currentTLWorkspace.bigCategories.sublist(1))
-                Column(
-                  children: [
-                    // big header
-                    if (currentTLWorkspace.categoryIDToToDos[bigCategory.id]!
-                            .toDosInToday.isNotEmpty ||
-                        // そのsmallCategoryがToDoを持っていたら、bigHeaderを表示
-                        (currentTLWorkspace
-                                .smallCategories[bigCategory.id]!.isNotEmpty &&
-                            currentTLWorkspace.smallCategories[bigCategory.id]!
-                                    .indexWhere((smallCategory) =>
-                                        currentTLWorkspace
-                                            .categoryIDToToDos[
-                                                smallCategory.id]!
-                                            .toDosInToday
-                                            .isNotEmpty) !=
-                                -1))
-                      CategoryHeaderForToDos(
-                          isBigCategory: true, corrCategory: bigCategory),
-                    // big body
-                    if (currentTLWorkspace.categoryIDToToDos[bigCategory.id]!
-                        .toDosInToday.isNotEmpty)
-                      ToDosInThisCategoryInCurrentWorkspace(
-                        ifInToday: true,
-                        bigCategoryOfThisToDo: bigCategory,
-                        smallCategoryOfThisToDo: null,
-                      ),
-                    for (TLCategory smallCategory
-                        in currentTLWorkspace.smallCategories[bigCategory.id] ??
-                            [])
-                      if (currentTLWorkspace
-                          .categoryIDToToDos[smallCategory.id]!
-                          .toDosInToday
-                          .isNotEmpty)
-                        Column(
-                          children: [
-                            // small header
-                            CategoryHeaderForToDos(
-                                isBigCategory: false,
-                                corrCategory: smallCategory),
-                            // small body
-                            ToDosInThisCategoryInCurrentWorkspace(
-                              ifInToday: true,
-                              bigCategoryOfThisToDo: bigCategory,
-                              smallCategoryOfThisToDo: smallCategory,
-                            )
-                          ],
-                        ),
-                  ],
+              TodosBlock(
+                  ifInToday: true, currentTLWorkspace: currentTLWorkspace),
+              // Wheneverに分類されている方も同じように表示したい
+              // モジュール化、ファイル分けして簡略化してほしい
+              if (currentTLWorkspace.getNumOfToDo(ifInToday: false) != 0)
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Column(
+                    children: [
+                      NumToDosCard(
+                          ifInToday: false,
+                          numTodos: currentTLWorkspace.getNumOfToDo(
+                              ifInToday: false)),
+                      TodosBlock(
+                          ifInToday: false,
+                          currentTLWorkspace: currentTLWorkspace),
+                    ],
+                  ),
                 ),
 
               // スペーサー

@@ -133,6 +133,9 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
   }
 
   Future<void> completeEditting() async {
+    if (EditingTodo.toDoTitleInputController?.text == null ||
+        EditingTodo.toDoTitleInputController!.text.trim().isEmpty) return;
+
     // provider
     final currentTLWorkspace = ref.read(currentWorkspaceProvider);
     // notifier
