@@ -103,7 +103,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                   .categoryIDToToDos[currentTLWorkspace.bigCategories[0].id]!
                   .toDosInToday
                   .isNotEmpty)
-                ToDosInThisCategoryInToday(
+                ToDosInThisCategoryInCurrentWorkspace(
+                  ifInToday: true,
                   bigCategoryOfThisToDo: currentTLWorkspace.bigCategories[0],
                   smallCategoryOfThisToDo: null,
                 ),
@@ -131,7 +132,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                     // big body
                     if (currentTLWorkspace.categoryIDToToDos[bigCategory.id]!
                         .toDosInToday.isNotEmpty)
-                      ToDosInThisCategoryInToday(
+                      ToDosInThisCategoryInCurrentWorkspace(
+                        ifInToday: true,
                         bigCategoryOfThisToDo: bigCategory,
                         smallCategoryOfThisToDo: null,
                       ),
@@ -149,7 +151,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 isBigCategory: false,
                                 corrCategory: smallCategory),
                             // small body
-                            ToDosInThisCategoryInToday(
+                            ToDosInThisCategoryInCurrentWorkspace(
+                              ifInToday: true,
                               bigCategoryOfThisToDo: bigCategory,
                               smallCategoryOfThisToDo: smallCategory,
                             )
