@@ -25,10 +25,14 @@ class TLCategory {
 
   // このカテゴリーに含まれるToDoの数を返す
   int getNumberOfToDosInThisCategory(
-      {required Map<String, TLToDos> corrToDos}) {
-    final TLToDos coorTLToDos = corrToDos[id]!;
-    final int count = coorTLToDos[true].length + coorTLToDos[false].length;
-    return count;
+      {required bool? ifInToday, required TLToDos corrToDos}) {
+    if (ifInToday == null) {
+      final int count = corrToDos[true].length + corrToDos[false].length;
+      return count;
+    } else {
+      final int count = corrToDos[ifInToday].length;
+      return count;
+    }
   }
 
   // リストを JSON に変換

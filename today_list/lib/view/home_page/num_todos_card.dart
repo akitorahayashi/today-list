@@ -31,19 +31,27 @@ class NumToDosCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20)),
               child: Padding(
                 padding: const EdgeInsets.only(top: 9.0, bottom: 10.0),
-                child:
+                child: Column(
+                  children: [
+                    // wheneverの場合
+                    if (!ifInToday)
+                      const Text("in Whenever",
+                          style: TextStyle(
+                            color: Colors.black45,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          )),
                     // 数の表示
-                    Padding(
-                  padding: const EdgeInsets.only(top: 0),
-                  child: Text(
-                    numTodos.toString(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: tlThemeData.accentColor,
-                        fontSize: 20,
-                        letterSpacing: 2,
-                        fontWeight: FontWeight.w800),
-                  ),
+                    Text(
+                      numTodos.toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: tlThemeData.accentColor,
+                          fontSize: 20,
+                          letterSpacing: 2,
+                          fontWeight: FontWeight.w800),
+                    ),
+                  ],
                 ),
               ),
             ),

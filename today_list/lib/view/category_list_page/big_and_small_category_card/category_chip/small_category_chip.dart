@@ -28,7 +28,9 @@ class SmallCategoryChip extends ConsumerWidget {
     // getNumberOfToDosInThisCategory
     final int numberOfToDoInThisSmallCategory =
         smallCategoryOfThisCard.getNumberOfToDosInThisCategory(
-            corrToDos: currentTLWorkspace.categoryIDToToDos);
+            ifInToday: null,
+            corrToDos: currentTLWorkspace
+                .categoryIDToToDos[smallCategoryOfThisCard.id]!);
     return GestureDetector(
       onTap: () async {
         await showDialog(
