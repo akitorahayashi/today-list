@@ -43,7 +43,7 @@ class ToDosInThisCategoryInCurrentWorkspace extends ConsumerWidget {
                 for (int i = 0; i < toDosInTodayInThisCategory.length; i++)
                   TLToDoCard(
                     key: ValueKey(toDosInTodayInThisCategory[i].id),
-                    ifInToday: true,
+                    ifInToday: ifInToday,
                     indexOfThisToDoInToDos: i,
                     bigCategoryOfThisToDo: bigCategoryOfThisToDo,
                     smallCategoryOfThisToDo: smallCategoryOfThisToDo,
