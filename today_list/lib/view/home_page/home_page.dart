@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/home_page/num_todos_card.dart';
 import '../../components/common_ui_part/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
 import '../../components/common_ui_part/today_list_bottom_navbar/today_list_bottom_navbar.dart';
 import '../../components/dialog/common/tl_single_option_dialog.dart';
@@ -94,6 +95,8 @@ class _HomePageState extends ConsumerState<HomePage> {
               const SizedBox(
                 height: 10,
               ),
+
+              NumToDosCard(ifInToday: true, numTodos: 10),
               if (currentTLWorkspace
                   .categoryIDToToDos[currentTLWorkspace.bigCategories[0].id]!
                   .toDosInToday
