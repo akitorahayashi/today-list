@@ -10,12 +10,14 @@ import '../../../model/todo/tl_category.dart';
 
 import 'package:reorderables/reorderables.dart';
 
-class ToDosInThisCategoryInToday extends ConsumerWidget {
+class ToDosInThisCategoryInCurrentWorkspace extends ConsumerWidget {
+  final bool ifInToday;
   final TLCategory bigCategoryOfThisToDo;
   final TLCategory? smallCategoryOfThisToDo;
 
-  const ToDosInThisCategoryInToday({
+  const ToDosInThisCategoryInCurrentWorkspace({
     super.key,
+    required this.ifInToday,
     required this.bigCategoryOfThisToDo,
     required this.smallCategoryOfThisToDo,
   });
@@ -30,8 +32,7 @@ class ToDosInThisCategoryInToday extends ConsumerWidget {
     final coorCategoryIDToToDos =
         Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
     List<TLToDo> toDosInTodayInThisCategory = coorCategoryIDToToDos[
-            smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
-        .toDosInToday;
+        smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]![ifInToday];
     return Column(
       children: [
         Padding(
