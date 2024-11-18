@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/todo_card/icon_for_checkbox.dart';
-import 'package:today_list/components/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
+import 'package:today_list/component/todo_card/icon_for_checkbox.dart';
+import 'package:today_list/component/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import '../../model/design/tl_theme.dart';
@@ -10,7 +10,7 @@ import '../../model/todo/tl_category.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/tl_workspace.dart';
 import 'tl_step_card.dart';
-import '../slidables/slidable_for_todo_card.dart';
+import '../slidable/slidable_for_todo_card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:reorderables/reorderables.dart';

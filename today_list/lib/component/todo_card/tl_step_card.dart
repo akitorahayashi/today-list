@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../components/todo_card/icon_for_checkbox.dart';
-import '../../components/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
+import 'icon_for_checkbox.dart';
+import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../model/tl_workspace.dart';
 import '../../model/provider/current_tl_workspace_provider.dart';
 import '../../model/provider/tl_workspaces_provider.dart';

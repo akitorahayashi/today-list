@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/home_page/num_todos_card.dart';
 import 'package:today_list/view/home_page/todos_block.dart';
-import '../../components/common_ui_part/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
-import '../../components/common_ui_part/today_list_bottom_navbar/today_list_bottom_navbar.dart';
-import '../../components/dialog/common/tl_single_option_dialog.dart';
-import '../../components/dialog/common/tl_yes_no_dialog.dart';
-import '../../components/common_ui_part/tl_sliver_appbar.dart';
+import '../../component/common_ui_part/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
+import '../../component/common_ui_part/today_list_bottom_navbar/today_list_bottom_navbar.dart';
+import '../../component/dialog/common/tl_single_option_dialog.dart';
+import '../../component/dialog/common/tl_yes_no_dialog.dart';
+import '../../component/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/design/tl_theme.dart';
 import '../../model/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
@@ -135,6 +135,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     await currentTLWorkspaceNotifier
                         .deleteCheckedToDosInTodayInCurrentWorkspace();
                     if (context.mounted) {
+                      todo
                       showDialog(
                         context: context,
                         builder: (context) => const TLSingleOptionDialog(

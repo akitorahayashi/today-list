@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_todos.dart';
-import 'package:today_list/styles/styles.dart';
+import 'package:today_list/style/styles.dart';
 
 class DeleteCategoryDialog extends ConsumerWidget {
   final int indexOfBigCategory;
@@ -143,6 +143,7 @@ class DeleteCategoryDialog extends ConsumerWidget {
                       Navigator.pop(context);
                       TLVibration.vibrate();
                       // 知らせるアラート
+                      todo
                       showDialog(
                           context: context,
                           builder: (context) {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../components/dialog/common/tl_single_option_dialog.dart';
+import '../common/tl_single_option_dialog.dart';
 import '../../../model/provider/editing_provider/editing_category_provider.dart';
 import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../model/external/tl_vibration.dart';
 import '../../../model/provider/tl_workspaces_provider.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/design/tl_theme.dart';
-import '../../../styles/styles.dart';
+import '../../../style/styles.dart';
 
 class RenameCategoryDialog extends ConsumerStatefulWidget {
   final int indexOfBigCategory;
@@ -178,6 +178,7 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                           // to category list
                           if (context.mounted) {
                             Navigator.pop(context);
+                            todo
                             showDialog(
                                 context: context,
                                 builder: (context) {

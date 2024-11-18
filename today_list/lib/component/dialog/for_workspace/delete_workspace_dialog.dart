@@ -6,7 +6,7 @@ import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/tl_workspace.dart';
 import '../../../model/external/tl_vibration.dart';
-import '../../../styles/styles.dart';
+import '../../../style/styles.dart';
 
 class DeleteWorkspaceDialog extends ConsumerWidget {
   final int corrWorkspaceIndex;
@@ -79,6 +79,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                         Navigator.pop(context);
                         showDialog(
                             context: context,
+                            todo
                             builder: (context) => const TLSingleOptionDialog(
                                   title: "エラー",
                                   message: '"デフォルト"のWorkspaceは\n削除できません',
@@ -101,6 +102,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                         // このアラートを消してsimpleアラートを表示する
                         Navigator.pop(context);
                         TLVibration.vibrate();
+                        todo
                         showDialog(
                             context: context,
                             builder: (context) => const TLSingleOptionDialog(

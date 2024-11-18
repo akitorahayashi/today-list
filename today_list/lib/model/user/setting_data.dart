@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../components/dialog/common/tl_yes_no_dialog.dart';
-import '../../components/dialog/common/tl_single_option_dialog.dart';
+import '../../component/dialog/common/tl_yes_no_dialog.dart';
+import '../../component/dialog/common/tl_single_option_dialog.dart';
 import '../external/tl_vibration.dart';
 import '../external/tl_pref.dart';
 import 'dart:convert';
@@ -87,6 +87,7 @@ class SettingData {
                 shared.defaultIconRarity = iconRarity;
                 shared.defaultIconName = iconName;
                 TLVibration.vibrate();
+                todo
                 showDialog(
                     context: context,
                     builder: (context) => const TLSingleOptionDialog(
