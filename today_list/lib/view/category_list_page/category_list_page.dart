@@ -87,15 +87,10 @@ class CategoryListPage extends ConsumerWidget {
         ),
         // カテゴリー追加ボタンとカード
         Positioned(
-          right: 50,
-          bottom: 70,
-          child: AddCategoryButton(
-              onTap: () => showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const AddCategoryDialog();
-                  })),
-        ),
+            right: 50,
+            bottom: 70,
+            child: AddCategoryButton(
+                onTap: () => AddCategoryDialog.show(context: context))),
       ]),
     );
   }

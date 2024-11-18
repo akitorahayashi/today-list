@@ -14,6 +14,16 @@ class AddCategoryDialog extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<AddCategoryDialog> createState() => _AddCategoryDialogState();
+
+  static Future<void> show({
+    required BuildContext context,
+  }) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return const AddCategoryDialog();
+        });
+  }
 }
 
 class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {

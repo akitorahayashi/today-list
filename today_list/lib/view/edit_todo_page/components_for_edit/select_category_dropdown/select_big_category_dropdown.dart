@@ -67,11 +67,7 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
             if (selectedBigCategory == null) return;
             editingToDoNotifier.updateEdittingTodo(smallCategoryID: null);
             if (selectedBigCategory.id == "---createBigCategory") {
-              await showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const AddCategoryDialog();
-                  });
+              await AddCategoryDialog.show(context: context);
             } else {
               editingToDoNotifier.updateEdittingTodo(
                   bigCatgoeyID: selectedBigCategory.id);
