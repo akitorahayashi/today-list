@@ -46,15 +46,17 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                   if (isCurrentWorkspace) {
                     Navigator.pop(context);
                   } else {
-                    currentTLWorkspaceNotifier.changeCurrentWorkspaceIndex(
-                        newCurrentWorkspaceIndex: indexInWorkspaces);
+                    await currentTLWorkspaceNotifier
+                        .changeCurrentWorkspaceIndex(
+                            newCurrentWorkspaceIndex: indexInWorkspaces);
                     TLVibration.vibrate();
-                    Navigator.pop(context);
-                    showDialog(
-                        context: context,
-                        builder: (context) => TLSingleOptionDialog(
-                            title: currentTLWorkspace.name,
-                            message: "に変更しました！"));
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                      TLSingleOptionDialog(
+                              title: tlWorkspaces[indexInWorkspaces].name,
+                              message: "に変更しました！")
+                          .show(context: context);
+                    }
                   }
                 },
                 child: SlidableForWorkspaceCard(
