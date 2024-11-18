@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../model/design/tl_theme.dart';
-import '../../../styles/styles.dart';
+import '../../../style/styles.dart';
 
 class TLYesNoDialog extends StatelessWidget {
   final String title;
@@ -13,6 +13,20 @@ class TLYesNoDialog extends StatelessWidget {
     required this.message,
     required this.yesAction,
   });
+
+  static Future<void> show({
+    required BuildContext context,
+    required String title,
+    required String? message,
+    required VoidCallback yesAction,
+  }) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return TLYesNoDialog(
+              title: title, message: message, yesAction: yesAction);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {

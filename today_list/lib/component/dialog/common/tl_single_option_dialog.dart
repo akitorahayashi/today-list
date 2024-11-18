@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import '../../../model/design/tl_theme.dart';
-import '../../../styles/styles.dart';
+import '../../../style/styles.dart';
 
 class TLSingleOptionDialog extends StatelessWidget {
   final String title;
   final String? message;
+
+  static Future<void> show({
+    required BuildContext context,
+    required String title,
+    String? message,
+  }) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return TLSingleOptionDialog(title: title, message: message);
+        });
+  }
 
   const TLSingleOptionDialog({
     super.key,
