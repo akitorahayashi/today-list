@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../../../component/dialog/common/tl_yes_no_dialog.dart';
-import '../../../../../main.dart';
 import '../../../../../model/external/tl_ads.dart';
 import '../../../../../model/design/icon_for_checkbox.dart';
 import '../../../../../model/design/tl_theme.dart';
 import '../../../../../model/user/setting_data.dart';
+import '../../../../../main.dart';
 
 class IconCard extends StatefulWidget {
   final bool isEarned;
@@ -30,7 +30,7 @@ class _IconCardState extends State<IconCard> {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     final bool isCurrentIcon =
         widget.iconCategoryName == SettingData.shared.defaultIconCategory &&
             widget.selectedIconRarity == SettingData.shared.defaultIconRarity &&
@@ -75,7 +75,7 @@ class _IconCardState extends State<IconCard> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: isCurrentIcon ? 0 : 3,
-          color: _tlThemeData.panelColor,
+          color: tlThemeData.panelColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Column(
@@ -97,7 +97,7 @@ class _IconCardState extends State<IconCard> {
                     color: !widget.isEarned
                         ? Colors.black26
                         : isCurrentIcon
-                            ? _tlThemeData.checkmarkColor
+                            ? tlThemeData.checkmarkColor
                             : Colors.black45,
                     size: isFontawesomeCategories ? 17 : 20,
                   ),
@@ -110,7 +110,7 @@ class _IconCardState extends State<IconCard> {
                       color: !widget.isEarned
                           ? Colors.black26
                           : isCurrentIcon
-                              ? _tlThemeData.checkmarkColor
+                              ? tlThemeData.checkmarkColor
                               : Colors.black45),
                 )
               ],

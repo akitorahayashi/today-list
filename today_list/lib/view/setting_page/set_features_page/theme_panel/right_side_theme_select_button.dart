@@ -25,7 +25,7 @@ class _RightSideThemeSelectButtonState
     extends State<RightSideThemeSelectButton> {
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _corrThemeData = tlThemeDataList[widget.corrIndex];
+    final TLThemeData corrThemeData = tlThemeDataList[widget.corrIndex];
     final double deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () async {
@@ -34,7 +34,7 @@ class _RightSideThemeSelectButtonState
               context: context,
               builder: ((context) => ChangeThemeDialog(
                     corrIndex: widget.corrIndex,
-                    corrThemeData: _corrThemeData,
+                    corrThemeData: corrThemeData,
                   )));
         } else {
           await showDialog(
@@ -66,7 +66,7 @@ class _RightSideThemeSelectButtonState
           width: deviceWidth / 2 - 50,
           height: 150,
           decoration: BoxDecoration(
-              gradient: _corrThemeData.gradientOfNavBar,
+              gradient: corrThemeData.gradientOfNavBar,
               borderRadius: BorderRadius.circular(10)),
           // ガラス
           child: GlassContainer(
@@ -76,7 +76,7 @@ class _RightSideThemeSelectButtonState
               // todoのカードを表示
               child: Card(
                 elevation: 5,
-                color: _corrThemeData.panelColor,
+                color: corrThemeData.panelColor,
                 child: SizedBox(
                   width: deviceWidth / 2 - 70,
                   child: Padding(
@@ -88,14 +88,14 @@ class _RightSideThemeSelectButtonState
                           padding: const EdgeInsets.only(right: 8.0),
                           child: FaIcon(
                             FontAwesomeIcons.square,
-                            color: _corrThemeData.checkmarkColor,
+                            color: corrThemeData.checkmarkColor,
                           ),
                         ),
                         Text(
-                          _corrThemeData.themeTitleInSettings,
+                          corrThemeData.themeTitleInSettings,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: _corrThemeData.checkmarkColor,
+                              color: corrThemeData.checkmarkColor,
                               fontSize: 12,
                               letterSpacing: 2,
                               fontWeight: FontWeight.w800),
