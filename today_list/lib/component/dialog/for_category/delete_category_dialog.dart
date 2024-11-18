@@ -143,13 +143,8 @@ class DeleteCategoryDialog extends ConsumerWidget {
                       Navigator.pop(context);
                       TLVibration.vibrate();
                       // 知らせるアラート
-                      todo
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const TLSingleOptionDialog(
-                                title: "削除することに\n成功しました!", message: null);
-                          });
+                      TLSingleOptionDialog.show(
+                          context: context, title: "削除することに\n成功しました!");
                     },
                     child: const Text("はい")),
               ],

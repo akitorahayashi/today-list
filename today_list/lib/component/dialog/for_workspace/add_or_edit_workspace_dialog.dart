@@ -143,14 +143,8 @@ class _AddOrEditWorkspaceDialogState
                         tlWorkspacesNotifier.updateTLWorkspaceList(
                             updatedTLWorkspaceList:
                                 List<TLWorkspace>.from(tlWorkspaces));
-                                todo
-                        showDialog(
-                          context: context,
-                          builder: (context) => const TLSingleOptionDialog(
-                            title: "変更することに\n成功しました！",
-                            message: null,
-                          ),
-                        );
+                        TLSingleOptionDialog.show(
+                            context: context, title: "変更することに\n成功しました！");
                       }
                       TLVibration.vibrate();
                     }

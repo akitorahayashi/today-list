@@ -77,13 +77,10 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                       // デフォルトワークスペースは消せない
                       if (corrWorkspaceIndex == 0) {
                         Navigator.pop(context);
-                        showDialog(
+                        TLSingleOptionDialog.show(
                             context: context,
-                            todo
-                            builder: (context) => const TLSingleOptionDialog(
-                                  title: "エラー",
-                                  message: '"デフォルト"のWorkspaceは\n削除できません',
-                                ));
+                            title: "エラー",
+                            message: '"デフォルト"のWorkspaceは\n削除できません');
                       } else {
                         // TLWorkspacesから削除
                         tlWorkspacesNotifier.removeWorkspace(
@@ -102,13 +99,8 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                         // このアラートを消してsimpleアラートを表示する
                         Navigator.pop(context);
                         TLVibration.vibrate();
-                        todo
-                        showDialog(
-                            context: context,
-                            builder: (context) => const TLSingleOptionDialog(
-                                  title: "削除することに\n成功しました！",
-                                  message: null,
-                                ));
+                        TLSingleOptionDialog.show(
+                            context: context, title: "削除することに\n成功しました！");
                       }
                     },
                     child: const Text("削除"))

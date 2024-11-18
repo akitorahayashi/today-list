@@ -94,16 +94,8 @@ class ChangeThemeDialog extends ConsumerWidget {
                           selectedThemeIndex: corrIndex);
                       TLVibration.vibrate();
                       // 完了を知らせるアラートを表示
-                      todo
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const TLSingleOptionDialog(
-                            title: "変更が完了しました",
-                            message: null,
-                          );
-                        },
-                      );
+                      TLSingleOptionDialog.show(
+                          context: context, title: "変更が完了しました");
                     },
                     // InkWell
                     child: const Text("変更")),

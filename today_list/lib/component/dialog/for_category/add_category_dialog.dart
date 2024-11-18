@@ -163,13 +163,8 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                           // to category list
                           if (context.mounted) {
                             Navigator.pop(context);
-                            todo
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const TLSingleOptionDialog(
-                                      title: "カテゴリーが\n追加されました！", message: null);
-                                });
+                            TLSingleOptionDialog.show(
+                                context: context, title: "カテゴリーが\n追加されました！");
                           }
                         },
                   child: const Text("追加"))

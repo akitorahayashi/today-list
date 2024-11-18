@@ -135,14 +135,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                     await currentTLWorkspaceNotifier
                         .deleteCheckedToDosInTodayInCurrentWorkspace();
                     if (context.mounted) {
-                      todo
-                      showDialog(
-                        context: context,
-                        builder: (context) => const TLSingleOptionDialog(
-                          title: "削除が完了しました！",
-                          message: null,
-                        ),
-                      );
+                      TLSingleOptionDialog.show(
+                          context: context, title: "削除が完了しました！");
                     }
                     TLVibration.vibrate();
                   },
