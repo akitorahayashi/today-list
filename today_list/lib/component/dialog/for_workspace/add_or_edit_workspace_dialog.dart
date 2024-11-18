@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/component/dialog/tl_base_dialog.dart';
 import '../common/tl_single_option_dialog.dart';
-import '../../../styles/styles.dart';
+import '../../../style/styles.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/tl_workspace.dart';
@@ -9,7 +10,7 @@ import '../../../model/provider/tl_workspaces_provider.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/external/tl_vibration.dart';
 
-class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget {
+class AddOrEditWorkspaceDialog extends TLBaseConsumerStatefulDialog {
   final int? oldIndexInWorkspaces;
   const AddOrEditWorkspaceDialog(
       {super.key, required this.oldIndexInWorkspaces});
@@ -143,13 +144,8 @@ class _AddOrEditWorkspaceDialogState
                         tlWorkspacesNotifier.updateTLWorkspaceList(
                             updatedTLWorkspaceList:
                                 List<TLWorkspace>.from(tlWorkspaces));
-                        showDialog(
-                          context: context,
-                          builder: (context) => const TLSingleOptionDialog(
-                            title: "変更することに\n成功しました！",
-                            message: null,
-                          ),
-                        );
+                        const TLSingleOptionDialog(title: "変更することに\n成功しました！")
+                            .show(context: context);
                       }
                       TLVibration.vibrate();
                     }

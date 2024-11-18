@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/styles/styles.dart';
-import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/style/styles.dart';
+import 'package:today_list/component/dialog/common/tl_single_option_dialog.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/external/tl_connectivity.dart';
 import '../../../../model/external/tl_widgetkit.dart';
@@ -94,15 +94,8 @@ class ChangeThemeDialog extends ConsumerWidget {
                           selectedThemeIndex: corrIndex);
                       TLVibration.vibrate();
                       // 完了を知らせるアラートを表示
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const TLSingleOptionDialog(
-                            title: "変更が完了しました",
-                            message: null,
-                          );
-                        },
-                      );
+                      const TLSingleOptionDialog(title: "変更が完了しました")
+                          .show(context: context);
                     },
                     // InkWell
                     child: const Text("変更")),

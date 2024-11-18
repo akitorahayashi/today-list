@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../components/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/component/dialog/tl_base_dialog.dart';
+import '../common/tl_single_option_dialog.dart';
 import '../../../model/provider/editing_provider/editing_category_provider.dart';
 import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../model/external/tl_vibration.dart';
 import '../../../model/provider/tl_workspaces_provider.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/design/tl_theme.dart';
-import '../../../styles/styles.dart';
+import '../../../style/styles.dart';
 
-class RenameCategoryDialog extends ConsumerStatefulWidget {
+class RenameCategoryDialog extends TLBaseConsumerStatefulDialog {
   final int indexOfBigCategory;
   final int? indexOfSmallCategory;
   const RenameCategoryDialog({
@@ -178,12 +179,9 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                           // to category list
                           if (context.mounted) {
                             Navigator.pop(context);
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const TLSingleOptionDialog(
-                                      title: "カテゴリーが\n追加されました！", message: null);
-                                });
+                            const TLSingleOptionDialog(
+                                    title: "カテゴリーが\n変更されました！")
+                                .show(context: context);
                           }
                         },
                   child: const Text("追加"))

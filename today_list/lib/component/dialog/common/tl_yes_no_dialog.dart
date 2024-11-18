@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../../component/dialog/tl_base_dialog.dart';
 import '../../../model/design/tl_theme.dart';
-import '../../../styles/styles.dart';
+import '../../../style/styles.dart';
 
-class TLYesNoDialog extends StatelessWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class TLYesNoDialog extends TLBaseConsumerDialog {
   final String title;
   final String? message;
   final Function()? yesAction;
@@ -10,15 +13,15 @@ class TLYesNoDialog extends StatelessWidget {
   const TLYesNoDialog({
     super.key,
     required this.title,
-    required this.message,
+    this.message,
     required this.yesAction,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return Dialog(
-      backgroundColor: _tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertColor,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
         child: Column(
@@ -30,7 +33,7 @@ class TLYesNoDialog extends StatelessWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                    color: _tlThemeData.accentColor,
+                    color: tlThemeData.accentColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
@@ -58,12 +61,11 @@ class TLYesNoDialog extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     style:
-                        alertButtonStyle(accentColor: _tlThemeData.accentColor),
+                        alertButtonStyle(accentColor: tlThemeData.accentColor),
                     child: const Text("いいえ")),
                 TextButton(
                   onPressed: yesAction,
-                  style:
-                      alertButtonStyle(accentColor: _tlThemeData.accentColor),
+                  style: alertButtonStyle(accentColor: tlThemeData.accentColor),
                   child: const Text("はい"),
                 ),
               ],

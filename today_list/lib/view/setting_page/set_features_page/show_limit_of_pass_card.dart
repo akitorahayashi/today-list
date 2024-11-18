@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../components/dialog/common/tl_yes_no_dialog.dart';
-import '../../../components/dialog/common/tl_single_option_dialog.dart';
+import '../../../component/dialog/common/tl_yes_no_dialog.dart';
+import '../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../model/external/tl_ads.dart';
 import '../../../model/design/tl_theme.dart';
 

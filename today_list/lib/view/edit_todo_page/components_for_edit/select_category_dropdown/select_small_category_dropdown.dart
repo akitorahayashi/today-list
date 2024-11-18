@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/dialog/for_category/add_category_dialog.dart';
+import 'package:today_list/component/dialog/for_category/add_category_dialog.dart';
 import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/provider/editing_provider/editing_todo_provider.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
@@ -67,12 +67,7 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
           if (selectedSmallCategory == null) return;
 
           if (selectedSmallCategory.id == "---createSmallCategory") {
-            await showDialog<String>(
-              context: context,
-              builder: (context) {
-                return const AddCategoryDialog();
-              },
-            );
+            await const AddCategoryDialog().show(context: context);
           } else {
             editingToDoNotifier.updateEdittingTodo(
               smallCategoryID: selectedSmallCategory.id == noneID

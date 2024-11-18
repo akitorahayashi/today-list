@@ -2,11 +2,6 @@
 
 // import 'package:url_launcher/url_launcher.dart';
 
-// const String termsOfUseUrl =
-//     "https://akinoki.blogspot.com/2022/03/terms-of-service.html";
-// const String privacyPolicyUrl =
-//     "https://akinoki.blogspot.com/2022/03/privacy-policy.html";
-
 // void launchMyUrl(
 //     {required BuildContext context,
 //     required String url,

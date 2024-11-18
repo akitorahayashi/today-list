@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/component/dialog/tl_base_dialog.dart';
 import 'package:today_list/model/provider/tl_workspaces_provider.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/tl_workspace.dart';
 import '../../../model/external/tl_vibration.dart';
-import '../../../styles/styles.dart';
+import '../../../style/styles.dart';
 
-class DeleteWorkspaceDialog extends ConsumerWidget {
+class DeleteWorkspaceDialog extends TLBaseConsumerDialog {
   final int corrWorkspaceIndex;
   final TLWorkspace willDeletedWorkspace;
   const DeleteWorkspaceDialog(
@@ -77,12 +78,10 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                       // デフォルトワークスペースは消せない
                       if (corrWorkspaceIndex == 0) {
                         Navigator.pop(context);
-                        showDialog(
-                            context: context,
-                            builder: (context) => const TLSingleOptionDialog(
-                                  title: "エラー",
-                                  message: '"デフォルト"のWorkspaceは\n削除できません',
-                                ));
+                        const TLSingleOptionDialog(
+                                title: "エラー",
+                                message: '"デフォルト"のWorkspaceは\n削除できません')
+                            .show(context: context);
                       } else {
                         // TLWorkspacesから削除
                         tlWorkspacesNotifier.removeWorkspace(
@@ -101,12 +100,8 @@ class DeleteWorkspaceDialog extends ConsumerWidget {
                         // このアラートを消してsimpleアラートを表示する
                         Navigator.pop(context);
                         TLVibration.vibrate();
-                        showDialog(
-                            context: context,
-                            builder: (context) => const TLSingleOptionDialog(
-                                  title: "削除することに\n成功しました！",
-                                  message: null,
-                                ));
+                        const TLSingleOptionDialog(title: "削除することに\n成功しました！")
+                            .show(context: context);
                       }
                     },
                     child: const Text("削除"))

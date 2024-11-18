@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
-import '../../../components/todo_card/icon_for_checkbox.dart';
+import '../../../component/todo_card/icon_for_checkbox.dart';
 import '../../../model/provider/current_tl_workspace_provider.dart';
 import '../../../model/provider/editing_provider/editing_todo_provider.dart';
 import '../../../model/provider/tl_workspaces_provider.dart';

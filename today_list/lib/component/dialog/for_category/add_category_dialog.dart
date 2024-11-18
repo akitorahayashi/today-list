@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/components/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/model/design/tl_theme.dart';
-import 'package:today_list/model/external/tl_vibration.dart';
-import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
-import 'package:today_list/model/provider/tl_workspaces_provider.dart';
-import 'package:today_list/model/todo/tl_category.dart';
-import 'package:today_list/styles/styles.dart';
+import '../../../component/dialog/common/tl_single_option_dialog.dart';
+import '../../../component/dialog/tl_base_dialog.dart';
 import '../../../model/provider/editing_provider/editing_category_provider.dart';
+import '../../../model/design/tl_theme.dart';
+import '../../../model/external/tl_vibration.dart';
+import '../../../model/provider/current_tl_workspace_provider.dart';
+import '../../../model/provider/tl_workspaces_provider.dart';
+import '../../../model/todo/tl_category.dart';
+import '../../../style/styles.dart';
 
-class AddCategoryDialog extends ConsumerStatefulWidget {
+class AddCategoryDialog extends TLBaseConsumerStatefulDialog {
   const AddCategoryDialog({super.key});
 
   @override
@@ -163,12 +164,9 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                           // to category list
                           if (context.mounted) {
                             Navigator.pop(context);
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const TLSingleOptionDialog(
-                                      title: "カテゴリーが\n追加されました！", message: null);
-                                });
+                            const TLSingleOptionDialog(
+                              title: "カテゴリーが\n追加されました！",
+                            ).show(context: context);
                           }
                         },
                   child: const Text("追加"))

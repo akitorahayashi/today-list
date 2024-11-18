@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../components/dialog/common/tl_yes_no_dialog.dart';
-import '../../components/dialog/common/tl_single_option_dialog.dart';
+import '../../component/dialog/common/tl_yes_no_dialog.dart';
+import '../../component/dialog/common/tl_single_option_dialog.dart';
 import '../external/tl_vibration.dart';
 import '../external/tl_pref.dart';
 import 'dart:convert';
@@ -76,26 +76,19 @@ class SettingData {
     // final bool isEarned = settingData.earnedIcons[iconCategoryName] != null &&
     //     settingData.earnedIcons[iconCategoryName]!.contains(iconName);
     // if (isEarned) {
-    await showDialog(
-        context: context,
-        builder: (context) => TLYesNoDialog(
-              title: "アイコンの変更",
-              message: "チェックマークのアイコンを\n変更しますか?",
-              yesAction: () {
-                Navigator.pop(context);
-                shared.defaultIconCategory = iconCategoryName;
-                shared.defaultIconRarity = iconRarity;
-                shared.defaultIconName = iconName;
-                TLVibration.vibrate();
-                showDialog(
-                    context: context,
-                    builder: (context) => const TLSingleOptionDialog(
-                          title: "変更が完了しました!",
-                          message: null,
-                        ));
-                shared.saveSettings();
-              },
-            ));
+    await TLYesNoDialog(
+        title: "アイコンの変更",
+        message: "チェックマークのアイコンを\n変更しますか?",
+        yesAction: () {
+          Navigator.pop(context);
+          shared.defaultIconCategory = iconCategoryName;
+          shared.defaultIconRarity = iconRarity;
+          shared.defaultIconName = iconName;
+          TLVibration.vibrate();
+          const TLSingleOptionDialog(title: "変更が完了しました!")
+              .show(context: context);
+          shared.saveSettings();
+        }).show(context: context);
     // } else {
     // await yesNoAlert(
     //   context: context,
