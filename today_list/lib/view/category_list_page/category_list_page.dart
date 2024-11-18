@@ -90,7 +90,7 @@ class CategoryListPage extends ConsumerWidget {
             right: 50,
             bottom: 70,
             child: AddCategoryButton(
-                onTap: () => AddCategoryDialog.show(context: context))),
+                onTap: () => const AddCategoryDialog().show(context: context))),
       ]),
     );
   }

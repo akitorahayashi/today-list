@@ -76,8 +76,7 @@ class SettingData {
     // final bool isEarned = settingData.earnedIcons[iconCategoryName] != null &&
     //     settingData.earnedIcons[iconCategoryName]!.contains(iconName);
     // if (isEarned) {
-    await TLYesNoDialog.show(
-        context: context,
+    await TLYesNoDialog(
         title: "アイコンの変更",
         message: "チェックマークのアイコンを\n変更しますか?",
         yesAction: () {
@@ -86,9 +85,10 @@ class SettingData {
           shared.defaultIconRarity = iconRarity;
           shared.defaultIconName = iconName;
           TLVibration.vibrate();
-          TLSingleOptionDialog.show(context: context, title: "変更が完了しました!");
+          const TLSingleOptionDialog(title: "変更が完了しました!")
+              .show(context: context);
           shared.saveSettings();
-        });
+        }).show(context: context);
     // } else {
     // await yesNoAlert(
     //   context: context,
