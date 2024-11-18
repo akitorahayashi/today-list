@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/edit_todo_page/components_for_edit/select_category_dropdown/select_small_category_dropdown.dart';
 import '../../view/edit_todo_page/components_for_edit/input_field/step_title_input_field.dart';
 import '../../view/edit_todo_page/components_for_edit/input_field/todo_title_input_field.dart';
 import '../../view/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
@@ -127,7 +128,7 @@ class EditToDoPageState extends ConsumerState<EditToDoPage> {
                           SelectBigCategoryDropDown(),
 
                           // スモールカテゴリーを選択する
-                          SelectBigCategoryDropDown(),
+                          SelectSmallCategoryDropDown(),
 
                           // 今日かいつでもか選択する
                           SelectTodayOrWheneverButton(),
