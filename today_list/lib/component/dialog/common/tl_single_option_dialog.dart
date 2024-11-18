@@ -1,30 +1,22 @@
 import 'package:flutter/material.dart';
+import '../../../component/dialog/tl_base_dialog.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../style/styles.dart';
 
-class TLSingleOptionDialog extends StatelessWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class TLSingleOptionDialog extends TLBaseConsumerDialog {
   final String title;
   final String? message;
-
-  static Future<void> show({
-    required BuildContext context,
-    required String title,
-    String? message,
-  }) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return TLSingleOptionDialog(title: title, message: message);
-        });
-  }
 
   const TLSingleOptionDialog({
     super.key,
     required this.title,
-    required this.message,
+    this.message,
   });
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData corrThemeData = TLTheme.of(context);
     return Dialog(
       backgroundColor: corrThemeData.alertColor,
@@ -65,7 +57,7 @@ class TLSingleOptionDialog extends StatelessWidget {
                   onPressed: () => Navigator.pop(context),
                   style:
                       alertButtonStyle(accentColor: corrThemeData.accentColor),
-                  child: Text("OK"))
+                  child: const Text("OK"))
             ],
           ),
         ),

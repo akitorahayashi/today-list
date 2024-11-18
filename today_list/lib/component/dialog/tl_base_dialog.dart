@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // stateless dialog
-abstract class TLBaseStatelessDialog extends ConsumerWidget {
-  const TLBaseStatelessDialog({super.key});
+abstract class TLBaseConsumerDialog extends ConsumerWidget {
+  const TLBaseConsumerDialog({super.key});
 
   Future<void> show({
     required BuildContext context,
@@ -18,8 +18,8 @@ abstract class TLBaseStatelessDialog extends ConsumerWidget {
 }
 
 // stateful dialog
-abstract class TLBaseStatefulDialog extends ConsumerStatefulWidget {
-  const TLBaseStatefulDialog({super.key});
+abstract class TLBaseConsumerStatefulDialog extends ConsumerStatefulWidget {
+  const TLBaseConsumerStatefulDialog({super.key});
 
   Future<void> show({
     required BuildContext context,

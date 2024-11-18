@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/component/dialog/tl_base_dialog.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../style/styles.dart';
 import '../../../model/design/tl_theme.dart';
@@ -9,7 +10,7 @@ import '../../../model/provider/tl_workspaces_provider.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/external/tl_vibration.dart';
 
-class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget {
+class AddOrEditWorkspaceDialog extends TLBaseConsumerStatefulDialog {
   final int? oldIndexInWorkspaces;
   const AddOrEditWorkspaceDialog(
       {super.key, required this.oldIndexInWorkspaces});
@@ -143,8 +144,8 @@ class _AddOrEditWorkspaceDialogState
                         tlWorkspacesNotifier.updateTLWorkspaceList(
                             updatedTLWorkspaceList:
                                 List<TLWorkspace>.from(tlWorkspaces));
-                        TLSingleOptionDialog.show(
-                            context: context, title: "変更することに\n成功しました！");
+                        const TLSingleOptionDialog(title: "変更することに\n成功しました！")
+                            .show(context: context);
                       }
                       TLVibration.vibrate();
                     }

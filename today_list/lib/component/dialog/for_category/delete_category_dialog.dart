@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/component/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/model/design/tl_theme.dart';
-import 'package:today_list/model/external/tl_vibration.dart';
-import 'package:today_list/model/provider/current_tl_workspace_provider.dart';
-import 'package:today_list/model/provider/tl_workspaces_provider.dart';
-import 'package:today_list/model/todo/tl_category.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
-import 'package:today_list/style/styles.dart';
+import 'package:today_list/component/dialog/tl_base_dialog.dart';
+import '../../../component/dialog/common/tl_single_option_dialog.dart';
+import '../../../model/design/tl_theme.dart';
+import '../../../model/external/tl_vibration.dart';
+import '../../../model/provider/current_tl_workspace_provider.dart';
+import '../../../model/provider/tl_workspaces_provider.dart';
+import '../../../model/todo/tl_category.dart';
+import '../../../model/todo/tl_todos.dart';
+import '../../../style/styles.dart';
 
-class DeleteCategoryDialog extends ConsumerWidget {
+class DeleteCategoryDialog extends TLBaseConsumerDialog {
   final int indexOfBigCategory;
   final int? indexOfSmallCategory;
   const DeleteCategoryDialog({
@@ -143,8 +144,8 @@ class DeleteCategoryDialog extends ConsumerWidget {
                       Navigator.pop(context);
                       TLVibration.vibrate();
                       // 知らせるアラート
-                      TLSingleOptionDialog.show(
-                          context: context, title: "削除することに\n成功しました!");
+                      const TLSingleOptionDialog(title: "削除することに\n成功しました!")
+                          .show(context: context);
                     },
                     child: const Text("はい")),
               ],
