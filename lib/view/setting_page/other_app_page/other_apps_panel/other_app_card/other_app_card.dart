@@ -5,7 +5,7 @@ import './button_of_other_app_card.dart';
 
 class NiceAppCard extends StatelessWidget {
   final bool isCurrentApp;
-  final NiceApp niceAppOfThisCard;
+  final OtherApp niceAppOfThisCard;
   const NiceAppCard({
     super.key,
     required this.isCurrentApp,
@@ -24,7 +24,7 @@ class NiceAppCard extends StatelessWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
                 border: Border.all(
-                    color: _tlThemeData.niceAppsCardColor, width: 10)),
+                    color: _tlThemeData.otherAppsCardColor, width: 10)),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5, 12, 5, 5),
               child: Column(
@@ -40,7 +40,7 @@ class NiceAppCard extends StatelessWidget {
                               fontSize: 21,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 3,
-                              color: _tlThemeData.niceAppsCardColor),
+                              color: _tlThemeData.otherAppsCardColor),
                         )),
                   ),
                   // アイコンとアプリ名
@@ -57,7 +57,7 @@ class NiceAppCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
                                     width: 10,
-                                    color: _tlThemeData.niceAppsCardColor
+                                    color: _tlThemeData.otherAppsCardColor
                                         .withOpacity(0.2))),
                             child: Card(
                                 shape: RoundedRectangleBorder(
@@ -75,7 +75,7 @@ class NiceAppCard extends StatelessWidget {
                             niceAppOfThisCard.appName,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: _tlThemeData.niceAppsCardColor,
+                                color: _tlThemeData.otherAppsCardColor,
                                 fontSize: 30),
                           ),
                         )
@@ -86,12 +86,12 @@ class NiceAppCard extends StatelessWidget {
                   OverflowBar(
                     alignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ButtonInNiceAppCard(
+                      ButtonInOtherAppCard(
                         isCurrentApp: isCurrentApp,
                         isStoreUrl: false,
                         niceAppInThisCard: niceAppOfThisCard,
                       ),
-                      ButtonInNiceAppCard(
+                      ButtonInOtherAppCard(
                         isCurrentApp: isCurrentApp,
                         isStoreUrl: true,
                         niceAppInThisCard: niceAppOfThisCard,

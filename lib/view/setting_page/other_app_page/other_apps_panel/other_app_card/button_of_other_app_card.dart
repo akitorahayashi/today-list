@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../../../../../model/tl_theme.dart';
 import '../other_apps_model.dart';
 
-class ButtonInNiceAppCard extends StatelessWidget {
+class ButtonInOtherAppCard extends StatelessWidget {
   final bool isCurrentApp;
   final bool isStoreUrl;
-  final NiceApp niceAppInThisCard;
-  const ButtonInNiceAppCard({
+  final OtherApp niceAppInThisCard;
+  const ButtonInOtherAppCard({
     super.key,
     required this.isCurrentApp,
     required this.isStoreUrl,

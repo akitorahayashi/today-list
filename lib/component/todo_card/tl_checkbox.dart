@@ -4,7 +4,6 @@ import 'package:today_list/model/icon_data/icon_for_checkbox.dart';
 import 'package:today_list/model/icon_data/selected_icon_data.dart';
 import 'package:today_list/model/icon_data/sid_provider.dart';
 import 'package:today_list/model/tl_theme.dart';
-import 'package:today_list/model/external/tl_ads.dart';
 
 final List<String> fontawesomeCategories = ["Default"];
 
@@ -36,8 +35,6 @@ class TLCheckBox extends ConsumerWidget {
         return iconsForCheckBox[tlIconData.category]![tlIconData.rarity]![
             tlIconData.name]!;
       } else {
-        print("No icon found");
-        print([tlIconData.category, tlIconData.rarity, tlIconData.name]);
         return iconsForCheckBox["Default"]!["Common"]!["box"]!;
       }
     }());
