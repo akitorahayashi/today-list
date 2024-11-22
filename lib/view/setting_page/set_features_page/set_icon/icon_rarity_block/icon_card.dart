@@ -36,6 +36,8 @@ class _IconCardState extends ConsumerState<IconCard> {
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     final TLIconData tlIconData = ref.watch(tlIconDataProvider);
+    final TLIconDataNotifier tlIconDataNotifier =
+        ref.read(tlIconDataProvider.notifier);
     final bool isCurrentIcon = widget.iconCategoryName == tlIconData.category &&
         widget.selectedIconRarity == tlIconData.rarity &&
         widget.iconName == tlIconData.name;
@@ -45,19 +47,19 @@ class _IconCardState extends ConsumerState<IconCard> {
         onTap: () async {
           if (TLAds.isPassActive || kDebugMode) {
             if (!isCurrentIcon) {
-              TLYesNoDialog(
+              await TLYesNoDialog(
                   title: "アイコンの変更",
                   message: "チェックマークのアイコンを\n変更しますか?",
-                  yesAction: () {
+                  yesAction: () async {
                     Navigator.pop(context);
-                    // TODO アイコンを変更する処理
-                    // ref.read(tlIconDataProvider.notifier).changeIcon(
-                    //     category: widget.iconCategoryName,
-                    //     rarity: widget.selectedIconRarity,
-                    //     name: widget.iconName);
                     TLVibration.vibrate();
+                    tlIconDataNotifier.setSelectedIconData(tlIconData.copyWith(
+                        category: widget.iconCategoryName,
+                        rarity: widget.selectedIconRarity,
+                        name: widget.iconName));
                     const TLSingleOptionDialog(title: "変更が完了しました!")
                         .show(context: context);
+                    TLVibration.vibrate();
                   }).show(context: context);
               // SettingData.shared.askToSetDefaultIcon(
               //     context: context,

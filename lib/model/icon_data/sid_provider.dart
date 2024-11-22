@@ -18,9 +18,8 @@ class TLIconDataNotifier extends StateNotifier<TLIconData> {
     _loadSelectedIconData();
   }
 
-  Future<void> setSelectedIconData(
-      String category, String rarity, String name) async {
-    state = state.copyWith(category: category, rarity: rarity, name: name);
+  Future<void> setSelectedIconData(TLIconData tlIconData) async {
+    state = tlIconData;
     await _saveSelectedIconData();
   }
 

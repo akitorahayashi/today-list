@@ -94,32 +94,32 @@ Map<String, Map<String, Map<String, IconForCheckBox>>> iconsForCheckBox = {
           notCheckedIcon: Icons.music_note_outlined),
     }
   },
-  "Unit 3": {
-    "Super Rare": {
-      "mosque": IconForCheckBox(
-          checkedIcon: Icons.mosque, notCheckedIcon: Icons.handyman),
-      "city": IconForCheckBox(
-          checkedIcon: Icons.location_city, notCheckedIcon: Icons.handyman),
-    },
-    "Rare": {
-      "temple": IconForCheckBox(
-          checkedIcon: Icons.temple_buddhist, notCheckedIcon: Icons.handyman),
-      "tower": IconForCheckBox(
-          checkedIcon: Icons.temple_hindu, notCheckedIcon: Icons.handyman),
-      "church": IconForCheckBox(
-          checkedIcon: Icons.synagogue, notCheckedIcon: Icons.handyman),
-    },
-    "Common": {
-      "castle": IconForCheckBox(
-          checkedIcon: Icons.castle, notCheckedIcon: Icons.handyman),
-      "fort": IconForCheckBox(
-          checkedIcon: Icons.fort, notCheckedIcon: Icons.handyman),
-      "festival": IconForCheckBox(
-          checkedIcon: Icons.festival, notCheckedIcon: Icons.handyman),
-      "factory": IconForCheckBox(
-          checkedIcon: Icons.factory, notCheckedIcon: Icons.handyman),
-      "store": IconForCheckBox(
-          checkedIcon: Icons.apartment, notCheckedIcon: Icons.handyman),
-    }
-  },
+  // "Unit 3": {
+  //   "Super Rare": {
+  //     "mosque": IconForCheckBox(
+  //         checkedIcon: Icons.mosque, notCheckedIcon: Icons.handyman),
+  //     "city": IconForCheckBox(
+  //         checkedIcon: Icons.location_city, notCheckedIcon: Icons.handyman),
+  //   },
+  //   "Rare": {
+  //     "temple": IconForCheckBox(
+  //         checkedIcon: Icons.temple_buddhist, notCheckedIcon: Icons.handyman),
+  //     "tower": IconForCheckBox(
+  //         checkedIcon: Icons.temple_hindu, notCheckedIcon: Icons.handyman),
+  //     "church": IconForCheckBox(
+  //         checkedIcon: Icons.synagogue, notCheckedIcon: Icons.handyman),
+  //   },
+  //   "Common": {
+  //     "castle": IconForCheckBox(
+  //         checkedIcon: Icons.castle, notCheckedIcon: Icons.handyman),
+  //     "fort": IconForCheckBox(
+  //         checkedIcon: Icons.fort, notCheckedIcon: Icons.handyman),
+  //     "festival": IconForCheckBox(
+  //         checkedIcon: Icons.festival, notCheckedIcon: Icons.handyman),
+  //     "factory": IconForCheckBox(
+  //         checkedIcon: Icons.factory, notCheckedIcon: Icons.handyman),
+  //     "store": IconForCheckBox(
+  //         checkedIcon: Icons.apartment, notCheckedIcon: Icons.handyman),
+  //   }
+  // },
 };
