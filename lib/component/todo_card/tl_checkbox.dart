@@ -32,11 +32,12 @@ class TLCheckBox extends ConsumerWidget {
           iconsForCheckBox[tlIconData.category]![tlIconData.rarity] != null &&
           iconsForCheckBox[tlIconData.category]![tlIconData.rarity]![
                   tlIconData.name] !=
-              null &&
-          TLAds.isPassActive) {
+              null) {
         return iconsForCheckBox[tlIconData.category]![tlIconData.rarity]![
             tlIconData.name]!;
       } else {
+        print("No icon found");
+        print([tlIconData.category, tlIconData.rarity, tlIconData.name]);
         return iconsForCheckBox["Default"]!["Common"]!["box"]!;
       }
     }());
