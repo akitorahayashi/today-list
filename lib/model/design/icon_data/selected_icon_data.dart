@@ -1,7 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../external/tl_pref.dart';
-import 'dart:convert';
-
 class TLIconData {
   final String category;
   final String rarity;
