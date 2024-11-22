@@ -121,7 +121,7 @@ class SlidableForToDoCard extends ConsumerWidget {
                   newCheckedState: corrTLToDo.isChecked,
                   quickChangeToToday: !ifInToday);
               tlWorkspacesNotifier.updateCurrentWorkspace(
-                  updatedWorkspace: currentTLWorkspace);
+                  updatedWorkspace: currentTLWorkspace.copyWith());
             },
             icon: ifInToday ? Icons.schedule : Icons.light_mode,
             label: ifInToday ? "whenever" : "today",

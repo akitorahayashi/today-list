@@ -67,13 +67,9 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                       backgroundColor: tlThemeData.panelColor,
                       foregroundColor: tlThemeData.accentColor,
                       onPressed: (BuildContext context) async {
-                        await showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (context) {
-                              return AddOrEditWorkspaceDialog(
-                                  oldIndexInWorkspaces: indexInTLWorkspaces);
-                            });
+                        AddOrEditWorkspaceDialog(
+                                oldIndexInWorkspaces: indexInTLWorkspaces)
+                            .show(context: context);
                       },
                       icon: Icons.edit,
                       label: "Edit",

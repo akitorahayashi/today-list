@@ -12,8 +12,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 bool kAdTestMode = true;
 bool kDebugMode = true;
 
-enum LanguageType { ja, en }
-
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
