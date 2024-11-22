@@ -51,6 +51,10 @@ class _IconCardState extends ConsumerState<IconCard> {
                   yesAction: () {
                     Navigator.pop(context);
                     // TODO アイコンを変更する処理
+                    // ref.read(tlIconDataProvider.notifier).changeIcon(
+                    //     category: widget.iconCategoryName,
+                    //     rarity: widget.selectedIconRarity,
+                    //     name: widget.iconName);
                     TLVibration.vibrate();
                     const TLSingleOptionDialog(title: "変更が完了しました!")
                         .show(context: context);

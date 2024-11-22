@@ -16,6 +16,8 @@ class IconForCheckBox {
 // カテゴリー, レア度, 名前
 Map<String, Map<String, Map<String, IconForCheckBox>>> iconsForCheckBox = {
   "Default": {
+    "Super Rare": {},
+    "Rare": {},
     "Common": {
       "box": IconForCheckBox(
           checkedIcon: FontAwesomeIcons.solidSquareCheck,

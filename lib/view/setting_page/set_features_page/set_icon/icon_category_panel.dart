@@ -9,7 +9,7 @@ class IconCategoryPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Column(
@@ -22,7 +22,7 @@ class IconCategoryPanel extends StatelessWidget {
               style: TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w800,
-                  color: _tlThemeData.checkmarkColor),
+                  color: tlThemeData.checkmarkColor),
             ),
           ),
           // Super Rare, Rare
