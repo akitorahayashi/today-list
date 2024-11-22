@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/dialog/for_category/delete_category_dialog.dart';
 import 'package:today_list/component/dialog/for_category/rename_category_dialog.dart';
 import 'package:today_list/component/dialog/tl_base_dialog.dart';
-import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/tl_theme.dart';
 import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/dialog/tl_base_dialog.dart';
 import '../../../component/dialog/common/tl_single_option_dialog.dart';
-import '../../../model/design/tl_theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../model/external/tl_vibration.dart';
 import '../../../model/workspace/provider/current_tl_workspace_provider.dart';
 import '../../../model/workspace/provider/tl_workspaces_provider.dart';

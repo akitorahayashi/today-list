@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/style/styles.dart';
 import 'package:today_list/component/dialog/common/tl_single_option_dialog.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/tl_theme.dart';
 import '../../../../model/external/tl_connectivity.dart';
 import '../../../../model/external/tl_widgetkit.dart';
 import '../../../../model/external/tl_vibration.dart';

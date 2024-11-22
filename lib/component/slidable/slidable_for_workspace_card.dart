@@ -4,7 +4,7 @@ import '../dialog/for_workspace/add_or_edit_workspace_dialog.dart';
 import '../dialog/for_workspace/delete_workspace_dialog.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/workspace/provider/tl_workspaces_provider.dart';
-import '../../model/design/tl_theme.dart';
+import '../../model/tl_theme.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 

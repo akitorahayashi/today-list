@@ -6,7 +6,7 @@ import '../../model/workspace/provider/current_tl_workspace_provider.dart';
 import '../../component/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/todo/tl_category.dart';
-import '../../model/design/tl_theme.dart';
+import '../../model/tl_theme.dart';
 import 'big_and_small_category_card/big_and_small_category_card.dart';
 import 'add_category_button.dart';
 

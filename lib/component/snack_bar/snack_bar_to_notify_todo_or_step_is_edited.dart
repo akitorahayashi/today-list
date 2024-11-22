@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/component/todo_card/tl_checkbox.dart';
-import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/tl_theme.dart';
 
 class NotifyTodoOrStepIsEditedSnackBar {
   static void show({

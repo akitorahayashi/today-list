@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../model/design/tl_theme.dart';
+import '../../../../../model/tl_theme.dart';
 import '../other_apps_model.dart';
 import './button_of_other_app_card.dart';
 

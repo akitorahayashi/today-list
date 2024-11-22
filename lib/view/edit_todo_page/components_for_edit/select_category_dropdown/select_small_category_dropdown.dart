@@ -5,7 +5,7 @@ import 'package:today_list/model/workspace/provider/current_tl_workspace_provide
 import 'package:today_list/model/editing_provider/editing_todo_provider.dart';
 import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
 import '../../../../model/todo/tl_category.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/tl_theme.dart';
 
 class SelectSmallCategoryDropDown extends ConsumerWidget {
   const SelectSmallCategoryDropDown({super.key});

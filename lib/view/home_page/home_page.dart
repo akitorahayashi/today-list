@@ -7,7 +7,7 @@ import '../../component/common_ui_part/today_list_bottom_navbar/today_list_botto
 import '../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../component/dialog/common/tl_yes_no_dialog.dart';
 import '../../component/common_ui_part/tl_sliver_appbar.dart';
-import '../../model/design/tl_theme.dart';
+import '../../model/tl_theme.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
 import '../../model/workspace/provider/current_tl_workspace_provider.dart';

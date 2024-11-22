@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../main.dart';
-import '../../../model/design/tl_theme.dart';
-import '../../../model/design/icon_data/icon_for_checkbox.dart';
+import '../../../model/tl_theme.dart';
+import '../../../model/icon_data/icon_for_checkbox.dart';
 import '../../../component/common_ui_part/panel_with_title.dart';
 import '../../../model/external/tl_ads.dart';
 import './set_icon/icon_category_panel.dart';

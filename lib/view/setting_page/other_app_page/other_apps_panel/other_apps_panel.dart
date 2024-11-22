@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/tl_theme.dart';
 import '../../../../component/common_ui_part/double_card.dart';
 import './other_app_card/other_app_card.dart';
 import './other_apps_model.dart';

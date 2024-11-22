@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/todo_card/tl_checkbox.dart';
 import 'package:today_list/model/workspace/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
-import '../../../model/design/tl_theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../component/slidable/slidable_for_todo_card.dart';

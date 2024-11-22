@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../model/design/tl_theme.dart';
+import '../../model/tl_theme.dart';
 import '../../component/common_ui_part/tl_sliver_appbar.dart';
 import 'set_features_page/set_appearance_page.dart';
 import './my_page/my_page.dart';

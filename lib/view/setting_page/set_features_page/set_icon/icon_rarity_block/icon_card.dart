@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/todo_card/tl_checkbox.dart';
-import 'package:today_list/model/design/icon_data/selected_icon_data.dart';
-import 'package:today_list/model/design/icon_data/sid_provider.dart';
+import 'package:today_list/model/icon_data/selected_icon_data.dart';
+import 'package:today_list/model/icon_data/sid_provider.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import '../../../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../../../component/dialog/common/tl_yes_no_dialog.dart';
 import '../../../../../model/external/tl_ads.dart';
-import '../../../../../model/design/icon_data/icon_for_checkbox.dart';
-import '../../../../../model/design/tl_theme.dart';
+import '../../../../../model/icon_data/icon_for_checkbox.dart';
+import '../../../../../model/tl_theme.dart';
 import '../../../../../main.dart';
 
 class IconCard extends ConsumerStatefulWidget {

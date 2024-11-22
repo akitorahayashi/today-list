@@ -5,7 +5,7 @@ import '../../../model/workspace/provider/current_tl_workspace_provider.dart';
 import '../../../model/external/tl_vibration.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/workspace/provider/tl_workspaces_provider.dart';
-import '../../../model/design/tl_theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../component/slidable/slidable_for_workspace_card.dart';
 
 class ChangeWorkspaceCard extends ConsumerWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../external/tl_pref.dart';
-import './selected_icon_data.dart';
+import '../external/tl_pref.dart';
+import 'selected_icon_data.dart';
 import 'dart:convert';
 
 final tlIconDataProvider =

@@ -3,7 +3,7 @@ import 'package:reorderables/reorderables.dart';
 import 'package:today_list/model/workspace/provider/current_tl_workspace_provider.dart';
 import 'change_workspace_card.dart';
 import '../../../component/common_ui_part/tl_sliver_appbar.dart';
-import '../../../model/design/tl_theme.dart';
+import '../../../model/tl_theme.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/workspace/provider/tl_workspaces_provider.dart';
 import './add_workspace_button.dart';
