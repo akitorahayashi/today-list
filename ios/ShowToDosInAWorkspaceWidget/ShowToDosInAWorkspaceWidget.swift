@@ -12,25 +12,29 @@ import SwiftUI
 
 struct ShowToDosInAWorkspaceWidget: Widget {
     let kind: String = "ShowToDosInAWorkspaceWidget"
-
+    
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
-            // UserDefaultsからテーマを取得
-            let selectedThemeIdx: Int = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")?.integer(forKey: "selectedThemeIdx") ?? 0
-
+            
             ShowToDosInAWorkspaceWidgetEntryView(entry: entry)
                 .containerBackground(for: .widget) {
-                    VStack(alignment: .center, spacing: 0) {
-                        ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
+                    VStack(spacing: 0) {
+                        ZStack {
                             // テーマの適用
-                            kTLThemes[selectedThemeIdx].gradientOfTopBar
+                            kTLThemes[entry.selectedThemeIdx].gradientOfTopBar
                             Text("ToDo")
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.white)
+                        }.frame(height: 28)
+                        ZStack {
+                            kTLThemes[entry.selectedThemeIdx].backgroundColorOfToDoList
+                            Color.white
+                                .cornerRadius(15) // 角を10ポイント丸める
+                                .padding(6)        // 周囲に余白をつける
+                                .shadow(radius: 1)
                         }
-                        .frame(height: 28)
-                        kTLThemes[selectedThemeIdx].backgroundColorOfToDoList
                     }
+                    
                 }
         }
         .configurationDisplayName("Show ToDo Widget")
@@ -39,19 +43,19 @@ struct ShowToDosInAWorkspaceWidget: Widget {
 }
 
 //#Preview(as: .systemSmall) {
-//    ShowToDoWidget()
+//    ShowToDosInAWorkspaceWidget()
 //} timeline: {
-//    SimpleEntry(date: .now, contentsToShow: contentsToShow)
+//    SimpleEntry(date: .now, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
 //}
 
 //#Preview(as: .systemMedium) {
-//    ShowToDoWidget()
+//    ShowToDosInAWorkspaceWidget()
 //} timeline: {
-//    SimpleEntry(date: .now, contentsToShow: contentsToShow)
+//    SimpleEntry(date: .now, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
 //}
 
 #Preview(as: .systemLarge) {
     ShowToDosInAWorkspaceWidget()
 } timeline: {
-    SimpleEntry(date: .now, tlWorkspaces: kTLContentExample)
+    SimpleEntry(date: .now, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
 }

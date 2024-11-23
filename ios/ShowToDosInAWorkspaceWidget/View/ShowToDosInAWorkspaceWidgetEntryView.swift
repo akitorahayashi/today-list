@@ -4,8 +4,6 @@ import SwiftUI
 struct ShowToDosInAWorkspaceWidgetEntryView : View {
     var entry: Provider.Entry
     
-    @State private var tLToDosData: TLToDos? = nil
-    
     // @Environmentを使ってWidgetFamilyを取得
     @Environment(\.widgetFamily) var widgetFamily
     
@@ -21,26 +19,11 @@ struct ShowToDosInAWorkspaceWidgetEntryView : View {
     
     var body: some View {
         VStack {
-            ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
-                // テーマの適用
-                kTLThemes[selectedThemeIdx].gradientOfTopBar
-                Text("ToDo")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.white)
-            }
             // ToDoリストの表示
-            TLToDoListView(tLToDosData: tLToDosData)
-                .padding(.top, topPaddingOfToDoList(for: widgetFamily))
+//            TLToDoListView(entry: entry)
+//                .padding(.top, topPaddingOfToDoList(for: widgetFamily))
         }
-        GeometryReader { _ in
-        }.onAppear {
-            // UserDefaultsからデータを取得してtLToDosDataに代入
-            tLToDosData = TLToDos.extractToDos(
-                from: entry.tlContentExample ?? UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")?.string(forKey: "tlWorkspaces"),
-                indexInWorkspaces: 0,
-                toDosCategoryId: noneID
-            )
-        }
+        
     }
 }
 
@@ -48,5 +31,6 @@ struct ShowToDosInAWorkspaceWidgetEntryView : View {
 #Preview(as: .systemSmall) {
     ShowToDosInAWorkspaceWidget()
 } timeline: {
-    SimpleEntry(date: .now, tlWorkspaces: kTLContentExample)
+    SimpleEntry(date: .now, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
 }
+

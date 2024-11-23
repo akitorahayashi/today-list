@@ -2,7 +2,7 @@ import WidgetKit
 import SwiftUI
 
 struct TLToDoListView: View {
-    let tLToDosData: TLToDos?
+    var entry: Provider.Entry
     
     @Environment(\.widgetFamily) var widgetFamily
     
@@ -22,61 +22,56 @@ struct TLToDoListView: View {
                 .cornerRadius(12) // 角丸
                 .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 0) // 影
             VStack(alignment: .leading, spacing: 4) {
-                if let tLToDosData = tLToDosData {
+                
+                let toDosInToday = entry.tlWorkspaces[0].categoryIDToToDos[noneID]!
+                    .toDosInToday.filter { !$0.isChecked }
+                
+                // 表示する最大アイテム数
+                let maxItems = {
+                    switch widgetFamily {
+                    case .systemLarge:
+                        return 15
+                    default:
+                        return 5
+                    }
+                }()
+                
+                // コンテンツを格納する配列
+                let contentsToShow: [TLToDo] = {
+                    var contentCounter = 0
+                    var contents = [TLToDo]()
                     
-                    let toDosInToday = tLToDosData.toDosInToday.filter { !$0.isChecked }
-
-                    // 表示する最大アイテム数
-                    let maxItems = {
-                        switch widgetFamily {
-                        case .systemLarge:
-                            return 15
-                        default:
-                            return 5
-                        }
-                    }()
-
-                    // コンテンツを格納する配列
-                    let contentsToShow: [TLToDo] = {
-                        var contentCounter = 0
-                        var contents = [TLToDo]()
+                    for tlToDo in toDosInToday {
+                        if contentCounter >= maxItems { break }
                         
-                        for tlToDo in toDosInToday {
+                        var createdToDo = TLToDo(id:tlToDo.id, title: tlToDo.title, isChecked: false, steps: [])
+                        contentCounter += 1
+                        
+                        for tlStep in tlToDo.steps {
                             if contentCounter >= maxItems { break }
-                            
-                            var createdToDo = TLToDo(id:tlToDo.id, title: tlToDo.title, isChecked: false, steps: [])
-                            contentCounter += 1
-                            
-                            for tlStep in tlToDo.steps {
-                                if contentCounter >= maxItems { break }
-                                if !tlStep.isChecked {
-                                    createdToDo.steps.append(tlStep)
-                                    contentCounter += 1
-                                }
+                            if !tlStep.isChecked {
+                                createdToDo.steps.append(tlStep)
+                                contentCounter += 1
                             }
-                            
-                            contents.append(createdToDo)
-                            
                         }
                         
-                        return contents
-                    }()
-
-                    ForEach(contentsToShow) { tlToDoData in
-                        TLToDoRow(tlToDoData: tlToDoData)
+                        contents.append(createdToDo)
+                        
                     }
                     
-                } else {
-                    // データが存在しない場合の表示
-                    Text("アプリからデータを設定してください")
-                        .font(.system(size: 14))
-                        .padding()
+                    return contents
+                }()
+                
+                ForEach(contentsToShow) { tlToDoData in
+                    TLToDoRow(tlToDoData: tlToDoData)
                 }
+                
             }
-            .padding(.leading, 5)
-            .padding(.top, 8)
-            .padding(.bottom, 300)
         }
-        
+        .padding(.leading, 5)
+        .padding(.top, 8)
+        .padding(.bottom, 300)
     }
+    
+    
 }

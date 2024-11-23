@@ -9,21 +9,21 @@ import WidgetKit
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let selectedThemeIndex: Int
+    let selectedThemeIdx: Int
     let tlWorkspaces: [TLWorkspace]
 }
 
 struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
         let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? []
-        return SimpleEntry(date: Date(), selectedThemeIndex: 0, tlWorkspaces: tlWorkspacesSample)
+        return SimpleEntry(date: Date(), selectedThemeIdx: 0, tlWorkspaces: tlWorkspacesSample)
     }
     
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         let themeIdx: Int = userDefaults?.integer(forKey: "selectedThemeIdx") ?? 0
         let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? []
-        return SimpleEntry(date: Date(), selectedThemeIndex: themeIdx, tlWorkspaces: tlWorkspacesSample)
+        return SimpleEntry(date: Date(), selectedThemeIdx: themeIdx, tlWorkspaces: tlWorkspacesSample)
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
@@ -33,7 +33,7 @@ struct Provider: AppIntentTimelineProvider {
         let themeIdx: Int = userDefaults?.integer(forKey: "selectedThemeIdx") ?? 0
         let stringOfTLWorkspace = userDefaults?.string(forKey: "tlWorkspaces")
         let decodedTLWorkspaces: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? []
-        let loadedEntry = SimpleEntry(date: Date(), selectedThemeIndex: themeIdx, tlWorkspaces: decodedTLWorkspaces)
+        let loadedEntry = SimpleEntry(date: Date(), selectedThemeIdx: themeIdx, tlWorkspaces: decodedTLWorkspaces)
         
         entries.append(loadedEntry)
         
