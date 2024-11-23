@@ -1,25 +1,28 @@
-import 'package:today_list/model/todo/tl_todo.dart';
-
 class WidgetKitSetting {
   String id;
   String title;
-  List<TLToDo> toDosToShow;
+  int selectedWorkspaceIndex;
+  String selectedCategoryID;
 
   WidgetKitSetting({
     required this.id,
     required this.title,
-    required this.toDosToShow,
+    required this.selectedWorkspaceIndex,
+    required this.selectedCategoryID,
   });
 
   WidgetKitSetting copyWith({
     String? id,
     String? title,
-    List<TLToDo>? toDosToShow,
+    int? selectedWorkspaceIndex,
+    String? selectedCategoryID,
   }) {
     return WidgetKitSetting(
       id: id ?? this.id,
       title: title ?? this.title,
-      toDosToShow: toDosToShow ?? this.toDosToShow,
+      selectedWorkspaceIndex:
+          selectedWorkspaceIndex ?? this.selectedWorkspaceIndex,
+      selectedCategoryID: selectedCategoryID ?? this.selectedCategoryID,
     );
   }
 
@@ -27,7 +30,8 @@ class WidgetKitSetting {
     return {
       'id': id,
       'title': title,
-      'toDosToShow': toDosToShow.map((t) => t.toJson()).toList(),
+      'selectedWorkspaceIndex': selectedWorkspaceIndex,
+      'selectedCategoryID': selectedCategoryID,
     };
   }
 
@@ -35,8 +39,8 @@ class WidgetKitSetting {
     return WidgetKitSetting(
       id: json['id'],
       title: json['title'],
-      toDosToShow:
-          (json['toDosToShow'] as List).map((t) => TLToDo.fromJson(t)).toList(),
+      selectedWorkspaceIndex: json['selectedWorkspaceIndex'],
+      selectedCategoryID: json['selectedCategoryID'],
     );
   }
 }

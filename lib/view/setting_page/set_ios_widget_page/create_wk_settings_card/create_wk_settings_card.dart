@@ -4,6 +4,8 @@ import 'package:today_list/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/model/tl_theme.dart';
 import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
+import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
 import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
 import 'package:today_list/model/workspace/tl_workspace.dart';
 
@@ -61,6 +63,9 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
     final double deviceWidth = MediaQuery.of(context).size.width;
     // provider
     final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    // notifier
+    final WidgetKitSettingNotifier _wksnotifier =
+        ref.read(widgetKitSettingsProvider.notifier);
     return GestureDetector(
       // カードをタップしたらTextFieldからunfocus
       onTap: () => FocusScope.of(context).unfocus(),
@@ -248,9 +253,16 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
                       TextButton(
-                        onPressed: () {
-                          TLVibration.vibrate();
-                        },
+                        onPressed: _wksInputController.text.trim().isEmpty
+                            ? null
+                            : () {
+                                TLVibration.vibrate();
+                                _wksnotifier.addWidgetKitSettings(
+                                    newWidgetKitSettings: WidgetKitSetting(
+                                        id: UniqueKey().toString(),
+                                        title: _wksInputController.text,
+                                        toDosToShow: []));
+                              },
                         style: controllButtonStyle,
                         child: const Text(
                           "追加",
