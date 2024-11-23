@@ -14,13 +14,14 @@ class WKSCardList extends ConsumerWidget {
     final List<WidgetKitSetting> wksList = ref.watch(widgetKitSettingsProvider);
     return ReorderableColumn(
       children: [
-        for (WidgetKitSetting w in wksList)
+        for (int i = 0; i < wksList.length; i++)
           WKSCard(
-            key: ValueKey(w.id),
+            key: ValueKey(wksList[i].id),
+            idx: i,
           ),
       ],
       onReorder: (oldIndex, newIndex) {
-        reorderのチェック
+        //TODO reorderのチェック
         if (oldIndex < newIndex) {
           newIndex -= 1;
         }

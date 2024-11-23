@@ -3,14 +3,14 @@ import 'package:today_list/model/todo/tl_category.dart';
 class WidgetKitSetting {
   String id;
   String title;
-  int selectedWorkspaceIndex;
+  int workspaceIdx;
   TLCategory selectedBigCategory;
   TLCategory? selectedSmallCategory;
 
   WidgetKitSetting({
     required this.id,
     required this.title,
-    required this.selectedWorkspaceIndex,
+    required this.workspaceIdx,
     required this.selectedBigCategory,
     required this.selectedSmallCategory,
   });
@@ -25,8 +25,7 @@ class WidgetKitSetting {
     return WidgetKitSetting(
       id: id ?? this.id,
       title: title ?? this.title,
-      selectedWorkspaceIndex:
-          selectedWorkspaceIndex ?? this.selectedWorkspaceIndex,
+      workspaceIdx: selectedWorkspaceIndex ?? this.workspaceIdx,
       selectedBigCategory: selectedBigCategory ?? this.selectedBigCategory,
       selectedSmallCategory:
           selectedSmallCategory ?? this.selectedSmallCategory,
@@ -37,7 +36,7 @@ class WidgetKitSetting {
     return {
       'id': id,
       'title': title,
-      'selectedWorkspaceIndex': selectedWorkspaceIndex,
+      'workspaceIdx': workspaceIdx,
       'selectedBigCategory': selectedBigCategory,
       'selectedSmallCategory': selectedSmallCategory,
     };
@@ -47,7 +46,7 @@ class WidgetKitSetting {
     return WidgetKitSetting(
       id: json['id'],
       title: json['title'],
-      selectedWorkspaceIndex: json['selectedWorkspaceIndex'],
+      workspaceIdx: json['workspaceIdx'],
       selectedBigCategory: TLCategory.fromJson(json['selectedBigCategory']),
       selectedSmallCategory: TLCategory.fromJson(json['selectedSmallCategory']),
     );

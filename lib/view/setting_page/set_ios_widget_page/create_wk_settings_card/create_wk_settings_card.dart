@@ -288,8 +288,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                                     newWidgetKitSettings: WidgetKitSetting(
                                   id: UniqueKey().toString(),
                                   title: _wksInputController.text,
-                                  selectedWorkspaceIndex:
-                                      _selectedWorkspaceIndex,
+                                  workspaceIdx: _selectedWorkspaceIndex,
                                   selectedBigCategory:
                                       _selectedBigCategory.copyWith(),
                                   selectedSmallCategory:
