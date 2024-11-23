@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../../../../../model/tl_theme.dart';
 import '../other_apps_model.dart';
 
-class ButtonInNiceAppCard extends StatelessWidget {
+class ButtonInOtherAppCard extends StatelessWidget {
   final bool isCurrentApp;
   final bool isStoreUrl;
-  final NiceApp niceAppInThisCard;
-  const ButtonInNiceAppCard({
+  final OtherApp niceAppInThisCard;
+  const ButtonInOtherAppCard({
     super.key,
     required this.isCurrentApp,
     required this.isStoreUrl,
@@ -16,7 +16,7 @@ class ButtonInNiceAppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return SizedBox(
       width: deviceWidth / 2 - 50,
       height: 50,
@@ -48,13 +48,13 @@ class ButtonInNiceAppCard extends StatelessWidget {
         },
         style: ButtonStyle(
           overlayColor: WidgetStateProperty.all(
-              _tlThemeData.niceAppsPressedElevatedButtonColor),
+              tlThemeData.niceAppsPressedElevatedButtonColor),
           backgroundColor: WidgetStateProperty.resolveWith<Color>(
             (Set<WidgetState> states) {
               if (states.contains(WidgetState.disabled)) {
                 return const Color.fromRGBO(220, 220, 220, 1);
               }
-              return _tlThemeData.niceAppsElevatedButtonColor;
+              return tlThemeData.niceAppsElevatedButtonColor;
             },
           ),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(

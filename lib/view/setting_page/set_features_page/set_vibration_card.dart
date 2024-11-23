@@ -12,7 +12,7 @@ class SetVibrationCard extends StatefulWidget {
 class _SetVibrationCardState extends State<SetVibrationCard> {
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     final double deviceWidth = MediaQuery.of(context).size.width;
     return SizedBox(
       width: deviceWidth,
@@ -54,7 +54,7 @@ class _SetVibrationCardState extends State<SetVibrationCard> {
             min: 0,
             max: 4,
             divisions: 4,
-            activeColor: _tlThemeData.accentColor,
+            activeColor: tlThemeData.accentColor,
             value: TLVibration.vibrationStrength,
             onChanged: (sliderValue) {
               TLVibration.vibrationStrength = sliderValue;

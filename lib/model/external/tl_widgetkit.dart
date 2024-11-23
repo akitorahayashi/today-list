@@ -7,21 +7,6 @@ class TLWidgetKit {
   static const methodChannel = MethodChannel(
       'com.akitora0703.todaylist/show_todos_in_a_workspace_widget');
 
-  // static Future<void> updateWorkspaceCategories() async {
-  //   if (Platform.isIOS) {
-  //     try {
-  //       final String result = await methodChannel.invokeMethod(
-  //         'updateWorkspaceCategories',
-  //         json.encode(TLCategory.categoryArrayToJson(
-  //             categoryArray: workspaceCategories)),
-  //       );
-  //       print('SET setUserDefaultsForAppGroup: $result');
-  //     } on PlatformException catch (e) {
-  //       print('ERROR setUserDefaultsData: ${e.message}');
-  //     }
-  //   }
-  // }
-
   static Future<void> updateTLWorkspaces(
       {required List<TLWorkspace> tlWorkspaces}) async {
     if (Platform.isIOS) {

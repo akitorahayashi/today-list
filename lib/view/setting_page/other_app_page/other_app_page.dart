@@ -9,10 +9,7 @@ class OtherAppsPage extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.zero,
       children: const [
-        SizedBox(height: 10),
-        // 自己紹介カード
-        // SelfIntroductionCard(),
-        NiceAppsPanel(),
+        OtherAppsPanel(),
         SizedBox(height: 250),
       ],
     );

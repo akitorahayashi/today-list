@@ -29,7 +29,7 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
     final pref = await TLPref().getPref;
     final encodedTLWorkspaces = pref.getString("tlWorkspaces");
     if (encodedTLWorkspaces != null) {
-      final List<dynamic> jsonTLWorkspaces = json.decode(encodedTLWorkspaces);
+      final List<dynamic> jsonTLWorkspaces = jsonDecode(encodedTLWorkspaces);
       final List<TLWorkspace> savedTLWorkspaces =
           jsonTLWorkspaces.map((jsonData) {
         return TLWorkspace.fromJson(jsonData);
@@ -41,7 +41,7 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
   Future<void> _saveWorkspaces() async {
     final pref = await TLPref().getPref;
     final encodedTLWorkspaces =
-        json.encode(state.map((workspace) => workspace.toJson()).toList());
+        jsonEncode(state.map((workspace) => workspace.toJson()).toList());
     await pref.setString("tlWorkspaces", encodedTLWorkspaces);
   }
 

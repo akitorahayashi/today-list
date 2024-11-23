@@ -133,7 +133,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                   yesAction: () async {
                     Navigator.pop(context);
                     await currentTLWorkspaceNotifier
-                        .deleteCheckedToDosInTodayInCurrentWorkspace();
+                        .deleteCheckedToDosInTodayInCurrentWorkspace(
+                            onlyToday: false);
                     if (context.mounted) {
                       const TLSingleOptionDialog(title: "削除が完了しました！")
                           .show(context: context);

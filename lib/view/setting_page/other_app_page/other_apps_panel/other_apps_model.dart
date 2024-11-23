@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class NiceApp {
-  static const int currentNiceAppIndex = 0;
+class OtherApp {
+  // 自分のアプリ集の中でのこのアプリのインデックス
+  static const int currentAppIndex = 0;
 
   // アプリ名とアイコンのパス
   final String appName;
@@ -11,7 +12,7 @@ class NiceApp {
   final String appStoreUrl;
   final String playStoreUrl;
   final String roughUsageUrl;
-  NiceApp({
+  OtherApp({
     // アプリ名とアイコンのパス
     required this.appName,
     required this.catchCopy,
@@ -33,8 +34,8 @@ class NiceAppDesignSet {
       required this.pressedElevatedButtonColor});
 }
 
-List<NiceApp> niceApps = [
-  NiceApp(
+List<OtherApp> otherApps = [
+  OtherApp(
     // アプリ名とアイコンのパス
     appName: "Today List",
     catchCopy: "今日やることを明確にする",
@@ -44,7 +45,7 @@ List<NiceApp> niceApps = [
     playStoreUrl: "",
     roughUsageUrl: "",
   ),
-  NiceApp(
+  OtherApp(
     // アプリ名とアイコンのパス
     appName: "Action Chain",
     catchCopy: "一連の作業をミスなくこなす",

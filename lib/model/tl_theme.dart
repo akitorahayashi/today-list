@@ -54,7 +54,7 @@ class TLThemeData {
   final Color tipsCardBorderColor;
   final Color panelBorderColor;
   // nice apps系
-  final Color niceAppsCardColor;
+  final Color tlDoubleCardColor;
   final Color niceAppsElevatedButtonColor;
   final Color niceAppsPressedElevatedButtonColor;
   // 基本色
@@ -87,7 +87,7 @@ class TLThemeData {
     required this.tipsCardBorderColor,
     required this.panelBorderColor,
     // nice apps系
-    required this.niceAppsCardColor,
+    required this.tlDoubleCardColor,
     required this.niceAppsElevatedButtonColor,
     required this.niceAppsPressedElevatedButtonColor,
     // 基本色
@@ -123,7 +123,7 @@ final List<TLThemeData> tlThemeDataList = [
     // tips系
     tipsCardBorderColor: const Color.fromRGBO(255, 186, 107, 1),
     // nice apps系
-    niceAppsCardColor: const Color.fromRGBO(255, 192, 97, 1),
+    tlDoubleCardColor: const Color.fromRGBO(255, 192, 97, 1),
     niceAppsElevatedButtonColor: const Color.fromRGBO(255, 192, 97, 1),
     niceAppsPressedElevatedButtonColor: const Color.fromRGBO(255, 222, 173, 1),
     // 基本色
@@ -161,7 +161,7 @@ final List<TLThemeData> tlThemeDataList = [
     // tips
     tipsCardBorderColor: const Color.fromRGBO(166, 238, 114, 1),
     // nice apps系
-    niceAppsCardColor: const Color.fromRGBO(225, 163, 102, 1),
+    tlDoubleCardColor: const Color.fromRGBO(225, 163, 102, 1),
     niceAppsElevatedButtonColor: const Color.fromRGBO(138, 231, 101, 1),
     niceAppsPressedElevatedButtonColor: const Color.fromRGBO(195, 243, 176, 1),
     // 基本色
@@ -198,7 +198,7 @@ final List<TLThemeData> tlThemeDataList = [
     // tips系
     tipsCardBorderColor: const Color.fromRGBO(163, 218, 255, 1),
     // nice apps系
-    niceAppsCardColor: const Color.fromRGBO(129, 221, 234, 1),
+    tlDoubleCardColor: const Color.fromRGBO(129, 221, 234, 1),
     niceAppsElevatedButtonColor: const Color.fromRGBO(89, 211, 227, 1),
     niceAppsPressedElevatedButtonColor: const Color.fromRGBO(163, 231, 239, 1),
     // 基本色

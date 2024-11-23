@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:today_list/view/setting_page/set_ios_widget_page/set_ios_widget_page.dart';
 import '../../model/tl_theme.dart';
 import '../../component/common_ui_part/tl_sliver_appbar.dart';
 import 'set_features_page/set_appearance_page.dart';
@@ -17,22 +20,35 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-// 設定ページ遷移系のメンバー
-  int _selectedPageIndex = 0;
-  final PageController _pageControllerInSettingPage =
-      PageController(initialPage: 0);
+  // initStateで初期化
+  late int _selectedPageIndex = 0;
+  late PageController _pageControllerInSettingPage;
+  // SettingPageのコンテンツ
   final List<Widget> _contentsInSettingPage = [
     // const OtherAppsPage(),
-    SetAppearancePage(),
-    MyPage(),
+    if (Platform.isIOS) const SetIOSWidgetPage(),
+    const SetAppearancePage(),
+    const MyPage(),
   ];
   final List<dynamic> _iconDataOfSettingPageContents = [
     // iconData or imagePath, page name, isAsset
     // [Icons.construction, "Others"],
+    [Icons.widgets, "Widgets"],
     [Icons.phone_android, "Features"],
     [Icons.account_circle_outlined, "My Page"],
   ];
-// --- ページ遷移系のメンバー
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isIOS) {
+      _selectedPageIndex = 1;
+      _pageControllerInSettingPage = PageController(initialPage: 1);
+    } else {
+      _selectedPageIndex = 0;
+      _pageControllerInSettingPage = PageController(initialPage: 0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
@@ -146,96 +162,12 @@ class _SettingPageState extends State<SettingPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             // アイコンを表示
-                            (() {
-                              switch (index) {
-                                case 0:
-                                  return Icon(
-                                    _iconDataOfSettingPageContents[index][0],
-                                    color: index == _selectedPageIndex
-                                        ? tlThemeData.accentColor
-                                        : Colors.black45,
-                                  );
-                                // if (todayListUser
-                                //         .accontSignedInWithGoogle ==
-                                //     null) {
-                                // return Icon(
-                                //   _iconDataOfSettingPageContents[index][0],
-                                //   color: index == _selectedPageIndex
-                                //       ? theme[settingData.selectedTheme]!
-                                //           .accentColor
-                                //       : Colors.black45,
-                                // );
-                                // } else {
-                                //   return CachedNetworkImage(
-                                //     imageUrl: todayListUser
-                                //         .accontSignedInWithGoogle!
-                                //         .photoUrl!,
-                                //     imageBuilder: (context, imageProvider) {
-                                //       return SizedBox(
-                                //         width: 24,
-                                //         height: 24,
-                                //         child: DecoratedBox(
-                                //           decoration: BoxDecoration(
-                                //               shape: BoxShape.circle,
-                                //               border: Border.all(
-                                //                 width: 1.5,
-                                //                 color: _selectedPageIndex ==
-                                //                         0
-                                //                     ? theme[settingData
-                                //                             .selectedTheme]!
-                                //                         .accentColor
-                                //                         .withOpacity(1)
-                                //                     : Colors.white
-                                //                         .withOpacity(.8),
-                                //               ),
-                                //               image: DecorationImage(
-                                //                   fit: BoxFit.contain,
-                                //                   image: imageProvider)),
-                                //         ),
-                                //       );
-                                //     },
-                                //     placeholder: (context, url) =>
-                                //         Container(),
-                                //     errorWidget: (context, url, error) =>
-                                //         Icon(
-                                //       Icons.account_circle_outlined,
-                                //       color: index == _selectedPageIndex
-                                //           ? theme[settingData
-                                //                   .selectedTheme]!
-                                //               .accentColor
-                                //           : Colors.black45,
-                                //     ),
-                                //   );
-                                // }
-                                case 2:
-                                  return SizedBox(
-                                    width: 24,
-                                    height: 24,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          border: Border.all(
-                                            width: 1.5,
-                                            color: _selectedPageIndex == 2
-                                                ? tlThemeData.accentColor
-                                                    .withOpacity(1)
-                                                : Colors.white.withOpacity(.8),
-                                          ),
-                                          image: const DecorationImage(
-                                              fit: BoxFit.contain,
-                                              image: AssetImage(
-                                                  "assets/my_icon.png"))),
-                                    ),
-                                  );
-                                default:
-                                  return Icon(
-                                    _iconDataOfSettingPageContents[index][0],
-                                    color: index == _selectedPageIndex
-                                        ? tlThemeData.accentColor
-                                        : Colors.black45,
-                                  );
-                              }
-                            }()),
+                            Icon(
+                              _iconDataOfSettingPageContents[index][0],
+                              color: index == _selectedPageIndex
+                                  ? tlThemeData.accentColor
+                                  : Colors.black45,
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(top: 11.0),
                               child: Text(
