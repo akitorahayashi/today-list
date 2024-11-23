@@ -72,6 +72,9 @@ class TLToDoCard extends ConsumerWidget {
           newCheckedState: corrToDoData.isChecked,
           quickChangeToToday: null,
         );
+        tlWorkspacesNotifier.updateCurrentWorkspace(
+          updatedWorkspace: currentTLWorkspace.copyWith(),
+        );
       },
       // チェック済みのreorder阻止のためのlongPress
       onLongPress: corrToDoData.isChecked ? () {} : null,

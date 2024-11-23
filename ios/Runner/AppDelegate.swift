@@ -4,11 +4,11 @@ import WidgetKit
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
-  override func application(
-    _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-  ) -> Bool {
-    let controller = window?.rootViewController as! FlutterViewController
+    override func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+        let controller = window?.rootViewController as! FlutterViewController
         
         let userdefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         
@@ -18,8 +18,8 @@ import WidgetKit
         showTodosInAWorkspaceWidgetMethodChannel.setMethodCallHandler { [weak self] (call: FlutterMethodCall, result: @escaping FlutterResult) in
             switch call.method {
             case "updateTLWorkspaces":
-                if let stringOfStringWorkspaces = call.arguments as? String {
-                    userdefaults?.set(stringOfStringWorkspaces, forKey: "tlWorkspaces") // Fixed typo
+                if let tlWorkspacesString = call.arguments as? String {
+                    userdefaults?.set(tlWorkspacesString, forKey: "tlWorkspaces") // Fixed typo
                     // メインスレッドでの更新を追加
                     DispatchQueue.main.async {
                         WidgetCenter.shared.reloadAllTimelines()
@@ -32,8 +32,8 @@ import WidgetKit
                 }
                 
             case "updateSelectedTheme":
-                if let selectedTheme = call.arguments as? String {
-                    userdefaults?.set(selectedTheme, forKey: "selectedTheme")
+                if let selectedTheme = call.arguments as? Int {
+                    userdefaults?.set(selectedTheme, forKey: "selectedThemeIdx")
                     // メインスレッドでの更新を追加
                     DispatchQueue.main.async {
                         WidgetCenter.shared.reloadAllTimelines()
@@ -50,7 +50,7 @@ import WidgetKit
             }
         }
         
-    GeneratedPluginRegistrant.register(with: self)
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
-  }
+        GeneratedPluginRegistrant.register(with: self)
+        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
 }

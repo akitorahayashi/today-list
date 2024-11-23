@@ -18,7 +18,7 @@ struct SelectWorkspaceHomeView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                TLWatchAppBar(appbarTitle: "workspace", selectedColorTheme: self.tlConnector.selectedTheme)
+                TLWatchAppBar(appbarTitle: "workspace", selectedThemeIdx: self.tlConnector.selectedThemeIdx)
                 
                 ScrollView {
                     // ForEach to display TLWorkspace names
@@ -32,7 +32,7 @@ struct SelectWorkspaceHomeView: View {
                 }
             }
         }
-        .background(kTLThemes[self.tlConnector.selectedTheme]?.backgroundColorOfToDoList ?? Color.clear) // nil handling
+        .background(kTLThemes[self.tlConnector.selectedThemeIdx].backgroundColorOfToDoList) // nil handling
         .edgesIgnoringSafeArea(.all)
     }
 }

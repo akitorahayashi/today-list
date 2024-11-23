@@ -17,7 +17,7 @@ struct ShowToDosInTodayInAWorkspaceView: View {
     
     var body: some View {
         VStack {
-            TLWatchAppBar(appbarTitle: "todo",selectedColorTheme: self.tlConnector.selectedTheme)
+            TLWatchAppBar(appbarTitle: "todo",selectedThemeIdx:  self.tlConnector.selectedThemeIdx)
             
             ScrollView {
                 // BigCategoryに対応するToDosを取り出して表示

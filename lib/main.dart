@@ -20,7 +20,6 @@ void main() async {
   await SettingData.shared.readSettings();
   await TLVibration.initVibrate();
   await TLConnectivity.initializeConnectivity();
-  // await todayListUser.initializeFirebase();
   runApp(const ProviderScope(
     child: TodayListApp(),
   ));
