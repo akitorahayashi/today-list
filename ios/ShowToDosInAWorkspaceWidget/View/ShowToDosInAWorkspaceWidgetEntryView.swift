@@ -20,10 +20,19 @@ struct ShowToDosInAWorkspaceWidgetEntryView : View {
     }
     
     var body: some View {
-        GeometryReader { _ in
+        VStack {
+            ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
+                // テーマの適用
+                kTLThemes[selectedThemeIdx].gradientOfTopBar
+                Text("ToDo")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
+            }
             // ToDoリストの表示
             TLToDoListView(tLToDosData: tLToDosData)
                 .padding(.top, topPaddingOfToDoList(for: widgetFamily))
+        }
+        GeometryReader { _ in
         }.onAppear {
             // UserDefaultsからデータを取得してtLToDosDataに代入
             tLToDosData = TLToDos.extractToDos(
@@ -33,4 +42,11 @@ struct ShowToDosInAWorkspaceWidgetEntryView : View {
             )
         }
     }
+}
+
+
+#Preview(as: .systemSmall) {
+    ShowToDosInAWorkspaceWidget()
+} timeline: {
+    SimpleEntry(date: .now, tlWorkspaces: kTLContentExample)
 }

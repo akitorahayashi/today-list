@@ -8,28 +8,7 @@
 import WidgetKit
 import SwiftUI
 
-struct Provider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), tlContentExample: nil)
-    }
-    
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), tlContentExample: kTLContentExample)
-    }
-    
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
-        
-        entries.append(SimpleEntry(date: Date(), tlContentExample: nil))
-        
-        return Timeline(entries: entries, policy: .atEnd)
-    }
-}
 
-struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let tlContentExample: String?
-}
 
 struct ShowToDosInAWorkspaceWidget: Widget {
     let kind: String = "ShowToDosInAWorkspaceWidget"
@@ -74,5 +53,5 @@ struct ShowToDosInAWorkspaceWidget: Widget {
 #Preview(as: .systemLarge) {
     ShowToDosInAWorkspaceWidget()
 } timeline: {
-    SimpleEntry(date: .now, tlContentExample: kTLContentExample)
+    SimpleEntry(date: .now, tlWorkspaces: kTLContentExample)
 }

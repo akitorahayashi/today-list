@@ -9,7 +9,8 @@ import Foundation
 
 let noneID = "defaultID"
 
-let kTLContentExample = """
+let kTLContentExample =
+"""
 [
   {
     "id": "workspace1",
