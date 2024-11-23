@@ -18,7 +18,10 @@ class CreateWKSettingsCard extends ConsumerStatefulWidget {
 }
 
 class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
+  // textControllerに関するメンバー
   final TextEditingController _wksInputController = TextEditingController();
+  // 自動入力
+  bool _ifUserHasEntered = false;
   // 選んでいるWorkspaceのindex
   int _selectedWorkspaceIndex = 0;
   // 選んでいるcategoryのID
@@ -28,6 +31,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
   // 選んでいる項目を全てデフォルトの値に戻す関数
   void _initialize() {
     _wksInputController.clear();
+    _ifUserHasEntered = false;
     _selectedWorkspaceIndex = 0;
     _selectedBigCategoryID = noneID;
     _selectedSmallCategoryID = null;
@@ -64,7 +68,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
     // provider
     final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
     // notifier
-    final WidgetKitSettingNotifier _wksnotifier =
+    final WidgetKitSettingNotifier wksnotifier =
         ref.read(widgetKitSettingsProvider.notifier);
     return GestureDetector(
       // カードをタップしたらTextFieldからunfocus
@@ -79,10 +83,12 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
               children: [
                 // wksのtitleを入力する
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
+                  padding: const EdgeInsets.only(top: 16.0),
                   child: TextField(
                     autofocus: true,
                     controller: _wksInputController,
+                    // ユーザーが自分の手で入力したかどうか
+                    onChanged: (t) => {_ifUserHasEntered = true},
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -132,9 +138,14 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                         style: const TextStyle(
                             color: Colors.black45, fontWeight: FontWeight.bold),
                         onChanged: (int? newIndex) {
+                          if (newIndex == null) return;
                           TLVibration.vibrate();
                           setState(() {
-                            _selectedWorkspaceIndex = newIndex!;
+                            if (!_ifUserHasEntered) {
+                              _wksInputController.text =
+                                  tlWorkspaces[newIndex].name;
+                            }
+                            _selectedWorkspaceIndex = newIndex;
                           });
                         },
                       ),
@@ -169,9 +180,18 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                         style: const TextStyle(
                             color: Colors.black45, fontWeight: FontWeight.bold),
                         onChanged: (String? newBigCategoryID) {
+                          if (newBigCategoryID == null) return;
                           TLVibration.vibrate();
                           setState(() {
-                            _selectedBigCategoryID = newBigCategoryID!;
+                            if (!_ifUserHasEntered) {
+                              _wksInputController.text =
+                                  tlWorkspaces[_selectedWorkspaceIndex]
+                                      .bigCategories
+                                      .firstWhere(
+                                          (bc) => bc.id == newBigCategoryID)
+                                      .title;
+                            }
+                            _selectedBigCategoryID = newBigCategoryID;
                             _selectedSmallCategoryID = null;
                           });
                         },
@@ -224,9 +244,18 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                               color: Colors.black45,
                               fontWeight: FontWeight.bold),
                           onChanged: (String? newSmallCategoryID) {
+                            if (newSmallCategoryID == null) return;
                             TLVibration.vibrate();
                             setState(() {
-                              _selectedSmallCategoryID = newSmallCategoryID!;
+                              if (!_ifUserHasEntered) {
+                                _wksInputController.text = tlWorkspaces[
+                                        _selectedWorkspaceIndex]
+                                    .smallCategories[_selectedBigCategoryID]!
+                                    .firstWhere(
+                                        (sc) => sc.id == newSmallCategoryID)
+                                    .title;
+                              }
+                              _selectedSmallCategoryID = newSmallCategoryID;
                             });
                           },
                         ),
@@ -257,11 +286,23 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                             ? null
                             : () {
                                 TLVibration.vibrate();
-                                _wksnotifier.addWidgetKitSettings(
+                                // wksのlistに追加、保存
+                                wksnotifier.addWidgetKitSettings(
                                     newWidgetKitSettings: WidgetKitSetting(
-                                        id: UniqueKey().toString(),
-                                        title: _wksInputController.text,
-                                        toDosToShow: []));
+                                  id: UniqueKey().toString(),
+                                  title: _wksInputController.text,
+                                  selectedWorkspaceIndex:
+                                      _selectedWorkspaceIndex,
+                                  selectedCategoryID:
+                                      _selectedSmallCategoryID ??
+                                          _selectedBigCategoryID,
+                                ));
+                                // Card内のコンテンツを初期化
+                                setState(() {
+                                  _initialize();
+                                });
+                                // 一覧に戻る
+                                widget.showAddWKSButtonAction();
                               },
                         style: controllButtonStyle,
                         child: const Text(
