@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct TLWidgetKitSettings: Codable, Identifiable {
+    
     var id: String
-    var name: String
-    var bigCategories: [TLCategory]
-    var smallCategories: [String: [TLCategory]]
-    var toDos: [String: TLToDos]
+    var title: String
+    var workspaceIdx: Int
+    var bigCategory: TLCategory
+    var smallCategory:TLCategory?
     
     // JSONからToDosをデコードする関数
     static func decodeWKSList(from jsonWKSList: String?) -> [TLWidgetKitSettings]? {
