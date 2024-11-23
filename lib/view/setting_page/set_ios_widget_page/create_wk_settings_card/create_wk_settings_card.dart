@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/model/tl_theme.dart';
 
 class CreateWKSettingsCard extends ConsumerStatefulWidget {
@@ -43,53 +44,48 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
     final double deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Card(
-        color: tlThemeData.accentColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: SizedBox(
-            width: deviceWidth - 50,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // wksのtitleを入力する
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: TextField(
-                      autofocus: true,
-                      controller: _wksInputController,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black.withOpacity(0.6),
+      child: TlDoubleCard(
+        child: SizedBox(
+          width: deviceWidth - 50,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // wksのtitleを入力する
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: TextField(
+                    autofocus: true,
+                    controller: _wksInputController,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black.withOpacity(0.6),
+                    ),
+                    cursorColor: tlThemeData.accentColor,
+                    decoration: InputDecoration(
+                      labelText: 'Title', // ここにラベルのテキストを指定
+                      labelStyle: const TextStyle(
+                        color: Colors.black45, // ラベルのスタイルを指定
+                        fontWeight: FontWeight.bold,
                       ),
-                      cursorColor: tlThemeData.accentColor,
-                      decoration: InputDecoration(
-                        labelText: 'Title', // ここにラベルのテキストを指定
-                        labelStyle: const TextStyle(
-                          color: Colors.black45, // ラベルのスタイルを指定
-                          fontWeight: FontWeight.bold,
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: tlThemeData.accentColor),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: tlThemeData.accentColor),
-                        ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: tlThemeData.accentColor),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: tlThemeData.accentColor),
                       ),
                     ),
                   ),
-                  // workspaceを選択する
-                  // bigCategoryを選択する
-                  // smallCategoryを選択するを選択する
-                  // controll buttons
-                  OverflowBar(
+                ),
+                // workspaceを選択する
+                // bigCategoryを選択する
+                // smallCategoryを選択するを選択する
+                // controll buttons
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 3.0),
+                  child: OverflowBar(
                     alignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       TextButton(
@@ -108,9 +104,9 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                         ),
                       ),
                     ],
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
           ),
         ),

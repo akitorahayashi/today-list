@@ -9,7 +9,7 @@ class OtherAppsPage extends StatelessWidget {
     return ListView(
       padding: EdgeInsets.zero,
       children: const [
-        NiceAppsPanel(),
+        OtherAppsPanel(),
         SizedBox(height: 250),
       ],
     );

@@ -34,7 +34,7 @@ class NiceAppDesignSet {
       required this.pressedElevatedButtonColor});
 }
 
-List<OtherApp> niceApps = [
+List<OtherApp> otherApps = [
   OtherApp(
     // アプリ名とアイコンのパス
     appName: "Today List",
