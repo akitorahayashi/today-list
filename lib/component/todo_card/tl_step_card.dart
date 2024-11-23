@@ -36,7 +36,6 @@ class TLStepCard extends ConsumerWidget {
     final TLStep corrStepData = corrToDoData.steps[indexInSteps];
 
     return GestureDetector(
-      // TODO 関数を渡して親のwidgetで処理する
       onTap: () {
         // stepのチェック状態を変更
         corrStepData.isChecked = !corrStepData.isChecked;
