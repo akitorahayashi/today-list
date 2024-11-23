@@ -8,6 +8,7 @@ import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
 import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
 import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
 import 'package:today_list/model/workspace/tl_workspace.dart';
+import 'package:today_list/view/setting_page/set_ios_widget_page/component/wks_header.dart';
 
 class CreateWKSettingsCard extends ConsumerStatefulWidget {
   final VoidCallback showAddWKSButtonAction;
@@ -116,13 +117,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "- Workspace -",
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.black45,
-                            fontWeight: FontWeight.bold),
-                      ),
+                      const WKSHeader(text: "Workspace"),
                       DropdownButton<int>(
                         isExpanded: true,
                         iconEnabledColor: tlThemeData.accentColor,
@@ -160,13 +155,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "- Big category -",
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.black45,
-                            fontWeight: FontWeight.bold),
-                      ),
+                      const WKSHeader(text: "Big category"),
                       DropdownButton<String>(
                         isExpanded: true,
                         iconEnabledColor: tlThemeData.accentColor,
@@ -215,13 +204,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "- Small category -",
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black45,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        const WKSHeader(text: "Small category"),
                         DropdownButton<String>(
                           isExpanded: true,
                           iconEnabledColor: tlThemeData.accentColor,
