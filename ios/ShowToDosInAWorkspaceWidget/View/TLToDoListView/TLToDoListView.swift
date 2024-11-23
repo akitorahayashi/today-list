@@ -6,72 +6,92 @@ struct TLToDoListView: View {
     
     @Environment(\.widgetFamily) var widgetFamily
     
-    // ウィジェットサイズに応じたtopPaddingを返す関数
-    private func bottomPaddingOfToDoList(for family: WidgetFamily) -> CGFloat {
-        switch family {
-        case .systemLarge:
-            return 4
-        default:
-            return 4
-        }
-    }
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            Color.white
-                .cornerRadius(12) // 角丸
-                .shadow(color: Color.black.opacity(0.2), radius: 2, x: 0, y: 0) // 影
-            VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading) {
+            
+            let toDosInToday = entry.tlWorkspaces[0].categoryIDToToDos[noneID]!
+                .toDosInToday.filter { !$0.isChecked }
+            
+            // 表示する最大アイテム数
+            let maxItems = {
+                switch widgetFamily {
+                case .systemLarge:
+                    return 14
+                default:
+                    return 5
+                }
+            }()
+            
+            // コンテンツを格納する配列
+            let contentsToShow: [TLToDo] = {
+                var contentCounter = 0
+                var contents = [TLToDo]()
                 
-                let toDosInToday = entry.tlWorkspaces[0].categoryIDToToDos[noneID]!
-                    .toDosInToday.filter { !$0.isChecked }
-                
-                // 表示する最大アイテム数
-                let maxItems = {
-                    switch widgetFamily {
-                    case .systemLarge:
-                        return 15
-                    default:
-                        return 5
-                    }
-                }()
-                
-                // コンテンツを格納する配列
-                let contentsToShow: [TLToDo] = {
-                    var contentCounter = 0
-                    var contents = [TLToDo]()
+                for tlToDo in toDosInToday {
+                    if contentCounter >= maxItems { break }
                     
-                    for tlToDo in toDosInToday {
+                    var createdToDo = TLToDo(id:tlToDo.id, title: tlToDo.title, isChecked: false, steps: [])
+                    contentCounter += 1
+                    
+                    for tlStep in tlToDo.steps {
                         if contentCounter >= maxItems { break }
-                        
-                        var createdToDo = TLToDo(id:tlToDo.id, title: tlToDo.title, isChecked: false, steps: [])
-                        contentCounter += 1
-                        
-                        for tlStep in tlToDo.steps {
-                            if contentCounter >= maxItems { break }
-                            if !tlStep.isChecked {
-                                createdToDo.steps.append(tlStep)
-                                contentCounter += 1
-                            }
+                        if !tlStep.isChecked {
+                            createdToDo.steps.append(tlStep)
+                            contentCounter += 1
                         }
-                        
-                        contents.append(createdToDo)
-                        
                     }
                     
-                    return contents
-                }()
-                
-                ForEach(contentsToShow) { tlToDoData in
-                    TLToDoRow(tlToDoData: tlToDoData)
+                    contents.append(createdToDo)
+                    
                 }
                 
+                return contents
+            }()
+            
+            let spacing: Double = {
+                switch widgetFamily {
+                case .systemLarge:
+                    return 3.0
+                default:
+                    return 4.0
+                }
+            }()
+            
+            ForEach(contentsToShow) { tlToDoData in
+                TLToDoRow(spacing: spacing,tlToDoData: tlToDoData)
+                    .padding(.bottom, spacing)
             }
+            ForEach(contentsToShow) { tlToDoData in
+                TLToDoRow(spacing: spacing,tlToDoData: tlToDoData)
+                    .padding(.bottom, spacing)
+            }
+            ForEach(contentsToShow) { tlToDoData in
+                TLToDoRow(spacing: spacing,tlToDoData: tlToDoData)
+                    .padding(.bottom, spacing)
+            }
+            ForEach(contentsToShow) { tlToDoData in
+                TLToDoRow(spacing: spacing,tlToDoData: tlToDoData)
+                    .padding(.bottom, spacing)
+            }
+            ForEach(contentsToShow) { tlToDoData in
+                TLToDoRow(spacing: spacing,tlToDoData: tlToDoData)
+                    .padding(.bottom, spacing)
+            }
+            
+            Spacer()
+            
+            
         }
-        .padding(.leading, 5)
-        .padding(.top, 8)
-        .padding(.bottom, 300)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+//        .background(Color.red)
+        .padding(.top, 27)
     }
-    
-    
+}
+
+
+#Preview(as: .systemLarge) {
+    ShowToDosInAWorkspaceWidget()
+} timeline: {
+    SimpleEntry(date: .now, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
 }

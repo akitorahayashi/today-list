@@ -7,23 +7,12 @@ struct ShowToDosInAWorkspaceWidgetEntryView : View {
     // @Environmentを使ってWidgetFamilyを取得
     @Environment(\.widgetFamily) var widgetFamily
     
-    // ウィジェットサイズに応じたtopPaddingを返す関数
-    private func topPaddingOfToDoList(for family: WidgetFamily) -> CGFloat {
-        switch family {
-        case .systemLarge:
-            return 21
-        default:
-            return 18
-        }
-    }
-    
     var body: some View {
-        VStack {
+        GeometryReader { geometry in
             // ToDoリストの表示
-//            TLToDoListView(entry: entry)
-//                .padding(.top, topPaddingOfToDoList(for: widgetFamily))
+            TLToDoListView(entry: entry)
+            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top) // 上寄せ
         }
-        
     }
 }
 

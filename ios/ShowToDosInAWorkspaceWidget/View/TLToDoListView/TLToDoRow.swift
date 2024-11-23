@@ -22,10 +22,11 @@ extension View {
 }
 
 struct TLToDoRow: View {
+    let spacing: Double
     let tlToDoData: TLToDo
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: spacing) {
             // メインカード（ToDoのタイトル）
             HStack {
                 // チェックマークアイコン
@@ -53,6 +54,7 @@ struct TLToDoRow: View {
                 }
                 .padding(.leading, 10)
             
-        }.padding(.bottom, 4)
+        }
     }
 }
+
