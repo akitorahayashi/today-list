@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/main.dart';
+import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
 import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
 import 'package:today_list/view/setting_page/set_ios_widget_page/create_wk_settings_card/add_wks_button.dart';
@@ -27,7 +28,6 @@ class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
   @override
   void initState() {
     super.initState();
-    TLAds.loadRewardedAd();
     // 広告を読み込む
     BannerAd(
       adUnitId: TLAds.setFeaturesBannerAdUnitId(isTestMode: kAdTestMode),
@@ -101,6 +101,7 @@ class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
               duration: const Duration(milliseconds: 300),
               // +マーク
               firstChild: AddWKSButton(onPressed: () {
+                TLVibration.vibrate();
                 setState(() {
                   _showAddWKSButton = false;
                 });

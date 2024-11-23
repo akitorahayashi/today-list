@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/common_ui_part/tl_double_card.dart';
+import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/model/tl_theme.dart';
+import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
+import 'package:today_list/model/workspace/tl_workspace.dart';
 
 class CreateWKSettingsCard extends ConsumerStatefulWidget {
   final VoidCallback showAddWKSButtonAction;
@@ -13,6 +17,19 @@ class CreateWKSettingsCard extends ConsumerStatefulWidget {
 
 class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
   final TextEditingController _wksInputController = TextEditingController();
+  // 選んでいるWorkspaceのindex
+  int _selectedWorkspaceIndex = 0;
+  // 選んでいるcategoryのID
+  String _selectedBigCategoryID = noneID;
+  String? _selectedSmallCategoryID;
+
+  // 選んでいる項目を全てデフォルトの値に戻す関数
+  void _initialize() {
+    _wksInputController.clear();
+    _selectedWorkspaceIndex = 0;
+    _selectedBigCategoryID = noneID;
+    _selectedSmallCategoryID = null;
+  }
 
   ButtonStyle get controllButtonStyle => (() {
         final themeColor =
@@ -42,7 +59,10 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     final double deviceWidth = MediaQuery.of(context).size.width;
+    // provider
+    final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
     return GestureDetector(
+      // カードをタップしたらTextFieldからunfocus
       onTap: () => FocusScope.of(context).unfocus(),
       child: TlDoubleCard(
         child: SizedBox(
@@ -65,7 +85,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                     ),
                     cursorColor: tlThemeData.accentColor,
                     decoration: InputDecoration(
-                      labelText: 'Title', // ここにラベルのテキストを指定
+                      labelText: '- Title -', // ここにラベルのテキストを指定
                       labelStyle: const TextStyle(
                         color: Colors.black45, // ラベルのスタイルを指定
                         fontWeight: FontWeight.bold,
@@ -80,23 +100,157 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                   ),
                 ),
                 // workspaceを選択する
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "- Workspace -",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black45,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      DropdownButton<int>(
+                        isExpanded: true,
+                        iconEnabledColor: tlThemeData.accentColor,
+                        value: _selectedWorkspaceIndex,
+                        items: tlWorkspaces.asMap().entries.map((entry) {
+                          int idx = entry.key;
+                          TLWorkspace workspace = entry.value;
+                          return DropdownMenuItem<int>(
+                            value: idx,
+                            child: Text(workspace.name),
+                          );
+                        }).toList(),
+                        style: const TextStyle(
+                            color: Colors.black45, fontWeight: FontWeight.bold),
+                        onChanged: (int? newIndex) {
+                          TLVibration.vibrate();
+                          setState(() {
+                            _selectedWorkspaceIndex = newIndex!;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
                 // bigCategoryを選択する
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "- Big category -",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black45,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      DropdownButton<String>(
+                        isExpanded: true,
+                        iconEnabledColor: tlThemeData.accentColor,
+                        value: _selectedBigCategoryID,
+                        items: tlWorkspaces[_selectedWorkspaceIndex]
+                            .bigCategories
+                            .map((TLCategory bc) {
+                          return DropdownMenuItem<String>(
+                            value: bc.id,
+                            child: Text(bc.title),
+                          );
+                        }).toList(),
+                        style: const TextStyle(
+                            color: Colors.black45, fontWeight: FontWeight.bold),
+                        onChanged: (String? newBigCategoryID) {
+                          TLVibration.vibrate();
+                          setState(() {
+                            _selectedBigCategoryID = newBigCategoryID!;
+                            _selectedSmallCategoryID = null;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
                 // smallCategoryを選択するを選択する
+                AnimatedCrossFade(
+                  crossFadeState: tlWorkspaces[_selectedWorkspaceIndex]
+                          .smallCategories[_selectedBigCategoryID]!
+                          .isEmpty
+                      ? CrossFadeState.showFirst
+                      : CrossFadeState.showSecond,
+                  duration: const Duration(milliseconds: 200),
+                  firstChild: Container(),
+                  secondChild: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "- Small category -",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black45,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        DropdownButton<String>(
+                          isExpanded: true,
+                          iconEnabledColor: tlThemeData.accentColor,
+                          value: _selectedSmallCategoryID,
+                          hint: const Text(
+                            "指定なし",
+                            style: TextStyle(
+                                color: Colors.black45,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          items: (tlWorkspaces[_selectedWorkspaceIndex]
+                                          .smallCategories[
+                                      _selectedBigCategoryID] ??
+                                  [])
+                              .map((TLCategory sc) {
+                            return DropdownMenuItem<String>(
+                              value: sc.id,
+                              child: Text(sc.title),
+                            );
+                          }).toList(),
+                          style: const TextStyle(
+                              color: Colors.black45,
+                              fontWeight: FontWeight.bold),
+                          onChanged: (String? newSmallCategoryID) {
+                            TLVibration.vibrate();
+                            setState(() {
+                              _selectedSmallCategoryID = newSmallCategoryID!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 // controll buttons
                 Padding(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 3.0),
+                  padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
                   child: OverflowBar(
                     alignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       TextButton(
-                          onPressed: () => widget.showAddWKSButtonAction(),
+                          onPressed: () {
+                            setState(() {
+                              _initialize();
+                            });
+                            widget.showAddWKSButtonAction();
+                          },
                           style: controllButtonStyle,
                           child: const Text(
                             "戻る",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          TLVibration.vibrate();
+                        },
                         style: controllButtonStyle,
                         child: const Text(
                           "追加",
