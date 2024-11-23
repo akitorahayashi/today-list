@@ -146,6 +146,8 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                                   tlWorkspaces[newIndex].name;
                             }
                             _selectedWorkspaceIndex = newIndex;
+                            _selectedBigCategoryID = noneID;
+                            _selectedSmallCategoryID = null;
                           });
                         },
                       ),
