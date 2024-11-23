@@ -1,6 +1,4 @@
-import 'package:today_list/model/workspace/tl_workspace.dart';
 import 'package:flutter/services.dart';
-import 'dart:convert';
 import 'dart:io';
 
 class TLWidgetKit {
@@ -8,15 +6,12 @@ class TLWidgetKit {
       'com.akitora0703.todaylist/show_todos_in_a_workspace_widget');
 
   static Future<void> updateTLWorkspaces(
-      {required List<TLWorkspace> tlWorkspaces}) async {
+      {required String encodedTLWorkspaces}) async {
     if (Platform.isIOS) {
-      final List<dynamic> jsonWorkspaces = tlWorkspaces.map((workspace) {
-        workspace.toJson();
-      }).toList();
       try {
         final String result = await methodChannel.invokeMethod(
           'updateTLWorkspaces',
-          json.encode(jsonWorkspaces),
+          encodedTLWorkspaces,
         );
         print('SET setUserDefaultsForAppGroup: $result');
       } on PlatformException catch (e) {

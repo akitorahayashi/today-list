@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:today_list/model/external/tl_widgetkit.dart';
 
 final selectedThemeIndexProvider =
     StateNotifierProvider<SelectedThemeIndexNotifier, int>(
@@ -22,6 +23,7 @@ class SelectedThemeIndexNotifier extends StateNotifier<int> {
   void changeThemeIndex(int index) async {
     state = index;
     final prefs = await SharedPreferences.getInstance();
+    TLWidgetKit.updateSelectedTheme(selectedThemeIndex: index);
     prefs.setInt('selectedThemeIndex', index);
   }
 }
