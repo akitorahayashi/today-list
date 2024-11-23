@@ -21,7 +21,7 @@ class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
     final encodedWidgetKitSettings = pref.getString("widgetKitSettings");
     if (encodedWidgetKitSettings != null) {
       final List<dynamic> jsonWidgetKitSettings =
-          json.decode(encodedWidgetKitSettings);
+          jsonDecode(encodedWidgetKitSettings);
       final List<WidgetKitSetting> savedTLWorkspaces =
           jsonWidgetKitSettings.map((j) {
         return WidgetKitSetting.fromJson(j);
@@ -33,7 +33,7 @@ class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
   Future<void> _saveWidgetKitSettings() async {
     final pref = await TLPref().getPref;
     final encodedWidgetKitSettings =
-        json.encode(state.map((w) => w.toJson()).toList());
+        jsonEncode(state.map((w) => w.toJson()).toList());
     await pref.setString("widgetKitSettings", encodedWidgetKitSettings);
   }
 

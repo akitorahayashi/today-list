@@ -20,15 +20,15 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-// 設定ページ遷移系のメンバー
-  int _selectedPageIndex = 0;
-  final PageController _pageControllerInSettingPage =
-      PageController(initialPage: 0);
+  // initStateで初期化
+  late int _selectedPageIndex = 0;
+  late PageController _pageControllerInSettingPage;
+  // SettingPageのコンテンツ
   final List<Widget> _contentsInSettingPage = [
     // const OtherAppsPage(),
-    if (Platform.isIOS) SetIOSWidgetPage(),
-    SetAppearancePage(),
-    MyPage(),
+    if (Platform.isIOS) const SetIOSWidgetPage(),
+    const SetAppearancePage(),
+    const MyPage(),
   ];
   final List<dynamic> _iconDataOfSettingPageContents = [
     // iconData or imagePath, page name, isAsset
@@ -40,6 +40,13 @@ class _SettingPageState extends State<SettingPage> {
   @override
   void initState() {
     super.initState();
+    if (Platform.isIOS) {
+      _selectedPageIndex = 1;
+      _pageControllerInSettingPage = PageController(initialPage: 1);
+    } else {
+      _selectedPageIndex = 0;
+      _pageControllerInSettingPage = PageController(initialPage: 0);
+    }
   }
 
   @override

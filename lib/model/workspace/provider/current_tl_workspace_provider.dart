@@ -64,14 +64,15 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
   }
 
   // 現在のworkspaceの今日でチェック済みtodoを全て削除するための関数
-  Future<void> deleteCheckedToDosInTodayInCurrentWorkspace() async {
+  Future<void> deleteCheckedToDosInTodayInCurrentWorkspace(
+      {required bool onlyToday}) async {
     final tlWorkspacesNotifier = ref.read(tlWorkspacesProvider.notifier);
     final updatedCurrentTLWorkspace = state;
 
     for (TLCategory bigCategory in updatedCurrentTLWorkspace.bigCategories) {
       // bigCategoryに関するチェック済みToDoの削除
       deleteAllCheckedToDosInAToDos(
-        onlyToday: true,
+        onlyToday: onlyToday,
         selectedWorkspaceIndex: currentWorkspaceIndex,
         selectedWorkspace: updatedCurrentTLWorkspace,
         selectedToDos:
@@ -81,7 +82,7 @@ class CurrentTLWorkspaceNotifier extends StateNotifier<TLWorkspace> {
           in updatedCurrentTLWorkspace.smallCategories[bigCategory.id]!) {
         // smallCategoryに関するチェック済みToDoの削除
         deleteAllCheckedToDosInAToDos(
-            onlyToday: true,
+            onlyToday: onlyToday,
             selectedWorkspaceIndex: currentWorkspaceIndex,
             selectedWorkspace: updatedCurrentTLWorkspace,
             selectedToDos:

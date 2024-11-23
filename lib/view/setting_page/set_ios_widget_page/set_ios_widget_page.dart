@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/main.dart';
+import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
+import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
+import 'package:today_list/view/setting_page/set_ios_widget_page/create_wk_settings_card/create_wk_settings_card.dart';
+import 'package:today_list/view/setting_page/set_ios_widget_page/show_wks_card.dart';
 import '../../../model/external/tl_ads.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:reorderables/reorderables.dart';
 
 class SetIOSWidgetPage extends ConsumerStatefulWidget {
   const SetIOSWidgetPage({super.key});
@@ -48,6 +53,8 @@ class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
 
   @override
   Widget build(BuildContext context) {
+    final List<WidgetKitSetting> widgetKitSettings =
+        ref.watch(widgetKitSettingsProvider);
     return ListView(
       padding: EdgeInsets.zero,
       children: [
@@ -64,12 +71,32 @@ class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
               ),
             ),
           ),
+        // 設定済みのWidgetExtensionを表示
+        ReorderableColumn(
+          children: [
+            for (WidgetKitSetting w in widgetKitSettings)
+              ShowWKSCard(
+                key: ValueKey(w.id),
+              ),
+          ],
+          onReorder: (oldIndex, newIndex) {
+            setState(() {
+              if (oldIndex < newIndex) {
+                newIndex -= 1;
+              }
+              final WidgetKitSetting item =
+                  widgetKitSettings.removeAt(oldIndex);
+              widgetKitSettings.insert(newIndex, item);
+            });
+          },
+        ),
+        // 新たにWidgetExtensionを追加
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
-          child: Text("SetIOSWidgetPage"),
+          child: CreateWKSettingsCard(),
         ),
         // スペーサー
-        SizedBox(height: 250),
+        const SizedBox(height: 250),
       ],
     );
   }

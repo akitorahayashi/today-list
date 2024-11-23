@@ -25,7 +25,7 @@ class TLIconDataNotifier extends StateNotifier<TLIconData> {
 
   Future<void> _saveSelectedIconData() async {
     final prefs = await TLPref().getPref;
-    final jsonString = json.encode(state.toJson());
+    final jsonString = jsonEncode(state.toJson());
     await prefs.setString('selectedIconData', jsonString);
   }
 
@@ -33,7 +33,7 @@ class TLIconDataNotifier extends StateNotifier<TLIconData> {
     final prefs = await TLPref().getPref;
     final jsonString = prefs.getString('selectedIconData');
     if (jsonString != null) {
-      final jsonData = json.decode(jsonString);
+      final jsonData = jsonDecode(jsonString);
       state = TLIconData.fromJson(jsonData);
     }
   }
