@@ -9,6 +9,16 @@ class TLCategory {
     required this.title,
   });
 
+  TLCategory copyWith({
+    String? id,
+    String? title,
+  }) {
+    return TLCategory(
+      id: id ?? this.id,
+      title: title ?? this.title,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       "id": id,

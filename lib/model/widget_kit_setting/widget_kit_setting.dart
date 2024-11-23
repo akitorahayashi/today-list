@@ -5,7 +5,7 @@ class WidgetKitSetting {
   String title;
   int selectedWorkspaceIndex;
   TLCategory selectedBigCategory;
-  TLCategory selectedSmallCategory;
+  TLCategory? selectedSmallCategory;
 
   WidgetKitSetting({
     required this.id,
