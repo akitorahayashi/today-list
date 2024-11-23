@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class IOSWidgetReplica extends StatelessWidget {
-  const IOSWidgetReplica({super.key});
+class MediumiOSWidgetReplica extends StatelessWidget {
+  const MediumiOSWidgetReplica({super.key});
 
   @override
   Widget build(BuildContext context) {

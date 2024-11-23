@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
 import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
-import 'package:today_list/view/setting_page/set_ios_widget_page/wks_card_list/wks_card.dart';
+import 'package:today_list/view/setting_page/set_ios_widget_page/wks_card_list/wks_card/wks_card.dart';
 
 class WKSCardList extends ConsumerWidget {
   const WKSCardList({super.key});
