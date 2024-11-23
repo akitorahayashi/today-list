@@ -62,22 +62,6 @@ struct TLToDoListView: View {
                 TLToDoRow(spacing: spacing,tlToDoData: tlToDoData)
                     .padding(.bottom, spacing)
             }
-            ForEach(contentsToShow) { tlToDoData in
-                TLToDoRow(spacing: spacing,tlToDoData: tlToDoData)
-                    .padding(.bottom, spacing)
-            }
-            ForEach(contentsToShow) { tlToDoData in
-                TLToDoRow(spacing: spacing,tlToDoData: tlToDoData)
-                    .padding(.bottom, spacing)
-            }
-            ForEach(contentsToShow) { tlToDoData in
-                TLToDoRow(spacing: spacing,tlToDoData: tlToDoData)
-                    .padding(.bottom, spacing)
-            }
-            ForEach(contentsToShow) { tlToDoData in
-                TLToDoRow(spacing: spacing,tlToDoData: tlToDoData)
-                    .padding(.bottom, spacing)
-            }
             
             Spacer()
             

@@ -98,23 +98,16 @@ class _HomePageState extends ConsumerState<HomePage> {
                   numTodos: currentTLWorkspace.getNumOfToDo(ifInToday: true)),
               TodosBlock(
                   ifInToday: true, currentTLWorkspace: currentTLWorkspace),
-              // Wheneverに分類されている方も同じように表示したい
-              // モジュール化、ファイル分けして簡略化してほしい
               if (currentTLWorkspace.getNumOfToDo(ifInToday: false) != 0)
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
-                  child: Column(
-                    children: [
-                      NumToDosCard(
-                          ifInToday: false,
-                          numTodos: currentTLWorkspace.getNumOfToDo(
-                              ifInToday: false)),
-                      TodosBlock(
-                          ifInToday: false,
-                          currentTLWorkspace: currentTLWorkspace),
-                    ],
-                  ),
+                  child: NumToDosCard(
+                      ifInToday: false,
+                      numTodos:
+                          currentTLWorkspace.getNumOfToDo(ifInToday: false)),
                 ),
+              TodosBlock(
+                  ifInToday: false, currentTLWorkspace: currentTLWorkspace),
 
               // スペーサー
               const SizedBox(height: 250)
