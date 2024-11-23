@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/main.dart';
 import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
 import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
+import 'package:today_list/view/setting_page/set_ios_widget_page/create_wk_settings_card/add_wks_button.dart';
 import 'package:today_list/view/setting_page/set_ios_widget_page/create_wk_settings_card/create_wk_settings_card.dart';
 import 'package:today_list/view/setting_page/set_ios_widget_page/show_wks_card.dart';
 import '../../../model/external/tl_ads.dart';
@@ -20,6 +21,8 @@ class SetIOSWidgetPage extends ConsumerStatefulWidget {
 class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
   // 広告
   BannerAd? _bannerAd;
+  // wks追加ボタンを表示するか
+  bool _showAddWKSButton = true;
 
   @override
   void initState() {
@@ -93,7 +96,24 @@ class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
         // 新たにWidgetExtensionを追加
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
-          child: CreateWKSettingsCard(),
+          child: AnimatedCrossFade(
+            duration: const Duration(milliseconds: 300),
+            // +マーク
+            firstChild: AddWKSButton(onPressed: () {
+              setState(() {
+                _showAddWKSButton = false;
+              });
+            }),
+            secondChild: Container(
+              width: 200,
+              height: 200,
+              color: Colors.red,
+              child: const Center(child: Text('Second Child')),
+            ),
+            crossFadeState: _showAddWKSButton
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
+          ),
         ),
         // スペーサー
         const SizedBox(height: 250),

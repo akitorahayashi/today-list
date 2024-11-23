@@ -12,7 +12,7 @@ final widgetKitSettingsProvider =
 class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
   final Ref ref;
   WidgetKitSettingNotifier(this.ref) : super([]) {
-    // コンストラクタ、SharedPreferenceからデータを取得
+    // SharedPreferenceからデータを取得
     _loadWidgetKitSettings();
   }
 
