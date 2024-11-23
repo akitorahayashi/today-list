@@ -12,7 +12,7 @@ import WatchConnectivity
 class TLPhoneConnector: NSObject, ObservableObject, WCSessionDelegate  {
     static let shared = TLPhoneConnector()
     
-    @Published var selectedTheme: String = "Sun Orange"
+    @Published var selectedThemeIdx: Int = 0
     @Published var decodedTLWorkspace: [TLWorkspace] = []
     
     override init() {
@@ -44,9 +44,9 @@ class TLPhoneConnector: NSObject, ObservableObject, WCSessionDelegate  {
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         print("didReceiveMessage: \(message)")
         //         受け取ったメッセージを取り出す
-        if let receivedSelectedtheme = message["selectedTheme"] as? String {
+        if let receivedSelectedtheme = message["selectedTheme"] as? Int {
             DispatchQueue.main.async {
-                self.selectedTheme = receivedSelectedtheme
+                self.selectedThemeIdx = receivedSelectedtheme
             }
             //結果
             print("watchOS: selectedtheme saved successfully")

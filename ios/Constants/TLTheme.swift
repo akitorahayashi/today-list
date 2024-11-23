@@ -14,8 +14,9 @@ struct TLTheme {
     
 }
 
-let kTLThemes: [String: TLTheme] = [
-    "Sun Orange": TLTheme(
+let kTLThemes: [TLTheme] = [
+    // Sun Orange
+    TLTheme(
         gradientOfTopBar: LinearGradient(
             gradient: Gradient(colors: [
                 Color(red: 255 / 255, green: 163 / 255, blue: 163 / 255),
@@ -27,7 +28,8 @@ let kTLThemes: [String: TLTheme] = [
         backgroundColorOfToDoList: Color(red: 255 / 255, green: 229 / 255, blue: 214 / 255),
         toDoCardColor: Color(red: 255 / 255, green: 229 / 255, blue: 214 / 255)
     ),
-    "Lime Green": TLTheme(gradientOfTopBar: LinearGradient(
+    // Lime Green
+    TLTheme(gradientOfTopBar: LinearGradient(
         gradient: Gradient(colors: [
             Color(red: 73 / 255, green: 194 / 255, blue: 70 / 255),
             Color(red: 143 / 255, green: 250 / 255, blue: 56 / 255)
@@ -38,7 +40,8 @@ let kTLThemes: [String: TLTheme] = [
                           backgroundColorOfToDoList: Color(red: 239 / 255, green: 255 / 255, blue: 214 / 255),
                           toDoCardColor: Color(red: 255 / 255, green: 229 / 255, blue: 214 / 255)
     ),
-    "Marine Blue": TLTheme(gradientOfTopBar: LinearGradient(
+    // Marine Blue
+    TLTheme(gradientOfTopBar: LinearGradient(
         gradient: Gradient(colors: [
             Color(red: 131 / 255, green: 169 / 255, blue: 252 / 255),
             Color(red: 144 / 255, green: 242 / 255, blue: 249 / 255)

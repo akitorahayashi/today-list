@@ -14,7 +14,7 @@ struct ShowToDosForCategory: View {
     
     var body: some View {
         // ToDosを取得
-        if let corrToDos = tlWorkspace.toDos[categoryId] {
+        if let corrToDos = tlWorkspace.categoryIDToToDos[categoryId] {
             VStack {
                 ForEach(corrToDos.toDosInToday.indices, id: \.self) { index in
                     var toDoData = corrToDos.toDosInToday[index]

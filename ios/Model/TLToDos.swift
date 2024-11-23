@@ -38,7 +38,7 @@ struct TLToDos: Codable {
             let selectedWorkspace: TLWorkspace = tlWorkspaces[indexInWorkspaces]
             
             // toDosCategoryIdに基づいて、適切なTLToDosを取得
-            guard let toDos: TLToDos = selectedWorkspace.toDos[toDosCategoryId] else {
+            guard let toDos: TLToDos = selectedWorkspace.categoryIDToToDos[toDosCategoryId] else {
                 print("指定されたカテゴリIDのToDosが見つかりません")
                 return nil
             }

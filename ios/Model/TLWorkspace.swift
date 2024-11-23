@@ -12,7 +12,7 @@ struct TLWorkspace: Codable, Identifiable {
     var name: String
     var bigCategories: [TLCategory]
     var smallCategories: [String: [TLCategory]]
-    var toDos: [String: TLToDos]
+    var categoryIDToToDos: [String: TLToDos]
     
     // JSONからToDosをデコードする関数
     static func decodeWorkspaces(from jsonWorkspaces: String?) -> [TLWorkspace]? {

@@ -15,7 +15,7 @@ struct TLWidgetKitSettings: Codable, Identifiable {
     var bigCategory: TLCategory
     var smallCategory:TLCategory?
     
-    // JSONからToDosをデコードする関数
+    // JSONからwksListへデコードする関数
     static func decodeWKSList(from jsonWKSList: String?) -> [TLWidgetKitSettings]? {
         // JSON文字列がnilでないかチェックし、データに変換
         guard let jsonString = jsonWKSList else {

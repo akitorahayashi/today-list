@@ -7,7 +7,7 @@
 
 import Foundation
 
-let noneId = "---n"
+let noneID = "defaultID"
 
 let kTLContentExample = """
 [
@@ -20,14 +20,14 @@ let kTLContentExample = """
       { "id": "hundredStoreId", "title": "100均" }
     ],
     "smallCategories": {
-      "---n": [],
+      "defaultID": [],
       "superMarcketId": [
         { "id": "vegetableId", "title": "野菜" }
       ],
       "hundredStoreId": []
     },
-    "toDos": {
-      "---n": {
+    "categoryIDToToDos": {
+      "defaultID": {
         "toDosInToday": [
           {
             "id": "todo1",

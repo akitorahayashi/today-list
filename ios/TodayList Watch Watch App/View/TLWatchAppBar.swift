@@ -9,11 +9,11 @@ import SwiftUI
 
 struct TLWatchAppBar: View {
     let appbarTitle: String
-    var selectedColorTheme: String
+    var selectedThemeIdx: Int
     
     var body: some View {
         // グラデーションを持つビュー
-        kTLThemes[self.selectedColorTheme]!.gradientOfTopBar
+        kTLThemes[self.selectedThemeIdx].gradientOfTopBar
             .shadow(radius: 4)
         // AppBarのテキスト部分
             .overlay(
