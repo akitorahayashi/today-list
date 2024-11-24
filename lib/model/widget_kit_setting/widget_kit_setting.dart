@@ -18,14 +18,14 @@ class WidgetKitSetting {
   WidgetKitSetting copyWith({
     String? id,
     String? title,
-    int? selectedWorkspaceIndex,
+    int? workspaceIdx,
     TLCategory? selectedBigCategory,
     TLCategory? selectedSmallCategory,
   }) {
     return WidgetKitSetting(
       id: id ?? this.id,
       title: title ?? this.title,
-      workspaceIdx: selectedWorkspaceIndex ?? this.workspaceIdx,
+      workspaceIdx: workspaceIdx ?? this.workspaceIdx,
       selectedBigCategory: selectedBigCategory ?? this.selectedBigCategory,
       selectedSmallCategory:
           selectedSmallCategory ?? this.selectedSmallCategory,
@@ -48,7 +48,9 @@ class WidgetKitSetting {
       title: json['title'],
       workspaceIdx: json['workspaceIdx'],
       selectedBigCategory: TLCategory.fromJson(json['selectedBigCategory']),
-      selectedSmallCategory: TLCategory.fromJson(json['selectedSmallCategory']),
+      selectedSmallCategory: json['selectedSmallCategory'] == null
+          ? null
+          : TLCategory.fromJson(json['selectedSmallCategory']),
     );
   }
 }

@@ -30,6 +30,19 @@ import WidgetKit
                     print(errorMessage) // Log error
                     result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
                 }
+            case "updateWKSList":
+                if let wksListString = call.arguments as? String {
+                    userdefaults?.set(wksListString, forKey: "wksList") // Fixed typo
+                    // メインスレッドでの更新を追加
+                    DispatchQueue.main.async {
+                        WidgetCenter.shared.reloadAllTimelines()
+                    }
+                    result("wksList saved successfully")
+                } else {
+                    let errorMessage = "Expected a String for wksList"
+                    print(errorMessage) // Log error
+                    result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
+                }
                 
             case "updateSelectedTheme":
                 if let selectedTheme = call.arguments as? Int {

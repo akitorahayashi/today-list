@@ -6,7 +6,6 @@ import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
 import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
 import 'package:today_list/view/setting_page/set_ios_widget_page/component/wks_body_text.dart';
 import 'package:today_list/view/setting_page/set_ios_widget_page/component/wks_header.dart';
-import 'package:today_list/view/setting_page/set_ios_widget_page/wks_card_list/wks_card/ios_widget_replica.dart';
 
 class WKSCard extends ConsumerWidget {
   final int idx;
