@@ -12,7 +12,7 @@ class WKSCardList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final List<WidgetKitSetting> wksList = ref.watch(widgetKitSettingsProvider);
-    return ReorderableColumn(
+    return Column(
       children: [
         for (int i = 0; i < wksList.length; i++)
           WKSCard(
@@ -20,14 +20,6 @@ class WKSCardList extends ConsumerWidget {
             idx: i,
           ),
       ],
-      onReorder: (oldIndex, newIndex) {
-        //TODO reorderのチェック
-        if (oldIndex < newIndex) {
-          newIndex -= 1;
-        }
-        final WidgetKitSetting item = wksList.removeAt(oldIndex);
-        wksList.insert(newIndex, item);
-      },
     );
   }
 }

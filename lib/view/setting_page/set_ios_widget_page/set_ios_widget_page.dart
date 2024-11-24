@@ -71,33 +71,30 @@ class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
           ),
         // 設定済みのWidgetExtensionを表示
         const Padding(
-          padding: const EdgeInsets.only(top: 12.0),
+          padding: EdgeInsets.only(top: 12.0),
           child: WKSCardList(),
         ),
         // 新たにWidgetExtensionを追加
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Center(
-            child: AnimatedCrossFade(
-              duration: const Duration(milliseconds: 300),
-              // +マーク
-              firstChild: AddWKSButton(onPressed: () {
-                TLVibration.vibrate();
+        Center(
+          child: AnimatedCrossFade(
+            duration: const Duration(milliseconds: 300),
+            // +マーク
+            firstChild: AddWKSButton(onPressed: () {
+              TLVibration.vibrate();
+              setState(() {
+                _showAddWKSButton = false;
+              });
+            }),
+            secondChild: CreateWKSettingsCard(
+              showAddWKSButtonAction: () {
                 setState(() {
-                  _showAddWKSButton = false;
+                  _showAddWKSButton = true;
                 });
-              }),
-              secondChild: CreateWKSettingsCard(
-                showAddWKSButtonAction: () {
-                  setState(() {
-                    _showAddWKSButton = true;
-                  });
-                },
-              ),
-              crossFadeState: _showAddWKSButton
-                  ? CrossFadeState.showFirst
-                  : CrossFadeState.showSecond,
+              },
             ),
+            crossFadeState: _showAddWKSButton
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
           ),
         ),
         // スペーサー
