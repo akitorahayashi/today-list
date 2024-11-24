@@ -49,7 +49,10 @@ struct TLWidgetKitSettingsQuery: EntityQuery {
         let entities = settings.map {
             TLWidgetKitSettingsEntity(
                 id: $0.id,
-                title: $0.title
+                title: $0.title,
+                workspaceIdx: $0.workspaceIdx,
+                bcIdx: $0.bcIdx,
+                scIdx: $0.scIdx
             )
         }
         print("Loaded Entities: \(entities)")
@@ -58,8 +61,11 @@ struct TLWidgetKitSettingsQuery: EntityQuery {
 }
 
 struct TLWidgetKitSettingsEntity: AppEntity {
-    let id: String
-    let title: String
+    var id: String
+    var title: String
+    var workspaceIdx: Int
+    var bcIdx: Int
+    var scIdx:Int?
 
     static var defaultQuery = TLWidgetKitSettingsQuery()
     
