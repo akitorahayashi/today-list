@@ -34,7 +34,7 @@ struct TLProvider: AppIntentTimelineProvider {
         
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         let themeIdx: Int = userDefaults?.integer(forKey: "selectedThemeIdx") ?? 0
-        let stringOfTLWorkspace = userDefaults?.string(forKey: "tlWorkspaces")
+        let stringOfTLWorkspace: String = userDefaults?.string(forKey: "tlWorkspaces") ?? kTLWorkspacesExample
         let decodedTLWorkspaces: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? []
         let loadedEntry = TLWidgetEntry(date: Date(), entity: configuration.selectedWKS ?? defaultEntity, selectedThemeIdx: themeIdx, tlWorkspaces: decodedTLWorkspaces)
         

@@ -17,15 +17,9 @@ let kTLWorkspacesExample =
     "name": "ToDo",
     "bigCategories": [
       { "id": "defaultID", "title": "なし" },
-      { "id": "superMarcketId", "title": "スーパー" },
-      { "id": "hundredStoreId", "title": "100均" }
     ],
     "smallCategories": {
       "defaultID": [],
-      "superMarcketId": [
-        { "id": "vegetableId", "title": "野菜" }
-      ],
-      "hundredStoreId": []
     },
     "categoryIDToToDos": {
       "defaultID": {

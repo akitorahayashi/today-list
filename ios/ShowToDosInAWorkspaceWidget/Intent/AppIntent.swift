@@ -16,6 +16,6 @@ struct TLWidgetKitSettingsIntent: WidgetConfigurationIntent {
     var selectedWKS: TLWidgetKitSettingsEntity?
     
     static var parameterSummary: some ParameterSummary {
-        Summary("Select widge: \(\.$selectedWKS)")
+        Summary("Select widget: \(\.$selectedWKS)")
     }
 }
