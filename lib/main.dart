@@ -17,7 +17,6 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await dotenv.load(fileName: ".env");
   await TLAds.initializeTLAds();
-  await SettingData.shared.readSettings();
   await TLVibration.initVibrate();
   await TLConnectivity.initializeConnectivity();
   runApp(const ProviderScope(
