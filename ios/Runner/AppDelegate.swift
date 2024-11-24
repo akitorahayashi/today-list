@@ -19,7 +19,7 @@ import WidgetKit
             switch call.method {
             case "updateTLWorkspaces":
                 if let tlWorkspacesString = call.arguments as? String {
-                    userdefaults?.set(tlWorkspacesString, forKey: "tlWorkspaces") // Fixed typo
+                    userdefaults?.set(tlWorkspacesString, forKey: "tlWorkspaces")
                     // メインスレッドでの更新を追加
                     DispatchQueue.main.async {
                         WidgetCenter.shared.reloadAllTimelines()
@@ -32,7 +32,7 @@ import WidgetKit
                 }
             case "updateWKSList":
                 if let wksListString = call.arguments as? String {
-                    userdefaults?.set(wksListString, forKey: "wksList") // Fixed typo
+                    userdefaults?.set(wksListString, forKey: "wksList")
                     // メインスレッドでの更新を追加
                     DispatchQueue.main.async {
                         WidgetCenter.shared.reloadAllTimelines()

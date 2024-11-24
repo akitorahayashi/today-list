@@ -9,46 +9,69 @@ import WidgetKit
 import AppIntents
 
 struct TLWidgetKitSettingsIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "Widget Kit Settings"
-    static var description = IntentDescription("Select the WidgetKit settings configured in the app and display the ToDo items for the desired category!")
-
-
-    @Parameter(title: "Soup")
-    var name: String?
-
-
-    @Parameter(title: "Shuffle", default: true)
-    var shuffle: Bool
-
-
-    @Parameter(title: "Refresh", default: .daily)
-    var interval: RefreshInterval
-
-
+    static var title: LocalizedStringResource = "iOS Widget Settings"
+    static var description = IntentDescription("Select your widget settings")
+    
+    @Parameter(title: "Widget Title")
+    var selectedWKS: TLWidgetKitSettingsEntity?
+    
     static var parameterSummary: some ParameterSummary {
-        When(\.$shuffle, .equalTo, true) {
-            Summary {
-                \.$name
-                \.$shuffle
-                \.$interval
-            }
-        } otherwise: {
-            Summary {
-                \.$name
-                \.$shuffle
-            }
-        }
+        Summary("Select widge: \(\.$selectedWKS)")
     }
 }
 
-enum RefreshInterval: String, AppEnum {
-    case hourly, daily, weekly
+struct TLWidgetKitSettingsQuery: EntityQuery {
+    func entities(for identifiers: [String]) -> [TLWidgetKitSettingsEntity] {
+        loadSettingsList().filter { identifiers.contains($0.id) }
+    }
+    
+    func suggestedEntities() -> [TLWidgetKitSettingsEntity] {
+        loadSettingsList()
+    }
+    
+    private func loadSettingsList() -> [TLWidgetKitSettingsEntity] {
+        let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
+        
+        // JSON文字列の取得を確認
+        guard let jsonString = userDefaults?.string(forKey: "wksList") else {
+            print("UserDefaults does not contain wksList key")
+            return []
+        }
+        print("JSON String: \(jsonString)")
 
+        // JSONデコードの確認
+        guard let settings = TLWidgetKitSettings.decodeWKSList(from: jsonString) else {
+            print("Failed to decode JSON")
+            return []
+        }
 
-    static var typeDisplayRepresentation: TypeDisplayRepresentation = "Refresh Interval"
-    static var caseDisplayRepresentations: [RefreshInterval : DisplayRepresentation] = [
-        .hourly: "Every Hour",
-        .daily: "Every Day",
-        .weekly: "Every Week",
-    ]
+        // 正しいエンティティに変換されているか確認
+        let entities = settings.map {
+            TLWidgetKitSettingsEntity(
+                id: $0.id,
+                title: $0.title
+            )
+        }
+        print("Loaded Entities: \(entities)")
+        return entities
+    }
+}
+
+struct TLWidgetKitSettingsEntity: AppEntity {
+    let id: String
+    let title: String
+
+    static var defaultQuery = TLWidgetKitSettingsQuery()
+    
+    var displayRepresentation: DisplayRepresentation {
+        DisplayRepresentation(
+            title: "\(title)",
+            subtitle: nil,
+            image: nil
+        )
+    }
+    
+    static var typeDisplayRepresentation: TypeDisplayRepresentation {
+        "Widget Settings"
+    }
 }

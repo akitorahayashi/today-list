@@ -12,8 +12,8 @@ struct TLWidgetKitSettings: Codable, Identifiable {
     var id: String
     var title: String
     var workspaceIdx: Int
-    var bigCategory: TLCategory
-    var smallCategory:TLCategory?
+    var bcIdx: Int
+    var scIdx:Int?
     
     // JSONからwksListへデコードする関数
     static func decodeWKSList(from jsonWKSList: String?) -> [TLWidgetKitSettings]? {

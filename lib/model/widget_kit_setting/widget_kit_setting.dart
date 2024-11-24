@@ -34,8 +34,8 @@ class WidgetKitSetting {
       'id': id,
       'title': title,
       'workspaceIdx': workspaceIdx,
-      'selectedBigCategory': bcIdx,
-      'selectedSmallCategory': scIdx,
+      'bcIdx': bcIdx,
+      'scIdx': scIdx,
     };
   }
 
@@ -44,8 +44,8 @@ class WidgetKitSetting {
       id: json['id'],
       title: json['title'],
       workspaceIdx: json['workspaceIdx'] ?? 0,
-      bcIdx: json['selectedBigCategory'] ?? 0,
-      scIdx: json['selectedSmallCategory'],
+      bcIdx: json['bcIdx'] ?? 0,
+      scIdx: json['scIdx'],
     );
   }
 }
