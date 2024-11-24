@@ -23,7 +23,7 @@ struct ShowToDosInAWorkspaceWidget: Widget {
                         ZStack {
                             // テーマの適用
                             kTLThemes[entry.selectedThemeIdx].gradientOfTopBar
-                            Text(entry.configuration.selectedWKS?.title ?? "ToDo")
+                            Text(entry.entity.title)
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.white)
                         }.frame(height: 28)

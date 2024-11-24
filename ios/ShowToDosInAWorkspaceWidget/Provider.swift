@@ -9,7 +9,7 @@ import WidgetKit
 
 struct TLWidgetEntry: TimelineEntry {
     let date: Date
-    let configuration: TLWidgetKitSettingsIntent
+    let entity: TLWidgetKitSettingsEntity
     let selectedThemeIdx: Int
     let tlWorkspaces: [TLWorkspace]
 }
@@ -19,14 +19,14 @@ struct TLProvider: AppIntentTimelineProvider {
     
     func placeholder(in context: Context) -> TLWidgetEntry {
         let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? []
-        return TLWidgetEntry(date: Date(), configuration: TLWidgetKitSettingsIntent(), selectedThemeIdx: 0, tlWorkspaces: tlWorkspacesSample)
+        return TLWidgetEntry(date: Date(), entity: defaultEntity, selectedThemeIdx: 0, tlWorkspaces: tlWorkspacesSample)
     }
     
     func snapshot(for configuration: TLWidgetKitSettingsIntent, in context: Context) async -> TLWidgetEntry {
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         let themeIdx: Int = userDefaults?.integer(forKey: "selectedThemeIdx") ?? 0
         let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? []
-        return TLWidgetEntry(date: Date(), configuration: configuration, selectedThemeIdx: themeIdx, tlWorkspaces: tlWorkspacesSample)
+        return TLWidgetEntry(date: Date(), entity: defaultEntity, selectedThemeIdx: themeIdx, tlWorkspaces: tlWorkspacesSample)
     }
     
     func timeline(for configuration: TLWidgetKitSettingsIntent, in context: Context) async -> Timeline<TLWidgetEntry> {
@@ -36,7 +36,7 @@ struct TLProvider: AppIntentTimelineProvider {
         let themeIdx: Int = userDefaults?.integer(forKey: "selectedThemeIdx") ?? 0
         let stringOfTLWorkspace = userDefaults?.string(forKey: "tlWorkspaces")
         let decodedTLWorkspaces: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? []
-        let loadedEntry = TLWidgetEntry(date: Date(), configuration: configuration, selectedThemeIdx: themeIdx, tlWorkspaces: decodedTLWorkspaces)
+        let loadedEntry = TLWidgetEntry(date: Date(), entity: configuration.selectedWKS ?? defaultEntity, selectedThemeIdx: themeIdx, tlWorkspaces: decodedTLWorkspaces)
         
         entries.append(loadedEntry)
         

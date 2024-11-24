@@ -1,24 +1,11 @@
 //
-//  AppIntent.swift
-//  ShowToDosInAWorkspaceWidget
+//  Query.swift
+//  Runner
 //
-//  Created by 林 明虎 on 2024/10/21.
+//  Created by 林 明虎 on 2024/11/24.
 //
 
-import WidgetKit
 import AppIntents
-
-struct TLWidgetKitSettingsIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "iOS Widget Settings"
-    static var description = IntentDescription("Select your widget settings")
-    
-    @Parameter(title: "Widget Title")
-    var selectedWKS: TLWidgetKitSettingsEntity?
-    
-    static var parameterSummary: some ParameterSummary {
-        Summary("Select widge: \(\.$selectedWKS)")
-    }
-}
 
 struct TLWidgetKitSettingsQuery: EntityQuery {
     func entities(for identifiers: [String]) -> [TLWidgetKitSettingsEntity] {
@@ -60,24 +47,3 @@ struct TLWidgetKitSettingsQuery: EntityQuery {
     }
 }
 
-struct TLWidgetKitSettingsEntity: AppEntity {
-    var id: String
-    var title: String
-    var workspaceIdx: Int
-    var bcIdx: Int
-    var scIdx:Int?
-
-    static var defaultQuery = TLWidgetKitSettingsQuery()
-    
-    var displayRepresentation: DisplayRepresentation {
-        DisplayRepresentation(
-            title: "\(title)",
-            subtitle: nil,
-            image: nil
-        )
-    }
-    
-    static var typeDisplayRepresentation: TypeDisplayRepresentation {
-        "Widget Settings"
-    }
-}

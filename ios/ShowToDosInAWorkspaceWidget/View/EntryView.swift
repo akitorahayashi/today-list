@@ -1,3 +1,10 @@
+//
+//  EntryView.swift
+//  Runner
+//
+//  Created by 林 明虎 on 2024/11/24.
+//
+
 import WidgetKit
 import SwiftUI
 
@@ -20,6 +27,6 @@ struct ShowToDosInAWorkspaceWidgetEntryView : View {
 #Preview(as: .systemSmall) {
     ShowToDosInAWorkspaceWidget()
 } timeline: {
-    TLWidgetEntry(date: .now, configuration: TLWidgetKitSettingsIntent(), selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
+    TLWidgetEntry(date: .now, entity: defaultEntity, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
 }
 

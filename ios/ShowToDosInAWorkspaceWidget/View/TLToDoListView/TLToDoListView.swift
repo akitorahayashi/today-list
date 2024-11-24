@@ -1,3 +1,10 @@
+//
+//  EntryView.swift
+//  Runner
+//
+//  Created by 林 明虎 on 2024/11/24.
+//
+
 import WidgetKit
 import SwiftUI
 
@@ -10,7 +17,7 @@ struct TLToDoListView: View {
     var body: some View {
         VStack(alignment: .leading) {
             
-            let wksEntity: TLWidgetKitSettingsEntity = entry.configuration.selectedWKS ?? TLWidgetKitSettingsEntity(id: noneID, title: "ToDo", workspaceIdx: 0, bcIdx: 0)
+            let wksEntity: TLWidgetKitSettingsEntity = entry.entity
             
             let corrWorkspace: TLWorkspace = entry.tlWorkspaces[wksEntity.workspaceIdx]
             
@@ -91,5 +98,5 @@ struct TLToDoListView: View {
 #Preview(as: .systemLarge) {
     ShowToDosInAWorkspaceWidget()
 } timeline: {
-    TLWidgetEntry(date: .now, configuration: TLWidgetKitSettingsIntent(), selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
+    TLWidgetEntry(date: .now, entity: defaultEntity, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
 }

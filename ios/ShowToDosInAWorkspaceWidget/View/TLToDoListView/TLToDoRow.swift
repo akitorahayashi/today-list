@@ -1,3 +1,10 @@
+//
+//  EntryView.swift
+//  Runner
+//
+//  Created by 林 明虎 on 2024/11/24.
+//
+
 import SwiftUI
 
 // カスタム ViewModifier の定義
