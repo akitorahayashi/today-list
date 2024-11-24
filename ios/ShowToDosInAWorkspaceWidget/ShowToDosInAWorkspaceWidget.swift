@@ -14,7 +14,8 @@ struct ShowToDosInAWorkspaceWidget: Widget {
     let kind: String = "ShowToDosInAWorkspaceWidget"
     
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
+        
+        AppIntentConfiguration(kind: kind, intent: TLWidgetKitSettingsIntent.self, provider: Provider()) { entry in
             
             ShowToDosInAWorkspaceWidgetEntryView(entry: entry)
                 .containerBackground(for: .widget) {
@@ -54,8 +55,8 @@ struct ShowToDosInAWorkspaceWidget: Widget {
 //    SimpleEntry(date: .now, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
 //}
 
-#Preview(as: .systemLarge) {
-    ShowToDosInAWorkspaceWidget()
-} timeline: {
-    SimpleEntry(date: .now, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
-}
+//#Preview(as: .systemLarge) {
+//    ShowToDosInAWorkspaceWidget()
+//} timeline: {
+//    SimpleEntry(date: .now, configuration: TLWidgetKitSettingsIntent(), selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
+//}

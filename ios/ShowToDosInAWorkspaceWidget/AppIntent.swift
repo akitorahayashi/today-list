@@ -8,11 +8,76 @@
 import WidgetKit
 import AppIntents
 
-struct ConfigurationAppIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource { "Configuration" }
-    static var description: IntentDescription { "This is an example widget." }
+struct TLWidgetKitSettingsIntent: WidgetConfigurationIntent {
+    static var title: LocalizedStringResource = "iOS Widget Settings"
+    static var description = IntentDescription("Select your widget settings")
+    
+    @Parameter(title: "Widget Title")
+    var selectedWKS: TLWidgetKitSettingsEntity?
+    
+    static var parameterSummary: some ParameterSummary {
+        Summary("Select widge: \(\.$selectedWKS)")
+    }
+}
 
-    // An example configurable parameter.
-    @Parameter(title: "Favorite Emoji", default: "😃")
-    var favoriteEmoji: String
+struct TLWidgetKitSettingsQuery: EntityQuery {
+    func entities(for identifiers: [String]) -> [TLWidgetKitSettingsEntity] {
+        loadSettingsList().filter { identifiers.contains($0.id) }
+    }
+    
+    func suggestedEntities() -> [TLWidgetKitSettingsEntity] {
+        loadSettingsList()
+    }
+    
+    private func loadSettingsList() -> [TLWidgetKitSettingsEntity] {
+        let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
+        
+        // JSON文字列の取得を確認
+        guard let jsonString = userDefaults?.string(forKey: "wksList") else {
+            print("UserDefaults does not contain wksList key")
+            return []
+        }
+        print("JSON String: \(jsonString)")
+
+        // JSONデコードの確認
+        guard let settings = TLWidgetKitSettings.decodeWKSList(from: jsonString) else {
+            print("Failed to decode JSON")
+            return []
+        }
+
+        // 正しいエンティティに変換されているか確認
+        let entities = settings.map {
+            TLWidgetKitSettingsEntity(
+                id: $0.id,
+                title: $0.title,
+                workspaceIdx: $0.workspaceIdx,
+                bcIdx: $0.bcIdx,
+                scIdx: $0.scIdx
+            )
+        }
+        print("Loaded Entities: \(entities)")
+        return entities
+    }
+}
+
+struct TLWidgetKitSettingsEntity: AppEntity {
+    var id: String
+    var title: String
+    var workspaceIdx: Int
+    var bcIdx: Int
+    var scIdx:Int?
+
+    static var defaultQuery = TLWidgetKitSettingsQuery()
+    
+    var displayRepresentation: DisplayRepresentation {
+        DisplayRepresentation(
+            title: "\(title)",
+            subtitle: nil,
+            image: nil
+        )
+    }
+    
+    static var typeDisplayRepresentation: TypeDisplayRepresentation {
+        "Widget Settings"
+    }
 }

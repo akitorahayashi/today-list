@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00C58B75916649A72A2719DF /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDCA1D1226874CC2A0AB193 /* Pods_Runner.framework */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
+		1B93BB002CF2F3BC00772777 /* TLWidgetKitSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* TLWidgetKitSettings.swift */; };
 		1BA7C2E82CC6859700DCF511 /* TodayList Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1BA7C2DB2CC6859500DCF511 /* TodayList Watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1BA7C2F42CC6859B00DCF511 /* TodayList_WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C2F12CC6859B00DCF511 /* TodayList_WatchApp.swift */; };
 		1BA7C2F52CC6859B00DCF511 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BA7C2ED2CC6859B00DCF511 /* Preview Assets.xcassets */; };
@@ -44,7 +45,6 @@
 		1BC2971F2CF1DDDB00AAE33A /* TLStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2971D2CF1DDD900AAE33A /* TLStep.swift */; };
 		1BC297212CF1DDE600AAE33A /* TLToDos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297202CF1DDE300AAE33A /* TLToDos.swift */; };
 		1BC297222CF1DDE600AAE33A /* TLToDos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297202CF1DDE300AAE33A /* TLToDos.swift */; };
-		1BC297272CF1DED800AAE33A /* TLWidgetKitSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* TLWidgetKitSettings.swift */; };
 		1BC297282CF1DED800AAE33A /* TLWidgetKitSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* TLWidgetKitSettings.swift */; };
 		1BC2972C2CF1F5A600AAE33A /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2972B2CF1F59800AAE33A /* Provider.swift */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
@@ -704,7 +704,6 @@
 				1BC297182CF1DDC700AAE33A /* TLCategory.swift in Sources */,
 				1BA7C3112CC6883B00DCF511 /* TLTheme.swift in Sources */,
 				1BC2971F2CF1DDDB00AAE33A /* TLStep.swift in Sources */,
-				1BC297272CF1DED800AAE33A /* TLWidgetKitSettings.swift in Sources */,
 				1BC297152CF1DDC100AAE33A /* TLToDo.swift in Sources */,
 				1BA7C3072CC6877800DCF511 /* ShowToDosInTodayInAWorkspaceView.swift in Sources */,
 				1BA7C3102CC687EA00DCF511 /* SelectWorkspaceHomeView.swift in Sources */,
@@ -754,6 +753,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
+				1B93BB002CF2F3BC00772777 /* TLWidgetKitSettings.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
