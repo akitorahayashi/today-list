@@ -2,7 +2,7 @@ import WidgetKit
 import SwiftUI
 
 struct ShowToDosInAWorkspaceWidgetEntryView : View {
-    var entry: Provider.Entry
+    var entry: TLProvider.Entry
     
     // @Environmentを使ってWidgetFamilyを取得
     @Environment(\.widgetFamily) var widgetFamily
@@ -20,6 +20,6 @@ struct ShowToDosInAWorkspaceWidgetEntryView : View {
 #Preview(as: .systemSmall) {
     ShowToDosInAWorkspaceWidget()
 } timeline: {
-    SimpleEntry(date: .now, configuration: TLWidgetKitSettingsIntent(), selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
+    TLWidgetEntry(date: .now, configuration: TLWidgetKitSettingsIntent(), selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
 }
 

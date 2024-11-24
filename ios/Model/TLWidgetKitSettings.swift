@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+let defaultWKS = TLWidgetKitSettings(
+    id: noneID,
+    title: "ToDo",
+    workspaceIdx: 0,
+    bcIdx: 0,
+    scIdx: nil
+)
+
 struct TLWidgetKitSettings: Codable, Identifiable {
     
     var id: String

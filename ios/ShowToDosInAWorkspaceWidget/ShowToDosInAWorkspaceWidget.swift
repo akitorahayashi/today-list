@@ -15,7 +15,7 @@ struct ShowToDosInAWorkspaceWidget: Widget {
     
     var body: some WidgetConfiguration {
         
-        AppIntentConfiguration(kind: kind, intent: TLWidgetKitSettingsIntent.self, provider: Provider()) { entry in
+        AppIntentConfiguration(kind: kind, intent: TLWidgetKitSettingsIntent.self, provider: TLProvider()) { entry in
             
             ShowToDosInAWorkspaceWidgetEntryView(entry: entry)
                 .containerBackground(for: .widget) {
@@ -23,7 +23,7 @@ struct ShowToDosInAWorkspaceWidget: Widget {
                         ZStack {
                             // テーマの適用
                             kTLThemes[entry.selectedThemeIdx].gradientOfTopBar
-                            Text("ToDo")
+                            Text(entry.configuration.selectedWKS?.title ?? "ToDo")
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.white)
                         }.frame(height: 28)

@@ -2,7 +2,7 @@ import WidgetKit
 import SwiftUI
 
 struct TLToDoListView: View {
-    var entry: Provider.Entry
+    var entry: TLProvider.Entry
     
     @Environment(\.widgetFamily) var widgetFamily
     
@@ -10,7 +10,21 @@ struct TLToDoListView: View {
     var body: some View {
         VStack(alignment: .leading) {
             
-            let toDosInToday = entry.tlWorkspaces[0].categoryIDToToDos[noneID]!
+            let wksEntity: TLWidgetKitSettingsEntity = entry.configuration.selectedWKS ?? TLWidgetKitSettingsEntity(id: noneID, title: "ToDo", workspaceIdx: 0, bcIdx: 0)
+            
+            let corrWorkspace: TLWorkspace = entry.tlWorkspaces[wksEntity.workspaceIdx]
+            
+            var corrCategoryID = {
+                let corrBC = corrWorkspace.bigCategories[wksEntity.bcIdx]
+                if (wksEntity.scIdx == nil) {
+                    return corrBC.id
+                } else {
+                    let corrSC = corrWorkspace.smallCategories[corrBC.id]![wksEntity.scIdx!]
+                    return corrSC.id
+                }
+            }()
+            
+            let toDosInToday = corrWorkspace.categoryIDToToDos[corrCategoryID]!
                 .toDosInToday.filter { !$0.isChecked }
             
             // 表示する最大アイテム数
@@ -77,5 +91,5 @@ struct TLToDoListView: View {
 #Preview(as: .systemLarge) {
     ShowToDosInAWorkspaceWidget()
 } timeline: {
-    SimpleEntry(date: .now, configuration: TLWidgetKitSettingsIntent(), selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
+    TLWidgetEntry(date: .now, configuration: TLWidgetKitSettingsIntent(), selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
 }

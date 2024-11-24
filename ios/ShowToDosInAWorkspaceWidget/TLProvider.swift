@@ -7,36 +7,36 @@
 
 import WidgetKit
 
-struct SimpleEntry: TimelineEntry {
+struct TLWidgetEntry: TimelineEntry {
     let date: Date
     let configuration: TLWidgetKitSettingsIntent
     let selectedThemeIdx: Int
     let tlWorkspaces: [TLWorkspace]
 }
 
-struct Provider: AppIntentTimelineProvider {
+struct TLProvider: AppIntentTimelineProvider {
     typealias Intent = TLWidgetKitSettingsIntent
     
-    func placeholder(in context: Context) -> SimpleEntry {
+    func placeholder(in context: Context) -> TLWidgetEntry {
         let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? []
-        return SimpleEntry(date: Date(), configuration: TLWidgetKitSettingsIntent(), selectedThemeIdx: 0, tlWorkspaces: tlWorkspacesSample)
+        return TLWidgetEntry(date: Date(), configuration: TLWidgetKitSettingsIntent(), selectedThemeIdx: 0, tlWorkspaces: tlWorkspacesSample)
     }
     
-    func snapshot(for configuration: TLWidgetKitSettingsIntent, in context: Context) async -> SimpleEntry {
+    func snapshot(for configuration: TLWidgetKitSettingsIntent, in context: Context) async -> TLWidgetEntry {
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         let themeIdx: Int = userDefaults?.integer(forKey: "selectedThemeIdx") ?? 0
         let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? []
-        return SimpleEntry(date: Date(), configuration: configuration, selectedThemeIdx: themeIdx, tlWorkspaces: tlWorkspacesSample)
+        return TLWidgetEntry(date: Date(), configuration: configuration, selectedThemeIdx: themeIdx, tlWorkspaces: tlWorkspacesSample)
     }
     
-    func timeline(for configuration: TLWidgetKitSettingsIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
+    func timeline(for configuration: TLWidgetKitSettingsIntent, in context: Context) async -> Timeline<TLWidgetEntry> {
+        var entries: [TLWidgetEntry] = []
         
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         let themeIdx: Int = userDefaults?.integer(forKey: "selectedThemeIdx") ?? 0
         let stringOfTLWorkspace = userDefaults?.string(forKey: "tlWorkspaces")
         let decodedTLWorkspaces: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? []
-        let loadedEntry = SimpleEntry(date: Date(), configuration: configuration, selectedThemeIdx: themeIdx, tlWorkspaces: decodedTLWorkspaces)
+        let loadedEntry = TLWidgetEntry(date: Date(), configuration: configuration, selectedThemeIdx: themeIdx, tlWorkspaces: decodedTLWorkspaces)
         
         entries.append(loadedEntry)
         
