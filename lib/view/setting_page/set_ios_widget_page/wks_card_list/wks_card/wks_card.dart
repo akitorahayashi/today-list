@@ -8,6 +8,7 @@ import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
 import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
 import 'package:today_list/view/setting_page/set_ios_widget_page/component/wks_body_text.dart';
 import 'package:today_list/view/setting_page/set_ios_widget_page/component/wks_header.dart';
+import 'package:today_list/view/setting_page/set_ios_widget_page/wks_card_list/wks_card/medium_ios_widget_replica.dart';
 
 class WKSCard extends ConsumerWidget {
   final int idx;
@@ -32,12 +33,12 @@ class WKSCard extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // 何番目のWidgetか
+                // タイトル
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Text(
-                      "Widget ${idx + 1}",
+                      wksInThisCard.title,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
@@ -45,12 +46,6 @@ class WKSCard extends ConsumerWidget {
                     ),
                   ),
                 ),
-                // Title
-                const Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: WKSHeader(text: "Title"),
-                ),
-                WKSBodyText(text: wksInThisCard.title),
                 //  Workspace
                 const Padding(
                   padding: EdgeInsets.only(top: 4.0),
@@ -79,12 +74,12 @@ class WKSCard extends ConsumerWidget {
                         .title,
                   ),
                 ],
-                // Center(
-                //   child: const Padding(
-                //     padding: EdgeInsets.only(top: 8.0),
-                //     child: MediumiOSWidgetReplica(),
-                //   ),
-                // ),
+                Center(
+                  child: const Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: MediumiOSWidgetReplica(),
+                  ),
+                ),
                 // 下の余白
                 const SizedBox(height: 16),
               ],

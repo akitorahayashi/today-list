@@ -7,12 +7,6 @@ class MediumiOSWidgetReplica extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     return SizedBox(
-        width: deviceWidth,
-        height: (deviceWidth - 80) / 2,
-        child: Card(
-          child: Expanded(
-            child: Text("koko"),
-          ),
-        ));
+        width: deviceWidth, height: (deviceWidth - 80) / 2, child: Card());
   }
 }

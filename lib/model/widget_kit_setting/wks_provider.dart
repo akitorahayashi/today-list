@@ -4,6 +4,8 @@ import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
 import 'package:today_list/model/external/tl_pref.dart';
 import 'dart:convert';
 
+import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
+
 final widgetKitSettingsProvider =
     StateNotifierProvider<WidgetKitSettingNotifier, List<WidgetKitSetting>>(
         (ref) {
@@ -12,7 +14,15 @@ final widgetKitSettingsProvider =
 
 class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
   final Ref ref;
-  WidgetKitSettingNotifier(this.ref) : super([]) {
+  WidgetKitSettingNotifier(this.ref)
+      : super([
+          WidgetKitSetting(
+              id: noneID,
+              title: "Default",
+              workspaceIdx: 0,
+              bcIdx: 0,
+              scIdx: null),
+        ]) {
     // SharedPreferenceからデータを取得
     _loadWidgetKitSettings();
   }
