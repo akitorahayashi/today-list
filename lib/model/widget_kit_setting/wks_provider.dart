@@ -46,10 +46,11 @@ class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
     await _saveWidgetKitSettings();
   }
 
-  // WKSを削除するメソッド
-  Future<void> removeWidgetKitSettings(
-      {required String corrWidgetKitSettingsId}) async {
-    state = state.where((w) => w.id != corrWidgetKitSettingsId).toList();
+  Future<void> removeWidgetKitSettings({required int index}) async {
+    if (index < 0 || index >= state.length) {
+      throw RangeError.index(index, state, 'index');
+    }
+    state = List.from(state)..removeAt(index);
     await _saveWidgetKitSettings();
   }
 

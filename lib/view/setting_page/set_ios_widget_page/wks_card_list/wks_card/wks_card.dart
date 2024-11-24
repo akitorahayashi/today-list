@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/common_ui_part/tl_double_card.dart';
+import 'package:today_list/component/slidable/slidable_for_wks_card.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
 import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
@@ -21,70 +22,73 @@ class WKSCard extends ConsumerWidget {
     final deviceWidth = MediaQuery.of(context).size.width;
     final TLCategory bc = tlWorkspaces[wksInThisCard.workspaceIdx]
         .bigCategories[wksInThisCard.bcIdx];
-    return TlDoubleCard(
-      child: SizedBox(
-        width: deviceWidth - 50,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // 何番目のWidgetか
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: Text(
-                    "Widget ${idx + 1}",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                        color: Colors.black45),
+    return SlidableForWKSCard(
+      indexInWKSList: idx,
+      child: TlDoubleCard(
+        child: SizedBox(
+          width: deviceWidth - 50,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 何番目のWidgetか
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Text(
+                      "Widget ${idx + 1}",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22,
+                          color: Colors.black45),
+                    ),
                   ),
                 ),
-              ),
-              // Title
-              const Padding(
-                padding: EdgeInsets.only(top: 8.0),
-                child: WKSHeader(text: "Title"),
-              ),
-              WKSBodyText(text: wksInThisCard.title),
-              //  Workspace
-              const Padding(
-                padding: EdgeInsets.only(top: 4.0),
-                child: WKSHeader(text: "Workspace"),
-              ),
-              WKSBodyText(
-                text: tlWorkspaces[wksInThisCard.workspaceIdx].name,
-              ),
-              // Big category
-              const Padding(
-                padding: EdgeInsets.only(top: 4.0),
-                child: WKSHeader(text: "Big Category"),
-              ),
-              WKSBodyText(
-                text: bc.title,
-              ),
-              // Small category
-              if (wksInThisCard.scIdx != null) ...[
+                // Title
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: WKSHeader(text: "Title"),
+                ),
+                WKSBodyText(text: wksInThisCard.title),
+                //  Workspace
                 const Padding(
                   padding: EdgeInsets.only(top: 4.0),
-                  child: WKSHeader(text: "Small Category"),
+                  child: WKSHeader(text: "Workspace"),
                 ),
                 WKSBodyText(
-                  text: tlWorkspaces[wksInThisCard.workspaceIdx]
-                      .smallCategories[bc.id]![wksInThisCard.scIdx!]
-                      .title,
+                  text: tlWorkspaces[wksInThisCard.workspaceIdx].name,
                 ),
+                // Big category
+                const Padding(
+                  padding: EdgeInsets.only(top: 4.0),
+                  child: WKSHeader(text: "Big Category"),
+                ),
+                WKSBodyText(
+                  text: bc.title,
+                ),
+                // Small category
+                if (wksInThisCard.scIdx != null) ...[
+                  const Padding(
+                    padding: EdgeInsets.only(top: 4.0),
+                    child: WKSHeader(text: "Small Category"),
+                  ),
+                  WKSBodyText(
+                    text: tlWorkspaces[wksInThisCard.workspaceIdx]
+                        .smallCategories[bc.id]![wksInThisCard.scIdx!]
+                        .title,
+                  ),
+                ],
+                // Center(
+                //   child: const Padding(
+                //     padding: EdgeInsets.only(top: 8.0),
+                //     child: MediumiOSWidgetReplica(),
+                //   ),
+                // ),
+                // 下の余白
+                const SizedBox(height: 16),
               ],
-              // Center(
-              //   child: const Padding(
-              //     padding: EdgeInsets.only(top: 8.0),
-              //     child: MediumiOSWidgetReplica(),
-              //   ),
-              // ),
-              // 下の余白
-              const SizedBox(height: 16),
-            ],
+            ),
           ),
         ),
       ),
