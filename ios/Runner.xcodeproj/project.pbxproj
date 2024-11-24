@@ -47,6 +47,7 @@
 		1BC297272CF1DED800AAE33A /* TLWidgetKitSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* TLWidgetKitSettings.swift */; };
 		1BC297282CF1DED800AAE33A /* TLWidgetKitSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* TLWidgetKitSettings.swift */; };
 		1BC2972C2CF1F5A600AAE33A /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC2972B2CF1F59800AAE33A /* Provider.swift */; };
+		1BC2972D2CF2CF6600AAE33A /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3322CC688D000DCF511 /* AppIntent.swift */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
@@ -755,6 +756,7 @@
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
+				1BC2972D2CF2CF6600AAE33A /* AppIntent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
