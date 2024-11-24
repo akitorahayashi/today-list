@@ -13,7 +13,6 @@ class NumToDosCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    final double deviceWidth = MediaQuery.of(context).size.width;
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),

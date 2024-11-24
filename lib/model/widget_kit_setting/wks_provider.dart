@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/external/tl_widgetkit.dart';
 import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
 import 'package:today_list/model/external/tl_pref.dart';
 import 'dart:convert';
@@ -34,24 +35,25 @@ class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
     final pref = await TLPref().getPref;
     final encodedWidgetKitSettings =
         jsonEncode(state.map((w) => w.toJson()).toList());
+    TLWidgetKit.updateWKSList(encodedWKSList: encodedWidgetKitSettings);
     await pref.setString("widgetKitSettings", encodedWidgetKitSettings);
   }
 
-  // TLWorkspaceを追加するメソッド
+  // WKSを追加するメソッド
   Future<void> addWidgetKitSettings(
       {required WidgetKitSetting newWidgetKitSettings}) async {
     state = [...state, newWidgetKitSettings];
     await _saveWidgetKitSettings();
   }
 
-  // TLWorkspaceを削除するメソッド
+  // WKSを削除するメソッド
   Future<void> removeWidgetKitSettings(
       {required String corrWidgetKitSettingsId}) async {
     state = state.where((w) => w.id != corrWidgetKitSettingsId).toList();
     await _saveWidgetKitSettings();
   }
 
-  // List<TLWorkspace>を更新するメソッド
+  // WKSListを更新するメソッド
   Future<void> updateWidgetKitSettingsList(
       {required List<WidgetKitSetting> updatedWidgetKitSettingsList}) async {
     state = updatedWidgetKitSettingsList;
