@@ -9,8 +9,8 @@ import WidgetKit
 import AppIntents
 
 struct TLWidgetKitSettingsIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "Favorite Soup"
-    static var description = IntentDescription("Shows a picture of your favorite soup!")
+    static var title: LocalizedStringResource = "Widget Kit Settings"
+    static var description = IntentDescription("Select the WidgetKit settings configured in the app and display the ToDo items for the desired category!")
 
 
     @Parameter(title: "Soup")

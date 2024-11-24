@@ -1,34 +1,31 @@
-import 'package:today_list/model/todo/tl_category.dart';
-
 class WidgetKitSetting {
   String id;
   String title;
   int workspaceIdx;
-  TLCategory selectedBigCategory;
-  TLCategory? selectedSmallCategory;
+  int bcIdx;
+  int? scIdx;
 
   WidgetKitSetting({
     required this.id,
     required this.title,
     required this.workspaceIdx,
-    required this.selectedBigCategory,
-    required this.selectedSmallCategory,
+    required this.bcIdx,
+    required this.scIdx,
   });
 
   WidgetKitSetting copyWith({
     String? id,
     String? title,
     int? workspaceIdx,
-    TLCategory? selectedBigCategory,
-    TLCategory? selectedSmallCategory,
+    int? bcIdx,
+    int? scIdx,
   }) {
     return WidgetKitSetting(
       id: id ?? this.id,
       title: title ?? this.title,
       workspaceIdx: workspaceIdx ?? this.workspaceIdx,
-      selectedBigCategory: selectedBigCategory ?? this.selectedBigCategory,
-      selectedSmallCategory:
-          selectedSmallCategory ?? this.selectedSmallCategory,
+      bcIdx: bcIdx ?? this.bcIdx,
+      scIdx: scIdx ?? this.scIdx,
     );
   }
 
@@ -37,8 +34,8 @@ class WidgetKitSetting {
       'id': id,
       'title': title,
       'workspaceIdx': workspaceIdx,
-      'selectedBigCategory': selectedBigCategory,
-      'selectedSmallCategory': selectedSmallCategory,
+      'selectedBigCategory': bcIdx,
+      'selectedSmallCategory': scIdx,
     };
   }
 
@@ -46,11 +43,9 @@ class WidgetKitSetting {
     return WidgetKitSetting(
       id: json['id'],
       title: json['title'],
-      workspaceIdx: json['workspaceIdx'],
-      selectedBigCategory: TLCategory.fromJson(json['selectedBigCategory']),
-      selectedSmallCategory: json['selectedSmallCategory'] == null
-          ? null
-          : TLCategory.fromJson(json['selectedSmallCategory']),
+      workspaceIdx: json['workspaceIdx'] ?? 0,
+      bcIdx: json['selectedBigCategory'] ?? 0,
+      scIdx: json['selectedSmallCategory'],
     );
   }
 }

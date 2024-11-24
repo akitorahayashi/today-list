@@ -25,20 +25,22 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
   bool _ifUserHasEntered = false;
   // 選んでいるWorkspaceのindex
   int _selectedWorkspaceIndex = 0;
-  // 選んでいるcategoryのID
-  late TLCategory _selectedBigCategory;
-  TLCategory? _selectedSmallCategory;
+  // 選んでいるcategoryのidx
+  int _selectedBCIdx = 0;
+  int? _selectedSCIdx;
 
-  TLCategory get _initialBigCategory =>
-      ref.read(tlWorkspacesProvider)[_selectedWorkspaceIndex].bigCategories[0];
+  String get _selectedBCID => ref
+      .read(tlWorkspacesProvider)[_selectedWorkspaceIndex]
+      .bigCategories[_selectedBCIdx]
+      .id;
 
   // 選んでいる項目を全てデフォルトの値に戻す関数
   void _initialize() {
     _wksInputController.clear();
     _ifUserHasEntered = false;
     _selectedWorkspaceIndex = 0;
-    _selectedBigCategory = _initialBigCategory;
-    _selectedSmallCategory = null;
+    _selectedBCIdx = 0;
+    _selectedSCIdx = null;
   }
 
   ButtonStyle get controllButtonStyle => (() {
@@ -58,13 +60,6 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
           ),
         );
       })();
-
-  @override
-  void initState() {
-    super.initState();
-    // カテゴリーの初期化
-    _selectedBigCategory = _initialBigCategory;
-  }
 
   @override
   void dispose() {
@@ -151,8 +146,8 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                                   tlWorkspaces[newIndex].name;
                             }
                             _selectedWorkspaceIndex = newIndex;
-                            _selectedBigCategory = _initialBigCategory;
-                            _selectedSmallCategory = null;
+                            _selectedBCIdx = 0;
+                            _selectedSCIdx = null;
                           });
                         },
                       ),
@@ -166,15 +161,17 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const WKSHeader(text: "Big category"),
-                      DropdownButton<TLCategory>(
+                      DropdownButton<int>(
                         isExpanded: true,
                         iconEnabledColor: tlThemeData.accentColor,
-                        value: _selectedBigCategory,
+                        value: _selectedBCIdx,
                         items: tlWorkspaces[_selectedWorkspaceIndex]
                             .bigCategories
                             .map((TLCategory bc) {
-                          return DropdownMenuItem<TLCategory>(
-                            value: bc,
+                          return DropdownMenuItem<int>(
+                            value: tlWorkspaces[_selectedWorkspaceIndex]
+                                .bigCategories
+                                .indexWhere((category) => category.id == bc.id),
                             child: Text(bc.title),
                           );
                         }).toList(),
@@ -182,20 +179,18 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                           color: Colors.black45,
                           fontWeight: FontWeight.bold,
                         ),
-                        onChanged: (TLCategory? newBigCategory) {
-                          if (newBigCategory == null) return;
+                        onChanged: (int? newBCIdx) {
+                          if (newBCIdx == null) return;
                           TLVibration.vibrate();
                           setState(() {
                             if (!_ifUserHasEntered) {
                               _wksInputController.text =
                                   tlWorkspaces[_selectedWorkspaceIndex]
-                                      .bigCategories
-                                      .firstWhere(
-                                          (bc) => bc.id == newBigCategory.id)
+                                      .bigCategories[newBCIdx]
                                       .title;
                             }
-                            _selectedBigCategory = newBigCategory;
-                            _selectedSmallCategory = null;
+                            _selectedBCIdx = newBCIdx;
+                            _selectedSCIdx = null;
                           });
                         },
                       ),
@@ -205,7 +200,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                 // smallCategoryを選択するを選択する
                 AnimatedCrossFade(
                   crossFadeState: tlWorkspaces[_selectedWorkspaceIndex]
-                          .smallCategories[_selectedBigCategory.id]!
+                          .smallCategories[_selectedBCID]!
                           .isEmpty
                       ? CrossFadeState.showFirst
                       : CrossFadeState.showSecond,
@@ -217,10 +212,10 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const WKSHeader(text: "Small category"),
-                        DropdownButton<TLCategory>(
+                        DropdownButton<int>(
                           isExpanded: true,
                           iconEnabledColor: tlThemeData.accentColor,
-                          value: _selectedSmallCategory,
+                          value: _selectedSCIdx,
                           hint: const Text(
                             "指定なし",
                             style: TextStyle(
@@ -228,31 +223,31 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                                 fontWeight: FontWeight.bold),
                           ),
                           items: (tlWorkspaces[_selectedWorkspaceIndex]
-                                          .smallCategories[
-                                      _selectedBigCategory.id] ??
+                                      .smallCategories[_selectedBCID] ??
                                   [])
                               .map((TLCategory sc) {
-                            return DropdownMenuItem<TLCategory>(
-                              value: sc,
+                            return DropdownMenuItem<int>(
+                              value: tlWorkspaces[_selectedWorkspaceIndex]
+                                  .smallCategories[_selectedBCID]!
+                                  .indexWhere(
+                                      (category) => category.id == sc.id),
                               child: Text(sc.title),
                             );
                           }).toList(),
                           style: const TextStyle(
                               color: Colors.black45,
                               fontWeight: FontWeight.bold),
-                          onChanged: (TLCategory? newSmallCategory) {
-                            if (newSmallCategory == null) return;
+                          onChanged: (int? newSCIdx) {
+                            if (newSCIdx == null) return;
                             TLVibration.vibrate();
                             setState(() {
                               if (!_ifUserHasEntered) {
                                 _wksInputController.text = tlWorkspaces[
                                         _selectedWorkspaceIndex]
-                                    .smallCategories[_selectedBigCategory.id]!
-                                    .firstWhere(
-                                        (sc) => sc.id == newSmallCategory.id)
+                                    .smallCategories[_selectedBCID]![newSCIdx]
                                     .title;
                               }
-                              _selectedSmallCategory = newSmallCategory;
+                              _selectedSCIdx = newSCIdx;
                             });
                           },
                         ),
@@ -289,10 +284,8 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                                   id: UniqueKey().toString(),
                                   title: _wksInputController.text,
                                   workspaceIdx: _selectedWorkspaceIndex,
-                                  selectedBigCategory:
-                                      _selectedBigCategory.copyWith(),
-                                  selectedSmallCategory:
-                                      _selectedSmallCategory?.copyWith(),
+                                  bcIdx: _selectedBCIdx,
+                                  scIdx: _selectedSCIdx,
                                 ));
                                 // Card内のコンテンツを初期化
                                 setState(() {

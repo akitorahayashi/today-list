@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/common_ui_part/tl_double_card.dart';
+import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
 import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
 import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
@@ -14,10 +15,12 @@ class WKSCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final tlWorkspace = ref.watch(tlWorkspacesProvider);
+    final tlWorkspaces = ref.watch(tlWorkspacesProvider);
     final wksList = ref.watch(widgetKitSettingsProvider);
     final WidgetKitSetting wksInThisCard = wksList[idx];
     final deviceWidth = MediaQuery.of(context).size.width;
+    final TLCategory bc = tlWorkspaces[wksInThisCard.workspaceIdx]
+        .bigCategories[wksInThisCard.bcIdx];
     return TlDoubleCard(
       child: SizedBox(
         width: deviceWidth - 50,
@@ -51,7 +54,7 @@ class WKSCard extends ConsumerWidget {
                 child: WKSHeader(text: "Workspace"),
               ),
               WKSBodyText(
-                text: tlWorkspace[wksInThisCard.workspaceIdx].name,
+                text: tlWorkspaces[wksInThisCard.workspaceIdx].name,
               ),
               // Big category
               const Padding(
@@ -59,16 +62,18 @@ class WKSCard extends ConsumerWidget {
                 child: WKSHeader(text: "Big Category"),
               ),
               WKSBodyText(
-                text: wksInThisCard.selectedBigCategory.title,
+                text: bc.title,
               ),
               // Small category
-              if (wksInThisCard.selectedSmallCategory != null) ...[
+              if (wksInThisCard.scIdx != null) ...[
                 const Padding(
                   padding: EdgeInsets.only(top: 4.0),
                   child: WKSHeader(text: "Small Category"),
                 ),
                 WKSBodyText(
-                  text: wksInThisCard.selectedSmallCategory!.title,
+                  text: tlWorkspaces[wksInThisCard.workspaceIdx]
+                      .smallCategories[bc.id]![wksInThisCard.scIdx!]
+                      .title,
                 ),
               ],
               // Center(
