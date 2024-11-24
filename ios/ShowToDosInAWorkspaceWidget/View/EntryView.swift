@@ -27,6 +27,6 @@ struct ShowToDosInAWorkspaceWidgetEntryView : View {
 #Preview(as: .systemSmall) {
     ShowToDosInAWorkspaceWidget()
 } timeline: {
-    TLWidgetEntry(date: .now, entity: defaultEntity, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
+    TLWidgetEntry(date: .now, entity: defaultEntity, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLWorkspacesExample) ?? [])
 }
 

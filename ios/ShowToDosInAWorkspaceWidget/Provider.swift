@@ -18,14 +18,14 @@ struct TLProvider: AppIntentTimelineProvider {
     typealias Intent = TLWidgetKitSettingsIntent
     
     func placeholder(in context: Context) -> TLWidgetEntry {
-        let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? []
+        let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLWorkspacesExample) ?? []
         return TLWidgetEntry(date: Date(), entity: defaultEntity, selectedThemeIdx: 0, tlWorkspaces: tlWorkspacesSample)
     }
     
     func snapshot(for configuration: TLWidgetKitSettingsIntent, in context: Context) async -> TLWidgetEntry {
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         let themeIdx: Int = userDefaults?.integer(forKey: "selectedThemeIdx") ?? 0
-        let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? []
+        let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLWorkspacesExample) ?? []
         return TLWidgetEntry(date: Date(), entity: defaultEntity, selectedThemeIdx: themeIdx, tlWorkspaces: tlWorkspacesSample)
     }
     

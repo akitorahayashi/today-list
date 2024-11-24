@@ -10,12 +10,13 @@
 		00C58B75916649A72A2719DF /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDCA1D1226874CC2A0AB193 /* Pods_Runner.framework */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		1B93BB002CF2F3BC00772777 /* TLWidgetKitSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* TLWidgetKitSettings.swift */; };
-		1B93BB012CF3033F00772777 /* TLContentExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3002CC686DA00DCF511 /* TLContentExample.swift */; };
 		1B93BB062CF3096A00772777 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB052CF3096500772777 /* Entity.swift */; };
 		1B93BB082CF3099000772777 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB072CF3098E00772777 /* Query.swift */; };
 		1B93BB0A2CF309D800772777 /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB092CF309D500772777 /* Widget.swift */; };
 		1B93BB0C2CF309FC00772777 /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB0B2CF309F800772777 /* Provider.swift */; };
 		1B93BB0E2CF30A3700772777 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB0D2CF30A3200772777 /* EntryView.swift */; };
+		1B93BB102CF30DEF00772777 /* TLWorkspacesExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */; };
+		1B93BB112CF30DEF00772777 /* TLWorkspacesExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */; };
 		1BA7C2E82CC6859700DCF511 /* TodayList Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1BA7C2DB2CC6859500DCF511 /* TodayList Watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1BA7C2F42CC6859B00DCF511 /* TodayList_WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C2F12CC6859B00DCF511 /* TodayList_WatchApp.swift */; };
 		1BA7C2F52CC6859B00DCF511 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BA7C2ED2CC6859B00DCF511 /* Preview Assets.xcassets */; };
@@ -38,7 +39,6 @@
 		1BA7C3472CC689A600DCF511 /* TLToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3462CC689A500DCF511 /* TLToDoListView.swift */; };
 		1BA7C34B2CC689B800DCF511 /* TLToDoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C34A2CC689B700DCF511 /* TLToDoRow.swift */; };
 		1BA7C34D2CC68A0F00DCF511 /* TLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLTheme.swift */; };
-		1BA7C34E2CC68A1600DCF511 /* TLContentExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3002CC686DA00DCF511 /* TLContentExample.swift */; };
 		1BC297152CF1DDC100AAE33A /* TLToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297142CF1DDBC00AAE33A /* TLToDo.swift */; };
 		1BC297162CF1DDC100AAE33A /* TLToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297142CF1DDBC00AAE33A /* TLToDo.swift */; };
 		1BC297182CF1DDC700AAE33A /* TLCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297172CF1DDC400AAE33A /* TLCategory.swift */; };
@@ -126,12 +126,12 @@
 		1B93BB092CF309D500772777 /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		1B93BB0B2CF309F800772777 /* Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
 		1B93BB0D2CF30A3200772777 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
+		1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLWorkspacesExample.swift; sourceTree = "<group>"; };
 		1BA7C2DB2CC6859500DCF511 /* TodayList Watch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TodayList Watch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BA7C2ED2CC6859B00DCF511 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1BA7C2EF2CC6859B00DCF511 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BA7C2F12CC6859B00DCF511 /* TodayList_WatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayList_WatchApp.swift; sourceTree = "<group>"; };
 		1BA7C2F72CC685EA00DCF511 /* TLPhoneConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLPhoneConnector.swift; sourceTree = "<group>"; };
-		1BA7C3002CC686DA00DCF511 /* TLContentExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLContentExample.swift; sourceTree = "<group>"; };
 		1BA7C3012CC686F200DCF511 /* TLTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLTheme.swift; sourceTree = "<group>"; };
 		1BA7C3032CC6875000DCF511 /* TLWatchAppBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLWatchAppBar.swift; sourceTree = "<group>"; };
 		1BA7C3062CC6877700DCF511 /* ShowToDosInTodayInAWorkspaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosInTodayInAWorkspaceView.swift; sourceTree = "<group>"; };
@@ -275,8 +275,8 @@
 		1BA7C2FB2CC6862300DCF511 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */,
 				1BA7C3012CC686F200DCF511 /* TLTheme.swift */,
-				1BA7C3002CC686DA00DCF511 /* TLContentExample.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -737,7 +737,7 @@
 			files = (
 				1BC297222CF1DDE600AAE33A /* TLToDos.swift in Sources */,
 				1BC297162CF1DDC100AAE33A /* TLToDo.swift in Sources */,
-				1BA7C34E2CC68A1600DCF511 /* TLContentExample.swift in Sources */,
+				1B93BB112CF30DEF00772777 /* TLWorkspacesExample.swift in Sources */,
 				1BA7C34B2CC689B800DCF511 /* TLToDoRow.swift in Sources */,
 				1BA7C33A2CC688D000DCF511 /* AppIntent.swift in Sources */,
 				1BC2971E2CF1DDDB00AAE33A /* TLStep.swift in Sources */,
@@ -769,8 +769,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B93BB012CF3033F00772777 /* TLContentExample.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
+				1B93BB102CF30DEF00772777 /* TLWorkspacesExample.swift in Sources */,
 				1B93BB002CF2F3BC00772777 /* TLWidgetKitSettings.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);

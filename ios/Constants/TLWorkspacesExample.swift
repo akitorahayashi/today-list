@@ -9,14 +9,14 @@ import Foundation
 
 let noneID = "defaultID"
 
-let kTLContentExample =
+let kTLWorkspacesExample =
 """
 [
   {
     "id": "workspace1",
     "name": "ToDo",
     "bigCategories": [
-      { "id": "noneId", "title": "なし" },
+      { "id": "defaultID", "title": "なし" },
       { "id": "superMarcketId", "title": "スーパー" },
       { "id": "hundredStoreId", "title": "100均" }
     ],

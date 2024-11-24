@@ -21,7 +21,7 @@ struct TLToDoListView: View {
             
             let corrWorkspace: TLWorkspace = entry.tlWorkspaces[wksEntity.workspaceIdx]
             
-            var corrCategoryID = {
+            let corrCategoryID = {
                 let corrBC = corrWorkspace.bigCategories[wksEntity.bcIdx]
                 if (wksEntity.scIdx == nil) {
                     return corrBC.id
@@ -98,5 +98,5 @@ struct TLToDoListView: View {
 #Preview(as: .systemLarge) {
     ShowToDosInAWorkspaceWidget()
 } timeline: {
-    TLWidgetEntry(date: .now, entity: defaultEntity, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLContentExample) ?? [])
+    TLWidgetEntry(date: .now, entity: defaultEntity, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLWorkspacesExample) ?? [])
 }
