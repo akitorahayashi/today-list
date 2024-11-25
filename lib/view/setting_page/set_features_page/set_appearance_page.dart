@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/setting_page/set_features_page/updaate_app_icon_card.dart';
 import '../../../main.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/icon_data/icon_for_checkbox.dart';
 import '../../../component/common_ui_part/panel_with_title.dart';
 import '../../../model/external/tl_ads.dart';
-import './set_icon/icon_category_panel.dart';
+import 'set_todo_icon/icon_category_panel.dart';
 import './set_vibration_card.dart';
 import './theme_panel/left_side_show_selecting_panel.dart';
 import './theme_panel/right_side_theme_select_button.dart';
@@ -86,27 +87,34 @@ class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
           const ShowLimitOfPassCard(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  // 現在使っているテーマ
-                  LeftSideShowingSelectingPanel(deviceWidth: deviceWidth),
-                  // 2, 3個目のテーマ
-                  SizedBox(
-                    height: 320,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // 2個目のテーマ
-                        RightSideThemeSelectButton(
-                            corrIndex: unUsingThemeIndices[0]),
-                        // 3個目のテーマ
-                        RightSideThemeSelectButton(
-                            corrIndex: unUsingThemeIndices[1]),
-                      ],
-                    ),
-                  ),
-                ]),
+            child: Column(
+              children: [
+                // テーマを表示する
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // 現在使っているテーマ
+                      const LeftSideShowingSelectingPanel(),
+                      // 2, 3個目のテーマ
+                      SizedBox(
+                        height: 320,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // 2個目のテーマ
+                            RightSideThemeSelectButton(
+                                corrIndex: unUsingThemeIndices[0]),
+                            // 3個目のテーマ
+                            RightSideThemeSelectButton(
+                                corrIndex: unUsingThemeIndices[1]),
+                          ],
+                        ),
+                      ),
+                    ]),
+                // テーマに合わせたアイコンに変更する
+                UpdaateAppIconCard()
+              ],
+            ),
           ),
         ]),
       ),
