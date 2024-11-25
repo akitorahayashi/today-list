@@ -1,5 +1,7 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_dynamic_icon (0.0.1):
+    - Flutter
   - flutter_native_splash (0.0.1):
     - Flutter
   - flutter_vibrate (0.0.1):
@@ -22,6 +24,7 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_dynamic_icon (from `.symlinks/plugins/flutter_dynamic_icon/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_vibrate (from `.symlinks/plugins/flutter_vibrate/ios`)
   - flutter_watch_os_connectivity (from `.symlinks/plugins/flutter_watch_os_connectivity/ios`)
@@ -37,6 +40,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_dynamic_icon:
+    :path: ".symlinks/plugins/flutter_dynamic_icon/ios"
   flutter_native_splash:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   flutter_vibrate:
@@ -52,6 +57,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_dynamic_icon: fb0cd2f84c817c1a0ddbbc383fbebec3cd5e88d8
   flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
   flutter_vibrate: 9f4c2ab57008965f78969472367c329dd77eb801
   flutter_watch_os_connectivity: 2c2f549d6d6d3e71ce19c12da2d64d2691c04861

@@ -38,10 +38,42 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<!-- admob -->
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>AppIcon</string>
+			</array>
+		</dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>Sun Orange</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Sun Orange</string>
+				</array>
+			</dict>
+			<key>Lime Green</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Lime Green</string>
+				</array>
+			</dict>
+			<key>Marine Blue</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Marine Blue</string>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-1452400640613361~4341673218</string>
-	<!-- SKAdNetworkIdentifier -->
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -213,8 +245,6 @@
 			<string>3qcr597p9d.skadnetwork</string>
 		</dict>
 	</array>
-	<key>UIStatusBarHidden</key>
-	<true/>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

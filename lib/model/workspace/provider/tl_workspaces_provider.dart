@@ -1,4 +1,4 @@
-import 'package:today_list/model/external/tl_widgetkit.dart';
+import 'package:today_list/model/external/tl_method_channel.dart';
 import 'package:today_list/model/workspace/provider/current_tl_workspace_provider.dart';
 
 import '../../external/tl_pref.dart';
@@ -43,7 +43,8 @@ class TLWorkspacesNotifier extends StateNotifier<List<TLWorkspace>> {
     final pref = await TLPref().getPref;
     final encodedTLWorkspaces =
         jsonEncode(state.map((workspace) => workspace.toJson()).toList());
-    TLWidgetKit.updateTLWorkspaces(encodedTLWorkspaces: encodedTLWorkspaces);
+    TLMethodChannel.updateTLWorkspaces(
+        encodedTLWorkspaces: encodedTLWorkspaces);
     await pref.setString("tlWorkspaces", encodedTLWorkspaces);
   }
 

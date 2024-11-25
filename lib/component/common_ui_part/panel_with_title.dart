@@ -12,9 +12,9 @@ class PanelWithTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return Card(
-      color: _tlThemeData.settingPanelColor,
+      color: tlThemeData.settingPanelColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 3.5,
       child: Padding(
@@ -30,7 +30,7 @@ class PanelWithTitle extends StatelessWidget {
                         fontSize: 26,
                         fontWeight: FontWeight.w900,
                         letterSpacing: 3,
-                        color: _tlThemeData.titleColorOfSettingPage)),
+                        color: tlThemeData.titleColorOfSettingPage)),
               ),
             ),
             Card(

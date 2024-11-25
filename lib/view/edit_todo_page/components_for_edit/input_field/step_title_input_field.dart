@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/external/tl_vibration.dart';
 import '../../../../model/editing_provider/editing_todo_provider.dart';
 import '../../../../style/styles.dart';
 import '../../../../model/tl_theme.dart';
@@ -58,11 +59,13 @@ class StepTitleInputFieldState extends ConsumerState<StepTitleInputField> {
                       : () {
                           final stepTitle =
                               EditingTodo.stepTitleInputController?.text;
-                          if (stepTitle == null || stepTitle.isEmpty == true)
+                          if (stepTitle == null || stepTitle.isEmpty == true) {
                             return;
+                          }
                           // add or edit
                           editingToDoNotifier.addToStepList(
                               stepTitle, editingTodo.indexOfEditingStep);
+                          TLVibration.vibrate();
                           EditingTodo.stepTitleInputController?.clear();
                         },
                   child: Icon(

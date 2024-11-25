@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'dart:io';
 
-class TLWidgetKit {
+class TLMethodChannel {
   static const methodChannel = MethodChannel(
       'com.akitora0703.todaylist/show_todos_in_a_workspace_widget');
 
