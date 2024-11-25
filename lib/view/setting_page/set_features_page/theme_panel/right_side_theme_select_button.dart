@@ -30,36 +30,26 @@ class _RightSideThemeSelectButtonState
     return GestureDetector(
       onTap: () async {
         if (TLAds.isPassActive || kDebugMode) {
-          showDialog(
-              context: context,
-              builder: ((context) => ChangeThemeDialog(
-                    corrIndex: widget.corrIndex,
-                    corrThemeData: corrThemeData,
-                  )));
+          await ChangeThemeDialog(
+            corrIndex: widget.corrIndex,
+            corrThemeData: corrThemeData,
+          ).show(context: context);
         } else {
-          await showDialog(
+          await TLYesNoDialog(
+            title: "PASSを獲得しよう!",
+            message:
+                "\n・広告を見てPASSの期間を増やすことでチェックボックスのアイコンやカラーテーマを変更することができます!\n\n・1回の動画広告で3日分獲得できます",
+            yesAction: () => TLAds.showRewardedAd(
               context: context,
-              builder: ((context) {
-                return TLYesNoDialog(
-                  title: "PASSを獲得しよう!",
-                  message:
-                      "\n・広告を見てPASSの期間を増やすことでチェックボックスのアイコンやカラーテーマを変更することができます!\n\n・1回の動画広告で3日分獲得できます",
-                  yesAction: () => TLAds.showRewardedAd(
-                    context: context,
-                    rewardAction: () async {
-                      TLAds.extendLimitOfPassReward(howManyDays: 3);
-                      await showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const TLSingleOptionDialog(
-                              title: "PASSが延長されました!",
-                              message: "3日分のPASSを獲得しました",
-                            );
-                          });
-                    },
-                  ),
-                );
-              }));
+              rewardAction: () async {
+                TLAds.extendLimitOfPassReward(howManyDays: 3);
+                await const TLSingleOptionDialog(
+                  title: "PASSが延長されました!",
+                  message: "3日分のPASSを獲得しました",
+                ).show(context: context);
+              },
+            ),
+          ).show(context: context);
         }
       },
       child: Container(
