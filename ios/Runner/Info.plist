@@ -38,6 +38,27 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<!-- alternate icons -->
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>Lime Green</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Lime Green</string>
+				</array>
+			</dict>
+			<key>Marine Blue</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>Marine Blue</string>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 	<!-- admob -->
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-1452400640613361~4341673218</string>
