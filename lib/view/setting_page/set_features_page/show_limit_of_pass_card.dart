@@ -9,7 +9,7 @@ class ShowLimitOfPassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 12),
       child: InkWell(
@@ -35,7 +35,7 @@ class ShowLimitOfPassCard extends StatelessWidget {
           ),
         ),
         child: Card(
-          color: _tlThemeData.settingPanelColor,
+          color: tlThemeData.settingPanelColor,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: Card(
@@ -50,7 +50,7 @@ class ShowLimitOfPassCard extends StatelessWidget {
                         "PASSの期限",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: _tlThemeData.accentColor,
+                          color: tlThemeData.accentColor,
                         ),
                       ),
                     ),
