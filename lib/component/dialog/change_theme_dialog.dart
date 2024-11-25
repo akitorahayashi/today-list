@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/user/setting_data.dart';
 import 'package:today_list/style/styles.dart';
 import 'package:today_list/component/dialog/common/tl_single_option_dialog.dart';
-import '../../../../model/tl_theme.dart';
-import '../../../../model/external/tl_connectivity.dart';
-import '../../../../model/external/tl_widgetkit.dart';
-import '../../../../model/external/tl_vibration.dart';
+import '../../model/tl_theme.dart';
+import '../../model/external/tl_connectivity.dart';
+import '../../model/external/tl_method_channel.dart';
+import '../../model/external/tl_vibration.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
@@ -88,9 +89,11 @@ class ChangeThemeDialog extends ConsumerWidget {
                       // このアラートを消す
                       Navigator.pop(context);
                       selectedThemeIndexNotifier.changeThemeIndex(corrIndex);
+                      SettingData.changeIcon(
+                          themeName: tlThemeDataList[corrIndex].themeName);
                       TLConnectivity.sendSelectedThemeToAppleWatch(
                           selectedThemeIndex: corrIndex);
-                      TLWidgetKit.updateSelectedTheme(
+                      TLMethodChannel.updateSelectedTheme(
                           selectedThemeIndex: corrIndex);
                       TLVibration.vibrate();
                       // 完了を知らせるアラートを表示
