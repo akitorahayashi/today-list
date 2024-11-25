@@ -165,17 +165,4 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     EditingTodo.toDoTitleInputController?.clear();
     EditingTodo.stepTitleInputController?.clear();
   }
-
-  // ページを離れた時の処理
-  void disposeValue() {
-    EditingTodo.toDoTitleInputController?.dispose();
-    EditingTodo.stepTitleInputController?.dispose();
-    state = state.update(
-      ifInToday: true,
-      bigCatgoeyID: noneID,
-      smallCategoryID: null,
-      indexOfEditingToDo: null,
-      indexOfEditingStep: null,
-    );
-  }
 }

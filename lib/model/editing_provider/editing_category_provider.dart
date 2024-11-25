@@ -47,8 +47,7 @@ class EditingCategory {
 }
 
 final editingCategoryProvider =
-    StateNotifierProvider.autoDispose<EditingCategoryNotifier, EditingCategory>(
-        (ref) {
+    StateNotifierProvider<EditingCategoryNotifier, EditingCategory>((ref) {
   return EditingCategoryNotifier(ref);
 });
 
