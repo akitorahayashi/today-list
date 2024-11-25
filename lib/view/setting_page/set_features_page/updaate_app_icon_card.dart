@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/component/todo_card/tl_checkbox.dart';
+import 'package:today_list/model/setting_data/setting_data_provider.dart';
 import 'package:today_list/model/tl_theme.dart';
-import 'package:today_list/model/user/setting_data.dart';
+import 'package:today_list/model/setting_data/setting_data.dart';
 
 class UpdaateAppIconCard extends ConsumerWidget {
   const UpdaateAppIconCard({super.key});
@@ -11,10 +12,15 @@ class UpdaateAppIconCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    final int selectedThemeIdx = ref.watch(selectedThemeIndexProvider);
-    final bool isMatched = SettingData.shared.currentAppIconName ==
-        tlThemeDataList[selectedThemeIdx].themeName;
     final deviceWidth = MediaQuery.of(context).size.width;
+    // provider
+    final int selectedThemeIdx = ref.watch(selectedThemeIndexProvider);
+    final SettingData settingData = ref.watch(settingDataProvider);
+    // notifier
+    final SettingDataNotifier settingDataNotifier =
+        ref.read(settingDataProvider.notifier);
+    final bool isMatched = settingData.currentAppIconName ==
+        tlThemeDataList[selectedThemeIdx].themeName;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
@@ -28,7 +34,7 @@ class UpdaateAppIconCard extends ConsumerWidget {
                     message: "テーマに合ったアプリアイコンに変更しますか？",
                     yesAction: () {
                       Navigator.pop(context);
-                      SettingData.shared.changeIcon(
+                      settingDataNotifier.changeIcon(
                           themeName:
                               tlThemeDataList[selectedThemeIdx].themeName);
                     },

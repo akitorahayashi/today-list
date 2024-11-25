@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/external/tl_connectivity.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
-import 'package:today_list/model/user/setting_data.dart';
 import 'model/external/tl_ads.dart';
 import './app.dart';
 
@@ -16,7 +15,6 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await dotenv.load(fileName: ".env");
-  await SettingData.readSettingData();
   await TLAds.initializeTLAds();
   await TLVibration.initVibrate();
   await TLConnectivity.initializeConnectivity();

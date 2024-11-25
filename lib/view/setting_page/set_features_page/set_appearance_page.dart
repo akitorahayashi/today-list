@@ -58,7 +58,6 @@ class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
   @override
   Widget build(BuildContext context) {
     final int selectedThemeIndex = ref.watch(selectedThemeIndexProvider);
-    double deviceWidth = MediaQuery.of(context).size.width;
     // テーマを表示させるための変数
     List<int> unUsingThemeIndices =
         List<int>.generate(tlThemeDataList.length, (index) => index)

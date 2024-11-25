@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/user/setting_data.dart';
+import 'package:today_list/model/setting_data/setting_data.dart';
 import 'package:today_list/style/styles.dart';
 import 'package:today_list/component/dialog/common/tl_single_option_dialog.dart';
 import '../../model/tl_theme.dart';
