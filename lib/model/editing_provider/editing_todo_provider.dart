@@ -160,13 +160,13 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
       // edit
       corrToDos[state.ifInToday][state.indexOfEditingToDo!] = createdToDo;
     }
+    // 入力事項の初期化
+    editingToDoNotifier.updateEditingTodo(
+        steps: [], indexOfEditingToDo: null, indexOfEditingStep: null);
     await tlWorkspacesNotifier.updateCurrentWorkspace(
       updatedWorkspace:
           currentTLWorkspace.copyWith(categoryIDToToDos: copiedCategoryToToDos),
     );
-    // 入力事項の初期化
-    editingToDoNotifier.updateEditingTodo(
-        steps: [], indexOfEditingToDo: null, indexOfEditingStep: null);
     EditingTodo.toDoTitleInputController?.clear();
     EditingTodo.stepTitleInputController?.clear();
   }
