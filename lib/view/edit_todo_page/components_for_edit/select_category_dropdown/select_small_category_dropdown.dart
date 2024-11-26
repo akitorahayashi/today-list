@@ -69,7 +69,7 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
           if (selectedSmallCategory.id == "---createSmallCategory") {
             await const AddCategoryDialog().show(context: context);
           } else {
-            editingToDoNotifier.updateEdittingTodo(
+            editingToDoNotifier.updateEditingTodo(
               smallCategoryID: selectedSmallCategory.id == noneID
                   ? null
                   : selectedSmallCategory.id,

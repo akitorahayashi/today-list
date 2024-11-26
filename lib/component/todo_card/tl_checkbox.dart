@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/icon_data/icon_for_checkbox.dart';
-import 'package:today_list/model/icon_data/selected_icon_data.dart';
-import 'package:today_list/model/icon_data/sid_provider.dart';
+import 'package:today_list/model/icon_data/tl_icon_data.dart';
+import 'package:today_list/model/icon_data/tl_icon_data_provider.dart';
 import 'package:today_list/model/tl_theme.dart';
 
 final List<String> fontawesomeCategories = ["Default"];

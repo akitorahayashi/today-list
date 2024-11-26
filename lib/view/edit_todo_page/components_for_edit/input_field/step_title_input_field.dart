@@ -57,19 +57,21 @@ class StepTitleInputFieldState extends ConsumerState<StepTitleInputField> {
                   onPressed: _enteredStepTitle.trim().isEmpty
                       ? null
                       : () {
-                          final stepTitle =
-                              EditingTodo.stepTitleInputController?.text;
-                          if (stepTitle == null || stepTitle.isEmpty == true) {
-                            return;
-                          }
                           // add or edit
                           editingToDoNotifier.addToStepList(
-                              stepTitle, editingTodo.indexOfEditingStep);
+                            _enteredStepTitle,
+                            editingTodo.indexOfEditingStep,
+                          );
                           TLVibration.vibrate();
                           EditingTodo.stepTitleInputController?.clear();
+                          editingToDoNotifier.updateEditingTodo(
+                            indexOfEditingStep: null,
+                          );
                         },
                   child: Icon(
-                    Icons.add,
+                    editingTodo.indexOfEditingStep == null
+                        ? Icons.add
+                        : Icons.edit,
                     color: _enteredStepTitle.trim().isNotEmpty
                         ? tlThemeData.accentColor
                         : Colors.black,

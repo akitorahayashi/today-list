@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
+import 'package:today_list/model/todo/tl_step.dart';
 import '../../../component/todo_card/tl_checkbox.dart';
 import '../../../model/workspace/provider/current_tl_workspace_provider.dart';
 import '../../../model/editing_provider/editing_todo_provider.dart';
@@ -45,7 +46,8 @@ class AddedStepsColumn extends ConsumerWidget {
                       onTap: () {
                         EditingTodo.stepTitleInputController?.text =
                             editingToDo.steps[i].title;
-                        editingToDo.indexOfEditingStep = i;
+                        editingToDoNotifier.updateEditingTodo(
+                            indexOfEditingStep: i);
                         TLVibration.vibrate();
                       },
                       child: Text(
@@ -61,7 +63,9 @@ class AddedStepsColumn extends ConsumerWidget {
                   padding: const EdgeInsets.only(right: 16.0),
                   child: TextButton(
                     onPressed: () {
-                      editingToDo.steps.removeAt(i);
+                      final copiedSteps = List<TLStep>.from(editingToDo.steps);
+                      copiedSteps.removeAt(i);
+                      editingToDoNotifier.updateEditingTodo(steps: copiedSteps);
                       editingToDo.indexOfEditingStep = null;
                       TLVibration.vibrate();
                     },
@@ -86,7 +90,7 @@ class AddedStepsColumn extends ConsumerWidget {
           final reOrderedToDo = editingToDo.steps.removeAt(oldIndex);
           if (newIndex > oldIndex) newIndex--;
           editingToDo.steps.insert(newIndex, reOrderedToDo);
-          editingToDoNotifier.updateEdittingTodo(steps: editingToDo.steps);
+          editingToDoNotifier.updateEditingTodo(steps: editingToDo.steps);
           tlWorkspacesNotifier.updateCurrentWorkspace(
               updatedWorkspace: currentTLWorkspace);
         },

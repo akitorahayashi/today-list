@@ -18,11 +18,18 @@ class ToDoTitleInputField extends ConsumerStatefulWidget {
 
 class ToDoTitleInputFieldState extends ConsumerState<ToDoTitleInputField> {
   String _enteredToDoTitle = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _enteredToDoTitle = EditingTodo.toDoTitleInputController?.text ?? "";
+  }
+
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    ref.watch(editingToDoProvider);
+    final editingToDo = ref.watch(editingToDoProvider);
     // notifier
     final EditingToDoNotifier editingToDoNotifier =
         ref.read(editingToDoProvider.notifier);
@@ -61,10 +68,12 @@ class ToDoTitleInputFieldState extends ConsumerState<ToDoTitleInputField> {
                             newCheckedState: false,
                             quickChangeToToday: null);
                         TLVibration.vibrate();
-                        editingToDoNotifier.completeEditting();
+                        editingToDoNotifier.completeEditing();
                       },
                 child: Icon(
-                  Icons.add,
+                  editingToDo.indexOfEditingToDo == null
+                      ? Icons.add
+                      : Icons.edit,
                   color: _enteredToDoTitle.trim().isNotEmpty
                       ? tlThemeData.accentColor
                       : Colors.black,

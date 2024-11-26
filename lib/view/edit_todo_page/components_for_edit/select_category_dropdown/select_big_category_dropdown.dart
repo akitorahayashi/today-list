@@ -65,11 +65,11 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
           // カテゴリー変更
           onChanged: (TLCategory? selectedBigCategory) async {
             if (selectedBigCategory == null) return;
-            editingToDoNotifier.updateEdittingTodo(smallCategoryID: null);
+            editingToDoNotifier.updateEditingTodo(smallCategoryID: null);
             if (selectedBigCategory.id == "---createBigCategory") {
               await const AddCategoryDialog().show(context: context);
             } else {
-              editingToDoNotifier.updateEdittingTodo(
+              editingToDoNotifier.updateEditingTodo(
                   bigCatgoeyID: selectedBigCategory.id);
             }
           }),

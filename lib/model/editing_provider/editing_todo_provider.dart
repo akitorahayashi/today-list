@@ -44,7 +44,7 @@ class EditingTodo {
     EditingTodo.stepTitleInputController = TextEditingController();
   }
 
-  EditingTodo update({
+  copyWith({
     List<TLStep>? steps,
     String? bigCatgoeyID,
     String? smallCategoryID,
@@ -57,8 +57,8 @@ class EditingTodo {
       bigCatgoeyID ?? this.bigCatgoeyID,
       smallCategoryID ?? this.smallCategoryID,
       ifInToday ?? this.ifInToday,
-      indexOfEditingToDo ?? indexOfEditingToDo,
-      indexOfEditingStep ?? indexOfEditingStep,
+      indexOfEditingToDo,
+      indexOfEditingStep,
     );
   }
 }
@@ -90,7 +90,7 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     final TLToDo edittedToDo = currentWorkspace
         .categoryIDToToDos[corrCategoryID]![ifInToday][indexOfEditingToDo];
     // setValues
-    state = state.update(
+    state = state.copyWith(
       steps: edittedToDo.steps,
       bigCatgoeyID: selectedBigCategoryID,
       smallCategoryID: selectedSmallCategoryID,
@@ -100,7 +100,7 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     );
   }
 
-  void updateEdittingTodo({
+  void updateEditingTodo({
     TextEditingController? toDoTitleInputController,
     TextEditingController? stepTitleInputController,
     List<TLStep>? steps,
@@ -110,7 +110,7 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     int? indexOfEditingToDo,
     int? indexOfEditingStep,
   }) {
-    state = state.update(
+    state = state.copyWith(
       steps: steps,
       bigCatgoeyID: bigCatgoeyID,
       smallCategoryID: smallCategoryID,
@@ -124,27 +124,30 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     final newStep = TLStep(id: UniqueKey().toString(), title: stepTitle);
     if (state.indexOfEditingStep == null) {
       final updatedSteps = List<TLStep>.from(state.steps)..add(newStep);
-      state = state.update(steps: updatedSteps);
+      state = state.copyWith(steps: updatedSteps);
     } else {
       final updatedSteps = List<TLStep>.from(state.steps);
       updatedSteps[state.indexOfEditingStep!] = newStep;
-      state = state.update(steps: updatedSteps, indexOfEditingStep: null);
+      state = state.copyWith(steps: updatedSteps, indexOfEditingStep: null);
     }
   }
 
-  Future<void> completeEditting() async {
+  Future<void> completeEditing() async {
     if (EditingTodo.toDoTitleInputController?.text == null ||
         EditingTodo.toDoTitleInputController!.text.trim().isEmpty) return;
 
     // provider
     final currentTLWorkspace = ref.read(currentWorkspaceProvider);
     // notifier
+    final EditingToDoNotifier editingToDoNotifier =
+        ref.read(editingToDoProvider.notifier);
     final TLWorkspacesNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesProvider.notifier);
 
     final String corrCategoryID = state.smallCategoryID ?? state.bigCatgoeyID;
-    final TLToDos corrToDos =
-        currentTLWorkspace.categoryIDToToDos[corrCategoryID]!;
+    final copiedCategoryToToDos =
+        Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
+    final TLToDos corrToDos = copiedCategoryToToDos[corrCategoryID]!;
 
     final TLToDo createdToDo = TLToDo(
         id: state.smallCategoryID ?? state.bigCatgoeyID,
@@ -158,10 +161,12 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
       corrToDos[state.ifInToday][state.indexOfEditingToDo!] = createdToDo;
     }
     await tlWorkspacesNotifier.updateCurrentWorkspace(
-      updatedWorkspace: currentTLWorkspace.copyWith(),
+      updatedWorkspace:
+          currentTLWorkspace.copyWith(categoryIDToToDos: copiedCategoryToToDos),
     );
     // 入力事項の初期化
-    state.update(indexOfEditingToDo: null, indexOfEditingStep: null);
+    editingToDoNotifier.updateEditingTodo(
+        steps: [], indexOfEditingToDo: null, indexOfEditingStep: null);
     EditingTodo.toDoTitleInputController?.clear();
     EditingTodo.stepTitleInputController?.clear();
   }
