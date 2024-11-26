@@ -55,7 +55,7 @@ class EditingTodo {
     return EditingTodo(
       steps ?? this.steps,
       bigCatgoeyID ?? this.bigCatgoeyID,
-      smallCategoryID ?? this.smallCategoryID,
+      smallCategoryID,
       ifInToday ?? this.ifInToday,
       indexOfEditingToDo,
       indexOfEditingStep,
