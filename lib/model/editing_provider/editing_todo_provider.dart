@@ -162,7 +162,11 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     }
     // 入力事項の初期化
     editingToDoNotifier.updateEditingTodo(
-        steps: [], indexOfEditingToDo: null, indexOfEditingStep: null);
+      smallCategoryID: state.smallCategoryID,
+      steps: [],
+      indexOfEditingToDo: null,
+      indexOfEditingStep: null,
+    );
     await tlWorkspacesNotifier.updateCurrentWorkspace(
       updatedWorkspace:
           currentTLWorkspace.copyWith(categoryIDToToDos: copiedCategoryToToDos),
