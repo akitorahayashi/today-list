@@ -42,7 +42,9 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
           fontWeight: FontWeight.bold,
         ),
         items: [
-          TLCategory(id: noneID, title: "なし"),
+          if (currentWorkspace
+              .smallCategories[editingTodo.bigCatgoeyID]!.isEmpty)
+            TLCategory(id: noneID, title: "なし"),
           ...currentWorkspace.smallCategories[editingTodo.bigCatgoeyID]!,
           if (editingTodo.bigCatgoeyID != noneID)
             TLCategory(id: "---createSmallCategory", title: "新しく作る"),
@@ -69,11 +71,12 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
           if (selectedSmallCategory.id == "---createSmallCategory") {
             await const AddCategoryDialog().show(context: context);
           } else {
-            print("selectedSmallCategory.id: ${selectedSmallCategory.id}");
             editingToDoNotifier.updateEditingTodo(
               smallCategoryID: selectedSmallCategory.id == noneID
                   ? null
                   : selectedSmallCategory.id,
+              indexOfEditingToDo: editingTodo.indexOfEditingToDo,
+              indexOfEditingStep: editingTodo.indexOfEditingStep,
             );
           }
         },
