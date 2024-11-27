@@ -27,10 +27,14 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
         hint: Text(
           editingTodo.smallCategoryID == null
               ? "小カテゴリー"
-              : currentWorkspace.smallCategories[editingTodo.bigCatgoeyID]!
-                  .where((oneOfSmallCategory) =>
-                      oneOfSmallCategory.id == editingTodo.smallCategoryID)
-                  .first
+              : (currentWorkspace.smallCategories[editingTodo.bigCatgoeyID] ??
+                      [])
+                  .firstWhere(
+                    (oneOfSmallCategory) =>
+                        oneOfSmallCategory.id == editingTodo.smallCategoryID,
+                    orElse: () => TLCategory(
+                        id: '', title: '小カテゴリー'), // デフォルトのTLCategoryオブジェクトを返す
+                  )
                   .title,
           style: const TextStyle(
             color: Colors.black45,

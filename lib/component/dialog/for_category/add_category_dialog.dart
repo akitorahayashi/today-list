@@ -100,7 +100,6 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                   );
                 }).toList(),
                 onChanged: (String? newBigCategoryId) async {
-                  if (newBigCategoryId == null) return;
                   if (newBigCategoryId == noneID) {
                     editingCategoryNotifier.updateEditingCategory(
                       selectedBigCatgoeyID: null,

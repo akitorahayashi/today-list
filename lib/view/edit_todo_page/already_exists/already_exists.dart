@@ -33,7 +33,8 @@ class AlreadyExists extends ConsumerWidget {
     // others
     final String categoryOfThisToDo = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisBlock =
-        currentWorkspace.categoryIDToToDos[categoryOfThisToDo]![ifInToday];
+        currentWorkspace.categoryIDToToDos[categoryOfThisToDo]?[ifInToday] ??
+            [];
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Card(
