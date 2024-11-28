@@ -65,7 +65,12 @@ class AddedStepsColumn extends ConsumerWidget {
                     onPressed: () {
                       final copiedSteps = List<TLStep>.from(editingToDo.steps);
                       copiedSteps.removeAt(i);
-                      editingToDoNotifier.updateEditingTodo(steps: copiedSteps);
+                      editingToDoNotifier.updateEditingTodo(
+                        steps: copiedSteps,
+                        smallCategoryID: editingToDo.smallCategoryID,
+                        indexOfEditingToDo: editingToDo.indexOfEditingToDo,
+                        indexOfEditingStep: null,
+                      );
                       editingToDo.indexOfEditingStep = null;
                       TLVibration.vibrate();
                     },
