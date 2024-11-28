@@ -65,6 +65,8 @@ class StepTitleInputFieldState extends ConsumerState<StepTitleInputField> {
                           TLVibration.vibrate();
                           EditingTodo.stepTitleInputController?.clear();
                           editingToDoNotifier.updateEditingTodo(
+                            smallCategoryID: editingTodo.smallCategoryID,
+                            indexOfEditingToDo: editingTodo.indexOfEditingToDo,
                             indexOfEditingStep: null,
                           );
                         },
