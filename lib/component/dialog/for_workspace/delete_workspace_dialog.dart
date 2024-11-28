@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/dialog/tl_base_dialog.dart';
-import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
-import '../../../model/workspace/provider/current_tl_workspace_provider.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/external/tl_vibration.dart';
@@ -20,11 +19,12 @@ class DeleteWorkspaceDialog extends TLBaseConsumerDialog {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
+    // provider
+    final int currentWorkspaceIdx =
+        ref.watch(tlWorkspacesStateProvider).currentWorkspaceIndex;
     // notifier
-    final TLWorkspacesNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesProvider.notifier);
-    final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
+    final TLWorkspacesStateNotifier tlWorkspacesStateNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
     return Dialog(
       backgroundColor: tlThemeData.alertColor,
       child: Padding(
@@ -84,17 +84,12 @@ class DeleteWorkspaceDialog extends TLBaseConsumerDialog {
                             .show(context: context);
                       } else {
                         // TLWorkspacesから削除
-                        tlWorkspacesNotifier.removeWorkspace(
+                        tlWorkspacesStateNotifier.removeWorkspace(
                             corrWorkspaceId: willDeletedWorkspace.id);
                         // currentWorkspaceIndexが削除するWorkspaceよりも大きい場合は1減らす
-                        if (corrWorkspaceIndex <
-                            currentTLWorkspaceNotifier.currentWorkspaceIndex) {
-                          currentTLWorkspaceNotifier
-                              .changeCurrentWorkspaceIndex(
-                                  newCurrentWorkspaceIndex:
-                                      currentTLWorkspaceNotifier
-                                              .currentWorkspaceIndex -
-                                          1);
+                        if (corrWorkspaceIndex < currentWorkspaceIdx) {
+                          tlWorkspacesStateNotifier.changeCurrentWorkspaceIndex(
+                              currentWorkspaceIdx - 1);
                         }
 
                         // このアラートを消してsimpleアラートを表示する

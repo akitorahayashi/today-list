@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/dialog/tl_base_dialog.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/external/tl_vibration.dart';
-import '../../../model/workspace/provider/current_tl_workspace_provider.dart';
-import '../../../model/workspace/provider/tl_workspaces_provider.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../style/styles.dart';
@@ -23,10 +22,11 @@ class DeleteCategoryDialog extends TLBaseConsumerDialog {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final currentWorkspace = ref.watch(currentWorkspaceProvider);
+    final currentWorkspace =
+        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
     // notifier
-    final TLWorkspacesNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesProvider.notifier);
+    final TLWorkspacesStateNotifier tlWorkspacesNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
     // other
     TLCategory? categoryThisBelongsTo;
     if (indexOfSmallCategory == null) {
@@ -135,7 +135,7 @@ class DeleteCategoryDialog extends TLBaseConsumerDialog {
 
                       // categoriesとtoDosを保存する
                       tlWorkspacesNotifier.updateCurrentWorkspace(
-                          updatedWorkspace: currentWorkspace.copyWith(
+                          updatedCurrentWorkspace: currentWorkspace.copyWith(
                               bigCategories: corrBigCategories,
                               smallCategories: corrSmallCategories,
                               categoryIDToToDos: corrCategoryIDToToDos));

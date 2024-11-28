@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../component/dialog/tl_base_dialog.dart';
 import '../../../model/editing_provider/editing_category_provider.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/external/tl_vibration.dart';
-import '../../../model/workspace/provider/current_tl_workspace_provider.dart';
-import '../../../model/workspace/provider/tl_workspaces_provider.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../style/styles.dart';
 
@@ -42,7 +41,8 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final EditingCategory editingCategory = ref.watch(editingCategoryProvider);
-    final currentWorkspace = ref.watch(currentWorkspaceProvider);
+    final currentWorkspace =
+        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
     // notifier
     final editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
     return AlertDialog(

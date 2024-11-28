@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/dialog/tl_base_dialog.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../style/styles.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/workspace/provider/tl_workspaces_provider.dart';
 import '../../../model/todo/tl_todos.dart';
 import '../../../model/external/tl_vibration.dart';
 
@@ -30,7 +30,8 @@ class _AddOrEditWorkspaceDialogState
     super.initState();
     if (widget.oldIndexInWorkspaces == null) return;
     Future.microtask(() {
-      final List<TLWorkspace> workspaces = ref.read(tlWorkspacesProvider);
+      final List<TLWorkspace> workspaces =
+          ref.read(tlWorkspacesStateProvider).tlWorkspaces;
       _workspaceNameInputController.text =
           workspaces[widget.oldIndexInWorkspaces!].name;
     });
@@ -45,10 +46,11 @@ class _AddOrEditWorkspaceDialogState
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    final List<TLWorkspace> tlWorkspaces =
+        ref.watch(tlWorkspacesStateProvider).tlWorkspaces;
     // notifier
-    TLWorkspacesNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesProvider.notifier);
+    TLWorkspacesStateNotifier tlWorkspacesNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
 
     return Dialog(
       backgroundColor: tlThemeData.alertColor,
@@ -126,8 +128,8 @@ class _AddOrEditWorkspaceDialogState
                                   TLToDos(toDosInToday: [], toDosInWhenever: [])
                             });
                         ref
-                            .read(tlWorkspacesProvider.notifier)
-                            .addWorkspace(newTLWorkspace: createdWorkspace);
+                            .read(tlWorkspacesStateProvider.notifier)
+                            .addWorkspace(createdWorkspace);
                         // 追加したことを知らせる
                         showDialog(
                             context: context,

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
 import 'package:today_list/model/todo/tl_todos.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../../../component/todo_card/tl_todo_card.dart';
-import '../../../model/workspace/provider/current_tl_workspace_provider.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';
@@ -25,10 +24,11 @@ class ToDosInThisCategoryInCurrentWorkspace extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
+    final tlWorksapceState = ref.watch(tlWorkspacesStateProvider);
+    final TLWorkspace currentTLWorkspace = tlWorksapceState.currentWorkspace;
     // notifier
-    final TLWorkspacesNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesProvider.notifier);
+    final tlWorksapceStateNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
     final coorCategoryIDToToDos =
         Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
     List<TLToDo> toDosInTodayInThisCategory = coorCategoryIDToToDos[
@@ -58,8 +58,8 @@ class ToDosInThisCategoryInCurrentWorkspace extends ConsumerWidget {
                   toDosInTodayInThisCategory.insert(newIndex, reorderedToDo);
 
                   // 更新されたワークスペースを保存
-                  tlWorkspacesNotifier.updateCurrentWorkspace(
-                    updatedWorkspace: currentTLWorkspace.copyWith(
+                  tlWorksapceStateNotifier.updateCurrentWorkspace(
+                    updatedCurrentWorkspace: currentTLWorkspace.copyWith(
                         categoryIDToToDos: coorCategoryIDToToDos),
                   );
                 }

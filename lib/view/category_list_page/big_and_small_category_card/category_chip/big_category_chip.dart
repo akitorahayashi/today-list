@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/component/dialog/for_category/select_edit_method_dialog.dart';
-import '../../../../model/workspace/provider/current_tl_workspace_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
+import '../../../../component/dialog/for_category/select_edit_method_dialog.dart';
 import '../../../../model/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/workspace/tl_workspace.dart';
@@ -16,7 +16,8 @@ class BigCategoryChip extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
+    final TLWorkspace currentTLWorkspace =
+        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
     // others
     TLCategory bigCategoryOfThisChip =
         currentTLWorkspace.bigCategories[indexOfBigCategory];

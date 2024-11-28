@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../dialog/for_workspace/add_or_edit_workspace_dialog.dart';
 import '../dialog/for_workspace/delete_workspace_dialog.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/provider/tl_workspaces_provider.dart';
 import '../../model/tl_theme.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -23,7 +23,8 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    final List<TLWorkspace> tlWorkspaces =
+        ref.watch(tlWorkspacesStateProvider).tlWorkspaces;
     // other
     final TLWorkspace corrWorkspace = tlWorkspaces[indexInTLWorkspaces];
     return Slidable(

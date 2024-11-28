@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../workspace/tl_workspace.dart';
 import '../todo/tl_step.dart';
 import '../todo/tl_todo.dart';
 import '../todo/tl_todos.dart';
-import '../workspace/provider/current_tl_workspace_provider.dart';
-import '../workspace/provider/tl_workspaces_provider.dart';
 
 class EditingTodo {
   static TextEditingController? toDoTitleInputController;
@@ -84,7 +83,8 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     required String? selectedSmallCategoryID,
     required int indexOfEditingToDo,
   }) {
-    final TLWorkspace currentWorkspace = ref.watch(currentWorkspaceProvider);
+    final TLWorkspace currentWorkspace =
+        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
     final String corrCategoryID =
         selectedSmallCategoryID ?? selectedBigCategoryID;
     final TLToDo edittedToDo = currentWorkspace
@@ -137,16 +137,17 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
         EditingTodo.toDoTitleInputController!.text.trim().isEmpty) return;
 
     // provider
-    final currentTLWorkspace = ref.read(currentWorkspaceProvider);
+    final copiedCurrentTLWorkspace =
+        ref.read(tlWorkspacesStateProvider).currentWorkspace;
     // notifier
     final EditingToDoNotifier editingToDoNotifier =
         ref.read(editingToDoProvider.notifier);
-    final TLWorkspacesNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesProvider.notifier);
+    final TLWorkspacesStateNotifier tlWorkspacesStateNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
 
+    // copy
     final String corrCategoryID = state.smallCategoryID ?? state.bigCatgoeyID;
-    final copiedCategoryToToDos =
-        Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
+    final copiedCategoryToToDos = copiedCurrentTLWorkspace.categoryIDToToDos;
     final TLToDos corrToDos = copiedCategoryToToDos[corrCategoryID]!;
 
     final TLToDo createdToDo = TLToDo(
@@ -174,10 +175,8 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
       indexOfEditingToDo: null,
       indexOfEditingStep: null,
     );
-    await tlWorkspacesNotifier.updateCurrentWorkspace(
-      updatedWorkspace:
-          currentTLWorkspace.copyWith(categoryIDToToDos: copiedCategoryToToDos),
-    );
+    tlWorkspacesStateNotifier.updateCurrentWorkspace(
+        updatedCurrentWorkspace: copiedCurrentTLWorkspace);
     EditingTodo.toDoTitleInputController?.clear();
     EditingTodo.stepTitleInputController?.clear();
   }

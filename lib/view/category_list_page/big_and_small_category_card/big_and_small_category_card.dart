@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/workspace/provider/current_tl_workspace_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/workspace/provider/tl_workspaces_provider.dart';
 import 'category_chip/big_category_chip.dart';
 import 'category_chip/small_category_chip.dart';
 
@@ -21,11 +20,12 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
-    final TLWorkspacesNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesProvider.notifier);
-    // notifier
-    ref.read(currentWorkspaceProvider.notifier);
+    final TLWorkspacesState tlWorkspacesState =
+        ref.watch(tlWorkspacesStateProvider);
+    final TLWorkspace currentTLWorkspace = tlWorkspacesState.currentWorkspace;
+
+    final tlWorkspacesStateNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
     // others
     final TLCategory coorBigCategory =
         currentTLWorkspace.bigCategories[indexOfBigCategory];
@@ -68,8 +68,8 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
                 corrSmallCategories[coorBigCategory.id]!
                     .insert(newIndex, reOrderedSmallCategory);
                 // categorisを保存する
-                tlWorkspacesNotifier.updateCurrentWorkspace(
-                  updatedWorkspace: currentTLWorkspace.copyWith(
+                tlWorkspacesStateNotifier.updateCurrentWorkspace(
+                  updatedCurrentWorkspace: currentTLWorkspace.copyWith(
                     smallCategories: corrSmallCategories,
                   ),
                 );

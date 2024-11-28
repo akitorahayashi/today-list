@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
-import 'package:today_list/model/workspace/provider/current_tl_workspace_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import 'change_workspace_card.dart';
 import '../../../component/common_ui_part/tl_sliver_appbar.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/workspace/provider/tl_workspaces_provider.dart';
 import './add_workspace_button.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,13 +16,11 @@ class TLWorkspaceDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
-    final TLWorkspacesNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesProvider.notifier);
-    final CurrentTLWorkspaceNotifier currentWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
-    final int currentTLWorkspaceIndex =
-        currentWorkspaceNotifier.currentWorkspaceIndex;
+    final tlWorkspacesState = ref.watch(tlWorkspacesStateProvider);
+    final List<TLWorkspace> tlWorkspaces = tlWorkspacesState.tlWorkspaces;
+    final int currentTLWorkspaceIndex = tlWorkspacesState.currentWorkspaceIndex;
+    final TLWorkspacesStateNotifier tlWorkspacesStateNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
 
     return Drawer(
       child: Stack(
@@ -120,43 +117,33 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                     if (revisedOldIndex ==
                                         currentTLWorkspaceIndex) {
                                       // 移動したWorkspaceが現在のWorkspaceだった場合
-                                      currentWorkspaceNotifier
+                                      tlWorkspacesStateNotifier
                                           .changeCurrentWorkspaceIndex(
-                                              newCurrentWorkspaceIndex:
-                                                  revisedNewIndex);
+                                              revisedNewIndex);
                                     } else if (revisedOldIndex <
-                                            currentWorkspaceNotifier
-                                                .currentWorkspaceIndex &&
+                                            currentTLWorkspaceIndex &&
                                         revisedNewIndex >=
-                                            currentWorkspaceNotifier
-                                                .currentWorkspaceIndex) {
+                                            currentTLWorkspaceIndex) {
                                       // currentWorkspaceIndexが移動範囲内にある場合（下方向に移動）
-                                      currentWorkspaceNotifier
+                                      tlWorkspacesStateNotifier
                                           .changeCurrentWorkspaceIndex(
-                                              newCurrentWorkspaceIndex:
-                                                  currentWorkspaceNotifier
-                                                          .currentWorkspaceIndex -
-                                                      1);
+                                              currentTLWorkspaceIndex - 1);
                                     } else if (revisedOldIndex >
-                                            currentWorkspaceNotifier
-                                                .currentWorkspaceIndex &&
+                                            currentTLWorkspaceIndex &&
                                         revisedNewIndex <=
-                                            currentWorkspaceNotifier
-                                                .currentWorkspaceIndex) {
+                                            currentTLWorkspaceIndex) {
                                       // currentWorkspaceIndexが移動範囲内にある場合（上方向に移動）
-                                      currentWorkspaceNotifier
+                                      tlWorkspacesStateNotifier
                                           .changeCurrentWorkspaceIndex(
-                                              newCurrentWorkspaceIndex:
-                                                  currentWorkspaceNotifier
-                                                          .currentWorkspaceIndex +
-                                                      1);
+                                              currentTLWorkspaceIndex + 1);
                                     }
 
                                     // workspaceListを保存する
-                                    tlWorkspacesNotifier.updateTLWorkspaceList(
-                                        updatedTLWorkspaceList:
-                                            List<TLWorkspace>.from(
-                                                tlWorkspaces));
+                                    tlWorkspacesStateNotifier
+                                        .updateTLWorkspaceList(
+                                            updatedTLWorkspaceList:
+                                                List<TLWorkspace>.from(
+                                                    tlWorkspaces));
                                   },
                                 ),
                                 // 新しくworkspaceを追加する,

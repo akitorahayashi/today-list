@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/todo_card/tl_checkbox.dart';
-import 'package:today_list/model/workspace/provider/current_tl_workspace_provider.dart';
-import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/workspace/tl_workspace.dart';
 import '../../../component/slidable/slidable_for_todo_card.dart';
-
-import 'package:reorderables/reorderables.dart';
 
 class ModelOfToDoCard extends ConsumerWidget {
   // todoのデータ
@@ -36,11 +31,7 @@ class ModelOfToDoCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    // provider
-    final TLWorkspace currentWorkspace = ref.watch(currentWorkspaceProvider);
     // notifier
-    final TLWorkspacesNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesProvider.notifier);
     return Card(
       color: tlThemeData.panelColor,
       elevation: 2,
@@ -113,7 +104,7 @@ class ModelOfToDoCard extends ConsumerWidget {
               if (corrTLToDo.steps.isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: ReorderableColumn(
+                  child: Column(
                     children: corrTLToDo.steps.map((stepData) {
                       return Padding(
                         key: Key(UniqueKey().toString()),
@@ -151,15 +142,6 @@ class ModelOfToDoCard extends ConsumerWidget {
                         ),
                       );
                     }).toList(),
-                    onReorder: (oldIndex, newIndex) {
-                      final reOrderedStep = corrTLToDo.steps.removeAt(oldIndex);
-                      if (oldIndex < newIndex) newIndex -= 1;
-                      corrTLToDo.steps.insert(newIndex, reOrderedStep);
-                      // currentWorkspaceを更新
-                      tlWorkspacesNotifier.updateCurrentWorkspace(
-                        updatedWorkspace: currentWorkspace,
-                      );
-                    },
                   ),
                 )
             ],

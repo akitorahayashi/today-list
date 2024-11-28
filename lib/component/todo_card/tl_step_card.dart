@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import 'tl_checkbox.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../model/workspace/tl_workspace.dart';
-import '../../model/workspace/provider/current_tl_workspace_provider.dart';
-import '../../model/workspace/provider/tl_workspaces_provider.dart';
 import '../../model/todo/tl_step.dart';
 import '../../model/todo/tl_todo.dart';
 import '../../model/external/tl_vibration.dart';
@@ -26,10 +25,12 @@ class TLStepCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
+    final TLWorkspacesState tlWorkspacesState =
+        ref.watch(tlWorkspacesStateProvider);
+    final TLWorkspace currentTLWorkspace = tlWorkspacesState.currentWorkspace;
     // notifier
-    final TLWorkspacesNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesProvider.notifier);
+    final TLWorkspacesStateNotifier tlWorkspacesStateNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
     // other
     final corrToDos = currentTLWorkspace.categoryIDToToDos[corrCategoryID]!;
     final TLToDo corrToDoData = corrToDos[ifInToday][indexInToDos];
@@ -37,27 +38,31 @@ class TLStepCard extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
+        final copiedCurrentTLWorkspace = currentTLWorkspace.copyWith();
+        final copiedCorrToDoData = copiedCurrentTLWorkspace
+            .categoryIDToToDos[corrCategoryID]![ifInToday][indexInToDos];
+        final copiedCorrStepData = copiedCorrToDoData.steps[indexInSteps];
         // stepのチェック状態を変更
-        corrStepData.isChecked = !corrStepData.isChecked;
+        copiedCorrStepData.isChecked = !copiedCorrStepData.isChecked;
         // 主要のtodoがチェックされているときはチェック状態から変えたらそっちもかえる
-        if (corrToDoData.isChecked) {
-          corrToDoData.isChecked = false;
+        if (copiedCorrToDoData.isChecked) {
+          copiedCorrToDoData.isChecked = false;
         }
         // stepが全てチェックされたら主要なほうもチェックする
         if (() {
-          for (TLStep oneOfStep in corrToDoData.steps) {
+          for (TLStep oneOfStep in copiedCorrToDoData.steps) {
             if (!oneOfStep.isChecked) {
               return false;
             }
           }
           return true;
         }()) {
-          corrToDoData.isChecked = true;
+          copiedCorrToDoData.isChecked = true;
         }
 
         // 更新されたToDoをワークスペースに反映
-        tlWorkspacesNotifier.updateCurrentWorkspace(
-            updatedWorkspace: currentTLWorkspace.copyWith());
+        tlWorkspacesStateNotifier.updateCurrentWorkspace(
+            updatedCurrentWorkspace: copiedCurrentTLWorkspace);
 
         TLVibration.vibrate();
         NotifyTodoOrStepIsEditedSnackBar.show(

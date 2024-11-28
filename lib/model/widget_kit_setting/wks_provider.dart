@@ -4,7 +4,7 @@ import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
 import 'package:today_list/model/external/tl_pref.dart';
 import 'dart:convert';
 
-import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 
 final widgetKitSettingsProvider =
     StateNotifierProvider<WidgetKitSettingNotifier, List<WidgetKitSetting>>(
