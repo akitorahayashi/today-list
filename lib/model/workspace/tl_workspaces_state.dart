@@ -1,30 +1,33 @@
-import 'dart:convert';
-
+import 'package:today_list/model/external/tl_method_channel.dart';
 import 'package:today_list/model/external/tl_pref.dart';
 import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos.dart';
 import 'package:today_list/model/workspace/tl_workspace.dart';
+import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+const String noneID = "defaultID";
+
 class TLWorkspacesState {
-  final List<TLWorkspace> workspaces;
+  final List<TLWorkspace> tlWorkspaces;
   final int currentWorkspaceIndex;
 
   TLWorkspacesState({
-    required this.workspaces,
+    required this.tlWorkspaces,
     required this.currentWorkspaceIndex,
   });
 
-  TLWorkspace get currentWorkspace => workspaces[currentWorkspaceIndex];
+  TLWorkspace get currentWorkspace => tlWorkspaces[currentWorkspaceIndex];
 
   TLWorkspacesState copyWith({
-    List<TLWorkspace>? workspaces,
+    List<TLWorkspace>? tlWorkspaces,
     int? currentWorkspaceIndex,
   }) {
     return TLWorkspacesState(
-      workspaces: workspaces ?? this.workspaces,
+      tlWorkspaces: tlWorkspaces ?? this.tlWorkspaces,
       currentWorkspaceIndex:
           currentWorkspaceIndex ?? this.currentWorkspaceIndex,
     );
@@ -38,9 +41,12 @@ final tlWorkspacesStateProvider =
 
 class TLWorkspacesNotifier extends StateNotifier<TLWorkspacesState> {
   TLWorkspacesNotifier()
-      : super(TLWorkspacesState(workspaces: [], currentWorkspaceIndex: 0)) {
+      : super(TLWorkspacesState(
+            tlWorkspaces: _initialTLWorkspaces, currentWorkspaceIndex: 0)) {
     _loadWorkspaces();
   }
+
+  // -- load
 
   Future<void> _loadWorkspaces() async {
     final pref = await TLPref().getPref;
@@ -52,10 +58,12 @@ class TLWorkspacesNotifier extends StateNotifier<TLWorkspacesState> {
       final List<TLWorkspace> readWorkspaces = jsonTLWorkspaces.map((jsonData) {
         return TLWorkspace.fromJson(jsonData);
       }).toList();
-      state = state.copyWith(workspaces: readWorkspaces);
+      state = state.copyWith(tlWorkspaces: readWorkspaces);
     }
     state = state.copyWith(currentWorkspaceIndex: currentWorkspaceIndex);
   }
+
+  // -- body
 
   Future<void> changeCurrentWorkspaceIndex(int newIndex) async {
     state = state.copyWith(currentWorkspaceIndex: newIndex);
@@ -63,9 +71,95 @@ class TLWorkspacesNotifier extends StateNotifier<TLWorkspacesState> {
     pref.setInt('currentWorkspaceIndex', newIndex);
   }
 
+  // TLWorkspaceを削除するメソッド
+  Future<void> removeWorkspace({required String corrWorkspaceId}) async {
+    final updatedWorkspaceList = state.tlWorkspaces
+        .where((workspace) => workspace.id != corrWorkspaceId)
+        .toList();
+    state = state.copyWith(tlWorkspaces: updatedWorkspaceList);
+    await _saveWorkspaces();
+  }
+
+  // -- save
+  Future<void> _saveWorkspaces() async {
+    final pref = await TLPref().getPref;
+    final encodedTLWorkspaces = jsonEncode(
+        state.tlWorkspaces.map((workspace) => workspace.toJson()).toList());
+    TLMethodChannel.updateTLWorkspaces(
+        encodedTLWorkspaces: encodedTLWorkspaces);
+    await pref.setString("tlWorkspaces", encodedTLWorkspaces);
+  }
+
   void updateCurrentWorkspace(TLWorkspace updatedWorkspace) {
-    final updatedWorkspaces = List<TLWorkspace>.from(state.workspaces);
+    final updatedWorkspaces = List<TLWorkspace>.from(state.tlWorkspaces);
     updatedWorkspaces[state.currentWorkspaceIndex] = updatedWorkspace;
-    state = state.copyWith(workspaces: updatedWorkspaces);
+    state = state.copyWith(tlWorkspaces: updatedWorkspaces);
+  }
+
+  // List<TLWorkspace>を更新するメソッド
+  Future<void> updateTLWorkspaceList(
+      {required List<TLWorkspace> updatedTLWorkspaceList}) async {
+    state = state.copyWith(tlWorkspaces: updatedTLWorkspaceList);
+    await _saveWorkspaces();
   }
 }
+
+final List<TLWorkspace> _initialTLWorkspaces = [
+  TLWorkspace(id: "defaultWorkspaceId", name: "Default", bigCategories: [
+    TLCategory(id: noneID, title: "なし"),
+    TLCategory(id: "superMarcketId", title: "スーパー"),
+    TLCategory(id: "hundredStoreId", title: "100均"),
+  ], smallCategories: {
+    noneID: [],
+    "superMarcketId": [
+      TLCategory(id: "vegetableId", title: "野菜"),
+    ],
+    "hundredStoreId": [],
+  }, categoryIDToToDos: {
+    noneID: TLToDos(toDosInToday: [
+      TLToDo(id: "todo1", title: "のり", steps: []),
+      TLToDo(id: "todo2", title: "まくらカバー", steps: []),
+    ], toDosInWhenever: []),
+    "superMarcketId": TLToDos(toDosInToday: [
+      TLToDo(id: "todo3", title: "パスタ", steps: [
+        TLStep(id: "step1", title: "パスタの束"),
+        TLStep(id: "step2", title: "オリーブオイル")
+      ]),
+    ], toDosInWhenever: []),
+    "vegetableId": TLToDos(toDosInToday: [
+      TLToDo(id: "todo4", title: "キャベツ", steps: []),
+      TLToDo(id: "todo5", title: "にんじん", steps: []),
+    ], toDosInWhenever: []),
+    "hundredStoreId": TLToDos(
+        toDosInToday: [TLToDo(id: "todo6", title: "お皿", steps: [])],
+        toDosInWhenever: []),
+  }),
+  // --- 学校
+  TLWorkspace(id: "schoolWorksapceId", name: "School", bigCategories: [
+    TLCategory(id: noneID, title: "なし"),
+    TLCategory(id: "mathId", title: "数学"),
+    TLCategory(id: "englishId", title: "英語"),
+  ], smallCategories: {
+    noneID: [],
+    "mathId": [
+      TLCategory(id: "mathAId", title: "数学A"),
+      TLCategory(id: "mathIId", title: "数学I")
+    ],
+    "englishId": []
+  }, categoryIDToToDos: {
+    noneID: TLToDos(
+        toDosInToday: [TLToDo(id: "todo7", title: "~のプリントを出す", steps: [])],
+        toDosInWhenever: []),
+    "mathId": TLToDos(toDosInToday: [], toDosInWhenever: []),
+    "mathAId": TLToDos(toDosInToday: [
+      TLToDo(id: "todo8", title: "~を復習する", steps: []),
+      TLToDo(id: "todo9", title: "ワーク12ページの宿題をやる", steps: []),
+    ], toDosInWhenever: []),
+    "mathIId": TLToDos(
+        toDosInToday: [TLToDo(id: "todo10", title: "ドリル20~25ページ", steps: [])],
+        toDosInWhenever: []),
+    "englishId": TLToDos(
+        toDosInToday: [TLToDo(id: "todo11", title: "単語帳301~400", steps: [])],
+        toDosInWhenever: []),
+  }),
+];

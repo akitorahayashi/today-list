@@ -59,7 +59,7 @@ class TLToDoCard extends ConsumerWidget {
         for (TLStep step in corrToDoData.steps) {
           step.isChecked = corrToDoData.isChecked;
         }
-        // 並び替え + 保存
+        // 並び替え
         currentTLWorkspaceNotifier.reorderWhenToggle(
           categoryId: categoryOfThisToDo.id,
           ifInToday: ifInToday,

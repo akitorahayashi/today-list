@@ -126,4 +126,21 @@ class TLWorkspace {
       }
     }
   }
+
+  void reorderWhenToggle({
+    required String categoryId,
+    required bool ifInToday,
+    required int indexOfThisToDoInToDos,
+  }) async {
+    final toDoArrayOfThisToDo = categoryIDToToDos[categoryId]![ifInToday];
+    final TLToDo toDoCheckStateHasChanged =
+        toDoArrayOfThisToDo.removeAt(indexOfThisToDoInToDos);
+    final int indexOfCheckedToDo =
+        toDoArrayOfThisToDo.indexWhere((todo) => todo.isChecked);
+    if (indexOfCheckedToDo == -1) {
+      toDoArrayOfThisToDo.add(toDoCheckStateHasChanged);
+    } else {
+      toDoArrayOfThisToDo.insert(indexOfCheckedToDo, toDoCheckStateHasChanged);
+    }
+  }
 }
