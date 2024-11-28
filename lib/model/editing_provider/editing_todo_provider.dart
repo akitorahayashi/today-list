@@ -137,17 +137,17 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
         EditingTodo.toDoTitleInputController!.text.trim().isEmpty) return;
 
     // provider
-    final currentTLWorkspace =
+    final copiedCurrentTLWorkspace =
         ref.read(tlWorkspacesStateProvider).currentWorkspace;
     // notifier
     final EditingToDoNotifier editingToDoNotifier =
         ref.read(editingToDoProvider.notifier);
-    final TLWorkspacesNotifier tlWorkspacesNotifier =
+    final TLWorkspacesStateNotifier tlWorkspacesStateNotifier =
         ref.read(tlWorkspacesStateProvider.notifier);
 
+    // copy
     final String corrCategoryID = state.smallCategoryID ?? state.bigCatgoeyID;
-    final copiedCategoryToToDos =
-        Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
+    final copiedCategoryToToDos = copiedCurrentTLWorkspace.categoryIDToToDos;
     final TLToDos corrToDos = copiedCategoryToToDos[corrCategoryID]!;
 
     final TLToDo createdToDo = TLToDo(
@@ -175,10 +175,8 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
       indexOfEditingToDo: null,
       indexOfEditingStep: null,
     );
-    await tlWorkspacesNotifier.updateCurrentWorkspace(
-      updatedWorkspace:
-          currentTLWorkspace.copyWith(categoryIDToToDos: copiedCategoryToToDos),
-    );
+    tlWorkspacesStateNotifier.updateCurrentWorkspace(
+        updatedCurrentWorkspace: copiedCurrentTLWorkspace);
     EditingTodo.toDoTitleInputController?.clear();
     EditingTodo.stepTitleInputController?.clear();
   }

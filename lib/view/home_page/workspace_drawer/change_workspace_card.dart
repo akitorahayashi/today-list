@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../../../component/dialog/common/tl_single_option_dialog.dart';
-import '../../../model/workspace/provider/current_tl_workspace_provider.dart';
 import '../../../model/external/tl_vibration.dart';
 import '../../../model/workspace/tl_workspace.dart';
-import '../../../model/workspace/provider/tl_workspaces_provider.dart';
 import '../../../model/tl_theme.dart';
 import '../../../component/slidable/slidable_for_workspace_card.dart';
 
@@ -21,14 +20,14 @@ class ChangeWorkspaceCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
-    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
+    final tlWorkspacesState = ref.watch(tlWorkspacesStateProvider);
+    final List<TLWorkspace> tlWorkspaces = tlWorkspacesState.tlWorkspaces;
+    final TLWorkspace currentTLWorkspace = tlWorkspacesState.currentWorkspace;
     // notifier
-    final CurrentTLWorkspaceNotifier currentTLWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
+    final tlWorkspacesStateNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
     // other
-    final int currentTLWorkspaceIndex =
-        currentTLWorkspaceNotifier.currentWorkspaceIndex;
+    final int currentTLWorkspaceIndex = tlWorkspacesState.currentWorkspaceIndex;
     final bool isCurrentWorkspace =
         indexInWorkspaces == currentTLWorkspaceIndex;
     return Padding(
@@ -46,9 +45,8 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                   if (isCurrentWorkspace) {
                     Navigator.pop(context);
                   } else {
-                    await currentTLWorkspaceNotifier
-                        .changeCurrentWorkspaceIndex(
-                            newCurrentWorkspaceIndex: indexInWorkspaces);
+                    await tlWorkspacesStateNotifier
+                        .changeCurrentWorkspaceIndex(indexInWorkspaces);
                     TLVibration.vibrate();
                     if (context.mounted) {
                       Navigator.pop(context);

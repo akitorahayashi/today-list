@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/dialog/for_category/add_category_dialog.dart';
-import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
-import '../../model/workspace/provider/current_tl_workspace_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../../component/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/todo/tl_category.dart';
@@ -19,10 +18,10 @@ class CategoryListPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
-    // notifier
-    final TLWorkspacesNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesProvider.notifier);
+    final TLWorkspace currentTLWorkspace =
+        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
+    final tlWorkspacesStateNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
     return Scaffold(
       body: Stack(children: [
         // 背景色
@@ -75,8 +74,8 @@ class CategoryListPage extends ConsumerWidget {
                         corrBigCategories.removeAt(oldIndex);
                     corrBigCategories.insert(newIndex, reOrderedBigCategory);
                     // categoriesを保存する
-                    tlWorkspacesNotifier.updateCurrentWorkspace(
-                        updatedWorkspace: currentTLWorkspace.copyWith(
+                    tlWorkspacesStateNotifier.updateCurrentWorkspace(
+                        updatedCurrentWorkspace: currentTLWorkspace.copyWith(
                             bigCategories: corrBigCategories));
                   }),
               const SizedBox(

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/dialog/tl_base_dialog.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../model/editing_provider/editing_category_provider.dart';
-import '../../../model/workspace/provider/current_tl_workspace_provider.dart';
 import '../../../model/external/tl_vibration.dart';
-import '../../../model/workspace/provider/tl_workspaces_provider.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/tl_theme.dart';
 import '../../../style/styles.dart';
@@ -31,7 +30,8 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
   @override
   void initState() {
     super.initState();
-    final currentWorkspace = ref.read(currentWorkspaceProvider);
+    final currentWorkspace =
+        ref.read(tlWorkspacesStateProvider).currentWorkspace;
     final TLCategory corrBigCategory =
         currentWorkspace.bigCategories[widget.indexOfBigCategory];
     final corrCategoryName = widget.indexOfSmallCategory == null
@@ -64,7 +64,8 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final EditingCategory editingCategory = ref.watch(editingCategoryProvider);
-    final currentWorkspace = ref.watch(currentWorkspaceProvider);
+    final currentWorkspace =
+        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
     // notifier
     final editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
     return AlertDialog(

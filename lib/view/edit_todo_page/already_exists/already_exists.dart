@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/workspace/provider/current_tl_workspace_provider.dart';
-import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/workspace/tl_workspace.dart';
@@ -26,10 +25,11 @@ class AlreadyExists extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace currentWorkspace = ref.watch(currentWorkspaceProvider);
+    final tlWorkspacesState = ref.watch(tlWorkspacesStateProvider);
+    final TLWorkspace currentWorkspace = tlWorkspacesState.currentWorkspace;
     // notifier
-    final TLWorkspacesNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesProvider.notifier);
+    final tlWorkspacesStateNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
     // others
     final String categoryOfThisToDo = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisBlock =
@@ -64,42 +64,26 @@ class AlreadyExists extends ConsumerWidget {
                   ],
                 ),
               ),
-              ReorderableColumn(
-                  children: [
-                    for (int indexOfThisToDoInToDos = 0;
-                        indexOfThisToDoInToDos < toDoArrayOfThisBlock.length;
-                        indexOfThisToDoInToDos++)
-                      ModelOfToDoCard(
-                        key: ValueKey(
-                            toDoArrayOfThisBlock[indexOfThisToDoInToDos].id),
-                        // todoのメンバー
-                        corrTLToDo:
-                            toDoArrayOfThisBlock[indexOfThisToDoInToDos],
-                        ifInToday: ifInToday,
-                        bigCategoryID: bigCategoryID,
-                        smallCategoryID: smallCategoryID,
-                        indexOfThisToDoInToDoArrray: indexOfThisToDoInToDos,
-                        // 編集系のメンバー
-                        indexOfEditingToDo: indexOfThisToDoInToDos,
-                        tapToEditAction: tapToEditAction,
-                      ),
-                  ],
-                  onReorder: (oldIndex, newIndex) {
-                    List<TLToDo> corrToDoArray = currentWorkspace
-                        .categoryIDToToDos[categoryOfThisToDo]![ifInToday];
-                    final int indexOfCheckedToDo =
-                        corrToDoArray.indexWhere((todo) => todo.isChecked);
-                    // チェック済みToDoよりも下に移動させない
-                    if (indexOfCheckedToDo == -1 ||
-                        newIndex < indexOfCheckedToDo) {
-                      final TLToDo reorderedToDo =
-                          corrToDoArray.removeAt(oldIndex);
-                      corrToDoArray.insert(newIndex, reorderedToDo);
-                      // toDosを保存する
-                      tlWorkspacesNotifier.updateCurrentWorkspace(
-                          updatedWorkspace: currentWorkspace);
-                    }
-                  }),
+              Column(
+                children: [
+                  for (int indexOfThisToDoInToDos = 0;
+                      indexOfThisToDoInToDos < toDoArrayOfThisBlock.length;
+                      indexOfThisToDoInToDos++)
+                    ModelOfToDoCard(
+                      key: ValueKey(
+                          toDoArrayOfThisBlock[indexOfThisToDoInToDos].id),
+                      // todoのメンバー
+                      corrTLToDo: toDoArrayOfThisBlock[indexOfThisToDoInToDos],
+                      ifInToday: ifInToday,
+                      bigCategoryID: bigCategoryID,
+                      smallCategoryID: smallCategoryID,
+                      indexOfThisToDoInToDoArrray: indexOfThisToDoInToDos,
+                      // 編集系のメンバー
+                      indexOfEditingToDo: indexOfThisToDoInToDos,
+                      tapToEditAction: tapToEditAction,
+                    ),
+                ],
+              ),
             ],
           ),
         ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/home_page/num_todos_card.dart';
-import 'package:today_list/view/home_page/todos_block.dart';
+import '../../model/workspace/tl_workspaces_state.dart';
+import '../../view/home_page/num_todos_card.dart';
+import '../../view/home_page/todos_block.dart';
 import '../../component/common_ui_part/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
 import '../../component/common_ui_part/today_list_bottom_navbar/today_list_bottom_navbar.dart';
 import '../../component/dialog/common/tl_single_option_dialog.dart';
@@ -10,7 +11,6 @@ import '../../component/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/tl_theme.dart';
 import '../../model/workspace/tl_workspace.dart';
 import '../../model/external/tl_vibration.dart';
-import '../../model/workspace/provider/current_tl_workspace_provider.dart';
 import '../edit_todo_page/edit_todo_page.dart';
 import '../category_list_page/category_list_page.dart';
 import '../setting_page/setting_page.dart';
@@ -53,11 +53,9 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    final TLWorkspace currentTLWorkspace = ref.watch(currentWorkspaceProvider);
-    final currentTLWorkspaceNotifier =
-        ref.read(currentWorkspaceProvider.notifier);
-    final int currentTLWorkspaceIndex =
-        currentTLWorkspaceNotifier.currentWorkspaceIndex;
+    final tlWorksapceState = ref.watch(tlWorkspacesStateProvider);
+    final TLWorkspace currentTLWorkspace = tlWorksapceState.currentWorkspace;
+    final int currentTLWorkspaceIndex = tlWorksapceState.currentWorkspaceIndex;
     final numOfToDosInToday = currentTLWorkspace.getNumOfToDo(ifInToday: true);
     final numOfToDosInWhenever =
         currentTLWorkspace.getNumOfToDo(ifInToday: false);
@@ -124,8 +122,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                   message: null,
                   yesAction: () async {
                     Navigator.pop(context);
-                    await currentTLWorkspaceNotifier
-                        .deleteCheckedToDosInTodayInCurrentWorkspace(
+                    await currentTLWorkspace
+                        .deleteCheckedToDosInTodayInAWorkspace(
                             onlyToday: false);
                     if (context.mounted) {
                       const TLSingleOptionDialog(title: "削除が完了しました！")

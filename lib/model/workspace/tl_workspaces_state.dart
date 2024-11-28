@@ -35,12 +35,12 @@ class TLWorkspacesState {
 }
 
 final tlWorkspacesStateProvider =
-    StateNotifierProvider<TLWorkspacesNotifier, TLWorkspacesState>((ref) {
-  return TLWorkspacesNotifier();
+    StateNotifierProvider<TLWorkspacesStateNotifier, TLWorkspacesState>((ref) {
+  return TLWorkspacesStateNotifier();
 });
 
-class TLWorkspacesNotifier extends StateNotifier<TLWorkspacesState> {
-  TLWorkspacesNotifier()
+class TLWorkspacesStateNotifier extends StateNotifier<TLWorkspacesState> {
+  TLWorkspacesStateNotifier()
       : super(TLWorkspacesState(
             tlWorkspaces: _initialTLWorkspaces, currentWorkspaceIndex: 0)) {
     _loadWorkspaces();
@@ -71,6 +71,13 @@ class TLWorkspacesNotifier extends StateNotifier<TLWorkspacesState> {
     pref.setInt('currentWorkspaceIndex', newIndex);
   }
 
+  Future<void> addWorkspace(TLWorkspace newWorkspace) async {
+    final updatedWorkspaces = List<TLWorkspace>.from(state.tlWorkspaces)
+      ..add(newWorkspace);
+    state = state.copyWith(tlWorkspaces: updatedWorkspaces);
+    await _saveWorkspaces();
+  }
+
   // TLWorkspaceを削除するメソッド
   Future<void> removeWorkspace({required String corrWorkspaceId}) async {
     final updatedWorkspaceList = state.tlWorkspaces
@@ -90,10 +97,12 @@ class TLWorkspacesNotifier extends StateNotifier<TLWorkspacesState> {
     await pref.setString("tlWorkspaces", encodedTLWorkspaces);
   }
 
-  void updateCurrentWorkspace(TLWorkspace updatedWorkspace) {
+  void updateCurrentWorkspace(
+      {required TLWorkspace updatedCurrentWorkspace}) async {
     final updatedWorkspaces = List<TLWorkspace>.from(state.tlWorkspaces);
-    updatedWorkspaces[state.currentWorkspaceIndex] = updatedWorkspace;
+    updatedWorkspaces[state.currentWorkspaceIndex] = updatedCurrentWorkspace;
     state = state.copyWith(tlWorkspaces: updatedWorkspaces);
+    await _saveWorkspaces();
   }
 
   // List<TLWorkspace>を更新するメソッド

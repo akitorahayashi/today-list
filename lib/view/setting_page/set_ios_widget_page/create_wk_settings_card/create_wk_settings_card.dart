@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/component/common_ui_part/tl_double_card.dart';
-import 'package:today_list/model/external/tl_vibration.dart';
-import 'package:today_list/model/tl_theme.dart';
-import 'package:today_list/model/todo/tl_category.dart';
-import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
-import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
-import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
-import 'package:today_list/model/workspace/tl_workspace.dart';
-import 'package:today_list/view/setting_page/set_ios_widget_page/component/wks_header.dart';
+import '../../../../view/setting_page/set_ios_widget_page/component/wks_header.dart';
+import '../../../../component/common_ui_part/tl_double_card.dart';
+import '../../../../model/external/tl_vibration.dart';
+import '../../../../model/tl_theme.dart';
+import '../../../../model/todo/tl_category.dart';
+import '../../../../model/widget_kit_setting/widget_kit_setting.dart';
+import '../../../../model/widget_kit_setting/wks_provider.dart';
+import '../../../../model/workspace/tl_workspace.dart';
+import '../../../../model/workspace/tl_workspaces_state.dart';
 
 class CreateWKSettingsCard extends ConsumerStatefulWidget {
   final VoidCallback showAddWKSButtonAction;
@@ -30,7 +30,8 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
   int? _selectedSCIdx;
 
   String get _selectedBCID => ref
-      .read(tlWorkspacesProvider)[_selectedWorkspaceIndex]
+      .read(tlWorkspacesStateProvider)
+      .tlWorkspaces[_selectedWorkspaceIndex]
       .bigCategories[_selectedBCIdx]
       .id;
 
@@ -72,7 +73,8 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
     final TLThemeData tlThemeData = TLTheme.of(context);
     final double deviceWidth = MediaQuery.of(context).size.width;
     // provider
-    final List<TLWorkspace> tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    final List<TLWorkspace> tlWorkspaces =
+        ref.watch(tlWorkspacesStateProvider).tlWorkspaces;
     // notifier
     final WidgetKitSettingNotifier wksnotifier =
         ref.read(widgetKitSettingsProvider.notifier);

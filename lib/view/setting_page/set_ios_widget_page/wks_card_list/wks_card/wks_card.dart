@@ -5,7 +5,7 @@ import 'package:today_list/component/slidable/slidable_for_wks_card.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
 import 'package:today_list/model/widget_kit_setting/wks_provider.dart';
-import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import 'package:today_list/view/setting_page/set_ios_widget_page/component/wks_body_text.dart';
 import 'package:today_list/view/setting_page/set_ios_widget_page/component/wks_header.dart';
 // import 'package:today_list/view/setting_page/set_ios_widget_page/wks_card_list/wks_card/medium_ios_widget_replica.dart';
@@ -17,7 +17,7 @@ class WKSCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final tlWorkspaces = ref.watch(tlWorkspacesProvider);
+    final tlWorkspaces = ref.watch(tlWorkspacesStateProvider).tlWorkspaces;
     final wksList = ref.watch(widgetKitSettingsProvider);
     final WidgetKitSetting wksInThisCard = wksList[idx];
     final deviceWidth = MediaQuery.of(context).size.width;

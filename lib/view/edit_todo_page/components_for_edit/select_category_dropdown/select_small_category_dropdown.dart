@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/component/dialog/for_category/add_category_dialog.dart';
-import 'package:today_list/model/workspace/provider/current_tl_workspace_provider.dart';
 import 'package:today_list/model/editing_provider/editing_todo_provider.dart';
-import 'package:today_list/model/workspace/provider/tl_workspaces_provider.dart';
+import 'package:today_list/model/workspace/tl_workspaces_state.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/tl_theme.dart';
 
@@ -15,7 +14,8 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final EditingTodo editingTodo = ref.watch(editingToDoProvider);
-    final currentWorkspace = ref.watch(currentWorkspaceProvider);
+    final tlWorksacesState = ref.watch(tlWorkspacesStateProvider);
+    final currentWorkspace = tlWorksacesState.currentWorkspace;
     // notifier
     final EditingToDoNotifier editingToDoNotifier =
         ref.read(editingToDoProvider.notifier);
