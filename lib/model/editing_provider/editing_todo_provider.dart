@@ -154,8 +154,15 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
         title: EditingTodo.toDoTitleInputController?.text ?? "Error",
         steps: state.steps);
     if (state.indexOfEditingToDo == null) {
+      final newIdx = corrToDos[state.ifInToday].indexWhere((t) => t.isChecked);
       // add
-      corrToDos[state.ifInToday].add(createdToDo);
+      // `isChecked`が`true`の要素が見つかった場合、その直前に挿入
+      if (newIdx != -1) {
+        corrToDos[state.ifInToday].insert(newIdx, createdToDo);
+      } else {
+        // 見つからなかった場合は最後尾に追加
+        corrToDos[state.ifInToday].add(createdToDo);
+      }
     } else {
       // edit
       corrToDos[state.ifInToday][state.indexOfEditingToDo!] = createdToDo;
