@@ -58,6 +58,9 @@ class _HomePageState extends ConsumerState<HomePage> {
         ref.read(currentWorkspaceProvider.notifier);
     final int currentTLWorkspaceIndex =
         currentTLWorkspaceNotifier.currentWorkspaceIndex;
+    final numOfToDosInToday = currentTLWorkspace.getNumOfToDo(ifInToday: true);
+    final numOfToDosInWhenever =
+        currentTLWorkspace.getNumOfToDo(ifInToday: false);
 
     return Scaffold(
       key: homePageScaffoldKey,
@@ -93,18 +96,14 @@ class _HomePageState extends ConsumerState<HomePage> {
               const SizedBox(
                 height: 10,
               ),
-              NumToDosCard(
-                  ifInToday: true,
-                  numTodos: currentTLWorkspace.getNumOfToDo(ifInToday: true)),
+              NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
               TodosBlock(
                   ifInToday: true, currentTLWorkspace: currentTLWorkspace),
-              if (currentTLWorkspace.getNumOfToDo(ifInToday: false) != 0)
+              if (numOfToDosInWhenever != 0)
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: NumToDosCard(
-                      ifInToday: false,
-                      numTodos:
-                          currentTLWorkspace.getNumOfToDo(ifInToday: false)),
+                      ifInToday: false, numTodos: numOfToDosInWhenever),
                 ),
               TodosBlock(
                   ifInToday: false, currentTLWorkspace: currentTLWorkspace),

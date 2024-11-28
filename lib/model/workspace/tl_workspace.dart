@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/todo/tl_todo.dart';
 import '../todo/tl_category.dart';
 import '../todo/tl_todos.dart';
 
@@ -92,5 +93,37 @@ class TLWorkspace {
       }
     }
     return false;
+  }
+
+  Future<void> deleteCheckedToDosInTodayInAWorkspace(
+      {required bool onlyToday}) async {
+    for (TLCategory bigCategory in bigCategories) {
+      deleteAllCheckedToDosInAToDos(
+        onlyToday: onlyToday,
+        selectedToDos: categoryIDToToDos[bigCategory.id]!,
+      );
+      for (TLCategory smallCategory in smallCategories[bigCategory.id]!) {
+        deleteAllCheckedToDosInAToDos(
+          onlyToday: onlyToday,
+          selectedToDos: categoryIDToToDos[smallCategory.id]!,
+        );
+      }
+    }
+  }
+
+  void deleteAllCheckedToDosInAToDos({
+    required bool onlyToday,
+    required TLToDos selectedToDos,
+  }) {
+    selectedToDos.toDosInToday.removeWhere((todo) => todo.isChecked);
+    for (TLToDo todo in selectedToDos.toDosInToday) {
+      todo.steps.removeWhere((step) => step.isChecked);
+    }
+    if (!onlyToday) {
+      selectedToDos.toDosInWhenever.removeWhere((todo) => todo.isChecked);
+      for (TLToDo todo in selectedToDos.toDosInWhenever) {
+        todo.steps.removeWhere((step) => step.isChecked);
+      }
+    }
   }
 }

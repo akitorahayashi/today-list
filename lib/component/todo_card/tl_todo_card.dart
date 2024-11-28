@@ -65,6 +65,9 @@ class TLToDoCard extends ConsumerWidget {
           ifInToday: ifInToday,
           indexOfThisToDoInToDos: indexOfThisToDoInToDos,
         );
+        // 保存
+        updateCurrentWorkspace(state.currentWorkspace.copyWith(
+            categoryIDToToDos: state.currentWorkspace.categoryIDToToDos));
         TLVibration.vibrate();
         NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,
