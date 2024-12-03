@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/main.dart';
 import '../../../../model/tl_theme.dart';
-import '../../../../component/dialog/common/tl_single_option_dialog.dart';
-import '../../../../component/dialog/common/tl_yes_no_dialog.dart';
+import '../../../component/dialog/common/tl_single_option_dialog.dart';
+import '../../../component/dialog/common/tl_yes_no_dialog.dart';
 import '../../../../model/external/tl_ads.dart';
-import '../../../../component/dialog/change_theme_dialog.dart';
+import '../../../component/dialog/change_theme_dialog.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

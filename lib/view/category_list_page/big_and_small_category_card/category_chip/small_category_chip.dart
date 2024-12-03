@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../component/dialog/for_category/select_edit_method_dialog.dart';
-import '../../../../model/workspace/tl_workspaces_state.dart';
+import '../../../component/dialog/for_category/select_edit_method_dialog.dart';
+import '../../../../view_model/todo/tl_workspaces_state.dart';
 import '../../../../model/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/workspace/tl_workspace.dart';

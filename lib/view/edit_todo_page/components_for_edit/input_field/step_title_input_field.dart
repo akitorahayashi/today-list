@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
-import '../../../../model/editing_provider/editing_todo_provider.dart';
-import '../../../../style/styles.dart';
+import '../../../../view_model/todo/editing_provider/editing_todo_provider.dart';
+import '../../../styles.dart';
 import '../../../../model/tl_theme.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

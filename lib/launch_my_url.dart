@@ -22,7 +22,7 @@
 //           builder: (context) {
 //             return AlertDialog(
 //               title: const Align(
-//                   alignment: Alignment.center, child: Text("申し訳ありません")),
+//                   alignment: Alignment.center, child: Text("申し訳ございません")),
 //               content: const Align(
 //                   heightFactor: 0.8,
 //                   alignment: Alignment.center,

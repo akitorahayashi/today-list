@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/todo/tl_todos.dart';
-import 'package:today_list/model/workspace/tl_workspaces_state.dart';
-import '../../../component/todo_card/tl_todo_card.dart';
+import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
+import '../../component/todo_card/tl_todo_card.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_category.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
-import 'package:today_list/model/workspace/tl_workspaces_state.dart';
+import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import 'change_workspace_card.dart';
-import '../../../component/common_ui_part/tl_sliver_appbar.dart';
+import '../../component/common_ui_part/tl_sliver_appbar.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/workspace/tl_workspace.dart';
 import './add_workspace_button.dart';

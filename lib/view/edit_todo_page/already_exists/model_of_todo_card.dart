@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/component/todo_card/tl_checkbox.dart';
+import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../component/slidable/slidable_for_todo_card.dart';
+import '../../component/slidable/slidable_for_todo_card.dart';
 
 class ModelOfToDoCard extends ConsumerWidget {
   // todoのデータ

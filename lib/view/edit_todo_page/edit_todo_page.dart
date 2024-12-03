@@ -6,10 +6,10 @@ import '../../view/edit_todo_page/components_for_edit/input_field/todo_title_inp
 import '../../view/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
 import 'components_for_edit/select_category_dropdown/select_big_category_dropdown.dart';
 import 'components_for_edit/added_steps_column.dart';
-import '../../component/dialog/common/tl_yes_no_dialog.dart';
-import '../../component/common_ui_part/tl_sliver_appbar.dart';
+import '../component/dialog/common/tl_yes_no_dialog.dart';
+import '../component/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/tl_theme.dart';
-import '../../model/editing_provider/editing_todo_provider.dart';
+import '../../view_model/todo/editing_provider/editing_todo_provider.dart';
 import './already_exists/already_exists.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';

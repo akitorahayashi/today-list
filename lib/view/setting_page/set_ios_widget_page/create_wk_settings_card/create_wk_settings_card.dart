@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view_model/design/theme_idx_provider.dart';
 import '../../../../view/setting_page/set_ios_widget_page/component/wks_header.dart';
-import '../../../../component/common_ui_part/tl_double_card.dart';
+import '../../../component/common_ui_part/tl_double_card.dart';
 import '../../../../model/external/tl_vibration.dart';
 import '../../../../model/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/widget_kit_setting/widget_kit_setting.dart';
-import '../../../../model/widget_kit_setting/wks_provider.dart';
+import '../../../../view_model/settings/wks_provider.dart';
 import '../../../../model/workspace/tl_workspace.dart';
-import '../../../../model/workspace/tl_workspaces_state.dart';
+import '../../../../view_model/todo/tl_workspaces_state.dart';
 
 class CreateWKSettingsCard extends ConsumerStatefulWidget {
   final VoidCallback showAddWKSButtonAction;

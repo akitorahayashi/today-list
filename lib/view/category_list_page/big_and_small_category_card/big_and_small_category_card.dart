@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/workspace/tl_workspaces_state.dart';
+import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../../../model/tl_theme.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../model/workspace/tl_workspace.dart';

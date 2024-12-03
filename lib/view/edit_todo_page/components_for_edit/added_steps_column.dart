@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/external/tl_vibration.dart';
 import 'package:today_list/model/todo/tl_step.dart';
-import '../../../component/todo_card/tl_checkbox.dart';
-import '../../../model/editing_provider/editing_todo_provider.dart';
+import '../../component/todo_card/tl_checkbox.dart';
+import '../../../view_model/todo/editing_provider/editing_todo_provider.dart';
 
 class AddedStepsColumn extends ConsumerWidget {
   const AddedStepsColumn({super.key});

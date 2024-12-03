@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/component/common_ui_part/tl_double_card.dart';
+import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/model/tl_theme.dart';
 
 class AddWKSButton extends StatelessWidget {
