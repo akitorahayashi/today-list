@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../model/tl_theme.dart';
+import '../../../../model/design/tl_theme.dart';
 import 'side_button_of_bottom_navbar.dart';
 
 class TodayListBottomNavbar extends StatelessWidget {
@@ -16,7 +16,7 @@ class TodayListBottomNavbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData _tlThemeData = TLTheme.of(context);
+    final TLThemeData tlThemeData = TLTheme.of(context);
     final double deviceWidth = MediaQuery.of(context).size.width;
     return Positioned(
       bottom: 0,
@@ -25,7 +25,7 @@ class TodayListBottomNavbar extends StatelessWidget {
         children: [
           DecoratedBox(
             decoration: BoxDecoration(
-              gradient: _tlThemeData.gradientOfNavBar,
+              gradient: tlThemeData.gradientOfNavBar,
               boxShadow: const [
                 BoxShadow(blurRadius: 8, color: Colors.black45)
               ],

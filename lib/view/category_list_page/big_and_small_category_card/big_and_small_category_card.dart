@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
-import '../../../model/tl_theme.dart';
+import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_category.dart';
-import '../../../model/workspace/tl_workspace.dart';
+import '../../../model/todo/tl_workspace.dart';
 import 'category_chip/big_category_chip.dart';
 import 'category_chip/small_category_chip.dart';
 

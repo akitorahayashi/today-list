@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/external/tl_method_channel.dart';
-import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
+import 'package:today_list/model/setting_data/widget_kit_setting.dart';
 import 'package:today_list/model/external/tl_pref.dart';
 import 'dart:convert';
 

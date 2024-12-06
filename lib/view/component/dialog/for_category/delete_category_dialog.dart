@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
-import '../../../../model/tl_theme.dart';
+import '../../../../model/design/tl_theme.dart';
 import '../../../../model/external/tl_vibration.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/todo/tl_todos.dart';

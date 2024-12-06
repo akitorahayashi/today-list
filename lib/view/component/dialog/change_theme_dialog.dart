@@ -4,7 +4,7 @@ import 'package:today_list/view/component/dialog/tl_base_dialog.dart';
 import 'package:today_list/view/styles.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
-import '../../../model/tl_theme.dart';
+import '../../../model/design/tl_theme.dart';
 import '../../../model/external/tl_connectivity.dart';
 import '../../../model/external/tl_method_channel.dart';
 import '../../../model/external/tl_vibration.dart';

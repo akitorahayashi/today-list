@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
-import '../../../model/tl_theme.dart';
+import '../../../view_model/todo/tl_workspaces_state.dart';
+import '../../../model/design/tl_theme.dart';
+import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/workspace/tl_workspace.dart';
 import './model_of_todo_card.dart';
-
-import 'package:reorderables/reorderables.dart';
 
 class AlreadyExists extends ConsumerWidget {
   final String bigCategoryID;
@@ -27,9 +25,6 @@ class AlreadyExists extends ConsumerWidget {
     // provider
     final tlWorkspacesState = ref.watch(tlWorkspacesStateProvider);
     final TLWorkspace currentWorkspace = tlWorkspacesState.currentWorkspace;
-    // notifier
-    final tlWorkspacesStateNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
     // others
     final String categoryOfThisToDo = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisBlock =

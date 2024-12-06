@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
-import '../../../model/workspace/tl_workspace.dart';
+import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_step.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_todos.dart';

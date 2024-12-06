@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import 'tl_checkbox.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
-import '../../../model/workspace/tl_workspace.dart';
+import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_step.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/external/tl_vibration.dart';
