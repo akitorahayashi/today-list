@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import 'package:today_list/view/edit_todo_page/edit_todo_page.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
-import '../../../model/tl_theme.dart';
+import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/external/tl_vibration.dart';
-import '../../../model/workspace/tl_workspace.dart';
+import '../../../model/todo/tl_workspace.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 

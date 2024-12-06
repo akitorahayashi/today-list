@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/component/dialog/for_category/add_category_dialog.dart';
-import 'package:today_list/view_model/todo/editing_provider/editing_todo_provider.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
+import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
-import '../../../../model/tl_theme.dart';
+import '../../../../view/component/dialog/for_category/add_category_dialog.dart';
+import '../../../../view_model/todo/editing_provider/editing_todo_provider.dart';
+import '../../../../view_model/todo/tl_workspaces_state.dart';
 
 class SelectSmallCategoryDropDown extends ConsumerWidget {
   const SelectSmallCategoryDropDown({super.key});

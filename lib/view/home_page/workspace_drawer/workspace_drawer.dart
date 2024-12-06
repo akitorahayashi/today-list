@@ -3,8 +3,8 @@ import 'package:reorderables/reorderables.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import 'change_workspace_card.dart';
 import '../../component/common_ui_part/tl_sliver_appbar.dart';
-import '../../../model/tl_theme.dart';
-import '../../../model/workspace/tl_workspace.dart';
+import '../../../model/design/tl_theme.dart';
+import '../../../model/todo/tl_workspace.dart';
 import './add_workspace_button.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';

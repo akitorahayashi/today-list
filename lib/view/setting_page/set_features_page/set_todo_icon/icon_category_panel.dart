@@ -1,5 +1,5 @@
-import '../../../../model/icon_data/icon_for_checkbox.dart';
-import '../../../../model/tl_theme.dart';
+import '../../../../model/design/icon_for_checkbox.dart';
+import '../../../../model/design/tl_theme.dart';
 import 'icon_rarity_block/icon_rarity_block.dart';
 import 'package:flutter/material.dart';
 

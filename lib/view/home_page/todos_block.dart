@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import './todos_in_this_category_today/header_for_todos.dart';
 import './todos_in_this_category_today/todos_in_this_category_in_today.dart';
 import '../../model/todo/tl_category.dart';
-import '../../model/workspace/tl_workspace.dart';
+import '../../model/todo/tl_workspace.dart';
 
 class TodosBlock extends StatelessWidget {
   final bool ifInToday;

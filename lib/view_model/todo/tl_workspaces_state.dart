@@ -4,7 +4,7 @@ import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos.dart';
-import 'package:today_list/model/workspace/tl_workspace.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';

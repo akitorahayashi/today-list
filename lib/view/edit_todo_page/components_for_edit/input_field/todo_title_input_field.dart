@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../model/design/tl_theme.dart';
 import '../../../component/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../../../model/external/tl_vibration.dart';
 import '../../../../view_model/todo/editing_provider/editing_todo_provider.dart';
-import '../../../../model/tl_theme.dart';
 import '../../../styles.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../model/design/tl_theme.dart';
 import '../tl_base_dialog.dart';
-import '../../../../model/tl_theme.dart';
 import '../../../styles.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';

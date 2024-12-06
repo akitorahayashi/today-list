@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/tl_theme.dart';
+import '../../../../model/design/tl_theme.dart';
 
 class TlDoubleCard extends StatelessWidget {
   final Widget child;

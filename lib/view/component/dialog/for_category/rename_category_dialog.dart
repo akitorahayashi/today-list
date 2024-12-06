@@ -6,7 +6,7 @@ import '../common/tl_single_option_dialog.dart';
 import '../../../../view_model/todo/editing_provider/editing_category_provider.dart';
 import '../../../../model/external/tl_vibration.dart';
 import '../../../../model/todo/tl_category.dart';
-import '../../../../model/tl_theme.dart';
+import '../../../../model/design/tl_theme.dart';
 import '../../../styles.dart';
 
 class RenameCategoryDialog extends TLBaseConsumerStatefulDialog {

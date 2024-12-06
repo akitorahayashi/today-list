@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/setting_data/widget_kit_setting.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/view/component/slidable/slidable_for_wks_card.dart';
 import 'package:today_list/model/todo/tl_category.dart';
-import 'package:today_list/model/widget_kit_setting/widget_kit_setting.dart';
 import 'package:today_list/view_model/settings/wks_provider.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import 'package:today_list/view/setting_page/set_ios_widget_page/component/wks_body_text.dart';
