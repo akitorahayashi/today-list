@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/component/dialog/tl_base_dialog.dart';
+import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../../model/design/tl_theme.dart';
@@ -9,7 +9,7 @@ import '../../../../model/todo/tl_category.dart';
 import '../../../../model/todo/tl_todos.dart';
 import '../../../styles.dart';
 
-class DeleteCategoryDialog extends TLBaseConsumerDialog {
+class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
   final int indexOfBigCategory;
   final int? indexOfSmallCategory;
   const DeleteCategoryDialog({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/component/dialog/tl_base_dialog.dart';
+import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/view/styles.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
@@ -11,7 +11,7 @@ import '../../../model/external/tl_vibration.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
-class ChangeThemeDialog extends TLBaseConsumerDialog {
+class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
   final int corrIndex;
   final TLThemeData corrThemeData;
   const ChangeThemeDialog({

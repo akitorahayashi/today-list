@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
-import '../tl_base_dialog.dart';
+import '../tl_base_dialog_mixin.dart';
 import '../../../../view_model/todo/editing_provider/editing_category_provider.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/external/tl_vibration.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../styles.dart';
 
-class AddCategoryDialog extends TLBaseConsumerStatefulDialog {
+class AddCategoryDialog extends ConsumerStatefulWidget with TLBaseDialogMixin {
   const AddCategoryDialog({super.key});
 
   @override

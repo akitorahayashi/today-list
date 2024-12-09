@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/component/dialog/tl_base_dialog.dart';
+import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../styles.dart';
@@ -10,7 +10,8 @@ import '../../../../model/todo/tl_workspace.dart';
 import '../../../../model/todo/tl_todos.dart';
 import '../../../../model/external/tl_vibration.dart';
 
-class AddOrEditWorkspaceDialog extends TLBaseConsumerStatefulDialog {
+class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget
+    with TLBaseDialogMixin {
   final int? oldIndexInWorkspaces;
   const AddOrEditWorkspaceDialog(
       {super.key, required this.oldIndexInWorkspaces});
