@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../../../model/design/tl_theme.dart';
-import '../tl_base_dialog.dart';
+import '../tl_base_dialog_mixin.dart';
 import '../../../styles.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TLYesNoDialog extends TLBaseConsumerDialog {
+class TLYesNoDialog extends ConsumerWidget with TLBaseDialogMixin {
   final String title;
   final String? message;
   final Function()? yesAction;
