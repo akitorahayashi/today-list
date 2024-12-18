@@ -122,9 +122,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                   message: null,
                   yesAction: () async {
                     Navigator.pop(context);
-                    await currentTLWorkspace
-                        .deleteCheckedToDosInTodayInAWorkspace(
-                            onlyToday: false);
+                    final copiedWorkspace = currentTLWorkspace.copyWith();
+                    await copiedWorkspace.deleteCheckedToDosInTodayInAWorkspace(
+                        onlyToday: false);
+                    ref
+                        .read(tlWorkspacesStateProvider.notifier)
+                        .updateCurrentWorkspace(
+                            updatedCurrentWorkspace: copiedWorkspace);
                     if (context.mounted) {
                       const TLSingleOptionDialog(title: "削除が完了しました！")
                           .show(context: context);
