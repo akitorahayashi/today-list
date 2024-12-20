@@ -5,7 +5,7 @@ import 'tl_checkbox.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/todo/tl_step.dart';
+import '../../../model/todo/tl_todos.dart';
 import '../../../model/todo/tl_category.dart';
 import '../../../service/tl_vibration.dart';
 import '../../../model/todo/tl_workspace.dart';
@@ -43,8 +43,9 @@ class TLToDoCard extends ConsumerWidget {
         ? bigCategoryOfThisToDo
         : smallCategoryOfThisToDo!;
 
-    List<TLToDo> toDoArrayThatContainsThisToDo =
-        currentTLWorkspace.categoryIDToToDos[categoryOfThisToDo.id]![ifInToday];
+    List<TLToDo> toDoArrayThatContainsThisToDo = currentTLWorkspace
+        .categoryIDToToDos[categoryOfThisToDo.id]!
+        .getToDos(ifInToday);
 
     final TLToDo corrToDoData =
         toDoArrayThatContainsThisToDo[indexOfThisToDoInToDos];
@@ -52,14 +53,18 @@ class TLToDoCard extends ConsumerWidget {
     return GestureDetector(
       onTap: () {
         final copiedCurrentTLWorkspace = currentTLWorkspace.copyWith();
-        final copiedCorrToDoData = copiedCurrentTLWorkspace
-                .categoryIDToToDos[categoryOfThisToDo.id]![ifInToday]
-            [indexOfThisToDoInToDos];
+        final corrToDos = copiedCurrentTLWorkspace
+            .categoryIDToToDos[categoryOfThisToDo.id]!
+            .getToDos(ifInToday);
         // チェックの状態を切り替える
-        copiedCorrToDoData.isChecked = !copiedCorrToDoData.isChecked;
+        corrToDos[indexOfThisToDoInToDos] = corrToDos[indexOfThisToDoInToDos]
+            .copyWith(isChecked: !corrToDoData.isChecked);
         // stepsがあるならその全てのstepsのcheck状態を同じにする
-        for (TLStep step in corrToDoData.steps) {
-          step.isChecked = corrToDoData.isChecked;
+        if (corrToDoData.steps.isNotEmpty) {
+          for (int i = 0; i < corrToDoData.steps.length; i++) {
+            corrToDoData.steps[i] = corrToDoData.steps[i]
+                .copyWith(isChecked: !corrToDoData.steps[i].isChecked);
+          }
         }
         // 並び替え
         copiedCurrentTLWorkspace.reorderWhenToggle(
@@ -156,8 +161,8 @@ class TLToDoCard extends ConsumerWidget {
                           final copiedCurrentTLWorkspace =
                               currentTLWorkspace.copyWith();
                           final copiedCorrToDoData = copiedCurrentTLWorkspace
-                                  .categoryIDToToDos[categoryOfThisToDo.id]![
-                              ifInToday][indexOfThisToDoInToDos];
+                              .categoryIDToToDos[categoryOfThisToDo.id]!
+                              .getToDos(ifInToday)[indexOfThisToDoInToDos];
                           if (oldIndex == newIndex) return;
                           final reOrderedToDo =
                               copiedCorrToDoData.steps[oldIndex];

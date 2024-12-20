@@ -32,7 +32,8 @@ class ToDosInThisCategoryInCurrentWorkspace extends ConsumerWidget {
     final coorCategoryIDToToDos =
         Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
     List<TLToDo> toDosInTodayInThisCategory = coorCategoryIDToToDos[
-        smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]![ifInToday];
+            smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
+        .getToDos(ifInToday);
     return Column(
       children: [
         Padding(

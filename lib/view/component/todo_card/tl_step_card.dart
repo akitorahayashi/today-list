@@ -6,6 +6,7 @@ import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_step.dart';
 import '../../../model/todo/tl_todo.dart';
+import '../../../model/todo/tl_todos.dart';
 import '../../../service/tl_vibration.dart';
 
 class TLStepCard extends ConsumerWidget {
@@ -33,20 +34,23 @@ class TLStepCard extends ConsumerWidget {
         ref.read(tlWorkspacesStateProvider.notifier);
     // other
     final corrToDos = currentTLWorkspace.categoryIDToToDos[corrCategoryID]!;
-    final TLToDo corrToDoData = corrToDos[ifInToday][indexInToDos];
+    final TLToDo corrToDoData = corrToDos.getToDos(ifInToday)[indexInToDos];
     final TLStep corrStepData = corrToDoData.steps[indexInSteps];
 
     return GestureDetector(
       onTap: () {
         final copiedCurrentTLWorkspace = currentTLWorkspace.copyWith();
         final copiedCorrToDoData = copiedCurrentTLWorkspace
-            .categoryIDToToDos[corrCategoryID]![ifInToday][indexInToDos];
-        final copiedCorrStepData = copiedCorrToDoData.steps[indexInSteps];
-        // stepのチェック状態を変更
-        copiedCorrStepData.isChecked = !copiedCorrStepData.isChecked;
+            .categoryIDToToDos[corrCategoryID]!
+            .getToDos(ifInToday)[indexInToDos];
+        final corrStepData = copiedCorrToDoData.steps[indexInSteps];
+        copiedCorrToDoData.steps[indexInSteps] =
+            corrStepData.copyWith(isChecked: !corrStepData.isChecked);
         // 主要のtodoがチェックされているときはチェック状態から変えたらそっちもかえる
         if (copiedCorrToDoData.isChecked) {
-          copiedCorrToDoData.isChecked = false;
+          copiedCurrentTLWorkspace.categoryIDToToDos[corrCategoryID]!
+                  .getToDos(ifInToday)[indexInToDos] =
+              copiedCorrToDoData.copyWith(isChecked: false);
         }
         // stepが全てチェックされたら主要なほうもチェックする
         if (() {
@@ -57,7 +61,9 @@ class TLStepCard extends ConsumerWidget {
           }
           return true;
         }()) {
-          copiedCorrToDoData.isChecked = true;
+          copiedCurrentTLWorkspace.categoryIDToToDos[corrCategoryID]!
+                  .getToDos(ifInToday)[indexInToDos] =
+              copiedCorrToDoData.copyWith(isChecked: true);
         }
 
         // 更新されたToDoをワークスペースに反映

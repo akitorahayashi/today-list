@@ -6,10 +6,11 @@ class TLCategoryUtils {
   static int getNumberOfToDosInThisCategory(
       {required bool? ifInToday, required TLToDos corrToDos}) {
     if (ifInToday == null) {
-      final int count = corrToDos[true].length + corrToDos[false].length;
+      final int count =
+          corrToDos.getToDos(true).length + corrToDos.getToDos(false).length;
       return count;
     } else {
-      final int count = corrToDos[ifInToday].length;
+      final int count = corrToDos.getToDos(ifInToday).length;
       return count;
     }
   }

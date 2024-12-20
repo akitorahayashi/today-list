@@ -4,6 +4,7 @@ import '../../../view_model/todo/tl_workspaces_state.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_todo.dart';
+import '../../../model/todo/tl_todos.dart';
 import './model_of_todo_card.dart';
 
 class AlreadyExists extends ConsumerWidget {
@@ -27,9 +28,10 @@ class AlreadyExists extends ConsumerWidget {
     final TLWorkspace currentWorkspace = tlWorkspacesState.currentWorkspace;
     // others
     final String categoryOfThisToDo = smallCategoryID ?? bigCategoryID;
-    final List<TLToDo> toDoArrayOfThisBlock =
-        currentWorkspace.categoryIDToToDos[categoryOfThisToDo]?[ifInToday] ??
-            [];
+    final List<TLToDo> toDoArrayOfThisBlock = currentWorkspace
+            .categoryIDToToDos[categoryOfThisToDo]
+            ?.getToDos(ifInToday) ??
+        [];
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Card(

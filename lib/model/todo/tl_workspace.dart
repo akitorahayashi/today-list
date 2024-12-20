@@ -133,7 +133,8 @@ class TLWorkspace {
     required bool ifInToday,
     required int indexOfThisToDoInToDos,
   }) async {
-    final toDoArrayOfThisToDo = categoryIDToToDos[categoryId]![ifInToday];
+    final toDoArrayOfThisToDo =
+        categoryIDToToDos[categoryId]!.getToDos(ifInToday);
     final TLToDo toDoCheckStateHasChanged =
         toDoArrayOfThisToDo.removeAt(indexOfThisToDoInToDos);
     final int indexOfCheckedToDo =

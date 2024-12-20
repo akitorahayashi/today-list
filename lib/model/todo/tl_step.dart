@@ -1,29 +1,15 @@
-import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class TLStep {
-  String id;
-  String title;
-  bool isChecked;
+part '../generate/tl_step.freezed.dart';
+part '../generate/tl_step.g.dart';
 
-  TLStep({
-    required this.id,
-    required this.title,
-    this.isChecked = false,
-  });
+@freezed
+class TLStep with _$TLStep {
+  const factory TLStep({
+    required String id,
+    required String title,
+    @Default(false) bool isChecked,
+  }) = _TLStep;
 
-  Map<String, dynamic> toMap() {
-    return {
-      "id": id,
-      "title": title,
-      "isChecked": isChecked,
-    };
-  }
-
-  factory TLStep.fromJson(Map<String, dynamic> jsonData) {
-    return TLStep(
-      id: jsonData["id"] ?? UniqueKey().toString(),
-      title: jsonData["title"] ?? "",
-      isChecked: jsonData["isChecked"] ?? false,
-    );
-  }
+  factory TLStep.fromJson(Map<String, dynamic> json) => _$TLStepFromJson(json);
 }

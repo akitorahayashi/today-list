@@ -1,98 +1,23 @@
-import 'tl_todo.dart';
-import 'tl_step.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import './tl_todo.dart';
 
-class TLToDos {
-  List<TLToDo> toDosInToday;
-  List<TLToDo> toDosInWhenever;
+part '../generate/tl_todos.freezed.dart';
+part '../generate/tl_todos.g.dart';
 
-  TLToDos({
-    required this.toDosInToday,
-    required this.toDosInWhenever,
-  });
+@freezed
+class TLToDos with _$TLToDos {
+  const factory TLToDos({
+    @Default([]) List<TLToDo> toDosInToday,
+    @Default([]) List<TLToDo> toDosInWhenever,
+  }) = _TLToDos;
 
-  List<TLToDo> operator [](bool ifInToday) {
+  factory TLToDos.fromJson(Map<String, dynamic> json) =>
+      _$TLToDosFromJson(json);
+}
+
+// TODO 応急処置
+extension TLToDosExtension on TLToDos {
+  List<TLToDo> getToDos(bool ifInToday) {
     return ifInToday ? toDosInToday : toDosInWhenever;
-  }
-
-  TLToDos copyWith({
-    List<TLToDo>? toDosInToday,
-    List<TLToDo>? toDosInWhenever,
-  }) {
-    return TLToDos(
-      toDosInToday: toDosInToday ?? this.toDosInToday,
-      toDosInWhenever: toDosInWhenever ?? this.toDosInWhenever,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "toDosInToday": toDosInToday.map((todo) {
-        return todo.toJson();
-      }).toList(),
-      "toDosInWhenever": toDosInWhenever.map((todo) {
-        return todo.toJson();
-      }).toList(),
-    };
-  }
-
-  factory TLToDos.fromJson(
-    Map<String, dynamic> jsonData,
-  ) {
-    List<dynamic> todayData = jsonData["toDosInToday"] ?? [];
-    List<dynamic> wheneverData = jsonData["toDosInWhenever"] ?? [];
-
-    return TLToDos(
-      toDosInToday: todayData.map((item) => TLToDo.fromJson(item)).toList(),
-      toDosInWhenever:
-          wheneverData.map((item) => TLToDo.fromJson(item)).toList(),
-    );
-  }
-
-  // 削除したtoDoの回数分だけ~したいというときに実行される関数
-  // static void countDeletedToDo(
-  //     {int? selectedWorkspaceIndex,
-  //     Workspace? selectedWorkspace,
-  //     required int numberOfDeletedToDo}) {
-  //   // workspace の effort
-  //   (selectedWorkspace ?? currentWorkspace).numberOfToDosHaveBeenDone +=
-  //       numberOfDeletedToDo;
-  // }
-
-  int countCheckedToDosAndStepsInThisToDos({required TLToDos selectedToDos}) {
-    int counter = 0;
-    // 「今日」のカウント
-    for (TLToDo todo in selectedToDos.toDosInToday) {
-      if (todo.steps.isEmpty) {
-        // todoのカウント
-        if (todo.isChecked) {
-          counter++;
-        }
-      } else {
-        // stepのカウント
-        for (TLStep step in todo.steps) {
-          if (step.isChecked) {
-            counter++;
-          }
-        }
-      }
-    }
-
-    // 「いつでも」のカウント
-    for (TLToDo todo in selectedToDos.toDosInWhenever) {
-      if (todo.steps.isEmpty) {
-        // todoのカウント
-        if (todo.isChecked) {
-          counter++;
-        }
-      } else {
-        // stepのカウント
-        for (TLStep step in todo.steps) {
-          if (step.isChecked) {
-            counter++;
-          }
-        }
-      }
-    }
-    return counter;
   }
 }

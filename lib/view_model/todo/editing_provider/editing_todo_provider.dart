@@ -88,7 +88,8 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     final String corrCategoryID =
         selectedSmallCategoryID ?? selectedBigCategoryID;
     final TLToDo edittedToDo = currentWorkspace
-        .categoryIDToToDos[corrCategoryID]![ifInToday][indexOfEditingToDo];
+        .categoryIDToToDos[corrCategoryID]!
+        .getToDos(ifInToday)[indexOfEditingToDo];
     // setValues
     state = state.copyWith(
       steps: edittedToDo.steps,
@@ -155,18 +156,20 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
         title: EditingTodo.toDoTitleInputController?.text ?? "Error",
         steps: state.steps);
     if (state.indexOfEditingToDo == null) {
-      final newIdx = corrToDos[state.ifInToday].indexWhere((t) => t.isChecked);
+      final newIdx =
+          corrToDos.getToDos(state.ifInToday).indexWhere((t) => t.isChecked);
       // add
       // `isChecked`が`true`の要素が見つかった場合、その直前に挿入
       if (newIdx != -1) {
-        corrToDos[state.ifInToday].insert(newIdx, createdToDo);
+        corrToDos.getToDos(state.ifInToday).insert(newIdx, createdToDo);
       } else {
         // 見つからなかった場合は最後尾に追加
-        corrToDos[state.ifInToday].add(createdToDo);
+        corrToDos.getToDos(state.ifInToday).add(createdToDo);
       }
     } else {
       // edit
-      corrToDos[state.ifInToday][state.indexOfEditingToDo!] = createdToDo;
+      corrToDos.getToDos(state.ifInToday)[state.indexOfEditingToDo!] =
+          createdToDo;
     }
     // 入力事項の初期化
     editingToDoNotifier.updateEditingTodo(

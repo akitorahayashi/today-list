@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/todo/tl_todos.dart';
 import './todos_in_this_category_today/header_for_todos.dart';
 import './todos_in_this_category_today/todos_in_this_category_in_today.dart';
 import '../../model/todo/tl_category.dart';
@@ -19,8 +20,8 @@ class TodosBlock extends StatelessWidget {
       children: [
         // ここにウィジェットを追加
         if (currentTLWorkspace
-            .categoryIDToToDos[currentTLWorkspace.bigCategories[0].id]![
-                ifInToday]
+            .categoryIDToToDos[currentTLWorkspace.bigCategories[0].id]!
+            .getToDos(ifInToday)
             .isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
@@ -36,23 +37,24 @@ class TodosBlock extends StatelessWidget {
           Column(
             children: [
               // big header
-              if (currentTLWorkspace
-                      .categoryIDToToDos[bigCategory.id]![ifInToday]
+              if (currentTLWorkspace.categoryIDToToDos[bigCategory.id]!
+                      .getToDos(ifInToday)
                       .isNotEmpty ||
                   // そのsmallCategoryがToDoを持っていたら、bigHeaderを表示
                   (currentTLWorkspace
                           .smallCategories[bigCategory.id]!.isNotEmpty &&
                       currentTLWorkspace.smallCategories[bigCategory.id]!
                               .indexWhere((smallCategory) => currentTLWorkspace
-                                  .categoryIDToToDos[smallCategory.id]![
-                                      ifInToday]
+                                  .categoryIDToToDos[smallCategory.id]!
+                                  .getToDos(ifInToday)
                                   .isNotEmpty) !=
                           -1))
                 CategoryHeaderForToDos(
                     isBigCategory: true, corrCategory: bigCategory),
               // big body
-              if (currentTLWorkspace
-                  .categoryIDToToDos[bigCategory.id]![ifInToday].isNotEmpty)
+              if (currentTLWorkspace.categoryIDToToDos[bigCategory.id]!
+                  .getToDos(ifInToday)
+                  .isNotEmpty)
                 ToDosInThisCategoryInCurrentWorkspace(
                   ifInToday: ifInToday,
                   bigCategoryOfThisToDo: bigCategory,
@@ -60,8 +62,9 @@ class TodosBlock extends StatelessWidget {
                 ),
               for (TLCategory smallCategory
                   in currentTLWorkspace.smallCategories[bigCategory.id] ?? [])
-                if (currentTLWorkspace
-                    .categoryIDToToDos[smallCategory.id]![ifInToday].isNotEmpty)
+                if (currentTLWorkspace.categoryIDToToDos[smallCategory.id]!
+                    .getToDos(ifInToday)
+                    .isNotEmpty)
                   Column(
                     children: [
                       // small header
