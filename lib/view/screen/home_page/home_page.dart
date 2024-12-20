@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/utils/tl_workspace_utils.dart';
 import '../../../view_model/todo/tl_workspaces_state.dart';
 import 'num_todos_card.dart';
 import 'todos_block.dart';
@@ -56,9 +57,10 @@ class _HomePageState extends ConsumerState<HomePage> {
     final tlWorksapceState = ref.watch(tlWorkspacesStateProvider);
     final TLWorkspace currentTLWorkspace = tlWorksapceState.currentWorkspace;
     final int currentTLWorkspaceIndex = tlWorksapceState.currentWorkspaceIndex;
-    final numOfToDosInToday = currentTLWorkspace.getNumOfToDo(ifInToday: true);
+    final numOfToDosInToday =
+        TLWorkspaceUtils.getNumOfToDo(currentTLWorkspace, ifInToday: true);
     final numOfToDosInWhenever =
-        currentTLWorkspace.getNumOfToDo(ifInToday: false);
+        TLWorkspaceUtils.getNumOfToDo(currentTLWorkspace, ifInToday: false);
 
     return Scaffold(
       key: homePageScaffoldKey,
@@ -123,8 +125,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                   yesAction: () async {
                     Navigator.pop(context);
                     final copiedWorkspace = currentTLWorkspace.copyWith();
-                    await copiedWorkspace.deleteCheckedToDosInTodayInAWorkspace(
-                        onlyToday: false);
+                    await TLWorkspaceUtils
+                        .deleteCheckedToDosInTodayInAWorkspace(
+                            currentTLWorkspace,
+                            onlyToday: false);
                     ref
                         .read(tlWorkspacesStateProvider.notifier)
                         .updateCurrentWorkspace(

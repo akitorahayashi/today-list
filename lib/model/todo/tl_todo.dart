@@ -14,18 +14,8 @@ class TLToDo with _$TLToDo {
     @Default([]) List<TLStep> steps,
   }) = _TLToDo;
 
-  /// 自動生成された fromJson をそのまま使用
   factory TLToDo.fromJson(Map<String, dynamic> json) => _$TLToDoFromJson(json);
 
-  // static Map<String, dynamic> _adjustJson(Map<String, dynamic> json) {
-  //   final List<dynamic> stepsData = json['steps'] ?? [];
-  //   return {
-  //     ...json,
-  //     'steps': stepsData.map((stepData) => TLStep.fromJson(stepData)).toList(),
-  //   };
-  // }
-
-  /// デフォルト値を提供するメソッド
   static TLToDo getDefaultToDo() {
     return TLToDo(
       id: UniqueKey().toString(),
