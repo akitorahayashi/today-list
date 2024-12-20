@@ -7,7 +7,7 @@ import '../../../../view_model/todo/editing_provider/editing_category_provider.d
 import '../../../../service/tl_vibration.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/design/tl_theme.dart';
-import '../../../styles.dart';
+import '../../../../styles.dart';
 
 class RenameCategoryDialog extends ConsumerStatefulWidget
     with TLBaseDialogMixin {

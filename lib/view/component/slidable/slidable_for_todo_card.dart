@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
-import 'package:today_list/view/edit_todo_page/edit_todo_page.dart';
+import 'package:today_list/view/screen/edit_todo_page/edit_todo_page.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';

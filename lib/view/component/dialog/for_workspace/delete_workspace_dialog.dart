@@ -6,7 +6,7 @@ import '../common/tl_single_option_dialog.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_workspace.dart';
 import '../../../../service/tl_vibration.dart';
-import '../../../styles.dart';
+import '../../../../styles.dart';
 
 class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   final int corrWorkspaceIndex;

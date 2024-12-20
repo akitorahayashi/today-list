@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
-import 'view/home_page/home_page.dart';
+import 'view/screen/home_page/home_page.dart';
 import 'model/design/tl_theme.dart';
 
 class TodayListApp extends ConsumerWidget {

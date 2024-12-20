@@ -7,7 +7,7 @@ import '../../../../model/design/tl_theme.dart';
 import '../../../../service/tl_vibration.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/todo/tl_todos.dart';
-import '../../../styles.dart';
+import '../../../../styles.dart';
 
 class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
   final int indexOfBigCategory;
