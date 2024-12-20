@@ -1,12 +1,12 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TLPref {
-  static final TLPref _instance = TLPref._internal();
+class TLPrefService {
+  static final TLPrefService _instance = TLPrefService._internal();
   static SharedPreferences? _pref;
 
-  TLPref._internal();
+  TLPrefService._internal();
 
-  factory TLPref() {
+  factory TLPrefService() {
     return _instance;
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../component/dialog/common/tl_yes_no_dialog.dart';
 import '../../component/dialog/common/tl_single_option_dialog.dart';
-import '../../../model/external/tl_ads.dart';
+import '../../../service/tl_ads.dart';
 import '../../../model/design/tl_theme.dart';
 
 class ShowLimitOfPassCard extends StatelessWidget {
@@ -19,10 +19,10 @@ class ShowLimitOfPassCard extends StatelessWidget {
             title: "PASSを獲得しよう!",
             message:
                 "\n・広告を見てPASSの期間を増やすことでチェックボックスのアイコンやカラーテーマを変更することができます!\n\n・1回の動画広告で3日分獲得できます",
-            yesAction: () => TLAds.showRewardedAd(
+            yesAction: () => TLAdsService.showRewardedAd(
               context: context,
               rewardAction: () {
-                TLAds.extendLimitOfPassReward(howManyDays: 3);
+                TLAdsService.extendLimitOfPassReward(howManyDays: 3);
                 showDialog(
                   context: context,
                   builder: ((context) => TLSingleOptionDialog(
@@ -57,8 +57,8 @@ class ShowLimitOfPassCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Text(
-                        TLAds.isPassActive
-                            ? TLAds.limitOfPass
+                        TLAdsService.isPassActive
+                            ? TLAdsService.limitOfPass
                             : "---- / -- / --",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,

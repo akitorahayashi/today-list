@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../model/design/tl_theme.dart';
-import '../../../model/external/tl_vibration.dart';
+import '../../../service/tl_vibration.dart';
 
 class SetVibrationCard extends StatefulWidget {
   const SetVibrationCard({super.key});
@@ -55,14 +55,14 @@ class _SetVibrationCardState extends State<SetVibrationCard> {
             max: 4,
             divisions: 4,
             activeColor: tlThemeData.accentColor,
-            value: TLVibration.vibrationStrength,
+            value: TLVibrationService.vibrationStrength,
             onChanged: (sliderValue) {
-              TLVibration.vibrationStrength = sliderValue;
+              TLVibrationService.vibrationStrength = sliderValue;
               setState(() {});
             },
             onChangeEnd: (sliderValue) {
-              TLVibration.vibrate();
-              TLVibration.saveVibrationStrength();
+              TLVibrationService.vibrate();
+              TLVibrationService.saveVibrationStrength();
             },
           ),
         ],

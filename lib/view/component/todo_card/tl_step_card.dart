@@ -6,7 +6,7 @@ import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_step.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/external/tl_vibration.dart';
+import '../../../service/tl_vibration.dart';
 
 class TLStepCard extends ConsumerWidget {
   final String corrCategoryID;
@@ -64,7 +64,7 @@ class TLStepCard extends ConsumerWidget {
         tlWorkspacesStateNotifier.updateCurrentWorkspace(
             updatedCurrentWorkspace: copiedCurrentTLWorkspace);
 
-        TLVibration.vibrate();
+        TLVibrationService.vibrate();
         NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,
           newTitle: corrStepData.title,

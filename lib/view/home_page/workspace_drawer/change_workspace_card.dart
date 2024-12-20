@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../../component/dialog/common/tl_single_option_dialog.dart';
-import '../../../model/external/tl_vibration.dart';
+import '../../../service/tl_vibration.dart';
 import '../../../model/todo/tl_workspace.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../component/slidable/slidable_for_workspace_card.dart';
@@ -47,7 +47,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                   } else {
                     await tlWorkspacesStateNotifier
                         .changeCurrentWorkspaceIndex(indexInWorkspaces);
-                    TLVibration.vibrate();
+                    TLVibrationService.vibrate();
                     if (context.mounted) {
                       Navigator.pop(context);
                       TLSingleOptionDialog(

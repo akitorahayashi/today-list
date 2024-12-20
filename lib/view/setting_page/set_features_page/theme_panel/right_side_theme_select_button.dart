@@ -3,7 +3,7 @@ import 'package:today_list/main.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../component/dialog/common/tl_yes_no_dialog.dart';
-import '../../../../model/external/tl_ads.dart';
+import '../../../../service/tl_ads.dart';
 import '../../../component/dialog/change_theme_dialog.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
@@ -29,7 +29,7 @@ class _RightSideThemeSelectButtonState
     final double deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () async {
-        if (TLAds.isPassActive || kDebugMode) {
+        if (TLAdsService.isPassActive || kDebugMode) {
           await ChangeThemeDialog(
             corrIndex: widget.corrIndex,
             corrThemeData: corrThemeData,
@@ -39,10 +39,10 @@ class _RightSideThemeSelectButtonState
             title: "PASSを獲得しよう!",
             message:
                 "\n・広告を見てPASSの期間を増やすことでチェックボックスのアイコンやカラーテーマを変更することができます!\n\n・1回の動画広告で3日分獲得できます",
-            yesAction: () => TLAds.showRewardedAd(
+            yesAction: () => TLAdsService.showRewardedAd(
               context: context,
               rewardAction: () async {
-                TLAds.extendLimitOfPassReward(howManyDays: 3);
+                TLAdsService.extendLimitOfPassReward(howManyDays: 3);
                 await const TLSingleOptionDialog(
                   title: "PASSが延長されました!",
                   message: "3日分のPASSを獲得しました",

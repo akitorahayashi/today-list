@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
-import 'package:today_list/model/external/tl_vibration.dart';
+import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
 import 'package:today_list/view_model/settings/setting_data_provider.dart';
 import 'package:today_list/model/design/tl_theme.dart';
@@ -36,7 +36,7 @@ class UpdaateAppIconCard extends ConsumerWidget {
                     message: "テーマに合ったアプリアイコンに変更しますか？",
                     yesAction: () {
                       Navigator.pop(context);
-                      TLVibration.vibrate();
+                      TLVibrationService.vibrate();
                       settingDataNotifier.changeIcon(
                           themeName:
                               tlThemeDataList[selectedThemeIdx].themeName);

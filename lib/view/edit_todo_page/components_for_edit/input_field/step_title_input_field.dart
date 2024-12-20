@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../model/design/tl_theme.dart';
-import '../../../../model/external/tl_vibration.dart';
+import '../../../../service/tl_vibration.dart';
 import '../../../../view_model/todo/editing_provider/editing_todo_provider.dart';
 import '../../../styles.dart';
 
@@ -62,7 +62,7 @@ class StepTitleInputFieldState extends ConsumerState<StepTitleInputField> {
                             _enteredStepTitle,
                             editingTodo.indexOfEditingStep,
                           );
-                          TLVibration.vibrate();
+                          TLVibrationService.vibrate();
                           EditingTodo.stepTitleInputController?.clear();
                           editingToDoNotifier.updateEditingTodo(
                             smallCategoryID: editingTodo.smallCategoryID,

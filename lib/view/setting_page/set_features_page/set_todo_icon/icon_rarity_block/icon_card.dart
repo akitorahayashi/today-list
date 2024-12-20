@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 import 'package:today_list/model/design/tl_icon_data.dart';
 import 'package:today_list/view_model/design/tl_icon_data_provider.dart';
-import 'package:today_list/model/external/tl_vibration.dart';
+import 'package:today_list/service/tl_vibration.dart';
 import '../../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../../component/dialog/common/tl_yes_no_dialog.dart';
-import '../../../../../model/external/tl_ads.dart';
+import '../../../../../service/tl_ads.dart';
 import '../../../../../model/design/icon_for_checkbox.dart';
 import '../../../../../model/design/tl_theme.dart';
 import '../../../../../main.dart';
@@ -45,21 +45,21 @@ class _IconCardState extends ConsumerState<IconCard> {
       flex: 1,
       child: GestureDetector(
         onTap: () async {
-          if (TLAds.isPassActive || kDebugMode) {
+          if (TLAdsService.isPassActive || kDebugMode) {
             if (!isCurrentIcon) {
               await TLYesNoDialog(
                   title: "アイコンの変更",
                   message: "チェックマークのアイコンを\n変更しますか?",
                   yesAction: () async {
                     Navigator.pop(context);
-                    TLVibration.vibrate();
+                    TLVibrationService.vibrate();
                     tlIconDataNotifier.setSelectedIconData(tlIconData.copyWith(
                         category: widget.iconCategoryName,
                         rarity: widget.selectedIconRarity,
                         name: widget.iconName));
                     const TLSingleOptionDialog(title: "変更が完了しました!")
                         .show(context: context);
-                    TLVibration.vibrate();
+                    TLVibrationService.vibrate();
                   }).show(context: context);
               // SettingData.shared.askToSetDefaultIcon(
               //     context: context,
@@ -72,10 +72,10 @@ class _IconCardState extends ConsumerState<IconCard> {
               title: "PASSを獲得しよう!",
               message:
                   "\n・広告を見てPASSの期間を増やすことでチェックボックスのアイコンやカラーテーマを変更することができます!\n\n・1回の動画広告で3日分獲得できます",
-              yesAction: () => TLAds.showRewardedAd(
+              yesAction: () => TLAdsService.showRewardedAd(
                 context: context,
                 rewardAction: () async {
-                  TLAds.extendLimitOfPassReward(howManyDays: 3);
+                  TLAdsService.extendLimitOfPassReward(howManyDays: 3);
                   await const TLSingleOptionDialog(
                     title: "PASSが延長されました!",
                     message: "3日分のPASSを獲得しました",

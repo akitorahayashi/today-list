@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../view/component/dialog/common/tl_single_option_dialog.dart';
-import './tl_pref.dart';
-import '../../main.dart';
+import '../view/component/dialog/common/tl_single_option_dialog.dart';
+import 'tl_pref.dart';
+import '../main.dart';
 import 'dart:io';
 
 import 'package:intl/intl.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class TLAds {
+class TLAdsService {
   static RewardedAd? rewardedAd;
   static DateFormat dateFormater = DateFormat('yyyy/MM/dd');
 
@@ -21,7 +21,7 @@ class TLAds {
   // passがactiveか確認する
   static bool get isPassActive => (() {
         final DateTime inputDate =
-            dateFormater.parse(TLAds.limitOfPass); // 文字列を日付に変換
+            dateFormater.parse(TLAdsService.limitOfPass); // 文字列を日付に変換
         final DateTime today = DateTime.now(); // 現在の日付
 
         return !inputDate.isBefore(today); // 今日より前でないならtrue
@@ -47,13 +47,13 @@ class TLAds {
   static Future<void> initializeTLAds() async {
     await MobileAds.instance.initialize();
     // Passの起源を読み込む
-    await TLPref().getPref.then((pref) async {
+    await TLPrefService().getPref.then((pref) async {
       final roadedLimit = pref.getString("limitOfPass");
       // passLimitが存在するか
       if (roadedLimit != null) {
-        TLAds.limitOfPass = roadedLimit;
+        TLAdsService.limitOfPass = roadedLimit;
       } else {
-        await TLAds.saveLimitOfPass();
+        await TLAdsService.saveLimitOfPass();
       }
       // lastShowedDateが存在するか
       final loadedLastWatchedAdDate = pref.getString("lastWatchedAdDate");
@@ -66,37 +66,37 @@ class TLAds {
   }
 
   static Future<void> saveLimitOfPass() async {
-    await TLPref().getPref.then((pref) {
-      pref.setString("limitOfPass", TLAds.limitOfPass);
+    await TLPrefService().getPref.then((pref) {
+      pref.setString("limitOfPass", TLAdsService.limitOfPass);
     });
   }
 
   static void extendLimitOfPassReward({required int howManyDays}) {
     DateTime today = DateTime.now();
-    DateTime limitDate = dateFormater.parse(TLAds.limitOfPass);
+    DateTime limitDate = dateFormater.parse(TLAdsService.limitOfPass);
     if (limitDate.isBefore(today)) {
       // 今日より前なら2日後の日付
-      TLAds.limitOfPass =
+      TLAdsService.limitOfPass =
           dateFormater.format(today.add(Duration(days: howManyDays - 1)));
     } else {
       // 今日かそれ以降なら3日後の日付
-      TLAds.limitOfPass =
+      TLAdsService.limitOfPass =
           dateFormater.format(limitDate.add(Duration(days: howManyDays)));
     }
-    TLAds.saveLimitOfPass();
+    TLAdsService.saveLimitOfPass();
   }
 
   static Future<void> showRewardedAd(
       {required BuildContext context, required Function rewardAction}) async {
-    if (TLAds.rewardedAd != null) {
-      await TLAds.rewardedAd!.show(onUserEarnedReward: (_, reward) {
+    if (TLAdsService.rewardedAd != null) {
+      await TLAdsService.rewardedAd!.show(onUserEarnedReward: (_, reward) {
         rewardAction();
       });
     } else {
       // ロードできてなかった時再ロード
       loadRewardedAd().then((_) async {
-        if (TLAds.rewardedAd != null) {
-          await TLAds.rewardedAd!.show(onUserEarnedReward: (_, reward) {
+        if (TLAdsService.rewardedAd != null) {
+          await TLAdsService.rewardedAd!.show(onUserEarnedReward: (_, reward) {
             rewardAction(_, reward);
           });
         } else {
@@ -116,19 +116,19 @@ class TLAds {
 
   static Future<void> loadRewardedAd() async {
     return RewardedAd.load(
-      adUnitId: TLAds.rewardedAdUnitId(isTestMode: kAdTestMode),
+      adUnitId: TLAdsService.rewardedAdUnitId(isTestMode: kAdTestMode),
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {
           ad.fullScreenContentCallback = FullScreenContentCallback(
             onAdDismissedFullScreenContent: (ad) {
               ad.dispose();
-              TLAds.rewardedAd = null;
+              TLAdsService.rewardedAd = null;
               loadRewardedAd();
             },
           );
 
-          TLAds.rewardedAd = ad;
+          TLAdsService.rewardedAd = ad;
         },
         onAdFailedToLoad: (err) {
           print('Failed to load a rewarded ad: ${err.message}');

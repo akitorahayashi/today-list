@@ -2,7 +2,7 @@ import 'tl_pref.dart';
 
 import 'package:flutter_vibrate/flutter_vibrate.dart';
 
-class TLVibration {
+class TLVibrationService {
   static double vibrationStrength = 2.0;
   static bool canVibrate = false;
 
@@ -10,21 +10,21 @@ class TLVibration {
     bool canVibrateOrNot = await Vibrate.canVibrate;
     canVibrate = canVibrateOrNot;
     if (canVibrate) {
-      await TLPref().getPref.then((pref) {
-        TLVibration.vibrationStrength =
+      await TLPrefService().getPref.then((pref) {
+        TLVibrationService.vibrationStrength =
             pref.getDouble("vibrationStrength") ?? 2.0;
       });
     }
   }
 
   static Future<void> saveVibrationStrength() async {
-    await TLPref().getPref.then((pref) =>
-        pref.setDouble("vibrationStrength", TLVibration.vibrationStrength));
+    await TLPrefService().getPref.then((pref) => pref.setDouble(
+        "vibrationStrength", TLVibrationService.vibrationStrength));
   }
 
   static void vibrate() {
     if (canVibrate) {
-      switch (TLVibration.vibrationStrength) {
+      switch (TLVibrationService.vibrationStrength) {
         case 0:
           break;
         case 1:

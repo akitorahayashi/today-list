@@ -4,7 +4,7 @@ import 'package:today_list/model/setting_data/widget_kit_setting.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
 import '../../../../view/setting_page/set_ios_widget_page/component/wks_header.dart';
 import '../../../component/common_ui_part/tl_double_card.dart';
-import '../../../../model/external/tl_vibration.dart';
+import '../../../../service/tl_vibration.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../view_model/settings/wks_provider.dart';
@@ -142,7 +142,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                             color: Colors.black45, fontWeight: FontWeight.bold),
                         onChanged: (int? newIndex) {
                           if (newIndex == null) return;
-                          TLVibration.vibrate();
+                          TLVibrationService.vibrate();
                           setState(() {
                             if (!_ifUserHasEntered) {
                               _wksInputController.text =
@@ -184,7 +184,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                         ),
                         onChanged: (int? newBCIdx) {
                           if (newBCIdx == null) return;
-                          TLVibration.vibrate();
+                          TLVibrationService.vibrate();
                           setState(() {
                             if (!_ifUserHasEntered) {
                               _wksInputController.text =
@@ -242,7 +242,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                               fontWeight: FontWeight.bold),
                           onChanged: (int? newSCIdx) {
                             if (newSCIdx == null) return;
-                            TLVibration.vibrate();
+                            TLVibrationService.vibrate();
                             setState(() {
                               if (!_ifUserHasEntered) {
                                 _wksInputController.text = tlWorkspaces[
@@ -280,7 +280,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                         onPressed: _wksInputController.text.trim().isEmpty
                             ? null
                             : () {
-                                TLVibration.vibrate();
+                                TLVibrationService.vibrate();
                                 // wksのlistに追加、保存
                                 wksnotifier.addWidgetKitSettings(
                                     newWidgetKitSettings: WidgetKitSetting(

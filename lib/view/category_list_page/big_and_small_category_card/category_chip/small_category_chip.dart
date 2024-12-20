@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/utils/tl_category_utils.dart';
 import '../../../component/dialog/for_category/select_edit_method_dialog.dart';
 import '../../../../view_model/todo/tl_workspaces_state.dart';
 import '../../../../model/design/tl_theme.dart';
@@ -28,7 +29,7 @@ class SmallCategoryChip extends ConsumerWidget {
         .smallCategories[corrBigCategory.id]![corrIndexOfSmallCategory];
     // getNumberOfToDosInThisCategory
     final int numberOfToDoInThisSmallCategory =
-        smallCategoryOfThisCard.getNumberOfToDosInThisCategory(
+        TLCategoryUtils.getNumberOfToDosInThisCategory(
             ifInToday: null,
             corrToDos: currentTLWorkspace
                 .categoryIDToToDos[smallCategoryOfThisCard.id]!);

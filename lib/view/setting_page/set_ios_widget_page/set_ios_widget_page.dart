@@ -4,8 +4,8 @@ import 'package:today_list/view/setting_page/set_ios_widget_page/create_wk_setti
 import 'package:today_list/view/setting_page/set_ios_widget_page/create_wk_settings_card/create_wk_settings_card.dart';
 import 'package:today_list/view/setting_page/set_ios_widget_page/wks_card_list/wks_card_list.dart';
 import 'package:today_list/main.dart';
-import 'package:today_list/model/external/tl_vibration.dart';
-import '../../../model/external/tl_ads.dart';
+import 'package:today_list/service/tl_vibration.dart';
+import '../../../service/tl_ads.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -27,7 +27,7 @@ class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
     super.initState();
     // 広告を読み込む
     BannerAd(
-      adUnitId: TLAds.setFeaturesBannerAdUnitId(isTestMode: kAdTestMode),
+      adUnitId: TLAdsService.setFeaturesBannerAdUnitId(isTestMode: kAdTestMode),
       request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
@@ -46,7 +46,7 @@ class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
 
   @override
   void dispose() {
-    TLAds.rewardedAd?.dispose();
+    TLAdsService.rewardedAd?.dispose();
     _bannerAd?.dispose();
     super.dispose();
   }
@@ -80,7 +80,7 @@ class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
             duration: const Duration(milliseconds: 300),
             // +マーク
             firstChild: AddWKSButton(onPressed: () {
-              TLVibration.vibrate();
+              TLVibrationService.vibrate();
               setState(() {
                 _showAddWKSButton = false;
               });

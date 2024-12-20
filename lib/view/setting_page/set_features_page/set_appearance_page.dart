@@ -6,7 +6,7 @@ import '../../../main.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/design/icon_for_checkbox.dart';
 import '../../component/common_ui_part/panel_with_title.dart';
-import '../../../model/external/tl_ads.dart';
+import '../../../service/tl_ads.dart';
 import 'set_todo_icon/icon_category_panel.dart';
 import './set_vibration_card.dart';
 import './theme_panel/left_side_show_selecting_panel.dart';
@@ -29,10 +29,10 @@ class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
   @override
   void initState() {
     super.initState();
-    TLAds.loadRewardedAd();
+    TLAdsService.loadRewardedAd();
     // 広告を読み込む
     BannerAd(
-      adUnitId: TLAds.setFeaturesBannerAdUnitId(isTestMode: kAdTestMode),
+      adUnitId: TLAdsService.setFeaturesBannerAdUnitId(isTestMode: kAdTestMode),
       request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
@@ -51,7 +51,7 @@ class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
 
   @override
   void dispose() {
-    TLAds.rewardedAd?.dispose();
+    TLAdsService.rewardedAd?.dispose();
     _bannerAd?.dispose();
     super.dispose();
   }

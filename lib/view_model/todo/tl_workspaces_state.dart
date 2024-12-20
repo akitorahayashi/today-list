@@ -1,5 +1,5 @@
-import 'package:today_list/model/external/tl_method_channel.dart';
-import 'package:today_list/model/external/tl_pref.dart';
+import 'package:today_list/service/tl_method_channel.dart';
+import 'package:today_list/service/tl_pref.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
@@ -49,7 +49,7 @@ class TLWorkspacesStateNotifier extends StateNotifier<TLWorkspacesState> {
   // -- load
 
   Future<void> _loadWorkspaces() async {
-    final pref = await TLPref().getPref;
+    final pref = await TLPrefService().getPref;
     final currentWorkspaceIndex = pref.getInt('currentWorkspaceIndex') ?? 0;
     // ここでワークスペースをロードする
     final encodedTLWorkspaces = pref.getString("tlWorkspaces");
@@ -67,7 +67,7 @@ class TLWorkspacesStateNotifier extends StateNotifier<TLWorkspacesState> {
 
   Future<void> changeCurrentWorkspaceIndex(int newIndex) async {
     state = state.copyWith(currentWorkspaceIndex: newIndex);
-    final pref = await TLPref().getPref;
+    final pref = await TLPrefService().getPref;
     pref.setInt('currentWorkspaceIndex', newIndex);
   }
 
@@ -89,10 +89,10 @@ class TLWorkspacesStateNotifier extends StateNotifier<TLWorkspacesState> {
 
   // -- save
   Future<void> _saveWorkspaces() async {
-    final pref = await TLPref().getPref;
+    final pref = await TLPrefService().getPref;
     final encodedTLWorkspaces = jsonEncode(
         state.tlWorkspaces.map((workspace) => workspace.toJson()).toList());
-    TLMethodChannel.updateTLWorkspaces(
+    TLMethodChannelService.updateTLWorkspaces(
         encodedTLWorkspaces: encodedTLWorkspaces);
     await pref.setString("tlWorkspaces", encodedTLWorkspaces);
   }

@@ -8,7 +8,7 @@ import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/todo/tl_workspace.dart';
 import '../../../../model/todo/tl_todos.dart';
-import '../../../../model/external/tl_vibration.dart';
+import '../../../../service/tl_vibration.dart';
 
 class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget
     with TLBaseDialogMixin {
@@ -150,7 +150,7 @@ class _AddOrEditWorkspaceDialogState
                         const TLSingleOptionDialog(title: "変更することに\n成功しました！")
                             .show(context: context);
                       }
-                      TLVibration.vibrate();
+                      TLVibrationService.vibrate();
                     }
                   },
                   child:

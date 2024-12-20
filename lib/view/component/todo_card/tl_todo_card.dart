@@ -7,7 +7,7 @@ import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
 import '../../../model/todo/tl_step.dart';
 import '../../../model/todo/tl_category.dart';
-import '../../../model/external/tl_vibration.dart';
+import '../../../service/tl_vibration.dart';
 import '../../../model/todo/tl_workspace.dart';
 import 'tl_step_card.dart';
 import '../slidable/slidable_for_todo_card.dart';
@@ -68,7 +68,7 @@ class TLToDoCard extends ConsumerWidget {
           indexOfThisToDoInToDos: indexOfThisToDoInToDos,
         );
         // 保存
-        TLVibration.vibrate();
+        TLVibrationService.vibrate();
         NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,
           newTitle: corrToDoData.title,

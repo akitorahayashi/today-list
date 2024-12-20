@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/utils/tl_category_utils.dart';
 import '../todo/tl_category.dart';
 import '../todo/tl_todos.dart';
 
@@ -39,9 +40,9 @@ class TLWorkspace {
       "id": id,
       "name": name,
       "bigCategories":
-          TLCategory.categoryArrayToJson(categoryArray: bigCategories),
-      "smallCategories":
-          TLCategory.smallCategoriesToJson(smallCategories: smallCategories),
+          TLCategoryUtils.categoryArrayToJson(categoryArray: bigCategories),
+      "smallCategories": TLCategoryUtils.smallCategoriesToJson(
+          smallCategories: smallCategories),
       "categoryIDToToDos":
           categoryIDToToDos.map((key, toDos) => MapEntry(key, toDos.toJson())),
     };
@@ -51,9 +52,9 @@ class TLWorkspace {
     return TLWorkspace(
       id: jsonData["id"] ?? UniqueKey().toString(),
       name: jsonData["name"] ?? "Unknown",
-      bigCategories: TLCategory.jsonToCategoryArray(
+      bigCategories: TLCategoryUtils.jsonToCategoryArray(
           jsonCategoryArrayData: jsonData["bigCategories"]),
-      smallCategories: TLCategory.jsonToSmallCategories(
+      smallCategories: TLCategoryUtils.jsonToSmallCategories(
         // _TypeError (type '_Map<String, dynamic>' is not a subtype of type 'String')
         jsonSmallCategoriesData: jsonData["smallCategories"]!,
       ),
@@ -70,10 +71,10 @@ class TLWorkspace {
   int getNumOfToDo({required bool ifInToday}) {
     int todoCount = 0;
     for (TLCategory bigCategory in bigCategories) {
-      todoCount += bigCategory.getNumberOfToDosInThisCategory(
+      todoCount += TLCategoryUtils.getNumberOfToDosInThisCategory(
           ifInToday: ifInToday, corrToDos: categoryIDToToDos[bigCategory.id]!);
       for (TLCategory smallCategory in smallCategories[bigCategory.id]!) {
-        todoCount += smallCategory.getNumberOfToDosInThisCategory(
+        todoCount += TLCategoryUtils.getNumberOfToDosInThisCategory(
             ifInToday: ifInToday,
             corrToDos: categoryIDToToDos[smallCategory.id]!);
       }

@@ -10,7 +10,7 @@ import '../component/dialog/common/tl_yes_no_dialog.dart';
 import '../component/common_ui_part/tl_sliver_appbar.dart';
 import '../../model/design/tl_theme.dart';
 import '../../model/todo/tl_workspace.dart';
-import '../../model/external/tl_vibration.dart';
+import '../../service/tl_vibration.dart';
 import '../edit_todo_page/edit_todo_page.dart';
 import '../category_list_page/category_list_page.dart';
 import '../setting_page/setting_page.dart';
@@ -133,7 +133,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       const TLSingleOptionDialog(title: "削除が完了しました！")
                           .show(context: context);
                     }
-                    TLVibration.vibrate();
+                    TLVibrationService.vibrate();
                   },
                 )),
           ),

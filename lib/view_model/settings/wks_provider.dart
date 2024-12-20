@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/external/tl_method_channel.dart';
+import 'package:today_list/service/tl_method_channel.dart';
 import 'package:today_list/model/setting_data/widget_kit_setting.dart';
-import 'package:today_list/model/external/tl_pref.dart';
+import 'package:today_list/service/tl_pref.dart';
 import 'dart:convert';
 
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
@@ -28,7 +28,7 @@ class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
   }
 
   Future<void> _loadWidgetKitSettings() async {
-    final pref = await TLPref().getPref;
+    final pref = await TLPrefService().getPref;
     final encodedWidgetKitSettings = pref.getString("widgetKitSettings");
     if (encodedWidgetKitSettings != null) {
       final List<dynamic> jsonWidgetKitSettings =
@@ -42,10 +42,11 @@ class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
   }
 
   Future<void> _saveWidgetKitSettings() async {
-    final pref = await TLPref().getPref;
+    final pref = await TLPrefService().getPref;
     final encodedWidgetKitSettings =
         jsonEncode(state.map((w) => w.toJson()).toList());
-    TLMethodChannel.updateWKSList(encodedWKSList: encodedWidgetKitSettings);
+    TLMethodChannelService.updateWKSList(
+        encodedWKSList: encodedWidgetKitSettings);
     await pref.setString("widgetKitSettings", encodedWidgetKitSettings);
   }
 

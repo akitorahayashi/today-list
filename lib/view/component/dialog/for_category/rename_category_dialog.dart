@@ -4,7 +4,7 @@ import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../../view_model/todo/editing_provider/editing_category_provider.dart';
-import '../../../../model/external/tl_vibration.dart';
+import '../../../../service/tl_vibration.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../styles.dart';
@@ -177,7 +177,7 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                       : () async {
                           // カテゴリー名が入力されているなら追加する
                           await editingCategoryNotifier.completeEditing();
-                          TLVibration.vibrate();
+                          TLVibrationService.vibrate();
                           // to category list
                           if (context.mounted) {
                             Navigator.pop(context);
