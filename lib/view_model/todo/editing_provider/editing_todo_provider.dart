@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/utils/tl_utils.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_step.dart';
@@ -83,11 +84,11 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     required String? selectedSmallCategoryID,
     required int indexOfEditingToDo,
   }) {
-    final TLWorkspace currentWorkspace =
-        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
+    final TLWorkspace copiedWorkspace =
+        ref.read(tlWorkspacesStateProvider).currentWorkspace.copyWith();
     final String corrCategoryID =
         selectedSmallCategoryID ?? selectedBigCategoryID;
-    final TLToDo edittedToDo = currentWorkspace
+    final TLToDo edittedToDo = copiedWorkspace
         .categoryIDToToDos[corrCategoryID]!
         .getToDos(ifInToday)[indexOfEditingToDo];
     // setValues
@@ -122,7 +123,7 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
   }
 
   void addToStepList(String stepTitle, int? indexOfEditingStep) {
-    final newStep = TLStep(id: UniqueKey().toString(), title: stepTitle);
+    final newStep = TLStep(id: TLUtils.generateUniqueId(), title: stepTitle);
     if (state.indexOfEditingStep == null) {
       final updatedSteps = List<TLStep>.from(state.steps)..add(newStep);
       state = state.copyWith(steps: updatedSteps);
@@ -138,40 +139,62 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
         EditingTodo.toDoTitleInputController!.text.trim().isEmpty) return;
 
     // provider
-    final copiedCurrentTLWorkspace =
+    final TLWorkspace currentWorkspace =
         ref.read(tlWorkspacesStateProvider).currentWorkspace;
-    // notifier
     final EditingToDoNotifier editingToDoNotifier =
         ref.read(editingToDoProvider.notifier);
     final TLWorkspacesStateNotifier tlWorkspacesStateNotifier =
         ref.read(tlWorkspacesStateProvider.notifier);
 
-    // copy
+    // 対象のカテゴリIDを取得
     final String corrCategoryID = state.smallCategoryID ?? state.bigCatgoeyID;
-    final copiedCategoryToToDos = copiedCurrentTLWorkspace.categoryIDToToDos;
-    final TLToDos corrToDos = copiedCategoryToToDos[corrCategoryID]!;
 
+    // TLToDoの新規作成または編集
     final TLToDo createdToDo = TLToDo(
-        id: state.smallCategoryID ?? state.bigCatgoeyID,
-        title: EditingTodo.toDoTitleInputController?.text ?? "Error",
-        steps: state.steps);
+      id: corrCategoryID,
+      title: EditingTodo.toDoTitleInputController?.text ?? "Error",
+      steps: state.steps,
+    );
+
+    // コピーしたデータを更新
+    final updatedCategoryIDToToDos = Map<String, TLToDos>.from(
+      currentWorkspace.categoryIDToToDos,
+    );
+
+    // 対応するToDosリストを取得
+    final TLToDos corrToDos = updatedCategoryIDToToDos[corrCategoryID]!;
+    final List<TLToDo> updatedToDos = List<TLToDo>.from(
+      corrToDos.getToDos(state.ifInToday),
+    );
+
     if (state.indexOfEditingToDo == null) {
-      final newIdx =
-          corrToDos.getToDos(state.ifInToday).indexWhere((t) => t.isChecked);
-      // add
-      // `isChecked`が`true`の要素が見つかった場合、その直前に挿入
+      // 新規追加処理
+      final newIdx = updatedToDos.indexWhere((t) => t.isChecked);
       if (newIdx != -1) {
-        corrToDos.getToDos(state.ifInToday).insert(newIdx, createdToDo);
+        // チェック済みの前に挿入
+        updatedToDos.insert(newIdx, createdToDo);
       } else {
-        // 見つからなかった場合は最後尾に追加
-        corrToDos.getToDos(state.ifInToday).add(createdToDo);
+        // 最後尾に追加
+        updatedToDos.add(createdToDo);
       }
     } else {
-      // edit
-      corrToDos.getToDos(state.ifInToday)[state.indexOfEditingToDo!] =
-          createdToDo;
+      // 編集処理
+      updatedToDos[state.indexOfEditingToDo!] = createdToDo;
     }
-    // 入力事項の初期化
+
+    // 更新したToDosを反映
+    updatedCategoryIDToToDos[corrCategoryID] = corrToDos.copyWith(
+      toDosInToday: state.ifInToday ? updatedToDos : corrToDos.toDosInToday,
+      toDosInWhenever:
+          state.ifInToday ? corrToDos.toDosInWhenever : updatedToDos,
+    );
+
+    // 更新後のWorkspaceを作成
+    final TLWorkspace updatedWorkspace = currentWorkspace.copyWith(
+      categoryIDToToDos: updatedCategoryIDToToDos,
+    );
+
+    // 状態の更新
     editingToDoNotifier.updateEditingTodo(
       smallCategoryID: state.smallCategoryID,
       steps: [],
@@ -179,7 +202,10 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
       indexOfEditingStep: null,
     );
     tlWorkspacesStateNotifier.updateCurrentWorkspace(
-        updatedCurrentWorkspace: copiedCurrentTLWorkspace);
+      updatedCurrentWorkspace: updatedWorkspace,
+    );
+
+    // 入力フィールドのクリア
     EditingTodo.toDoTitleInputController?.clear();
     EditingTodo.stepTitleInputController?.clear();
   }

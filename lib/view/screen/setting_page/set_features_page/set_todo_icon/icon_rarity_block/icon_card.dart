@@ -52,11 +52,11 @@ class _IconCardState extends ConsumerState<IconCard> {
                   message: "チェックマークのアイコンを\n変更しますか?",
                   yesAction: () async {
                     Navigator.pop(context);
-                    TLVibrationService.vibrate();
                     tlIconDataNotifier.setSelectedIconData(tlIconData.copyWith(
                         category: widget.iconCategoryName,
                         rarity: widget.selectedIconRarity,
                         name: widget.iconName));
+                    TLVibrationService.vibrate();
                     const TLSingleOptionDialog(title: "変更が完了しました!")
                         .show(context: context);
                     TLVibrationService.vibrate();

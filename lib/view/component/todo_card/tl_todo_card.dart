@@ -53,37 +53,60 @@ class TLToDoCard extends ConsumerWidget {
     // 全体を囲むカード
     return GestureDetector(
       onTap: () {
-        final copiedCurrentTLWorkspace = currentTLWorkspace.copyWith();
-        final corrToDos = copiedCurrentTLWorkspace
-            .categoryIDToToDos[categoryOfThisToDo.id]!
-            .getToDos(ifInToday);
-        // チェックの状態を切り替える
-        corrToDos[indexOfThisToDoInToDos] = corrToDos[indexOfThisToDoInToDos]
-            .copyWith(isChecked: !corrToDoData.isChecked);
-        // stepsがあるならその全てのstepsのcheck状態を同じにする
-        if (corrToDoData.steps.isNotEmpty) {
-          for (int i = 0; i < corrToDoData.steps.length; i++) {
-            corrToDoData.steps[i] = corrToDoData.steps[i]
-                .copyWith(isChecked: !corrToDoData.steps[i].isChecked);
-          }
-        }
+        // Workspaceをコピーして編集開始
+        TLWorkspace copiedWorkspace = currentTLWorkspace.copyWith();
+        final categoryId = categoryOfThisToDo.id;
+
+        // 対応するToDosリストを取得
+        final corrToDos = List<TLToDo>.from(
+          copiedWorkspace.categoryIDToToDos[categoryId]!.getToDos(ifInToday),
+        );
+
+        // チェック状態を切り替え
+        final bool newCheckedState = !corrToDoData.isChecked;
+
+        // stepsの状態を更新
+        final updatedSteps = corrToDoData.steps
+            .map((step) => step.copyWith(isChecked: newCheckedState))
+            .toList();
+
+        // 対象のToDoを更新
+        corrToDos[indexOfThisToDoInToDos] =
+            corrToDos[indexOfThisToDoInToDos].copyWith(
+          isChecked: newCheckedState,
+          steps: updatedSteps,
+        );
+
+        // categoryIDToToDosを新しく更新
+        final updatedCategoryIDToToDos = Map<String, TLToDos>.from(
+          copiedWorkspace.categoryIDToToDos,
+        );
+        updatedCategoryIDToToDos[categoryId] = copiedWorkspace
+            .categoryIDToToDos[categoryId]!
+            .copyWith(toDosInToday: ifInToday ? corrToDos : []);
+
         // 並び替え
-        TLWorkspaceUtils.reorderWhenToggle(
-          workspace: copiedCurrentTLWorkspace,
-          categoryId: categoryOfThisToDo.id,
+        copiedWorkspace = TLWorkspaceUtils.reorderWhenToggle(
+          corrWorkspace: copiedWorkspace.copyWith(
+            categoryIDToToDos: updatedCategoryIDToToDos,
+          ),
+          categoryId: categoryId,
           ifInToday: ifInToday,
           indexOfThisToDoInToDos: indexOfThisToDoInToDos,
         );
-        // 保存
+
+        // 状態を更新
+        tlWorkspacesStateNotifier.updateCurrentWorkspace(
+          updatedCurrentWorkspace: copiedWorkspace,
+        );
+
+        // 保存と通知
         TLVibrationService.vibrate();
         NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,
           newTitle: corrToDoData.title,
-          newCheckedState: corrToDoData.isChecked,
+          newCheckedState: newCheckedState,
           quickChangeToToday: null,
-        );
-        tlWorkspacesStateNotifier.updateCurrentWorkspace(
-          updatedCurrentWorkspace: copiedCurrentTLWorkspace,
         );
       },
       // チェック済みのreorder阻止のためのlongPress

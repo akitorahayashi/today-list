@@ -5,23 +5,44 @@ import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/utils/tl_category_utils.dart';
 
 class TLWorkspaceUtils {
-  static void reorderWhenToggle({
-    required TLWorkspace workspace,
+  static TLWorkspace reorderWhenToggle({
+    required TLWorkspace corrWorkspace,
     required String categoryId,
     required bool ifInToday,
     required int indexOfThisToDoInToDos,
   }) {
-    final toDoArrayOfThisToDo =
-        workspace.categoryIDToToDos[categoryId]!.getToDos(ifInToday);
+    // 元のリストをコピーして変更可能にする
+    final toDoArrayOfThisToDo = List<TLToDo>.from(
+      corrWorkspace.categoryIDToToDos[categoryId]!.getToDos(ifInToday),
+    );
+
+    // 対象のToDoを取り出す
     final TLToDo toDoCheckStateHasChanged =
         toDoArrayOfThisToDo.removeAt(indexOfThisToDoInToDos);
+
+    // チェック済みのToDoの位置を取得
     final int indexOfCheckedToDo =
         toDoArrayOfThisToDo.indexWhere((todo) => todo.isChecked);
+
+    // チェック済みの位置に挿入または末尾に追加
     if (indexOfCheckedToDo == -1) {
       toDoArrayOfThisToDo.add(toDoCheckStateHasChanged);
     } else {
       toDoArrayOfThisToDo.insert(indexOfCheckedToDo, toDoCheckStateHasChanged);
     }
+
+    // 更新後のToDosを生成
+    final updatedCategoryIDToToDos = Map<String, TLToDos>.from(
+      corrWorkspace.categoryIDToToDos,
+    );
+    updatedCategoryIDToToDos[categoryId] = corrWorkspace
+        .categoryIDToToDos[categoryId]!
+        .copyWith(toDosInToday: ifInToday ? toDoArrayOfThisToDo : []);
+
+    // 新しいWorkspaceを返す
+    return corrWorkspace.copyWith(
+      categoryIDToToDos: updatedCategoryIDToToDos,
+    );
   }
 
   static int getNumOfToDo(TLWorkspace workspace, {required bool ifInToday}) {

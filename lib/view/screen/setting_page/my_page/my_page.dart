@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'sign_in_card/sign_in_card.dart';
+import 'sign_in_card.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
