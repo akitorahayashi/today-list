@@ -3,12 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
-import '../../../styles.dart';
+import '../../../../styles.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/todo/tl_workspace.dart';
 import '../../../../model/todo/tl_todos.dart';
-import '../../../../model/external/tl_vibration.dart';
+import '../../../../service/tl_vibration.dart';
 
 class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget
     with TLBaseDialogMixin {
@@ -119,14 +119,14 @@ class _AddOrEditWorkspaceDialogState
                             id: UniqueKey().toString(),
                             name: _workspaceNameInputController.text,
                             bigCategories: [
-                              TLCategory(id: noneID, title: "なし")
+                              const TLCategory(id: noneID, title: "なし")
                             ],
                             smallCategories: {
                               noneID: []
                             },
                             categoryIDToToDos: {
-                              noneID:
-                                  TLToDos(toDosInToday: [], toDosInWhenever: [])
+                              noneID: const TLToDos(
+                                  toDosInToday: [], toDosInWhenever: [])
                             });
                         ref
                             .read(tlWorkspacesStateProvider.notifier)
@@ -142,15 +142,17 @@ class _AddOrEditWorkspaceDialogState
                         final TLWorkspace editedWorkspace =
                             tlWorkspaces[widget.oldIndexInWorkspaces!];
                         // 名前だけ変える
-                        editedWorkspace.name =
-                            _workspaceNameInputController.text;
+                        tlWorkspaces[widget.oldIndexInWorkspaces!] =
+                            editedWorkspace.copyWith(
+                                name: _workspaceNameInputController.text);
+
                         tlWorkspacesNotifier.updateTLWorkspaceList(
                             updatedTLWorkspaceList:
                                 List<TLWorkspace>.from(tlWorkspaces));
                         const TLSingleOptionDialog(title: "変更することに\n成功しました！")
                             .show(context: context);
                       }
-                      TLVibration.vibrate();
+                      TLVibrationService.vibrate();
                     }
                   },
                   child:

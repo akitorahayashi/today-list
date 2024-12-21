@@ -90,16 +90,21 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
   }
 
   Future<void> completeEditing() async {
-    // provider
-    final copiedCurrentTLWorkspace =
-        ref.read(tlWorkspacesStateProvider).currentWorkspace.copyWith();
-    // TLWorkspaceのcopyWthで使用
+    // 現在のWorkspaceをコピー
+    final TLWorkspace currentWorkspace =
+        ref.read(tlWorkspacesStateProvider).currentWorkspace;
+
+    // コピー用データを作成
     final List<TLCategory> copiedBigCategories =
-        copiedCurrentTLWorkspace.bigCategories;
+        List<TLCategory>.from(currentWorkspace.bigCategories);
     final Map<String, List<TLCategory>> copiedSmallCategories =
-        copiedCurrentTLWorkspace.smallCategories;
+        Map<String, List<TLCategory>>.from(
+      currentWorkspace.smallCategories.map(
+        (key, value) => MapEntry(key, List<TLCategory>.from(value)),
+      ),
+    );
     final Map<String, TLToDos> copiedCategoryIDToToDos =
-        copiedCurrentTLWorkspace.categoryIDToToDos;
+        Map<String, TLToDos>.from(currentWorkspace.categoryIDToToDos);
 
     // "なし"カテゴリーにはsmallCategoryを追加させない
     if (state.selecteBigCategoryID == noneID) {
@@ -108,57 +113,68 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
 
     // 追加、編集処理
     if (state.selecteBigCategoryID == null) {
-      // bigCategory
+      // bigCategory処理
       if (state.indexOfEditingBigCategory == null) {
-        // add bigCategory
+        // 新規bigCategoryの作成
         final TLCategory createdBigCategory = TLCategory(
-            id: UniqueKey().toString(),
-            title:
-                EditingCategory.categoryTitleInputController?.text ?? "Error");
+          id: UniqueKey().toString(),
+          title: EditingCategory.categoryTitleInputController?.text ?? "Error",
+        );
+
+        // リストを更新
         copiedBigCategories.add(createdBigCategory);
         copiedSmallCategories[createdBigCategory.id] = [];
         copiedCategoryIDToToDos[createdBigCategory.id] =
-            TLToDos(toDosInToday: [], toDosInWhenever: []);
+            const TLToDos(toDosInToday: [], toDosInWhenever: []);
       } else {
-        // edit bigCategory
-        final TLCategory renamedBigCategory = TLCategory(
-            id: copiedBigCategories[state.indexOfEditingBigCategory!].id,
-            title:
-                EditingCategory.categoryTitleInputController?.text ?? "Error");
+        // bigCategoryの編集
+        final TLCategory renamedBigCategory =
+            copiedBigCategories[state.indexOfEditingBigCategory!].copyWith(
+          title: EditingCategory.categoryTitleInputController?.text ?? "Error",
+        );
+
+        // 更新
         copiedBigCategories[state.indexOfEditingBigCategory!] =
             renamedBigCategory;
       }
     } else {
-      // smallCategory
+      // smallCategory処理
       if (state.indexOfEditingSmallCategory == null) {
-        // add smallCategory
+        // 新規smallCategoryの作成
         final TLCategory createdSmallCategory = TLCategory(
-            id: UniqueKey().toString(),
-            title:
-                EditingCategory.categoryTitleInputController?.text ?? "Error");
+          id: UniqueKey().toString(),
+          title: EditingCategory.categoryTitleInputController?.text ?? "Error",
+        );
+
+        // リストを更新
         copiedSmallCategories[state.selecteBigCategoryID]!
             .add(createdSmallCategory);
         copiedCategoryIDToToDos[createdSmallCategory.id] =
-            TLToDos(toDosInToday: [], toDosInWhenever: []);
+            const TLToDos(toDosInToday: [], toDosInWhenever: []);
       } else {
-        // edit smallCategory
-        final TLCategory renamedSmallCategory = TLCategory(
-            id: copiedSmallCategories[state.selecteBigCategoryID!]![
-                    state.indexOfEditingSmallCategory!]
-                .id,
-            title:
-                EditingCategory.categoryTitleInputController?.text ?? "Error");
-        copiedSmallCategories[state.selecteBigCategoryID]![
+        // smallCategoryの編集
+        final TLCategory renamedSmallCategory = copiedSmallCategories[state
+                .selecteBigCategoryID!]![state.indexOfEditingSmallCategory!]
+            .copyWith(
+          title: EditingCategory.categoryTitleInputController?.text ?? "Error",
+        );
+
+        // 更新
+        copiedSmallCategories[state.selecteBigCategoryID!]![
             state.indexOfEditingSmallCategory!] = renamedSmallCategory;
       }
     }
-    // 保存
-    ref.read(tlWorkspacesStateProvider.notifier).updateCurrentWorkspace(
-          updatedCurrentWorkspace: copiedCurrentTLWorkspace.copyWith(
-            categoryIDToToDos: copiedCategoryIDToToDos,
-            bigCategories: copiedBigCategories,
-            smallCategories: copiedSmallCategories,
-          ),
-        );
+
+    // 更新後のWorkspaceを作成
+    final TLWorkspace updatedWorkspace = currentWorkspace.copyWith(
+      bigCategories: copiedBigCategories,
+      smallCategories: copiedSmallCategories,
+      categoryIDToToDos: copiedCategoryIDToToDos,
+    );
+
+    // Workspaceの保存
+    ref
+        .read(tlWorkspacesStateProvider.notifier)
+        .updateCurrentWorkspace(updatedCurrentWorkspace: updatedWorkspace);
   }
 }

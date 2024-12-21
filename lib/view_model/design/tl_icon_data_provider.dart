@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../model/external/tl_pref.dart';
+import '../../service/tl_pref.dart';
 import '../../model/design/tl_icon_data.dart';
 import 'dart:convert';
 
@@ -24,13 +24,13 @@ class TLIconDataNotifier extends StateNotifier<TLIconData> {
   }
 
   Future<void> _saveSelectedIconData() async {
-    final prefs = await TLPref().getPref;
+    final prefs = await TLPrefService().getPref;
     final jsonString = jsonEncode(state.toJson());
     await prefs.setString('selectedIconData', jsonString);
   }
 
   Future<void> _loadSelectedIconData() async {
-    final prefs = await TLPref().getPref;
+    final prefs = await TLPrefService().getPref;
     final jsonString = prefs.getString('selectedIconData');
     if (jsonString != null) {
       final jsonData = jsonDecode(jsonString);

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/external/tl_connectivity.dart';
-import 'package:today_list/model/external/tl_vibration.dart';
-import 'model/external/tl_ads.dart';
+import 'package:today_list/service/tl_connectivity.dart';
+import 'package:today_list/service/tl_vibration.dart';
+import 'service/tl_ads.dart';
 import './app.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -15,9 +15,9 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await dotenv.load(fileName: ".env");
-  await TLAds.initializeTLAds();
-  await TLVibration.initVibrate();
-  await TLConnectivity.initializeConnectivity();
+  await TLAdsService.initializeTLAds();
+  await TLVibrationService.initVibrate();
+  await TLConnectivityService.initializeConnectivity();
   runApp(const ProviderScope(
     child: TodayListApp(),
   ));

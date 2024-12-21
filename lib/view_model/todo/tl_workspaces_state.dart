@@ -1,5 +1,5 @@
-import 'package:today_list/model/external/tl_method_channel.dart';
-import 'package:today_list/model/external/tl_pref.dart';
+import 'package:today_list/service/tl_method_channel.dart';
+import 'package:today_list/service/tl_pref.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
@@ -49,7 +49,7 @@ class TLWorkspacesStateNotifier extends StateNotifier<TLWorkspacesState> {
   // -- load
 
   Future<void> _loadWorkspaces() async {
-    final pref = await TLPref().getPref;
+    final pref = await TLPrefService().getPref;
     final currentWorkspaceIndex = pref.getInt('currentWorkspaceIndex') ?? 0;
     // ここでワークスペースをロードする
     final encodedTLWorkspaces = pref.getString("tlWorkspaces");
@@ -67,7 +67,7 @@ class TLWorkspacesStateNotifier extends StateNotifier<TLWorkspacesState> {
 
   Future<void> changeCurrentWorkspaceIndex(int newIndex) async {
     state = state.copyWith(currentWorkspaceIndex: newIndex);
-    final pref = await TLPref().getPref;
+    final pref = await TLPrefService().getPref;
     pref.setInt('currentWorkspaceIndex', newIndex);
   }
 
@@ -89,10 +89,10 @@ class TLWorkspacesStateNotifier extends StateNotifier<TLWorkspacesState> {
 
   // -- save
   Future<void> _saveWorkspaces() async {
-    final pref = await TLPref().getPref;
+    final pref = await TLPrefService().getPref;
     final encodedTLWorkspaces = jsonEncode(
         state.tlWorkspaces.map((workspace) => workspace.toJson()).toList());
-    TLMethodChannel.updateTLWorkspaces(
+    TLMethodChannelService.updateTLWorkspaces(
         encodedTLWorkspaces: encodedTLWorkspaces);
     await pref.setString("tlWorkspaces", encodedTLWorkspaces);
   }
@@ -114,60 +114,60 @@ class TLWorkspacesStateNotifier extends StateNotifier<TLWorkspacesState> {
 }
 
 final List<TLWorkspace> _initialTLWorkspaces = [
-  TLWorkspace(id: "defaultWorkspaceId", name: "Default", bigCategories: [
+  TLWorkspace(id: "defaultWorkspaceId", name: "Default", bigCategories: const [
     TLCategory(id: noneID, title: "なし"),
     TLCategory(id: "superMarcketId", title: "スーパー"),
     TLCategory(id: "hundredStoreId", title: "100均"),
   ], smallCategories: {
     noneID: [],
     "superMarcketId": [
-      TLCategory(id: "vegetableId", title: "野菜"),
+      const TLCategory(id: "vegetableId", title: "野菜"),
     ],
     "hundredStoreId": [],
   }, categoryIDToToDos: {
-    noneID: TLToDos(toDosInToday: [
+    noneID: const TLToDos(toDosInToday: [
       TLToDo(id: "todo1", title: "のり", steps: []),
       TLToDo(id: "todo2", title: "まくらカバー", steps: []),
     ], toDosInWhenever: []),
-    "superMarcketId": TLToDos(toDosInToday: [
+    "superMarcketId": const TLToDos(toDosInToday: [
       TLToDo(id: "todo3", title: "パスタ", steps: [
         TLStep(id: "step1", title: "パスタの束"),
         TLStep(id: "step2", title: "オリーブオイル")
       ]),
     ], toDosInWhenever: []),
-    "vegetableId": TLToDos(toDosInToday: [
+    "vegetableId": const TLToDos(toDosInToday: [
       TLToDo(id: "todo4", title: "キャベツ", steps: []),
       TLToDo(id: "todo5", title: "にんじん", steps: []),
     ], toDosInWhenever: []),
-    "hundredStoreId": TLToDos(
+    "hundredStoreId": const TLToDos(
         toDosInToday: [TLToDo(id: "todo6", title: "お皿", steps: [])],
         toDosInWhenever: []),
   }),
   // --- 学校
-  TLWorkspace(id: "schoolWorksapceId", name: "School", bigCategories: [
+  TLWorkspace(id: "schoolWorksapceId", name: "School", bigCategories: const [
     TLCategory(id: noneID, title: "なし"),
     TLCategory(id: "mathId", title: "数学"),
     TLCategory(id: "englishId", title: "英語"),
   ], smallCategories: {
     noneID: [],
-    "mathId": [
+    "mathId": const [
       TLCategory(id: "mathAId", title: "数学A"),
       TLCategory(id: "mathIId", title: "数学I")
     ],
     "englishId": []
   }, categoryIDToToDos: {
-    noneID: TLToDos(
+    noneID: const TLToDos(
         toDosInToday: [TLToDo(id: "todo7", title: "~のプリントを出す", steps: [])],
         toDosInWhenever: []),
-    "mathId": TLToDos(toDosInToday: [], toDosInWhenever: []),
-    "mathAId": TLToDos(toDosInToday: [
+    "mathId": const TLToDos(toDosInToday: [], toDosInWhenever: []),
+    "mathAId": const TLToDos(toDosInToday: [
       TLToDo(id: "todo8", title: "~を復習する", steps: []),
       TLToDo(id: "todo9", title: "ワーク12ページの宿題をやる", steps: []),
     ], toDosInWhenever: []),
-    "mathIId": TLToDos(
+    "mathIId": const TLToDos(
         toDosInToday: [TLToDo(id: "todo10", title: "ドリル20~25ページ", steps: [])],
         toDosInWhenever: []),
-    "englishId": TLToDos(
+    "englishId": const TLToDos(
         toDosInToday: [TLToDo(id: "todo11", title: "単語帳301~400", steps: [])],
         toDosInWhenever: []),
   }),

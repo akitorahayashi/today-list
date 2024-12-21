@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
-import 'package:today_list/view/edit_todo_page/edit_todo_page.dart';
+import 'package:today_list/view/screen/edit_todo_page/edit_todo_page.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../../model/design/tl_theme.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/external/tl_vibration.dart';
+import '../../../model/todo/tl_todos.dart';
+import '../../../service/tl_vibration.dart';
 import '../../../model/todo/tl_workspace.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -45,8 +46,9 @@ class SlidableForToDoCard extends ConsumerWidget {
         ref.read(tlWorkspacesStateProvider.notifier);
     // other
     final String corrCategoryID = smallCategoryID ?? bigCategoryID;
-    final List<TLToDo> toDoArrayOfThisToDoBelongs =
-        currentTLWorkspace.categoryIDToToDos[corrCategoryID]![ifInToday];
+    final List<TLToDo> toDoArrayOfThisToDoBelongs = currentTLWorkspace
+        .categoryIDToToDos[corrCategoryID]!
+        .getToDos(ifInToday);
     return Slidable(
       // チェックされていたらスライドできなくする
       enabled: !corrTLToDo.isChecked,
@@ -61,7 +63,7 @@ class SlidableForToDoCard extends ConsumerWidget {
           onPressed: (BuildContext context) async {
             // タップしたらこれをremoveする
             toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
-            TLVibration.vibrate();
+            TLVibrationService.vibrate();
             tlWorkspacesNotifier.updateCurrentWorkspace(
                 updatedCurrentWorkspace: currentTLWorkspace.copyWith());
           },
@@ -112,9 +114,10 @@ class SlidableForToDoCard extends ConsumerWidget {
               // タップしたらtodayとwheneverを切り替える
               final TLToDo switchedToDo =
                   toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
-              currentTLWorkspace.categoryIDToToDos[corrCategoryID]![!ifInToday]
+              currentTLWorkspace.categoryIDToToDos[corrCategoryID]!
+                  .getToDos(ifInToday)
                   .insert(0, switchedToDo);
-              TLVibration.vibrate();
+              TLVibrationService.vibrate();
               NotifyTodoOrStepIsEditedSnackBar.show(
                   context: context,
                   newTitle: corrTLToDo.title,

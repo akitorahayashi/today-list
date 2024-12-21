@@ -6,7 +6,8 @@ import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_step.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/external/tl_vibration.dart';
+import '../../../model/todo/tl_todos.dart';
+import '../../../service/tl_vibration.dart';
 
 class TLStepCard extends ConsumerWidget {
   final String corrCategoryID;
@@ -33,42 +34,72 @@ class TLStepCard extends ConsumerWidget {
         ref.read(tlWorkspacesStateProvider.notifier);
     // other
     final corrToDos = currentTLWorkspace.categoryIDToToDos[corrCategoryID]!;
-    final TLToDo corrToDoData = corrToDos[ifInToday][indexInToDos];
+    final TLToDo corrToDoData = corrToDos.getToDos(ifInToday)[indexInToDos];
     final TLStep corrStepData = corrToDoData.steps[indexInSteps];
 
     return GestureDetector(
       onTap: () {
-        final copiedCurrentTLWorkspace = currentTLWorkspace.copyWith();
-        final copiedCorrToDoData = copiedCurrentTLWorkspace
-            .categoryIDToToDos[corrCategoryID]![ifInToday][indexInToDos];
-        final copiedCorrStepData = copiedCorrToDoData.steps[indexInSteps];
-        // stepのチェック状態を変更
-        copiedCorrStepData.isChecked = !copiedCorrStepData.isChecked;
-        // 主要のtodoがチェックされているときはチェック状態から変えたらそっちもかえる
-        if (copiedCorrToDoData.isChecked) {
-          copiedCorrToDoData.isChecked = false;
-        }
-        // stepが全てチェックされたら主要なほうもチェックする
-        if (() {
-          for (TLStep oneOfStep in copiedCorrToDoData.steps) {
-            if (!oneOfStep.isChecked) {
-              return false;
-            }
-          }
-          return true;
-        }()) {
-          copiedCorrToDoData.isChecked = true;
+        // コピーしてデータを取得
+        final TLToDo targetToDo = currentTLWorkspace
+            .categoryIDToToDos[corrCategoryID]!
+            .getToDos(ifInToday)[indexInToDos];
+
+        // 対象のStepを更新
+        final TLStep updatedStep = targetToDo.steps[indexInSteps].copyWith(
+          isChecked: !targetToDo.steps[indexInSteps].isChecked,
+        );
+
+        // 更新されたStepsを生成
+        final List<TLStep> updatedSteps = List<TLStep>.from(targetToDo.steps);
+        updatedSteps[indexInSteps] = updatedStep;
+
+        // 更新されたToDoを生成
+        TLToDo updatedToDo = targetToDo.copyWith(steps: updatedSteps);
+
+        // Stepが全てチェックされた場合、ToDoの状態をチェック済みに変更
+        if (updatedSteps.every((step) => step.isChecked)) {
+          updatedToDo = updatedToDo.copyWith(isChecked: true);
+        } else if (targetToDo.isChecked) {
+          // ToDoがチェック済みの場合、未チェックに戻す
+          updatedToDo = updatedToDo.copyWith(isChecked: false);
         }
 
-        // 更新されたToDoをワークスペースに反映
+        // 更新されたToDosリストを生成
+        final List<TLToDo> updatedToDos = List<TLToDo>.from(
+          currentTLWorkspace.categoryIDToToDos[corrCategoryID]!
+              .getToDos(ifInToday),
+        );
+        updatedToDos[indexInToDos] = updatedToDo;
+
+        // 更新されたCategoryIDToToDosを生成
+        final Map<String, TLToDos> updatedCategoryIDToToDos =
+            Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
+
+        // 指定されたカテゴリのToDosリストを、条件に応じて更新し、Workspaceに反映する
+        final TLToDos currentToDos =
+            currentTLWorkspace.categoryIDToToDos[corrCategoryID]!;
+        updatedCategoryIDToToDos[corrCategoryID] = currentToDos.copyWith(
+          toDosInToday: ifInToday ? updatedToDos : currentToDos.toDosInToday,
+          toDosInWhenever:
+              ifInToday ? currentToDos.toDosInWhenever : updatedToDos,
+        );
+
+        // 更新されたWorkspaceを生成
+        final TLWorkspace updatedWorkspace = currentTLWorkspace.copyWith(
+          categoryIDToToDos: updatedCategoryIDToToDos,
+        );
+
+        // 更新されたWorkspaceを通知
         tlWorkspacesStateNotifier.updateCurrentWorkspace(
-            updatedCurrentWorkspace: copiedCurrentTLWorkspace);
+          updatedCurrentWorkspace: updatedWorkspace,
+        );
 
-        TLVibration.vibrate();
+        // 振動と通知
+        TLVibrationService.vibrate();
         NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,
-          newTitle: corrStepData.title,
-          newCheckedState: corrStepData.isChecked,
+          newTitle: updatedStep.title,
+          newCheckedState: updatedStep.isChecked,
           quickChangeToToday: null,
         );
       },

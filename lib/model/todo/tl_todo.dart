@@ -1,51 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import './tl_step.dart';
 
-class TLToDo {
-  // todo別のメンバー
-  String id;
-  String title;
+part '../generate/tl_todo.freezed.dart';
+part '../generate/tl_todo.g.dart';
 
-  bool isChecked;
-  List<TLStep> steps;
+@freezed
+class TLToDo with _$TLToDo {
+  const factory TLToDo({
+    required String id,
+    required String title,
+    @Default(false) bool isChecked,
+    @Default([]) List<TLStep> steps,
+  }) = _TLToDo;
 
-// コンストラクタ
-  TLToDo({
-    required this.id,
-    required this.title,
-    required this.steps,
-    this.isChecked = false,
-  });
-
-  // 保存する際に使う
-  Map<String, dynamic> toJson() {
-    return {
-      "id": id,
-      "title": title,
-      "isChecked": isChecked,
-      "steps": steps.map((step) {
-        return step.toMap();
-      }).toList(),
-    };
-  }
-
-  factory TLToDo.fromJson(Map<String, dynamic> jsonData) {
-    List<dynamic> stepsData = jsonData["steps"] ?? [];
-
-    return TLToDo(
-      id: jsonData["id"] ?? UniqueKey().toString(),
-      title: jsonData["title"] ?? "",
-      isChecked: jsonData["isChecked"] ?? false,
-      steps: stepsData.map((stepData) => TLStep.fromJson(stepData)).toList(),
-    );
-  }
+  factory TLToDo.fromJson(Map<String, dynamic> json) => _$TLToDoFromJson(json);
 
   static TLToDo getDefaultToDo() {
     return TLToDo(
       id: UniqueKey().toString(),
       title: '',
-      steps: [],
       isChecked: false,
+      steps: [],
     );
   }
 }

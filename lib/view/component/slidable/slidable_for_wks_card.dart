@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/external/tl_vibration.dart';
+import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/view_model/settings/wks_provider.dart';
 import '../../../model/design/tl_theme.dart';
 
@@ -37,7 +37,7 @@ class SlidableForWKSCard extends ConsumerWidget {
                       onPressed: (BuildContext context) async {
                         wksNotifier.removeWidgetKitSettings(
                             index: indexInWKSList);
-                        TLVibration.vibrate();
+                        TLVibrationService.vibrate();
                       },
                       icon: Icons.remove,
                       label: "Remove",

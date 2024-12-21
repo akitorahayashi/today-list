@@ -5,9 +5,9 @@ import '../common/tl_single_option_dialog.dart';
 import '../tl_base_dialog_mixin.dart';
 import '../../../../view_model/todo/editing_provider/editing_category_provider.dart';
 import '../../../../model/design/tl_theme.dart';
-import '../../../../model/external/tl_vibration.dart';
+import '../../../../service/tl_vibration.dart';
 import '../../../../model/todo/tl_category.dart';
-import '../../../styles.dart';
+import '../../../../styles.dart';
 
 class AddCategoryDialog extends ConsumerStatefulWidget with TLBaseDialogMixin {
   const AddCategoryDialog({super.key});
@@ -159,7 +159,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                       : () async {
                           // カテゴリー名が入力されているなら追加する
                           await editingCategoryNotifier.completeEditing();
-                          TLVibration.vibrate();
+                          TLVibrationService.vibrate();
                           // to category list
                           if (context.mounted) {
                             Navigator.pop(context);

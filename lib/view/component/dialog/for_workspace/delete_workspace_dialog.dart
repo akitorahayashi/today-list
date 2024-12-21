@@ -5,8 +5,8 @@ import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_workspace.dart';
-import '../../../../model/external/tl_vibration.dart';
-import '../../../styles.dart';
+import '../../../../service/tl_vibration.dart';
+import '../../../../styles.dart';
 
 class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   final int corrWorkspaceIndex;
@@ -94,7 +94,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
 
                         // このアラートを消してsimpleアラートを表示する
                         Navigator.pop(context);
-                        TLVibration.vibrate();
+                        TLVibrationService.vibrate();
                         const TLSingleOptionDialog(title: "削除することに\n成功しました！")
                             .show(context: context);
                       }

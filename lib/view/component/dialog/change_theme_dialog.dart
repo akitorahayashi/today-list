@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
-import 'package:today_list/view/styles.dart';
+import 'package:today_list/styles.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
 import '../../../model/design/tl_theme.dart';
-import '../../../model/external/tl_connectivity.dart';
-import '../../../model/external/tl_method_channel.dart';
-import '../../../model/external/tl_vibration.dart';
+import '../../../service/tl_connectivity.dart';
+import '../../../service/tl_method_channel.dart';
+import '../../../service/tl_vibration.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
@@ -90,11 +90,11 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
                       // このアラートを消す
                       Navigator.pop(context);
                       selectedThemeIndexNotifier.changeThemeIndex(corrIndex);
-                      TLConnectivity.sendSelectedThemeToAppleWatch(
+                      TLConnectivityService.sendSelectedThemeToAppleWatch(
                           selectedThemeIndex: corrIndex);
-                      TLMethodChannel.updateSelectedTheme(
+                      TLMethodChannelService.updateSelectedTheme(
                           selectedThemeIndex: corrIndex);
-                      TLVibration.vibrate();
+                      TLVibrationService.vibrate();
                       // 完了を知らせるアラートを表示
                       const TLSingleOptionDialog(title: "変更が完了しました")
                           .show(context: context);

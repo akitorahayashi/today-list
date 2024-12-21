@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../model/external/tl_pref.dart';
+import '../../service/tl_pref.dart';
 import '../../model/setting_data/setting_data.dart';
 import 'dart:convert';
 
@@ -16,7 +16,7 @@ class SettingDataNotifier extends StateNotifier<SettingData> {
   }
 
   Future<void> _loadSettingData() async {
-    final pref = await TLPref().getPref;
+    final pref = await TLPrefService().getPref;
     String? jsonString = pref.getString('settingData');
     if (jsonString != null) {
       Map<String, dynamic> json = jsonDecode(jsonString);
@@ -26,7 +26,7 @@ class SettingDataNotifier extends StateNotifier<SettingData> {
 
   // SharedPreferencesにデータを保存するメソッド
   Future<void> _saveSettingData() async {
-    final pref = await TLPref().getPref;
+    final pref = await TLPrefService().getPref;
     String jsonString = jsonEncode(state.toJson());
     await pref.setString('settingData', jsonString);
   }
