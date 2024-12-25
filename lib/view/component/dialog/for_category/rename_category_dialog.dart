@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/utils/tl_validation.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
@@ -175,16 +176,20 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                   onPressed: enteredCategoryTitle.trim().isEmpty
                       ? null
                       : () async {
-                          // カテゴリー名が入力されているなら追加する
-                          await editingCategoryNotifier.completeEditing();
                           TLVibrationService.vibrate();
-                          // to category list
-                          if (context.mounted) {
-                            Navigator.pop(context);
-                            const TLSingleOptionDialog(
-                                    title: "カテゴリーが\n変更されました！")
-                                .show(context: context);
-                          }
+                          await TLValidation.validateNameAndExecute(
+                              context: context,
+                              name: enteredCategoryTitle,
+                              validator: TLValidation.validateCategoryName,
+                              onSuccess: () async {
+                                await editingCategoryNotifier.completeEditing();
+                                if (context.mounted) {
+                                  Navigator.pop(context);
+                                  const TLSingleOptionDialog(
+                                    title: "カテゴリーが\n変更されました！",
+                                  ).show(context: context);
+                                }
+                              });
                         },
                   child: const Text("追加"))
             ],

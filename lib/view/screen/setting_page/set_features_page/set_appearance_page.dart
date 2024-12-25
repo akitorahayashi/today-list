@@ -84,7 +84,8 @@ class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
         padding: const EdgeInsets.only(top: 8.0),
         child: PanelWithTitle(title: "THEME", contents: [
           // 現在の枚数を表示する
-          const ShowLimitOfPassCard(),
+          // const ShowLimitOfPassCard(),
+          const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Column(
