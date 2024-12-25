@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/utils/tl_validation.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
@@ -26,6 +27,41 @@ class _AddOrEditWorkspaceDialogState
   final TextEditingController _workspaceNameInputController =
       TextEditingController();
 
+  Future<void> _onEditSuccess(BuildContext context,
+      List<TLWorkspace> tlWorkspaces, int oldIndex, String newName) async {
+    // notifier
+    TLWorkspacesStateNotifier tlWorkspacesNotifier =
+        ref.read(tlWorkspacesStateProvider.notifier);
+
+    final TLWorkspace editedWorkspace = tlWorkspaces[oldIndex];
+    tlWorkspaces[oldIndex] = editedWorkspace.copyWith(name: newName);
+
+    tlWorkspacesNotifier.updateTLWorkspaceList(
+        updatedTLWorkspaceList: List<TLWorkspace>.from(tlWorkspaces));
+    const TLSingleOptionDialog(title: "変更することに\n成功しました！")
+        .show(context: context);
+  }
+
+  Future<void> _onAddSuccess(
+      BuildContext context, String workspaceName, WidgetRef ref) async {
+    // 新しくできたWorkspace
+    final createdWorkspace = TLWorkspace(
+        id: UniqueKey().toString(),
+        name: workspaceName,
+        bigCategories: [
+          const TLCategory(id: noneID, title: "なし")
+        ],
+        smallCategories: {
+          noneID: []
+        },
+        categoryIDToToDos: {
+          noneID: const TLToDos(toDosInToday: [], toDosInWhenever: [])
+        });
+    ref.read(tlWorkspacesStateProvider.notifier).addWorkspace(createdWorkspace);
+    TLSingleOptionDialog(title: workspaceName, message: "が追加されました!")
+        .show(context: context);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -49,9 +85,6 @@ class _AddOrEditWorkspaceDialogState
     final TLThemeData tlThemeData = TLTheme.of(context);
     final List<TLWorkspace> tlWorkspaces =
         ref.watch(tlWorkspacesStateProvider).tlWorkspaces;
-    // notifier
-    TLWorkspacesStateNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
 
     return Dialog(
       backgroundColor: tlThemeData.alertColor,
@@ -104,56 +137,25 @@ class _AddOrEditWorkspaceDialogState
               // workspaceを追加するボタン
               TextButton(
                   style: alertButtonStyle(accentColor: tlThemeData.accentColor),
-                  onPressed: () {
-                    if (_workspaceNameInputController.text.trim().isEmpty) {
-                      // 入力されていなければ退場
-                      Navigator.pop(context);
-                    } else {
-                      // アラートを閉じる
-                      Navigator.pop(context);
-                      // workspacesを更新
-                      if (widget.oldIndexInWorkspaces == null) {
-                        // add action
-                        // 新しくできたWorkspace
-                        final createdWorkspace = TLWorkspace(
-                            id: UniqueKey().toString(),
-                            name: _workspaceNameInputController.text,
-                            bigCategories: [
-                              const TLCategory(id: noneID, title: "なし")
-                            ],
-                            smallCategories: {
-                              noneID: []
-                            },
-                            categoryIDToToDos: {
-                              noneID: const TLToDos(
-                                  toDosInToday: [], toDosInWhenever: [])
-                            });
-                        ref
-                            .read(tlWorkspacesStateProvider.notifier)
-                            .addWorkspace(createdWorkspace);
-                        // 追加したことを知らせる
-                        showDialog(
-                            context: context,
-                            builder: (context) => TLSingleOptionDialog(
-                                title: _workspaceNameInputController.text,
-                                message: "が追加されました!"));
-                      } else {
-                        // edit action
-                        final TLWorkspace editedWorkspace =
-                            tlWorkspaces[widget.oldIndexInWorkspaces!];
-                        // 名前だけ変える
-                        tlWorkspaces[widget.oldIndexInWorkspaces!] =
-                            editedWorkspace.copyWith(
-                                name: _workspaceNameInputController.text);
-
-                        tlWorkspacesNotifier.updateTLWorkspaceList(
-                            updatedTLWorkspaceList:
-                                List<TLWorkspace>.from(tlWorkspaces));
-                        const TLSingleOptionDialog(title: "変更することに\n成功しました！")
-                            .show(context: context);
-                      }
-                      TLVibrationService.vibrate();
-                    }
+                  onPressed: () async {
+                    TLVibrationService.vibrate();
+                    final workspaceName = _workspaceNameInputController.text;
+                    // バリデーションを実施し、成功した場合は該当する処理を実行
+                    await TLValidation.validateAndExecute(
+                        context: context,
+                        name: workspaceName,
+                        validator: TLValidation.validateWorkspaceName,
+                        onSuccess: () async {
+                          Navigator.pop(context);
+                          if (widget.oldIndexInWorkspaces == null) {
+                            // add action
+                            await _onAddSuccess(context, workspaceName, ref);
+                          } else {
+                            // edit action
+                            await _onEditSuccess(context, tlWorkspaces,
+                                widget.oldIndexInWorkspaces!, workspaceName);
+                          }
+                        });
                   },
                   child:
                       Text(widget.oldIndexInWorkspaces == null ? "追加" : "編集"))
