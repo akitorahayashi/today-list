@@ -177,7 +177,7 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
                       ? null
                       : () async {
                           TLVibrationService.vibrate();
-                          await TLValidation.validateAndExecute(
+                          await TLValidation.validateNameAndExecute(
                               context: context,
                               name: enteredCategoryTitle,
                               validator: TLValidation.validateCategoryName,

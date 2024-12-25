@@ -141,7 +141,7 @@ class _AddOrEditWorkspaceDialogState
                     TLVibrationService.vibrate();
                     final workspaceName = _workspaceNameInputController.text;
                     // バリデーションを実施し、成功した場合は該当する処理を実行
-                    await TLValidation.validateAndExecute(
+                    await TLValidation.validateNameAndExecute(
                         context: context,
                         name: workspaceName,
                         validator: TLValidation.validateWorkspaceName,

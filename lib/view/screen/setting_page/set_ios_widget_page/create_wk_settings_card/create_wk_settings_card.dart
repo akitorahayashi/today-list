@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/setting_data/widget_kit_setting.dart';
+import 'package:today_list/utils/tl_validation.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
 import '../component/wks_header.dart';
 import '../../../../component/common_ui_part/tl_double_card.dart';
@@ -277,26 +278,32 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
                       TextButton(
-                        onPressed: _wksInputController.text.trim().isEmpty
-                            ? null
-                            : () {
-                                TLVibrationService.vibrate();
-                                // wksのlistに追加、保存
-                                wksnotifier.addWidgetKitSettings(
-                                    newWidgetKitSettings: WidgetKitSetting(
-                                  id: UniqueKey().toString(),
-                                  title: _wksInputController.text,
-                                  workspaceIdx: _selectedWorkspaceIndex,
-                                  bcIdx: _selectedBCIdx,
-                                  scIdx: _selectedSCIdx,
-                                ));
-                                // Card内のコンテンツを初期化
-                                setState(() {
-                                  _initialize();
-                                });
-                                // 一覧に戻る
-                                widget.showAddWKSButtonAction();
-                              },
+                        onPressed: () async {
+                          TLVibrationService.vibrate();
+                          // バリデーションを通す
+                          await TLValidation.validateNameAndExecute(
+                            context: context,
+                            name: _wksInputController.text,
+                            validator: TLValidation.validateWKSName,
+                            onSuccess: () async {
+                              // wksのlistに追加、保存
+                              wksnotifier.addWidgetKitSettings(
+                                  newWidgetKitSettings: WidgetKitSetting(
+                                id: UniqueKey().toString(),
+                                title: _wksInputController.text,
+                                workspaceIdx: _selectedWorkspaceIndex,
+                                bcIdx: _selectedBCIdx,
+                                scIdx: _selectedSCIdx,
+                              ));
+                              // Card内のコンテンツを初期化
+                              setState(() {
+                                _initialize();
+                              });
+                              // 一覧に戻る
+                              widget.showAddWKSButtonAction();
+                            },
+                          );
+                        },
                         style: controllButtonStyle,
                         child: const Text(
                           "追加",

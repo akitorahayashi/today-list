@@ -18,6 +18,16 @@ class TLValidation {
     return ValidationResult.valid;
   }
 
+  static ValidationResult validateWKSName(String name) {
+    if (name.trim().isEmpty) {
+      return ValidationResult.empty;
+    }
+    if (name.length > 15) {
+      return ValidationResult.tooLong;
+    }
+    return ValidationResult.valid;
+  }
+
   static ValidationResult validateWorkspaceName(String name) {
     if (name.trim().isEmpty) {
       return ValidationResult.empty;
@@ -28,7 +38,7 @@ class TLValidation {
     return ValidationResult.valid;
   }
 
-  static Future<void> validateAndExecute({
+  static Future<void> validateNameAndExecute({
     required BuildContext context,
     required String name,
     required ValidationResult Function(String) validator,
