@@ -19,6 +19,7 @@ class TodayListApp extends ConsumerWidget {
           theme: ThemeData(
             primarySwatch: tlThemeDataList[selectedThemeIndex].accentColor,
           ),
+          themeMode: ThemeMode.system,
           home: const HomePage()),
     );
   }
