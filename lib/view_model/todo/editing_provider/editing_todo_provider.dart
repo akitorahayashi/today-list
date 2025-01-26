@@ -174,8 +174,8 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
         // チェック済みの前に挿入
         updatedToDos.insert(newIdx, createdToDo);
       } else {
-        // 最後尾に追加
-        updatedToDos.add(createdToDo);
+        // 最初に追加
+        updatedToDos.insert(0, createdToDo);
       }
     } else {
       // 編集処理
