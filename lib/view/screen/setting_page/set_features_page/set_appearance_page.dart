@@ -12,7 +12,6 @@ import 'set_todo_icon/icon_category_panel.dart';
 import 'set_vibration_card.dart';
 import 'theme_panel/left_side_show_selecting_panel.dart';
 import 'theme_panel/right_side_theme_select_button.dart';
-import 'show_limit_of_pass_card.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 

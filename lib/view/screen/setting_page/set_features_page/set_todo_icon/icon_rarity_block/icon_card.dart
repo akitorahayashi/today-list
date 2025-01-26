@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_icon_data.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
-import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 import 'package:today_list/view_model/design/tl_icon_data_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import '../../../../../component/dialog/common/tl_single_option_dialog.dart';
