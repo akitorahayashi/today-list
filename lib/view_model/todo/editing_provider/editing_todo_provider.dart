@@ -169,14 +169,15 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
 
     if (state.indexOfEditingToDo == null) {
       // 新規追加処理
-      final newIdx = updatedToDos.indexWhere((t) => t.isChecked);
-      if (newIdx != -1) {
-        // チェック済みの前に挿入
-        updatedToDos.insert(newIdx, createdToDo);
-      } else {
-        // 最初に追加
-        updatedToDos.insert(0, createdToDo);
-      }
+      updatedToDos.insert(0, createdToDo);
+      // final newIdx = updatedToDos.indexWhere((t) => t.isChecked);
+      // if (newIdx != -1) {
+      //   // チェック済みの前に挿入
+      //   updatedToDos.insert(newIdx, createdToDo);
+      // } else {
+      //   // 最後尾に追加
+      //   updatedToDos.add(createdToDo);
+      // }
     } else {
       // 編集処理
       updatedToDos[state.indexOfEditingToDo!] = createdToDo;
