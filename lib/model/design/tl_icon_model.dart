@@ -1,34 +1,15 @@
 import 'package:flutter/material.dart';
-import '../../resource/tl_icon_resource.dart';
 
 /// このファイルには、アイコンに関連する列挙型やデータモデルを定義する。
 /// アイコン情報のデータ構造を統一し、アプリ全体で再利用可能にすることを目的としている。
 
-/// TLIconModelはアイコンのデータを管理するクラス
-/// リソースファイルからデータを取得し、ヘルパー関数を提供する。
-class TLIconModel {
-  /// アイコンを取得する関数
-  /// カテゴリー、レア度、名前に対応するアイコンデータを返す。
-  /// リソースに定義された `tlIconsForCheckBox` を使用する。
-  static TLIconForCheckBox? getIcon({
-    required TLIconCategory category,
-    required TLIconRarity rarity,
-    required TLIconName name,
-  }) {
-    return tlIconsForCheckBox[category]?[rarity]?[name];
-  }
-}
-
-/// カテゴリーの列挙型
-/// アイコンの大カテゴリを定義する。
+/// カテゴリー（大カテゴリー）
 enum TLIconCategory { defaultCategory, unit1, unit2 }
 
-/// レア度の列挙型
-/// アイコンのレアリティ（希少性）を定義する。
+/// レア度（小カテゴリー）
 enum TLIconRarity { superRare, rare, common }
 
-/// アイコン名の列挙型
-/// アイコンの具体的な名前を定義する。
+/// アイコン名（値）
 enum TLIconName {
   box,
   circle,
