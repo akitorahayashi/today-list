@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_icon_data.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
 import 'package:today_list/view/screen/setting_page/set_features_page/updaate_app_icon_card.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
@@ -128,8 +129,8 @@ class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
       PanelWithTitle(
         title: "ICONS",
         contents: [
-          for (String iconCategoryName in tlIconResource)
-            IconCategoryPanel(iconCategoryName: iconCategoryName),
+          for (TLIconCategory tlIconCategory in tlIconResource.keys)
+            IconCategoryPanel(tlIconCategory: tlIconCategory),
         ],
       ),
       // スペーサー

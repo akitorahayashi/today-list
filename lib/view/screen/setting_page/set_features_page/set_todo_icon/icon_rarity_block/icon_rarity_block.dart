@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../../../../../model/design/icon_for_checkbox.dart';
+import 'package:today_list/model/design/tl_icon_data.dart';
+import 'package:today_list/resource/tl_icon_resource.dart';
 import '../../../../../../model/design/tl_theme.dart';
 import 'icon_card.dart';
 
 class IconCategoryBlock extends StatelessWidget {
-  final String iconCategoryName;
-  final String iconRarity;
+  final TLIconCategory tlIconCategory;
+  final TLIconRarity tlIconRarity;
   const IconCategoryBlock({
     super.key,
-    required this.iconRarity,
-    required this.iconCategoryName,
+    required this.tlIconCategory,
+    required this.tlIconRarity,
   });
 
   @override
@@ -31,18 +32,19 @@ class IconCategoryBlock extends StatelessWidget {
             //   ),
             // ),
             Row(
-              children: iconsForCheckBox[iconCategoryName]![iconRarity]!
-                  .keys
-                  .map((iconName) => IconCard(
-                        isEarned: true,
-                        // settingData.earnedIcons[iconCategoryName] != null &&
-                        //     settingData.earnedIcons[iconCategoryName]!
-                        //         .contains(iconName),
-                        iconCategoryName: iconCategoryName,
-                        selectedIconRarity: iconRarity,
-                        iconName: iconName,
-                      ))
-                  .toList(),
+              children: tlIconResource[tlIconCategory]![tlIconRarity]
+                      ?.keys
+                      .map((iconName) => IconCard(
+                            isEarned: true,
+                            // settingData.earnedIcons[iconCategoryName] != null &&
+                            //     settingData.earnedIcons[iconCategoryName]!
+                            //         .contains(iconName),
+                            tlIconCategory: tlIconCategory,
+                            tlIconRarity: tlIconRarity,
+                            tlIconName: iconName,
+                          ))
+                      .toList() ??
+                  [],
             ),
           ],
         ),

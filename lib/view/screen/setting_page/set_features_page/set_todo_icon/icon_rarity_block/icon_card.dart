@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 import 'package:today_list/model/design/tl_icon_data.dart';
+import 'package:today_list/resource/tl_icon_resource.dart';
+import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 import 'package:today_list/view_model/design/tl_icon_data_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import '../../../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../../../component/dialog/common/tl_yes_no_dialog.dart';
 import '../../../../../../service/tl_ads.dart';
-import '../../../../../../model/design/icon_for_checkbox.dart';
 import '../../../../../../model/design/tl_theme.dart';
 import '../../../../../../main.dart';
 
 class IconCard extends ConsumerStatefulWidget {
   final bool isEarned;
-  final String iconCategoryName;
-  final String selectedIconRarity;
-  final String iconName;
+  final TLIconCategory tlIconCategory;
+  final TLIconRarity tlIconRarity;
+  final TLIconName tlIconName;
   const IconCard({
     super.key,
     required this.isEarned,
-    required this.iconCategoryName,
-    required this.selectedIconRarity,
-    required this.iconName,
+    required this.tlIconCategory,
+    required this.tlIconRarity,
+    required this.tlIconName,
   });
 
   @override
@@ -29,18 +29,15 @@ class IconCard extends ConsumerStatefulWidget {
 }
 
 class _IconCardState extends ConsumerState<IconCard> {
-  bool get isFontawesomeCategories =>
-      fontawesomeCategories.contains(widget.iconCategoryName);
-
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     final TLIconData tlIconData = ref.watch(tlIconDataProvider);
     final TLIconDataNotifier tlIconDataNotifier =
         ref.read(tlIconDataProvider.notifier);
-    final bool isCurrentIcon = widget.iconCategoryName == tlIconData.category &&
-        widget.selectedIconRarity == tlIconData.rarity &&
-        widget.iconName == tlIconData.name;
+    final bool isCurrentIcon = widget.tlIconCategory == tlIconData.category &&
+        widget.tlIconRarity == tlIconData.rarity &&
+        widget.tlIconName == tlIconData.name;
     return Expanded(
       flex: 1,
       child: GestureDetector(
@@ -52,10 +49,10 @@ class _IconCardState extends ConsumerState<IconCard> {
                   message: "チェックマークのアイコンを\n変更しますか?",
                   yesAction: () async {
                     Navigator.pop(context);
-                    tlIconDataNotifier.setSelectedIconData(tlIconData.copyWith(
-                        category: widget.iconCategoryName,
-                        rarity: widget.selectedIconRarity,
-                        name: widget.iconName));
+                    tlIconDataNotifier.updateSelectedIcon(TLIconData(
+                        category: widget.tlIconCategory,
+                        rarity: widget.tlIconRarity,
+                        name: widget.tlIconName));
                     TLVibrationService.vibrate();
                     const TLSingleOptionDialog(title: "変更が完了しました!")
                         .show(context: context);
@@ -95,29 +92,27 @@ class _IconCardState extends ConsumerState<IconCard> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(
-                      top: isFontawesomeCategories ? 3 : 0,
-                      bottom: isFontawesomeCategories ? 4 : 2.0),
+                  padding: const EdgeInsets.only(top: 3, bottom: 4),
                   child: Icon(
                     !widget.isEarned
                         ? Icons.help_outline
                         : isCurrentIcon
-                            ? iconsForCheckBox[widget.iconCategoryName]![widget
-                                    .selectedIconRarity]![widget.iconName]!
+                            ? tlIconResource[widget.tlIconCategory]![
+                                    widget.tlIconRarity]![widget.tlIconName]!
                                 .checkedIcon
-                            : iconsForCheckBox[widget.iconCategoryName]![widget
-                                    .selectedIconRarity]![widget.iconName]!
+                            : tlIconResource[widget.tlIconCategory]![
+                                    widget.tlIconRarity]![widget.tlIconName]!
                                 .notCheckedIcon,
                     color: !widget.isEarned
                         ? Colors.black26
                         : isCurrentIcon
                             ? tlThemeData.checkmarkColor
                             : Colors.black45,
-                    size: isFontawesomeCategories ? 17 : 20,
+                    size: 20,
                   ),
                 ),
                 Text(
-                  !widget.isEarned ? "???" : widget.iconName,
+                  !widget.isEarned ? "???" : widget.tlIconName.rawValue,
                   style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,

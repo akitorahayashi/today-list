@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../model/design/tl_icon/tl_icon_data.dart';
+import '../model/design/tl_icon_data.dart';
 
 /// このファイルには、具体的なアイコンデータの定義が含まれている。
 /// `TLIconModel` で使用されるデータとして、全てのアイコン情報を一元管理する役割を持つ。

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
 import '../../service/tl_pref.dart';
-import '../../model/design/tl_icon/tl_icon_data.dart';
+import '../../model/design/tl_icon_data.dart';
 import 'dart:convert';
 
 final tlIconDataProvider =

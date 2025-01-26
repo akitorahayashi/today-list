@@ -1,11 +1,12 @@
-import '../../../../../model/design/icon_for_checkbox.dart';
+import 'package:today_list/model/design/tl_icon_data.dart';
+import 'package:today_list/resource/tl_icon_resource.dart';
 import '../../../../../model/design/tl_theme.dart';
 import 'icon_rarity_block/icon_rarity_block.dart';
 import 'package:flutter/material.dart';
 
 class IconCategoryPanel extends StatelessWidget {
-  final String iconCategoryName;
-  const IconCategoryPanel({super.key, required this.iconCategoryName});
+  final TLIconCategory tlIconCategory;
+  const IconCategoryPanel({super.key, required this.tlIconCategory});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class IconCategoryPanel extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 3.0),
             child: Text(
-              iconCategoryName,
+              tlIconCategory.rawValue,
               style: TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w800,
@@ -26,28 +27,36 @@ class IconCategoryPanel extends StatelessWidget {
             ),
           ),
           // Super Rare, Rare
-          Row(
-            children: [
-              if (iconsForCheckBox[iconCategoryName]!["Super Rare"]!.isNotEmpty)
-                Expanded(
-                    flex: 2,
-                    child: IconCategoryBlock(
-                      iconCategoryName: iconCategoryName,
-                      iconRarity: "Super Rare",
-                    )),
-              if (iconsForCheckBox[iconCategoryName]!["Rare"]!.isNotEmpty)
-                Expanded(
-                    flex: 3,
-                    child: IconCategoryBlock(
-                      iconCategoryName: iconCategoryName,
-                      iconRarity: "Rare",
-                    )),
-            ],
-          ),
+          if (tlIconResource[tlIconCategory]!
+              .keys
+              .toSet()
+              .containsAll([TLIconRarity.superRare, TLIconRarity.rare]))
+            Row(
+              children: [
+                if (tlIconResource[tlIconCategory]![TLIconRarity.superRare]
+                        ?.isNotEmpty ??
+                    true)
+                  Expanded(
+                      flex: 2,
+                      child: IconCategoryBlock(
+                        tlIconCategory: tlIconCategory,
+                        tlIconRarity: TLIconRarity.superRare,
+                      )),
+                if (tlIconResource[tlIconCategory]![TLIconRarity.rare]
+                        ?.isNotEmpty ??
+                    true)
+                  Expanded(
+                      flex: 3,
+                      child: IconCategoryBlock(
+                        tlIconCategory: tlIconCategory,
+                        tlIconRarity: TLIconRarity.rare,
+                      )),
+              ],
+            ),
           // Common
           IconCategoryBlock(
-            iconCategoryName: iconCategoryName,
-            iconRarity: "Common",
+            tlIconCategory: tlIconCategory,
+            tlIconRarity: TLIconRarity.common,
           ),
         ],
       ),
