@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todos.dart';
 import 'package:today_list/utils/tl_workspace_utils.dart';
 import '../../../view_model/todo/tl_workspaces_state.dart';
 import 'num_todos_card.dart';
@@ -123,14 +125,17 @@ class _HomePageState extends ConsumerState<HomePage> {
                   message: null,
                   yesAction: () async {
                     Navigator.pop(context);
-                    final copiedWorkspace = currentWorkspace.copyWith();
-                    await TLWorkspaceUtils
-                        .deleteCheckedToDosInTodayInAWorkspace(currentWorkspace,
-                            onlyToday: false);
+                    // このworkspaceの今日に分類されているToDoを削除
+                    final updatedWorkspace = await TLWorkspaceUtils
+                        .deleteCheckedToDosInTodayInAWorkspace(
+                      currentWorkspace,
+                      onlyToday: false,
+                    );
+                    // 状態を保存
                     ref
                         .read(tlWorkspacesStateProvider.notifier)
                         .updateCurrentWorkspace(
-                            updatedCurrentWorkspace: copiedWorkspace);
+                            updatedCurrentWorkspace: updatedWorkspace);
                     if (context.mounted) {
                       const TLSingleOptionDialog(title: "削除が完了しました！")
                           .show(context: context);

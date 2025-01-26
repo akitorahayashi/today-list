@@ -15,7 +15,6 @@ struct TLWidgetEntry: TimelineEntry {
 }
 
 struct TLProvider: AppIntentTimelineProvider {
-    typealias Intent = TLWidgetKitSettingsIntent
     
     func placeholder(in context: Context) -> TLWidgetEntry {
         let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLWorkspacesExample) ?? []

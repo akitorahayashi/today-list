@@ -63,37 +63,55 @@ class TLWorkspaceUtils {
     return todoCount;
   }
 
-  static Future<void> deleteCheckedToDosInTodayInAWorkspace(
-      TLWorkspace workspace,
-      {required bool onlyToday}) async {
-    for (TLCategory bigCategory in workspace.bigCategories) {
-      deleteAllCheckedToDosInAToDos(
-        onlyToday: onlyToday,
-        selectedToDos: workspace.categoryIDToToDos[bigCategory.id]!,
-      );
-      for (TLCategory smallCategory
-          in workspace.smallCategories[bigCategory.id]!) {
-        deleteAllCheckedToDosInAToDos(
-          onlyToday: onlyToday,
-          selectedToDos: workspace.categoryIDToToDos[smallCategory.id]!,
+  static Future<TLWorkspace> deleteCheckedToDosInTodayInAWorkspace(
+    TLWorkspace corrWorkspace, {
+    required bool onlyToday,
+  }) async {
+    // `categoryIDToToDos` を再構築する
+    final updatedCategoryIDToToDos = corrWorkspace.categoryIDToToDos.map(
+      (categoryId, todos) {
+        return MapEntry(
+          categoryId,
+          deleteAllCheckedToDosInAToDos(
+            onlyToday: onlyToday,
+            selectedToDos: todos,
+          ),
         );
-      }
-    }
+      },
+    );
+
+    // 新しいインスタンスを返す
+    return corrWorkspace.copyWith(
+      categoryIDToToDos: updatedCategoryIDToToDos,
+    );
   }
 
-  static void deleteAllCheckedToDosInAToDos({
+  static TLToDos deleteAllCheckedToDosInAToDos({
     required bool onlyToday,
     required TLToDos selectedToDos,
   }) {
-    selectedToDos.toDosInToday.removeWhere((todo) => todo.isChecked);
-    for (TLToDo todo in selectedToDos.toDosInToday) {
-      todo.steps.removeWhere((step) => step.isChecked);
-    }
-    if (!onlyToday) {
-      selectedToDos.toDosInWhenever.removeWhere((todo) => todo.isChecked);
-      for (TLToDo todo in selectedToDos.toDosInWhenever) {
-        todo.steps.removeWhere((step) => step.isChecked);
-      }
-    }
+    // `toDosInToday` の新しいリストを生成
+    final updatedToDosInToday = selectedToDos.toDosInToday
+        .where((todo) => !todo.isChecked) // チェックされたものを除外
+        .map((todo) => todo.copyWith(
+              steps: todo.steps.where((step) => !step.isChecked).toList(),
+            ))
+        .toList();
+
+    // `toDosInWhenever` の新しいリストを生成
+    final updatedToDosInWhenever = onlyToday
+        ? selectedToDos.toDosInWhenever // 変更なし
+        : selectedToDos.toDosInWhenever
+            .where((todo) => !todo.isChecked) // チェックされたものを除外
+            .map((todo) => todo.copyWith(
+                  steps: todo.steps.where((step) => !step.isChecked).toList(),
+                ))
+            .toList();
+
+    // 新しいインスタンスを返す
+    return selectedToDos.copyWith(
+      toDosInToday: updatedToDosInToday,
+      toDosInWhenever: updatedToDosInWhenever,
+    );
   }
 }
