@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/utils/tl_utils.dart';
+import 'package:today_list/util/tl_utils.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_step.dart';
@@ -151,7 +151,7 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
 
     // TLToDoの新規作成または編集
     final TLToDo createdToDo = TLToDo(
-      id: corrCategoryID,
+      id: TLUtils.generateUniqueId(),
       title: EditingTodo.toDoTitleInputController?.text ?? "Error",
       steps: state.steps,
     );

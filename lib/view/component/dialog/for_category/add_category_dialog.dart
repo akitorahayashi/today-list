@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/utils/tl_validation.dart';
+import 'package:today_list/util/tl_validation.dart';
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../tl_base_dialog_mixin.dart';
