@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/todo/tl_category.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
 import 'package:today_list/util/tl_workspace_utils.dart';
 import '../../../view_model/todo/tl_workspaces_state.dart';
 import 'num_todos_card.dart';

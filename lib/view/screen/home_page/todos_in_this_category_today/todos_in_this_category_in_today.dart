@@ -24,47 +24,64 @@ class ToDosInThisCategoryInCurrentWorkspace extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final tlWorksapceState = ref.watch(tlWorkspacesStateProvider);
-    final TLWorkspace currentTLWorkspace = tlWorksapceState.currentWorkspace;
+    final tlWorkspaceState = ref.watch(tlWorkspacesStateProvider);
+    final TLWorkspace currentTLWorkspace = tlWorkspaceState.currentWorkspace;
     // notifier
-    final tlWorksapceStateNotifier =
+    final tlWorkspaceStateNotifier =
         ref.read(tlWorkspacesStateProvider.notifier);
+    // others
     final coorCategoryIDToToDos =
         Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
+
     List<TLToDo> toDosInTodayInThisCategory = coorCategoryIDToToDos[
             smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
         .getToDos(ifInToday);
+
     return Column(
       children: [
         Padding(
           padding:
               EdgeInsets.only(left: smallCategoryOfThisToDo == null ? 5 : 18),
           child: ReorderableColumn(
-              children: [
-                for (int i = 0; i < toDosInTodayInThisCategory.length; i++)
-                  TLToDoCard(
-                    key: ValueKey(toDosInTodayInThisCategory[i].id),
-                    ifInToday: ifInToday,
-                    indexOfThisToDoInToDos: i,
-                    bigCategoryOfThisToDo: bigCategoryOfThisToDo,
-                    smallCategoryOfThisToDo: smallCategoryOfThisToDo,
-                  ),
-              ],
-              onReorder: (oldIndex, newIndex) {
-                final int indexOfCheckedToDo = toDosInTodayInThisCategory
-                    .indexWhere((todo) => todo.isChecked);
-                if (indexOfCheckedToDo == -1 || newIndex < indexOfCheckedToDo) {
-                  final TLToDo reorderedToDo =
-                      toDosInTodayInThisCategory.removeAt(oldIndex);
-                  toDosInTodayInThisCategory.insert(newIndex, reorderedToDo);
+            children: [
+              for (int i = 0; i < toDosInTodayInThisCategory.length; i++)
+                TLToDoCard(
+                  key: ValueKey(toDosInTodayInThisCategory[i].id),
+                  ifInToday: ifInToday,
+                  indexOfThisToDoInToDos: i,
+                  bigCategoryOfThisToDo: bigCategoryOfThisToDo,
+                  smallCategoryOfThisToDo: smallCategoryOfThisToDo,
+                ),
+            ],
+            onReorder: (oldIndex, newIndex) {
+              final int indexOfCheckedToDo = toDosInTodayInThisCategory
+                  .indexWhere((todo) => todo.isChecked);
 
-                  // 更新されたワークスペースを保存
-                  tlWorksapceStateNotifier.updateCurrentWorkspace(
-                    updatedCurrentWorkspace: currentTLWorkspace.copyWith(
-                        categoryIDToToDos: coorCategoryIDToToDos),
-                  );
-                }
-              }),
+              if (indexOfCheckedToDo == -1 || newIndex < indexOfCheckedToDo) {
+                // 新しいリストを生成
+                final List<TLToDo> updatedToDos =
+                    List.from(toDosInTodayInThisCategory);
+                final TLToDo reorderedToDo = updatedToDos.removeAt(oldIndex);
+                updatedToDos.insert(newIndex, reorderedToDo);
+
+                // `categoryIDToToDos` を再構築
+                final updatedCategoryIDToToDos = {
+                  ...coorCategoryIDToToDos,
+                  (smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id):
+                      coorCategoryIDToToDos[smallCategoryOfThisToDo?.id ??
+                              bigCategoryOfThisToDo.id]!
+                          .copyWith(toDosInToday: updatedToDos),
+                };
+
+                // 更新されたワークスペースを保存
+                tlWorkspaceStateNotifier.updateCurrentWorkspace(
+                  updatedCurrentWorkspace: currentTLWorkspace.copyWith(
+                    categoryIDToToDos: updatedCategoryIDToToDos,
+                  ),
+                );
+              }
+            },
+          ),
         ),
       ],
     );
