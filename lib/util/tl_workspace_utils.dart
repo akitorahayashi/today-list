@@ -2,7 +2,7 @@ import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/utils/tl_category_utils.dart';
+import 'package:today_list/util/tl_category_utils.dart';
 
 class TLWorkspaceUtils {
   static TLWorkspace reorderWhenToggle({

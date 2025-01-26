@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/service/tl_method_channel.dart';
 import 'package:today_list/model/setting_data/widget_kit_setting.dart';
 import 'package:today_list/service/tl_pref.dart';
-import 'package:today_list/utils/tl_validation.dart';
+import 'package:today_list/util/tl_validation.dart';
 import 'dart:convert';
 
 import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
