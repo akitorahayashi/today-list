@@ -23,7 +23,7 @@ class TLIconDataNotifier extends StateNotifier<TLIconData> {
 
   /// 選択したアイコンの情報を取得する
   TLIconForCheckBox? getSelectedIcon() {
-    return tlIconsForCheckBox[state.category]?[state.rarity]?[state.name];
+    return tlIconResource[state.category]?[state.rarity]?[state.name];
   }
 
   /// 選択しているアイコンの情報を更新する

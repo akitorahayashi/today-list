@@ -5,7 +5,7 @@ import '../model/design/tl_icon/tl_icon_data.dart';
 /// このファイルには、具体的なアイコンデータの定義が含まれている。
 /// `TLIconModel` で使用されるデータとして、全てのアイコン情報を一元管理する役割を持つ。
 const Map<TLIconCategory, Map<TLIconRarity, Map<TLIconName, TLIconForCheckBox>>>
-    tlIconsForCheckBox = {
+    tlIconResource = {
   TLIconCategory.defaultCategory: {
     TLIconRarity.common: {
       TLIconName.box: TLIconForCheckBox(

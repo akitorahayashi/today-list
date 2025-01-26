@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/resource/tl_icon_resource.dart';
 import 'package:today_list/view/screen/setting_page/set_features_page/updaate_app_icon_card.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
 import '../../../../main.dart';
 import '../../../../model/design/tl_theme.dart';
-import '../../../../model/design/icon_for_checkbox.dart';
 import '../../../component/common_ui_part/panel_with_title.dart';
 import '../../../../service/tl_ads.dart';
 import 'set_todo_icon/icon_category_panel.dart';
@@ -128,7 +128,7 @@ class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
       PanelWithTitle(
         title: "ICONS",
         contents: [
-          for (String iconCategoryName in iconsForCheckBox.keys)
+          for (String iconCategoryName in tlIconResource)
             IconCategoryPanel(iconCategoryName: iconCategoryName),
         ],
       ),

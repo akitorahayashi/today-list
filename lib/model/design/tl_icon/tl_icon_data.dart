@@ -32,35 +32,52 @@ class TLIconData {
 }
 
 /// カテゴリー（大カテゴリー）
-enum TLIconCategory { defaultCategory, unit1, unit2 }
+enum TLIconCategory {
+  defaultCategory('Default'),
+  unit1('Unit 1'),
+  unit2('Unit 2');
+
+  final String rawValue;
+  const TLIconCategory(this.rawValue);
+}
 
 /// レア度（小カテゴリー）
-enum TLIconRarity { superRare, rare, common }
+enum TLIconRarity {
+  superRare('Super Rare'),
+  rare('Rare'),
+  common('Common');
+
+  final String rawValue;
+  const TLIconRarity(this.rawValue);
+}
 
 /// アイコン名（値）
 enum TLIconName {
-  box,
-  circle,
-  water,
-  sun,
-  star,
-  fire,
-  flower,
-  tree,
-  hill,
-  moon,
-  earth,
-  bee,
-  rocket,
-  core,
-  bell,
-  ar,
-  flare,
-  code,
-  limit,
-  robot,
-  game,
-  music,
+  box('Box'),
+  circle('Circle'),
+  water('Water'),
+  sun('Sun'),
+  star('Star'),
+  fire('Fire'),
+  flower('Flower'),
+  tree('Tree'),
+  hill('Hill'),
+  moon('Moon'),
+  earth('Earth'),
+  bee('Bee'),
+  rocket('Rocket'),
+  core('Core'),
+  bell('Bell'),
+  ar('Ar'),
+  flare('Flare'),
+  code('Code'),
+  limit('Limit'),
+  robot('Robot'),
+  game('Game'),
+  music('Music');
+
+  final String rawValue;
+  const TLIconName(this.rawValue);
 }
 
 /// アイコンに関する具体的なデータのクラス
