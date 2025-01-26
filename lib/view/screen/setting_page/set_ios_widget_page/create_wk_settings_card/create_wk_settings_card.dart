@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/setting_data/widget_kit_setting.dart';
 import 'package:today_list/util/tl_validation.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
+import 'package:today_list/resource/tl_theme_data_list.dart';
 import '../component/wks_header.dart';
 import '../../../../component/common_ui_part/tl_double_card.dart';
 import '../../../../../service/tl_vibration.dart';
