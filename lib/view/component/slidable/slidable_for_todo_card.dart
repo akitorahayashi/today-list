@@ -13,64 +13,71 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SlidableForToDoCard extends ConsumerWidget {
   final bool isForModelCard;
-  // todo
   final TLToDo corrTLToDo;
   final int indexOfThisToDoInToDos;
   final bool ifInToday;
-  // category
   final String bigCategoryID;
   final String? smallCategoryID;
-  // child
   final Widget child;
+
   const SlidableForToDoCard({
     super.key,
     required this.isForModelCard,
     required this.corrTLToDo,
     required this.indexOfThisToDoInToDos,
     required this.ifInToday,
-    // category
     required this.bigCategoryID,
     required this.smallCategoryID,
-    // child
     required this.child,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    // provider
     final TLWorkspace currentTLWorkspace =
         ref.watch(tlWorkspacesStateProvider).currentWorkspace;
-    // notifier
     final TLWorkspacesStateNotifier tlWorkspacesNotifier =
         ref.read(tlWorkspacesStateProvider.notifier);
-    // other
+
     final String corrCategoryID = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisToDoBelongs = currentTLWorkspace
         .categoryIDToToDos[corrCategoryID]!
         .getToDos(ifInToday);
+
     return Slidable(
-      // チェックされていたらスライドできなくする
       enabled: !corrTLToDo.isChecked,
       startActionPane:
           ActionPane(motion: const ScrollMotion(), extentRatio: 0.2, children: [
-        // editAction
         SlidableAction(
-          // タップしたらクローズ
           autoClose: true,
           backgroundColor: tlThemeData.panelColor,
           foregroundColor: tlThemeData.accentColor,
-          onPressed: (BuildContext context) async {
-            // タップしたらこれをremoveする
-            toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
-            TLVibrationService.vibrate();
+          onPressed: (BuildContext context) {
+            // 新しいリストを生成
+            final List<TLToDo> updatedToDos =
+                List.from(toDoArrayOfThisToDoBelongs)
+                  ..removeAt(indexOfThisToDoInToDos);
+
+            // categoryIDToToDosを再構築
+            final updatedCategoryIDToToDos = {
+              ...currentTLWorkspace.categoryIDToToDos,
+              corrCategoryID: currentTLWorkspace
+                  .categoryIDToToDos[corrCategoryID]!
+                  .copyWith(toDosInToday: updatedToDos),
+            };
+
+            // ワークスペースを更新
             tlWorkspacesNotifier.updateCurrentWorkspace(
-                updatedCurrentWorkspace: currentTLWorkspace.copyWith());
+              updatedCurrentWorkspace: currentTLWorkspace.copyWith(
+                categoryIDToToDos: updatedCategoryIDToToDos,
+              ),
+            );
+
+            TLVibrationService.vibrate();
           },
           icon: Icons.remove,
         ),
       ]),
-      // スライドして編集
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         extentRatio: 0.6,
@@ -82,19 +89,20 @@ class SlidableForToDoCard extends ConsumerWidget {
               spacing: 8,
               backgroundColor: tlThemeData.panelColor,
               foregroundColor: tlThemeData.accentColor,
-              onPressed: (BuildContext context) async {
+              onPressed: (BuildContext context) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
                       return EditToDoPage(
-                          ifInToday: true,
-                          selectedBigCategoryID: bigCategoryID,
-                          selectedSmallCategoryID: smallCategoryID,
-                          editedToDoTitle:
-                              toDoArrayOfThisToDoBelongs[indexOfThisToDoInToDos]
-                                  .title,
-                          indexOfEdittedTodo: indexOfThisToDoInToDos);
+                        ifInToday: true,
+                        selectedBigCategoryID: bigCategoryID,
+                        selectedSmallCategoryID: smallCategoryID,
+                        editedToDoTitle:
+                            toDoArrayOfThisToDoBelongs[indexOfThisToDoInToDos]
+                                .title,
+                        indexOfEdittedTodo: indexOfThisToDoInToDos,
+                      );
                     },
                   ),
                 );
@@ -102,29 +110,54 @@ class SlidableForToDoCard extends ConsumerWidget {
               icon: Icons.edit,
               label: 'Edit',
             ),
-          // いつでもと今日を切り替える
           SlidableAction(
-            // タップしたらクローズ
             autoClose: true,
             flex: 11,
             spacing: 8,
             backgroundColor: tlThemeData.panelColor,
             foregroundColor: tlThemeData.accentColor,
             onPressed: (BuildContext context) {
-              // タップしたらtodayとwheneverを切り替える
               final TLToDo switchedToDo =
-                  toDoArrayOfThisToDoBelongs.removeAt(indexOfThisToDoInToDos);
-              currentTLWorkspace.categoryIDToToDos[corrCategoryID]!
-                  .getToDos(ifInToday)
-                  .insert(0, switchedToDo);
+                  toDoArrayOfThisToDoBelongs[indexOfThisToDoInToDos];
+
+              // toDosInTodayとtoDosInWheneverを切り替える
+              final List<TLToDo> updatedToDosInCurrentList =
+                  List.from(toDoArrayOfThisToDoBelongs)
+                    ..removeAt(indexOfThisToDoInToDos);
+              final List<TLToDo> updatedToDosInOtherList = [
+                switchedToDo,
+                ...currentTLWorkspace.categoryIDToToDos[corrCategoryID]!
+                    .getToDos(!ifInToday),
+              ];
+
+              final updatedCategoryIDToToDos = {
+                ...currentTLWorkspace.categoryIDToToDos,
+                corrCategoryID: currentTLWorkspace
+                    .categoryIDToToDos[corrCategoryID]!
+                    .copyWith(
+                  toDosInToday: ifInToday
+                      ? updatedToDosInCurrentList
+                      : updatedToDosInOtherList,
+                  toDosInWhenever: ifInToday
+                      ? updatedToDosInOtherList
+                      : updatedToDosInCurrentList,
+                ),
+              };
+
+              // ワークスペースを更新
+              tlWorkspacesNotifier.updateCurrentWorkspace(
+                updatedCurrentWorkspace: currentTLWorkspace.copyWith(
+                  categoryIDToToDos: updatedCategoryIDToToDos,
+                ),
+              );
+
               TLVibrationService.vibrate();
               NotifyTodoOrStepIsEditedSnackBar.show(
-                  context: context,
-                  newTitle: corrTLToDo.title,
-                  newCheckedState: corrTLToDo.isChecked,
-                  quickChangeToToday: !ifInToday);
-              tlWorkspacesNotifier.updateCurrentWorkspace(
-                  updatedCurrentWorkspace: currentTLWorkspace.copyWith());
+                context: context,
+                newTitle: corrTLToDo.title,
+                newCheckedState: corrTLToDo.isChecked,
+                quickChangeToToday: !ifInToday,
+              );
             },
             icon: ifInToday ? Icons.schedule : Icons.light_mode,
             label: ifInToday ? "whenever" : "today",
