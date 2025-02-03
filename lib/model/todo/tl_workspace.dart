@@ -5,6 +5,8 @@ import 'tl_todos.dart';
 part '../generate/tl_workspace.freezed.dart';
 part '../generate/tl_workspace.g.dart';
 
+// $ dart run build_runner build
+
 @freezed
 class TLWorkspace with _$TLWorkspace {
   factory TLWorkspace({

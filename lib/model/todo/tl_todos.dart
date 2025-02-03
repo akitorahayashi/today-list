@@ -4,6 +4,8 @@ import './tl_todo.dart';
 part '../generate/tl_todos.freezed.dart';
 part '../generate/tl_todos.g.dart';
 
+// $ dart run build_runner build
+
 @freezed
 class TLToDos with _$TLToDos {
   const factory TLToDos({

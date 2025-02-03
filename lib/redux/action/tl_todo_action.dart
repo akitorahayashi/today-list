@@ -1,6 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:today_list/model/todo/tl_todo.dart';
-import 'package:today_list/model/todo/tl_step.dart';
 
 part 'generate/tl_todo_action.freezed.dart';
 

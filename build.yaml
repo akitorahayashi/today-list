@@ -1,38 +1,37 @@
+
+# $ dart run build_runner build
+
 targets:
   $default:
-    # sources で「ビルド対象とするパス」を絞り込み、同時に不要なパスを除外することで
-    # 全体のビルド時間を短縮する。
     sources:
-      # include は「取り込みたいパス」
       include:
         - lib/model/todo/**
+        - lib/model/tl_app_state.dart
         - lib/redux/action/**
-      # exclude は「除外したいパス」
       exclude:
-        - test/**         # 例：テストコードはビルド対象から除外
+        - test/**  # テストコードはビルド対象から除外
 
     builders:
-      # Freezed が内部的に使用している source_gen の結合ビルダー
+      # `source_gen` の結合ビルダー（`freezed` もこれを利用）
       source_gen|combining_builder:
-        # generate_for で「このビルダーを適用したいパス」をさらに制限できる
         generate_for:
           - lib/model/todo/**
-          
+          - lib/model/tl_app_state.dart
           - lib/redux/action/**
         options:
-          # build_extensions で「入力ファイル -> 出力ファイル」のマッピングを定義
           build_extensions:
             '^lib/model/todo/{{}}.dart': 'lib/model/generate/{{}}.g.dart'
+            '^lib/model/tl_app_state.dart': 'lib/model/generate/tl_app_state.g.dart'
             '^lib/redux/action/{{}}.dart': 'lib/redux/action/generate/{{}}.g.dart'
 
-      # Freezed 本体のビルダー設定
+      # Freezed のビルダー設定
       freezed:
-        # generate_for で「このビルダーを適用したいパス」を絞り込み
         generate_for:
           - lib/model/todo/**
+          - lib/model/tl_app_state.dart
           - lib/redux/action/**
         options:
-          # build_extensions で入力ファイルから生成ファイルの出力先を指定
           build_extensions:
             '^lib/model/todo/{{}}.dart': 'lib/model/generate/{{}}.freezed.dart'
+            '^lib/model/tl_app_state.dart': 'lib/model/generate/tl_app_state.freezed.dart'
             '^lib/redux/action/{{}}.dart': 'lib/redux/action/generate/{{}}.freezed.dart'
