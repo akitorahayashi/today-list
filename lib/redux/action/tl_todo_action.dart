@@ -4,7 +4,7 @@ import 'package:today_list/model/todo/tl_step.dart';
 
 part 'generate/tl_todo_action.freezed.dart';
 
-// $ flutter pub run build_runner build
+// $ dart run build_runner build
 
 @freezed
 class TLToDoAction with _$TLToDoAction {

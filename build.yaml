@@ -5,7 +5,7 @@ targets:
     sources:
       # include は「取り込みたいパス」
       include:
-        - lib/model/**
+        - lib/model/todo/**
         - lib/redux/action/**
       # exclude は「除外したいパス」
       exclude:
@@ -16,22 +16,23 @@ targets:
       source_gen|combining_builder:
         # generate_for で「このビルダーを適用したいパス」をさらに制限できる
         generate_for:
-          - lib/model/**
+          - lib/model/todo/**
+          
           - lib/redux/action/**
         options:
           # build_extensions で「入力ファイル -> 出力ファイル」のマッピングを定義
           build_extensions:
-            '^lib/model/{{}}.dart': 'lib/model/generate/{{}}.g.dart'
+            '^lib/model/todo/{{}}.dart': 'lib/model/generate/{{}}.g.dart'
             '^lib/redux/action/{{}}.dart': 'lib/redux/action/generate/{{}}.g.dart'
 
       # Freezed 本体のビルダー設定
       freezed:
         # generate_for で「このビルダーを適用したいパス」を絞り込み
         generate_for:
-          - lib/model/**
+          - lib/model/todo/**
           - lib/redux/action/**
         options:
           # build_extensions で入力ファイルから生成ファイルの出力先を指定
           build_extensions:
-            '^lib/model/{{}}.dart': 'lib/model/generate/{{}}.freezed.dart'
+            '^lib/model/todo/{{}}.dart': 'lib/model/generate/{{}}.freezed.dart'
             '^lib/redux/action/{{}}.dart': 'lib/redux/action/generate/{{}}.freezed.dart'
