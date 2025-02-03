@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'generate/tl_todo_action.freezed.dart';
+part '../generate/tl_todo_action.freezed.dart';
 
 // $ dart run build_runner build
 
