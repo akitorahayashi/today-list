@@ -12,14 +12,14 @@ import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 // import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SettingPage extends StatefulWidget {
-  const SettingPage({super.key});
+class TLSettingPage extends StatefulWidget {
+  const TLSettingPage({super.key});
 
   @override
-  State<SettingPage> createState() => _SettingPageState();
+  State<TLSettingPage> createState() => _TLSettingPageState();
 }
 
-class _SettingPageState extends State<SettingPage> {
+class _TLSettingPageState extends State<TLSettingPage> {
   // initStateで初期化
   late int _selectedPageIndex = 0;
   late PageController _pageControllerInSettingPage;

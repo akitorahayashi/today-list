@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../../service/tl_vibration.dart';
 import '../../../../model/todo/tl_workspace.dart';

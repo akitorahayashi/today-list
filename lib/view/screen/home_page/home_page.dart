@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/util/tl_workspace_utils.dart';
-import '../../../view_model/todo/tl_workspaces_state.dart';
+import 'package:today_list/view/component/common_ui_part/tl_sliver_appbar.dart';
+import 'package:today_list/view/component/common_ui_part/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
+import 'package:today_list/view/component/common_ui_part/today_list_bottom_navbar/today_list_bottom_navbar.dart';
+import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
+import 'package:today_list/view/screen/category_list_page/category_list_page.dart';
+import 'package:today_list/view/screen/edit_todo_page/edit_todo_page.dart';
+import 'package:today_list/view/screen/setting_page/setting_page.dart';
+import 'workspace_drawer/workspace_drawer.dart';
 import 'num_todos_card.dart';
 import 'todos_block.dart';
-import '../../component/common_ui_part/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
-import '../../component/common_ui_part/today_list_bottom_navbar/today_list_bottom_navbar.dart';
-import '../../component/dialog/common/tl_single_option_dialog.dart';
-import '../../component/dialog/common/tl_yes_no_dialog.dart';
-import '../../component/common_ui_part/tl_sliver_appbar.dart';
-import '../../../model/design/tl_theme.dart';
-import '../../../model/todo/tl_workspace.dart';
-import '../../../service/tl_vibration.dart';
-import '../edit_todo_page/edit_todo_page.dart';
-import '../category_list_page/category_list_page.dart';
-import '../setting_page/setting_page.dart';
-import 'workspace_drawer/workspace_drawer.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -54,13 +55,20 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    final tlWorksapceState = ref.watch(tlWorkspacesStateProvider);
-    final TLWorkspace currentWorkspace = tlWorksapceState.currentWorkspace;
-    final int currentWorkspaceIndex = tlWorksapceState.currentWorkspaceIndex;
-    final numOfToDosInToday =
-        TLWorkspaceUtils.getNumOfToDo(currentWorkspace, ifInToday: true);
-    final numOfToDosInWhenever =
-        TLWorkspaceUtils.getNumOfToDo(currentWorkspace, ifInToday: false);
+    // provider
+    final tlAppState = ref.watch(tlAppStateProvider);
+    // notifier
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    // others
+    final TLWorkspace currentWorkspaceReference =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
+    // final int currentWorkspaceIndex = tlAppState.currentWorkspaceIndex;
+    final numOfToDosInToday = TLWorkspaceUtils.getNumOfToDo(
+        currentWorkspaceReference,
+        ifInToday: true);
+    final numOfToDosInWhenever = TLWorkspaceUtils.getNumOfToDo(
+        currentWorkspaceReference,
+        ifInToday: false);
 
     return Scaffold(
       key: homePageScaffoldKey,
@@ -72,9 +80,9 @@ class _HomePageState extends ConsumerState<HomePage> {
         CustomScrollView(
           slivers: [
             TLSliverAppBar(
-              pageTitle: currentWorkspaceIndex == 0
+              pageTitle: tlAppState.currentWorkspaceIndex == 0
                   ? "Today List"
-                  : currentWorkspace.name,
+                  : currentWorkspaceReference.name,
               // drawerを表示するボタン
               leadingButtonOnPressed: () =>
                   homePageScaffoldKey.currentState!.openDrawer(),
@@ -86,7 +94,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               trailingButtonOnPressed: () async {
                 await Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
-                  return const SettingPage();
+                  return const TLSettingPage();
                 }));
               },
               trailingIcon: const Icon(Icons.settings, color: Colors.white),
@@ -97,7 +105,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                 height: 10,
               ),
               NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
-              TodosBlock(ifInToday: true, currentTLWorkspace: currentWorkspace),
+              TodosBlock(
+                  ifInToday: true,
+                  currentTLWorkspace: currentWorkspaceReference),
               if (numOfToDosInWhenever != 0)
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
@@ -105,7 +115,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ifInToday: false, numTodos: numOfToDosInWhenever),
                 ),
               TodosBlock(
-                  ifInToday: false, currentTLWorkspace: currentWorkspace),
+                  ifInToday: false,
+                  currentTLWorkspace: currentWorkspaceReference),
 
               // スペーサー
               const SizedBox(height: 250)
@@ -126,14 +137,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                     // このworkspaceの今日に分類されているToDoを削除
                     final updatedWorkspace = await TLWorkspaceUtils
                         .deleteCheckedToDosInTodayInAWorkspace(
-                      currentWorkspace,
+                      currentWorkspaceReference,
                       onlyToday: false,
                     );
                     // 状態を保存
-                    ref
-                        .read(tlWorkspacesStateProvider.notifier)
-                        .updateCurrentWorkspace(
-                            updatedCurrentWorkspace: updatedWorkspace);
+                    tlAppStateReducer.dispatchWorkspaceAction(
+                        TLWorkspaceAction.updateCurrentWorkspace(
+                            updatedWorkspace));
                     if (context.mounted) {
                       const TLSingleOptionDialog(title: "削除が完了しました！")
                           .show(context: context);
@@ -156,7 +166,8 @@ class _HomePageState extends ConsumerState<HomePage> {
             await Navigator.push(context, MaterialPageRoute(builder: (context) {
               return EditToDoPage(
                 ifInToday: true,
-                selectedBigCategoryID: currentWorkspace.bigCategories[0].id,
+                selectedBigCategoryID:
+                    currentWorkspaceReference.bigCategories[0].id,
                 selectedSmallCategoryID: null,
                 editedToDoTitle: null,
                 indexOfEdittedTodo: null,
