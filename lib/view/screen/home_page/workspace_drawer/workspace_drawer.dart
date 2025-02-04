@@ -106,21 +106,25 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                         indexInWorkspaces: i,
                                       ),
                                   ],
-                                  // TODO 引数で渡す、直接操作しているので危ない
                                   onReorder: (oldIndex, newIndex) {
-                                    final int revisedOldIndex = oldIndex += 1;
-                                    final int revisedNewIndex = newIndex += 1;
+                                    if (newIndex == oldIndex) return;
 
-                                    final reorderedWorkspace = tlAppState
-                                        .tlWorkspaces
-                                        .removeAt(revisedOldIndex);
-                                    tlAppState.tlWorkspaces.insert(
-                                        revisedNewIndex, reorderedWorkspace);
+                                    final int revisedOldIndex = oldIndex + 1;
+                                    final int revisedNewIndex = newIndex + 1;
+
+                                    List<TLWorkspace> copiedWorkspaces =
+                                        List.from(tlAppState.tlWorkspaces);
+
+                                    // 移動する要素を取り出し
+                                    final TLWorkspace movedWorkspace =
+                                        copiedWorkspaces
+                                            .removeAt(revisedOldIndex);
+                                    copiedWorkspaces.insert(
+                                        revisedNewIndex, movedWorkspace);
 
                                     // currentWorkspaceIndex を必要に応じて更新
                                     if (revisedOldIndex ==
                                         currentTLWorkspaceIndex) {
-                                      // 移動したWorkspaceが現在のWorkspaceだった場合
                                       tlAppStateReducer.dispatchWorkspaceAction(
                                           ChangeCurrentWorkspaceIndex(
                                               revisedNewIndex));
@@ -128,7 +132,6 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                             currentTLWorkspaceIndex &&
                                         revisedNewIndex >=
                                             currentTLWorkspaceIndex) {
-                                      // currentWorkspaceIndexが移動範囲内にある場合（下方向に移動）
                                       tlAppStateReducer.dispatchWorkspaceAction(
                                           ChangeCurrentWorkspaceIndex(
                                               currentTLWorkspaceIndex - 1));
@@ -136,7 +139,6 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                             currentTLWorkspaceIndex &&
                                         revisedNewIndex <=
                                             currentTLWorkspaceIndex) {
-                                      // currentWorkspaceIndexが移動範囲内にある場合（上方向に移動）
                                       tlAppStateReducer.dispatchWorkspaceAction(
                                           ChangeCurrentWorkspaceIndex(
                                               currentTLWorkspaceIndex + 1));
@@ -145,8 +147,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                     // workspaceListを保存する
                                     tlAppStateReducer.dispatchWorkspaceAction(
                                         TLWorkspaceAction.updateWorkspaceList(
-                                            List<TLWorkspace>.from(
-                                                tlAppState.tlWorkspaces)));
+                                            copiedWorkspaces));
                                   },
                                 ),
                                 // 新しくworkspaceを追加する,

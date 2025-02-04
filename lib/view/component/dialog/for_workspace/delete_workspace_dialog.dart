@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
-import 'package:today_list/redux/reducer/tl_workspace_reducer.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import '../common/tl_single_option_dialog.dart';
@@ -25,9 +24,6 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
     final tlAppState = ref.watch(tlAppStateProvider);
     // notifier
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-    // others
-    final TLWorkspace currentWorkspaceRef =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
     return Dialog(
       backgroundColor: tlThemeData.alertColor,
       child: Padding(
