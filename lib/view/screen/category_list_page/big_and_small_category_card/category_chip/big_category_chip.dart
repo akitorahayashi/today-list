@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_category_utils.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../../../../component/dialog/for_category/select_edit_method_dialog.dart';
 import '../../../../../model/design/tl_theme.dart';
 import '../../../../../model/todo/tl_category.dart';
@@ -17,15 +17,16 @@ class BigCategoryChip extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace currentTLWorkspace =
-        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
+    final tlAppState = ref.watch(tlAppStateProvider);
     // others
+    final TLWorkspace currentWorkspaceReference =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
     TLCategory bigCategoryOfThisChip =
-        currentTLWorkspace.bigCategories[indexOfBigCategory];
+        currentWorkspaceReference.bigCategories[indexOfBigCategory];
     final int numberOfToDosInThisCategory =
         TLCategoryUtils.getNumberOfToDosInThisCategory(
             ifInToday: null,
-            corrToDos: currentTLWorkspace
+            corrToDos: currentWorkspaceReference
                 .categoryIDToToDos[bigCategoryOfThisChip.id]!);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),

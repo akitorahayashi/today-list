@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_category_utils.dart';
 import '../../../../component/dialog/for_category/select_edit_method_dialog.dart';
-import '../../../../../view_model/todo/tl_workspaces_state.dart';
 import '../../../../../model/design/tl_theme.dart';
 import '../../../../../model/todo/tl_category.dart';
 import '../../../../../model/todo/tl_workspace.dart';
@@ -22,16 +22,18 @@ class SmallCategoryChip extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspace currentTLWorkspace =
-        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
+    final tlAppState = ref.watch(tlAppStateProvider);
     // others
-    final TLCategory smallCategoryOfThisCard = currentTLWorkspace
+    final TLWorkspace currentWorkspaceReference =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
+    // others
+    final TLCategory smallCategoryOfThisCard = currentWorkspaceReference
         .smallCategories[corrBigCategory.id]![corrIndexOfSmallCategory];
     // getNumberOfToDosInThisCategory
     final int numberOfToDoInThisSmallCategory =
         TLCategoryUtils.getNumberOfToDosInThisCategory(
             ifInToday: null,
-            corrToDos: currentTLWorkspace
+            corrToDos: currentWorkspaceReference
                 .categoryIDToToDos[smallCategoryOfThisCard.id]!);
     return GestureDetector(
       onTap: () async {

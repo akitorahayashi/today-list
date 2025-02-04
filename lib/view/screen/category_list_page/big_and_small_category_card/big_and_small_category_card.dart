@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/todo/tl_workspace.dart';
@@ -20,15 +21,15 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final TLWorkspacesState tlWorkspacesState =
-        ref.watch(tlWorkspacesStateProvider);
-    final TLWorkspace currentTLWorkspace = tlWorkspacesState.currentWorkspace;
-
-    final tlWorkspacesStateNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
+    final tlAppState = ref.watch(tlAppStateProvider);
+    // notifier
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    // others
+    final TLWorkspace currentWorkspaceReference =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
     // others
     final TLCategory coorBigCategory =
-        currentTLWorkspace.bigCategories[indexOfBigCategory];
+        currentWorkspaceReference.bigCategories[indexOfBigCategory];
     return Card(
       color: tlThemeData.panelColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -44,11 +45,11 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
               children: [
                 for (int i = 0;
                     i <
-                        currentTLWorkspace
+                        currentWorkspaceReference
                             .smallCategories[coorBigCategory.id]!.length;
                     i++)
                   SmallCategoryChip(
-                      key: ValueKey(currentTLWorkspace
+                      key: ValueKey(currentWorkspaceReference
                           .smallCategories[coorBigCategory.id]![i].id),
                       corrBigCategory: coorBigCategory,
                       corrIndexOfBigCategory: indexOfBigCategory,
@@ -58,7 +59,8 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
               onReorder: (oldIndex, newIndex) {
                 if (oldIndex == newIndex) return;
                 final Map<String, List<TLCategory>> corrSmallCategories = {
-                  for (var entry in currentTLWorkspace.smallCategories.entries)
+                  for (var entry
+                      in currentWorkspaceReference.smallCategories.entries)
                     entry.key: List<TLCategory>.from(entry.value)
                 };
                 // 抜き出して
@@ -68,11 +70,11 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
                 corrSmallCategories[coorBigCategory.id]!
                     .insert(newIndex, reOrderedSmallCategory);
                 // categorisを保存する
-                tlWorkspacesStateNotifier.updateCurrentWorkspace(
-                  updatedCurrentWorkspace: currentTLWorkspace.copyWith(
-                    smallCategories: corrSmallCategories,
-                  ),
-                );
+                tlAppStateReducer.dispatchWorkspaceAction(
+                    TLWorkspaceAction.updateCurrentWorkspace(
+                        currentWorkspaceReference.copyWith(
+                  smallCategories: corrSmallCategories,
+                )));
               },
             )
           ]),

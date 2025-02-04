@@ -17,8 +17,6 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
     // provider
     final EditingTodo editingTodo = ref.watch(editingToDoProvider);
     final tlAppState = ref.watch(tlAppStateProvider);
-    // notifier
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
     // others
     final TLWorkspace currentWorkspaceReference =
         tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
