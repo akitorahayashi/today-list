@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/todo/tl_todos.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import '../../../component/todo_card/tl_todo_card.dart';
 import '../../../../model/todo/tl_workspace.dart';
 import '../../../../model/todo/tl_todo.dart';
@@ -24,14 +25,14 @@ class ToDosInThisCategoryInCurrentWorkspace extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final tlWorkspaceState = ref.watch(tlWorkspacesStateProvider);
-    final TLWorkspace currentTLWorkspace = tlWorkspaceState.currentWorkspace;
+    final tlAppState = ref.watch(tlAppStateProvider);
+    final TLWorkspace currentTLWorkspaceReference =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
     // notifier
-    final tlWorkspaceStateNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
+    final tlAppStateNotifier = ref.read(tlAppStateProvider.notifier);
     // others
-    final coorCategoryIDToToDos =
-        Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
+    final coorCategoryIDToToDos = Map<String, TLToDos>.from(
+        currentTLWorkspaceReference.categoryIDToToDos);
 
     List<TLToDo> toDosInTodayInThisCategory = coorCategoryIDToToDos[
             smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
@@ -74,11 +75,11 @@ class ToDosInThisCategoryInCurrentWorkspace extends ConsumerWidget {
                 };
 
                 // 更新されたワークスペースを保存
-                tlWorkspaceStateNotifier.updateCurrentWorkspace(
-                  updatedCurrentWorkspace: currentTLWorkspace.copyWith(
-                    categoryIDToToDos: updatedCategoryIDToToDos,
-                  ),
-                );
+                tlAppStateNotifier.dispatchWorkspaceAction(
+                    TLWorkspaceAction.updateCurrentWorkspace(
+                        currentTLWorkspaceReference.copyWith(
+                  categoryIDToToDos: updatedCategoryIDToToDos,
+                )));
               }
             },
           ),

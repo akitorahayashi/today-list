@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
 import 'package:today_list/redux/reducer/tl_app_state_reducer.dart';
-import 'package:today_list/redux/reducer/tl_workspace_reducer.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'change_workspace_card.dart';
 import '../../../component/common_ui_part/tl_sliver_appbar.dart';
