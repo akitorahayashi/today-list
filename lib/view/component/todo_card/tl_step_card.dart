@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'tl_checkbox.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../../model/todo/tl_workspace.dart';
@@ -26,21 +27,23 @@ class TLStepCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // provider
-    final TLWorkspacesState tlWorkspacesState =
-        ref.watch(tlWorkspacesStateProvider);
-    final TLWorkspace currentTLWorkspace = tlWorkspacesState.currentWorkspace;
+    final tlAppState = ref.watch(tlAppStateProvider);
     // notifier
-    final TLWorkspacesStateNotifier tlWorkspacesStateNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    // others
+    final TLWorkspace currentWorkspaceReference =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
     // other
-    final corrToDos = currentTLWorkspace.categoryIDToToDos[corrCategoryID]!;
-    final TLToDo corrToDoData = corrToDos.getToDos(ifInToday)[indexInToDos];
+    final corrToDosReference =
+        currentWorkspaceReference.categoryIDToToDos[corrCategoryID]!;
+    final TLToDo corrToDoData =
+        corrToDosReference.getToDos(ifInToday)[indexInToDos];
     final TLStep corrStepData = corrToDoData.steps[indexInSteps];
 
     return GestureDetector(
       onTap: () {
         // コピーしてデータを取得
-        final TLToDo targetToDo = currentTLWorkspace
+        final TLToDo targetToDo = currentWorkspaceReference
             .categoryIDToToDos[corrCategoryID]!
             .getToDos(ifInToday)[indexInToDos];
 
@@ -66,18 +69,19 @@ class TLStepCard extends ConsumerWidget {
 
         // 更新されたToDosリストを生成
         final List<TLToDo> updatedToDos = List<TLToDo>.from(
-          currentTLWorkspace.categoryIDToToDos[corrCategoryID]!
+          currentWorkspaceReference.categoryIDToToDos[corrCategoryID]!
               .getToDos(ifInToday),
         );
         updatedToDos[indexInToDos] = updatedToDo;
 
         // 更新されたCategoryIDToToDosを生成
         final Map<String, TLToDos> updatedCategoryIDToToDos =
-            Map<String, TLToDos>.from(currentTLWorkspace.categoryIDToToDos);
+            Map<String, TLToDos>.from(
+                currentWorkspaceReference.categoryIDToToDos);
 
         // 指定されたカテゴリのToDosリストを、条件に応じて更新し、Workspaceに反映する
         final TLToDos currentToDos =
-            currentTLWorkspace.categoryIDToToDos[corrCategoryID]!;
+            currentWorkspaceReference.categoryIDToToDos[corrCategoryID]!;
         updatedCategoryIDToToDos[corrCategoryID] = currentToDos.copyWith(
           toDosInToday: ifInToday ? updatedToDos : currentToDos.toDosInToday,
           toDosInWhenever:
@@ -85,14 +89,15 @@ class TLStepCard extends ConsumerWidget {
         );
 
         // 更新されたWorkspaceを生成
-        final TLWorkspace updatedWorkspace = currentTLWorkspace.copyWith(
+        final TLWorkspace updatedWorkspace = currentWorkspaceReference.copyWith(
           categoryIDToToDos: updatedCategoryIDToToDos,
         );
 
         // 更新されたWorkspaceを通知
-        tlWorkspacesStateNotifier.updateCurrentWorkspace(
-          updatedCurrentWorkspace: updatedWorkspace,
-        );
+        tlAppStateReducer
+            .dispatchWorkspaceAction(TLWorkspaceAction.updateCurrentWorkspace(
+          updatedWorkspace,
+        ));
 
         // 振動と通知
         TLVibrationService.vibrate();
