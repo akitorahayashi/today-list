@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../view_model/todo/tl_workspaces_state.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_workspace.dart';
 import '../../../../model/todo/tl_todo.dart';
@@ -24,11 +24,13 @@ class AlreadyExist extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final tlWorkspacesState = ref.watch(tlWorkspacesStateProvider);
-    final TLWorkspace currentWorkspace = tlWorkspacesState.currentWorkspace;
+    final tlAppState = ref.watch(tlAppStateProvider);
+    // others
+    final TLWorkspace currentWorkspaceReference =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
     // others
     final String categoryOfThisToDo = smallCategoryID ?? bigCategoryID;
-    final List<TLToDo> toDoArrayOfThisBlock = currentWorkspace
+    final List<TLToDo> toDoArrayOfThisBlock = currentWorkspaceReference
             .categoryIDToToDos[categoryOfThisToDo]
             ?.getToDos(ifInToday) ??
         [];

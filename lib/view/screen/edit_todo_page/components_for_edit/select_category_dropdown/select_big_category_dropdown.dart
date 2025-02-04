@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/resource/initial_tl_workspaces.dart';
 import '../../../../../model/design/tl_theme.dart';
 import '../../../../../model/todo/tl_category.dart';
 import '../../../../component/dialog/for_category/add_category_dialog.dart';
-import '../../../../../view_model/todo/editing_provider/editing_todo_provider.dart';
-import '../../../../../view_model/todo/tl_workspaces_state.dart';
+import '../../../../../redux/store/editing_provider/editing_todo_provider.dart';
 
 class SelectBigCategoryDropDown extends ConsumerWidget {
   const SelectBigCategoryDropDown({super.key});
@@ -14,8 +16,12 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final EditingTodo editingTodo = ref.watch(editingToDoProvider);
-    final currentWorkspace =
-        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
+    final tlAppState = ref.watch(tlAppStateProvider);
+    // notifier
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    // others
+    final TLWorkspace currentWorkspaceReference =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
     // notifier
     final EditingToDoNotifier editingToDoNotifier =
         ref.watch(editingToDoProvider.notifier);
@@ -28,7 +34,7 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
           hint: Text(
             editingTodo.bigCatgoeyID == noneID
                 ? "大カテゴリー"
-                : currentWorkspace.bigCategories
+                : currentWorkspaceReference.bigCategories
                     .where((oneOfBigCategory) =>
                         oneOfBigCategory.id == editingTodo.bigCatgoeyID)
                     .first
@@ -44,7 +50,7 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
           ),
           // list of big categories
           items: [
-            ...currentWorkspace.bigCategories,
+            ...currentWorkspaceReference.bigCategories,
             TLCategory(id: "---createBigCategory", title: "新しく作る"),
           ].map((TLCategory oneOfBigCategory) {
             return DropdownMenuItem(

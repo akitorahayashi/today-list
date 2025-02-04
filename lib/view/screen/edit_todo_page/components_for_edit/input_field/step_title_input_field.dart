@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../model/design/tl_theme.dart';
 import '../../../../../service/tl_vibration.dart';
-import '../../../../../view_model/todo/editing_provider/editing_todo_provider.dart';
+import '../../../../../redux/store/editing_provider/editing_todo_provider.dart';
 import '../../../../../styles.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

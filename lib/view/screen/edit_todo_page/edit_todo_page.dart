@@ -8,7 +8,7 @@ import 'components_for_edit/select_category_dropdown/select_big_category_dropdow
 import 'components_for_edit/added_steps_column.dart';
 import '../../component/dialog/common/tl_yes_no_dialog.dart';
 import '../../component/common_ui_part/tl_sliver_appbar.dart';
-import '../../../view_model/todo/editing_provider/editing_todo_provider.dart';
+import '../../../redux/store/editing_provider/editing_todo_provider.dart';
 import '../../../model/design/tl_theme.dart';
 import 'already_exists/already_exists.dart';
 

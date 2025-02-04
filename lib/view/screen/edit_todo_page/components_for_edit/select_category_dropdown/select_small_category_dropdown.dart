@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/resource/initial_tl_workspaces.dart';
 import '../../../../../model/design/tl_theme.dart';
 import '../../../../../model/todo/tl_category.dart';
 import '../../../../component/dialog/for_category/add_category_dialog.dart';
-import '../../../../../view_model/todo/editing_provider/editing_todo_provider.dart';
-import '../../../../../view_model/todo/tl_workspaces_state.dart';
+import '../../../../../redux/store/editing_provider/editing_todo_provider.dart';
 
 class SelectSmallCategoryDropDown extends ConsumerWidget {
   const SelectSmallCategoryDropDown({super.key});
@@ -14,8 +16,10 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final EditingTodo editingTodo = ref.watch(editingToDoProvider);
-    final tlWorksacesState = ref.watch(tlWorkspacesStateProvider);
-    final currentWorkspace = tlWorksacesState.currentWorkspace;
+    final tlAppState = ref.watch(tlAppStateProvider);
+    // others
+    final TLWorkspace currentWorkspaceReference =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
     // notifier
     final EditingToDoNotifier editingToDoNotifier =
         ref.read(editingToDoProvider.notifier);
@@ -27,7 +31,8 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
         hint: Text(
           editingTodo.smallCategoryID == null
               ? "小カテゴリー"
-              : (currentWorkspace.smallCategories[editingTodo.bigCatgoeyID] ??
+              : (currentWorkspaceReference
+                          .smallCategories[editingTodo.bigCatgoeyID] ??
                       [])
                   .firstWhere(
                     (oneOfSmallCategory) =>
@@ -46,10 +51,11 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
           fontWeight: FontWeight.bold,
         ),
         items: [
-          if (currentWorkspace
+          if (currentWorkspaceReference
               .smallCategories[editingTodo.bigCatgoeyID]!.isEmpty)
             TLCategory(id: noneID, title: "なし"),
-          ...currentWorkspace.smallCategories[editingTodo.bigCatgoeyID]!,
+          ...currentWorkspaceReference
+              .smallCategories[editingTodo.bigCatgoeyID]!,
           if (editingTodo.bigCatgoeyID != noneID)
             TLCategory(id: "---createSmallCategory", title: "新しく作る"),
         ].map((TLCategory item) {
