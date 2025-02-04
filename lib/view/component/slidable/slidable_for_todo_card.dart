@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/screen/edit_todo_page/edit_todo_page.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../../model/design/tl_theme.dart';
@@ -34,13 +35,16 @@ class SlidableForToDoCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    final TLWorkspace currentTLWorkspace =
-        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
-    final TLWorkspacesStateNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
+    // provider
+    final tlAppState = ref.watch(tlAppStateProvider);
+    // notifier
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    // others
+    final TLWorkspace currentWorkspaceRef =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
 
     final String corrCategoryID = smallCategoryID ?? bigCategoryID;
-    final List<TLToDo> toDoArrayOfThisToDoBelongs = currentTLWorkspace
+    final List<TLToDo> toDoArrayOfThisToDoBelongs = currentWorkspaceRef
         .categoryIDToToDos[corrCategoryID]!
         .getToDos(ifInToday);
 
@@ -60,18 +64,19 @@ class SlidableForToDoCard extends ConsumerWidget {
 
             // categoryIDToToDosを再構築
             final updatedCategoryIDToToDos = {
-              ...currentTLWorkspace.categoryIDToToDos,
-              corrCategoryID: currentTLWorkspace
+              ...currentWorkspaceRef.categoryIDToToDos,
+              corrCategoryID: currentWorkspaceRef
                   .categoryIDToToDos[corrCategoryID]!
                   .copyWith(toDosInToday: updatedToDos),
             };
 
             // ワークスペースを更新
-            tlWorkspacesNotifier.updateCurrentWorkspace(
-              updatedCurrentWorkspace: currentTLWorkspace.copyWith(
+            tlAppStateReducer.dispatchWorkspaceAction(
+                TLWorkspaceAction.updateCurrentWorkspace(
+              currentWorkspaceRef.copyWith(
                 categoryIDToToDos: updatedCategoryIDToToDos,
               ),
-            );
+            ));
 
             TLVibrationService.vibrate();
           },
@@ -126,13 +131,13 @@ class SlidableForToDoCard extends ConsumerWidget {
                     ..removeAt(indexOfThisToDoInToDos);
               final List<TLToDo> updatedToDosInOtherList = [
                 switchedToDo,
-                ...currentTLWorkspace.categoryIDToToDos[corrCategoryID]!
+                ...currentWorkspaceRef.categoryIDToToDos[corrCategoryID]!
                     .getToDos(!ifInToday),
               ];
 
               final updatedCategoryIDToToDos = {
-                ...currentTLWorkspace.categoryIDToToDos,
-                corrCategoryID: currentTLWorkspace
+                ...currentWorkspaceRef.categoryIDToToDos,
+                corrCategoryID: currentWorkspaceRef
                     .categoryIDToToDos[corrCategoryID]!
                     .copyWith(
                   toDosInToday: ifInToday
@@ -145,11 +150,12 @@ class SlidableForToDoCard extends ConsumerWidget {
               };
 
               // ワークスペースを更新
-              tlWorkspacesNotifier.updateCurrentWorkspace(
-                updatedCurrentWorkspace: currentTLWorkspace.copyWith(
+              tlAppStateReducer.dispatchWorkspaceAction(
+                  TLWorkspaceAction.updateCurrentWorkspace(
+                currentWorkspaceRef.copyWith(
                   categoryIDToToDos: updatedCategoryIDToToDos,
                 ),
-              );
+              ));
 
               TLVibrationService.vibrate();
               NotifyTodoOrStepIsEditedSnackBar.show(

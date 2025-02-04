@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import '../dialog/for_workspace/add_or_edit_workspace_dialog.dart';
 import '../dialog/for_workspace/delete_workspace_dialog.dart';
 import '../../../model/todo/tl_workspace.dart';
@@ -23,10 +23,10 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final List<TLWorkspace> tlWorkspaces =
-        ref.watch(tlWorkspacesStateProvider).tlWorkspaces;
+    final List<TLWorkspace> tlWorkspacesRef =
+        ref.watch(tlAppStateProvider).tlWorkspaces;
     // other
-    final TLWorkspace corrWorkspace = tlWorkspaces[indexInTLWorkspaces];
+    final TLWorkspace corrWorkspace = tlWorkspacesRef[indexInTLWorkspaces];
     return Slidable(
       // currentWorkspaceの時や
       startActionPane: isCurrentWorkspace ||

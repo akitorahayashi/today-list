@@ -60,15 +60,13 @@ class _HomePageState extends ConsumerState<HomePage> {
     // notifier
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
     // others
-    final TLWorkspace currentWorkspaceReference =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
+    final TLWorkspace currentWorkspaceRef =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
     // final int currentWorkspaceIndex = tlAppState.currentWorkspaceIndex;
-    final numOfToDosInToday = TLWorkspaceUtils.getNumOfToDo(
-        currentWorkspaceReference,
-        ifInToday: true);
-    final numOfToDosInWhenever = TLWorkspaceUtils.getNumOfToDo(
-        currentWorkspaceReference,
-        ifInToday: false);
+    final numOfToDosInToday =
+        TLWorkspaceUtils.getNumOfToDo(currentWorkspaceRef, ifInToday: true);
+    final numOfToDosInWhenever =
+        TLWorkspaceUtils.getNumOfToDo(currentWorkspaceRef, ifInToday: false);
 
     return Scaffold(
       key: homePageScaffoldKey,
@@ -82,7 +80,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             TLSliverAppBar(
               pageTitle: tlAppState.currentWorkspaceIndex == 0
                   ? "Today List"
-                  : currentWorkspaceReference.name,
+                  : currentWorkspaceRef.name,
               // drawerを表示するボタン
               leadingButtonOnPressed: () =>
                   homePageScaffoldKey.currentState!.openDrawer(),
@@ -106,8 +104,7 @@ class _HomePageState extends ConsumerState<HomePage> {
               ),
               NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
               TodosBlock(
-                  ifInToday: true,
-                  currentTLWorkspace: currentWorkspaceReference),
+                  ifInToday: true, currentTLWorkspace: currentWorkspaceRef),
               if (numOfToDosInWhenever != 0)
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
@@ -115,8 +112,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                       ifInToday: false, numTodos: numOfToDosInWhenever),
                 ),
               TodosBlock(
-                  ifInToday: false,
-                  currentTLWorkspace: currentWorkspaceReference),
+                  ifInToday: false, currentTLWorkspace: currentWorkspaceRef),
 
               // スペーサー
               const SizedBox(height: 250)
@@ -137,7 +133,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     // このworkspaceの今日に分類されているToDoを削除
                     final updatedWorkspace = await TLWorkspaceUtils
                         .deleteCheckedToDosInTodayInAWorkspace(
-                      currentWorkspaceReference,
+                      currentWorkspaceRef,
                       onlyToday: false,
                     );
                     // 状態を保存
@@ -166,8 +162,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             await Navigator.push(context, MaterialPageRoute(builder: (context) {
               return EditToDoPage(
                 ifInToday: true,
-                selectedBigCategoryID:
-                    currentWorkspaceReference.bigCategories[0].id,
+                selectedBigCategoryID: currentWorkspaceRef.bigCategories[0].id,
                 selectedSmallCategoryID: null,
                 editedToDoTitle: null,
                 indexOfEdittedTodo: null,

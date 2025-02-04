@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/util/tl_validation.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../../styles.dart';
 import '../../../../model/design/tl_theme.dart';
@@ -30,14 +32,13 @@ class _AddOrEditWorkspaceDialogState
   Future<void> _onEditSuccess(BuildContext context,
       List<TLWorkspace> tlWorkspaces, int oldIndex, String newName) async {
     // notifier
-    TLWorkspacesStateNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 
     final TLWorkspace editedWorkspace = tlWorkspaces[oldIndex];
     tlWorkspaces[oldIndex] = editedWorkspace.copyWith(name: newName);
-
-    tlWorkspacesNotifier.updateTLWorkspaceList(
-        updatedTLWorkspaceList: List<TLWorkspace>.from(tlWorkspaces));
+    tlAppStateReducer.dispatchWorkspaceAction(
+        TLWorkspaceAction.updateWorkspaceList(
+            List<TLWorkspace>.from(tlWorkspaces)));
     const TLSingleOptionDialog(title: "変更することに\n成功しました！")
         .show(context: context);
   }
@@ -57,7 +58,8 @@ class _AddOrEditWorkspaceDialogState
         categoryIDToToDos: {
           noneID: const TLToDos(toDosInToday: [], toDosInWhenever: [])
         });
-    ref.read(tlWorkspacesStateProvider.notifier).addWorkspace(createdWorkspace);
+    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+        TLWorkspaceAction.addWorkspace(createdWorkspace));
     TLSingleOptionDialog(title: workspaceName, message: "が追加されました!")
         .show(context: context);
   }
@@ -68,7 +70,7 @@ class _AddOrEditWorkspaceDialogState
     if (widget.oldIndexInWorkspaces == null) return;
     Future.microtask(() {
       final List<TLWorkspace> workspaces =
-          ref.read(tlWorkspacesStateProvider).tlWorkspaces;
+          ref.read(tlAppStateProvider).tlWorkspaces;
       _workspaceNameInputController.text =
           workspaces[widget.oldIndexInWorkspaces!].name;
     });
@@ -84,7 +86,7 @@ class _AddOrEditWorkspaceDialogState
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     final List<TLWorkspace> tlWorkspaces =
-        ref.watch(tlWorkspacesStateProvider).tlWorkspaces;
+        ref.watch(tlAppStateProvider).tlWorkspaces;
 
     return Dialog(
       backgroundColor: tlThemeData.alertColor,

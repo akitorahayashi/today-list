@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/util/tl_validation.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../tl_base_dialog_mixin.dart';
 import '../../../../redux/store/editing_provider/editing_category_provider.dart';
@@ -42,8 +44,11 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
     final EditingCategory editingCategory = ref.watch(editingCategoryProvider);
-    final currentWorkspace =
-        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
+    // provider
+    final tlAppState = ref.watch(tlAppStateProvider);
+    // others
+    final TLWorkspace currentWorkspaceRef =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
     // notifier
     final editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
     return AlertDialog(
@@ -62,7 +67,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                   editingCategory.selecteBigCategoryID == null
                       ? "なし"
                       : (() {
-                          final hintArray = currentWorkspace.bigCategories
+                          final hintArray = currentWorkspaceRef.bigCategories
                               .where((bigCategory) =>
                                   bigCategory.id ==
                                   editingCategory.selecteBigCategoryID);
@@ -80,7 +85,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
                 ),
                 items: [
                   const TLCategory(id: noneID, title: "なし"),
-                  ...currentWorkspace.bigCategories.sublist(1),
+                  ...currentWorkspaceRef.bigCategories.sublist(1),
                 ].map((TLCategory bigCategory) {
                   return DropdownMenuItem(
                     value: bigCategory.id,

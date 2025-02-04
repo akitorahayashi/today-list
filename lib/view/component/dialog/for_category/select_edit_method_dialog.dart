@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/view/component/dialog/for_category/delete_category_dialog.dart';
 import 'package:today_list/view/component/dialog/for_category/rename_category_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/todo/tl_category.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 
 class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
   final TLCategory categoryOfThisPage;

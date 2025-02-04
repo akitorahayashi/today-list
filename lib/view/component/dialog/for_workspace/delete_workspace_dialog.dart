@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/reducer/tl_workspace_reducer.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_workspace.dart';
@@ -20,11 +22,12 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final int currentWorkspaceIdx =
-        ref.watch(tlWorkspacesStateProvider).currentWorkspaceIndex;
+    final tlAppState = ref.watch(tlAppStateProvider);
     // notifier
-    final TLWorkspacesStateNotifier tlWorkspacesStateNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    // others
+    final TLWorkspace currentWorkspaceRef =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
     return Dialog(
       backgroundColor: tlThemeData.alertColor,
       child: Padding(
@@ -84,12 +87,15 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
                             .show(context: context);
                       } else {
                         // TLWorkspacesから削除
-                        tlWorkspacesStateNotifier.removeWorkspace(
-                            corrWorkspaceId: willDeletedWorkspace.id);
+                        tlAppStateReducer.dispatchWorkspaceAction(
+                            TLWorkspaceAction.removeWorkspace(
+                                willDeletedWorkspace.id));
                         // currentWorkspaceIndexが削除するWorkspaceよりも大きい場合は1減らす
-                        if (corrWorkspaceIndex < currentWorkspaceIdx) {
-                          tlWorkspacesStateNotifier.changeCurrentWorkspaceIndex(
-                              currentWorkspaceIdx - 1);
+                        if (corrWorkspaceIndex <
+                            tlAppState.currentWorkspaceIndex) {
+                          tlAppStateReducer.dispatchWorkspaceAction(
+                              TLWorkspaceAction.changeCurrentWorkspaceIndex(
+                                  tlAppState.currentWorkspaceIndex - 1));
                         }
 
                         // このアラートを消してsimpleアラートを表示する

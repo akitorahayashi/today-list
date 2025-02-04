@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../service/tl_vibration.dart';
@@ -22,23 +24,23 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final currentWorkspace =
-        ref.watch(tlWorkspacesStateProvider).currentWorkspace;
-    // notifier
-    final TLWorkspacesStateNotifier tlWorkspacesNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
+    final tlAppState = ref.watch(tlAppStateProvider);
+    // others
+    final TLWorkspace currentWorkspaceRef =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
     // other
     TLCategory? categoryThisBelongsTo;
     if (indexOfSmallCategory == null) {
       if (indexOfBigCategory >= 0 &&
-          indexOfBigCategory < currentWorkspace.bigCategories.length) {
+          indexOfBigCategory < currentWorkspaceRef.bigCategories.length) {
         categoryThisBelongsTo =
-            currentWorkspace.bigCategories[indexOfBigCategory];
+            currentWorkspaceRef.bigCategories[indexOfBigCategory];
       }
     } else {
       final bigCategoryId =
-          currentWorkspace.bigCategories[indexOfBigCategory].id;
-      final smallCategories = currentWorkspace.smallCategories[bigCategoryId];
+          currentWorkspaceRef.bigCategories[indexOfBigCategory].id;
+      final smallCategories =
+          currentWorkspaceRef.smallCategories[bigCategoryId];
       if (smallCategories != null &&
           indexOfSmallCategory! >= 0 &&
           indexOfSmallCategory! < smallCategories.length) {
@@ -98,22 +100,25 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
                 TextButton(
                     style:
                         alertButtonStyle(accentColor: tlThemeData.accentColor),
+
+                    // TODO 直接操作している箇所があり危険
                     onPressed: () async {
                       // corrElements
                       final List<TLCategory> corrBigCategories =
-                          List<TLCategory>.from(currentWorkspace.bigCategories);
+                          List<TLCategory>.from(
+                              currentWorkspaceRef.bigCategories);
                       final Map<String, List<TLCategory>> corrSmallCategories =
                           {
                         for (var entry
-                            in currentWorkspace.smallCategories.entries)
+                            in currentWorkspaceRef.smallCategories.entries)
                           entry.key: List<TLCategory>.from(entry.value)
                       };
                       final corrCategoryIDToToDos = Map<String, TLToDos>.from(
-                          currentWorkspace.categoryIDToToDos);
+                          currentWorkspaceRef.categoryIDToToDos);
                       if (indexOfSmallCategory != null) {
                         // このカテゴリーがsmallCategoryの場合
                         // カテゴリーのリストから削除する
-                        corrSmallCategories[currentWorkspace
+                        corrSmallCategories[currentWorkspaceRef
                                 .bigCategories[indexOfBigCategory].id]!
                             .removeWhere(((TLCategory smallCategory) =>
                                 smallCategory.id == categoryThisBelongsTo!.id));
@@ -134,11 +139,15 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
                       }
 
                       // categoriesとtoDosを保存する
-                      tlWorkspacesNotifier.updateCurrentWorkspace(
-                          updatedCurrentWorkspace: currentWorkspace.copyWith(
-                              bigCategories: corrBigCategories,
-                              smallCategories: corrSmallCategories,
-                              categoryIDToToDos: corrCategoryIDToToDos));
+                      ref
+                          .read(tlAppStateProvider.notifier)
+                          .dispatchWorkspaceAction(
+                              TLWorkspaceAction.updateCurrentWorkspace(
+                                  currentWorkspaceRef.copyWith(
+                                      bigCategories: corrBigCategories,
+                                      smallCategories: corrSmallCategories,
+                                      categoryIDToToDos:
+                                          corrCategoryIDToToDos)));
 
                       // アラートを消す
                       Navigator.pop(context);
