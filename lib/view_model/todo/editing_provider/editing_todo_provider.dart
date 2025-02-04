@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/reducer/tl_app_state_reducer.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/util/tl_utils.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
 import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_step.dart';
 import '../../../model/todo/tl_todo.dart';
@@ -27,7 +30,7 @@ class EditingTodo {
     this.indexOfEditingStep,
   );
 
-  static EditingTodo generateInitialEdittingToDo() {
+  static EditingTodo _generateInitialEdittingToDo() {
     return EditingTodo(
       [],
       noneID,
@@ -72,10 +75,10 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
   final Ref ref;
 
   EditingToDoNotifier(this.ref)
-      : super(EditingTodo.generateInitialEdittingToDo());
+      : super(EditingTodo._generateInitialEdittingToDo());
 
   void setInitialValue() {
-    state = EditingTodo.generateInitialEdittingToDo();
+    state = EditingTodo._generateInitialEdittingToDo();
   }
 
   void setEditedToDo({
@@ -84,11 +87,12 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     required String? selectedSmallCategoryID,
     required int indexOfEditingToDo,
   }) {
-    final TLWorkspace copiedWorkspace =
-        ref.read(tlWorkspacesStateProvider).currentWorkspace.copyWith();
+    final appState = ref.read(tlAppStateProvider);
+    final TLWorkspace copiedCurrentWorkspace =
+        appState.tlWorkspaces[appState.currentWorkspaceIndex].copyWith();
     final String corrCategoryID =
         selectedSmallCategoryID ?? selectedBigCategoryID;
-    final TLToDo edittedToDo = copiedWorkspace
+    final TLToDo edittedToDo = copiedCurrentWorkspace
         .categoryIDToToDos[corrCategoryID]!
         .getToDos(ifInToday)[indexOfEditingToDo];
     // setValues
@@ -138,13 +142,13 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     if (EditingTodo.toDoTitleInputController?.text == null ||
         EditingTodo.toDoTitleInputController!.text.trim().isEmpty) return;
 
-    // provider
-    final TLWorkspace currentWorkspace =
-        ref.read(tlWorkspacesStateProvider).currentWorkspace;
+    final appState = ref.read(tlAppStateProvider);
+    final TLWorkspace currentWorkspaceReference =
+        appState.tlWorkspaces[appState.currentWorkspaceIndex].copyWith();
     final EditingToDoNotifier editingToDoNotifier =
         ref.read(editingToDoProvider.notifier);
-    final TLWorkspacesStateNotifier tlWorkspacesStateNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
+    final TLAppStateReducer tlAppStateReducer =
+        ref.read(tlAppStateProvider.notifier);
 
     // 対象のカテゴリIDを取得
     final String corrCategoryID = state.smallCategoryID ?? state.bigCatgoeyID;
@@ -158,7 +162,7 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
 
     // コピーしたデータを更新
     final updatedCategoryIDToToDos = Map<String, TLToDos>.from(
-      currentWorkspace.categoryIDToToDos,
+      currentWorkspaceReference.categoryIDToToDos,
     );
 
     // 対応するToDosリストを取得
@@ -191,7 +195,7 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     );
 
     // 更新後のWorkspaceを作成
-    final TLWorkspace updatedWorkspace = currentWorkspace.copyWith(
+    final TLWorkspace updatedWorkspace = currentWorkspaceReference.copyWith(
       categoryIDToToDos: updatedCategoryIDToToDos,
     );
 
@@ -202,9 +206,9 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
       indexOfEditingToDo: null,
       indexOfEditingStep: null,
     );
-    tlWorkspacesStateNotifier.updateCurrentWorkspace(
-      updatedCurrentWorkspace: updatedWorkspace,
-    );
+
+    tlAppStateReducer.dispatchWorkspaceAction(
+        TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace));
 
     // 入力フィールドのクリア
     EditingTodo.toDoTitleInputController?.clear();

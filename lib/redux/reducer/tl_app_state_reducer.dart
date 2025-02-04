@@ -5,8 +5,8 @@ import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
 import 'package:today_list/redux/reducer/tl_workspace_reducer.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
 
-class TLAppStateNotifier extends StateNotifier<TLAppState> {
-  TLAppStateNotifier()
+class TLAppStateReducer extends StateNotifier<TLAppState> {
+  TLAppStateReducer()
       : super(TLAppState(
             tlWorkspaces: initialTLWorkspaces, currentWorkspaceIndex: 0)) {
     // _loadWorkspaces();

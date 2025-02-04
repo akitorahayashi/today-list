@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_todos.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/resource/initial_tl_workspaces.dart';
 
 class EditingCategory {
   static TextEditingController? categoryTitleInputController;
@@ -64,10 +66,11 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
     required int indexOfEditingBigCategory,
     required int? indexOfEditingSmallCategory,
   }) {
-    final TLWorkspace currentWorkspace =
-        ref.read(tlWorkspacesStateProvider).currentWorkspace;
+    final appState = ref.read(tlAppStateProvider);
+    final TLWorkspace currentWorkspaceReference =
+        appState.tlWorkspaces[appState.currentWorkspaceIndex].copyWith();
     final TLCategory corrBigCategory =
-        currentWorkspace.bigCategories[indexOfEditingBigCategory];
+        currentWorkspaceReference.bigCategories[indexOfEditingBigCategory];
     // setValues
     state = state.copyWith(
       selectedBigCatgoeyID:
@@ -91,20 +94,21 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
 
   Future<void> completeEditing() async {
     // 現在のWorkspaceをコピー
-    final TLWorkspace currentWorkspace =
-        ref.read(tlWorkspacesStateProvider).currentWorkspace;
+    final appState = ref.read(tlAppStateProvider);
+    final TLWorkspace currentWorkspaceReference =
+        appState.tlWorkspaces[appState.currentWorkspaceIndex].copyWith();
 
     // コピー用データを作成
     final List<TLCategory> copiedBigCategories =
-        List<TLCategory>.from(currentWorkspace.bigCategories);
+        List<TLCategory>.from(currentWorkspaceReference.bigCategories);
     final Map<String, List<TLCategory>> copiedSmallCategories =
         Map<String, List<TLCategory>>.from(
-      currentWorkspace.smallCategories.map(
+      currentWorkspaceReference.smallCategories.map(
         (key, value) => MapEntry(key, List<TLCategory>.from(value)),
       ),
     );
     final Map<String, TLToDos> copiedCategoryIDToToDos =
-        Map<String, TLToDos>.from(currentWorkspace.categoryIDToToDos);
+        Map<String, TLToDos>.from(currentWorkspaceReference.categoryIDToToDos);
 
     // "なし"カテゴリーにはsmallCategoryを追加させない
     if (state.selecteBigCategoryID == noneID) {
@@ -166,7 +170,7 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
     }
 
     // 更新後のWorkspaceを作成
-    final TLWorkspace updatedWorkspace = currentWorkspace.copyWith(
+    final TLWorkspace updatedWorkspace = currentWorkspaceReference.copyWith(
       bigCategories: copiedBigCategories,
       smallCategories: copiedSmallCategories,
       categoryIDToToDos: copiedCategoryIDToToDos,
@@ -174,7 +178,9 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
 
     // Workspaceの保存
     ref
-        .read(tlWorkspacesStateProvider.notifier)
-        .updateCurrentWorkspace(updatedCurrentWorkspace: updatedWorkspace);
+        .read(tlAppStateProvider.notifier)
+        .dispatchWorkspaceAction(TLWorkspaceAction.updateCurrentWorkspace(
+          updatedWorkspace,
+        ));
   }
 }
