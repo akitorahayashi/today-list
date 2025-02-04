@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import '../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../../service/tl_vibration.dart';
 import '../../../../model/todo/tl_workspace.dart';
@@ -19,14 +21,15 @@ class ChangeWorkspaceCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
     // provider
-    final tlWorkspacesState = ref.watch(tlWorkspacesStateProvider);
-    final List<TLWorkspace> tlWorkspaces = tlWorkspacesState.tlWorkspaces;
-    final TLWorkspace currentTLWorkspace = tlWorkspacesState.currentWorkspace;
+    final tlAppState = ref.watch(tlAppStateProvider);
+    final List<TLWorkspace> tlWorkspaces = tlAppState.tlWorkspaces;
     // notifier
-    final tlWorkspacesStateNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    // others
+    final TLWorkspace currentWorkspaceReference =
+        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
     // other
-    final int currentTLWorkspaceIndex = tlWorkspacesState.currentWorkspaceIndex;
+    final int currentTLWorkspaceIndex = tlAppState.currentWorkspaceIndex;
     final bool isCurrentWorkspace =
         indexInWorkspaces == currentTLWorkspaceIndex;
     return Padding(
@@ -44,8 +47,9 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                   if (isCurrentWorkspace) {
                     Navigator.pop(context);
                   } else {
-                    await tlWorkspacesStateNotifier
-                        .changeCurrentWorkspaceIndex(indexInWorkspaces);
+                    tlAppStateReducer.dispatchWorkspaceAction(
+                        TLWorkspaceAction.changeCurrentWorkspaceIndex(
+                            indexInWorkspaces));
                     TLVibrationService.vibrate();
                     if (context.mounted) {
                       Navigator.pop(context);
@@ -65,7 +69,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                       padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                       child: Text(
                           isCurrentWorkspace && isInDrawerList
-                              ? ("☆ ${currentTLWorkspace.name}   ")
+                              ? ("☆ ${currentWorkspaceReference.name}   ")
                               : tlWorkspaces[indexInWorkspaces].name,
                           style: TextStyle(
                               fontWeight: FontWeight.w700,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/setting_data/widget_kit_setting.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_validation.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
 import 'package:today_list/resource/tl_theme_data_list.dart';
@@ -11,7 +12,6 @@ import '../../../../../model/design/tl_theme.dart';
 import '../../../../../model/todo/tl_category.dart';
 import '../../../../../view_model/settings/wks_provider.dart';
 import '../../../../../model/todo/tl_workspace.dart';
-import '../../../../../view_model/todo/tl_workspaces_state.dart';
 
 class CreateWKSettingsCard extends ConsumerStatefulWidget {
   final VoidCallback showAddWKSButtonAction;
@@ -33,7 +33,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
   int? _selectedSCIdx;
 
   String get _selectedBCID => ref
-      .read(tlWorkspacesStateProvider)
+      .read(tlAppStateProvider)
       .tlWorkspaces[_selectedWorkspaceIndex]
       .bigCategories[_selectedBCIdx]
       .id;
@@ -77,7 +77,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
     final double deviceWidth = MediaQuery.of(context).size.width;
     // provider
     final List<TLWorkspace> tlWorkspaces =
-        ref.watch(tlWorkspacesStateProvider).tlWorkspaces;
+        ref.watch(tlAppStateProvider).tlWorkspaces;
     // notifier
     final WidgetKitSettingNotifier wksnotifier =
         ref.read(widgetKitSettingsProvider.notifier);

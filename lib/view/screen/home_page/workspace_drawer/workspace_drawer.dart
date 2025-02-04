@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
-import 'package:today_list/view_model/todo/tl_workspaces_state.dart';
+import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/reducer/tl_app_state_reducer.dart';
+import 'package:today_list/redux/reducer/tl_workspace_reducer.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'change_workspace_card.dart';
 import '../../../component/common_ui_part/tl_sliver_appbar.dart';
 import '../../../../model/design/tl_theme.dart';
@@ -16,11 +19,10 @@ class TLWorkspaceDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    final tlWorkspacesState = ref.watch(tlWorkspacesStateProvider);
-    final List<TLWorkspace> tlWorkspaces = tlWorkspacesState.tlWorkspaces;
-    final int currentTLWorkspaceIndex = tlWorkspacesState.currentWorkspaceIndex;
-    final TLWorkspacesStateNotifier tlWorkspacesStateNotifier =
-        ref.read(tlWorkspacesStateProvider.notifier);
+    final tlAppState = ref.watch(tlAppStateProvider);
+    final int currentTLWorkspaceIndex = tlAppState.currentWorkspaceIndex;
+    final TLAppStateReducer tlAppStateReducer =
+        ref.read(tlAppStateProvider.notifier);
 
     return Drawer(
       child: Stack(
@@ -96,54 +98,56 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                 ReorderableColumn(
                                   children: [
                                     for (int i = 1;
-                                        i < tlWorkspaces.length;
+                                        i < tlAppState.tlWorkspaces.length;
                                         i++)
                                       ChangeWorkspaceCard(
-                                        key: ValueKey(tlWorkspaces[i].id),
+                                        key: ValueKey(
+                                            tlAppState.tlWorkspaces[i].id),
                                         isInDrawerList: true,
                                         indexInWorkspaces: i,
                                       ),
                                   ],
+                                  // TODO 引数で渡す、直接操作しているので危ない
                                   onReorder: (oldIndex, newIndex) {
                                     final int revisedOldIndex = oldIndex += 1;
                                     final int revisedNewIndex = newIndex += 1;
 
-                                    final reorderedWorkspace =
-                                        tlWorkspaces.removeAt(revisedOldIndex);
-                                    tlWorkspaces.insert(
+                                    final reorderedWorkspace = tlAppState
+                                        .tlWorkspaces
+                                        .removeAt(revisedOldIndex);
+                                    tlAppState.tlWorkspaces.insert(
                                         revisedNewIndex, reorderedWorkspace);
 
                                     // currentWorkspaceIndex を必要に応じて更新
                                     if (revisedOldIndex ==
                                         currentTLWorkspaceIndex) {
                                       // 移動したWorkspaceが現在のWorkspaceだった場合
-                                      tlWorkspacesStateNotifier
-                                          .changeCurrentWorkspaceIndex(
-                                              revisedNewIndex);
+                                      tlAppStateReducer.dispatchWorkspaceAction(
+                                          ChangeCurrentWorkspaceIndex(
+                                              revisedNewIndex));
                                     } else if (revisedOldIndex <
                                             currentTLWorkspaceIndex &&
                                         revisedNewIndex >=
                                             currentTLWorkspaceIndex) {
                                       // currentWorkspaceIndexが移動範囲内にある場合（下方向に移動）
-                                      tlWorkspacesStateNotifier
-                                          .changeCurrentWorkspaceIndex(
-                                              currentTLWorkspaceIndex - 1);
+                                      tlAppStateReducer.dispatchWorkspaceAction(
+                                          ChangeCurrentWorkspaceIndex(
+                                              currentTLWorkspaceIndex - 1));
                                     } else if (revisedOldIndex >
                                             currentTLWorkspaceIndex &&
                                         revisedNewIndex <=
                                             currentTLWorkspaceIndex) {
                                       // currentWorkspaceIndexが移動範囲内にある場合（上方向に移動）
-                                      tlWorkspacesStateNotifier
-                                          .changeCurrentWorkspaceIndex(
-                                              currentTLWorkspaceIndex + 1);
+                                      tlAppStateReducer.dispatchWorkspaceAction(
+                                          ChangeCurrentWorkspaceIndex(
+                                              currentTLWorkspaceIndex + 1));
                                     }
 
                                     // workspaceListを保存する
-                                    tlWorkspacesStateNotifier
-                                        .updateTLWorkspaceList(
-                                            updatedTLWorkspaceList:
-                                                List<TLWorkspace>.from(
-                                                    tlWorkspaces));
+                                    tlAppStateReducer.dispatchWorkspaceAction(
+                                        TLWorkspaceAction.updateWorkspaceList(
+                                            List<TLWorkspace>.from(
+                                                tlAppState.tlWorkspaces)));
                                   },
                                 ),
                                 // 新しくworkspaceを追加する,
