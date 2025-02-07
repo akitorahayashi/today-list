@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
+import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import '../../../../component/todo_card/tl_todo_card.dart';
@@ -31,7 +31,7 @@ class ToDosInThisCategoryInCurrentWorkspace extends ConsumerWidget {
     // notifier
     final tlAppStateNotifier = ref.read(tlAppStateProvider.notifier);
     // others
-    final coorCategoryIDToToDos = Map<String, TLToDos>.from(
+    final coorCategoryIDToToDos = Map<String, TLToDosInTodayAndWhenever>.from(
         currentTLWorkspaceReference.categoryIDToToDos);
 
     List<TLToDo> toDosInTodayInThisCategory = coorCategoryIDToToDos[

@@ -1,6 +1,6 @@
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
+import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/util/tl_category_utils.dart';
 
@@ -32,7 +32,8 @@ class TLWorkspaceUtils {
     }
 
     // 更新後のToDosを生成
-    final updatedCategoryIDToToDos = Map<String, TLToDos>.from(
+    final updatedCategoryIDToToDos =
+        Map<String, TLToDosInTodayAndWhenever>.from(
       corrWorkspace.categoryIDToToDos,
     );
     updatedCategoryIDToToDos[categoryId] = corrWorkspace
@@ -86,9 +87,9 @@ class TLWorkspaceUtils {
     );
   }
 
-  static TLToDos deleteAllCheckedToDosInAToDos({
+  static TLToDosInTodayAndWhenever deleteAllCheckedToDosInAToDos({
     required bool onlyToday,
-    required TLToDos selectedToDos,
+    required TLToDosInTodayAndWhenever selectedToDos,
   }) {
     // `toDosInToday` の新しいリストを生成
     final updatedToDosInToday = selectedToDos.toDosInToday

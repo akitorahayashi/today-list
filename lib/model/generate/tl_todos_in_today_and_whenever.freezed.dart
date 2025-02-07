@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of '../todo/tl_todos.dart';
+part of '../todo/tl_todos_in_today_and_whenever.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,43 +14,47 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-TLToDos _$TLToDosFromJson(Map<String, dynamic> json) {
-  return _TLToDos.fromJson(json);
+TLToDosInTodayAndWhenever _$TLToDosInTodayAndWheneverFromJson(
+    Map<String, dynamic> json) {
+  return _TLToDosInTodayAndWhenever.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TLToDos {
+mixin _$TLToDosInTodayAndWhenever {
   List<TLToDo> get toDosInToday => throw _privateConstructorUsedError;
   List<TLToDo> get toDosInWhenever => throw _privateConstructorUsedError;
 
-  /// Serializes this TLToDos to a JSON map.
+  /// Serializes this TLToDosInTodayAndWhenever to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of TLToDos
+  /// Create a copy of TLToDosInTodayAndWhenever
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $TLToDosCopyWith<TLToDos> get copyWith => throw _privateConstructorUsedError;
+  $TLToDosInTodayAndWheneverCopyWith<TLToDosInTodayAndWhenever> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TLToDosCopyWith<$Res> {
-  factory $TLToDosCopyWith(TLToDos value, $Res Function(TLToDos) then) =
-      _$TLToDosCopyWithImpl<$Res, TLToDos>;
+abstract class $TLToDosInTodayAndWheneverCopyWith<$Res> {
+  factory $TLToDosInTodayAndWheneverCopyWith(TLToDosInTodayAndWhenever value,
+          $Res Function(TLToDosInTodayAndWhenever) then) =
+      _$TLToDosInTodayAndWheneverCopyWithImpl<$Res, TLToDosInTodayAndWhenever>;
   @useResult
   $Res call({List<TLToDo> toDosInToday, List<TLToDo> toDosInWhenever});
 }
 
 /// @nodoc
-class _$TLToDosCopyWithImpl<$Res, $Val extends TLToDos>
-    implements $TLToDosCopyWith<$Res> {
-  _$TLToDosCopyWithImpl(this._value, this._then);
+class _$TLToDosInTodayAndWheneverCopyWithImpl<$Res,
+        $Val extends TLToDosInTodayAndWhenever>
+    implements $TLToDosInTodayAndWheneverCopyWith<$Res> {
+  _$TLToDosInTodayAndWheneverCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of TLToDos
+  /// Create a copy of TLToDosInTodayAndWhenever
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -72,24 +76,28 @@ class _$TLToDosCopyWithImpl<$Res, $Val extends TLToDos>
 }
 
 /// @nodoc
-abstract class _$$TLToDosImplCopyWith<$Res> implements $TLToDosCopyWith<$Res> {
-  factory _$$TLToDosImplCopyWith(
-          _$TLToDosImpl value, $Res Function(_$TLToDosImpl) then) =
-      __$$TLToDosImplCopyWithImpl<$Res>;
+abstract class _$$TLToDosInTodayAndWheneverImplCopyWith<$Res>
+    implements $TLToDosInTodayAndWheneverCopyWith<$Res> {
+  factory _$$TLToDosInTodayAndWheneverImplCopyWith(
+          _$TLToDosInTodayAndWheneverImpl value,
+          $Res Function(_$TLToDosInTodayAndWheneverImpl) then) =
+      __$$TLToDosInTodayAndWheneverImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<TLToDo> toDosInToday, List<TLToDo> toDosInWhenever});
 }
 
 /// @nodoc
-class __$$TLToDosImplCopyWithImpl<$Res>
-    extends _$TLToDosCopyWithImpl<$Res, _$TLToDosImpl>
-    implements _$$TLToDosImplCopyWith<$Res> {
-  __$$TLToDosImplCopyWithImpl(
-      _$TLToDosImpl _value, $Res Function(_$TLToDosImpl) _then)
+class __$$TLToDosInTodayAndWheneverImplCopyWithImpl<$Res>
+    extends _$TLToDosInTodayAndWheneverCopyWithImpl<$Res,
+        _$TLToDosInTodayAndWheneverImpl>
+    implements _$$TLToDosInTodayAndWheneverImplCopyWith<$Res> {
+  __$$TLToDosInTodayAndWheneverImplCopyWithImpl(
+      _$TLToDosInTodayAndWheneverImpl _value,
+      $Res Function(_$TLToDosInTodayAndWheneverImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of TLToDos
+  /// Create a copy of TLToDosInTodayAndWhenever
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -97,7 +105,7 @@ class __$$TLToDosImplCopyWithImpl<$Res>
     Object? toDosInToday = null,
     Object? toDosInWhenever = null,
   }) {
-    return _then(_$TLToDosImpl(
+    return _then(_$TLToDosInTodayAndWheneverImpl(
       toDosInToday: null == toDosInToday
           ? _value._toDosInToday
           : toDosInToday // ignore: cast_nullable_to_non_nullable
@@ -112,15 +120,15 @@ class __$$TLToDosImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TLToDosImpl implements _TLToDos {
-  const _$TLToDosImpl(
+class _$TLToDosInTodayAndWheneverImpl implements _TLToDosInTodayAndWhenever {
+  const _$TLToDosInTodayAndWheneverImpl(
       {final List<TLToDo> toDosInToday = const [],
       final List<TLToDo> toDosInWhenever = const []})
       : _toDosInToday = toDosInToday,
         _toDosInWhenever = toDosInWhenever;
 
-  factory _$TLToDosImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TLToDosImplFromJson(json);
+  factory _$TLToDosInTodayAndWheneverImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TLToDosInTodayAndWheneverImplFromJson(json);
 
   final List<TLToDo> _toDosInToday;
   @override
@@ -142,14 +150,14 @@ class _$TLToDosImpl implements _TLToDos {
 
   @override
   String toString() {
-    return 'TLToDos(toDosInToday: $toDosInToday, toDosInWhenever: $toDosInWhenever)';
+    return 'TLToDosInTodayAndWhenever(toDosInToday: $toDosInToday, toDosInWhenever: $toDosInWhenever)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TLToDosImpl &&
+            other is _$TLToDosInTodayAndWheneverImpl &&
             const DeepCollectionEquality()
                 .equals(other._toDosInToday, _toDosInToday) &&
             const DeepCollectionEquality()
@@ -163,38 +171,40 @@ class _$TLToDosImpl implements _TLToDos {
       const DeepCollectionEquality().hash(_toDosInToday),
       const DeepCollectionEquality().hash(_toDosInWhenever));
 
-  /// Create a copy of TLToDos
+  /// Create a copy of TLToDosInTodayAndWhenever
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$TLToDosImplCopyWith<_$TLToDosImpl> get copyWith =>
-      __$$TLToDosImplCopyWithImpl<_$TLToDosImpl>(this, _$identity);
+  _$$TLToDosInTodayAndWheneverImplCopyWith<_$TLToDosInTodayAndWheneverImpl>
+      get copyWith => __$$TLToDosInTodayAndWheneverImplCopyWithImpl<
+          _$TLToDosInTodayAndWheneverImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TLToDosImplToJson(
+    return _$$TLToDosInTodayAndWheneverImplToJson(
       this,
     );
   }
 }
 
-abstract class _TLToDos implements TLToDos {
-  const factory _TLToDos(
+abstract class _TLToDosInTodayAndWhenever implements TLToDosInTodayAndWhenever {
+  const factory _TLToDosInTodayAndWhenever(
       {final List<TLToDo> toDosInToday,
-      final List<TLToDo> toDosInWhenever}) = _$TLToDosImpl;
+      final List<TLToDo> toDosInWhenever}) = _$TLToDosInTodayAndWheneverImpl;
 
-  factory _TLToDos.fromJson(Map<String, dynamic> json) = _$TLToDosImpl.fromJson;
+  factory _TLToDosInTodayAndWhenever.fromJson(Map<String, dynamic> json) =
+      _$TLToDosInTodayAndWheneverImpl.fromJson;
 
   @override
   List<TLToDo> get toDosInToday;
   @override
   List<TLToDo> get toDosInWhenever;
 
-  /// Create a copy of TLToDos
+  /// Create a copy of TLToDosInTodayAndWhenever
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$TLToDosImplCopyWith<_$TLToDosImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$TLToDosInTodayAndWheneverImplCopyWith<_$TLToDosInTodayAndWheneverImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

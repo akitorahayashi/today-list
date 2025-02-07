@@ -10,7 +10,7 @@ import '../../../../styles.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/todo/tl_workspace.dart';
-import '../../../../model/todo/tl_todos.dart';
+import '../../../../model/todo/tl_todos_in_today_and_whenever.dart';
 import '../../../../service/tl_vibration.dart';
 
 class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget
@@ -56,7 +56,8 @@ class _AddOrEditWorkspaceDialogState
           noneID: []
         },
         categoryIDToToDos: {
-          noneID: const TLToDos(toDosInToday: [], toDosInWhenever: [])
+          noneID: const TLToDosInTodayAndWhenever(
+              toDosInToday: [], toDosInWhenever: [])
         });
     ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
         TLWorkspaceAction.addWorkspace(createdWorkspace));

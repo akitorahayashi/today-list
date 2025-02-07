@@ -22,7 +22,8 @@ _$TLWorkspaceImpl _$$TLWorkspaceImplFromJson(Map<String, dynamic> json) =>
       ),
       categoryIDToToDos:
           (json['categoryIDToToDos'] as Map<String, dynamic>).map(
-        (k, e) => MapEntry(k, TLToDos.fromJson(e as Map<String, dynamic>)),
+        (k, e) => MapEntry(
+            k, TLToDosInTodayAndWhenever.fromJson(e as Map<String, dynamic>)),
       ),
     );
 

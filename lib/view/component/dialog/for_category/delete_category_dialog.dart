@@ -8,7 +8,7 @@ import '../common/tl_single_option_dialog.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../service/tl_vibration.dart';
 import '../../../../model/todo/tl_category.dart';
-import '../../../../model/todo/tl_todos.dart';
+import '../../../../model/todo/tl_todos_in_today_and_whenever.dart';
 import '../../../../styles.dart';
 
 class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
@@ -113,8 +113,9 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
                             in currentWorkspaceRef.smallCategories.entries)
                           entry.key: List<TLCategory>.from(entry.value)
                       };
-                      final corrCategoryIDToToDos = Map<String, TLToDos>.from(
-                          currentWorkspaceRef.categoryIDToToDos);
+                      final corrCategoryIDToToDos =
+                          Map<String, TLToDosInTodayAndWhenever>.from(
+                              currentWorkspaceRef.categoryIDToToDos);
                       if (indexOfSmallCategory != null) {
                         // このカテゴリーがsmallCategoryの場合
                         // カテゴリーのリストから削除する

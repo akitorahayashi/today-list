@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/model/todo/tl_category.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
+import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
@@ -107,8 +107,9 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
         (key, value) => MapEntry(key, List<TLCategory>.from(value)),
       ),
     );
-    final Map<String, TLToDos> copiedCategoryIDToToDos =
-        Map<String, TLToDos>.from(currentWorkspaceReference.categoryIDToToDos);
+    final Map<String, TLToDosInTodayAndWhenever> copiedCategoryIDToToDos =
+        Map<String, TLToDosInTodayAndWhenever>.from(
+            currentWorkspaceReference.categoryIDToToDos);
 
     // "なし"カテゴリーにはsmallCategoryを追加させない
     if (state.selecteBigCategoryID == noneID) {
@@ -129,7 +130,8 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
         copiedBigCategories.add(createdBigCategory);
         copiedSmallCategories[createdBigCategory.id] = [];
         copiedCategoryIDToToDos[createdBigCategory.id] =
-            const TLToDos(toDosInToday: [], toDosInWhenever: []);
+            const TLToDosInTodayAndWhenever(
+                toDosInToday: [], toDosInWhenever: []);
       } else {
         // bigCategoryの編集
         final TLCategory renamedBigCategory =
@@ -154,7 +156,8 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
         copiedSmallCategories[state.selecteBigCategoryID]!
             .add(createdSmallCategory);
         copiedCategoryIDToToDos[createdSmallCategory.id] =
-            const TLToDos(toDosInToday: [], toDosInWhenever: []);
+            const TLToDosInTodayAndWhenever(
+                toDosInToday: [], toDosInWhenever: []);
       } else {
         // smallCategoryの編集
         final TLCategory renamedSmallCategory = copiedSmallCategories[state

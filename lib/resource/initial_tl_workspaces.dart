@@ -1,7 +1,7 @@
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
+import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 
 const String noneID = "defaultID";
@@ -18,21 +18,21 @@ final List<TLWorkspace> initialTLWorkspaces = [
     ],
     "hundredStoreId": [],
   }, categoryIDToToDos: {
-    noneID: const TLToDos(toDosInToday: [
+    noneID: const TLToDosInTodayAndWhenever(toDosInToday: [
       TLToDo(id: "todo1", title: "のり", steps: []),
       TLToDo(id: "todo2", title: "まくらカバー", steps: []),
     ], toDosInWhenever: []),
-    "superMarcketId": const TLToDos(toDosInToday: [
+    "superMarcketId": const TLToDosInTodayAndWhenever(toDosInToday: [
       TLToDo(id: "todo3", title: "パスタ", steps: [
         TLStep(id: "step1", title: "パスタの束"),
         TLStep(id: "step2", title: "オリーブオイル")
       ]),
     ], toDosInWhenever: []),
-    "vegetableId": const TLToDos(toDosInToday: [
+    "vegetableId": const TLToDosInTodayAndWhenever(toDosInToday: [
       TLToDo(id: "todo4", title: "キャベツ", steps: []),
       TLToDo(id: "todo5", title: "にんじん", steps: []),
     ], toDosInWhenever: []),
-    "hundredStoreId": const TLToDos(
+    "hundredStoreId": const TLToDosInTodayAndWhenever(
         toDosInToday: [TLToDo(id: "todo6", title: "お皿", steps: [])],
         toDosInWhenever: []),
   }),
@@ -49,18 +49,19 @@ final List<TLWorkspace> initialTLWorkspaces = [
     ],
     "englishId": []
   }, categoryIDToToDos: {
-    noneID: const TLToDos(
+    noneID: const TLToDosInTodayAndWhenever(
         toDosInToday: [TLToDo(id: "todo7", title: "~のプリントを出す", steps: [])],
         toDosInWhenever: []),
-    "mathId": const TLToDos(toDosInToday: [], toDosInWhenever: []),
-    "mathAId": const TLToDos(toDosInToday: [
+    "mathId":
+        const TLToDosInTodayAndWhenever(toDosInToday: [], toDosInWhenever: []),
+    "mathAId": const TLToDosInTodayAndWhenever(toDosInToday: [
       TLToDo(id: "todo8", title: "~を復習する", steps: []),
       TLToDo(id: "todo9", title: "ワーク12ページの宿題をやる", steps: []),
     ], toDosInWhenever: []),
-    "mathIId": const TLToDos(
+    "mathIId": const TLToDosInTodayAndWhenever(
         toDosInToday: [TLToDo(id: "todo10", title: "ドリル20~25ページ", steps: [])],
         toDosInWhenever: []),
-    "englishId": const TLToDos(
+    "englishId": const TLToDosInTodayAndWhenever(
         toDosInToday: [TLToDo(id: "todo11", title: "単語帳301~400", steps: [])],
         toDosInWhenever: []),
   }),

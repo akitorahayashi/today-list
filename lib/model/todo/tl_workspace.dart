@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'tl_category.dart';
-import 'tl_todos.dart';
+import 'tl_todos_in_today_and_whenever.dart';
 
 part '../generate/tl_workspace.freezed.dart';
 part '../generate/tl_workspace.g.dart';
@@ -14,7 +14,7 @@ class TLWorkspace with _$TLWorkspace {
     required String name,
     required List<TLCategory> bigCategories,
     required Map<String, List<TLCategory>> smallCategories,
-    required Map<String, TLToDos> categoryIDToToDos,
+    required Map<String, TLToDosInTodayAndWhenever> categoryIDToToDos,
   }) = _TLWorkspace;
 
   factory TLWorkspace.fromJson(Map<String, dynamic> json) =>

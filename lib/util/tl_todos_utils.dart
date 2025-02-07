@@ -1,9 +1,10 @@
 import 'package:today_list/model/todo/tl_todo.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
+import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 
 class TLToDosUtils {
   /// チェック済みのToDoおよびStepをカウント
-  static int countCheckedToDosAndSteps(TLToDos selectedToDos) {
+  static int countCheckedToDosAndSteps(
+      TLToDosInTodayAndWhenever selectedToDos) {
     int counter = 0;
 
     // 「今日」のカウント

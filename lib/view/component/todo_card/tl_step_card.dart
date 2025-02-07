@@ -7,7 +7,7 @@ import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_step.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/todo/tl_todos.dart';
+import '../../../model/todo/tl_todos_in_today_and_whenever.dart';
 import '../../../service/tl_vibration.dart';
 
 class TLStepCard extends ConsumerWidget {
@@ -75,12 +75,12 @@ class TLStepCard extends ConsumerWidget {
         updatedToDos[indexInToDos] = updatedToDo;
 
         // 更新されたCategoryIDToToDosを生成
-        final Map<String, TLToDos> updatedCategoryIDToToDos =
-            Map<String, TLToDos>.from(
+        final Map<String, TLToDosInTodayAndWhenever> updatedCategoryIDToToDos =
+            Map<String, TLToDosInTodayAndWhenever>.from(
                 currentWorkspaceReference.categoryIDToToDos);
 
         // 指定されたカテゴリのToDosリストを、条件に応じて更新し、Workspaceに反映する
-        final TLToDos currentToDos =
+        final TLToDosInTodayAndWhenever currentToDos =
             currentWorkspaceReference.categoryIDToToDos[corrCategoryID]!;
         updatedCategoryIDToToDos[corrCategoryID] = currentToDos.copyWith(
           toDosInToday: ifInToday ? updatedToDos : currentToDos.toDosInToday,

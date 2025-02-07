@@ -8,7 +8,7 @@ import 'package:today_list/util/tl_utils.dart';
 import '../../../model/todo/tl_workspace.dart';
 import '../../../model/todo/tl_step.dart';
 import '../../../model/todo/tl_todo.dart';
-import '../../../model/todo/tl_todos.dart';
+import '../../../model/todo/tl_todos_in_today_and_whenever.dart';
 
 class EditingTodo {
   static TextEditingController? toDoTitleInputController;
@@ -161,12 +161,14 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
     );
 
     // コピーしたデータを更新
-    final updatedCategoryIDToToDos = Map<String, TLToDos>.from(
+    final updatedCategoryIDToToDos =
+        Map<String, TLToDosInTodayAndWhenever>.from(
       currentWorkspaceReference.categoryIDToToDos,
     );
 
     // 対応するToDosリストを取得
-    final TLToDos corrToDos = updatedCategoryIDToToDos[corrCategoryID]!;
+    final TLToDosInTodayAndWhenever corrToDos =
+        updatedCategoryIDToToDos[corrCategoryID]!;
     final List<TLToDo> updatedToDos = List<TLToDo>.from(
       corrToDos.getToDos(state.ifInToday),
     );

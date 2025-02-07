@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../todo/tl_todos.dart';
+part of '../todo/tl_todos_in_today_and_whenever.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TLToDosImpl _$$TLToDosImplFromJson(Map<String, dynamic> json) =>
-    _$TLToDosImpl(
+_$TLToDosInTodayAndWheneverImpl _$$TLToDosInTodayAndWheneverImplFromJson(
+        Map<String, dynamic> json) =>
+    _$TLToDosInTodayAndWheneverImpl(
       toDosInToday: (json['toDosInToday'] as List<dynamic>?)
               ?.map((e) => TLToDo.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -18,7 +19,8 @@ _$TLToDosImpl _$$TLToDosImplFromJson(Map<String, dynamic> json) =>
           const [],
     );
 
-Map<String, dynamic> _$$TLToDosImplToJson(_$TLToDosImpl instance) =>
+Map<String, dynamic> _$$TLToDosInTodayAndWheneverImplToJson(
+        _$TLToDosInTodayAndWheneverImpl instance) =>
     <String, dynamic>{
       'toDosInToday': instance.toDosInToday,
       'toDosInWhenever': instance.toDosInWhenever,

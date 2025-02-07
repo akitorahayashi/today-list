@@ -1,10 +1,11 @@
 import 'package:today_list/model/todo/tl_category.dart';
-import 'package:today_list/model/todo/tl_todos.dart';
+import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 
 class TLCategoryUtils {
   // このカテゴリーに含まれるToDoの数を返す
   static int getNumberOfToDosInThisCategory(
-      {required bool? ifInToday, required TLToDos corrToDos}) {
+      {required bool? ifInToday,
+      required TLToDosInTodayAndWhenever corrToDos}) {
     if (ifInToday == null) {
       final int count =
           corrToDos.getToDos(true).length + corrToDos.getToDos(false).length;
