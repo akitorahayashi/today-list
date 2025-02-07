@@ -7,12 +7,10 @@ import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.
 import 'package:today_list/view/component/slidable/slidable_for_workspace_card.dart';
 
 class ChangeWorkspaceCard extends ConsumerWidget {
-  final bool isInDrawerList;
   final int indexInWorkspaces;
 
   const ChangeWorkspaceCard({
     super.key,
-    required this.isInDrawerList,
     required this.indexInWorkspaces,
   });
 
@@ -27,7 +25,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
     final bool isCurrentWorkspace = indexInWorkspaces == currentWorkspaceIndex;
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(5, 1, 5, (!isInDrawerList) ? 5 : 0),
+      padding: const EdgeInsets.fromLTRB(5, 1, 5, 0),
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 70),
         child: Card(
@@ -47,7 +45,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 16, horizontal: 16),
                     child: Text(
-                      isCurrentWorkspace && isInDrawerList
+                      isCurrentWorkspace
                           ? "☆ $workspaceName   "
                           : workspaceName,
                       style: TextStyle(
