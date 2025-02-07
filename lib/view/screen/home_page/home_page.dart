@@ -15,8 +15,8 @@ import 'package:today_list/view/screen/category_list_page/category_list_page.dar
 import 'package:today_list/view/screen/edit_todo_page/edit_todo_page.dart';
 import 'package:today_list/view/screen/setting_page/setting_page.dart';
 import 'workspace_drawer/workspace_drawer.dart';
-import 'num_todos_card.dart';
-import 'todos_block.dart';
+import 'build_todo_list/num_todos_card.dart';
+import 'build_todo_list/todos_block.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

@@ -30,7 +30,7 @@ class NumToDosCard extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 9.0, bottom: 10.0),
                 child: Column(
                   children: [
-                    // wheneverの場合
+                    // wheneverの場合のラベル
                     if (!ifInToday)
                       const Text("in Whenever",
                           style: TextStyle(

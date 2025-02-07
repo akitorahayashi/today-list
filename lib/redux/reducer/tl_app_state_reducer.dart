@@ -1,12 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/todo/tl_todo_action.dart';
 import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
 import 'package:today_list/redux/reducer/tl_workspace_reducer.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/service/tl_pref.dart';
 import 'dart:convert';
+
+import 'package:today_list/service/tl_vibration.dart';
 
 class TLAppStateReducer extends StateNotifier<TLAppState> {
   TLAppStateReducer()
@@ -44,10 +46,8 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
         state.tlWorkspaces, action, state.currentWorkspaceIndex);
 
     state = action.map(
-      changeCurrentWorkspaceIndex: (a) {
-        _saveCurrentWorkspaceIndex(a.newIndex);
-        return state.copyWith(currentWorkspaceIndex: a.newIndex);
-      },
+      changeCurrentWorkspaceIndex: (a) =>
+          _changeCurrentWorkspaceIndex(a.newIndex),
       addWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
       removeWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
       updateCurrentWorkspace: (a) =>
@@ -55,6 +55,16 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
       updateWorkspaceList: (a) =>
           state.copyWith(tlWorkspaces: updatedWorkspaces),
     );
+  }
+
+  // --- Change Current Workspace Index ---
+  TLAppState _changeCurrentWorkspaceIndex(int newIndex) {
+    if (state.currentWorkspaceIndex == newIndex) return state; // 変更不要
+
+    _saveCurrentWorkspaceIndex(newIndex);
+    TLVibrationService.vibrate(); // バイブレーション
+
+    return state.copyWith(currentWorkspaceIndex: newIndex);
   }
 
   // --- Save Current Workspace Index ---

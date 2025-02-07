@@ -13,13 +13,9 @@ class AddWorkspaceButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
         child: GestureDetector(
-          onTap: () => showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) {
-                return const AddOrEditWorkspaceDialog(
-                    oldIndexInWorkspaces: null);
-              }),
+          onTap: () =>
+              const AddOrEditWorkspaceDialog(oldIndexInWorkspaces: null)
+                  .show(context: context),
           child: Icon(
             Icons.add,
             color: tlThemeData.accentColor,
