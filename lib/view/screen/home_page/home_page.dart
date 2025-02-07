@@ -107,8 +107,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           padding: const EdgeInsets.only(top: 10.0),
           child: NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
         ),
-        ListOfCategoryToToDos(
-            ifInToday: true, currentWorkspace: currentWorkspaceRef),
+        const ListOfCategoryToToDos(ifInToday: true),
         // --- Whenever Section ---
         if (numOfToDosInWhenever != 0)
           Padding(
@@ -116,8 +115,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             child:
                 NumToDosCard(ifInToday: false, numTodos: numOfToDosInWhenever),
           ),
-        ListOfCategoryToToDos(
-            ifInToday: false, currentWorkspace: currentWorkspaceRef),
+        const ListOfCategoryToToDos(ifInToday: false),
         const SizedBox(height: 250),
       ]),
     );

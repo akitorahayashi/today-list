@@ -120,12 +120,13 @@ class __$$TLToDosInTodayAndWheneverImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TLToDosInTodayAndWheneverImpl implements _TLToDosInTodayAndWhenever {
+class _$TLToDosInTodayAndWheneverImpl extends _TLToDosInTodayAndWhenever {
   const _$TLToDosInTodayAndWheneverImpl(
       {final List<TLToDo> toDosInToday = const [],
       final List<TLToDo> toDosInWhenever = const []})
       : _toDosInToday = toDosInToday,
-        _toDosInWhenever = toDosInWhenever;
+        _toDosInWhenever = toDosInWhenever,
+        super._();
 
   factory _$TLToDosInTodayAndWheneverImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLToDosInTodayAndWheneverImplFromJson(json);
@@ -188,10 +189,11 @@ class _$TLToDosInTodayAndWheneverImpl implements _TLToDosInTodayAndWhenever {
   }
 }
 
-abstract class _TLToDosInTodayAndWhenever implements TLToDosInTodayAndWhenever {
+abstract class _TLToDosInTodayAndWhenever extends TLToDosInTodayAndWhenever {
   const factory _TLToDosInTodayAndWhenever(
       {final List<TLToDo> toDosInToday,
       final List<TLToDo> toDosInWhenever}) = _$TLToDosInTodayAndWheneverImpl;
+  const _TLToDosInTodayAndWhenever._() : super._();
 
   factory _TLToDosInTodayAndWhenever.fromJson(Map<String, dynamic> json) =
       _$TLToDosInTodayAndWheneverImpl.fromJson;

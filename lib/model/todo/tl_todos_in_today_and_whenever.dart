@@ -8,6 +8,8 @@ part '../generate/tl_todos_in_today_and_whenever.g.dart';
 
 @freezed
 class TLToDosInTodayAndWhenever with _$TLToDosInTodayAndWhenever {
+  const TLToDosInTodayAndWhenever._(); // プライベートコンストラクタを追加
+
   const factory TLToDosInTodayAndWhenever({
     @Default([]) List<TLToDo> toDosInToday,
     @Default([]) List<TLToDo> toDosInWhenever,
@@ -15,10 +17,8 @@ class TLToDosInTodayAndWhenever with _$TLToDosInTodayAndWhenever {
 
   factory TLToDosInTodayAndWhenever.fromJson(Map<String, dynamic> json) =>
       _$TLToDosInTodayAndWheneverFromJson(json);
-}
 
-// TODO 応急処置
-extension TLToDosExtension on TLToDosInTodayAndWhenever {
+  /// `ifInToday` が `true` の場合は `toDosInToday` を、`false` の場合は `toDosInWhenever` を返す
   List<TLToDo> getToDos(bool ifInToday) {
     return ifInToday ? toDosInToday : toDosInWhenever;
   }
