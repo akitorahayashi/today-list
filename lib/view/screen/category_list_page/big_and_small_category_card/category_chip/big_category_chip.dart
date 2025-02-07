@@ -6,28 +6,56 @@ import '../../../../component/dialog/for_category/select_edit_method_dialog.dart
 import '../../../../../model/design/tl_theme.dart';
 import '../../../../../model/todo/tl_category.dart';
 import '../../../../../model/todo/tl_workspace.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BigCategoryChip extends ConsumerWidget {
   final int indexOfBigCategory;
+
   const BigCategoryChip({super.key, required this.indexOfBigCategory});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    // provider
-    final tlAppState = ref.watch(tlAppStateProvider);
-    // others
-    final TLWorkspace currentWorkspaceReference =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
-    TLCategory bigCategoryOfThisChip =
-        currentWorkspaceReference.bigCategories[indexOfBigCategory];
-    final int numberOfToDosInThisCategory =
-        TLCategoryUtils.getNumberOfToDosInThisCategory(
-            ifInToday: null,
-            corrToDos: currentWorkspaceReference
-                .categoryIDToToDos[bigCategoryOfThisChip.id]!);
+    final currentWorkspace = ref.watch(tlAppStateProvider
+        .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]));
+
+    final bigCategory = _getBigCategory(currentWorkspace);
+    final numberOfToDos = _getNumberOfToDos(currentWorkspace, bigCategory);
+
+    return _buildChipUI(context, tlThemeData, bigCategory, numberOfToDos);
+  }
+
+  // MARK - Get Big Category Data
+  TLCategory _getBigCategory(TLWorkspace currentWorkspace) {
+    return currentWorkspace.bigCategories[indexOfBigCategory];
+  }
+
+  // MARK - Get Number of ToDos
+  int _getNumberOfToDos(TLWorkspace currentWorkspace, TLCategory bigCategory) {
+    return TLCategoryUtils.getNumberOfToDosInThisCategory(
+      ifInToday: null,
+      corrToDos: currentWorkspace.categoryIDToToDos[bigCategory.id]!,
+    );
+  }
+
+  // MARK - Show Edit Dialog
+  Future<void> _showEditDialog(
+      BuildContext context, TLCategory bigCategory) async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return SelectEditMethodDialog(
+          categoryOfThisPage: bigCategory,
+          indexOfBigCategory: indexOfBigCategory,
+          indexOfSmallCategory: null,
+        );
+      },
+    );
+  }
+
+  // MARK - Build Chip UI
+  Widget _buildChipUI(BuildContext context, TLThemeData tlThemeData,
+      TLCategory bigCategory, int numberOfToDos) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: SizedBox(
@@ -42,37 +70,26 @@ class BigCategoryChip extends ConsumerWidget {
                 Expanded(
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      bigCategoryOfThisChip.title,
-                    ),
+                    child: Text(bigCategory.title),
                   ),
                 ),
-                if (numberOfToDosInThisCategory != 0)
+                if (numberOfToDos != 0)
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: Text("$numberOfToDosInThisCategory"),
-                  )
+                    child: Text("$numberOfToDos"),
+                  ),
               ],
             ),
           ),
           labelStyle: const TextStyle(
-              overflow: TextOverflow.ellipsis,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
-              color: Colors.white),
+            overflow: TextOverflow.ellipsis,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+            color: Colors.white,
+          ),
           pressElevation: 3,
           elevation: 3,
-          onPressed: () => {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return SelectEditMethodDialog(
-                    categoryOfThisPage: bigCategoryOfThisChip,
-                    indexOfBigCategory: indexOfBigCategory,
-                    indexOfSmallCategory: null,
-                  );
-                })
-          },
+          onPressed: () => _showEditDialog(context, bigCategory),
         ),
       ),
     );
