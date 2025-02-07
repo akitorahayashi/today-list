@@ -12,7 +12,7 @@ targets:
         - test/**  # テストコードはビルド対象から除外
 
     builders:
-      # `source_gen` の結合ビルダー（`freezed` もこれを利用）
+      # `source_gen` のビルダー
       source_gen|combining_builder:
         generate_for:
           - lib/model/todo/**

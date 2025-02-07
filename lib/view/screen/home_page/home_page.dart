@@ -21,6 +21,34 @@ import 'todos_block.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// TODO - Delete Checked ToDos
+void _deleteCheckedToDos(
+    BuildContext context, TLWorkspace currentWorkspaceRef, tlAppStateReducer) {
+  showDialog(
+    context: context,
+    builder: ((context) => TLYesNoDialog(
+          title: "チェック済みToDoを\n削除しますか?",
+          message: null,
+          yesAction: () async {
+            Navigator.pop(context);
+            final updatedWorkspace =
+                await TLWorkspaceUtils.deleteCheckedToDosInTodayInAWorkspace(
+              currentWorkspaceRef,
+              onlyToday: false,
+            );
+            tlAppStateReducer.dispatchWorkspaceAction(
+                TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace));
+
+            if (context.mounted) {
+              const TLSingleOptionDialog(title: "削除が完了しました！")
+                  .show(context: context);
+            }
+            TLVibrationService.vibrate();
+          },
+        )),
+  );
+}
+
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -29,40 +57,30 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  bool _accetColorIsChanged = false;
+  bool _accetColorIsNotChanged = true;
   final GlobalKey<ScaffoldState> homePageScaffoldKey =
       GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    // 画面の描画が終わったタイミングで処理
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!_accetColorIsChanged) {
-        _accetColorIsChanged = true;
-        // accetColor is changed
+      if (_accetColorIsNotChanged) {
+        _accetColorIsNotChanged = false;
         setState(() {});
         FlutterNativeSplash.remove();
       }
-      // if (settingData.isFirstEntry) {
-      //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-      //     return const ShowTutorialPage();
-      //   }));
-      // }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    // provider
     final tlAppState = ref.watch(tlAppStateProvider);
-    // notifier
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-    // others
-    final TLWorkspace currentWorkspaceRef =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
-    // final int currentWorkspaceIndex = tlAppState.currentWorkspaceIndex;
+    final currentWorkspaceRef = ref.watch(
+      tlAppStateProvider
+          .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]),
+    );
     final numOfToDosInToday =
         TLWorkspaceUtils.getNumOfToDo(currentWorkspaceRef, ifInToday: true);
     final numOfToDosInWhenever =
@@ -71,106 +89,106 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Scaffold(
       key: homePageScaffoldKey,
       drawer: const TLWorkspaceDrawer(isContentMode: false),
-      body: Stack(children: [
-        // 背景色
-        Container(color: tlThemeData.backgroundColor),
-        // 本体
-        CustomScrollView(
-          slivers: [
-            TLSliverAppBar(
-              pageTitle: tlAppState.currentWorkspaceIndex == 0
-                  ? "Today List"
-                  : currentWorkspaceRef.name,
-              // drawerを表示するボタン
-              leadingButtonOnPressed: () =>
-                  homePageScaffoldKey.currentState!.openDrawer(),
-              leadingIcon: const Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-              // setting pageへ移動するボタン
-              trailingButtonOnPressed: () async {
-                await Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
-                  return const TLSettingPage();
-                }));
-              },
-              trailingIcon: const Icon(Icons.settings, color: Colors.white),
-            ),
-            SliverList(
-                delegate: SliverChildListDelegate([
-              const SizedBox(
-                height: 10,
-              ),
-              NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
-              TodosBlock(
-                  ifInToday: true, currentTLWorkspace: currentWorkspaceRef),
-              if (numOfToDosInWhenever != 0)
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: NumToDosCard(
-                      ifInToday: false, numTodos: numOfToDosInWhenever),
-                ),
-              TodosBlock(
-                  ifInToday: false, currentTLWorkspace: currentWorkspaceRef),
-
-              // スペーサー
-              const SizedBox(height: 250)
-            ])),
-          ],
-        ),
-        // 今日のチェック済みtodoを全て削除するボタン, カテゴリーリストに移動するボタン
-        TodayListBottomNavbar(
-          leadingIconData: FontAwesomeIcons.squareCheck,
-          //　今日のチェック済みtodoを全て削除するボタン
-          leadingButtonOnPressed: () => showDialog(
-            context: context,
-            builder: ((context) => TLYesNoDialog(
-                  title: "チェック済みToDoを\n削除しますか?",
-                  message: null,
-                  yesAction: () async {
-                    Navigator.pop(context);
-                    // このworkspaceの今日に分類されているToDoを削除
-                    final updatedWorkspace = await TLWorkspaceUtils
-                        .deleteCheckedToDosInTodayInAWorkspace(
-                      currentWorkspaceRef,
-                      onlyToday: false,
-                    );
-                    // 状態を保存
-                    tlAppStateReducer.dispatchWorkspaceAction(
-                        TLWorkspaceAction.updateCurrentWorkspace(
-                            updatedWorkspace));
-                    if (context.mounted) {
-                      const TLSingleOptionDialog(title: "削除が完了しました！")
-                          .show(context: context);
-                    }
-                    TLVibrationService.vibrate();
-                  },
-                )),
+      body: Stack(
+        children: [
+          Container(color: tlThemeData.backgroundColor),
+          CustomScrollView(
+            slivers: [
+              _buildAppBar(context, tlAppState, currentWorkspaceRef),
+              _buildTodoList(
+                  numOfToDosInToday, numOfToDosInWhenever, currentWorkspaceRef),
+            ],
           ),
-          trailingIconData: FontAwesomeIcons.list,
-          // カテゴリーリストに移動するボタン
-          tralingButtonOnPressed: () async {
-            await Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const CategoryListPage();
-            }));
-          },
+          _buildBottomNavbar(context),
+          _buildCenterButton(context),
+        ],
+      ),
+    );
+  }
+
+  // MARK - AppBar
+  Widget _buildAppBar(
+      BuildContext context, tlAppState, TLWorkspace currentWorkspaceRef) {
+    return TLSliverAppBar(
+      pageTitle: tlAppState.currentWorkspaceIndex == 0
+          ? "Today List"
+          : currentWorkspaceRef.name,
+      leadingButtonOnPressed: () =>
+          homePageScaffoldKey.currentState!.openDrawer(),
+      leadingIcon: const Icon(Icons.menu, color: Colors.white),
+      trailingButtonOnPressed: () async {
+        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const TLSettingPage();
+        }));
+      },
+      trailingIcon: const Icon(Icons.settings, color: Colors.white),
+    );
+  }
+
+  // MARK - ToDo List Section
+  Widget _buildTodoList(int numOfToDosInToday, int numOfToDosInWhenever,
+      TLWorkspace currentWorkspaceRef) {
+    return SliverList(
+      delegate: SliverChildListDelegate([
+        // --- Today Section ---
+        Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
         ),
-        // 新たにtodoを追加するボタン
-        CenterButtonOfBottomNavBar(
-          onPressed: () async {
-            await Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return EditToDoPage(
-                ifInToday: true,
-                selectedBigCategoryID: currentWorkspaceRef.bigCategories[0].id,
-                selectedSmallCategoryID: null,
-                editedToDoTitle: null,
-                indexOfEdittedTodo: null,
-              );
-            }));
-          },
-        ),
+        TodosBlock(ifInToday: true, currentTLWorkspace: currentWorkspaceRef),
+        // --- Whenever Section ---
+        if (numOfToDosInWhenever != 0)
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child:
+                NumToDosCard(ifInToday: false, numTodos: numOfToDosInWhenever),
+          ),
+        TodosBlock(ifInToday: false, currentTLWorkspace: currentWorkspaceRef),
+        const SizedBox(height: 250),
       ]),
+    );
+  }
+
+  // MARK - Bottom Navigation Bar
+  Widget _buildBottomNavbar(BuildContext context) {
+    final currentWorkspaceRef = ref.watch(
+      tlAppStateProvider
+          .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]),
+    );
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+
+    return TodayListBottomNavbar(
+      leadingIconData: FontAwesomeIcons.squareCheck,
+      leadingButtonOnPressed: () =>
+          _deleteCheckedToDos(context, currentWorkspaceRef, tlAppStateReducer),
+      trailingIconData: FontAwesomeIcons.list,
+      tralingButtonOnPressed: () async {
+        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const CategoryListPage();
+        }));
+      },
+    );
+  }
+
+  // MARK - Center Add Button
+  Widget _buildCenterButton(BuildContext context) {
+    final currentWorkspaceRef = ref.watch(
+      tlAppStateProvider
+          .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]),
+    );
+
+    return CenterButtonOfBottomNavBar(
+      onPressed: () async {
+        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return EditToDoPage(
+            ifInToday: true,
+            selectedBigCategoryID: currentWorkspaceRef.bigCategories[0].id,
+            selectedSmallCategoryID: null,
+            editedToDoTitle: null,
+            indexOfEdittedTodo: null,
+          );
+        }));
+      },
     );
   }
 }
