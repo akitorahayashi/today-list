@@ -58,43 +58,29 @@ class TLWorkspaceDrawer extends ConsumerWidget {
     return SliverList(
       delegate: SliverChildListDelegate([
         Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: _buildOtherWorkspacesSection(
-              context, ref, currentWorkspaceIndex, workspaces, tlThemeData),
-        ),
-      ]),
-    );
-  }
-
-  // MARK - Other Workspaces Section
-  Widget _buildOtherWorkspacesSection(
-      BuildContext context,
-      WidgetRef ref,
-      int currentWorkspaceIndex,
-      List<TLWorkspace> workspaces,
-      TLThemeData tlThemeData) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(3, 3, 3, 0),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: tlThemeData.panelBorderColor),
-        child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
-            child: Column(
-              children: [
-                const ChangeWorkspaceCard(indexInWorkspaces: 0),
-                _buildReorderableWorkspaceList(
-                    ref, currentWorkspaceIndex, workspaces),
-                const AddWorkspaceButton(),
-              ],
+          padding: const EdgeInsets.fromLTRB(3, 8, 3, 0),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: tlThemeData.panelBorderColor),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
+                child: Column(
+                  children: [
+                    const ChangeWorkspaceCard(indexInWorkspaces: 0),
+                    _buildReorderableWorkspaceList(
+                        ref, currentWorkspaceIndex, workspaces),
+                    const AddWorkspaceButton(),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
-      ),
+      ]),
     );
   }
 

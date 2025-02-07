@@ -10,12 +10,12 @@ import '../../../../../model/todo/tl_category.dart';
 
 import 'package:reorderables/reorderables.dart';
 
-class ToDosInThisCategoryInCurrentWorkspace extends ConsumerWidget {
+class ToDosInCategory extends ConsumerWidget {
   final bool ifInToday;
   final TLCategory bigCategoryOfThisToDo;
   final TLCategory? smallCategoryOfThisToDo;
 
-  const ToDosInThisCategoryInCurrentWorkspace({
+  const ToDosInCategory({
     super.key,
     required this.ifInToday,
     required this.bigCategoryOfThisToDo,

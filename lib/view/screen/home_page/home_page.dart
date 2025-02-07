@@ -16,38 +16,10 @@ import 'package:today_list/view/screen/edit_todo_page/edit_todo_page.dart';
 import 'package:today_list/view/screen/setting_page/setting_page.dart';
 import 'workspace_drawer/workspace_drawer.dart';
 import 'build_todo_list/num_todos_card.dart';
-import 'build_todo_list/todos_block.dart';
+import 'build_todo_list/list_of_category_to_todos.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-// TODO - Delete Checked ToDos
-void _deleteCheckedToDos(
-    BuildContext context, TLWorkspace currentWorkspaceRef, tlAppStateReducer) {
-  showDialog(
-    context: context,
-    builder: ((context) => TLYesNoDialog(
-          title: "チェック済みToDoを\n削除しますか?",
-          message: null,
-          yesAction: () async {
-            Navigator.pop(context);
-            final updatedWorkspace =
-                await TLWorkspaceUtils.deleteCheckedToDosInTodayInAWorkspace(
-              currentWorkspaceRef,
-              onlyToday: false,
-            );
-            tlAppStateReducer.dispatchWorkspaceAction(
-                TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace));
-
-            if (context.mounted) {
-              const TLSingleOptionDialog(title: "削除が完了しました！")
-                  .show(context: context);
-            }
-            TLVibrationService.vibrate();
-          },
-        )),
-  );
-}
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -135,7 +107,8 @@ class _HomePageState extends ConsumerState<HomePage> {
           padding: const EdgeInsets.only(top: 10.0),
           child: NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
         ),
-        TodosBlock(ifInToday: true, currentTLWorkspace: currentWorkspaceRef),
+        ListOfCategoryToToDos(
+            ifInToday: true, currentWorkspace: currentWorkspaceRef),
         // --- Whenever Section ---
         if (numOfToDosInWhenever != 0)
           Padding(
@@ -143,7 +116,8 @@ class _HomePageState extends ConsumerState<HomePage> {
             child:
                 NumToDosCard(ifInToday: false, numTodos: numOfToDosInWhenever),
           ),
-        TodosBlock(ifInToday: false, currentTLWorkspace: currentWorkspaceRef),
+        ListOfCategoryToToDos(
+            ifInToday: false, currentWorkspace: currentWorkspaceRef),
         const SizedBox(height: 250),
       ]),
     );
@@ -189,6 +163,34 @@ class _HomePageState extends ConsumerState<HomePage> {
           );
         }));
       },
+    );
+  }
+
+  // TODO dispatchを使う方法に書き換える - Delete Checked ToDos
+  void _deleteCheckedToDos(BuildContext context,
+      TLWorkspace currentWorkspaceRef, tlAppStateReducer) {
+    showDialog(
+      context: context,
+      builder: ((context) => TLYesNoDialog(
+            title: "チェック済みToDoを\n削除しますか?",
+            message: null,
+            yesAction: () async {
+              Navigator.pop(context);
+              final updatedWorkspace =
+                  await TLWorkspaceUtils.deleteCheckedToDosInTodayInAWorkspace(
+                currentWorkspaceRef,
+                onlyToday: false,
+              );
+              tlAppStateReducer.dispatchWorkspaceAction(
+                  TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace));
+
+              if (context.mounted) {
+                const TLSingleOptionDialog(title: "削除が完了しました！")
+                    .show(context: context);
+              }
+              TLVibrationService.vibrate();
+            },
+          )),
     );
   }
 }
