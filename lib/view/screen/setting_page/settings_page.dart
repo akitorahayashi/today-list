@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/view/screen/setting_page/set_ios_widget_page/set_ios_widget_page.dart';
 import 'package:today_list/view/component/common_ui_part/tl_sliver_appbar.dart';
 import 'package:today_list/model/design/tl_theme.dart';
@@ -6,45 +7,28 @@ import 'set_features_page/set_appearance_page.dart';
 import 'dart:io';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
-class TLSettingPage extends StatefulWidget {
-  const TLSettingPage({super.key});
-
-  @override
-  State<TLSettingPage> createState() => _TLSettingPageState();
-}
-
-class _TLSettingPageState extends State<TLSettingPage> {
-  late int _selectedPageIndex;
-  late PageController _pageControllerInSettingPage;
-
-  final List<Widget> _contentsInSettingPage = [
-    if (Platform.isIOS) const SetIOSWidgetPage(),
-    const SetAppearancePage(),
-    // const MyPage(),
-  ];
-
-  final List<dynamic> _iconDataOfSettingPageContents = [
-    [Icons.widgets, "Widgets"],
-    [Icons.phone_android, "Features"],
-    // [Icons.account_circle_outlined, "My Page"],
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _initializePageController();
-  }
-
-  // MARK - Initialize PageController
-  void _initializePageController() {
-    _selectedPageIndex = Platform.isIOS ? 1 : 0;
-    _pageControllerInSettingPage =
-        PageController(initialPage: _selectedPageIndex);
-  }
+class SettingsPage extends HookWidget {
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final TLThemeData tlThemeData = TLTheme.of(context);
+
+    // MARK - Hooks for state management
+    final selectedPageIndex = useState<int>(Platform.isIOS ? 1 : 0);
+    final pageController =
+        usePageController(initialPage: selectedPageIndex.value);
+
+    final List<Widget> contentsInSettingPage = [
+      if (Platform.isIOS) const SetIOSWidgetPage(),
+      const SetAppearancePage(),
+    ];
+
+    final List<dynamic> iconDataOfSettingPageContents = [
+      [Icons.widgets, "Widgets"],
+      [Icons.phone_android, "Features"],
+    ];
+
     return ProgressHUD(
       barrierEnabled: true,
       indicatorColor: Colors.white,
@@ -62,9 +46,10 @@ class _TLSettingPageState extends State<TLSettingPage> {
                   (BuildContext context, bool innerBoxIsScrolled) {
                 return [_buildAppBar(context)];
               },
-              body: _buildPageView(),
+              body: _buildPageView(pageController, contentsInSettingPage),
             ),
-            _buildBottomNavBar(tlThemeData),
+            _buildBottomNavBar(context, tlThemeData, selectedPageIndex,
+                pageController, iconDataOfSettingPageContents),
           ],
         ),
       ),
@@ -83,21 +68,27 @@ class _TLSettingPageState extends State<TLSettingPage> {
   }
 
   // MARK - Build PageView
-  Widget _buildPageView() {
+  Widget _buildPageView(PageController pageController, List<Widget> contents) {
     return PageView.builder(
       physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) => _contentsInSettingPage[index],
-      itemCount: _contentsInSettingPage.length,
-      controller: _pageControllerInSettingPage,
+      itemBuilder: (context, index) => contents[index],
+      itemCount: contents.length,
+      controller: pageController,
     );
   }
 
   // MARK - Build Bottom Navigation Bar
-  Widget _buildBottomNavBar(TLThemeData tlThemeData) {
+  Widget _buildBottomNavBar(
+    BuildContext context,
+    TLThemeData tlThemeData,
+    ValueNotifier<int> selectedPageIndex,
+    PageController pageController,
+    List<dynamic> iconDataOfSettingPageContents,
+  ) {
     return Positioned(
       bottom: 0,
       child: Container(
-        width: MediaQuery.of(context).size.width,
+        width: double.infinity,
         height: (100 * MediaQuery.of(context).size.height / 896),
         decoration: const BoxDecoration(
           color: Colors.white,
@@ -106,8 +97,11 @@ class _TLSettingPageState extends State<TLSettingPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            for (int index = 0; index < _contentsInSettingPage.length; index++)
-              _buildBottomNavItem(index, tlThemeData),
+            for (int index = 0;
+                index < iconDataOfSettingPageContents.length;
+                index++)
+              _buildBottomNavItem(index, selectedPageIndex, pageController,
+                  tlThemeData, iconDataOfSettingPageContents),
           ],
         ),
       ),
@@ -115,24 +109,31 @@ class _TLSettingPageState extends State<TLSettingPage> {
   }
 
   // MARK - Build Navigation Item
-  Widget _buildBottomNavItem(int index, TLThemeData tlThemeData) {
+  Widget _buildBottomNavItem(
+    int index,
+    ValueNotifier<int> selectedPageIndex,
+    PageController pageController,
+    TLThemeData tlThemeData,
+    List<dynamic> iconDataOfSettingPageContents,
+  ) {
     return GestureDetector(
-      onTap: () => _onBottomNavItemTapped(index),
+      onTap: () =>
+          _onBottomNavItemTapped(index, selectedPageIndex, pageController),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            _iconDataOfSettingPageContents[index][0],
-            color: index == _selectedPageIndex
+            iconDataOfSettingPageContents[index][0],
+            color: index == selectedPageIndex.value
                 ? tlThemeData.accentColor
                 : Colors.black45,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 11.0),
             child: Text(
-              _iconDataOfSettingPageContents[index][1],
+              iconDataOfSettingPageContents[index][1],
               style: TextStyle(
-                color: index == _selectedPageIndex
+                color: index == selectedPageIndex.value
                     ? tlThemeData.accentColor
                     : Colors.black45,
                 fontWeight: FontWeight.bold,
@@ -146,13 +147,12 @@ class _TLSettingPageState extends State<TLSettingPage> {
   }
 
   // MARK - Handle Navigation Item Tap
-  void _onBottomNavItemTapped(int index) {
-    if (_selectedPageIndex != index) {
-      setState(() {
-        _selectedPageIndex = index;
-      });
-      _pageControllerInSettingPage.animateToPage(
-        _selectedPageIndex,
+  void _onBottomNavItemTapped(int index, ValueNotifier<int> selectedPageIndex,
+      PageController pageController) {
+    if (selectedPageIndex.value != index) {
+      selectedPageIndex.value = index;
+      pageController.animateToPage(
+        index,
         duration: const Duration(milliseconds: 400),
         curve: Curves.decelerate,
       );

@@ -13,7 +13,7 @@ import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view/screen/category_list_page/category_list_page.dart';
 import 'package:today_list/view/screen/edit_todo_page/edit_todo_page.dart';
-import 'package:today_list/view/screen/setting_page/setting_page.dart';
+import 'package:today_list/view/screen/setting_page/settings_page.dart';
 import 'workspace_drawer/workspace_drawer.dart';
 import 'build_todo_list/num_todos_card.dart';
 import 'build_todo_list/list_of_category_to_todos.dart';
@@ -90,7 +90,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       leadingIcon: const Icon(Icons.menu, color: Colors.white),
       trailingButtonOnPressed: () async {
         await Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const TLSettingPage();
+          return const SettingsPage();
         }));
       },
       trailingIcon: const Icon(Icons.settings, color: Colors.white),
