@@ -37,7 +37,7 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
                   .firstWhere(
                     (oneOfSmallCategory) =>
                         oneOfSmallCategory.id == editingTodo.smallCategoryID,
-                    orElse: () => TLCategory(
+                    orElse: () => const TLCategory(
                         id: '', title: '小カテゴリー'), // デフォルトのTLCategoryオブジェクトを返す
                   )
                   .title,

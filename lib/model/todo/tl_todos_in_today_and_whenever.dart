@@ -8,7 +8,8 @@ part '../generate/tl_todos_in_today_and_whenever.g.dart';
 
 @freezed
 class TLToDosInTodayAndWhenever with _$TLToDosInTodayAndWhenever {
-  const TLToDosInTodayAndWhenever._(); // プライベートコンストラクタを追加
+  // プライベートコンストラクタを追加してカスタムメソッドを定義できるようにする
+  const TLToDosInTodayAndWhenever._();
 
   const factory TLToDosInTodayAndWhenever({
     @Default([]) List<TLToDo> toDosInToday,

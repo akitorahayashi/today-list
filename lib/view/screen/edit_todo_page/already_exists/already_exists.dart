@@ -4,7 +4,6 @@ import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import '../../../../model/design/tl_theme.dart';
 import '../../../../model/todo/tl_workspace.dart';
 import '../../../../model/todo/tl_todo.dart';
-import '../../../../model/todo/tl_todos_in_today_and_whenever.dart';
 import 'model_of_todo_card.dart';
 
 class AlreadyExist extends ConsumerWidget {
