@@ -9,8 +9,6 @@ import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/view/component/common_ui_part/tl_sliver_appbar.dart';
 import 'package:today_list/view/component/dialog/for_category/add_category_dialog.dart';
 import 'big_and_small_category_card/big_and_small_category_card.dart';
-import 'add_category_button.dart';
-
 import 'package:reorderables/reorderables.dart';
 
 class CategoryListPage extends ConsumerWidget {
@@ -19,85 +17,109 @@ class CategoryListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    // provider
-    final tlAppState = ref.watch(tlAppStateProvider);
-    // notifier
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-    // others
-    final TLWorkspace currentWorkspaceReference =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
+    final currentWorkspace = ref.watch(tlAppStateProvider
+        .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]));
+
     return Scaffold(
-      body: Stack(children: [
-        // 背景色
-        Container(
-            decoration: BoxDecoration(color: tlThemeData.backgroundColor),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height),
-        CustomScrollView(
-          slivers: [
-            // AppBar
-            TLSliverAppBar(
-                pageTitle: "Category List",
-                // ホームに戻るボタン
-                leadingButtonOnPressed: () {
-                  Navigator.pop(context);
-                },
-                leadingIcon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                ),
-                trailingButtonOnPressed: null,
-                trailingIcon: null),
-            SliverList(
+      body: Stack(
+        children: [
+          Container(color: tlThemeData.backgroundColor),
+          CustomScrollView(
+            slivers: [
+              _buildAppBar(context),
+              // カテゴリーのリスト
+              SliverList(
                 delegate: SliverChildListDelegate([
-              const SizedBox(
-                height: 5,
+                  const SizedBox(height: 5),
+                  _buildReorderableCategories(ref, currentWorkspace),
+                  const SizedBox(height: 200),
+                ]),
               ),
-              // BigCategoryのリスト
-              ReorderableColumn(
-                  children: [
-                    // bigCategoryがなしではない場合、bigCategoryの並び替え可能カードを表示する
-                    for (int i = 0;
-                        i < currentWorkspaceReference.bigCategories.length;
-                        i++)
-                      GestureDetector(
-                        key: ValueKey(
-                            currentWorkspaceReference.bigCategories[i].id),
-                        onLongPress:
-                            currentWorkspaceReference.bigCategories[i].id !=
-                                    noneID
-                                ? null
-                                : () {},
-                        child: BigAndSmallCategoryCard(indexOfBigCategory: i),
-                      ),
-                  ],
-                  onReorder: (oldIndex, newIndex) {
-                    if (newIndex == 0) return;
-                    final copiedBigCategories = List<TLCategory>.from(
-                        currentWorkspaceReference.bigCategories);
-                    // operation
-                    TLCategory reOrderedBigCategory =
-                        copiedBigCategories.removeAt(oldIndex);
-                    copiedBigCategories.insert(newIndex, reOrderedBigCategory);
-                    // categoriesを保存する
-                    tlAppStateReducer.dispatchWorkspaceAction(
-                        TLWorkspaceAction.updateCurrentWorkspace(
-                            currentWorkspaceReference.copyWith(
-                                bigCategories: copiedBigCategories)));
-                  }),
-              const SizedBox(
-                height: 300,
-              )
-            ])),
-          ],
+            ],
+          ),
+          _buildAddCategoryButton(context, tlThemeData),
+        ],
+      ),
+    );
+  }
+
+  // MARK - AppBar
+  Widget _buildAppBar(BuildContext context) {
+    return TLSliverAppBar(
+      pageTitle: "Category List",
+      leadingButtonOnPressed: () => Navigator.pop(context),
+      leadingIcon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+      trailingButtonOnPressed: null,
+      trailingIcon: null,
+    );
+  }
+
+  // MARK - Reorderable Category List
+  Widget _buildReorderableCategories(
+      WidgetRef ref, TLWorkspace currentWorkspace) {
+    return ReorderableColumn(
+      children: [
+        for (int i = 0; i < currentWorkspace.bigCategories.length; i++)
+          GestureDetector(
+            key: ValueKey(currentWorkspace.bigCategories[i].id),
+            onLongPress:
+                currentWorkspace.bigCategories[i].id != noneID ? null : () {},
+            child: BigAndSmallCategoryCard(indexOfBigCategory: i),
+          ),
+      ],
+      onReorder: (oldIndex, newIndex) {
+        _handleReorder(ref, currentWorkspace, oldIndex, newIndex);
+      },
+    );
+  }
+
+  // MARK - Handle Reorder Logic
+  void _handleReorder(
+      WidgetRef ref, TLWorkspace currentWorkspace, int oldIndex, int newIndex) {
+    if (newIndex == 0) return;
+
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    final copiedBigCategories =
+        List<TLCategory>.from(currentWorkspace.bigCategories);
+
+    // 並び替え処理
+    final TLCategory reOrderedBigCategory =
+        copiedBigCategories.removeAt(oldIndex);
+    copiedBigCategories.insert(newIndex, reOrderedBigCategory);
+
+    // 状態を更新
+    tlAppStateReducer.dispatchWorkspaceAction(
+      TLWorkspaceAction.updateCurrentWorkspace(
+        currentWorkspace.copyWith(bigCategories: copiedBigCategories),
+      ),
+    );
+  }
+
+  // MARK - Add Category Button
+  Widget _buildAddCategoryButton(
+      BuildContext context, TLThemeData tlThemeData) {
+    return Positioned(
+      right: 50,
+      bottom: 70,
+      child: GestureDetector(
+        onTap: () => const AddCategoryDialog().show(context: context),
+        child: Container(
+          width: 70,
+          height: 70,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+            border: Border.all(color: Colors.black26, width: 2),
+          ),
+          child: ClipOval(
+            child: Icon(
+              Icons.add,
+              color: tlThemeData.accentColor,
+              size: 30,
+            ),
+          ),
         ),
-        // カテゴリー追加ボタンとカード
-        Positioned(
-            right: 50,
-            bottom: 70,
-            child: AddCategoryButton(
-                onTap: () => const AddCategoryDialog().show(context: context))),
-      ]),
+      ),
     );
   }
 }
