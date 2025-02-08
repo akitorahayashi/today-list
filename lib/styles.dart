@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'model/design/tl_theme/tl_theme.dart';
 
 // alert
 ButtonStyle alertButtonStyle({required Color accentColor}) {
@@ -20,16 +21,16 @@ InputDecoration tlInputDecoration({
   required Widget? icon,
   required Widget? suffixIcon,
 }) {
-  final TLThemeData tlThemeData = TLTheme.of(context);
+  final TLThemeConfig tlThemeConfig = TLTheme.of(context);
   return InputDecoration(
       icon: icon,
       label: Text(labelText),
       labelStyle: TextStyle(color: Colors.black.withOpacity(0.45)),
       enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: tlThemeData.accentColor),
+        borderSide: BorderSide(color: tlThemeConfig.accentColor),
       ),
       focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: tlThemeData.accentColor),
+        borderSide: BorderSide(color: tlThemeConfig.accentColor),
       ),
       // 完了ボタン
       suffixIcon: suffixIcon);

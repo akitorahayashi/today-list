@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
-import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 
 class AddWKSButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -8,7 +8,7 @@ class AddWKSButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     final double deviceWidth = MediaQuery.of(context).size.width;
     return TlDoubleCard(
       child: InkWell(

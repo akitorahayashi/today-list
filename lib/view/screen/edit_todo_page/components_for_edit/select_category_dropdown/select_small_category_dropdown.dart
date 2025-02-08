@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
-import '../../../../../model/design/tl_theme.dart';
+import '../../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../../model/todo/tl_category.dart';
 import '../../../../component/dialog/for_category/add_category_dialog.dart';
 import '../../../../../redux/store/editing_provider/editing_todo_provider.dart';
@@ -13,7 +13,7 @@ class SelectSmallCategoryDropDown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     // provider
     final EditingTodo editingTodo = ref.watch(editingToDoProvider);
     final tlAppState = ref.watch(tlAppStateProvider);

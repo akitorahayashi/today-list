@@ -7,7 +7,7 @@ import 'package:today_list/util/tl_validation.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../tl_base_dialog_mixin.dart';
 import '../../../../redux/store/editing_provider/editing_category_provider.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../service/tl_vibration.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../styles.dart';
@@ -41,7 +41,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     // provider
     final EditingCategory editingCategory = ref.watch(editingCategoryProvider);
     // provider

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../../../component/dialog/common/tl_yes_no_dialog.dart';
 import '../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../../service/tl_ads.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/design/tl_theme/tl_theme.dart';
 
 class ShowLimitOfPassCard extends StatelessWidget {
   const ShowLimitOfPassCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 12),
       child: InkWell(

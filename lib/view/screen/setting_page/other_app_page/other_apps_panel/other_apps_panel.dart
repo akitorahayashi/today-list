@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
-import '../../../../../model/design/tl_theme.dart';
+import '../../../../../model/design/tl_theme/tl_theme.dart';
 import 'other_app_card/other_app_card.dart';
 import 'other_apps_model.dart';
 
@@ -9,7 +9,7 @@ class OtherAppsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return TlDoubleCard(
       child: Column(
         children: [

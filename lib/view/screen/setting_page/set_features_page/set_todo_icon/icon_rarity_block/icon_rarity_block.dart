@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_icon_data.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
-import '../../../../../../model/design/tl_theme.dart';
+import '../../../../../../model/design/tl_theme/tl_theme.dart';
 import 'icon_card.dart';
 
 class IconCategoryBlock extends StatelessWidget {
@@ -15,7 +15,7 @@ class IconCategoryBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return Card(
       color: tlThemeData.settingPanelColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

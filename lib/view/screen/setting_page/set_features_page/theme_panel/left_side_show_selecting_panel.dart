@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../model/design/tl_theme.dart';
+import '../../../../../model/design/tl_theme/tl_theme.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,7 +11,7 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     final deviceWidth = MediaQuery.of(context).size.width;
     return Container(
       width: deviceWidth / 2 - 20,

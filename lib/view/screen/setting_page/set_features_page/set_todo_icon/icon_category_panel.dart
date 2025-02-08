@@ -1,6 +1,6 @@
 import 'package:today_list/model/design/tl_icon_data.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
-import '../../../../../model/design/tl_theme.dart';
+import '../../../../../model/design/tl_theme/tl_theme.dart';
 import 'icon_rarity_block/icon_rarity_block.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +10,7 @@ class IconCategoryPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Column(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../model/design/tl_theme/tl_theme.dart';
 
 class TlDoubleCard extends StatelessWidget {
   final Widget child;
@@ -7,7 +7,7 @@ class TlDoubleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return Card(
       color: tlThemeData.tlDoubleCardColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

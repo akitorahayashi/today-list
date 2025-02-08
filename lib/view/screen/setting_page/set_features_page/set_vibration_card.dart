@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../service/tl_vibration.dart';
 
 class SetVibrationCard extends StatefulWidget {
@@ -12,7 +12,7 @@ class SetVibrationCard extends StatefulWidget {
 class _SetVibrationCardState extends State<SetVibrationCard> {
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     final double deviceWidth = MediaQuery.of(context).size.width;
     return SizedBox(
       width: deviceWidth,

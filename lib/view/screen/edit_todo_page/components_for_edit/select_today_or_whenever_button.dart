@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../redux/store/editing_provider/editing_todo_provider.dart';
 
 class SelectTodayOrWheneverButton extends ConsumerStatefulWidget {
@@ -15,7 +15,7 @@ class _SelectTodayOrWheneverButtonState
     extends ConsumerState<SelectTodayOrWheneverButton> {
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     // provider
     final EditingTodo editingTodo = ref.watch(editingToDoProvider);
     // notifier

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
-import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 
 class NotifyTodoOrStepIsEditedSnackBar {
   // MARK: - Show SnackBar
@@ -33,7 +33,7 @@ class NotifyTodoOrStepIsEditedSnackBar {
     required bool newCheckedState,
     bool? quickChangeToToday,
   }) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
 
     // MARK: - Common Colors
     final backgroundColor = tlThemeData.panelColor;

@@ -1,23 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TLTheme extends InheritedWidget {
-  final TLThemeData data;
-
-  const TLTheme({super.key, required this.data, required super.child});
-
-  static TLThemeData of(BuildContext context) {
-    final TLTheme? customTheme =
-        context.dependOnInheritedWidgetOfExactType<TLTheme>();
-    return customTheme!.data;
-  }
-
-  @override
-  bool updateShouldNotify(TLTheme oldWidget) {
-    return data != oldWidget.data;
-  }
-}
-
-class TLThemeData {
+/// テーマの構成情報を管理するクラス
+class TLThemeConfig {
   final String themeName;
   final String themeTitleInSettings;
   // 設定ページ系
@@ -50,7 +34,7 @@ class TLThemeData {
   // reward
   final Color rewardButtonTitleColor;
 
-  TLThemeData({
+  const TLThemeConfig({
     required this.themeName,
     required this.themeTitleInSettings,
     // 設定ページ系
@@ -82,6 +66,5 @@ class TLThemeData {
     required this.backupButtonTextColor,
     // reward
     required this.rewardButtonTitleColor,
-    //
   });
 }

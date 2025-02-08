@@ -42,6 +42,7 @@ dependencies:
 
   # データモデル・シリアライズ
   freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
@@ -49,7 +50,6 @@ dev_dependencies:
 
   # 静的解析・開発補助
   flutter_lints: ^4.0.0
-  json_annotation: ^4.9.0
   json_serializable: ^6.9.0
   build_runner: ^2.4.13
   freezed: ^2.5.7

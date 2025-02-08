@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../../component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/design/tl_theme/tl_theme.dart';
 
 class AddWorkspaceButton extends StatelessWidget {
   const AddWorkspaceButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return Align(
       alignment: Alignment.center,
       child: Padding(

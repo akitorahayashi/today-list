@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../../model/design/tl_theme.dart';
+import '../../../../../../model/design/tl_theme/tl_theme.dart';
 import '../other_apps_model.dart';
 
 class ButtonInOtherAppCard extends StatelessWidget {
@@ -16,7 +16,7 @@ class ButtonInOtherAppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return SizedBox(
       width: deviceWidth / 2 - 50,
       height: 50,

@@ -4,7 +4,7 @@ import 'package:today_list/model/design/tl_icon_data.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
 import 'package:today_list/view/screen/setting_page/set_features_page/updaate_app_icon_card.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
-import 'package:today_list/resource/tl_theme_data_list.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_data_list.dart';
 import '../../../../main.dart';
 import '../../../component/common_ui_part/panel_with_title.dart';
 import '../../../../service/tl_ads.dart';

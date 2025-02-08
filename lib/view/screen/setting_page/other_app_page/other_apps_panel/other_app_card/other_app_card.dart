@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../../model/design/tl_theme.dart';
+import '../../../../../../model/design/tl_theme/tl_theme.dart';
 import '../other_apps_model.dart';
 import 'button_of_other_app_card.dart';
 
@@ -14,7 +14,7 @@ class NiceAppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8.0, bottom: 8),
       child: ClipRRect(

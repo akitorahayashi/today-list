@@ -1,6 +1,7 @@
-import 'package:animated_gradient_background/animated_gradient_background.dart';
 import 'package:flutter/material.dart';
-import '../../../../model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+
+import 'package:animated_gradient_background/animated_gradient_background.dart';
 
 class TLSliverAppBar extends StatelessWidget {
   final double? titleFontSize;
@@ -25,7 +26,7 @@ class TLSliverAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return SliverAppBar(
       expandedHeight: 110,
       pinned: true,

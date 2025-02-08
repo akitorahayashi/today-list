@@ -4,11 +4,11 @@ import 'package:today_list/model/setting_data/widget_kit_setting.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_validation.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
-import 'package:today_list/resource/tl_theme_data_list.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_data_list.dart';
 import '../component/wks_header.dart';
 import '../../../../component/common_ui_part/tl_double_card.dart';
 import '../../../../../service/tl_vibration.dart';
-import '../../../../../model/design/tl_theme.dart';
+import '../../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../../model/todo/tl_category.dart';
 import '../../../../../view_model/settings/wks_provider.dart';
 import '../../../../../model/todo/tl_workspace.dart';
@@ -73,7 +73,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     final double deviceWidth = MediaQuery.of(context).size.width;
     // provider
     final List<TLWorkspace> tlWorkspaces =

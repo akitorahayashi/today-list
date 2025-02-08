@@ -4,7 +4,7 @@ import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/styles.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
-import '../../../model/design/tl_theme.dart';
+import '../../../model/design/tl_theme/tl_theme.dart';
 import '../../../service/tl_connectivity.dart';
 import '../../../service/tl_method_channel.dart';
 import '../../../service/tl_vibration.dart';
@@ -13,7 +13,7 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
   final int corrIndex;
-  final TLThemeData corrThemeData;
+  final TLThemeConfig corrThemeData;
   const ChangeThemeDialog({
     super.key,
     required this.corrIndex,

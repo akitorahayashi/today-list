@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/design/tl_theme/tl_theme.dart';
 import '../tl_base_dialog_mixin.dart';
 import '../../../../styles.dart';
 
@@ -17,7 +17,7 @@ class TLSingleOptionDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData corrThemeData = TLTheme.of(context);
+    final TLThemeConfig corrThemeData = TLTheme.of(context);
     return Dialog(
       backgroundColor: corrThemeData.alertColor,
       child: Padding(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../model/design/tl_theme/tl_theme.dart';
 
 class PanelWithTitle extends StatelessWidget {
   final String title;
@@ -12,7 +12,7 @@ class PanelWithTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return Card(
       color: tlThemeData.settingPanelColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

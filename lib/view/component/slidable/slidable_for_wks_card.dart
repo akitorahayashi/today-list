@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/view_model/settings/wks_provider.dart';
-import '../../../model/design/tl_theme.dart';
+import '../../../model/design/tl_theme/tl_theme.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -17,7 +17,7 @@ class SlidableForWKSCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     final WidgetKitSettingNotifier wksNotifier =
         ref.read(widgetKitSettingsProvider.notifier);
     return Slidable(
