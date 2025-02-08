@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import '../../../../model/design/tl_theme/tl_theme.dart';
 
 class CenterButtonOfBottomNavBar extends StatelessWidget {
   final Function()? onPressed;
@@ -9,16 +9,18 @@ class CenterButtonOfBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
+
     const double buttonSize = 70;
-    final double bottomNavbarHeight =
-        MediaQuery.of(context).size.height * 100 / 896;
-    return Positioned(
-      left: MediaQuery.of(context).size.width / 2 - buttonSize / 2,
-      bottom: bottomNavbarHeight - buttonSize / 2,
-      child: Container(
-        width: buttonSize,
-        height: buttonSize,
+    const double shadowRadius = 4;
+
+    return SizedBox(
+      width: buttonSize,
+      height: buttonSize,
+      child: DecoratedBox(
         decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(color: Colors.black26, blurRadius: shadowRadius)
+            ],
             color: Colors.white,
             border: Border.all(color: Colors.black26, width: 2),
             shape: BoxShape.circle),

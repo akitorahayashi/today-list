@@ -40,6 +40,8 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       child: AppBar(
+        forceMaterialTransparency: true,
+        toolbarOpacity: 1.0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
         leading: leadingIcon == null

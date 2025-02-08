@@ -22,7 +22,6 @@ class AlreadyExist extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
     // provider
     final tlAppState = ref.watch(tlAppStateProvider);
     // others
