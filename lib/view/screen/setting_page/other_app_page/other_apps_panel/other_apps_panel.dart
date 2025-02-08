@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
-import '../../../../../model/design/tl_theme.dart';
 import 'other_app_card/other_app_card.dart';
 import 'other_apps_model.dart';
 
@@ -9,8 +10,8 @@ class OtherAppsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
-    return TlDoubleCard(
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    return TLDoubleCard(
       child: Column(
         children: [
           // 文字
@@ -26,14 +27,14 @@ class OtherAppsPanel extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 26,
-                        color: tlThemeData.tlDoubleCardColor),
+                        color: tlThemeData.tlDoubleCardBorderColor),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 24.0),
                   child: Icon(
                     Icons.thumb_up,
-                    color: tlThemeData.tlDoubleCardColor,
+                    color: tlThemeData.tlDoubleCardBorderColor,
                   ),
                 )
               ],

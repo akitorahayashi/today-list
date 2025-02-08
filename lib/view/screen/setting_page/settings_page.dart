@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/view/screen/setting_page/set_ios_widget_page/set_ios_widget_page.dart';
 import 'package:today_list/view/component/common_ui_part/tl_sliver_appbar.dart';
-import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'set_features_page/set_appearance_page.dart';
 import 'dart:io';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
@@ -12,7 +13,7 @@ class SettingsPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
 
     // MARK - Hooks for state management
     final selectedPageIndex = useState<int>(Platform.isIOS ? 1 : 0);
@@ -80,7 +81,7 @@ class SettingsPage extends HookWidget {
   // MARK - Build Bottom Navigation Bar
   Widget _buildBottomNavBar(
     BuildContext context,
-    TLThemeData tlThemeData,
+    TLThemeConfig tlThemeConfig,
     ValueNotifier<int> selectedPageIndex,
     PageController pageController,
     List<dynamic> iconDataOfSettingPageContents,
@@ -101,7 +102,7 @@ class SettingsPage extends HookWidget {
                 index < iconDataOfSettingPageContents.length;
                 index++)
               _buildBottomNavItem(index, selectedPageIndex, pageController,
-                  tlThemeData, iconDataOfSettingPageContents),
+                  tlThemeConfig, iconDataOfSettingPageContents),
           ],
         ),
       ),
@@ -113,7 +114,7 @@ class SettingsPage extends HookWidget {
     int index,
     ValueNotifier<int> selectedPageIndex,
     PageController pageController,
-    TLThemeData tlThemeData,
+    TLThemeConfig tlThemeData,
     List<dynamic> iconDataOfSettingPageContents,
   ) {
     return GestureDetector(

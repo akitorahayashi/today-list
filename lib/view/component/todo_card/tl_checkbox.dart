@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_icon_data.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
 import 'package:today_list/view_model/design/tl_icon_data_provider.dart';
-import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 
 class TLCheckBox extends ConsumerWidget {
   final bool isChecked;
@@ -19,7 +20,7 @@ class TLCheckBox extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     final TLIconData tlIconData = ref.watch(tlIconDataProvider);
 
     // このカテゴリーで指定されたアイコンがない場合、デフォルトのものを使う

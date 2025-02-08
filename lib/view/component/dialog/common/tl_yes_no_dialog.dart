@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import '../../../../model/design/tl_theme/tl_theme.dart';
 import '../tl_base_dialog_mixin.dart';
 import '../../../../styles.dart';
 
@@ -19,9 +20,9 @@ class TLYesNoDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return Dialog(
-      backgroundColor: tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertBackgroundColor,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
         child: Column(

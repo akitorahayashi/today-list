@@ -1,9 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
-import 'package:today_list/redux/reducer/tl_workspace_reducer.dart';
+import 'package:today_list/redux/action/tl_theme_action.dart';
+import 'package:today_list/redux/action/tl_workspace_action.dart';
+import 'package:today_list/redux/reducer/property/tl_theme_reducer.dart';
+import 'package:today_list/redux/reducer/property/tl_workspace_reducer.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
+import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/service/tl_pref.dart';
 import 'dart:convert';
 
@@ -13,11 +16,11 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   TLAppStateReducer()
       : super(TLAppState(
             tlWorkspaces: initialTLWorkspaces, currentWorkspaceIndex: 0)) {
-    _loadWorkspaces();
+    _loadSavedAppState();
   }
 
   // --- Load Workspaces from Local Storage ---
-  Future<void> _loadWorkspaces() async {
+  Future<void> _loadSavedAppState() async {
     final pref = await TLPrefService().getPref;
     final currentIndex = pref.getInt('currentWorkspaceIndex') ?? 0;
 
@@ -27,8 +30,19 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
       final List<TLWorkspace> loadedWorkspaces = jsonWorkspaces.map((json) {
         return TLWorkspace.fromJson(json);
       }).toList();
+
+      // 保存されたテーマを取得
+      final themeName = pref.getString('themeType');
+      final savedTheme = TLThemeType.values.firstWhere(
+        (e) => e.name == themeName,
+        orElse: () => TLThemeType.sunOrange, // デフォルト値
+      );
+
       state = state.copyWith(
-          tlWorkspaces: loadedWorkspaces, currentWorkspaceIndex: currentIndex);
+        tlWorkspaces: loadedWorkspaces,
+        currentWorkspaceIndex: currentIndex,
+        selectedThemeType: savedTheme,
+      );
     }
   }
 
@@ -38,6 +52,13 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   //   todos: RPTodosReducer.handle(state.todos, action),
   // );
   // }
+
+  // --- Dispatch Theme Actions ---
+  void dispatchThemeAction(TLThemeAction action) {
+    state = state.copyWith(
+      selectedThemeType: TLThemeReducer.handle(state.selectedThemeType, action),
+    );
+  }
 
   // --- Dispatch Workspace Actions ---
   Future<void> dispatchWorkspaceAction(TLWorkspaceAction action) async {

@@ -1,14 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/design/tl_icon_data.dart';
-import 'package:today_list/resource/tl_icon_resource.dart';
+import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view_model/design/tl_icon_data_provider.dart';
+import 'package:today_list/model/design/tl_icon_data.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/resource/tl_icon_resource.dart';
+import 'package:today_list/service/tl_ads.dart';
 import 'package:today_list/service/tl_vibration.dart';
-import '../../../../../component/dialog/common/tl_single_option_dialog.dart';
-import '../../../../../component/dialog/common/tl_yes_no_dialog.dart';
-import '../../../../../../service/tl_ads.dart';
-import '../../../../../../model/design/tl_theme.dart';
-import '../../../../../../main.dart';
 
 class IconCard extends ConsumerStatefulWidget {
   final bool isEarned;
@@ -30,7 +31,7 @@ class IconCard extends ConsumerStatefulWidget {
 class _IconCardState extends ConsumerState<IconCard> {
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final TLIconData tlIconData = ref.watch(tlIconDataProvider);
     final TLIconDataNotifier tlIconDataNotifier =
         ref.read(tlIconDataProvider.notifier);
@@ -85,7 +86,7 @@ class _IconCardState extends ConsumerState<IconCard> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: isCurrentIcon ? 0 : 3,
-          color: tlThemeData.panelColor,
+          color: tlThemeConfig.canTapCardColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Column(
@@ -105,7 +106,7 @@ class _IconCardState extends ConsumerState<IconCard> {
                     color: !widget.isEarned
                         ? Colors.black26
                         : isCurrentIcon
-                            ? tlThemeData.checkmarkColor
+                            ? tlThemeConfig.checkmarkColor
                             : Colors.black45,
                     size: 20,
                   ),
@@ -118,7 +119,7 @@ class _IconCardState extends ConsumerState<IconCard> {
                       color: !widget.isEarned
                           ? Colors.black26
                           : isCurrentIcon
-                              ? tlThemeData.checkmarkColor
+                              ? tlThemeConfig.checkmarkColor
                               : Colors.black45),
                 )
               ],

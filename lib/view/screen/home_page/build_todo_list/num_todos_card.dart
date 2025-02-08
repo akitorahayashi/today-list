@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 
 class NumToDosCard extends StatelessWidget {
   final bool ifInToday;
@@ -12,14 +13,14 @@ class NumToDosCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: SizedBox(
           child: DecoratedBox(
             decoration: BoxDecoration(
-              color: tlThemeData.panelBorderColor,
+              color: tlThemeConfig.tlDoubleCardBorderColor,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Card(
@@ -43,7 +44,7 @@ class NumToDosCard extends StatelessWidget {
                       numTodos.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: tlThemeData.accentColor,
+                          color: tlThemeConfig.accentColor,
                           fontSize: 20,
                           letterSpacing: 2,
                           fontWeight: FontWeight.w800),

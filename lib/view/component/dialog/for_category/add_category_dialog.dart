@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
@@ -7,7 +8,7 @@ import 'package:today_list/util/tl_validation.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../tl_base_dialog_mixin.dart';
 import '../../../../redux/store/editing_provider/editing_category_provider.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../service/tl_vibration.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../styles.dart';
@@ -41,7 +42,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     // provider
     final EditingCategory editingCategory = ref.watch(editingCategoryProvider);
     // provider
@@ -52,7 +53,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
     // notifier
     final editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
     return AlertDialog(
-      backgroundColor: tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertBackgroundColor,
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

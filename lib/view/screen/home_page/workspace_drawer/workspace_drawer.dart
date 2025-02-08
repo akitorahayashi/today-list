@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/common_ui_part/tl_sliver_appbar.dart';
 import 'change_workspace_card.dart';
@@ -15,7 +16,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final currentTLWorkspaceIndex = ref.watch(
       tlAppStateProvider.select((state) => state.currentWorkspaceIndex),
     );
@@ -26,7 +27,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
     return Drawer(
       child: Stack(
         children: [
-          Container(color: tlThemeData.backgroundColor),
+          Container(color: tlThemeConfig.backgroundColor),
           CustomScrollView(
             slivers: [
               _buildAppBar(),
@@ -53,7 +54,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
   // MARK - Workspace List
   Widget _buildWorkspaceList(BuildContext context, WidgetRef ref,
       int currentWorkspaceIndex, List<TLWorkspace> workspaces) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
 
     return SliverList(
       delegate: SliverChildListDelegate([
@@ -62,7 +63,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: tlThemeData.panelBorderColor),
+                color: tlThemeData.tlDoubleCardBorderColor),
             child: Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),

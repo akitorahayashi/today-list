@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../../model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import '../other_apps_model.dart';
 
 class ButtonInOtherAppCard extends StatelessWidget {
@@ -16,7 +17,7 @@ class ButtonInOtherAppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return SizedBox(
       width: deviceWidth / 2 - 50,
       height: 50,
@@ -48,13 +49,13 @@ class ButtonInOtherAppCard extends StatelessWidget {
         },
         style: ButtonStyle(
           overlayColor: WidgetStateProperty.all(
-              tlThemeData.niceAppsPressedElevatedButtonColor),
+              tlThemeData.otherAppsPressedElevatedButtonColor),
           backgroundColor: WidgetStateProperty.resolveWith<Color>(
             (Set<WidgetState> states) {
               if (states.contains(WidgetState.disabled)) {
                 return const Color.fromRGBO(220, 220, 220, 1);
               }
-              return tlThemeData.niceAppsElevatedButtonColor;
+              return tlThemeData.otherAppsElevatedButtonColor;
             },
           ),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(

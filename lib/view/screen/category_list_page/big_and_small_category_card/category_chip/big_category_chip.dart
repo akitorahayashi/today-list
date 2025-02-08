@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_category_utils.dart';
 import '../../../../component/dialog/for_category/select_edit_method_dialog.dart';
-import '../../../../../model/design/tl_theme.dart';
+import '../../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../../model/todo/tl_category.dart';
 import '../../../../../model/todo/tl_workspace.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,7 +16,7 @@ class BigCategoryChip extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     final currentWorkspace = ref.watch(tlAppStateProvider
         .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]));
 
@@ -54,7 +55,7 @@ class BigCategoryChip extends ConsumerWidget {
   }
 
   // MARK - Build Chip UI
-  Widget _buildChipUI(BuildContext context, TLThemeData tlThemeData,
+  Widget _buildChipUI(BuildContext context, TLThemeConfig tlThemeData,
       TLCategory bigCategory, int numberOfToDos) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),

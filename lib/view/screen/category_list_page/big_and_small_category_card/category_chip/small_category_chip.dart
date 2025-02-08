@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
@@ -21,7 +22,7 @@ class SmallCategoryChip extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     final currentWorkspace = ref.watch(tlAppStateProvider
         .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]));
 
@@ -67,7 +68,7 @@ class SmallCategoryChip extends ConsumerWidget {
 
   // MARK - Build Small Category Chip UI
   Widget _buildSmallCategoryChipUI(
-      TLThemeData tlThemeData, TLCategory smallCategory, int numberOfToDos) {
+      TLThemeConfig tlThemeData, TLCategory smallCategory, int numberOfToDos) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: SizedBox(

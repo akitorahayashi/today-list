@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../../model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import '../../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../../service/tl_vibration.dart';
 import '../../../../../redux/store/editing_provider/editing_todo_provider.dart';
 import '../../../../../styles.dart';
@@ -19,7 +20,7 @@ class StepTitleInputFieldState extends ConsumerState<StepTitleInputField> {
   String _enteredStepTitle = "";
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     // provider
     final EditingTodo editingTodo = ref.watch(editingToDoProvider);
     // notifier

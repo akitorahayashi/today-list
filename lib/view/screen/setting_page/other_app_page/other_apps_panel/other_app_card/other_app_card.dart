@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../../model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import '../../../../../../model/design/tl_theme/tl_theme.dart';
 import '../other_apps_model.dart';
 import 'button_of_other_app_card.dart';
 
@@ -14,7 +15,7 @@ class NiceAppCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.only(left: 8, right: 8.0, bottom: 8),
       child: ClipRRect(
@@ -24,7 +25,7 @@ class NiceAppCard extends StatelessWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
                 border: Border.all(
-                    color: tlThemeData.tlDoubleCardColor, width: 10)),
+                    color: tlThemeConfig.tlDoubleCardBorderColor, width: 10)),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(5, 12, 5, 5),
               child: Column(
@@ -40,7 +41,7 @@ class NiceAppCard extends StatelessWidget {
                               fontSize: 21,
                               fontWeight: FontWeight.w900,
                               letterSpacing: 3,
-                              color: tlThemeData.tlDoubleCardColor),
+                              color: tlThemeConfig.tlDoubleCardBorderColor),
                         )),
                   ),
                   // アイコンとアプリ名
@@ -57,7 +58,7 @@ class NiceAppCard extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
                                     width: 10,
-                                    color: tlThemeData.tlDoubleCardColor
+                                    color: tlThemeConfig.tlDoubleCardBorderColor
                                         .withOpacity(0.2))),
                             child: Card(
                                 shape: RoundedRectangleBorder(
@@ -75,7 +76,7 @@ class NiceAppCard extends StatelessWidget {
                             otherAppOfThisCard.appName,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: tlThemeData.tlDoubleCardColor,
+                                color: tlThemeConfig.tlDoubleCardBorderColor,
                                 fontSize: 30),
                           ),
                         )

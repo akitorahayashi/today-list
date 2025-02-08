@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
-import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 
 class AddWKSButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -8,21 +9,21 @@ class AddWKSButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final double deviceWidth = MediaQuery.of(context).size.width;
-    return TlDoubleCard(
+    return TLDoubleCard(
       child: InkWell(
         onTap: onPressed,
-        splashColor: tlThemeData.accentColor.withOpacity(0.05),
-        hoverColor: tlThemeData.accentColor.withOpacity(0.05),
-        overlayColor:
-            WidgetStateProperty.all(tlThemeData.accentColor.withOpacity(0.05)),
+        splashColor: tlThemeConfig.accentColor.withOpacity(0.05),
+        hoverColor: tlThemeConfig.accentColor.withOpacity(0.05),
+        overlayColor: WidgetStateProperty.all(
+            tlThemeConfig.accentColor.withOpacity(0.05)),
         child: SizedBox(
             height: 50,
             width: deviceWidth - 50,
             child: Icon(
               Icons.add,
-              color: tlThemeData.accentColor,
+              color: tlThemeConfig.accentColor,
             )),
       ),
     );

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import '../../../component/dialog/common/tl_yes_no_dialog.dart';
 import '../../../component/dialog/common/tl_single_option_dialog.dart';
 import '../../../../service/tl_ads.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/design/tl_theme/tl_theme.dart';
 
 class ShowLimitOfPassCard extends StatelessWidget {
   const ShowLimitOfPassCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 12),
       child: InkWell(
@@ -25,7 +26,7 @@ class ShowLimitOfPassCard extends StatelessWidget {
                 TLAdsService.extendLimitOfPassReward(howManyDays: 3);
                 showDialog(
                   context: context,
-                  builder: ((context) => TLSingleOptionDialog(
+                  builder: ((context) => const TLSingleOptionDialog(
                         title: "PASSが延長されました!",
                         message: "3日分のPASSを獲得しました",
                       )),
@@ -35,7 +36,7 @@ class ShowLimitOfPassCard extends StatelessWidget {
           ),
         ),
         child: Card(
-          color: tlThemeData.settingPanelColor,
+          color: tlThemeConfig.settingPanelColor,
           child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: Card(
@@ -50,7 +51,7 @@ class ShowLimitOfPassCard extends StatelessWidget {
                         "PASSの期限",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: tlThemeData.accentColor,
+                          color: tlThemeConfig.accentColor,
                         ),
                       ),
                     ),

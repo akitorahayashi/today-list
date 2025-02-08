@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/setting_data/widget_kit_setting.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/util/tl_validation.dart';
-import 'package:today_list/view_model/design/theme_idx_provider.dart';
-import 'package:today_list/resource/tl_theme_data_list.dart';
+import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
+import 'package:today_list/view_model/settings/wks_provider.dart';
 import '../component/wks_header.dart';
-import '../../../../component/common_ui_part/tl_double_card.dart';
-import '../../../../../service/tl_vibration.dart';
-import '../../../../../model/design/tl_theme.dart';
-import '../../../../../model/todo/tl_category.dart';
-import '../../../../../view_model/settings/wks_provider.dart';
-import '../../../../../model/todo/tl_workspace.dart';
 
 class CreateWKSettingsCard extends ConsumerStatefulWidget {
   final VoidCallback showAddWKSButtonAction;
@@ -22,48 +19,17 @@ class CreateWKSettingsCard extends ConsumerStatefulWidget {
 }
 
 class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
-  // textControllerに関するメンバー
   final TextEditingController _wksInputController = TextEditingController();
-  // 自動入力
   bool _ifUserHasEntered = false;
-  // 選んでいるWorkspaceのindex
   int _selectedWorkspaceIndex = 0;
-  // 選んでいるcategoryのidx
   int _selectedBCIdx = 0;
   int? _selectedSCIdx;
 
-  String get _selectedBCID => ref
-      .read(tlAppStateProvider)
-      .tlWorkspaces[_selectedWorkspaceIndex]
-      .bigCategories[_selectedBCIdx]
-      .id;
+  TLWorkspace get _currentWorkspace =>
+      ref.watch(tlAppStateProvider).tlWorkspaces[_selectedWorkspaceIndex];
 
-  // 選んでいる項目を全てデフォルトの値に戻す関数
-  void _initialize() {
-    _wksInputController.clear();
-    _ifUserHasEntered = false;
-    _selectedWorkspaceIndex = 0;
-    _selectedBCIdx = 0;
-    _selectedSCIdx = null;
-  }
-
-  ButtonStyle get controllButtonStyle => (() {
-        final themeColor =
-            tlThemeDataList[ref.read(selectedThemeIndexProvider)].accentColor;
-        return ButtonStyle(
-          foregroundColor: WidgetStateProperty.all(themeColor),
-          shape: WidgetStateProperty.all(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          overlayColor: WidgetStateProperty.resolveWith<Color?>(
-            (Set<WidgetState> states) {
-              return themeColor.withOpacity(0.1);
-            },
-          ),
-        );
-      })();
+  String get _currentBigCategoryID =>
+      _currentWorkspace.bigCategories[_selectedBCIdx].id;
 
   @override
   void dispose() {
@@ -71,20 +37,150 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
     super.dispose();
   }
 
+  // MARK: - Reset State
+  void _resetState() {
+    setState(() {
+      _wksInputController.clear();
+      _ifUserHasEntered = false;
+      _selectedWorkspaceIndex = 0;
+      _selectedBCIdx = 0;
+      _selectedSCIdx = null;
+    });
+  }
+
+  // MARK: - Handle Workspace Change
+  void _onWorkspaceChanged(int? newIndex) {
+    if (newIndex == null) return;
+    TLVibrationService.vibrate();
+    setState(() {
+      if (!_ifUserHasEntered) {
+        _wksInputController.text =
+            ref.read(tlAppStateProvider).tlWorkspaces[newIndex].name;
+      }
+      _selectedWorkspaceIndex = newIndex;
+      _selectedBCIdx = 0;
+      _selectedSCIdx = null;
+    });
+  }
+
+  // MARK: - Handle Big Category Change
+  void _onBigCategoryChanged(int? newBCIdx) {
+    if (newBCIdx == null) return;
+    TLVibrationService.vibrate();
+    setState(() {
+      if (!_ifUserHasEntered) {
+        _wksInputController.text =
+            _currentWorkspace.bigCategories[newBCIdx].title;
+      }
+      _selectedBCIdx = newBCIdx;
+      _selectedSCIdx = null;
+    });
+  }
+
+  // MARK: - Handle Small Category Change
+  void _onSmallCategoryChanged(int? newSCIdx) {
+    if (newSCIdx == null) return;
+    TLVibrationService.vibrate();
+    setState(() {
+      if (!_ifUserHasEntered) {
+        _wksInputController.text = _currentWorkspace
+            .smallCategories[_currentBigCategoryID]![newSCIdx].title;
+      }
+      _selectedSCIdx = newSCIdx;
+    });
+  }
+
+  // MARK: - Build Dropdown
+  Widget _buildDropdown<T>({
+    required String label,
+    required T value,
+    required List<DropdownMenuItem<T>> items,
+    required ValueChanged<T?> onChanged,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          WKSHeader(text: label),
+          DropdownButton<T>(
+            isExpanded: true,
+            iconEnabledColor: TLTheme.of(context).accentColor,
+            value: value,
+            items: items,
+            style: const TextStyle(
+                color: Colors.black45, fontWeight: FontWeight.bold),
+            onChanged: onChanged,
+          ),
+        ],
+      ),
+    );
+  }
+
+  // MARK: - Build Control Buttons
+  Widget _buildControlButtons(WidgetKitSettingNotifier wksNotifier) {
+    final controllButtonStyle = ButtonStyle(
+      foregroundColor: WidgetStateProperty.all(TLTheme.of(context).accentColor),
+      shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+      overlayColor: WidgetStateProperty.resolveWith(
+          (states) => TLTheme.of(context).accentColor.withOpacity(0.1)),
+    );
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+      child: OverflowBar(
+        alignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          TextButton(
+            onPressed: () {
+              _resetState();
+              widget.showAddWKSButtonAction();
+            },
+            style: controllButtonStyle,
+            child:
+                const Text("戻る", style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+          TextButton(
+            onPressed: () async {
+              TLVibrationService.vibrate();
+              await TLValidation.validateNameAndExecute(
+                context: context,
+                name: _wksInputController.text,
+                validator: TLValidation.validateWKSName,
+                onSuccess: () async {
+                  wksNotifier.addWidgetKitSettings(
+                    newWidgetKitSettings: WidgetKitSetting(
+                      id: UniqueKey().toString(),
+                      title: _wksInputController.text,
+                      workspaceIdx: _selectedWorkspaceIndex,
+                      bcIdx: _selectedBCIdx,
+                      scIdx: _selectedSCIdx,
+                    ),
+                  );
+                  _resetState();
+                  widget.showAddWKSButtonAction();
+                },
+              );
+            },
+            style: controllButtonStyle,
+            child:
+                const Text("追加", style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
-    final double deviceWidth = MediaQuery.of(context).size.width;
-    // provider
-    final List<TLWorkspace> tlWorkspaces =
-        ref.watch(tlAppStateProvider).tlWorkspaces;
-    // notifier
-    final WidgetKitSettingNotifier wksnotifier =
-        ref.read(widgetKitSettingsProvider.notifier);
+    final wksNotifier = ref.read(widgetKitSettingsProvider.notifier);
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final workspaces = ref.watch(tlAppStateProvider).tlWorkspaces;
+
     return GestureDetector(
-      // カードをタップしたらTextFieldからunfocus
       onTap: () => FocusScope.of(context).unfocus(),
-      child: TlDoubleCard(
+      child: TLDoubleCard(
         child: SizedBox(
           width: deviceWidth - 50,
           child: Padding(
@@ -92,228 +188,46 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // wksのtitleを入力する
+                // Title Input
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: TextField(
                     autofocus: true,
                     controller: _wksInputController,
-                    // ユーザーが自分の手で入力したかどうか
-                    onChanged: (t) => {_ifUserHasEntered = true},
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black.withOpacity(0.6),
-                    ),
-                    cursorColor: tlThemeData.accentColor,
-                    decoration: InputDecoration(
-                      labelText: '- Title -', // ここにラベルのテキストを指定
-                      labelStyle: const TextStyle(
-                        color: Colors.black45, // ラベルのスタイルを指定
-                        fontWeight: FontWeight.bold,
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: tlThemeData.accentColor),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: tlThemeData.accentColor),
-                      ),
-                    ),
+                    onChanged: (t) => _ifUserHasEntered = true,
+                    style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black45),
+                    cursorColor: TLTheme.of(context).accentColor,
+                    decoration: const InputDecoration(labelText: '- Title -'),
                   ),
                 ),
-                // workspaceを選択する
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const WKSHeader(text: "Workspace"),
-                      DropdownButton<int>(
-                        isExpanded: true,
-                        iconEnabledColor: tlThemeData.accentColor,
-                        value: _selectedWorkspaceIndex,
-                        items: tlWorkspaces.asMap().entries.map((entry) {
-                          int idx = entry.key;
-                          TLWorkspace workspace = entry.value;
-                          return DropdownMenuItem<int>(
-                            value: idx,
-                            child: Text(workspace.name),
-                          );
-                        }).toList(),
-                        style: const TextStyle(
-                            color: Colors.black45, fontWeight: FontWeight.bold),
-                        onChanged: (int? newIndex) {
-                          if (newIndex == null) return;
-                          TLVibrationService.vibrate();
-                          setState(() {
-                            if (!_ifUserHasEntered) {
-                              _wksInputController.text =
-                                  tlWorkspaces[newIndex].name;
-                            }
-                            _selectedWorkspaceIndex = newIndex;
-                            _selectedBCIdx = 0;
-                            _selectedSCIdx = null;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
+                // Workspace Selection
+                _buildDropdown(
+                  label: "Workspace",
+                  value: _selectedWorkspaceIndex,
+                  items: workspaces
+                      .asMap()
+                      .entries
+                      .map((entry) => DropdownMenuItem<int>(
+                          value: entry.key, child: Text(entry.value.name)))
+                      .toList(),
+                  onChanged: _onWorkspaceChanged,
                 ),
-                // bigCategoryを選択する
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const WKSHeader(text: "Big category"),
-                      DropdownButton<int>(
-                        isExpanded: true,
-                        iconEnabledColor: tlThemeData.accentColor,
-                        value: _selectedBCIdx,
-                        items: tlWorkspaces[_selectedWorkspaceIndex]
-                            .bigCategories
-                            .map((TLCategory bc) {
-                          return DropdownMenuItem<int>(
-                            value: tlWorkspaces[_selectedWorkspaceIndex]
-                                .bigCategories
-                                .indexWhere((category) => category.id == bc.id),
-                            child: Text(bc.title),
-                          );
-                        }).toList(),
-                        style: const TextStyle(
-                          color: Colors.black45,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        onChanged: (int? newBCIdx) {
-                          if (newBCIdx == null) return;
-                          TLVibrationService.vibrate();
-                          setState(() {
-                            if (!_ifUserHasEntered) {
-                              _wksInputController.text =
-                                  tlWorkspaces[_selectedWorkspaceIndex]
-                                      .bigCategories[newBCIdx]
-                                      .title;
-                            }
-                            _selectedBCIdx = newBCIdx;
-                            _selectedSCIdx = null;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
+                // Big Category Selection
+                _buildDropdown(
+                  label: "Big Category",
+                  value: _selectedBCIdx,
+                  items: _currentWorkspace.bigCategories
+                      .asMap()
+                      .entries
+                      .map((entry) => DropdownMenuItem<int>(
+                          value: entry.key, child: Text(entry.value.title)))
+                      .toList(),
+                  onChanged: _onBigCategoryChanged,
                 ),
-                // smallCategoryを選択するを選択する
-                AnimatedCrossFade(
-                  crossFadeState: tlWorkspaces[_selectedWorkspaceIndex]
-                          .smallCategories[_selectedBCID]!
-                          .isEmpty
-                      ? CrossFadeState.showFirst
-                      : CrossFadeState.showSecond,
-                  duration: const Duration(milliseconds: 200),
-                  firstChild: Container(),
-                  secondChild: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const WKSHeader(text: "Small category"),
-                        DropdownButton<int>(
-                          isExpanded: true,
-                          iconEnabledColor: tlThemeData.accentColor,
-                          value: _selectedSCIdx,
-                          hint: const Text(
-                            "指定なし",
-                            style: TextStyle(
-                                color: Colors.black45,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          items: (tlWorkspaces[_selectedWorkspaceIndex]
-                                      .smallCategories[_selectedBCID] ??
-                                  [])
-                              .map((TLCategory sc) {
-                            return DropdownMenuItem<int>(
-                              value: tlWorkspaces[_selectedWorkspaceIndex]
-                                  .smallCategories[_selectedBCID]!
-                                  .indexWhere(
-                                      (category) => category.id == sc.id),
-                              child: Text(sc.title),
-                            );
-                          }).toList(),
-                          style: const TextStyle(
-                              color: Colors.black45,
-                              fontWeight: FontWeight.bold),
-                          onChanged: (int? newSCIdx) {
-                            if (newSCIdx == null) return;
-                            TLVibrationService.vibrate();
-                            setState(() {
-                              if (!_ifUserHasEntered) {
-                                _wksInputController.text = tlWorkspaces[
-                                        _selectedWorkspaceIndex]
-                                    .smallCategories[_selectedBCID]![newSCIdx]
-                                    .title;
-                              }
-                              _selectedSCIdx = newSCIdx;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                // controll buttons
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
-                  child: OverflowBar(
-                    alignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            setState(() {
-                              _initialize();
-                            });
-                            widget.showAddWKSButtonAction();
-                          },
-                          style: controllButtonStyle,
-                          child: const Text(
-                            "戻る",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                      TextButton(
-                        onPressed: () async {
-                          TLVibrationService.vibrate();
-                          // バリデーションを通す
-                          await TLValidation.validateNameAndExecute(
-                            context: context,
-                            name: _wksInputController.text,
-                            validator: TLValidation.validateWKSName,
-                            onSuccess: () async {
-                              // wksのlistに追加、保存
-                              wksnotifier.addWidgetKitSettings(
-                                  newWidgetKitSettings: WidgetKitSetting(
-                                id: UniqueKey().toString(),
-                                title: _wksInputController.text,
-                                workspaceIdx: _selectedWorkspaceIndex,
-                                bcIdx: _selectedBCIdx,
-                                scIdx: _selectedSCIdx,
-                              ));
-                              // Card内のコンテンツを初期化
-                              setState(() {
-                                _initialize();
-                              });
-                              // 一覧に戻る
-                              widget.showAddWKSButtonAction();
-                            },
-                          );
-                        },
-                        style: controllButtonStyle,
-                        child: const Text(
-                          "追加",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                _buildControlButtons(wksNotifier),
               ],
             ),
           ),

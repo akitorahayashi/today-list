@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 
-part '../generate/tl_workspace_action.freezed.dart';
+part 'generate/tl_workspace_action.freezed.dart';
 
 // $ dart run build_runner build
 

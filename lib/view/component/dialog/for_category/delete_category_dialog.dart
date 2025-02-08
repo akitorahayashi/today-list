@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
+import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import '../common/tl_single_option_dialog.dart';
-import '../../../../model/design/tl_theme.dart';
+import '../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../service/tl_vibration.dart';
 import '../../../../model/todo/tl_category.dart';
 import '../../../../model/todo/tl_todos_in_today_and_whenever.dart';
@@ -22,7 +23,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     // provider
     final tlAppState = ref.watch(tlAppStateProvider);
     // others
@@ -50,7 +51,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
 
     if (categoryThisBelongsTo == null) {
       return Dialog(
-        backgroundColor: tlThemeData.alertColor,
+        backgroundColor: tlThemeData.alertBackgroundColor,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
@@ -62,7 +63,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
     }
 
     return Dialog(
-      backgroundColor: tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertBackgroundColor,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
         child: Column(

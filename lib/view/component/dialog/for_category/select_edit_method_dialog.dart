@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/view/component/dialog/for_category/delete_category_dialog.dart';
 import 'package:today_list/view/component/dialog/for_category/rename_category_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
-import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 
 class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
@@ -20,10 +21,10 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeData tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     // notifier
     return SimpleDialog(
-      backgroundColor: tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertBackgroundColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       titlePadding: const EdgeInsets.fromLTRB(18, 24, 24, 24),
       title: Column(

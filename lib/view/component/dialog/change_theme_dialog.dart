@@ -1,111 +1,109 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/redux/action/tl_theme_action.dart';
+import 'package:today_list/redux/reducer/tl_app_state_reducer.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/styles.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/view_model/design/theme_idx_provider.dart';
-import '../../../model/design/tl_theme.dart';
-import '../../../service/tl_connectivity.dart';
-import '../../../service/tl_method_channel.dart';
-import '../../../service/tl_vibration.dart';
-
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
-  final int corrIndex;
-  final TLThemeData corrThemeData;
-  const ChangeThemeDialog({
-    super.key,
-    required this.corrIndex,
-    required this.corrThemeData,
-  });
+  final TLThemeType corrThemeType;
+
+  const ChangeThemeDialog({super.key, required this.corrThemeType});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final SelectedThemeIndexNotifier selectedThemeIndexNotifier =
-        ref.read(selectedThemeIndexProvider.notifier);
+    final TLThemeConfig corrThemeConfig = corrThemeType.config;
+    final tlAppStateNotifier = ref.read(tlAppStateProvider.notifier);
+
     return Dialog(
-      backgroundColor: corrThemeData.alertColor,
+      backgroundColor: corrThemeConfig.alertBackgroundColor,
       child: DefaultTextStyle(
         style: const TextStyle(
             fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black45),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // テーマの模型
+            _buildThemePreview(corrThemeConfig),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: SizedBox(
-                width: 250,
-                height: 80,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: corrThemeData.gradientOfNavBar,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: GlassContainer(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Card(
-                        elevation: 5,
-                        color: corrThemeData.panelColor,
-                        child: Container(
-                          width: 150,
-                          height: 50,
-                          alignment: Alignment.center,
-                          child: Text(
-                            corrThemeData.themeName,
-                            style: TextStyle(
-                                color: corrThemeData.checkmarkColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Text("${corrThemeConfig.themeName}に変更しますか？"),
+            ),
+            _buildActionButtons(context, tlAppStateNotifier, corrThemeConfig),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // MARK - Build Theme Preview
+  Widget _buildThemePreview(themeConfig) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: SizedBox(
+        width: 250,
+        height: 80,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: themeConfig.gradientOfNavBar,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: GlassContainer(
+            child: Align(
+              alignment: Alignment.center,
+              child: Card(
+                elevation: 5,
+                color: themeConfig.canTapCardColor,
+                child: Container(
+                  width: 150,
+                  height: 50,
+                  alignment: Alignment.center,
+                  child: Text(
+                    themeConfig.themeName,
+                    style: TextStyle(
+                        color: themeConfig.checkmarkColor,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text("${corrThemeData.themeName}に変更しますか？"),
-            ),
-            // 操作ボタン
-            OverflowBar(
-              alignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                // 戻るボタン
-                TextButton(
-                  style:
-                      alertButtonStyle(accentColor: corrThemeData.accentColor),
-                  onPressed: () => Navigator.pop(context),
-                  // InkWell
-                  child: const Text("戻る"),
-                ),
-                // 変更するボタン
-                TextButton(
-                    style: alertButtonStyle(
-                        accentColor: corrThemeData.accentColor),
-                    onPressed: () {
-                      // このアラートを消す
-                      Navigator.pop(context);
-                      selectedThemeIndexNotifier.changeThemeIndex(corrIndex);
-                      TLConnectivityService.sendSelectedThemeToAppleWatch(
-                          selectedThemeIndex: corrIndex);
-                      TLMethodChannelService.updateSelectedTheme(
-                          selectedThemeIndex: corrIndex);
-                      TLVibrationService.vibrate();
-                      // 完了を知らせるアラートを表示
-                      const TLSingleOptionDialog(title: "変更が完了しました")
-                          .show(context: context);
-                    },
-                    // InkWell
-                    child: const Text("変更")),
-              ],
-            )
-          ],
+          ),
         ),
       ),
+    );
+  }
+
+  // MARK - Build Action Buttons
+  Widget _buildActionButtons(
+      BuildContext context, TLAppStateReducer tlAppStateNotifier, themeConfig) {
+    return OverflowBar(
+      alignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        // Cancel Button
+        TextButton(
+          style: alertButtonStyle(accentColor: themeConfig.accentColor),
+          onPressed: () => Navigator.pop(context),
+          child: const Text("戻る"),
+        ),
+        // Confirm Button
+        TextButton(
+          style: alertButtonStyle(accentColor: themeConfig.accentColor),
+          onPressed: () {
+            Navigator.pop(context); // Close current dialog
+            tlAppStateNotifier.dispatchThemeAction(
+                TLThemeAction.changeTheme(themeType: corrThemeType));
+
+            // Show completion alert
+            const TLSingleOptionDialog(title: "変更が完了しました")
+                .show(context: context);
+          },
+          child: const Text("変更"),
+        ),
+      ],
     );
   }
 }
