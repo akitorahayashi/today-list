@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/redux/reducer/tl_app_state_reducer.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
@@ -16,7 +17,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final corrThemeConfig = corrThemeType.config;
+    final TLThemeConfig corrThemeConfig = corrThemeType.config;
     final tlAppStateNotifier = ref.read(tlAppStateProvider.notifier);
 
     return Dialog(
@@ -56,7 +57,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
               alignment: Alignment.center,
               child: Card(
                 elevation: 5,
-                color: themeConfig.panelColor,
+                color: themeConfig.canTapCardColor,
                 child: Container(
                   width: 150,
                   height: 50,
