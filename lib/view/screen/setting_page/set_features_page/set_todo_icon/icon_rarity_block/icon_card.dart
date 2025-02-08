@@ -86,7 +86,7 @@ class _IconCardState extends ConsumerState<IconCard> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: isCurrentIcon ? 0 : 3,
-          color: tlThemeConfig.panelColor,
+          color: tlThemeConfig.canTapCardColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Column(

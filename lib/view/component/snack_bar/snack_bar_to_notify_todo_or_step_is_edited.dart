@@ -37,7 +37,7 @@ class NotifyTodoOrStepIsEditedSnackBar {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
 
     // MARK: - Common Colors
-    final backgroundColor = tlThemeData.panelColor;
+    final backgroundColor = tlThemeData.canTapCardColor;
     final accentColor = tlThemeData.accentColor;
     final titleColor = Colors.black.withOpacity(newCheckedState ? 0.3 : 0.6);
 

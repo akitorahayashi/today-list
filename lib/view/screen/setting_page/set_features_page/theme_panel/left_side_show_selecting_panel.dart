@@ -29,7 +29,7 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
           // toDoカードを表示
           child: Card(
             elevation: 5,
-            color: tlThemeConfig.panelColor,
+            color: tlThemeConfig.canTapCardColor,
             child: SizedBox(
               width: deviceWidth / 2 - 50,
               child: Padding(

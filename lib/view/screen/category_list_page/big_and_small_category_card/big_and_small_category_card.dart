@@ -29,7 +29,7 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
     final coorBigCategory = currentWorkspace.bigCategories[indexOfBigCategory];
 
     return Card(
-      color: tlThemeData.panelColor,
+      color: tlThemeData.canTapCardColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

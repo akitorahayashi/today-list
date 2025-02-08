@@ -20,7 +20,7 @@ class TLSingleOptionDialog extends ConsumerWidget with TLBaseDialogMixin {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig corrThemeData = TLTheme.of(context);
     return Dialog(
-      backgroundColor: corrThemeData.alertColor,
+      backgroundColor: corrThemeData.alertBackgroundColor,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
         child: Padding(

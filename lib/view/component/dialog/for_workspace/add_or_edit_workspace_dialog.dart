@@ -91,7 +91,7 @@ class _AddOrEditWorkspaceDialogState
         ref.watch(tlAppStateProvider).tlWorkspaces;
 
     return Dialog(
-      backgroundColor: tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertBackgroundColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

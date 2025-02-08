@@ -53,7 +53,7 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
     // notifier
     final editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
     return AlertDialog(
-      backgroundColor: tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertBackgroundColor,
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

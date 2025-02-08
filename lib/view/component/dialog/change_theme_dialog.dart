@@ -20,7 +20,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
     final tlAppStateNotifier = ref.read(tlAppStateProvider.notifier);
 
     return Dialog(
-      backgroundColor: corrThemeConfig.alertColor,
+      backgroundColor: corrThemeConfig.alertBackgroundColor,
       child: DefaultTextStyle(
         style: const TextStyle(
             fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black45),

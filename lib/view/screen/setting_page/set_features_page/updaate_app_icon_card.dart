@@ -43,7 +43,7 @@ class UpdaateAppIconCard extends ConsumerWidget {
                 },
           child: Card(
             // 色
-            color: tlThemeConfig.panelColor,
+            color: tlThemeConfig.canTapCardColor,
             // 浮き具合
             elevation: 2,
             shape:

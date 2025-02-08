@@ -26,7 +26,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
     // notifier
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
     return Dialog(
-      backgroundColor: tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertBackgroundColor,
       child: Padding(
         padding: const EdgeInsets.only(top: 20.0),
         child: Column(

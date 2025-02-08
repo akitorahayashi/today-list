@@ -48,7 +48,7 @@ class TLToDoCard extends ConsumerWidget {
     final TLToDo corrToDoData = toDoArray[indexOfThisToDoInToDos];
 
     // MARK: - Common Colors
-    final panelColor = tlThemeData.panelColor;
+    final panelColor = tlThemeData.canTapCardColor;
     final textColor =
         Colors.black.withOpacity(corrToDoData.isChecked ? 0.3 : 0.6);
 

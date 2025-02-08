@@ -10,7 +10,7 @@ class TLDoubleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     return Card(
-      color: tlThemeData.tlDoubleCardColor,
+      color: tlThemeData.tlDoubleCardBorderColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

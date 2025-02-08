@@ -80,7 +80,7 @@ class _RenameCategoryDialogState extends ConsumerState<RenameCategoryDialog> {
     // notifier
     final editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
     return AlertDialog(
-      backgroundColor: tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertBackgroundColor,
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

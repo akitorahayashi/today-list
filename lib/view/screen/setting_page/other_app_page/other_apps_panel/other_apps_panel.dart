@@ -27,14 +27,14 @@ class OtherAppsPanel extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 26,
-                        color: tlThemeData.tlDoubleCardColor),
+                        color: tlThemeData.tlDoubleCardBorderColor),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 24.0),
                   child: Icon(
                     Icons.thumb_up,
-                    color: tlThemeData.tlDoubleCardColor,
+                    color: tlThemeData.tlDoubleCardBorderColor,
                   ),
                 )
               ],

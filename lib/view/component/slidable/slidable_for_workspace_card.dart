@@ -42,7 +42,7 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                 SlidableAction(
                   autoClose: true,
                   spacing: 8,
-                  backgroundColor: tlThemeData.panelColor,
+                  backgroundColor: tlThemeData.canTapCardColor,
                   foregroundColor: tlThemeData.accentColor,
                   onPressed: (BuildContext context) async {
                     await showDialog(
@@ -66,7 +66,7 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                     SlidableAction(
                       autoClose: true,
                       spacing: 8,
-                      backgroundColor: tlThemeData.panelColor,
+                      backgroundColor: tlThemeData.canTapCardColor,
                       foregroundColor: tlThemeData.accentColor,
                       onPressed: (BuildContext context) async {
                         AddOrEditWorkspaceDialog(

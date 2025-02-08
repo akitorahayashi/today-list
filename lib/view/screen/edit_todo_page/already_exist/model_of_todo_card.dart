@@ -34,7 +34,7 @@ class ModelOfToDoCard extends ConsumerWidget {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     // notifier
     return Card(
-      color: tlThemeData.panelColor,
+      color: tlThemeData.canTapCardColor,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ClipRRect(

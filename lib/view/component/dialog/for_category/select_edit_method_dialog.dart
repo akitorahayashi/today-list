@@ -24,7 +24,7 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     // notifier
     return SimpleDialog(
-      backgroundColor: tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertBackgroundColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       titlePadding: const EdgeInsets.fromLTRB(18, 24, 24, 24),
       title: Column(

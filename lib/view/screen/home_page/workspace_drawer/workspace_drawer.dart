@@ -63,7 +63,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: tlThemeData.panelBorderColor),
+                color: tlThemeData.tlDoubleCardBorderColor),
             child: Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),

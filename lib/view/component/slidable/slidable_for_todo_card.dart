@@ -45,7 +45,7 @@ class SlidableForToDoCard extends ConsumerWidget {
         currentWorkspace.categoryIDToToDos[corrCategoryID]!.getToDos(ifInToday);
 
     // MARK: - Common Colors
-    final backgroundColor = tlThemeData.panelColor;
+    final backgroundColor = tlThemeData.canTapCardColor;
     final foregroundColor = tlThemeData.accentColor;
 
     return Slidable(

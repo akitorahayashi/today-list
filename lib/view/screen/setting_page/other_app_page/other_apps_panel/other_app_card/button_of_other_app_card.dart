@@ -49,13 +49,13 @@ class ButtonInOtherAppCard extends StatelessWidget {
         },
         style: ButtonStyle(
           overlayColor: WidgetStateProperty.all(
-              tlThemeData.niceAppsPressedElevatedButtonColor),
+              tlThemeData.otherAppsPressedElevatedButtonColor),
           backgroundColor: WidgetStateProperty.resolveWith<Color>(
             (Set<WidgetState> states) {
               if (states.contains(WidgetState.disabled)) {
                 return const Color.fromRGBO(220, 220, 220, 1);
               }
-              return tlThemeData.niceAppsElevatedButtonColor;
+              return tlThemeData.otherAppsElevatedButtonColor;
             },
           ),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(

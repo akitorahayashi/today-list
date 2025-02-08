@@ -103,11 +103,11 @@ class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             // 2個目のテーマ
-                            RightSideThemeSelectButton(
-                                corrThemeType: unUsingThemes[0]),
-                            // 3個目のテーマ
-                            RightSideThemeSelectButton(
-                                corrThemeType: unUsingThemes[1]),
+                            // RightSideThemeSelectButton(
+                            //     corrThemeType: unUsingThemes[0]),
+                            // // 3個目のテーマ
+                            // RightSideThemeSelectButton(
+                            //     corrThemeType: unUsingThemes[1]),
                           ],
                         ),
                       ),

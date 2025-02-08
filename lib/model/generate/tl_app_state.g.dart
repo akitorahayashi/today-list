@@ -28,6 +28,4 @@ Map<String, dynamic> _$$TLAppStateImplToJson(_$TLAppStateImpl instance) =>
 
 const _$TLThemeTypeEnumMap = {
   TLThemeType.sunOrange: 'sunOrange',
-  TLThemeType.limeGreen: 'limeGreen',
-  TLThemeType.marineBlue: 'marineBlue',
 };

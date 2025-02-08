@@ -65,7 +65,7 @@ class _RightSideThemeSelectButtonState
               // todoのカードを表示
               child: Card(
                 elevation: 5,
-                color: corrThemeType.config.panelColor,
+                color: corrThemeType.config.canTapCardColor,
                 child: SizedBox(
                   width: deviceWidth / 2 - 70,
                   child: Padding(

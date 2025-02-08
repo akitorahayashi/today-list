@@ -51,7 +51,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
 
     if (categoryThisBelongsTo == null) {
       return Dialog(
-        backgroundColor: tlThemeData.alertColor,
+        backgroundColor: tlThemeData.alertBackgroundColor,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
@@ -63,7 +63,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
     }
 
     return Dialog(
-      backgroundColor: tlThemeData.alertColor,
+      backgroundColor: tlThemeData.alertBackgroundColor,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
         child: Column(

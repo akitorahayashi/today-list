@@ -30,7 +30,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 70),
         child: Card(
-          color: tlThemeConfig.panelColor,
+          color: tlThemeConfig.canTapCardColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: ClipRRect(

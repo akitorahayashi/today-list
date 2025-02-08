@@ -2,69 +2,73 @@ import 'package:flutter/material.dart';
 
 /// テーマの構成情報を管理するクラス
 class TLThemeConfig {
+  // Theme Name
   final String themeName;
   final String themeTitleInSettings;
-  // 設定ページ系
+
+  // Settings Page
   final Color titleColorOfSettingPage;
   final Color settingPanelColor;
-  final Color notifyLogInBonusBadgeColor;
-  // tips系
-  final Color tipsCardBorderColor;
-  final Color panelBorderColor;
-  // nice apps系
-  final Color tlDoubleCardColor;
-  final Color niceAppsElevatedButtonColor;
-  final Color niceAppsPressedElevatedButtonColor;
-  // 基本色
-  final Gradient gradientOfNavBar;
+
+  // other apps
+  final Color otherAppsElevatedButtonColor;
+  final Color otherAppsPressedElevatedButtonColor;
+
+  // Home Page
   final Color backgroundColor;
-  final Color panelColor;
+
+  // Navigation Bar
+  final Gradient gradientOfNavBar;
+
+  // Basics
   final MaterialColor accentColor;
+  final Color canTapCardColor;
+  final Color tlDoubleCardBorderColor;
   final Color checkmarkColor;
-  // アラート
-  final Color alertColor;
-  // category list系
+
+  // Alert
+  final Color alertBackgroundColor;
+
+  // Category List
   final Color bigCategoryChipColor;
-  // todo、カテゴリー追加系
+
+  // Edit Page
   final Color toggleButtonsBackgroundColor;
   final Color toggleButtonsBackgroundSplashColor;
-  // my page
-  final Color backupButtonBorderColor;
-  final Color backupButtonTextColor;
-  // reward
-  final Color rewardButtonTitleColor;
 
   const TLThemeConfig({
+    // Theme Name
     required this.themeName,
     required this.themeTitleInSettings,
-    // 設定ページ系
+
+    // Settings Page
     required this.titleColorOfSettingPage,
     required this.settingPanelColor,
-    required this.notifyLogInBonusBadgeColor,
-    // tips系
-    required this.tipsCardBorderColor,
-    required this.panelBorderColor,
-    // nice apps系
-    required this.tlDoubleCardColor,
-    required this.niceAppsElevatedButtonColor,
-    required this.niceAppsPressedElevatedButtonColor,
-    // 基本色
-    required this.accentColor,
-    required this.gradientOfNavBar,
+
+    // Home Page
     required this.backgroundColor,
+
+    // Navigation Bar
+    required this.gradientOfNavBar,
+
+    // Other Apps
+    required this.otherAppsElevatedButtonColor,
+    required this.otherAppsPressedElevatedButtonColor,
+
+    // Basics
+    required this.accentColor,
+    required this.canTapCardColor,
+    required this.tlDoubleCardBorderColor,
     required this.checkmarkColor,
-    required this.panelColor,
-    // アラート
-    required this.alertColor,
-    // category list系
+
+    // Alert
+    required this.alertBackgroundColor,
+
+    // Category List
     required this.bigCategoryChipColor,
-    // todo、カテゴリー追加系
+
+    // Edit Page
     required this.toggleButtonsBackgroundColor,
     required this.toggleButtonsBackgroundSplashColor,
-    // my page
-    required this.backupButtonBorderColor,
-    required this.backupButtonTextColor,
-    // reward
-    required this.rewardButtonTitleColor,
   });
 }
