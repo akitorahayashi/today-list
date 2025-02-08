@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
@@ -37,22 +39,25 @@ class ChangeWorkspaceCard extends ConsumerWidget {
             borderRadius: BorderRadius.circular(10),
             child: GestureDetector(
               onTap: () => _handleCardTap(context, ref, isCurrentWorkspace),
-              child: SlidableForWorkspaceCard(
-                isCurrentWorkspace: isCurrentWorkspace,
-                indexInTLWorkspaces: indexInWorkspaces,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16, horizontal: 16),
-                    child: Text(
-                      isCurrentWorkspace
-                          ? "☆ $workspaceName   "
-                          : workspaceName,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: tlThemeConfig.accentColor,
-                        letterSpacing: 1,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                child: SlidableForWorkspaceCard(
+                  isCurrentWorkspace: isCurrentWorkspace,
+                  indexInTLWorkspaces: indexInWorkspaces,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 16),
+                      child: Text(
+                        isCurrentWorkspace
+                            ? "☆ $workspaceName   "
+                            : workspaceName,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: tlThemeConfig.accentColor,
+                          letterSpacing: 1,
+                        ),
                       ),
                     ),
                   ),

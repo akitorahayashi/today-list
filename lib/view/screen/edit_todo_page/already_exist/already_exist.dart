@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import '../../../../model/design/tl_theme/tl_theme.dart';
-import '../../../../model/todo/tl_workspace.dart';
-import '../../../../model/todo/tl_todo.dart';
 import 'model_of_todo_card.dart';
 
 class AlreadyExist extends ConsumerWidget {
