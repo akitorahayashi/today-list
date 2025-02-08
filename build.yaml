@@ -8,7 +8,7 @@ targets:
         - lib/model/todo/**
         - lib/model/tl_app_state.dart
         - lib/resource/tl_theme_type.dart
-        - lib/redux/action/todo/**
+        - lib/redux/action/**
       exclude:
         - test/**  # テストコードはビルド対象から除外
 
@@ -19,22 +19,22 @@ targets:
           - lib/model/todo/**
           - lib/model/tl_app_state.dart
           - lib/resource/tl_theme_type.dart
-          - lib/redux/action/todo/**
+          - lib/redux/action/**
         options:
           build_extensions:
             '^lib/model/todo/{{}}.dart': 'lib/model/generate/{{}}.g.dart'
             '^lib/model/tl_app_state.dart': 'lib/model/generate/tl_app_state.g.dart'
             '^lib/resource/tl_theme_type.dart': 'lib/resource/generate/tl_theme_type.g.dart'
-            '^lib/redux/action/todo/{{}}.dart': 'lib/redux/action/generate/{{}}.g.dart'
+            '^lib/redux/action/{{}}.dart': 'lib/redux/action/generate/{{}}.g.dart'
 
       # Freezed のビルダー設定
       freezed:
         generate_for:
           - lib/model/todo/**
           - lib/model/tl_app_state.dart
-          - lib/redux/action/todo/**
+          - lib/redux/action/**
         options:
           build_extensions:
             '^lib/model/todo/{{}}.dart': 'lib/model/generate/{{}}.freezed.dart'
             '^lib/model/tl_app_state.dart': 'lib/model/generate/tl_app_state.freezed.dart'
-            '^lib/redux/action/todo/{{}}.dart': 'lib/redux/action/generate/{{}}.freezed.dart'
+            '^lib/redux/action/{{}}.dart': 'lib/redux/action/generate/{{}}.freezed.dart'
