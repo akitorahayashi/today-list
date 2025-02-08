@@ -88,7 +88,7 @@ class SettingsPage extends HookWidget {
     return Positioned(
       bottom: 0,
       child: Container(
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width,
         height: (100 * MediaQuery.of(context).size.height / 896),
         decoration: const BoxDecoration(
           color: Colors.white,

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/view/screen/edit_todo_page/edit_todo_page.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
-import '../../../model/design/tl_theme.dart';
-import '../../../model/todo/tl_todo.dart';
-import '../../../model/todo/tl_todos_in_today_and_whenever.dart';
-import '../../../service/tl_vibration.dart';
-import '../../../model/todo/tl_workspace.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -35,142 +34,160 @@ class SlidableForToDoCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeData tlThemeData = TLTheme.of(context);
-    // provider
-    final tlAppState = ref.watch(tlAppStateProvider);
-    // notifier
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-    // others
-    final TLWorkspace currentWorkspaceRef =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
+    final currentWorkspace = ref.watch(
+      tlAppStateProvider
+          .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]),
+    );
 
     final String corrCategoryID = smallCategoryID ?? bigCategoryID;
-    final List<TLToDo> toDoArrayOfThisToDoBelongs = currentWorkspaceRef
-        .categoryIDToToDos[corrCategoryID]!
-        .getToDos(ifInToday);
+    final List<TLToDo> toDoArray =
+        currentWorkspace.categoryIDToToDos[corrCategoryID]!.getToDos(ifInToday);
+
+    // MARK: - Common Colors
+    final backgroundColor = tlThemeData.panelColor;
+    final foregroundColor = tlThemeData.accentColor;
 
     return Slidable(
       enabled: !corrTLToDo.isChecked,
-      startActionPane:
-          ActionPane(motion: const ScrollMotion(), extentRatio: 0.2, children: [
-        SlidableAction(
-          autoClose: true,
-          backgroundColor: tlThemeData.panelColor,
-          foregroundColor: tlThemeData.accentColor,
-          onPressed: (BuildContext context) {
-            // 新しいリストを生成
-            final List<TLToDo> updatedToDos =
-                List.from(toDoArrayOfThisToDoBelongs)
-                  ..removeAt(indexOfThisToDoInToDos);
 
-            // categoryIDToToDosを再構築
-            final updatedCategoryIDToToDos = {
-              ...currentWorkspaceRef.categoryIDToToDos,
-              corrCategoryID: currentWorkspaceRef
-                  .categoryIDToToDos[corrCategoryID]!
-                  .copyWith(toDosInToday: updatedToDos),
-            };
+      // MARK: - Delete ToDo
+      startActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        extentRatio: 0.2,
+        children: [
+          SlidableAction(
+            autoClose: true,
+            backgroundColor: backgroundColor,
+            foregroundColor: foregroundColor,
+            onPressed: (context) => _handleDeleteToDo(
+                ref, currentWorkspace, toDoArray, corrCategoryID),
+            icon: Icons.remove,
+          ),
+        ],
+      ),
 
-            // ワークスペースを更新
-            tlAppStateReducer.dispatchWorkspaceAction(
-                TLWorkspaceAction.updateCurrentWorkspace(
-              currentWorkspaceRef.copyWith(
-                categoryIDToToDos: updatedCategoryIDToToDos,
-              ),
-            ));
-
-            TLVibrationService.vibrate();
-          },
-          icon: Icons.remove,
-        ),
-      ]),
+      // MARK: - Edit / Move ToDo
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         extentRatio: 0.6,
         children: [
+          // MARK: - Edit ToDo
           if (!isForModelCard)
             SlidableAction(
               autoClose: true,
               flex: 10,
               spacing: 8,
-              backgroundColor: tlThemeData.panelColor,
-              foregroundColor: tlThemeData.accentColor,
-              onPressed: (BuildContext context) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return EditToDoPage(
-                        ifInToday: true,
-                        selectedBigCategoryID: bigCategoryID,
-                        selectedSmallCategoryID: smallCategoryID,
-                        editedToDoTitle:
-                            toDoArrayOfThisToDoBelongs[indexOfThisToDoInToDos]
-                                .title,
-                        indexOfEdittedTodo: indexOfThisToDoInToDos,
-                      );
-                    },
-                  ),
-                );
-              },
+              backgroundColor: backgroundColor,
+              foregroundColor: foregroundColor,
+              onPressed: (context) => _handleEditToDo(context, toDoArray),
               icon: Icons.edit,
               label: 'Edit',
             ),
+
+          // MARK: - Toggle Between Today and Whenever
           SlidableAction(
             autoClose: true,
             flex: 11,
             spacing: 8,
-            backgroundColor: tlThemeData.panelColor,
-            foregroundColor: tlThemeData.accentColor,
-            onPressed: (BuildContext context) {
-              final TLToDo switchedToDo =
-                  toDoArrayOfThisToDoBelongs[indexOfThisToDoInToDos];
-
-              // toDosInTodayとtoDosInWheneverを切り替える
-              final List<TLToDo> updatedToDosInCurrentList =
-                  List.from(toDoArrayOfThisToDoBelongs)
-                    ..removeAt(indexOfThisToDoInToDos);
-              final List<TLToDo> updatedToDosInOtherList = [
-                switchedToDo,
-                ...currentWorkspaceRef.categoryIDToToDos[corrCategoryID]!
-                    .getToDos(!ifInToday),
-              ];
-
-              final updatedCategoryIDToToDos = {
-                ...currentWorkspaceRef.categoryIDToToDos,
-                corrCategoryID: currentWorkspaceRef
-                    .categoryIDToToDos[corrCategoryID]!
-                    .copyWith(
-                  toDosInToday: ifInToday
-                      ? updatedToDosInCurrentList
-                      : updatedToDosInOtherList,
-                  toDosInWhenever: ifInToday
-                      ? updatedToDosInOtherList
-                      : updatedToDosInCurrentList,
-                ),
-              };
-
-              // ワークスペースを更新
-              tlAppStateReducer.dispatchWorkspaceAction(
-                  TLWorkspaceAction.updateCurrentWorkspace(
-                currentWorkspaceRef.copyWith(
-                  categoryIDToToDos: updatedCategoryIDToToDos,
-                ),
-              ));
-
-              TLVibrationService.vibrate();
-              NotifyTodoOrStepIsEditedSnackBar.show(
-                context: context,
-                newTitle: corrTLToDo.title,
-                newCheckedState: corrTLToDo.isChecked,
-                quickChangeToToday: !ifInToday,
-              );
-            },
+            backgroundColor: backgroundColor,
+            foregroundColor: foregroundColor,
+            onPressed: (context) => _toggleToDoTodayWhenever(
+                ref, context, currentWorkspace, toDoArray, corrCategoryID),
             icon: ifInToday ? Icons.schedule : Icons.light_mode,
             label: ifInToday ? "whenever" : "today",
           ),
         ],
       ),
       child: child,
+    );
+  }
+
+  // MARK: - Handle Delete ToDo
+  void _handleDeleteToDo(WidgetRef ref, TLWorkspace currentWorkspace,
+      List<TLToDo> toDoArray, String corrCategoryID) {
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+
+    // Remove the ToDo from the list
+    final List<TLToDo> updatedToDos = List.from(toDoArray)
+      ..removeAt(indexOfThisToDoInToDos);
+
+    // Update the workspace state
+    final updatedCategoryIDToToDos = {
+      ...currentWorkspace.categoryIDToToDos,
+      corrCategoryID: currentWorkspace.categoryIDToToDos[corrCategoryID]!
+          .copyWith(toDosInToday: updatedToDos),
+    };
+
+    tlAppStateReducer.dispatchWorkspaceAction(
+      TLWorkspaceAction.updateCurrentWorkspace(
+        currentWorkspace.copyWith(categoryIDToToDos: updatedCategoryIDToToDos),
+      ),
+    );
+
+    TLVibrationService.vibrate();
+  }
+
+  // MARK: - Handle Edit ToDo
+  void _handleEditToDo(BuildContext context, List<TLToDo> toDoArray) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return EditToDoPage(
+            ifInToday: true,
+            selectedBigCategoryID: bigCategoryID,
+            selectedSmallCategoryID: smallCategoryID,
+            editedToDoTitle: toDoArray[indexOfThisToDoInToDos].title,
+            indexOfEdittedTodo: indexOfThisToDoInToDos,
+          );
+        },
+      ),
+    );
+  }
+
+  // MARK: - Toggle ToDo Between Today and Whenever
+  void _toggleToDoTodayWhenever(
+      WidgetRef ref,
+      BuildContext context,
+      TLWorkspace currentWorkspace,
+      List<TLToDo> toDoArray,
+      String corrCategoryID) {
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    final TLToDo switchedToDo = toDoArray[indexOfThisToDoInToDos];
+
+    // Separate ToDos based on switch
+    final List<TLToDo> updatedToDosInCurrentList = List.from(toDoArray)
+      ..removeAt(indexOfThisToDoInToDos);
+    final List<TLToDo> updatedToDosInOtherList = [
+      switchedToDo,
+      ...currentWorkspace.categoryIDToToDos[corrCategoryID]!
+          .getToDos(!ifInToday),
+    ];
+
+    final updatedCategoryIDToToDos = {
+      ...currentWorkspace.categoryIDToToDos,
+      corrCategoryID:
+          currentWorkspace.categoryIDToToDos[corrCategoryID]!.copyWith(
+        toDosInToday:
+            ifInToday ? updatedToDosInCurrentList : updatedToDosInOtherList,
+        toDosInWhenever:
+            ifInToday ? updatedToDosInOtherList : updatedToDosInCurrentList,
+      ),
+    };
+
+    // Update workspace state
+    tlAppStateReducer.dispatchWorkspaceAction(
+      TLWorkspaceAction.updateCurrentWorkspace(
+        currentWorkspace.copyWith(categoryIDToToDos: updatedCategoryIDToToDos),
+      ),
+    );
+
+    TLVibrationService.vibrate();
+    NotifyTodoOrStepIsEditedSnackBar.show(
+      context: context,
+      newTitle: corrTLToDo.title,
+      newCheckedState: corrTLToDo.isChecked,
+      quickChangeToToday: !ifInToday,
     );
   }
 }
