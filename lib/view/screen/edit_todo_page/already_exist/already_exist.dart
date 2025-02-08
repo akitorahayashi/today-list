@@ -42,47 +42,22 @@ class AlreadyExist extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              // 文字
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        "Already Exist",
-                        style: TextStyle(
-                          color: tlThemeData.accentColor,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                  ],
+              for (int indexOfThisToDoInToDos = 0;
+                  indexOfThisToDoInToDos < toDoArrayOfThisBlock.length;
+                  indexOfThisToDoInToDos++)
+                ModelOfToDoCard(
+                  key:
+                      ValueKey(toDoArrayOfThisBlock[indexOfThisToDoInToDos].id),
+                  // todoのメンバー
+                  corrTLToDo: toDoArrayOfThisBlock[indexOfThisToDoInToDos],
+                  ifInToday: ifInToday,
+                  bigCategoryID: bigCategoryID,
+                  smallCategoryID: smallCategoryID,
+                  indexOfThisToDoInToDoArrray: indexOfThisToDoInToDos,
+                  // 編集系のメンバー
+                  indexOfEditingToDo: indexOfThisToDoInToDos,
+                  tapToEditAction: tapToEditAction,
                 ),
-              ),
-              Column(
-                children: [
-                  for (int indexOfThisToDoInToDos = 0;
-                      indexOfThisToDoInToDos < toDoArrayOfThisBlock.length;
-                      indexOfThisToDoInToDos++)
-                    ModelOfToDoCard(
-                      key: ValueKey(
-                          toDoArrayOfThisBlock[indexOfThisToDoInToDos].id),
-                      // todoのメンバー
-                      corrTLToDo: toDoArrayOfThisBlock[indexOfThisToDoInToDos],
-                      ifInToday: ifInToday,
-                      bigCategoryID: bigCategoryID,
-                      smallCategoryID: smallCategoryID,
-                      indexOfThisToDoInToDoArrray: indexOfThisToDoInToDos,
-                      // 編集系のメンバー
-                      indexOfEditingToDo: indexOfThisToDoInToDos,
-                      tapToEditAction: tapToEditAction,
-                    ),
-                ],
-              ),
             ],
           ),
         ),

@@ -6,7 +6,7 @@ import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/view/component/common_ui_part/tl_sliver_appbar.dart';
+import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'change_workspace_card.dart';
 import 'add_workspace_button.dart';
 
@@ -28,11 +28,33 @@ class TLWorkspaceDrawer extends ConsumerWidget {
       child: Stack(
         children: [
           Container(color: tlThemeConfig.backgroundColor),
-          CustomScrollView(
-            slivers: [
-              _buildAppBar(),
-              _buildWorkspaceList(
-                  context, ref, currentTLWorkspaceIndex, workspaces),
+          Column(
+            children: [
+              DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: TLTheme.of(context).gradientOfNavBar,
+                ),
+                child: TLAppBar(
+                  context: context,
+                  pageTitle: "Workspace",
+                  leadingButtonOnPressed: null,
+                  leadingIcon: null,
+                  trailingButtonOnPressed: null,
+                  trailingIcon: null,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 12.0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                  child: _buildWorkspaceList(
+                    context,
+                    ref,
+                    currentTLWorkspaceIndex,
+                    workspaces,
+                  ),
+                ),
+              ),
             ],
           ),
         ],
@@ -41,48 +63,44 @@ class TLWorkspaceDrawer extends ConsumerWidget {
   }
 
   // MARK - AppBar
-  Widget _buildAppBar() {
-    return TLSliverAppBar(
-      pageTitle: "Workspace",
-      leadingButtonOnPressed: null,
-      leadingIcon: Container(),
-      trailingButtonOnPressed: null,
-      trailingIcon: null,
-    );
-  }
+  // Widget _buildAppBar(BuildContext context) {
+  //   return TLAppBar(
+  //     context: context,
+  //     pageTitle: "Workspace",
+  //     leadingButtonOnPressed: null,
+  //     leadingIcon: Container(),
+  //     trailingButtonOnPressed: null,
+  //     trailingIcon: null,
+  //   );
+  // }
 
   // MARK - Workspace List
   Widget _buildWorkspaceList(BuildContext context, WidgetRef ref,
       int currentWorkspaceIndex, List<TLWorkspace> workspaces) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
 
-    return SliverList(
-      delegate: SliverChildListDelegate([
-        Padding(
-          padding: const EdgeInsets.fromLTRB(3, 8, 3, 0),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: tlThemeData.tlDoubleCardBorderColor),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
-                child: Column(
-                  children: [
-                    const ChangeWorkspaceCard(indexInWorkspaces: 0),
-                    _buildReorderableWorkspaceList(
-                        ref, currentWorkspaceIndex, workspaces),
-                    const AddWorkspaceButton(),
-                  ],
-                ),
-              ),
+    return Column(children: [
+      DecoratedBox(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: tlThemeData.tlDoubleCardBorderColor),
+        child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
+            child: Column(
+              children: [
+                const ChangeWorkspaceCard(indexInWorkspaces: 0),
+                _buildReorderableWorkspaceList(
+                    ref, currentWorkspaceIndex, workspaces),
+                const AddWorkspaceButton(),
+              ],
             ),
           ),
         ),
-      ]),
-    );
+      ),
+    ]);
   }
 
   // MARK - Reorderable Workspace List

@@ -12,13 +12,20 @@ class TodayListApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeType selectedThemeType = ref
         .watch(tlAppStateProvider.select((state) => state.selectedThemeType));
+
+    // システムのダークモード設定を取得
+    final Brightness brightness = MediaQuery.of(context).platformBrightness;
+    final bool isDarkMode = brightness == Brightness.dark;
+
     return TLTheme(
-      data: selectedThemeType.config,
+      data:
+          // isDarkMode ? selectedThemeType.darkConfig :
+          selectedThemeType.config,
       child: const MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: "Today List",
-          themeMode: ThemeMode.system,
-          home: HomePage()),
+        debugShowCheckedModeBanner: false,
+        title: "Today List",
+        home: HomePage(),
+      ),
     );
   }
 }

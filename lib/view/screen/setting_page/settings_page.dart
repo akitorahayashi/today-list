@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/view/screen/setting_page/set_ios_widget_page/set_ios_widget_page.dart';
-import 'package:today_list/view/component/common_ui_part/tl_sliver_appbar.dart';
+import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'set_features_page/set_appearance_page.dart';
 import 'dart:io';
@@ -39,16 +39,11 @@ class SettingsPage extends HookWidget {
         decoration: TextDecoration.none,
       ),
       child: Scaffold(
+        appBar: _buildAppBar(context),
         body: Stack(
           children: [
             Container(color: tlThemeData.backgroundColor),
-            NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return [_buildAppBar(context)];
-              },
-              body: _buildPageView(pageController, contentsInSettingPage),
-            ),
+            _buildPageView(pageController, contentsInSettingPage),
             _buildBottomNavBar(context, tlThemeData, selectedPageIndex,
                 pageController, iconDataOfSettingPageContents),
           ],
@@ -58,8 +53,9 @@ class SettingsPage extends HookWidget {
   }
 
   // MARK - Build AppBar
-  Widget _buildAppBar(BuildContext context) {
-    return TLSliverAppBar(
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return TLAppBar(
+      context: context,
       pageTitle: "Settings",
       leadingButtonOnPressed: () => Navigator.pop(context),
       leadingIcon: const Icon(Icons.arrow_back_ios, color: Colors.white),

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
@@ -69,14 +71,17 @@ class TLToDoCard extends ConsumerWidget {
             ifInToday: ifInToday,
             bigCategoryID: bigCategoryOfThisToDo.id,
             smallCategoryID: smallCategoryOfThisToDo?.id,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildToDoContent(corrToDoData, textColor),
-                if (corrToDoData.steps.isNotEmpty)
-                  _buildStepsList(
-                      ref, currentWorkspace, categoryOfThisToDo, corrToDoData),
-              ],
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildToDoContent(corrToDoData, textColor),
+                  if (corrToDoData.steps.isNotEmpty)
+                    _buildStepsList(ref, currentWorkspace, categoryOfThisToDo,
+                        corrToDoData),
+                ],
+              ),
             ),
           ),
         ),
