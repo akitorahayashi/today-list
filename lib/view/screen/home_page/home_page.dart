@@ -7,7 +7,7 @@ import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/util/tl_workspace_utils.dart';
-import 'package:today_list/view/component/common_ui_part/tl_sliver_appbar.dart';
+import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/component/common_ui_part/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
 import 'package:today_list/view/component/common_ui_part/today_list_bottom_navbar/today_list_bottom_navbar.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
@@ -62,12 +62,12 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Scaffold(
       key: homePageScaffoldKey,
       drawer: const TLWorkspaceDrawer(isContentMode: false),
+      appBar: _buildAppBar(context, tlAppState, currentWorkspaceRef),
       body: Stack(
         children: [
           Container(color: tlThemeData.backgroundColor),
-          CustomScrollView(
-            slivers: [
-              _buildAppBar(context, tlAppState, currentWorkspaceRef),
+          ListView(
+            children: [
               _buildTodoList(
                   numOfToDosInToday, numOfToDosInWhenever, currentWorkspaceRef),
             ],
@@ -80,9 +80,10 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   // MARK - AppBar
-  Widget _buildAppBar(
+  PreferredSizeWidget _buildAppBar(
       BuildContext context, tlAppState, TLWorkspace currentWorkspaceRef) {
-    return TLSliverAppBar(
+    return TLAppBar(
+      context: context,
       pageTitle: tlAppState.currentWorkspaceIndex == 0
           ? "Today List"
           : currentWorkspaceRef.name,
@@ -101,11 +102,11 @@ class _HomePageState extends ConsumerState<HomePage> {
   // MARK - ToDo List Section
   Widget _buildTodoList(int numOfToDosInToday, int numOfToDosInWhenever,
       TLWorkspace currentWorkspaceRef) {
-    return SliverList(
-      delegate: SliverChildListDelegate([
+    return Column(
+      children: [
         // --- Today Section ---
         Padding(
-          padding: const EdgeInsets.only(top: 10.0),
+          padding: const EdgeInsets.only(top: 16.0),
           child: NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
         ),
         const ListOfCategoryToToDos(ifInToday: true),
@@ -118,7 +119,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
         const ListOfCategoryToToDos(ifInToday: false),
         const SizedBox(height: 250),
-      ]),
+      ],
     );
   }
 

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/todo/tl_step.dart';
@@ -47,7 +49,7 @@ class TLStepCard extends ConsumerWidget {
           context, ref, currentWorkspace, corrToDosReference),
       child: Card(
         color: cardColor,
-        elevation: 2,
+        elevation: 1.2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.all(16),

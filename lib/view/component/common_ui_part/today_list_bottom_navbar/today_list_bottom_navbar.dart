@@ -1,8 +1,7 @@
-import 'package:animated_gradient_background/animated_gradient_background.dart';
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import '../../../../model/design/tl_theme/tl_theme.dart';
-import 'side_button_of_bottom_navbar.dart';
+import 'package:today_list/view/component/common_ui_part/today_list_bottom_navbar/side_button_of_bottom_navbar.dart';
 
 class TodayListBottomNavbar extends StatelessWidget {
   final IconData leadingIconData;
@@ -26,31 +25,30 @@ class TodayListBottomNavbar extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           DecoratedBox(
-            decoration: const BoxDecoration(
-              boxShadow: [BoxShadow(blurRadius: 8, color: Colors.black45)],
-            ),
-            child: AnimatedGradientBackground(
-              colors: tlThemeData.gradientOfNavBar.colors,
-              child: SizedBox(
-                width: deviceWidth,
-                height: MediaQuery.of(context).size.height * 100 / 896,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SideButtonOfBottomNavbar(
-                            onPressed: leadingButtonOnPressed,
-                            iconData: leadingIconData),
-                        SideButtonOfBottomNavbar(
-                            onPressed: tralingButtonOnPressed,
-                            iconData: trailingIconData),
-                      ],
-                    ),
-                  ],
-                ),
+            decoration: BoxDecoration(
+                gradient: tlThemeData.gradientOfNavBar,
+                boxShadow: const [
+                  BoxShadow(blurRadius: 8, color: Colors.black45)
+                ]),
+            child: SizedBox(
+              width: deviceWidth,
+              height: MediaQuery.of(context).size.height * 100 / 896,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SideButtonOfBottomNavbar(
+                          onPressed: leadingButtonOnPressed,
+                          iconData: leadingIconData),
+                      SideButtonOfBottomNavbar(
+                          onPressed: tralingButtonOnPressed,
+                          iconData: trailingIconData),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),

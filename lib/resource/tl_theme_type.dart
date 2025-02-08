@@ -10,6 +10,7 @@ part 'generate/tl_theme_type.g.dart';
 enum TLThemeType {
   @JsonValue("sunOrange")
   sunOrange(
+    // config:
     TLThemeConfig(
       // Theme Name
       themeName: "Sun Orange",
@@ -49,6 +50,27 @@ enum TLThemeType {
       toggleButtonsBackgroundSplashColor: Color.fromRGBO(176, 255, 107, 0.5),
     ),
   ),
+  // darkConfig: TLThemeConfig(
+  //   themeName: "Sun Orange (Dark)",
+  //   themeTitleInSettings: "Sun\nOrange",
+  //   titleColorOfSettingPage: Color.fromRGBO(0, 0, 0, 1),
+  //   settingPanelColor: Color.fromRGBO(0, 0, 0, 1),
+  //   backgroundColor: Color.fromRGBO(0, 0, 0, 1),
+  //   gradientOfNavBar: LinearGradient(colors: [
+  //     Color.fromRGBO(0, 0, 0, 1),
+  //     Color.fromRGBO(0, 0, 0, 1),
+  //   ]),
+  //   otherAppsElevatedButtonColor: Color.fromRGBO(0, 0, 0, 1),
+  //   otherAppsPressedElevatedButtonColor: Color.fromRGBO(0, 0, 0, 1),
+  //   accentColor: Colors.deepOrange,
+  //   canTapCardColor: Color.fromRGBO(0, 0, 0, 1),
+  //   tlDoubleCardBorderColor: Color.fromRGBO(0, 0, 0, 1),
+  //   checkmarkColor: Color.fromRGBO(0, 0, 0, 1),
+  //   alertBackgroundColor: Color.fromRGBO(0, 0, 0, 1),
+  //   bigCategoryChipColor: Color.fromRGBO(0, 0, 0, 1),
+  //   toggleButtonsBackgroundColor: Color.fromRGBO(0, 0, 0, 1),
+  //   toggleButtonsBackgroundSplashColor: Color.fromRGBO(0, 0, 0, 1),
+  // ),
 
   @JsonValue("limeGreen")
   limeGreen(
@@ -135,7 +157,9 @@ enum TLThemeType {
   );
 
   final TLThemeConfig config;
+  // final TLThemeConfig darkConfig;
 
+  // const TLThemeType({required this.config, required this.darkConfig});
   const TLThemeType(this.config);
 
   /// JSON から TLThemeType を取得

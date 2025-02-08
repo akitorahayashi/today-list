@@ -8,8 +8,8 @@ import 'package:today_list/view_model/settings/setting_data_provider.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/setting_data/setting_data.dart';
 
-class UpdaateAppIconCard extends ConsumerWidget {
-  const UpdaateAppIconCard({super.key});
+class UpdateAppIconCard extends ConsumerWidget {
+  const UpdateAppIconCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

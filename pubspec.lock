@@ -22,14 +22,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.7.0"
-  animated_gradient_background:
-    dependency: "direct main"
-    description:
-      name: animated_gradient_background
-      sha256: aaa9c8493d5ce65ae11511b2e4769cd1b8c2d0ab169cc52db9f31cd604a2ccfd
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.1"
   ansicolor:
     dependency: transitive
     description:

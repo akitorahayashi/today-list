@@ -7,7 +7,7 @@ import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
-import 'package:today_list/view/component/common_ui_part/tl_sliver_appbar.dart';
+import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/component/dialog/for_category/add_category_dialog.dart';
 import 'big_and_small_category_card/big_and_small_category_card.dart';
 import 'package:reorderables/reorderables.dart';
@@ -22,12 +22,12 @@ class CategoryListPage extends ConsumerWidget {
         .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]));
 
     return Scaffold(
+      appBar: _buildAppBar(context),
       body: Stack(
         children: [
           Container(color: tlThemeData.backgroundColor),
           CustomScrollView(
             slivers: [
-              _buildAppBar(context),
               // カテゴリーのリスト
               SliverList(
                 delegate: SliverChildListDelegate([
@@ -45,8 +45,9 @@ class CategoryListPage extends ConsumerWidget {
   }
 
   // MARK - AppBar
-  Widget _buildAppBar(BuildContext context) {
-    return TLSliverAppBar(
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
+    return TLAppBar(
+      context: context,
       pageTitle: "Category List",
       leadingButtonOnPressed: () => Navigator.pop(context),
       leadingIcon: const Icon(Icons.arrow_back_ios, color: Colors.white),
