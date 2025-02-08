@@ -1,3 +1,4 @@
+import 'package:animated_gradient_background/animated_gradient_background.dart';
 import 'package:flutter/material.dart';
 import '../../../../model/design/tl_theme.dart';
 
@@ -68,8 +69,8 @@ class TLSliverAppBar extends StatelessWidget {
             overflow: TextOverflow.ellipsis),
       ),
       // AppBarのデザイン
-      flexibleSpace: DecoratedBox(
-        decoration: BoxDecoration(gradient: tlThemeData.gradientOfNavBar),
+      flexibleSpace: AnimatedGradientBackground(
+        colors: tlThemeData.gradientOfNavBar.colors,
         child: const FlexibleSpaceBar(
           title: SizedBox(),
         ),
