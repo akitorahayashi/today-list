@@ -22,6 +22,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.7.0"
+  animated_gradient_background:
+    dependency: "direct main"
+    description:
+      name: animated_gradient_background
+      sha256: aaa9c8493d5ce65ae11511b2e4769cd1b8c2d0ab169cc52db9f31cd604a2ccfd
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   ansicolor:
     dependency: transitive
     description:
@@ -284,7 +292,7 @@ packages:
     source: hosted
     version: "0.14.1"
   flutter_lints:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: flutter_lints
       sha256: "3f41d009ba7172d5ff9be5f6e6e6abb4300e263aab8866d2a0842ed2a70f8f0c"
