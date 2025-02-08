@@ -7,9 +7,9 @@ import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/util/tl_workspace_utils.dart';
+import 'package:today_list/view/component/common_ui_part/tl_bottom_navbar/center_button_of_bottom_navbar.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
-import 'package:today_list/view/component/common_ui_part/today_list_bottom_navbar/center_button_of_bottom_navbar.dart';
-import 'package:today_list/view/component/common_ui_part/today_list_bottom_navbar/today_list_bottom_navbar.dart';
+import 'package:today_list/view/component/common_ui_part/tl_bottom_navbar/tl_bottom_navbar.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view/screen/category_list_page/category_list_page.dart';
@@ -63,6 +63,11 @@ class _HomePageState extends ConsumerState<HomePage> {
       key: homePageScaffoldKey,
       drawer: const TLWorkspaceDrawer(isContentMode: false),
       appBar: _buildAppBar(context, tlAppState, currentWorkspaceRef),
+      bottomNavigationBar: _buildBottomNavbar(context),
+      floatingActionButton: CenterButtonOfBottomNavBar(
+          onPressed: () =>
+              _navigateToEditToDoPage(context, currentWorkspaceRef)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Stack(
         children: [
           Container(color: tlThemeData.backgroundColor),
@@ -72,8 +77,6 @@ class _HomePageState extends ConsumerState<HomePage> {
                   numOfToDosInToday, numOfToDosInWhenever, currentWorkspaceRef),
             ],
           ),
-          _buildBottomNavbar(context),
-          _buildCenterButton(context),
         ],
       ),
     );
@@ -131,12 +134,12 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 
-    return TodayListBottomNavbar(
+    return TLBottomNavBar(
       leadingIconData: FontAwesomeIcons.squareCheck,
       leadingButtonOnPressed: () =>
           _deleteCheckedToDos(context, currentWorkspaceRef, tlAppStateReducer),
       trailingIconData: FontAwesomeIcons.list,
-      tralingButtonOnPressed: () async {
+      trailingButtonOnPressed: () async {
         await Navigator.push(context, MaterialPageRoute(builder: (context) {
           return const CategoryListPage();
         }));
@@ -144,26 +147,18 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  // MARK - Center Add Button
-  Widget _buildCenterButton(BuildContext context) {
-    final currentWorkspaceRef = ref.watch(
-      tlAppStateProvider
-          .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]),
-    );
-
-    return CenterButtonOfBottomNavBar(
-      onPressed: () async {
-        await Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return EditToDoPage(
-            ifInToday: true,
-            selectedBigCategoryID: currentWorkspaceRef.bigCategories[0].id,
-            selectedSmallCategoryID: null,
-            editedToDoTitle: null,
-            indexOfEdittedTodo: null,
-          );
-        }));
-      },
-    );
+  // MARK - Navigate to Edit ToDo Page
+  void _navigateToEditToDoPage(
+      BuildContext context, TLWorkspace currentWorkspaceRef) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return EditToDoPage(
+        ifInToday: true,
+        selectedBigCategoryID: currentWorkspaceRef.bigCategories[0].id,
+        selectedSmallCategoryID: null,
+        editedToDoTitle: null,
+        indexOfEdittedTodo: null,
+      );
+    }));
   }
 
   // TODO dispatchを使う方法に書き換える - Delete Checked ToDos
