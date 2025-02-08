@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/todo/tl_step.dart';
+import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/service/tl_vibration.dart';
+import 'package:today_list/view/component/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import 'tl_checkbox.dart';
-import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
-import '../../../model/todo/tl_workspace.dart';
-import '../../../model/todo/tl_step.dart';
-import '../../../model/todo/tl_todo.dart';
-import '../../../model/todo/tl_todos_in_today_and_whenever.dart';
-import '../../../service/tl_vibration.dart';
 
 class TLStepCard extends ConsumerWidget {
   final String corrCategoryID;
@@ -26,97 +26,34 @@ class TLStepCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // provider
-    final tlAppState = ref.watch(tlAppStateProvider);
-    // notifier
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-    // others
-    final TLWorkspace currentWorkspaceReference =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex].copyWith();
-    // other
+    final currentWorkspace = ref.watch(
+      tlAppStateProvider
+          .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]),
+    );
+
     final corrToDosReference =
-        currentWorkspaceReference.categoryIDToToDos[corrCategoryID]!;
+        currentWorkspace.categoryIDToToDos[corrCategoryID]!;
     final TLToDo corrToDoData =
         corrToDosReference.getToDos(ifInToday)[indexInToDos];
     final TLStep corrStepData = corrToDoData.steps[indexInSteps];
 
+    // MARK: - Common Colors
+    const cardColor = Colors.white;
+    final titleColor =
+        Colors.black.withOpacity(corrStepData.isChecked ? 0.3 : 0.6);
+
     return GestureDetector(
-      onTap: () {
-        // コピーしてデータを取得
-        final TLToDo targetToDo = currentWorkspaceReference
-            .categoryIDToToDos[corrCategoryID]!
-            .getToDos(ifInToday)[indexInToDos];
-
-        // 対象のStepを更新
-        final TLStep updatedStep = targetToDo.steps[indexInSteps].copyWith(
-          isChecked: !targetToDo.steps[indexInSteps].isChecked,
-        );
-
-        // 更新されたStepsを生成
-        final List<TLStep> updatedSteps = List<TLStep>.from(targetToDo.steps);
-        updatedSteps[indexInSteps] = updatedStep;
-
-        // 更新されたToDoを生成
-        TLToDo updatedToDo = targetToDo.copyWith(steps: updatedSteps);
-
-        // Stepが全てチェックされた場合、ToDoの状態をチェック済みに変更
-        if (updatedSteps.every((step) => step.isChecked)) {
-          updatedToDo = updatedToDo.copyWith(isChecked: true);
-        } else if (targetToDo.isChecked) {
-          // ToDoがチェック済みの場合、未チェックに戻す
-          updatedToDo = updatedToDo.copyWith(isChecked: false);
-        }
-
-        // 更新されたToDosリストを生成
-        final List<TLToDo> updatedToDos = List<TLToDo>.from(
-          currentWorkspaceReference.categoryIDToToDos[corrCategoryID]!
-              .getToDos(ifInToday),
-        );
-        updatedToDos[indexInToDos] = updatedToDo;
-
-        // 更新されたCategoryIDToToDosを生成
-        final Map<String, TLToDosInTodayAndWhenever> updatedCategoryIDToToDos =
-            Map<String, TLToDosInTodayAndWhenever>.from(
-                currentWorkspaceReference.categoryIDToToDos);
-
-        // 指定されたカテゴリのToDosリストを、条件に応じて更新し、Workspaceに反映する
-        final TLToDosInTodayAndWhenever currentToDos =
-            currentWorkspaceReference.categoryIDToToDos[corrCategoryID]!;
-        updatedCategoryIDToToDos[corrCategoryID] = currentToDos.copyWith(
-          toDosInToday: ifInToday ? updatedToDos : currentToDos.toDosInToday,
-          toDosInWhenever:
-              ifInToday ? currentToDos.toDosInWhenever : updatedToDos,
-        );
-
-        // 更新されたWorkspaceを生成
-        final TLWorkspace updatedWorkspace = currentWorkspaceReference.copyWith(
-          categoryIDToToDos: updatedCategoryIDToToDos,
-        );
-
-        // 更新されたWorkspaceを通知
-        tlAppStateReducer
-            .dispatchWorkspaceAction(TLWorkspaceAction.updateCurrentWorkspace(
-          updatedWorkspace,
-        ));
-
-        // 振動と通知
-        TLVibrationService.vibrate();
-        NotifyTodoOrStepIsEditedSnackBar.show(
-          context: context,
-          newTitle: updatedStep.title,
-          newCheckedState: updatedStep.isChecked,
-          quickChangeToToday: null,
-        );
-      },
+      onTap: () => _toggleStepCheckStatus(
+          context, ref, currentWorkspace, corrToDosReference),
       child: Card(
-        color: Colors.white,
+        color: cardColor,
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              // 左側のチェックボックス
+              // MARK: - Checkbox
               Padding(
                 padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
                 child: Transform.scale(
@@ -124,19 +61,86 @@ class TLStepCard extends ConsumerWidget {
                   child: TLCheckBox(isChecked: corrStepData.isChecked),
                 ),
               ),
-              // stepのタイトル
+
+              // MARK: - Step Title
               Expanded(
-                child: Text(corrStepData.title,
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black
-                            .withOpacity(corrStepData.isChecked ? 0.3 : 0.6))),
+                child: Text(
+                  corrStepData.title,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: titleColor,
+                  ),
+                ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  // MARK: - Toggle Step Check Status
+  void _toggleStepCheckStatus(
+    BuildContext context,
+    WidgetRef ref,
+    TLWorkspace currentWorkspace,
+    TLToDosInTodayAndWhenever corrToDosReference,
+  ) {
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+
+    // Copy target ToDo
+    final TLToDo targetToDo =
+        corrToDosReference.getToDos(ifInToday)[indexInToDos];
+
+    // Toggle Step's Checked Status
+    final TLStep updatedStep = targetToDo.steps[indexInSteps].copyWith(
+      isChecked: !targetToDo.steps[indexInSteps].isChecked,
+    );
+
+    // Update Steps List
+    final List<TLStep> updatedSteps = List.from(targetToDo.steps);
+    updatedSteps[indexInSteps] = updatedStep;
+
+    // Update ToDo's Checked Status if all Steps are checked
+    TLToDo updatedToDo = targetToDo.copyWith(steps: updatedSteps);
+    if (updatedSteps.every((step) => step.isChecked)) {
+      updatedToDo = updatedToDo.copyWith(isChecked: true);
+    } else if (targetToDo.isChecked) {
+      updatedToDo = updatedToDo.copyWith(isChecked: false);
+    }
+
+    // MARK: - Update CategoryIDToToDos
+    final List<TLToDo> updatedToDos =
+        List.from(corrToDosReference.getToDos(ifInToday));
+    updatedToDos[indexInToDos] = updatedToDo;
+
+    final updatedCategoryIDToToDos = {
+      ...currentWorkspace.categoryIDToToDos,
+      corrCategoryID: corrToDosReference.copyWith(
+        toDosInToday:
+            ifInToday ? updatedToDos : corrToDosReference.toDosInToday,
+        toDosInWhenever:
+            ifInToday ? corrToDosReference.toDosInWhenever : updatedToDos,
+      ),
+    };
+
+    // Update Workspace
+    final updatedWorkspace = currentWorkspace.copyWith(
+      categoryIDToToDos: updatedCategoryIDToToDos,
+    );
+
+    tlAppStateReducer.dispatchWorkspaceAction(
+      TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace),
+    );
+
+    // Vibration & Notification
+    TLVibrationService.vibrate();
+    NotifyTodoOrStepIsEditedSnackBar.show(
+      context: context,
+      newTitle: updatedStep.title,
+      newCheckedState: updatedStep.isChecked,
+      quickChangeToToday: null,
     );
   }
 }

@@ -3,23 +3,30 @@ import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 
 class NotifyTodoOrStepIsEditedSnackBar {
+  // MARK: - Show SnackBar
   static void show({
     required BuildContext context,
     required String newTitle,
     required bool newCheckedState,
     required bool? quickChangeToToday,
   }) {
-    final SnackBar snackBar = _createSnackBar(
+    final snackBar = _createSnackBar(
       context: context,
       newTitle: newTitle,
       newCheckedState: newCheckedState,
       quickChangeToToday: quickChangeToToday,
     );
-    // スナックバーが表示されていたら消す
+
+    _displaySnackBar(context, snackBar);
+  }
+
+  // MARK: - Display SnackBar
+  static void _displaySnackBar(BuildContext context, SnackBar snackBar) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  // MARK: - Create SnackBar
   static SnackBar _createSnackBar({
     required BuildContext context,
     required String newTitle,
@@ -27,13 +34,20 @@ class NotifyTodoOrStepIsEditedSnackBar {
     bool? quickChangeToToday,
   }) {
     final TLThemeData tlThemeData = TLTheme.of(context);
+
+    // MARK: - Common Colors
+    final backgroundColor = tlThemeData.panelColor;
+    final accentColor = tlThemeData.accentColor;
+    final titleColor = Colors.black.withOpacity(newCheckedState ? 0.3 : 0.6);
+
     return SnackBar(
       duration: const Duration(milliseconds: 900),
       behavior: SnackBarBehavior.floating,
-      backgroundColor: tlThemeData.panelColor,
+      backgroundColor: backgroundColor,
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          // MARK: - Quick Change Message
           if (quickChangeToToday != null)
             Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
@@ -42,55 +56,43 @@ class NotifyTodoOrStepIsEditedSnackBar {
                 child: Text(
                   quickChangeToToday ? "to Today" : "to Whenever",
                   style: TextStyle(
-                      color: tlThemeData.accentColor,
-                      fontWeight: FontWeight.w600),
+                    color: accentColor,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
-          // 選択した日があれば表示
-          // if (scheduledDate != null)
-          //   Padding(
-          //     padding: const EdgeInsets.only(bottom: 8),
-          //     child: Align(
-          //         alignment: Alignment.bottomLeft,
-          //         child: Text(
-          //           scheduledDate,
-          //           style: TextStyle(
-          //               color: theme[settingData.selectedTheme]!
-          //                   .accentColor
-          //                   .withOpacity(0.9),
-          //               fontWeight: FontWeight.w600,
-          //               fontSize: 12),
-          //         )),
-          //   ),
+
+          // MARK: - ToDo Info Row
           Padding(
             padding:
                 EdgeInsets.only(bottom: (quickChangeToToday != null ? 3.0 : 0)),
             child: Row(
               children: [
-                // 左側のチェックボックス
+                // MARK: - Checkbox
                 Padding(
-                    padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
-                    // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                    child: SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: Transform.scale(
-                        scale: 1.2,
-                        child: TLCheckBox(isChecked: newCheckedState),
-                      ),
-                    )),
-                // toDoのタイトル
+                  padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
+                  child: SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: Transform.scale(
+                      scale: 1.2,
+                      child: TLCheckBox(isChecked: newCheckedState),
+                    ),
+                  ),
+                ),
+
+                // MARK: - ToDo Title
                 Expanded(
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       newTitle,
                       style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black
-                              .withOpacity(newCheckedState ? 0.3 : 0.6)),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: titleColor,
+                      ),
                     ),
                   ),
                 ),
