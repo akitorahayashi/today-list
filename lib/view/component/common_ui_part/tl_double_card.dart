@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../model/design/tl_theme/tl_theme.dart';
 
-class TlDoubleCard extends StatelessWidget {
+class TLDoubleCard extends StatelessWidget {
   final Widget child;
-  const TlDoubleCard({super.key, required this.child});
+  const TLDoubleCard({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 import 'package:today_list/service/tl_vibration.dart';
-import 'package:today_list/view_model/design/theme_idx_provider.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_data_list.dart';
 import 'package:today_list/view_model/settings/setting_data_provider.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/setting_data/setting_data.dart';
@@ -14,16 +13,15 @@ class UpdaateAppIconCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final deviceWidth = MediaQuery.of(context).size.width;
     // provider
-    final int selectedThemeIdx = ref.watch(selectedThemeIndexProvider);
     final SettingData settingData = ref.watch(settingDataProvider);
     // notifier
     final SettingDataNotifier settingDataNotifier =
         ref.read(settingDataProvider.notifier);
-    final bool isMatched = settingData.currentAppIconName ==
-        tlThemeDataList[selectedThemeIdx].themeName;
+    final bool isMatched =
+        settingData.currentAppIconName == tlThemeConfig.themeName;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
@@ -39,14 +37,13 @@ class UpdaateAppIconCard extends ConsumerWidget {
                       Navigator.pop(context);
                       TLVibrationService.vibrate();
                       settingDataNotifier.changeIcon(
-                          themeName:
-                              tlThemeDataList[selectedThemeIdx].themeName);
+                          themeName: tlThemeConfig.themeName);
                     },
                   ).show(context: context);
                 },
           child: Card(
             // 色
-            color: tlThemeData.panelColor,
+            color: tlThemeConfig.panelColor,
             // 浮き具合
             elevation: 2,
             shape:
@@ -83,7 +80,7 @@ class UpdaateAppIconCard extends ConsumerWidget {
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: isMatched
-                                    ? tlThemeData.checkmarkColor
+                                    ? tlThemeConfig.checkmarkColor
                                     : Colors.black.withOpacity(0.6),
                               ),
                             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/view/screen/setting_page/set_ios_widget_page/set_ios_widget_page.dart';
 import 'package:today_list/view/component/common_ui_part/tl_sliver_appbar.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
@@ -80,7 +81,7 @@ class SettingsPage extends HookWidget {
   // MARK - Build Bottom Navigation Bar
   Widget _buildBottomNavBar(
     BuildContext context,
-    TLThemeConfig tlThemeData,
+    TLThemeConfig tlThemeConfig,
     ValueNotifier<int> selectedPageIndex,
     PageController pageController,
     List<dynamic> iconDataOfSettingPageContents,
@@ -101,7 +102,7 @@ class SettingsPage extends HookWidget {
                 index < iconDataOfSettingPageContents.length;
                 index++)
               _buildBottomNavItem(index, selectedPageIndex, pageController,
-                  tlThemeData, iconDataOfSettingPageContents),
+                  tlThemeConfig, iconDataOfSettingPageContents),
           ],
         ),
       ),

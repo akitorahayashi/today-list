@@ -10,7 +10,7 @@ class OtherAppsPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    return TlDoubleCard(
+    return TLDoubleCard(
       child: Column(
         children: [
           // 文字

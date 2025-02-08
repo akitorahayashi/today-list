@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_icon_data.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
+import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/view/screen/setting_page/set_features_page/updaate_app_icon_card.dart';
 import 'package:today_list/view_model/design/theme_idx_provider.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_data_list.dart';
@@ -58,12 +60,12 @@ class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
 
   @override
   Widget build(BuildContext context) {
-    final int selectedThemeIndex = ref.watch(selectedThemeIndexProvider);
+    final TLThemeType selectedThemeType = ref
+        .watch(tlAppStateProvider.select((state) => state.selectedThemeType));
     // テーマを表示させるための変数
-    List<int> unUsingThemeIndices =
-        List<int>.generate(tlThemeDataList.length, (index) => index)
-            .where((index) => index != selectedThemeIndex)
-            .toList();
+    List<TLThemeType> unUsingThemes = TLThemeType.values
+        .where((theme) => theme != selectedThemeType)
+        .toList();
 
     return ListView(padding: EdgeInsets.zero, children: [
       // 広告
@@ -104,10 +106,10 @@ class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
                           children: [
                             // 2個目のテーマ
                             RightSideThemeSelectButton(
-                                corrIndex: unUsingThemeIndices[0]),
+                                corrIndex: unUsingThemes[0]),
                             // 3個目のテーマ
                             RightSideThemeSelectButton(
-                                corrIndex: unUsingThemeIndices[1]),
+                                corrIndex: unUsingThemes[1]),
                           ],
                         ),
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import '../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../service/tl_vibration.dart';
 
@@ -12,7 +13,7 @@ class SetVibrationCard extends StatefulWidget {
 class _SetVibrationCardState extends State<SetVibrationCard> {
   @override
   Widget build(BuildContext context) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final double deviceWidth = MediaQuery.of(context).size.width;
     return SizedBox(
       width: deviceWidth,
@@ -54,7 +55,7 @@ class _SetVibrationCardState extends State<SetVibrationCard> {
             min: 0,
             max: 4,
             divisions: 4,
-            activeColor: tlThemeData.accentColor,
+            activeColor: tlThemeConfig.accentColor,
             value: TLVibrationService.vibrationStrength,
             onChanged: (sliderValue) {
               TLVibrationService.vibrationStrength = sliderValue;

@@ -25,7 +25,7 @@ class WKSCard extends ConsumerWidget {
         .bigCategories[wksInThisCard.bcIdx];
     return SlidableForWKSCard(
       indexInWKSList: idx,
-      child: TlDoubleCard(
+      child: TLDoubleCard(
         child: SizedBox(
           width: deviceWidth - 50,
           child: Padding(
