@@ -25,12 +25,12 @@ class TodayListBottomNavbar extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          AnimatedGradientBackground(
-            colors: tlThemeData.gradientOfNavBar.colors,
-            child: DecoratedBox(
-              decoration: const BoxDecoration(
-                boxShadow: [BoxShadow(blurRadius: 8, color: Colors.black45)],
-              ),
+          DecoratedBox(
+            decoration: const BoxDecoration(
+              boxShadow: [BoxShadow(blurRadius: 8, color: Colors.black45)],
+            ),
+            child: AnimatedGradientBackground(
+              colors: tlThemeData.gradientOfNavBar.colors,
               child: SizedBox(
                 width: deviceWidth,
                 height: MediaQuery.of(context).size.height * 100 / 896,

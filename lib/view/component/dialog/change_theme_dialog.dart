@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/redux/action/tl_theme_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/styles.dart';
@@ -17,8 +19,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final corrThemeConfig = corrThemeType.config;
-    // final SelectedThemeIndexNotifier selectedThemeIndexNotifier =
-    //     ref.read(selectedThemeIndexProvider.notifier);
+    final tlAppStateNotifier = ref.watch(tlAppStateProvider.notifier);
     return Dialog(
       backgroundColor: corrThemeConfig.alertColor,
       child: DefaultTextStyle(
@@ -84,12 +85,8 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
                     onPressed: () {
                       // このアラートを消す
                       Navigator.pop(context);
-                      selectedThemeIndexNotifier.changeThemeIndex(corrIndex);
-                      TLConnectivityService.sendSelectedThemeToAppleWatch(
-                          selectedThemeIndex: corrIndex);
-                      TLMethodChannelService.updateSelectedTheme(
-                          selectedThemeIndex: corrIndex);
-                      TLVibrationService.vibrate();
+                      tlAppStateNotifier.dispatchThemeAction(
+                          TLThemeAction.changeTheme(themeType: corrThemeType));
                       // 完了を知らせるアラートを表示
                       const TLSingleOptionDialog(title: "変更が完了しました")
                           .show(context: context);

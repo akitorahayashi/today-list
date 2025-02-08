@@ -5,7 +5,7 @@ import 'package:today_list/resource/tl_theme_type.dart';
 part 'generate/tl_app_state.freezed.dart';
 part 'generate/tl_app_state.g.dart';
 
-// $ dart run build_runner build
+// $ dart run build_runner build --delete-conflicting-outputs
 
 @freezed
 class TLAppState with _$TLAppState {
