@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/redux/action/todo/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
@@ -16,7 +17,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final currentWorkspaceIndex = ref.watch(
         tlAppStateProvider.select((state) => state.currentWorkspaceIndex));
     final workspaceName = ref.watch(tlAppStateProvider
@@ -29,7 +30,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 70),
         child: Card(
-          color: tlThemeData.panelColor,
+          color: tlThemeConfig.panelColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: ClipRRect(
@@ -50,7 +51,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
                           : workspaceName,
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        color: tlThemeData.accentColor,
+                        color: tlThemeConfig.accentColor,
                         letterSpacing: 1,
                       ),
                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import '../../../component/todo_card/tl_checkbox.dart';
 import '../../../../model/todo/tl_todo.dart';
 import '../../../component/slidable/slidable_for_todo_card.dart';

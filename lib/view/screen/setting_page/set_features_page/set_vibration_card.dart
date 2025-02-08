@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import '../../../../model/design/tl_theme/tl_theme.dart';
-import '../../../../service/tl_vibration.dart';
+import 'package:today_list/service/tl_vibration.dart';
 
 class SetVibrationCard extends StatefulWidget {
   const SetVibrationCard({super.key});

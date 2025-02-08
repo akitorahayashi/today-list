@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/view_model/settings/wks_provider.dart';
 import '../../../model/design/tl_theme/tl_theme.dart';

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../../component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
-import '../../../../model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 
 class AddWorkspaceButton extends StatelessWidget {
   const AddWorkspaceButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     return Align(
       alignment: Alignment.center,
       child: Padding(
@@ -18,7 +19,7 @@ class AddWorkspaceButton extends StatelessWidget {
                   .show(context: context),
           child: Icon(
             Icons.add,
-            color: tlThemeData.accentColor,
+            color: tlThemeConfig.accentColor,
           ),
         ),
       ),

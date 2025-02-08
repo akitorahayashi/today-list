@@ -1,31 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/styles.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/view_model/design/theme_idx_provider.dart';
-import '../../../model/design/tl_theme/tl_theme.dart';
-import '../../../service/tl_connectivity.dart';
-import '../../../service/tl_method_channel.dart';
-import '../../../service/tl_vibration.dart';
 
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
-  final int corrIndex;
-  final TLThemeConfig corrThemeData;
+  final TLThemeType corrThemeType;
   const ChangeThemeDialog({
     super.key,
-    required this.corrIndex,
-    required this.corrThemeData,
+    required this.corrThemeType,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final SelectedThemeIndexNotifier selectedThemeIndexNotifier =
-        ref.read(selectedThemeIndexProvider.notifier);
+    final corrThemeConfig = corrThemeType.config;
+    // final SelectedThemeIndexNotifier selectedThemeIndexNotifier =
+    //     ref.read(selectedThemeIndexProvider.notifier);
     return Dialog(
-      backgroundColor: corrThemeData.alertColor,
+      backgroundColor: corrThemeConfig.alertColor,
       child: DefaultTextStyle(
         style: const TextStyle(
             fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black45),
@@ -40,7 +35,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
                 height: 80,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    gradient: corrThemeData.gradientOfNavBar,
+                    gradient: corrThemeConfig.gradientOfNavBar,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: GlassContainer(
@@ -48,15 +43,15 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
                       alignment: Alignment.center,
                       child: Card(
                         elevation: 5,
-                        color: corrThemeData.panelColor,
+                        color: corrThemeConfig.panelColor,
                         child: Container(
                           width: 150,
                           height: 50,
                           alignment: Alignment.center,
                           child: Text(
-                            corrThemeData.themeName,
+                            corrThemeConfig.themeName,
                             style: TextStyle(
-                                color: corrThemeData.checkmarkColor,
+                                color: corrThemeConfig.checkmarkColor,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -68,7 +63,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text("${corrThemeData.themeName}に変更しますか？"),
+              child: Text("${corrThemeConfig.themeName}に変更しますか？"),
             ),
             // 操作ボタン
             OverflowBar(
@@ -76,8 +71,8 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
               children: [
                 // 戻るボタン
                 TextButton(
-                  style:
-                      alertButtonStyle(accentColor: corrThemeData.accentColor),
+                  style: alertButtonStyle(
+                      accentColor: corrThemeConfig.accentColor),
                   onPressed: () => Navigator.pop(context),
                   // InkWell
                   child: const Text("戻る"),
@@ -85,7 +80,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
                 // 変更するボタン
                 TextButton(
                     style: alertButtonStyle(
-                        accentColor: corrThemeData.accentColor),
+                        accentColor: corrThemeConfig.accentColor),
                     onPressed: () {
                       // このアラートを消す
                       Navigator.pop(context);

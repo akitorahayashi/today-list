@@ -1,8 +1,9 @@
-import 'package:today_list/model/design/tl_icon_data.dart';
-import 'package:today_list/resource/tl_icon_resource.dart';
-import '../../../../../model/design/tl_theme/tl_theme.dart';
-import 'icon_rarity_block/icon_rarity_block.dart';
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_icon_data.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/resource/tl_icon_resource.dart';
+import 'icon_rarity_block/icon_rarity_block.dart';
 
 class IconCategoryPanel extends StatelessWidget {
   final TLIconCategory tlIconCategory;
@@ -10,7 +11,7 @@ class IconCategoryPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Column(
@@ -23,7 +24,7 @@ class IconCategoryPanel extends StatelessWidget {
               style: TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w800,
-                  color: tlThemeData.checkmarkColor),
+                  color: tlThemeConfig.checkmarkColor),
             ),
           ),
           // Super Rare, Rare

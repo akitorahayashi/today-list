@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 
 import 'package:animated_gradient_background/animated_gradient_background.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 
 class TLSliverAppBar extends StatelessWidget {
   final double? titleFontSize;
