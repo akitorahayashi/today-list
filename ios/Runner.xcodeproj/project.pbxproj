@@ -17,6 +17,7 @@
 		1B43F7CD2D586A73000D4044 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526BD2D584B440039CDE3 /* Model.swift */; };
 		1B43F7CE2D586AAF000D4044 /* TLiOSUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526C72D584FA30039CDE3 /* TLiOSUtil.swift */; };
 		1B43F7D02D586AC4000D4044 /* TLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLTheme.swift */; };
+		1B43F7D12D586D14000D4044 /* TLWorkspacesExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */; };
 		1B93BB002CF2F3BC00772777 /* TCWSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* TCWSettings.swift */; };
 		1B93BB102CF30DEF00772777 /* TLWorkspacesExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */; };
 		1B94F3342D58252600915981 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7C3172CC688BC00DCF511 /* WidgetKit.framework */; };
@@ -26,15 +27,6 @@
 		1B94F34D2D58253200915981 /* ToDosInCategoryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B94F3482D58253200915981 /* ToDosInCategoryWidget.swift */; };
 		1B94F34E2D58253200915981 /* ToDosInCategoryWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B94F3492D58253200915981 /* ToDosInCategoryWidgetBundle.swift */; };
 		1BA7C2E82CC6859700DCF511 /* TodayList Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1BA7C2DB2CC6859500DCF511 /* TodayList Watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		1BA7C2F42CC6859B00DCF511 /* TodayList_WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C2F12CC6859B00DCF511 /* TodayList_WatchApp.swift */; };
-		1BA7C2F52CC6859B00DCF511 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BA7C2ED2CC6859B00DCF511 /* Preview Assets.xcassets */; };
-		1BA7C2F62CC6859B00DCF511 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BA7C2EF2CC6859B00DCF511 /* Assets.xcassets */; };
-		1BA7C2F82CC685F300DCF511 /* TLPhoneConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C2F72CC685EA00DCF511 /* TLPhoneConnector.swift */; };
-		1BA7C3042CC6876200DCF511 /* TLWatchAppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3032CC6875000DCF511 /* TLWatchAppBar.swift */; };
-		1BA7C3072CC6877800DCF511 /* ShowToDosInTodayInAWorkspaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3062CC6877700DCF511 /* ShowToDosInTodayInAWorkspaceView.swift */; };
-		1BA7C30A2CC6879500DCF511 /* TLBigCategorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3092CC6879500DCF511 /* TLBigCategorySection.swift */; };
-		1BA7C30C2CC687B400DCF511 /* ShowToDosForCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C30B2CC687B200DCF511 /* ShowToDosForCategory.swift */; };
-		1BA7C3102CC687EA00DCF511 /* SelectWorkspaceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C30F2CC687E900DCF511 /* SelectWorkspaceHomeView.swift */; };
 		1BA7C3112CC6883B00DCF511 /* TLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLTheme.swift */; };
 		1BF526B02D5844E50039CDE3 /* TCIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526AF2D5844E40039CDE3 /* TCIntent.swift */; };
 		1BF526B22D5845040039CDE3 /* TCEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526B12D5845030039CDE3 /* TCEntity.swift */; };
@@ -129,16 +121,7 @@
 		1B94F3482D58253200915981 /* ToDosInCategoryWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInCategoryWidget.swift; sourceTree = "<group>"; };
 		1B94F3492D58253200915981 /* ToDosInCategoryWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInCategoryWidgetBundle.swift; sourceTree = "<group>"; };
 		1BA7C2DB2CC6859500DCF511 /* TodayList Watch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TodayList Watch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1BA7C2ED2CC6859B00DCF511 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		1BA7C2EF2CC6859B00DCF511 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1BA7C2F12CC6859B00DCF511 /* TodayList_WatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayList_WatchApp.swift; sourceTree = "<group>"; };
-		1BA7C2F72CC685EA00DCF511 /* TLPhoneConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLPhoneConnector.swift; sourceTree = "<group>"; };
 		1BA7C3012CC686F200DCF511 /* TLTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLTheme.swift; sourceTree = "<group>"; };
-		1BA7C3032CC6875000DCF511 /* TLWatchAppBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLWatchAppBar.swift; sourceTree = "<group>"; };
-		1BA7C3062CC6877700DCF511 /* ShowToDosInTodayInAWorkspaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosInTodayInAWorkspaceView.swift; sourceTree = "<group>"; };
-		1BA7C3092CC6879500DCF511 /* TLBigCategorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLBigCategorySection.swift; sourceTree = "<group>"; };
-		1BA7C30B2CC687B200DCF511 /* ShowToDosForCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowToDosForCategory.swift; sourceTree = "<group>"; };
-		1BA7C30F2CC687E900DCF511 /* SelectWorkspaceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectWorkspaceHomeView.swift; sourceTree = "<group>"; };
 		1BA7C3172CC688BC00DCF511 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1BA7C3192CC688C100DCF511 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		1BC297262CF1DECE00AAE33A /* TCWSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCWSettings.swift; sourceTree = "<group>"; };
@@ -272,26 +255,6 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		1BA7C2EE2CC6859B00DCF511 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				1BA7C2ED2CC6859B00DCF511 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		1BA7C2F22CC6859B00DCF511 /* TodayList Watch Watch App */ = {
-			isa = PBXGroup;
-			children = (
-				1BA7C2EE2CC6859B00DCF511 /* Preview Content */,
-				1BA7C2EF2CC6859B00DCF511 /* Assets.xcassets */,
-				1BA7C3022CC6874300DCF511 /* View */,
-				1BA7C2F72CC685EA00DCF511 /* TLPhoneConnector.swift */,
-				1BA7C2F12CC6859B00DCF511 /* TodayList_WatchApp.swift */,
-			);
-			path = "TodayList Watch Watch App";
-			sourceTree = "<group>";
-		};
 		1BA7C2FA2CC6861C00DCF511 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,42 +271,6 @@
 				1BA7C3012CC686F200DCF511 /* TLTheme.swift */,
 			);
 			path = Constants;
-			sourceTree = "<group>";
-		};
-		1BA7C3022CC6874300DCF511 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				1BA7C30E2CC687E500DCF511 /* SelectWorkspaceHomeView */,
-				1BA7C3052CC6877300DCF511 /* ShowToDosInTodayInAWorkspaceView */,
-				1BA7C3032CC6875000DCF511 /* TLWatchAppBar.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		1BA7C3052CC6877300DCF511 /* ShowToDosInTodayInAWorkspaceView */ = {
-			isa = PBXGroup;
-			children = (
-				1BA7C3082CC6879100DCF511 /* TLBigCategorySection */,
-				1BA7C3062CC6877700DCF511 /* ShowToDosInTodayInAWorkspaceView.swift */,
-			);
-			path = ShowToDosInTodayInAWorkspaceView;
-			sourceTree = "<group>";
-		};
-		1BA7C3082CC6879100DCF511 /* TLBigCategorySection */ = {
-			isa = PBXGroup;
-			children = (
-				1BA7C30B2CC687B200DCF511 /* ShowToDosForCategory.swift */,
-				1BA7C3092CC6879500DCF511 /* TLBigCategorySection.swift */,
-			);
-			path = TLBigCategorySection;
-			sourceTree = "<group>";
-		};
-		1BA7C30E2CC687E500DCF511 /* SelectWorkspaceHomeView */ = {
-			isa = PBXGroup;
-			children = (
-				1BA7C30F2CC687E900DCF511 /* SelectWorkspaceHomeView.swift */,
-			);
-			path = SelectWorkspaceHomeView;
 			sourceTree = "<group>";
 		};
 		1BF526C82D584FB90039CDE3 /* Util */ = {
@@ -382,7 +309,6 @@
 				1BF526C82D584FB90039CDE3 /* Util */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
-				1BA7C2F22CC6859B00DCF511 /* TodayList Watch Watch App */,
 				1B94F34A2D58253200915981 /* ToDosInCategoryWidget */,
 				97C146EF1CF9000F007C117D /* Products */,
 				331C8082294A63A400263BE5 /* RunnerTests */,
@@ -577,8 +503,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BA7C2F52CC6859B00DCF511 /* Preview Assets.xcassets in Resources */,
-				1BA7C2F62CC6859B00DCF511 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,15 +665,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BA7C2F82CC685F300DCF511 /* TLPhoneConnector.swift in Sources */,
 				1BA7C3112CC6883B00DCF511 /* TLTheme.swift in Sources */,
-				1BA7C3072CC6877800DCF511 /* ShowToDosInTodayInAWorkspaceView.swift in Sources */,
-				1BA7C3102CC687EA00DCF511 /* SelectWorkspaceHomeView.swift in Sources */,
 				1BF526BF2D584B480039CDE3 /* Model.swift in Sources */,
-				1BA7C2F42CC6859B00DCF511 /* TodayList_WatchApp.swift in Sources */,
-				1BA7C3042CC6876200DCF511 /* TLWatchAppBar.swift in Sources */,
-				1BA7C30C2CC687B400DCF511 /* ShowToDosForCategory.swift in Sources */,
-				1BA7C30A2CC6879500DCF511 /* TLBigCategorySection.swift in Sources */,
+				1B43F7D12D586D14000D4044 /* TLWorkspacesExample.swift in Sources */,
 				1B43F7CE2D586AAF000D4044 /* TLiOSUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
