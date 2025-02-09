@@ -66,7 +66,7 @@ struct TCToDoListView: View {
                     case .systemLarge:
                         return 3.0
                     default:
-                        return 4.0
+                        return 2.0
                     }
                 }()
                 

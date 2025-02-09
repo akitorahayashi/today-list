@@ -21,26 +21,35 @@ struct TCQuery: EntityQuery {
     private func loadSettingsList() -> [TCEntity] {
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         
-        guard let jsonString = userDefaults?.string(forKey: "wksList") else {
-            print("UserDefaults does not contain wksList key")
+        guard let jsonString = userDefaults?.string(forKey: "listOfToDosInCategoryWidgetSettings") else {
+            print("UserDefaults does not contain listOfToDosInCategoryWidgetSettings key")
             return []
         }
         print("JSON String: \(jsonString)")
         
-        guard let settings = TCSettings.decodeWKSList(from: jsonString) else {
-            print("Failed to decode JSON")
+        // 文字列をData型に変換できない場合
+        guard let data = jsonString.data(using: .utf8) else {
+            print("decodeCustomListError: Failed to convert JSON string to Data")
             return []
         }
         
-        let entities = settings.map {
-            TCEntity(
-                id: $0.id,
-                title: $0.title,
-                workspaceID: $0.workspaceID,
-                categoryID: $0.categoryID
-            )
+        // JSONデコード処理
+        do {
+            let decodedSettings = try JSONDecoder().decode([ToDosInCategoryWidgetSettings].self, from: data)
+            
+            let entities = decodedSettings.map {
+                TCEntity(
+                    id: $0.id,
+                    title: $0.title,
+                    workspaceID: $0.workspace.id,
+                    categoryID: $0.smallCategory?.id ?? $0.bigCategory.id
+                )
+            }
+            print("Loaded Entities: \(entities)")
+            return entities
+        } catch {
+            print("decodeCustomListError: JSON decoding failed -> \(error.localizedDescription)")
+            return []
         }
-        print("Loaded Entities: \(entities)")
-        return entities
     }
 }

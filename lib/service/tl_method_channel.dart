@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:today_list/resource/tl_theme_type.dart';
 
 class TLMethodChannelService {
-  static const methodChannel = MethodChannel(
-      'com.akitora0703.todaylist/show_todos_in_a_workspace_widget');
+  static const methodChannel =
+      MethodChannel('com.akitora0703.todaylist/todos_in_category_widget');
 
   static Future<void> updateTLWorkspaces(
       {required String encodedTLWorkspaces}) async {
@@ -22,12 +22,13 @@ class TLMethodChannelService {
     }
   }
 
-  static Future<void> updateWKSList({required String encodedWKSList}) async {
+  static Future<void> updateListOfToDosInCategoryWidgetSettings(
+      {required String encodedListOfToDosInCategoryWidgetSettings}) async {
     if (Platform.isIOS) {
       try {
         final String result = await methodChannel.invokeMethod(
-          'updateWKSList',
-          encodedWKSList,
+          'updateListOfToDosInCategoryWidgetSettings',
+          encodedListOfToDosInCategoryWidgetSettings,
         );
         print('SET setUserDefaultsForAppGroup: $result');
       } on PlatformException catch (e) {

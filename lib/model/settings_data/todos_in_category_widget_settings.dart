@@ -14,7 +14,7 @@ class ToDosInCategoryWidgetSettings with _$ToDosInCategoryWidgetSettings {
     required String title,
     required TLWorkspace workspace,
     required TLCategory bigCategory,
-    TLCategory? smallCategory,
+    required TLCategory? smallCategory,
   }) = _ToDosInCategoryWidgetSettings;
 
   factory ToDosInCategoryWidgetSettings.fromJson(Map<String, dynamic> json) =>

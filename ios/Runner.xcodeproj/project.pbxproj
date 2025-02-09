@@ -16,7 +16,7 @@
 		1B43F7CC2D5869EF000D4044 /* TCEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43F7CB2D5869EE000D4044 /* TCEntryView.swift */; };
 		1B43F7CD2D586A73000D4044 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526BD2D584B440039CDE3 /* Model.swift */; };
 		1B43F7D02D586AC4000D4044 /* TLThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */; };
-		1B93BB002CF2F3BC00772777 /* TCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* TCSettings.swift */; };
+		1B93BB002CF2F3BC00772777 /* ToDosInCategoryWidgetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* ToDosInCategoryWidgetSettings.swift */; };
 		1B93BB102CF30DEF00772777 /* TLWorkspacesExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */; };
 		1B94F3342D58252600915981 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7C3172CC688BC00DCF511 /* WidgetKit.framework */; };
 		1B94F3352D58252600915981 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7C3192CC688C100DCF511 /* SwiftUI.framework */; };
@@ -27,7 +27,7 @@
 		1BF526B02D5844E50039CDE3 /* TCIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526AF2D5844E40039CDE3 /* TCIntent.swift */; };
 		1BF526B22D5845040039CDE3 /* TCEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526B12D5845030039CDE3 /* TCEntity.swift */; };
 		1BF526B42D5845180039CDE3 /* TCQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526B32D5845170039CDE3 /* TCQuery.swift */; };
-		1BF526B52D5845B70039CDE3 /* TCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* TCSettings.swift */; };
+		1BF526B52D5845B70039CDE3 /* ToDosInCategoryWidgetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* ToDosInCategoryWidgetSettings.swift */; };
 		1BF526B82D5846890039CDE3 /* TLWorkspacesExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */; };
 		1BF526B92D58468D0039CDE3 /* TLThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */; };
 		1BF526C92D584FEE0039CDE3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526BD2D584B440039CDE3 /* Model.swift */; };
@@ -110,7 +110,7 @@
 		1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLThemeConfig.swift; sourceTree = "<group>"; };
 		1BA7C3172CC688BC00DCF511 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1BA7C3192CC688C100DCF511 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		1BC297262CF1DECE00AAE33A /* TCSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCSettings.swift; sourceTree = "<group>"; };
+		1BC297262CF1DECE00AAE33A /* ToDosInCategoryWidgetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInCategoryWidgetSettings.swift; sourceTree = "<group>"; };
 		1BC297292CF1E8E400AAE33A /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		1BF526AF2D5844E40039CDE3 /* TCIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCIntent.swift; sourceTree = "<group>"; };
 		1BF526B12D5845030039CDE3 /* TCEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCEntity.swift; sourceTree = "<group>"; };
@@ -201,6 +201,15 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		1B43F7D32D58EA16000D4044 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */,
+				1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		1B94F34A2D58253200915981 /* ToDosInCategoryWidget */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,18 +257,9 @@
 			isa = PBXGroup;
 			children = (
 				1BF526BD2D584B440039CDE3 /* Model.swift */,
-				1BC297262CF1DECE00AAE33A /* TCSettings.swift */,
+				1BC297262CF1DECE00AAE33A /* ToDosInCategoryWidgetSettings.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		1BA7C2FB2CC6862300DCF511 /* Constants */ = {
-			isa = PBXGroup;
-			children = (
-				1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */,
-				1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */,
-			);
-			path = Constants;
 			sourceTree = "<group>";
 		};
 		1BF526C82D584FB90039CDE3 /* Util */ = {
@@ -293,7 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				1BF526BA2D5849410039CDE3 /* ToDosInCategoryWidgetExtension.entitlements */,
-				1BA7C2FB2CC6862300DCF511 /* Constants */,
+				1B43F7D32D58EA16000D4044 /* Resource */,
 				1BA7C2FA2CC6861C00DCF511 /* Model */,
 				1BF526C82D584FB90039CDE3 /* Util */,
 				9740EEB11CF90186004384FC /* Flutter */,
@@ -607,7 +607,7 @@
 				1BF526B92D58468D0039CDE3 /* TLThemeConfig.swift in Sources */,
 				1BF526B82D5846890039CDE3 /* TLWorkspacesExample.swift in Sources */,
 				1BF526B42D5845180039CDE3 /* TCQuery.swift in Sources */,
-				1BF526B52D5845B70039CDE3 /* TCSettings.swift in Sources */,
+				1BF526B52D5845B70039CDE3 /* ToDosInCategoryWidgetSettings.swift in Sources */,
 				1B43F7C42D5866FC000D4044 /* TCProvider.swift in Sources */,
 				1B94F34E2D58253200915981 /* ToDosInCategoryWidgetBundle.swift in Sources */,
 				1BF526B02D5844E50039CDE3 /* TCIntent.swift in Sources */,
@@ -631,7 +631,7 @@
 				1B43F7D02D586AC4000D4044 /* TLThemeConfig.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1B93BB102CF30DEF00772777 /* TLWorkspacesExample.swift in Sources */,
-				1B93BB002CF2F3BC00772777 /* TCSettings.swift in Sources */,
+				1B93BB002CF2F3BC00772777 /* ToDosInCategoryWidgetSettings.swift in Sources */,
 				1B43F7CD2D586A73000D4044 /* Model.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				1BF526CA2D5850290039CDE3 /* TLiOSUtil.swift in Sources */,

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../todo/todos_in_category_widget_settings.dart';
+part of '../settings_data/todos_in_category_widget_settings.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

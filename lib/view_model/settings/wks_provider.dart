@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/tl_app_state.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/service/tl_method_channel.dart';
-import 'package:today_list/model/todo/todos_in_category_widget_settings.dart';
+import 'package:today_list/model/settings_data/todos_in_category_widget_settings.dart';
 import 'package:today_list/service/tl_pref.dart';
 import 'dart:convert';
 
@@ -19,8 +20,10 @@ class WidgetKitSettingNotifier
           ToDosInCategoryWidgetSettings(
             id: noneID,
             title: "Default",
-            workspace: noneID,
-            bigCategory: noneID,
+            workspace: ref.read(tlAppStateProvider).tlWorkspaces[0],
+            bigCategory:
+                ref.read(tlAppStateProvider).tlWorkspaces[0].bigCategories[0],
+            smallCategory: null,
           ),
         ]) {
     // SharedPreferenceからデータを取得
@@ -45,8 +48,8 @@ class WidgetKitSettingNotifier
     final pref = await TLPrefService().getPref;
     final encodedWidgetKitSettings =
         jsonEncode(state.map((w) => w.toJson()).toList());
-    TLMethodChannelService.updateWKSList(
-        encodedWKSList: encodedWidgetKitSettings);
+    TLMethodChannelService.updateListOfToDosInCategoryWidgetSettings(
+        encodedListOfToDosInCategoryWidgetSettings: encodedWidgetKitSettings);
     await pref.setString("widgetKitSettings", encodedWidgetKitSettings);
   }
 
@@ -57,9 +60,10 @@ class WidgetKitSettingNotifier
     await _saveWidgetKitSettings();
   }
 
-  Future<void> removeWidgetKitSettings({required int index}) async {
-    if (index < 0 || index >= state.length) {
-      throw RangeError.index(index, state, 'index');
+  Future<void> removeWidgetKitSettings({required String id}) async {
+    final index = state.indexWhere((element) => element.id == id);
+    if (index == -1) {
+      throw ArgumentError('IDが見つかりません: $id');
     }
     state = List.from(state)..removeAt(index);
     await _saveWidgetKitSettings();

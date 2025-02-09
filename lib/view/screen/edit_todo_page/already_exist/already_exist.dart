@@ -10,6 +10,7 @@ class AlreadyExist extends ConsumerWidget {
   final String? smallCategoryID;
   final bool ifInToday;
   final Function tapToEditAction;
+
   const AlreadyExist({
     super.key,
     required this.bigCategoryID,
@@ -31,6 +32,12 @@ class AlreadyExist extends ConsumerWidget {
             .categoryIDToToDos[categoryOfThisToDo]
             ?.getToDos(ifInToday) ??
         [];
+
+    // `toDoArrayOfThisBlock` が空の場合は何も表示しない
+    if (toDoArrayOfThisBlock.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Card(

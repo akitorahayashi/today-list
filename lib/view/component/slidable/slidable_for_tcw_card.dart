@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/view_model/settings/wks_provider.dart';
 import '../../../model/design/tl_theme/tl_theme.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class SlidableForWKSCard extends ConsumerWidget {
-  final int indexInWKSList;
+class SlidableForTCWCard extends ConsumerWidget {
+  final String corrTCWSettingsID;
   final Widget child;
-  const SlidableForWKSCard({
+  const SlidableForTCWCard({
     super.key,
-    required this.indexInWKSList,
+    required this.corrTCWSettingsID,
     required this.child,
   });
 
@@ -23,7 +24,7 @@ class SlidableForWKSCard extends ConsumerWidget {
         ref.read(widgetKitSettingsProvider.notifier);
     return Slidable(
       endActionPane: // デフォルトワークスペースの時は編集できないようにする
-          indexInWKSList == 0
+          corrTCWSettingsID == noneID
               ? null
               : ActionPane(
                   motion: const ScrollMotion(),
@@ -37,7 +38,7 @@ class SlidableForWKSCard extends ConsumerWidget {
                       foregroundColor: tlThemeData.accentColor,
                       onPressed: (BuildContext context) async {
                         wksNotifier.removeWidgetKitSettings(
-                            index: indexInWKSList);
+                            id: corrTCWSettingsID);
                         TLVibrationService.vibrate();
                       },
                       icon: Icons.remove,

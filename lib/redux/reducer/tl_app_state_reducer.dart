@@ -84,7 +84,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     if (state.currentWorkspaceID == newID) return state; // 変更不要
 
     _saveCurrentWorkspaceID(newID);
-    TLVibrationService.vibrate(); // バイブレーション
+    TLVibrationService.vibrate();
 
     return state.copyWith(currentWorkspaceID: newID);
   }

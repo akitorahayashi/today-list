@@ -4,27 +4,24 @@ import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/screen/setting_page/set_ios_widget_page/component/wks_body_text.dart';
 import 'package:today_list/view/screen/setting_page/set_ios_widget_page/component/wks_header.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
-import 'package:today_list/view/component/slidable/slidable_for_wks_card.dart';
-import 'package:today_list/model/todo/todos_in_category_widget_settings.dart';
+import 'package:today_list/view/component/slidable/slidable_for_tcw_card.dart';
+import 'package:today_list/model/settings_data/todos_in_category_widget_settings.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/view_model/settings/wks_provider.dart';
 // import 'package:today_list/view/setting_page/set_ios_widget_page/wks_card_list/wks_card/medium_ios_widget_replica.dart';
 
-class WKSCard extends ConsumerWidget {
-  final int idx;
-  const WKSCard({super.key, required this.idx});
+class CardOfToDosInCategoryWidgetSettings extends ConsumerWidget {
+  final ToDosInCategoryWidgetSettings corrToDosInCategoryWidgetSettings;
+  const CardOfToDosInCategoryWidgetSettings(
+      {super.key, required this.corrToDosInCategoryWidgetSettings});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final deviceWidth = MediaQuery.of(context).size.width;
     // provider
     final tlAppState = ref.watch(tlAppStateProvider).tlWorkspaces;
-    final wksList = ref.watch(widgetKitSettingsProvider);
-    final ToDosInCategoryWidgetSettings wksInThisCard = wksList[idx];
-    final deviceWidth = MediaQuery.of(context).size.width;
-    final TLCategory corrBigCategory = tlAppState[wksInThisCard.workspaceIdx]
-        .bigCategories[wksInThisCard.bcIdx];
-    return SlidableForWKSCard(
-      indexInWKSList: idx,
+    return SlidableForTCWCard(
+      corrTCWSettingsID: corrToDosInCategoryWidgetSettings.id,
       child: TLDoubleCard(
         child: SizedBox(
           width: deviceWidth - 50,
@@ -38,7 +35,7 @@ class WKSCard extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 16.0),
                     child: Text(
-                      wksInThisCard.title,
+                      corrToDosInCategoryWidgetSettings.title,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
@@ -52,7 +49,7 @@ class WKSCard extends ConsumerWidget {
                   child: WKSHeader(text: "Workspace"),
                 ),
                 WKSBodyText(
-                  text: tlAppState[wksInThisCard.workspaceIdx].name,
+                  text: corrToDosInCategoryWidgetSettings.workspace.name,
                 ),
                 // Big category
                 const Padding(
@@ -60,19 +57,18 @@ class WKSCard extends ConsumerWidget {
                   child: WKSHeader(text: "Big Category"),
                 ),
                 WKSBodyText(
-                  text: corrBigCategory.title,
+                  text: corrToDosInCategoryWidgetSettings.bigCategory.title,
                 ),
                 // Small category
-                if (wksInThisCard.scIdx != null) ...[
+                if (corrToDosInCategoryWidgetSettings.smallCategory !=
+                    null) ...[
                   const Padding(
                     padding: EdgeInsets.only(top: 4.0),
                     child: WKSHeader(text: "Small Category"),
                   ),
                   WKSBodyText(
-                    text: tlAppState[wksInThisCard.workspaceIdx]
-                        .smallCategories[corrBigCategory.id]![
-                            wksInThisCard.scIdx!]
-                        .title,
+                    text:
+                        corrToDosInCategoryWidgetSettings.smallCategory!.title,
                   ),
                 ],
                 // Center(

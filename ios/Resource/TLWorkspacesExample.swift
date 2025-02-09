@@ -13,7 +13,7 @@ let kTLWorkspacesExample =
 """
 [
   {
-    "id": "workspace1",
+    "id": "defaultID",
     "name": "ToDo",
     "bigCategories": [
       { "id": "defaultID", "title": "なし" },

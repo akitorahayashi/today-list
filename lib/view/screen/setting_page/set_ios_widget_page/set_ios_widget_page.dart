@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/screen/setting_page/set_ios_widget_page/create_wk_settings_card/add_wks_button.dart';
 import 'package:today_list/view/screen/setting_page/set_ios_widget_page/create_wk_settings_card/create_wk_settings_card.dart';
-import 'package:today_list/view/screen/setting_page/set_ios_widget_page/wks_card_list/wks_card_list.dart';
+import 'package:today_list/view/screen/setting_page/set_ios_widget_page/wks_card_list/card_list_of_todos_in_category_settings.dart';
 import 'package:today_list/main.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import '../../../../service/tl_ads.dart';
@@ -72,7 +72,7 @@ class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
         // 設定済みのWidgetExtensionを表示
         const Padding(
           padding: EdgeInsets.only(top: 12.0),
-          child: WKSCardList(),
+          child: CardListOfToDosInCategoryWidgetSettings(),
         ),
         // 新たにWidgetExtensionを追加
         Center(

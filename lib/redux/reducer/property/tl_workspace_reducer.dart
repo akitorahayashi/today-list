@@ -1,5 +1,6 @@
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
+import 'package:today_list/service/tl_method_channel.dart';
 import 'package:today_list/service/tl_pref.dart';
 import 'dart:convert';
 
@@ -52,8 +53,8 @@ class TLWorkspaceReducer {
         jsonEncode(workspaces.map((w) => w.toJson()).toList());
 
     await pref.setString("tlWorkspaces", encodedWorkspaces);
-    // TLMethodChannelService.updateTLWorkspaces(
-    //     encodedTLWorkspaces: encodedWorkspaces);
+    TLMethodChannelService.updateTLWorkspaces(
+        encodedTLWorkspaces: encodedWorkspaces);
   }
 
   // --- Save Current Workspace ID ---
