@@ -51,9 +51,10 @@ class _HomePageState extends ConsumerState<HomePage> {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
     final currentWorkspaceRef = ref.watch(
-      tlAppStateProvider
-          .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]),
-    );
+        tlAppStateProvider.select((state) => state.tlWorkspaces.firstWhere(
+              (workspace) => workspace.id == state.currentWorkspaceID,
+              orElse: () => null, // IDが見つからない場合の処理（nullを返すなど）
+            )));
     final numOfToDosInToday =
         TLWorkspaceUtils.getNumOfToDo(currentWorkspaceRef, ifInToday: true);
     final numOfToDosInWhenever =

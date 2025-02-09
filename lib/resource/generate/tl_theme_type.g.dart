@@ -8,4 +8,6 @@ part of '../tl_theme_type.dart';
 
 const _$TLThemeTypeEnumMap = {
   TLThemeType.sunOrange: 'sunOrange',
+  TLThemeType.limeGreen: 'limeGreen',
+  TLThemeType.marineBlue: 'marineBlue',
 };

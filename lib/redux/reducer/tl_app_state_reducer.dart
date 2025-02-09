@@ -15,7 +15,7 @@ import 'package:today_list/service/tl_vibration.dart';
 class TLAppStateReducer extends StateNotifier<TLAppState> {
   TLAppStateReducer()
       : super(TLAppState(
-            tlWorkspaces: initialTLWorkspaces, currentWorkspaceIndex: 0)) {
+            tlWorkspaces: initialTLWorkspaces, currentWorkspaceID: 0)) {
     _loadSavedAppState();
   }
 
