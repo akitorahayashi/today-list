@@ -1,33 +1,29 @@
 //
-//  EntryView.swift
+//  TCToDoListView.swift
 //  Runner
 //
-//  Created by 林 明虎 on 2024/11/24.
+//  Created by 林 明虎 on 2025/02/09.
 //
 
-import WidgetKit
 import SwiftUI
 
-struct TLToDoListView: View {
-    var entry: TLProvider.Entry
+struct TCToDoListView: View {
+    var entry: TCProvider.Entry
     
     @Environment(\.widgetFamily) var widgetFamily
     
-    
     var body: some View {
         VStack(alignment: .leading) {
+            let wksEntity = entry.entity
+            let corrWorkspace = entry.tlWorkspaces[wksEntity.workspaceIdx]
             
-            let wksEntity: TLWidgetKitSettingsEntity = entry.entity
-            
-            let corrWorkspace: TLWorkspace = entry.tlWorkspaces[wksEntity.workspaceIdx]
-            
-            let corrCategoryID = {
+            let corrCategoryID: String = {
                 let corrBC = corrWorkspace.bigCategories[wksEntity.bcIdx]
-                if (wksEntity.scIdx == nil) {
-                    return corrBC.id
-                } else {
-                    let corrSC = corrWorkspace.smallCategories[corrBC.id]![wksEntity.scIdx!]
+                if let scIndex = wksEntity.scIdx {
+                    let corrSC = corrWorkspace.smallCategories[corrBC.id]![scIndex]
                     return corrSC.id
+                } else {
+                    return corrBC.id
                 }
             }()
             
@@ -35,7 +31,7 @@ struct TLToDoListView: View {
                 .toDosInToday.filter { !$0.isChecked }
             
             // 表示する最大アイテム数
-            let maxItems = {
+            let maxItems: Int = {
                 switch widgetFamily {
                 case .systemLarge:
                     return 14
@@ -44,33 +40,34 @@ struct TLToDoListView: View {
                 }
             }()
             
-            // コンテンツを格納する配列
+            // ToDoとStepをまとめて上限まで並べる
             let contentsToShow: [TLToDo] = {
                 var contentCounter = 0
-                var contents = [TLToDo]()
+                var contents: [TLToDo] = []
                 
                 for tlToDo in toDosInToday {
-                    if contentCounter >= maxItems { break }
+                    guard contentCounter < maxItems else { break }
                     
-                    var createdToDo = TLToDo(id:tlToDo.id, title: tlToDo.title, isChecked: false, steps: [])
+                    var createdToDo = TLToDo(id: tlToDo.id,
+                                             title: tlToDo.title,
+                                             isChecked: false,
+                                             steps: [])
                     contentCounter += 1
                     
                     for tlStep in tlToDo.steps {
-                        if contentCounter >= maxItems { break }
+                        guard contentCounter < maxItems else { break }
+                        
                         if !tlStep.isChecked {
                             createdToDo.steps.append(tlStep)
                             contentCounter += 1
                         }
                     }
-                    
                     contents.append(createdToDo)
-                    
                 }
-                
                 return contents
             }()
             
-            let spacing: Double = {
+            let spacing: CGFloat = {
                 switch widgetFamily {
                 case .systemLarge:
                     return 3.0
@@ -79,24 +76,18 @@ struct TLToDoListView: View {
                 }
             }()
             
+            // ToDo本体とそのStepを順に表示
             ForEach(contentsToShow) { tlToDoData in
-                TLToDoRow(spacing: spacing,tlToDoData: tlToDoData)
+                TCToDoRow(spacing: spacing, tlToDoData: tlToDoData)
                     .padding(.bottom, spacing)
             }
             
             Spacer()
-            
-            
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-//        .background(Color.red)
+        .frame(maxWidth: .infinity,
+               maxHeight: .infinity,
+               alignment: .topLeading)
         .padding(.top, 27)
     }
-}
-
-
-#Preview(as: .systemLarge) {
-    ShowToDosInAWorkspaceWidget()
-} timeline: {
-    TLWidgetEntry(date: .now, entity: defaultEntity, selectedThemeIdx: 0, tlWorkspaces: TLWorkspace.decodeWorkspaces(from: kTLWorkspacesExample) ?? [])
+    
 }

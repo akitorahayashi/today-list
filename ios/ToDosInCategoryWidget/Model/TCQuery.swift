@@ -1,40 +1,39 @@
 //
-//  Query.swift
+//  TCQuery.swift
 //  Runner
 //
-//  Created by 林 明虎 on 2024/11/24.
+//  Created by 林 明虎 on 2025/02/09.
 //
 
+import WidgetKit
 import AppIntents
 
-struct TLWidgetKitSettingsQuery: EntityQuery {
-    func entities(for identifiers: [String]) -> [TLWidgetKitSettingsEntity] {
+/// UserDefaults からウィジェットの設定リストを取得するクエリ
+struct TCQuery: EntityQuery {
+    func entities(for identifiers: [String]) -> [TCEntity] {
         loadSettingsList().filter { identifiers.contains($0.id) }
     }
     
-    func suggestedEntities() -> [TLWidgetKitSettingsEntity] {
+    func suggestedEntities() -> [TCEntity] {
         loadSettingsList()
     }
     
-    private func loadSettingsList() -> [TLWidgetKitSettingsEntity] {
+    private func loadSettingsList() -> [TCEntity] {
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         
-        // JSON文字列の取得を確認
         guard let jsonString = userDefaults?.string(forKey: "wksList") else {
             print("UserDefaults does not contain wksList key")
             return []
         }
         print("JSON String: \(jsonString)")
-
-        // JSONデコードの確認
+        
         guard let settings = TCWSettings.decodeWKSList(from: jsonString) else {
             print("Failed to decode JSON")
             return []
         }
-
-        // 正しいエンティティに変換されているか確認
+        
         let entities = settings.map {
-            TLWidgetKitSettingsEntity(
+            TCEntity(
                 id: $0.id,
                 title: $0.title,
                 workspaceIdx: $0.workspaceIdx,
@@ -46,4 +45,3 @@ struct TLWidgetKitSettingsQuery: EntityQuery {
         return entities
     }
 }
-

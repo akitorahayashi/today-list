@@ -1,13 +1,13 @@
 //
-//  EntryView.swift
+//  TCToDoRow.swift
 //  Runner
 //
-//  Created by 林 明虎 on 2024/11/24.
+//  Created by 林 明虎 on 2025/02/09.
 //
 
 import SwiftUI
 
-// カスタム ViewModifier の定義
+// RowのTextStyle
 struct ToDoTextStyle: ViewModifier {
     let isToDo: Bool
     
@@ -21,17 +21,17 @@ struct ToDoTextStyle: ViewModifier {
     }
 }
 
-// 使いやすいように View に拡張メソッドを追加
+// Viewにモディファイアを追加
 extension View {
     func toDoTextStyle(isToDo: Bool) -> some View {
         self.modifier(ToDoTextStyle(isToDo: isToDo))
     }
 }
 
-struct TLToDoRow: View {
+struct TCToDoRow: View {
     let spacing: Double
     let tlToDoData: TLToDo
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: spacing) {
             // メインカード（ToDoのタイトル）
@@ -39,29 +39,23 @@ struct TLToDoRow: View {
                 // チェックマークアイコン
                 Image(systemName: "square")
                     .toDoTextStyle(isToDo: true)
-                
                 // タイトル
                 Text(tlToDoData.title)
                     .toDoTextStyle(isToDo: true)
-                
             }
-            
             // ステップカード（ToDoに含まれるStep）
-            
-                ForEach(tlToDoData.steps
-                ) { step in
-                    HStack {
-                        Image(systemName: "square")
-                            .toDoTextStyle(isToDo: false)
-                        
-                        Text(step.title)
-                            .toDoTextStyle(isToDo: false)
-                        
-                    }
+            ForEach(tlToDoData.steps) { step in
+                HStack {
+                    Image(systemName: "square")
+                        .toDoTextStyle(isToDo: false)
+                    
+                    Text(step.title)
+                        .toDoTextStyle(isToDo: false)
+                    
                 }
-                .padding(.leading, 10)
+            }
+            .padding(.leading, 10)
             
         }
     }
 }
-

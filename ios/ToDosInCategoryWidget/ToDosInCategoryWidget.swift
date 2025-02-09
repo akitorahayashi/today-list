@@ -7,32 +7,40 @@
 
 import WidgetKit
 import SwiftUI
-
-
-struct ToDosInCategoryWidgetEntryView : View {
-
-    var body: some View {
-        VStack {
-
-        }
-    }
-}
+import AppIntents
 
 struct ToDosInCategoryWidget: Widget {
     let kind: String = "ToDosInCategoryWidget"
-
+    
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind) { entry in
-            if #available(iOS 17.0, *) {
-                ToDosInCategoryWidgetEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)
-            } else {
-                ToDosInCategoryWidgetEntryView(entry: entry)
-                    .padding()
-                    .background()
-            }
-        }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        AppIntentConfiguration(kind: kind,
+                               intent: TCIntent.self,
+                               provider: TCProvider()) { entry in
+            TCEntryView(entry: entry)
+                .containerBackground(for: .widget) {
+                    VStack(spacing: 0) {
+                        ZStack {
+                            // テーマの適用
+                            kTLThemes[entry.selectedThemeIdx].gradientOfTopBar
+                            Text(entry.entity.title)
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(.white)
+                        }
+                        .frame(height: 28)
+                        
+                        ZStack {
+                            kTLThemes[entry.selectedThemeIdx].backgroundColorOfToDoList
+                            
+                            Color.white
+                                .cornerRadius(15)
+                                .padding(6)
+                                .shadow(radius: 1)
+                        }
+                    }
+                }
+        }.configurationDisplayName("ToDos In Category")
+            .description("Select widget settings from the app")
+            .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
+
