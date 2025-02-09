@@ -27,7 +27,7 @@ struct TLWidgetKitSettingsQuery: EntityQuery {
         print("JSON String: \(jsonString)")
 
         // JSONデコードの確認
-        guard let settings = TLWidgetKitSettings.decodeWKSList(from: jsonString) else {
+        guard let settings = TCWSettings.decodeWKSList(from: jsonString) else {
             print("Failed to decode JSON")
             return []
         }
