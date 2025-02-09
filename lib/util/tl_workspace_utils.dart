@@ -11,9 +11,15 @@ class TLWorkspaceUtils {
     required bool ifInToday,
     required int indexOfThisToDoInToDos,
   }) {
-    // 元のリストをコピーして変更可能にする
+    // カテゴリ内のToDosを取得
+    final TLToDosInTodayAndWhenever toDosInCategory =
+        corrWorkspace.categoryIDToToDos[categoryId]!;
+
+    // `ifInToday` に応じて対象のToDoリストを取得・コピー
     final toDoArrayOfThisToDo = List<TLToDo>.from(
-      corrWorkspace.categoryIDToToDos[categoryId]!.getToDos(ifInToday),
+      ifInToday
+          ? toDosInCategory.toDosInToday
+          : toDosInCategory.toDosInWhenever,
     );
 
     // 対象のToDoを取り出す
@@ -31,16 +37,21 @@ class TLWorkspaceUtils {
       toDoArrayOfThisToDo.insert(indexOfCheckedToDo, toDoCheckStateHasChanged);
     }
 
-    // 更新後のToDosを生成
-    final updatedCategoryIDToToDos =
-        Map<String, TLToDosInTodayAndWhenever>.from(
-      corrWorkspace.categoryIDToToDos,
+    // `toDosInToday` or `toDosInWhenever` を更新
+    final updatedToDosInCategory = toDosInCategory.copyWith(
+      toDosInToday:
+          ifInToday ? toDoArrayOfThisToDo : toDosInCategory.toDosInToday,
+      toDosInWhenever:
+          ifInToday ? toDosInCategory.toDosInWhenever : toDoArrayOfThisToDo,
     );
-    updatedCategoryIDToToDos[categoryId] = corrWorkspace
-        .categoryIDToToDos[categoryId]!
-        .copyWith(toDosInToday: ifInToday ? toDoArrayOfThisToDo : []);
 
-    // 新しいWorkspaceを返す
+    // `categoryIDToToDos` を更新
+    final updatedCategoryIDToToDos = {
+      ...corrWorkspace.categoryIDToToDos,
+      categoryId: updatedToDosInCategory,
+    };
+
+    // 更新後のWorkspaceを返す
     return corrWorkspace.copyWith(
       categoryIDToToDos: updatedCategoryIDToToDos,
     );

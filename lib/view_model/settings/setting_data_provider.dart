@@ -12,7 +12,7 @@ final settingDataProvider =
 
 class SettingDataNotifier extends StateNotifier<SettingsData> {
   SettingDataNotifier()
-      : super(SettingsData(currentAppIconName: "Sun Orange")) {
+      : super(const SettingsData(currentAppIconName: "Sun Orange")) {
     _loadSettingData();
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/screen/setting_page/set_tcw_settings_page/component/wks_body_text.dart';
 import 'package:today_list/view/screen/setting_page/set_tcw_settings_page/component/wks_header.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';

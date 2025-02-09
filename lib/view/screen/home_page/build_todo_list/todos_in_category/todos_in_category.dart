@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import '../../../../component/todo_card/tl_todo_card.dart';
-import '../../../../../model/todo/tl_workspace.dart';
-import '../../../../../model/todo/tl_todo.dart';
-import '../../../../../model/todo/tl_category.dart';
+import 'package:today_list/view/component/todo_card/tl_todo_card.dart';
 
 import 'package:reorderables/reorderables.dart';
 
