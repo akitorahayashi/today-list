@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/util/tl_validation.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../tl_base_dialog_mixin.dart';
@@ -21,17 +21,14 @@ class AddCategoryDialog extends ConsumerStatefulWidget with TLBaseDialogMixin {
 }
 
 class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
-  late EditingCategoryNotifier editingCategoryNotifier;
-  String enteredCategoryTitle = "";
+  late EditingCategoryNotifier _editingCategoryNotifier;
+  String _enteredCategoryTitle = "";
+
+  // MARK: - Lifecycle (Init & Dispose)
   @override
   void initState() {
     super.initState();
-    editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
-    EditingCategory.updateTextEditingController(editedCategoryTitle: null);
-    Future.microtask(() {
-      editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
-      editingCategoryNotifier.setInitialValue();
-    });
+    _initializeEditingState();
   }
 
   @override
@@ -40,150 +37,159 @@ class _AddCategoryDialogState extends ConsumerState<AddCategoryDialog> {
     super.dispose();
   }
 
+  // MARK: - Initialization
+  void _initializeEditingState() {
+    _editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
+    EditingCategory.updateTextEditingController(editedCategoryTitle: null);
+    Future.microtask(() {
+      _editingCategoryNotifier.setInitialValue();
+    });
+  }
+
+  // MARK: - UI (Build)
   @override
   Widget build(BuildContext context) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
-    // provider
+    final TLThemeConfig theme = TLTheme.of(context);
     final EditingCategory editingCategory = ref.watch(editingCategoryProvider);
-    // provider
-    final tlAppState = ref.watch(tlAppStateProvider);
-    // others
-    final TLWorkspace currentWorkspaceRef =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
-    // notifier
-    final editingCategoryNotifier = ref.read(editingCategoryProvider.notifier);
+    final TLWorkspace currentWorkspace = ref.watch(
+      tlAppStateProvider.select((state) => state.getCurrentWorkspace),
+    );
+
     return AlertDialog(
-      backgroundColor: tlThemeData.alertBackgroundColor,
+      backgroundColor: theme.alertBackgroundColor,
       content: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 40, bottom: 18.0),
-            child: SizedBox(
-              width: 230,
-              child: DropdownButton<String>(
-                isExpanded: true,
-                hint: Text(
-                  editingCategory.selecteBigCategoryID == null
-                      ? "なし"
-                      : (() {
-                          final hintArray = currentWorkspaceRef.bigCategories
-                              .where((bigCategory) =>
-                                  bigCategory.id ==
-                                  editingCategory.selecteBigCategoryID);
-                          if (hintArray.isEmpty) {
-                            editingCategory.selecteBigCategoryID = null;
-                            return "なし";
-                          } else {
-                            return hintArray.first.title;
-                          }
-                        }()),
-                  style: TextStyle(
-                    color: Colors.black.withOpacity(0.45),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                items: [
-                  const TLCategory(id: noneID, title: "なし"),
-                  ...currentWorkspaceRef.bigCategories.sublist(1),
-                ].map((TLCategory bigCategory) {
-                  return DropdownMenuItem(
-                    value: bigCategory.id,
-                    child: Text(
-                      bigCategory.title,
-                      style: bigCategory.id == noneID &&
-                                  editingCategory.selecteBigCategoryID ==
-                                      null ||
-                              bigCategory.id ==
-                                  editingCategory.selecteBigCategoryID
-                          ? TextStyle(
-                              color: tlThemeData.accentColor,
-                              fontWeight: FontWeight.bold)
-                          : TextStyle(
-                              color: Colors.black.withOpacity(0.5),
-                              fontWeight: FontWeight.bold),
-                    ),
-                  );
-                }).toList(),
-                onChanged: (String? newBigCategoryId) async {
-                  if (newBigCategoryId == noneID) {
-                    editingCategoryNotifier.updateEditingCategory(
-                      selectedBigCatgoeyID: null,
-                      indexOfEditingBigCategory: null,
-                      indexOfEditingSmallCategory: null,
-                    );
-                  } else {
-                    editingCategoryNotifier.updateEditingCategory(
-                      selectedBigCatgoeyID: newBigCategoryId,
-                      indexOfEditingBigCategory: null,
-                      indexOfEditingSmallCategory: null,
-                    );
-                  }
-                },
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 30.0),
-            child: SizedBox(
-                width: 230,
-                // 新しいカテゴリー名を入力するTextFormField
-                child: TextField(
-                  autofocus: true,
-                  controller: EditingCategory.categoryTitleInputController,
-                  onChanged: (s) {
-                    setState(() {
-                      enteredCategoryTitle = s;
-                    });
-                  },
-                  cursorColor: tlThemeData.accentColor,
-                  style: TextStyle(
-                      color: Colors.black.withOpacity(0.5),
-                      fontWeight: FontWeight.w600),
-                  decoration: tlInputDecoration(
-                      context: context,
-                      labelText: "新しいカテゴリー名",
-                      icon: null,
-                      suffixIcon: null),
-                )),
-          ),
-          // 閉じる 追加するボタン
-          OverflowBar(
-            alignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              // カテゴリーを作らずにアラートを閉じるボタン
-              TextButton(
-                  style: alertButtonStyle(accentColor: tlThemeData.accentColor),
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text("閉じる")),
-              // カテゴリーを追加するボタン
-              TextButton(
-                  style: alertButtonStyle(accentColor: tlThemeData.accentColor),
-                  // 入力がなければ非活性
-                  onPressed: enteredCategoryTitle.trim().isEmpty
-                      ? null
-                      : () async {
-                          TLVibrationService.vibrate();
-                          await TLValidation.validateNameAndExecute(
-                              context: context,
-                              name: enteredCategoryTitle,
-                              validator: TLValidation.validateCategoryName,
-                              onSuccess: () async {
-                                await editingCategoryNotifier.completeEditing();
-                                if (context.mounted) {
-                                  Navigator.pop(context);
-                                  const TLSingleOptionDialog(
-                                    title: "カテゴリーが\n追加されました！",
-                                  ).show(context: context);
-                                }
-                              });
-                        },
-                  child: const Text("追加"))
-            ],
-          )
+          _buildCategoryDropdown(theme, editingCategory, currentWorkspace),
+          _buildCategoryTextField(theme),
+          _buildActionButtons(theme),
         ],
       ),
+    );
+  }
+
+  // MARK: - UI Components
+  Widget _buildCategoryDropdown(TLThemeConfig theme,
+      EditingCategory editingCategory, TLWorkspace workspace) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 40, bottom: 18.0),
+      child: SizedBox(
+        width: 230,
+        child: DropdownButton<String>(
+          isExpanded: true,
+          hint: _buildDropdownHint(editingCategory, workspace),
+          items: [
+            const TLCategory(id: noneID, title: "なし"),
+            ...workspace.bigCategories.sublist(1),
+          ].map((TLCategory bigCategory) {
+            return DropdownMenuItem(
+              value: bigCategory.id,
+              child: Text(
+                bigCategory.title,
+                style:
+                    _getDropdownItemStyle(theme, editingCategory, bigCategory),
+              ),
+            );
+          }).toList(),
+          onChanged: _updateEditingCategory,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryTextField(TLThemeConfig theme) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 30.0),
+      child: SizedBox(
+        width: 230,
+        child: TextField(
+          autofocus: true,
+          controller: EditingCategory.categoryTitleInputController,
+          onChanged: (text) => setState(() => _enteredCategoryTitle = text),
+          cursorColor: theme.accentColor,
+          style: TextStyle(
+            color: Colors.black.withOpacity(0.5),
+            fontWeight: FontWeight.w600,
+          ),
+          decoration: tlInputDecoration(
+            context: context,
+            labelText: "新しいカテゴリー名",
+            icon: null,
+            suffixIcon: null,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(TLThemeConfig theme) {
+    return OverflowBar(
+      alignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TextButton(
+          style: alertButtonStyle(accentColor: theme.accentColor),
+          onPressed: () => Navigator.pop(context),
+          child: const Text("閉じる"),
+        ),
+        TextButton(
+          style: alertButtonStyle(accentColor: theme.accentColor),
+          onPressed: _enteredCategoryTitle.trim().isEmpty
+              ? null
+              : () => _addCategory(),
+          child: const Text("追加"),
+        ),
+      ],
+    );
+  }
+
+  // MARK: - Helpers
+  Widget _buildDropdownHint(
+      EditingCategory editingCategory, TLWorkspace workspace) {
+    final String? selectedID = editingCategory.selecteBigCategoryID;
+    if (selectedID == null) return const Text("なし");
+
+    final hintArray = workspace.bigCategories
+        .where((bigCategory) => bigCategory.id == selectedID);
+    return hintArray.isEmpty
+        ? const Text("なし")
+        : Text(hintArray.first.title,
+            style: const TextStyle(fontWeight: FontWeight.bold));
+  }
+
+  TextStyle _getDropdownItemStyle(TLThemeConfig theme,
+      EditingCategory editingCategory, TLCategory bigCategory) {
+    final bool isSelected =
+        bigCategory.id == editingCategory.selecteBigCategoryID;
+    return TextStyle(
+      color: isSelected ? theme.accentColor : Colors.black.withOpacity(0.5),
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  // MARK: - Actions
+  void _updateEditingCategory(String? newBigCategoryId) {
+    _editingCategoryNotifier.updateEditingCategory(
+      selectedBigCatgoeyID:
+          newBigCategoryId == noneID ? null : newBigCategoryId,
+      indexOfEditingBigCategory: null,
+      indexOfEditingSmallCategory: null,
+    );
+  }
+
+  void _addCategory() async {
+    TLVibrationService.vibrate();
+    await TLValidation.validateNameAndExecute(
+      context: context,
+      name: _enteredCategoryTitle,
+      validator: TLValidation.validateCategoryName,
+      onSuccess: () async {
+        await _editingCategoryNotifier.completeEditing();
+        if (context.mounted) {
+          Navigator.pop(context);
+          const TLSingleOptionDialog(title: "カテゴリーが\n追加されました！")
+              .show(context: context);
+        }
+      },
     );
   }
 }

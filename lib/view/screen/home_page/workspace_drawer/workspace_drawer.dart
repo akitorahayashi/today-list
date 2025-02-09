@@ -14,11 +14,12 @@ class TLWorkspaceDrawer extends ConsumerWidget {
   final bool isContentMode;
   const TLWorkspaceDrawer({super.key, required this.isContentMode});
 
+  // MARK: - UI (Build)
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
-    final currentTLWorkspaceIndex = ref.watch(
-      tlAppStateProvider.select((state) => state.currentWorkspaceIndex),
+    final String currentWorkspaceId = ref.watch(
+      tlAppStateProvider.select((state) => state.currentWorkspaceID),
     );
     final workspaces = ref.watch(
       tlAppStateProvider.select((state) => state.tlWorkspaces),
@@ -30,30 +31,12 @@ class TLWorkspaceDrawer extends ConsumerWidget {
           Container(color: tlThemeConfig.backgroundColor),
           Column(
             children: [
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: TLTheme.of(context).gradientOfNavBar,
-                ),
-                child: TLAppBar(
-                  context: context,
-                  pageTitle: "Workspace",
-                  leadingButtonOnPressed: null,
-                  leadingIcon: null,
-                  trailingButtonOnPressed: null,
-                  trailingIcon: null,
-                ),
-              ),
+              _buildAppBar(context),
               Padding(
-                padding: const EdgeInsets.only(top: 12.0),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 3.0),
-                  child: _buildWorkspaceList(
-                    context,
-                    ref,
-                    currentTLWorkspaceIndex,
-                    workspaces,
-                  ),
-                ),
+                padding:
+                    const EdgeInsets.only(top: 12.0, left: 3.0, right: 3.0),
+                child: _buildWorkspaceList(
+                    context, ref, currentWorkspaceId, workspaces),
               ),
             ],
           ),
@@ -62,94 +45,113 @@ class TLWorkspaceDrawer extends ConsumerWidget {
     );
   }
 
-  // MARK - AppBar
-  // Widget _buildAppBar(BuildContext context) {
-  //   return TLAppBar(
-  //     context: context,
-  //     pageTitle: "Workspace",
-  //     leadingButtonOnPressed: null,
-  //     leadingIcon: Container(),
-  //     trailingButtonOnPressed: null,
-  //     trailingIcon: null,
-  //   );
-  // }
+  // MARK: - AppBar
+  Widget _buildAppBar(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: TLTheme.of(context).gradientOfNavBar,
+      ),
+      child: TLAppBar(
+        context: context,
+        pageTitle: "Workspace",
+        leadingButtonOnPressed: null,
+        leadingIcon: null,
+        trailingButtonOnPressed: null,
+        trailingIcon: null,
+      ),
+    );
+  }
 
-  // MARK - Workspace List
+  // MARK: - Workspace List
   Widget _buildWorkspaceList(BuildContext context, WidgetRef ref,
-      int currentWorkspaceIndex, List<TLWorkspace> workspaces) {
+      String currentWorkspaceId, List<TLWorkspace> workspaces) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
 
-    return Column(children: [
-      DecoratedBox(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: tlThemeData.tlDoubleCardBorderColor),
-        child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
-            child: Column(
-              children: [
-                const ChangeWorkspaceCard(indexInWorkspaces: 0),
-                _buildReorderableWorkspaceList(
-                    ref, currentWorkspaceIndex, workspaces),
-                const AddWorkspaceButton(),
-              ],
-            ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: tlThemeData.tlDoubleCardBorderColor,
+      ),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
+          child: Column(
+            children: [
+              ChangeWorkspaceCard(corrWorkspace: workspaces.first),
+              _buildReorderableWorkspaceList(
+                  ref, currentWorkspaceId, workspaces),
+              const AddWorkspaceButton(),
+            ],
           ),
         ),
       ),
-    ]);
+    );
   }
 
-  // MARK - Reorderable Workspace List
+  // MARK: - Reorderable Workspace List
   Widget _buildReorderableWorkspaceList(
-      WidgetRef ref, int currentWorkspaceIndex, List<TLWorkspace> workspaces) {
+      WidgetRef ref, String currentWorkspaceId, List<TLWorkspace> workspaces) {
     return ReorderableColumn(
       children: [
-        for (int i = 1; i < workspaces.length; i++)
+        for (var workspace in workspaces.skip(1)) // 最初のワークスペースは固定
           ChangeWorkspaceCard(
-            key: ValueKey(workspaces[i].id),
-            indexInWorkspaces: i,
+            key: ValueKey(workspace.id),
+            corrWorkspace: workspace,
           ),
       ],
       onReorder: (oldIndex, newIndex) {
-        _handleReorder(ref, oldIndex, newIndex, currentWorkspaceIndex);
+        _handleReorder(ref, workspaces[oldIndex + 1].id,
+            workspaces[newIndex + 1].id, currentWorkspaceId, workspaces);
       },
     );
   }
 
-  // MARK - Handle Reordering Logic
+  // MARK: - Handle Reordering Logic (Index → ID ベースに変更)
   void _handleReorder(
-      WidgetRef ref, int oldIndex, int newIndex, int currentWorkspaceIndex) {
-    if (newIndex == oldIndex) return;
-
-    final revisedOldIndex = oldIndex + 1;
-    final revisedNewIndex = newIndex + 1;
+      WidgetRef ref,
+      String oldWorkspaceId,
+      String newWorkspaceId,
+      String currentWorkspaceId,
+      List<TLWorkspace> workspaces) {
+    if (oldWorkspaceId == newWorkspaceId) return;
 
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-    final workspaces = ref.read(tlAppStateProvider).tlWorkspaces;
 
     List<TLWorkspace> copiedWorkspaces = List.from(workspaces);
-    final TLWorkspace movedWorkspace =
-        copiedWorkspaces.removeAt(revisedOldIndex);
-    copiedWorkspaces.insert(revisedNewIndex, movedWorkspace);
+    final int oldIndex =
+        copiedWorkspaces.indexWhere((ws) => ws.id == oldWorkspaceId);
+    final int newIndex =
+        copiedWorkspaces.indexWhere((ws) => ws.id == newWorkspaceId);
 
-    if (revisedOldIndex == currentWorkspaceIndex) {
+    if (oldIndex == -1 || newIndex == -1) return;
+
+    final TLWorkspace movedWorkspace = copiedWorkspaces.removeAt(oldIndex);
+    copiedWorkspaces.insert(newIndex, movedWorkspace);
+
+    // ワークスペースの並び替えによる影響をチェック
+    if (movedWorkspace.id == currentWorkspaceId) {
       tlAppStateReducer.dispatchWorkspaceAction(
-          ChangeCurrentWorkspaceIndex(revisedNewIndex));
-    } else if (revisedOldIndex < currentWorkspaceIndex &&
-        revisedNewIndex >= currentWorkspaceIndex) {
+        TLWorkspaceAction.changeCurrentWorkspaceID(movedWorkspace.id),
+      );
+    } else if (oldIndex <
+            copiedWorkspaces.indexWhere((ws) => ws.id == currentWorkspaceId) &&
+        newIndex >=
+            copiedWorkspaces.indexWhere((ws) => ws.id == currentWorkspaceId)) {
       tlAppStateReducer.dispatchWorkspaceAction(
-          ChangeCurrentWorkspaceIndex(currentWorkspaceIndex - 1));
-    } else if (revisedOldIndex > currentWorkspaceIndex &&
-        revisedNewIndex <= currentWorkspaceIndex) {
+        TLWorkspaceAction.changeCurrentWorkspaceID(currentWorkspaceId),
+      );
+    } else if (oldIndex >
+            copiedWorkspaces.indexWhere((ws) => ws.id == currentWorkspaceId) &&
+        newIndex <=
+            copiedWorkspaces.indexWhere((ws) => ws.id == currentWorkspaceId)) {
       tlAppStateReducer.dispatchWorkspaceAction(
-          ChangeCurrentWorkspaceIndex(currentWorkspaceIndex + 1));
+        TLWorkspaceAction.changeCurrentWorkspaceID(currentWorkspaceId),
+      );
     }
 
     tlAppStateReducer.dispatchWorkspaceAction(
-        TLWorkspaceAction.updateWorkspaceList(copiedWorkspaces));
+      TLWorkspaceAction.updateWorkspaceList(copiedWorkspaces),
+    );
   }
 }

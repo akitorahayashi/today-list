@@ -53,8 +53,8 @@ class TLWorkspaceReducer {
         jsonEncode(workspaces.map((w) => w.toJson()).toList());
 
     await pref.setString("tlWorkspaces", encodedWorkspaces);
-    TLMethodChannelService.updateTLWorkspaces(
-        encodedTLWorkspaces: encodedWorkspaces);
+    // TLMethodChannelService.updateTLWorkspaces(
+    //     encodedTLWorkspaces: encodedWorkspaces);
   }
 
   // --- Save Current Workspace ID ---

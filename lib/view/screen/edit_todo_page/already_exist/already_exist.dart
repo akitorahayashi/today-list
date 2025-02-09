@@ -24,7 +24,7 @@ class AlreadyExist extends ConsumerWidget {
     final tlAppState = ref.watch(tlAppStateProvider);
     // others
     final TLWorkspace currentWorkspaceReference =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
+        tlAppState.getCurrentWorkspace;
     // others
     final String categoryOfThisToDo = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisBlock = currentWorkspaceReference

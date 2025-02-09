@@ -11,12 +11,12 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SlidableForWorkspaceCard extends ConsumerWidget {
   final bool isCurrentWorkspace;
-  final int indexInTLWorkspaces;
+  final String corrWorkspacesID;
   final Widget child;
   const SlidableForWorkspaceCard({
     super.key,
     required this.isCurrentWorkspace,
-    required this.indexInTLWorkspaces,
+    required this.corrWorkspacesID,
     required this.child,
   });
 
@@ -27,12 +27,12 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
     final List<TLWorkspace> tlWorkspacesRef =
         ref.watch(tlAppStateProvider).tlWorkspaces;
     // other
-    final TLWorkspace corrWorkspace = tlWorkspacesRef[indexInTLWorkspaces];
+    // final TLWorkspace corrWorkspace = tlWorkspacesRef[corrWorkspacesID];
     return Slidable(
       // currentWorkspaceの時や
       startActionPane: isCurrentWorkspace ||
               // デフォルトワークスペースの時は削除できないようにする
-              indexInTLWorkspaces == 0
+              corrWorkspacesID == 0
           ? null
           : ActionPane(
               motion: const ScrollMotion(),
@@ -48,8 +48,7 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                     await showDialog(
                         context: context,
                         builder: (context) => DeleteWorkspaceDialog(
-                            corrWorkspaceIndex: indexInTLWorkspaces,
-                            willDeletedWorkspace: corrWorkspace));
+                            corrWorkspaceID: corrWorkspacesID));
                   },
                   icon: Icons.remove,
                   label: "Delete",
@@ -57,7 +56,7 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
               ],
             ),
       endActionPane: // デフォルトワークスペースの時は編集できないようにする
-          indexInTLWorkspaces == 0
+          corrWorkspacesID == 0
               ? null
               : ActionPane(
                   motion: const ScrollMotion(),
@@ -70,7 +69,7 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                       foregroundColor: tlThemeData.accentColor,
                       onPressed: (BuildContext context) async {
                         AddOrEditWorkspaceDialog(
-                                oldIndexInWorkspaces: indexInTLWorkspaces)
+                                oldWorkspaceId: corrWorkspacesID)
                             .show(context: context);
                       },
                       icon: Icons.edit,

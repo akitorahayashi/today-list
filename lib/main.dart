@@ -17,7 +17,7 @@ void main() async {
   await dotenv.load(fileName: ".env");
   await TLAdsService.initializeTLAds();
   await TLVibrationService.initVibrate();
-  await TLConnectivityService.initializeConnectivity();
+  // await TLConnectivityService.initializeConnectivity();
   runApp(const ProviderScope(
     child: TodayListApp(),
   ));

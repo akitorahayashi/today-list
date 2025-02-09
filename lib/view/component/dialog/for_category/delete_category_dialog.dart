@@ -15,155 +15,189 @@ import '../../../../styles.dart';
 class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
   final int indexOfBigCategory;
   final int? indexOfSmallCategory;
+
   const DeleteCategoryDialog({
     super.key,
     required this.indexOfBigCategory,
     required this.indexOfSmallCategory,
   });
 
+  // MARK: - UI (Build)
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
-    // provider
-    final tlAppState = ref.watch(tlAppStateProvider);
-    // others
-    final TLWorkspace currentWorkspaceRef =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
-    // other
-    TLCategory? categoryThisBelongsTo;
+    final TLThemeConfig theme = TLTheme.of(context);
+    final TLWorkspace currentWorkspace = ref.watch(
+      tlAppStateProvider.select((state) => state.getCurrentWorkspace),
+    );
+
+    final TLCategory? categoryToDelete = _getCategory(currentWorkspace);
+
+    if (categoryToDelete == null) {
+      return _buildErrorDialog(theme);
+    }
+
+    return _buildConfirmationDialog(
+        context, ref, theme, currentWorkspace, categoryToDelete);
+  }
+
+  // MARK: - Category Retrieval
+  TLCategory? _getCategory(TLWorkspace workspace) {
     if (indexOfSmallCategory == null) {
-      if (indexOfBigCategory >= 0 &&
-          indexOfBigCategory < currentWorkspaceRef.bigCategories.length) {
-        categoryThisBelongsTo =
-            currentWorkspaceRef.bigCategories[indexOfBigCategory];
-      }
+      return (indexOfBigCategory >= 0 &&
+              indexOfBigCategory < workspace.bigCategories.length)
+          ? workspace.bigCategories[indexOfBigCategory]
+          : null;
     } else {
-      final bigCategoryId =
-          currentWorkspaceRef.bigCategories[indexOfBigCategory].id;
-      final smallCategories =
-          currentWorkspaceRef.smallCategories[bigCategoryId];
-      if (smallCategories != null &&
-          indexOfSmallCategory! >= 0 &&
-          indexOfSmallCategory! < smallCategories.length) {
-        categoryThisBelongsTo = smallCategories[indexOfSmallCategory!];
-      }
+      final String bigCategoryId =
+          workspace.bigCategories[indexOfBigCategory].id;
+      final List<TLCategory>? smallCategories =
+          workspace.smallCategories[bigCategoryId];
+      return (smallCategories != null &&
+              indexOfSmallCategory! >= 0 &&
+              indexOfSmallCategory! < smallCategories.length)
+          ? smallCategories[indexOfSmallCategory!]
+          : null;
     }
+  }
 
-    if (categoryThisBelongsTo == null) {
-      return Dialog(
-        backgroundColor: tlThemeData.alertBackgroundColor,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            "Error: カテゴリーが見つかりませんでした",
-            style: TextStyle(color: tlThemeData.accentColor, fontSize: 20),
-          ),
-        ),
-      );
-    }
-
+  // MARK: - UI Components
+  Widget _buildErrorDialog(TLThemeConfig theme) {
     return Dialog(
-      backgroundColor: tlThemeData.alertBackgroundColor,
+      backgroundColor: theme.alertBackgroundColor,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          "Error: カテゴリーが見つかりませんでした",
+          style: TextStyle(color: theme.accentColor, fontSize: 20),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildConfirmationDialog(
+    BuildContext context,
+    WidgetRef ref,
+    TLThemeConfig theme,
+    TLWorkspace workspace,
+    TLCategory categoryToDelete,
+  ) {
+    return Dialog(
+      backgroundColor: theme.alertBackgroundColor,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0, bottom: 16),
-              child: Text(
-                "本当にこのカテゴリーを\n削除しますか？",
-                style: TextStyle(
-                    color: tlThemeData.accentColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: Text(
-                "※関連するToDoやCategoryが\n一緒に削除されます",
-                style: TextStyle(
-                  color: Colors.black.withOpacity(0.6),
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            OverflowBar(
-              alignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextButton(
-                    style:
-                        alertButtonStyle(accentColor: tlThemeData.accentColor),
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("いいえ")),
-                TextButton(
-                    style:
-                        alertButtonStyle(accentColor: tlThemeData.accentColor),
-
-                    // TODO 直接操作している箇所があり危険
-                    onPressed: () async {
-                      // corrElements
-                      final List<TLCategory> corrBigCategories =
-                          List<TLCategory>.from(
-                              currentWorkspaceRef.bigCategories);
-                      final Map<String, List<TLCategory>> corrSmallCategories =
-                          {
-                        for (var entry
-                            in currentWorkspaceRef.smallCategories.entries)
-                          entry.key: List<TLCategory>.from(entry.value)
-                      };
-                      final corrCategoryIDToToDos =
-                          Map<String, TLToDosInTodayAndWhenever>.from(
-                              currentWorkspaceRef.categoryIDToToDos);
-                      if (indexOfSmallCategory != null) {
-                        // このカテゴリーがsmallCategoryの場合
-                        // カテゴリーのリストから削除する
-                        corrSmallCategories[currentWorkspaceRef
-                                .bigCategories[indexOfBigCategory].id]!
-                            .removeWhere(((TLCategory smallCategory) =>
-                                smallCategory.id == categoryThisBelongsTo!.id));
-                        // toDosに入っているものを消す
-                        corrCategoryIDToToDos.remove(categoryThisBelongsTo!.id);
-                      } else {
-                        // このカテゴリーがbigCategoryの場合
-                        // bigCategoryのsmallCategoryでtoDosに入っているものを消す
-                        for (TLCategory smallCategory in corrSmallCategories[
-                            categoryThisBelongsTo!.id]!) {
-                          corrCategoryIDToToDos.remove(smallCategory.id);
-                        }
-                        // toDosに入っているものを消す
-                        corrCategoryIDToToDos.remove(categoryThisBelongsTo.id);
-                        // カテゴリーのリストからbigCategoryとsmallCategoryを削除する
-                        corrBigCategories.removeAt(indexOfBigCategory);
-                        corrSmallCategories.remove(categoryThisBelongsTo.id);
-                      }
-
-                      // categoriesとtoDosを保存する
-                      ref
-                          .read(tlAppStateProvider.notifier)
-                          .dispatchWorkspaceAction(
-                              TLWorkspaceAction.updateCurrentWorkspace(
-                                  currentWorkspaceRef.copyWith(
-                                      bigCategories: corrBigCategories,
-                                      smallCategories: corrSmallCategories,
-                                      categoryIDToToDos:
-                                          corrCategoryIDToToDos)));
-
-                      // アラートを消す
-                      Navigator.pop(context);
-                      TLVibrationService.vibrate();
-                      // 知らせるアラート
-                      const TLSingleOptionDialog(title: "削除することに\n成功しました!")
-                          .show(context: context);
-                    },
-                    child: const Text("はい")),
-              ],
-            )
+            _buildDialogTitle(theme),
+            _buildWarningText(),
+            _buildActionButtons(
+                context, ref, theme, workspace, categoryToDelete),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildDialogTitle(TLThemeConfig theme) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, bottom: 16),
+      child: Text(
+        "本当にこのカテゴリーを\n削除しますか？",
+        style: TextStyle(
+          color: theme.accentColor,
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWarningText() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Text(
+        "※関連するToDoやCategoryが\n一緒に削除されます",
+        style: TextStyle(
+          color: Colors.black.withOpacity(0.6),
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(
+    BuildContext context,
+    WidgetRef ref,
+    TLThemeConfig theme,
+    TLWorkspace workspace,
+    TLCategory categoryToDelete,
+  ) {
+    return OverflowBar(
+      alignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TextButton(
+          style: alertButtonStyle(accentColor: theme.accentColor),
+          onPressed: () => Navigator.pop(context),
+          child: const Text("いいえ"),
+        ),
+        TextButton(
+          style: alertButtonStyle(accentColor: theme.accentColor),
+          onPressed: () async {
+            _deleteCategory(ref, workspace, categoryToDelete);
+            Navigator.pop(context);
+            TLVibrationService.vibrate();
+            const TLSingleOptionDialog(title: "削除することに\n成功しました!")
+                .show(context: context);
+          },
+          child: const Text("はい"),
+        ),
+      ],
+    );
+  }
+
+  // MARK: - Category Deletion
+  void _deleteCategory(
+      WidgetRef ref, TLWorkspace workspace, TLCategory categoryToDelete) {
+    final List<TLCategory> updatedBigCategories =
+        List<TLCategory>.from(workspace.bigCategories);
+    final Map<String, List<TLCategory>> updatedSmallCategories = {
+      for (var entry in workspace.smallCategories.entries)
+        entry.key: List<TLCategory>.from(entry.value),
+    };
+    final Map<String, TLToDosInTodayAndWhenever> updatedCategoryIDToToDos = {
+      for (var entry in workspace.categoryIDToToDos.entries)
+        if (entry.key != categoryToDelete.id) entry.key: entry.value,
+    };
+
+    if (indexOfSmallCategory != null) {
+      final String bigCategoryId =
+          workspace.bigCategories[indexOfBigCategory].id;
+      updatedSmallCategories[bigCategoryId]?.removeWhere(
+        (smallCategory) => smallCategory.id == categoryToDelete.id,
+      );
+    } else {
+      final String bigCategoryId = categoryToDelete.id;
+      updatedSmallCategories.remove(bigCategoryId);
+      updatedBigCategories.removeAt(indexOfBigCategory);
+
+      // smallCategories 内の関連タスクを削除
+      if (workspace.smallCategories[bigCategoryId] != null) {
+        for (TLCategory smallCategory
+            in workspace.smallCategories[bigCategoryId]!) {
+          updatedCategoryIDToToDos.remove(smallCategory.id);
+        }
+      }
+    }
+
+    // ワークスペースの更新を適用
+    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+          TLWorkspaceAction.updateCurrentWorkspace(
+            workspace.copyWith(
+              bigCategories: updatedBigCategories,
+              smallCategories: updatedSmallCategories,
+              categoryIDToToDos: updatedCategoryIDToToDos,
+            ),
+          ),
+        );
   }
 }

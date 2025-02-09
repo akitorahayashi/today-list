@@ -17,8 +17,8 @@ class BigCategoryChip extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final currentWorkspace = ref.watch(tlAppStateProvider
-        .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]));
+    final currentWorkspace = ref
+        .watch(tlAppStateProvider.select((state) => state.getCurrentWorkspace));
 
     final bigCategory = _getBigCategory(currentWorkspace);
     final numberOfToDos = _getNumberOfToDos(currentWorkspace, bigCategory);

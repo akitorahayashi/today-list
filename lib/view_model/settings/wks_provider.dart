@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/service/tl_method_channel.dart';
 import 'package:today_list/model/setting_data/widget_kit_setting.dart';
@@ -44,8 +45,8 @@ class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
     final pref = await TLPrefService().getPref;
     final encodedWidgetKitSettings =
         jsonEncode(state.map((w) => w.toJson()).toList());
-    TLMethodChannelService.updateWKSList(
-        encodedWKSList: encodedWidgetKitSettings);
+    // TLMethodChannelService.updateWKSList(
+    //     encodedWKSList: encodedWidgetKitSettings);
     await pref.setString("widgetKitSettings", encodedWidgetKitSettings);
   }
 

@@ -29,8 +29,7 @@ class TLStepCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentWorkspace = ref.watch(
-      tlAppStateProvider
-          .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]),
+      tlAppStateProvider.select((state) => state.getCurrentWorkspace),
     );
 
     final corrToDosReference =
