@@ -8,15 +8,10 @@
 import WidgetKit
 import SwiftUI
 
-
-
 struct ShowToDosInAWorkspaceWidget: Widget {
     let kind: String = "ShowToDosInAWorkspaceWidget"
-    
     var body: some WidgetConfiguration {
-        
         AppIntentConfiguration(kind: kind, intent: TLWidgetKitSettingsIntent.self, provider: TLProvider()) { entry in
-            
             ShowToDosInAWorkspaceWidgetEntryView(entry: entry)
                 .containerBackground(for: .widget) {
                     VStack(spacing: 0) {

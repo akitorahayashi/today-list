@@ -8,6 +8,8 @@
 import WidgetKit
 import AppIntents
 
+let defaultEntity = TCWEntity(id: noneID, title: "ToDo", workspaceIdx: 0, bcIdx: 0)
+
 struct TCWEntity: AppEntity {
     var id: String
     var title: String
