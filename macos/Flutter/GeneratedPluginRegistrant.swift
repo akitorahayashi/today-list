@@ -1,3 +1,4 @@
+dart run build_runner build
 //
 //  Generated file. Do not edit.
 //

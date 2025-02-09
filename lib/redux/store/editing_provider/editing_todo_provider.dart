@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/tl_app_state.dart';
+import 'package:today_list/model/todo/tl_step.dart';
+import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/reducer/tl_app_state_reducer.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/util/tl_utils.dart';
-import '../../../model/todo/tl_workspace.dart';
-import '../../../model/todo/tl_step.dart';
-import '../../../model/todo/tl_todo.dart';
-import '../../../model/todo/tl_todos_in_today_and_whenever.dart';
 
 class EditingTodo {
   static TextEditingController? toDoTitleInputController;
@@ -89,7 +89,7 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
   }) {
     final appState = ref.read(tlAppStateProvider);
     final TLWorkspace copiedCurrentWorkspace =
-        appState.tlWorkspaces[appState.currentWorkspaceIndex].copyWith();
+        appState.getCurrentWorkspace.copyWith();
     final String corrCategoryID =
         selectedSmallCategoryID ?? selectedBigCategoryID;
     final TLToDo edittedToDo = copiedCurrentWorkspace
@@ -144,7 +144,7 @@ class EditingToDoNotifier extends StateNotifier<EditingTodo> {
 
     final appState = ref.read(tlAppStateProvider);
     final TLWorkspace currentWorkspaceReference =
-        appState.tlWorkspaces[appState.currentWorkspaceIndex].copyWith();
+        appState.getCurrentWorkspace.copyWith();
     final EditingToDoNotifier editingToDoNotifier =
         ref.read(editingToDoProvider.notifier);
     final TLAppStateReducer tlAppStateReducer =

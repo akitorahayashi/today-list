@@ -6,7 +6,6 @@ import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/resource/initial_tl_workspaces.dart';
 
 class EditingCategory {
   static TextEditingController? categoryTitleInputController;
@@ -69,7 +68,7 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
   }) {
     final appState = ref.read(tlAppStateProvider);
     final TLWorkspace currentWorkspaceReference =
-        appState.tlWorkspaces[appState.currentWorkspaceIndex].copyWith();
+        appState.getCurrentWorkspace.copyWith();
     final TLCategory corrBigCategory =
         currentWorkspaceReference.bigCategories[indexOfEditingBigCategory];
     // setValues
@@ -97,7 +96,7 @@ class EditingCategoryNotifier extends StateNotifier<EditingCategory> {
     // 現在のWorkspaceをコピー
     final appState = ref.read(tlAppStateProvider);
     final TLWorkspace currentWorkspaceReference =
-        appState.tlWorkspaces[appState.currentWorkspaceIndex].copyWith();
+        appState.getCurrentWorkspace.copyWith();
 
     // コピー用データを作成
     final List<TLCategory> copiedBigCategories =
