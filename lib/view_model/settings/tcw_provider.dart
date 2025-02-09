@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/service/tl_method_channel.dart';
 import 'package:today_list/model/settings_data/todos_in_category_widget_settings.dart';
 import 'package:today_list/service/tl_pref.dart';

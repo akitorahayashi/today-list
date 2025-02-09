@@ -146,12 +146,18 @@ class TLToDoCard extends ConsumerWidget {
   }
 
   // MARK: - Toggle ToDo Check Status
-  void _toggleToDoCheckStatus(WidgetRef ref, BuildContext context,
-      TLWorkspace currentWorkspace, TLCategory categoryOfThisToDo) {
+  void _toggleToDoCheckStatus(
+    WidgetRef ref,
+    BuildContext context,
+    TLWorkspace currentWorkspace,
+    TLCategory categoryOfThisToDo,
+  ) {
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-    final List<TLToDo> toDoArray = currentWorkspace
-        .categoryIDToToDos[categoryOfThisToDo.id]!
-        .getToDos(ifInToday);
+    final TLToDosInTodayAndWhenever toDosInCategory =
+        currentWorkspace.categoryIDToToDos[categoryOfThisToDo.id]!;
+
+    final List<TLToDo> toDoArray =
+        List<TLToDo>.from(toDosInCategory.getToDos(ifInToday));
     final TLToDo corrToDoData = toDoArray[indexOfThisToDoInToDos];
 
     final newCheckedState = !corrToDoData.isChecked;
@@ -163,11 +169,16 @@ class TLToDoCard extends ConsumerWidget {
 
     final updatedToDos = List<TLToDo>.from(toDoArray)
       ..[indexOfThisToDoInToDos] = updatedToDo;
+
+    final updatedToDosInCategory = toDosInCategory.copyWith(
+      toDosInToday: ifInToday ? updatedToDos : toDosInCategory.toDosInToday,
+      toDosInWhenever:
+          ifInToday ? toDosInCategory.toDosInWhenever : updatedToDos,
+    );
+
     final updatedCategoryIDToToDos = {
       ...currentWorkspace.categoryIDToToDos,
-      categoryOfThisToDo.id: currentWorkspace
-          .categoryIDToToDos[categoryOfThisToDo.id]!
-          .copyWith(toDosInToday: ifInToday ? updatedToDos : []),
+      categoryOfThisToDo.id: updatedToDosInCategory,
     };
 
     final updatedWorkspace = TLWorkspaceUtils.reorderWhenToggle(
@@ -182,52 +193,54 @@ class TLToDoCard extends ConsumerWidget {
         TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace));
     TLVibrationService.vibrate();
     NotifyTodoOrStepIsEditedSnackBar.show(
-        context: context,
-        newTitle: corrToDoData.title,
-        newCheckedState: newCheckedState,
-        quickChangeToToday: null);
+      context: context,
+      newTitle: corrToDoData.title,
+      newCheckedState: newCheckedState,
+      quickChangeToToday: null,
+    );
   }
 
-  // MARK: - Reorder Steps in ToDo
-  void _reorderSteps(WidgetRef ref, TLWorkspace currentWorkspace,
-      TLCategory categoryOfThisToDo, int oldIndex, int newIndex) {
+// MARK: - Reorder Steps in ToDo
+  void _reorderSteps(
+    WidgetRef ref,
+    TLWorkspace currentWorkspace,
+    TLCategory categoryOfThisToDo,
+    int oldIndex,
+    int newIndex,
+  ) {
     if (oldIndex == newIndex) return;
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 
-    // `categoryIDToToDos` から対応する ToDo リストを取得
     final TLToDosInTodayAndWhenever toDosInCategory =
         currentWorkspace.categoryIDToToDos[categoryOfThisToDo.id]!;
 
     final List<TLToDo> toDoList =
         List<TLToDo>.from(toDosInCategory.getToDos(ifInToday));
-
-    // 指定された ToDo を取得
     final TLToDo toDoData = toDoList[indexOfThisToDoInToDos];
 
-    // steps を並び替え
     final List<TLStep> reorderedSteps = List<TLStep>.from(toDoData.steps);
     final TLStep movedStep = reorderedSteps.removeAt(oldIndex);
     reorderedSteps.insert(newIndex, movedStep);
 
-    // 更新された ToDo を作成
     final TLToDo updatedToDo = toDoData.copyWith(steps: reorderedSteps);
-    toDoList[indexOfThisToDoInToDos] = updatedToDo;
+    final updatedToDoList = List<TLToDo>.from(toDoList)
+      ..[indexOfThisToDoInToDos] = updatedToDo;
 
-    // `categoryIDToToDos` を更新
+    final updatedToDosInCategory = toDosInCategory.copyWith(
+      toDosInToday: ifInToday ? updatedToDoList : toDosInCategory.toDosInToday,
+      toDosInWhenever:
+          ifInToday ? toDosInCategory.toDosInWhenever : updatedToDoList,
+    );
+
     final updatedCategoryIDToToDos = {
       ...currentWorkspace.categoryIDToToDos,
-      categoryOfThisToDo.id: toDosInCategory.copyWith(
-        toDosInToday: ifInToday ? toDoList : toDosInCategory.toDosInToday,
-        toDosInWhenever: ifInToday ? toDosInCategory.toDosInWhenever : toDoList,
-      ),
+      categoryOfThisToDo.id: updatedToDosInCategory,
     };
 
-    // 新しい Workspace を作成
     final TLWorkspace updatedWorkspace = currentWorkspace.copyWith(
       categoryIDToToDos: updatedCategoryIDToToDos,
     );
 
-    // 更新された Workspace を適用
     tlAppStateReducer.dispatchWorkspaceAction(
         TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace));
   }

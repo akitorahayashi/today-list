@@ -16,9 +16,11 @@ class ListOfCategoryToToDos extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentWorkspace = ref.watch(
-      tlAppStateProvider.select((state) => state.getCurrentWorkspace),
-    );
+    final currentWorkspace = ref
+        .watch(
+          tlAppStateProvider.select((state) => state.getCurrentWorkspace),
+        )
+        .copyWith();
 
     return Column(
       children: [
