@@ -20,8 +20,7 @@ struct ToDosInCategoryWidget: Widget {
                 .containerBackground(for: .widget) {
                     VStack(spacing: 0) {
                         ZStack {
-                            // テーマの適用
-                            kTLThemes[entry.selectedThemeIdx].gradientOfTopBar
+                            entry.selectedThemeType.config.gradientOfTopBar
                             Text(entry.entity.title)
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.white)
@@ -29,7 +28,7 @@ struct ToDosInCategoryWidget: Widget {
                         .frame(height: 28)
                         
                         ZStack {
-                            kTLThemes[entry.selectedThemeIdx].backgroundColorOfToDoList
+                            entry.selectedThemeType.config.backgroundColorOfToDoList
                             
                             Color.white
                                 .cornerRadius(15)
@@ -38,9 +37,9 @@ struct ToDosInCategoryWidget: Widget {
                         }
                     }
                 }
-        }.configurationDisplayName("ToDos In Category")
-            .description("Select widget settings from the app")
-            .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        }
+        .configurationDisplayName("ToDos In Category")
+        .description("Select widget settings from the app")
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
-

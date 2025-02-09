@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import '../dialog/for_workspace/add_or_edit_workspace_dialog.dart';
-import '../dialog/for_workspace/delete_workspace_dialog.dart';
-import '../../../model/todo/tl_workspace.dart';
-import '../../../model/design/tl_theme/tl_theme.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
+import 'package:today_list/view/component/dialog/for_workspace/delete_workspace_dialog.dart';
 
 class SlidableForWorkspaceCard extends ConsumerWidget {
   final bool isCurrentWorkspace;
@@ -23,10 +21,6 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    // provider
-    final List<TLWorkspace> tlWorkspacesRef =
-        ref.watch(tlAppStateProvider).tlWorkspaces;
-    // other
     // final TLWorkspace corrWorkspace = tlWorkspacesRef[corrWorkspacesID];
     return Slidable(
       // currentWorkspaceの時や

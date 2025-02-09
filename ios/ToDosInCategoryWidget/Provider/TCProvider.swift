@@ -15,19 +15,20 @@ struct TCProvider: AppIntentTimelineProvider {
         return TCWidgetEntry(
             date: Date(),
             entity: defaultEntity,
-            selectedThemeIdx: 0,
+            selectedThemeType: TLThemeType.sunOrange,
             tlWorkspaces: tlWorkspacesSample
         )
     }
     
     func snapshot(for configuration: TCIntent, in context: Context) async -> TCWidgetEntry {
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
-        let themeIdx = userDefaults?.integer(forKey: "selectedThemeIdx") ?? 0
+        let themeName = userDefaults?.string(forKey: "selectedThemeName") ?? TLThemeType.sunOrange.rawValue
+        let corrThemeType = TLThemeType.from(themeName)
         let tlWorkspacesSample = TLWorkspace.decodeWorkspaces(from: kTLWorkspacesExample) ?? []
         return TCWidgetEntry(
             date: Date(),
             entity: defaultEntity,
-            selectedThemeIdx: themeIdx,
+            selectedThemeType: corrThemeType,
             tlWorkspaces: tlWorkspacesSample
         )
     }
@@ -36,14 +37,15 @@ struct TCProvider: AppIntentTimelineProvider {
         var entries: [TCWidgetEntry] = []
         
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
-        let themeIdx = userDefaults?.integer(forKey: "selectedThemeIdx") ?? 0
+        let themeName = userDefaults?.string(forKey: "selectedThemeName") ?? TLThemeType.sunOrange.rawValue
+        let corrThemeType = TLThemeType.from(themeName)
         let stringOfTLWorkspace = userDefaults?.string(forKey: "tlWorkspaces") ?? kTLWorkspacesExample
         let decodedTLWorkspaces = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? []
         
         let loadedEntry = TCWidgetEntry(
             date: Date(),
             entity: configuration.selectedWKS ?? defaultEntity,
-            selectedThemeIdx: themeIdx,
+            selectedThemeType: corrThemeType,
             tlWorkspaces: decodedTLWorkspaces
         )
         

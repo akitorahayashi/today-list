@@ -15,7 +15,7 @@
 		1B43F7CA2D5869CE000D4044 /* TCToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43F7C92D5869CC000D4044 /* TCToDoListView.swift */; };
 		1B43F7CC2D5869EF000D4044 /* TCEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43F7CB2D5869EE000D4044 /* TCEntryView.swift */; };
 		1B43F7CD2D586A73000D4044 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526BD2D584B440039CDE3 /* Model.swift */; };
-		1B43F7D02D586AC4000D4044 /* TLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLTheme.swift */; };
+		1B43F7D02D586AC4000D4044 /* TLThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */; };
 		1B93BB002CF2F3BC00772777 /* TCWSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* TCWSettings.swift */; };
 		1B93BB102CF30DEF00772777 /* TLWorkspacesExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */; };
 		1B94F3342D58252600915981 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7C3172CC688BC00DCF511 /* WidgetKit.framework */; };
@@ -29,7 +29,7 @@
 		1BF526B42D5845180039CDE3 /* TCQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526B32D5845170039CDE3 /* TCQuery.swift */; };
 		1BF526B52D5845B70039CDE3 /* TCWSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* TCWSettings.swift */; };
 		1BF526B82D5846890039CDE3 /* TLWorkspacesExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */; };
-		1BF526B92D58468D0039CDE3 /* TLTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLTheme.swift */; };
+		1BF526B92D58468D0039CDE3 /* TLThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */; };
 		1BF526C92D584FEE0039CDE3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526BD2D584B440039CDE3 /* Model.swift */; };
 		1BF526CA2D5850290039CDE3 /* TLiOSUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526C72D584FA30039CDE3 /* TLiOSUtil.swift */; };
 		1BF526CC2D5850290039CDE3 /* TLiOSUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526C72D584FA30039CDE3 /* TLiOSUtil.swift */; };
@@ -107,7 +107,7 @@
 		1B94F3472D58253200915981 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B94F3482D58253200915981 /* ToDosInCategoryWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInCategoryWidget.swift; sourceTree = "<group>"; };
 		1B94F3492D58253200915981 /* ToDosInCategoryWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInCategoryWidgetBundle.swift; sourceTree = "<group>"; };
-		1BA7C3012CC686F200DCF511 /* TLTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLTheme.swift; sourceTree = "<group>"; };
+		1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLThemeConfig.swift; sourceTree = "<group>"; };
 		1BA7C3172CC688BC00DCF511 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1BA7C3192CC688C100DCF511 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		1BC297262CF1DECE00AAE33A /* TCWSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCWSettings.swift; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				1B93BB0F2CF30DED00772777 /* TLWorkspacesExample.swift */,
-				1BA7C3012CC686F200DCF511 /* TLTheme.swift */,
+				1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -596,7 +596,7 @@
 				1B43F7C62D58682E000D4044 /* TCWidgetEntry.swift in Sources */,
 				1B43F7CA2D5869CE000D4044 /* TCToDoListView.swift in Sources */,
 				1B94F34D2D58253200915981 /* ToDosInCategoryWidget.swift in Sources */,
-				1BF526B92D58468D0039CDE3 /* TLTheme.swift in Sources */,
+				1BF526B92D58468D0039CDE3 /* TLThemeConfig.swift in Sources */,
 				1BF526B82D5846890039CDE3 /* TLWorkspacesExample.swift in Sources */,
 				1BF526B42D5845180039CDE3 /* TCQuery.swift in Sources */,
 				1BF526B52D5845B70039CDE3 /* TCWSettings.swift in Sources */,
@@ -620,7 +620,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B43F7D02D586AC4000D4044 /* TLTheme.swift in Sources */,
+				1B43F7D02D586AC4000D4044 /* TLThemeConfig.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1B93BB102CF30DEF00772777 /* TLWorkspacesExample.swift in Sources */,
 				1B93BB002CF2F3BC00772777 /* TCWSettings.swift in Sources */,

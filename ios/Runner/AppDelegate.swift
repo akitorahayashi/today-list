@@ -45,8 +45,8 @@ import WidgetKit
                 }
                 
             case "updateSelectedTheme":
-                if let selectedTheme = call.arguments as? Int {
-                    userdefaults?.set(selectedTheme, forKey: "selectedThemeIdx")
+                if let selectedTheme = call.arguments as? String {
+                    userdefaults?.set(selectedTheme, forKey: "selectedThemeName")
                     // メインスレッドでの更新を追加
                     DispatchQueue.main.async {
                         WidgetCenter.shared.reloadAllTimelines()
