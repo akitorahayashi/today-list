@@ -1,17 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../service/tl_pref.dart';
-import '../../model/setting_data/setting_data.dart';
+import '../../model/settings_data/settings_data.dart';
 import 'dart:convert';
 
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 
 final settingDataProvider =
-    StateNotifierProvider<SettingDataNotifier, SettingData>(
+    StateNotifierProvider<SettingDataNotifier, SettingsData>(
   (ref) => SettingDataNotifier(),
 );
 
-class SettingDataNotifier extends StateNotifier<SettingData> {
-  SettingDataNotifier() : super(SettingData(currentAppIconName: "Sun Orange")) {
+class SettingDataNotifier extends StateNotifier<SettingsData> {
+  SettingDataNotifier()
+      : super(SettingsData(currentAppIconName: "Sun Orange")) {
     _loadSettingData();
   }
 
@@ -20,7 +21,7 @@ class SettingDataNotifier extends StateNotifier<SettingData> {
     String? jsonString = pref.getString('settingData');
     if (jsonString != null) {
       Map<String, dynamic> json = jsonDecode(jsonString);
-      state = SettingData.fromJson(json);
+      state = SettingsData.fromJson(json);
     }
   }
 

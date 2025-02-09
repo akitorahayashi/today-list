@@ -2,26 +2,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/service/tl_method_channel.dart';
-import 'package:today_list/model/setting_data/widget_kit_setting.dart';
+import 'package:today_list/model/todo/todos_in_category_widget_settings.dart';
 import 'package:today_list/service/tl_pref.dart';
 import 'dart:convert';
 
-final widgetKitSettingsProvider =
-    StateNotifierProvider<WidgetKitSettingNotifier, List<WidgetKitSetting>>(
-        (ref) {
+final widgetKitSettingsProvider = StateNotifierProvider<
+    WidgetKitSettingNotifier, List<ToDosInCategoryWidgetSettings>>((ref) {
   return WidgetKitSettingNotifier(ref);
 });
 
-class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
+class WidgetKitSettingNotifier
+    extends StateNotifier<List<ToDosInCategoryWidgetSettings>> {
   final Ref ref;
   WidgetKitSettingNotifier(this.ref)
       : super([
-          WidgetKitSetting(
-              id: noneID,
-              title: "Default",
-              workspaceIdx: 0,
-              bcIdx: 0,
-              scIdx: null),
+          ToDosInCategoryWidgetSettings(
+            id: noneID,
+            title: "Default",
+            workspace: noneID,
+            bigCategory: noneID,
+          ),
         ]) {
     // SharedPreferenceからデータを取得
     _loadWidgetKitSettings();
@@ -33,9 +33,9 @@ class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
     if (encodedWidgetKitSettings != null) {
       final List<dynamic> jsonWidgetKitSettings =
           jsonDecode(encodedWidgetKitSettings);
-      final List<WidgetKitSetting> savedTLWorkspaces =
+      final List<ToDosInCategoryWidgetSettings> savedTLWorkspaces =
           jsonWidgetKitSettings.map((j) {
-        return WidgetKitSetting.fromJson(j);
+        return ToDosInCategoryWidgetSettings.fromJson(j);
       }).toList();
       state = savedTLWorkspaces;
     }
@@ -45,14 +45,14 @@ class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
     final pref = await TLPrefService().getPref;
     final encodedWidgetKitSettings =
         jsonEncode(state.map((w) => w.toJson()).toList());
-    // TLMethodChannelService.updateWKSList(
-    //     encodedWKSList: encodedWidgetKitSettings);
+    TLMethodChannelService.updateWKSList(
+        encodedWKSList: encodedWidgetKitSettings);
     await pref.setString("widgetKitSettings", encodedWidgetKitSettings);
   }
 
   // WKSを追加するメソッド
   Future<void> addWidgetKitSettings(
-      {required WidgetKitSetting newWidgetKitSettings}) async {
+      {required ToDosInCategoryWidgetSettings newWidgetKitSettings}) async {
     state = [...state, newWidgetKitSettings];
     await _saveWidgetKitSettings();
   }
@@ -67,7 +67,8 @@ class WidgetKitSettingNotifier extends StateNotifier<List<WidgetKitSetting>> {
 
   // WKSListを更新するメソッド
   Future<void> updateWidgetKitSettingsList(
-      {required List<WidgetKitSetting> updatedWidgetKitSettingsList}) async {
+      {required List<ToDosInCategoryWidgetSettings>
+          updatedWidgetKitSettingsList}) async {
     state = updatedWidgetKitSettingsList;
     await _saveWidgetKitSettings();
   }

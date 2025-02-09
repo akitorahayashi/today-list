@@ -52,4 +52,3 @@ class TLMethodChannelService {
     }
   }
 }
-// git add .;git commit -m "WidgetExtentionでthemeIndexを基本にした管理をやめて、themeNameを基本にした管理に変更した”

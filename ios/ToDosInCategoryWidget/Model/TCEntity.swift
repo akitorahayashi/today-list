@@ -11,8 +11,8 @@ import AppIntents
 let defaultEntity = TCEntity(
     id: noneID,
     title: "ToDo",
-    workspaceIdx: 0,
-    bcIdx: 0
+    workspaceID: noneID,
+    categoryID: noneID
 )
 
 struct TCEntity: AppEntity {
@@ -20,9 +20,8 @@ struct TCEntity: AppEntity {
         
         var id: String
         var title: String
-        var workspaceIdx: Int
-        var bcIdx: Int
-        var scIdx: Int?
+    var workspaceID: String
+    var categoryID: String
 
         static var typeDisplayRepresentation: TypeDisplayRepresentation {
             "Widget Settings"

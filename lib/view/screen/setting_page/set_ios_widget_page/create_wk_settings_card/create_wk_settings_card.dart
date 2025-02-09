@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/setting_data/widget_kit_setting.dart';
+import 'package:today_list/model/todo/todos_in_category_widget_settings.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
@@ -150,7 +150,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                 validator: TLValidation.validateWKSName,
                 onSuccess: () async {
                   wksNotifier.addWidgetKitSettings(
-                    newWidgetKitSettings: WidgetKitSetting(
+                    newWidgetKitSettings: ToDosInCategoryWidgetSettings(
                       id: UniqueKey().toString(),
                       title: _wksInputController.text,
                       workspaceIdx: _selectedWorkspaceIndex,

@@ -5,7 +5,7 @@ import 'package:today_list/view/screen/setting_page/set_ios_widget_page/componen
 import 'package:today_list/view/screen/setting_page/set_ios_widget_page/component/wks_header.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/view/component/slidable/slidable_for_wks_card.dart';
-import 'package:today_list/model/setting_data/widget_kit_setting.dart';
+import 'package:today_list/model/todo/todos_in_category_widget_settings.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/view_model/settings/wks_provider.dart';
 // import 'package:today_list/view/setting_page/set_ios_widget_page/wks_card_list/wks_card/medium_ios_widget_replica.dart';
@@ -19,7 +19,7 @@ class WKSCard extends ConsumerWidget {
     // provider
     final tlAppState = ref.watch(tlAppStateProvider).tlWorkspaces;
     final wksList = ref.watch(widgetKitSettingsProvider);
-    final WidgetKitSetting wksInThisCard = wksList[idx];
+    final ToDosInCategoryWidgetSettings wksInThisCard = wksList[idx];
     final deviceWidth = MediaQuery.of(context).size.width;
     final TLCategory corrBigCategory = tlAppState[wksInThisCard.workspaceIdx]
         .bigCategories[wksInThisCard.bcIdx];

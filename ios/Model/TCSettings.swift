@@ -7,24 +7,22 @@
 
 import SwiftUI
 
-let defaultWKS = TCWSettings(
+let defaultWKS = TCSettings(
     id: noneID,
     title: "ToDo",
-    workspaceIdx: 0,
-    bcIdx: 0,
-    scIdx: nil
+    workspaceID: noneID,
+    categoryID: noneID
 )
 
-struct TCWSettings: Codable, Identifiable {
+struct TCSettings: Codable, Identifiable {
     
     var id: String
     var title: String
-    var workspaceIdx: Int
-    var bcIdx: Int
-    var scIdx:Int?
+    var workspaceID: String
+    var categoryID: String
     
     // JSONからwksListへデコードする関数
-    static func decodeWKSList(from jsonWKSList: String?) -> [TCWSettings]? {
+    static func decodeWKSList(from jsonWKSList: String?) -> [TCSettings]? {
         // JSON文字列がnilでないかチェックし、データに変換
         guard let jsonString = jsonWKSList else {
             print("workspacesDecodeError: jsonWKSList is nil")
@@ -38,7 +36,7 @@ struct TCWSettings: Codable, Identifiable {
         
         do {
             // JSONをデコードして、[TLWorkspace] 型のデータに変換
-            let wksList = try JSONDecoder().decode([TCWSettings].self, from: data)
+            let wksList = try JSONDecoder().decode([TCSettings].self, from: data)
             
             return wksList
         } catch {

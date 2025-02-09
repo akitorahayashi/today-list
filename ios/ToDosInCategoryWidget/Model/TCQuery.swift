@@ -27,7 +27,7 @@ struct TCQuery: EntityQuery {
         }
         print("JSON String: \(jsonString)")
         
-        guard let settings = TCWSettings.decodeWKSList(from: jsonString) else {
+        guard let settings = TCSettings.decodeWKSList(from: jsonString) else {
             print("Failed to decode JSON")
             return []
         }
@@ -36,9 +36,8 @@ struct TCQuery: EntityQuery {
             TCEntity(
                 id: $0.id,
                 title: $0.title,
-                workspaceIdx: $0.workspaceIdx,
-                bcIdx: $0.bcIdx,
-                scIdx: $0.scIdx
+                workspaceID: $0.workspaceID,
+                categoryID: $0.categoryID
             )
         }
         print("Loaded Entities: \(entities)")

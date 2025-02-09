@@ -67,4 +67,9 @@ struct TLWorkspace: Codable, Identifiable {
     static func decodeWorkspaces(from jsonWorkspaces: String?) -> [TLWorkspace]? {
         return TLiOSUtils.decodeCustomList(from: jsonWorkspaces)
     }
+    
+    // 配列からIDに一致するワークスペースを取得
+    static func getWorkspace(from workspaces: [TLWorkspace], by id: String) -> TLWorkspace? {
+        return workspaces.first(where: { $0.id == id })
+    }
 }

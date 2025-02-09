@@ -1,7 +1,6 @@
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/service/tl_pref.dart';
-import 'package:today_list/service/tl_method_channel.dart';
 import 'dart:convert';
 
 class TLWorkspaceReducer {

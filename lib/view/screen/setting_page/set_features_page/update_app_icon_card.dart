@@ -6,7 +6,7 @@ import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/view_model/settings/setting_data_provider.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/setting_data/setting_data.dart';
+import 'package:today_list/model/settings_data/settings_data.dart';
 
 class UpdateAppIconCard extends ConsumerWidget {
   const UpdateAppIconCard({super.key});
@@ -16,7 +16,7 @@ class UpdateAppIconCard extends ConsumerWidget {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final deviceWidth = MediaQuery.of(context).size.width;
     // provider
-    final SettingData settingData = ref.watch(settingDataProvider);
+    final SettingsData settingData = ref.watch(settingDataProvider);
     // notifier
     final SettingDataNotifier settingDataNotifier =
         ref.read(settingDataProvider.notifier);
