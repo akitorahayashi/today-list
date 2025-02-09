@@ -1,13 +1,12 @@
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 
-const String noneID = "defaultID";
-
 final List<TLWorkspace> initialTLWorkspaces = [
-  TLWorkspace(id: "defaultWorkspaceId", name: "Default", bigCategories: const [
+  TLWorkspace(id: noneID, name: "Default", bigCategories: const [
     TLCategory(id: noneID, title: "なし"),
     TLCategory(id: "superMarcketId", title: "スーパー"),
     TLCategory(id: "hundredStoreId", title: "100均"),

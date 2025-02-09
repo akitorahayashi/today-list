@@ -1,5 +1,6 @@
 import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
+import 'package:today_list/service/tl_method_channel.dart';
 import 'package:today_list/service/tl_pref.dart';
 import 'package:today_list/service/tl_vibration.dart';
 
@@ -18,7 +19,7 @@ class TLThemeReducer {
   static void _saveTheme(TLThemeType themeType) {
     // TLConnectivityService.sendSelectedThemeToAppleWatch(
     //     selectedThemeIndex: corrIndex);
-    // TLMethodChannelService.updateSelectedTheme(selectedThemeIndex: corrIndex);
+    TLMethodChannelService.updateSelectedTheme(selectedThemeType: themeType);
     TLVibrationService.vibrate();
     TLPrefService().getPref.then((pref) {
       pref.setString('themeType', themeType.name);

@@ -21,7 +21,7 @@ TLAppState _$TLAppStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TLAppState {
   List<TLWorkspace> get tlWorkspaces => throw _privateConstructorUsedError;
-  int get currentWorkspaceIndex => throw _privateConstructorUsedError;
+  String get currentWorkspaceID => throw _privateConstructorUsedError;
   TLThemeType get selectedThemeType => throw _privateConstructorUsedError;
 
   /// Serializes this TLAppState to a JSON map.
@@ -42,7 +42,7 @@ abstract class $TLAppStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<TLWorkspace> tlWorkspaces,
-      int currentWorkspaceIndex,
+      String currentWorkspaceID,
       TLThemeType selectedThemeType});
 }
 
@@ -62,7 +62,7 @@ class _$TLAppStateCopyWithImpl<$Res, $Val extends TLAppState>
   @override
   $Res call({
     Object? tlWorkspaces = null,
-    Object? currentWorkspaceIndex = null,
+    Object? currentWorkspaceID = null,
     Object? selectedThemeType = null,
   }) {
     return _then(_value.copyWith(
@@ -70,10 +70,10 @@ class _$TLAppStateCopyWithImpl<$Res, $Val extends TLAppState>
           ? _value.tlWorkspaces
           : tlWorkspaces // ignore: cast_nullable_to_non_nullable
               as List<TLWorkspace>,
-      currentWorkspaceIndex: null == currentWorkspaceIndex
-          ? _value.currentWorkspaceIndex
-          : currentWorkspaceIndex // ignore: cast_nullable_to_non_nullable
-              as int,
+      currentWorkspaceID: null == currentWorkspaceID
+          ? _value.currentWorkspaceID
+          : currentWorkspaceID // ignore: cast_nullable_to_non_nullable
+              as String,
       selectedThemeType: null == selectedThemeType
           ? _value.selectedThemeType
           : selectedThemeType // ignore: cast_nullable_to_non_nullable
@@ -92,7 +92,7 @@ abstract class _$$TLAppStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<TLWorkspace> tlWorkspaces,
-      int currentWorkspaceIndex,
+      String currentWorkspaceID,
       TLThemeType selectedThemeType});
 }
 
@@ -110,7 +110,7 @@ class __$$TLAppStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? tlWorkspaces = null,
-    Object? currentWorkspaceIndex = null,
+    Object? currentWorkspaceID = null,
     Object? selectedThemeType = null,
   }) {
     return _then(_$TLAppStateImpl(
@@ -118,10 +118,10 @@ class __$$TLAppStateImplCopyWithImpl<$Res>
           ? _value._tlWorkspaces
           : tlWorkspaces // ignore: cast_nullable_to_non_nullable
               as List<TLWorkspace>,
-      currentWorkspaceIndex: null == currentWorkspaceIndex
-          ? _value.currentWorkspaceIndex
-          : currentWorkspaceIndex // ignore: cast_nullable_to_non_nullable
-              as int,
+      currentWorkspaceID: null == currentWorkspaceID
+          ? _value.currentWorkspaceID
+          : currentWorkspaceID // ignore: cast_nullable_to_non_nullable
+              as String,
       selectedThemeType: null == selectedThemeType
           ? _value.selectedThemeType
           : selectedThemeType // ignore: cast_nullable_to_non_nullable
@@ -132,12 +132,13 @@ class __$$TLAppStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TLAppStateImpl implements _TLAppState {
+class _$TLAppStateImpl extends _TLAppState {
   const _$TLAppStateImpl(
       {final List<TLWorkspace> tlWorkspaces = const [],
-      this.currentWorkspaceIndex = 0,
+      this.currentWorkspaceID = noneID,
       this.selectedThemeType = TLThemeType.sunOrange})
-      : _tlWorkspaces = tlWorkspaces;
+      : _tlWorkspaces = tlWorkspaces,
+        super._();
 
   factory _$TLAppStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLAppStateImplFromJson(json);
@@ -153,14 +154,14 @@ class _$TLAppStateImpl implements _TLAppState {
 
   @override
   @JsonKey()
-  final int currentWorkspaceIndex;
+  final String currentWorkspaceID;
   @override
   @JsonKey()
   final TLThemeType selectedThemeType;
 
   @override
   String toString() {
-    return 'TLAppState(tlWorkspaces: $tlWorkspaces, currentWorkspaceIndex: $currentWorkspaceIndex, selectedThemeType: $selectedThemeType)';
+    return 'TLAppState(tlWorkspaces: $tlWorkspaces, currentWorkspaceID: $currentWorkspaceID, selectedThemeType: $selectedThemeType)';
   }
 
   @override
@@ -170,8 +171,8 @@ class _$TLAppStateImpl implements _TLAppState {
             other is _$TLAppStateImpl &&
             const DeepCollectionEquality()
                 .equals(other._tlWorkspaces, _tlWorkspaces) &&
-            (identical(other.currentWorkspaceIndex, currentWorkspaceIndex) ||
-                other.currentWorkspaceIndex == currentWorkspaceIndex) &&
+            (identical(other.currentWorkspaceID, currentWorkspaceID) ||
+                other.currentWorkspaceID == currentWorkspaceID) &&
             (identical(other.selectedThemeType, selectedThemeType) ||
                 other.selectedThemeType == selectedThemeType));
   }
@@ -181,7 +182,7 @@ class _$TLAppStateImpl implements _TLAppState {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_tlWorkspaces),
-      currentWorkspaceIndex,
+      currentWorkspaceID,
       selectedThemeType);
 
   /// Create a copy of TLAppState
@@ -200,11 +201,12 @@ class _$TLAppStateImpl implements _TLAppState {
   }
 }
 
-abstract class _TLAppState implements TLAppState {
+abstract class _TLAppState extends TLAppState {
   const factory _TLAppState(
       {final List<TLWorkspace> tlWorkspaces,
-      final int currentWorkspaceIndex,
+      final String currentWorkspaceID,
       final TLThemeType selectedThemeType}) = _$TLAppStateImpl;
+  const _TLAppState._() : super._();
 
   factory _TLAppState.fromJson(Map<String, dynamic> json) =
       _$TLAppStateImpl.fromJson;
@@ -212,7 +214,7 @@ abstract class _TLAppState implements TLAppState {
   @override
   List<TLWorkspace> get tlWorkspaces;
   @override
-  int get currentWorkspaceIndex;
+  String get currentWorkspaceID;
   @override
   TLThemeType get selectedThemeType;
 

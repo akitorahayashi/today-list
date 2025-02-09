@@ -7,8 +7,8 @@ part 'generate/tl_workspace_action.freezed.dart';
 
 @freezed
 sealed class TLWorkspaceAction with _$TLWorkspaceAction {
-  const factory TLWorkspaceAction.changeCurrentWorkspaceIndex(int newIndex) =
-      ChangeCurrentWorkspaceIndex;
+  const factory TLWorkspaceAction.changeCurrentWorkspaceID(String newID) =
+      ChangeCurrentWorkspaceID;
 
   const factory TLWorkspaceAction.addWorkspace(TLWorkspace newWorkspace) =
       AddWorkspace;

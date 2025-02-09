@@ -10,6 +10,6 @@ import WidgetKit
 struct TCWidgetEntry: TimelineEntry {
     let date: Date
     let entity: TCEntity
-    let selectedThemeIdx: Int
+    let selectedThemeType: TLThemeType
     let tlWorkspaces: [TLWorkspace]
 }

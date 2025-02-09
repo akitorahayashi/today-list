@@ -12,13 +12,11 @@ import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import '../common/tl_single_option_dialog.dart';
 
 class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
-  final int corrWorkspaceIndex;
-  final TLWorkspace willDeletedWorkspace;
+  final String corrWorkspaceID;
 
   const DeleteWorkspaceDialog({
     super.key,
-    required this.corrWorkspaceIndex,
-    required this.willDeletedWorkspace,
+    required this.corrWorkspaceID,
   });
 
   @override
@@ -26,6 +24,13 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+
+    // corrWorkspaceID に一致するワークスペースを取得
+    final willDeletedWorkspace = tlAppState.tlWorkspaces.firstWhere(
+      (workspace) => workspace.id == corrWorkspaceID,
+      orElse: () =>
+          throw Exception("Workspace ID: $corrWorkspaceID not found."),
+    );
 
     return Dialog(
       backgroundColor: tlThemeData.alertBackgroundColor,
@@ -36,10 +41,10 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
           mainAxisSize: MainAxisSize.min,
           children: [
             _buildDialogTitle(),
-            _buildWorkspaceNameDisplay(tlThemeData),
+            _buildWorkspaceNameDisplay(tlThemeData, willDeletedWorkspace),
             _buildWarningText(),
-            _buildActionButtons(
-                context, ref, tlAppState, tlAppStateReducer, tlThemeData),
+            _buildActionButtons(context, ref, tlAppState, tlAppStateReducer,
+                tlThemeData, willDeletedWorkspace),
           ],
         ),
       ),
@@ -59,7 +64,8 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   }
 
   // MARK - Build Workspace Name Display
-  Widget _buildWorkspaceNameDisplay(TLThemeConfig tlThemeData) {
+  Widget _buildWorkspaceNameDisplay(
+      TLThemeConfig tlThemeData, TLWorkspace willDeletedWorkspace) {
     return Padding(
       padding: const EdgeInsets.only(top: 5, bottom: 15.0, left: 10, right: 10),
       child: Text(
@@ -86,8 +92,13 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   }
 
   // MARK - Build Action Buttons
-  Widget _buildActionButtons(BuildContext context, WidgetRef ref,
-      var tlAppState, var tlAppStateReducer, TLThemeConfig tlThemeData) {
+  Widget _buildActionButtons(
+      BuildContext context,
+      WidgetRef ref,
+      var tlAppState,
+      var tlAppStateReducer,
+      TLThemeConfig tlThemeData,
+      TLWorkspace willDeletedWorkspace) {
     return OverflowBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -101,7 +112,8 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
         TextButton(
           style: alertButtonStyle(accentColor: tlThemeData.accentColor),
           onPressed: () async {
-            _handleDeleteWorkspace(context, ref, tlAppState, tlAppStateReducer);
+            _handleDeleteWorkspace(context, ref, tlAppState, tlAppStateReducer,
+                willDeletedWorkspace);
           },
           child: const Text("削除"),
         ),
@@ -110,9 +122,13 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   }
 
   // MARK - Handle Workspace Deletion
-  void _handleDeleteWorkspace(BuildContext context, WidgetRef ref,
-      var tlAppState, TLAppStateReducer tlAppStateReducer) {
-    if (corrWorkspaceIndex == 0) {
+  void _handleDeleteWorkspace(
+      BuildContext context,
+      WidgetRef ref,
+      var tlAppState,
+      TLAppStateReducer tlAppStateReducer,
+      TLWorkspace willDeletedWorkspace) {
+    if (willDeletedWorkspace.id == "defaultID") {
       // Prevent deletion of default workspace
       Navigator.pop(context);
       const TLSingleOptionDialog(

@@ -12,17 +12,19 @@ import WidgetKit
         
         let userdefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         
-        // --- showTodosInAWorkspaceWidget
-        let showTodosInAWorkspaceWidgetMethodChannel = FlutterMethodChannel(name: "com.akitora0703.todaylist/show_todos_in_a_workspace_widget", binaryMessenger: controller.binaryMessenger)
+        let toDosInCategoryWidgetKind: String = "ToDosInCategoryWidget"
         
-        showTodosInAWorkspaceWidgetMethodChannel.setMethodCallHandler { [weak self] (call: FlutterMethodCall, result: @escaping FlutterResult) in
+        // --- TodosInCategoryWidget
+        let todosInCategoryWidgetMethodChannel = FlutterMethodChannel(name: "com.akitora0703.todaylist/todos_in_category_widget", binaryMessenger: controller.binaryMessenger)
+        
+        todosInCategoryWidgetMethodChannel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
             switch call.method {
             case "updateTLWorkspaces":
                 if let tlWorkspacesString = call.arguments as? String {
                     userdefaults?.set(tlWorkspacesString, forKey: "tlWorkspaces")
                     // メインスレッドでの更新を追加
                     DispatchQueue.main.async {
-                        WidgetCenter.shared.reloadAllTimelines()
+                        WidgetCenter.shared.reloadTimelines(ofKind: toDosInCategoryWidgetKind)
                     }
                     result("workspaces saved successfully")
                 } else {
@@ -30,26 +32,26 @@ import WidgetKit
                     print(errorMessage) // Log error
                     result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
                 }
-            case "updateWKSList":
-                if let wksListString = call.arguments as? String {
-                    userdefaults?.set(wksListString, forKey: "wksList")
+            case "updateListOfToDosInCategoryWidgetSettings":
+                if let stringListOfToDosInCategoryWidgetSettings = call.arguments as? String {
+                    userdefaults?.set(stringListOfToDosInCategoryWidgetSettings, forKey: "listOfToDosInCategoryWidgetSettings")
                     // メインスレッドでの更新を追加
                     DispatchQueue.main.async {
-                        WidgetCenter.shared.reloadAllTimelines()
+                        WidgetCenter.shared.reloadTimelines(ofKind: toDosInCategoryWidgetKind)
                     }
-                    result("wksList saved successfully")
+                    result("ListOfToDosInCategoryWidgetSettings saved successfully")
                 } else {
-                    let errorMessage = "Expected a String for wksList"
+                    let errorMessage = "Expected a String for ListOfToDosInCategoryWidgetSettings"
                     print(errorMessage) // Log error
                     result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
                 }
                 
             case "updateSelectedTheme":
-                if let selectedTheme = call.arguments as? Int {
-                    userdefaults?.set(selectedTheme, forKey: "selectedThemeIdx")
+                if let selectedTheme = call.arguments as? String {
+                    userdefaults?.set(selectedTheme, forKey: "selectedThemeName")
                     // メインスレッドでの更新を追加
                     DispatchQueue.main.async {
-                        WidgetCenter.shared.reloadAllTimelines()
+                        WidgetCenter.shared.reloadTimelines(ofKind: toDosInCategoryWidgetKind)
                     }
                     result("selectedTheme saved successfully")
                 } else {

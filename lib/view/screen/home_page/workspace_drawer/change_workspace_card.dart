@@ -4,64 +4,54 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/slidable/slidable_for_workspace_card.dart';
 
 class ChangeWorkspaceCard extends ConsumerWidget {
-  final int indexInWorkspaces;
+  final TLWorkspace corrWorkspace;
 
   const ChangeWorkspaceCard({
     super.key,
-    required this.indexInWorkspaces,
+    required this.corrWorkspace,
   });
 
+  // MARK: - UI (Build)
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
-    final currentWorkspaceIndex = ref.watch(
-        tlAppStateProvider.select((state) => state.currentWorkspaceIndex));
-    final workspaceName = ref.watch(tlAppStateProvider
-        .select((state) => state.tlWorkspaces[indexInWorkspaces].name));
-
-    final bool isCurrentWorkspace = indexInWorkspaces == currentWorkspaceIndex;
+    final TLThemeConfig theme = TLTheme.of(context);
+    final String currentWorkspaceId = ref.watch(
+      tlAppStateProvider.select((state) => state.currentWorkspaceID),
+    );
+    final bool isCurrentWorkspace = corrWorkspace.id == currentWorkspaceId;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 1, 5, 0),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: 70),
-        child: Card(
-          color: tlThemeConfig.canTapCardColor,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: GestureDetector(
-              onTap: () => _handleCardTap(context, ref, isCurrentWorkspace),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                child: SlidableForWorkspaceCard(
-                  isCurrentWorkspace: isCurrentWorkspace,
-                  indexInTLWorkspaces: indexInWorkspaces,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16, horizontal: 16),
-                      child: Text(
-                        isCurrentWorkspace
-                            ? "☆ $workspaceName   "
-                            : workspaceName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: tlThemeConfig.accentColor,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+      child: _buildWorkspaceCard(context, ref, theme, isCurrentWorkspace),
+    );
+  }
+
+  // MARK: - UI Components
+  Widget _buildWorkspaceCard(BuildContext context, WidgetRef ref,
+      TLThemeConfig theme, bool isCurrentWorkspace) {
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: 70),
+      child: Card(
+        color: theme.canTapCardColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: GestureDetector(
+            onTap: () =>
+                _handleWorkspaceSelection(context, ref, isCurrentWorkspace),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+              child: SlidableForWorkspaceCard(
+                isCurrentWorkspace: isCurrentWorkspace,
+                corrWorkspacesID: corrWorkspace.id,
+                child: _buildWorkspaceText(theme, isCurrentWorkspace),
               ),
             ),
           ),
@@ -70,26 +60,44 @@ class ChangeWorkspaceCard extends ConsumerWidget {
     );
   }
 
-  // MARK - Handle Workspace Selection
-  void _handleCardTap(
+  Widget _buildWorkspaceText(TLThemeConfig theme, bool isCurrentWorkspace) {
+    return Align(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        child: Text(
+          isCurrentWorkspace
+              ? "☆ ${corrWorkspace.name}   "
+              : corrWorkspace.name,
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            color: theme.accentColor,
+            letterSpacing: 1,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // MARK: - Handle Workspace Selection
+  void _handleWorkspaceSelection(
       BuildContext context, WidgetRef ref, bool isCurrentWorkspace) async {
     if (isCurrentWorkspace) {
       Navigator.pop(context);
-    } else {
-      final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-      await tlAppStateReducer.dispatchWorkspaceAction(
-        TLWorkspaceAction.changeCurrentWorkspaceIndex(indexInWorkspaces),
-      );
+      return;
+    }
 
-      // 画面遷移とダイアログの表示
-      if (context.mounted) {
-        Navigator.pop(context);
-        TLSingleOptionDialog(
-          title:
-              ref.read(tlAppStateProvider).tlWorkspaces[indexInWorkspaces].name,
-          message: "に変更しました！",
-        ).show(context: context);
-      }
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    await tlAppStateReducer.dispatchWorkspaceAction(
+      TLWorkspaceAction.changeCurrentWorkspaceID(corrWorkspace.id),
+    );
+
+    if (context.mounted) {
+      Navigator.pop(context);
+      TLSingleOptionDialog(
+        title: corrWorkspace.name,
+        message: "に変更しました！",
+      ).show(context: context);
     }
   }
 }

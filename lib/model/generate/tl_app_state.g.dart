@@ -12,8 +12,7 @@ _$TLAppStateImpl _$$TLAppStateImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => TLWorkspace.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      currentWorkspaceIndex:
-          (json['currentWorkspaceIndex'] as num?)?.toInt() ?? 0,
+      currentWorkspaceID: json['currentWorkspaceID'] as String? ?? noneID,
       selectedThemeType: $enumDecodeNullable(
               _$TLThemeTypeEnumMap, json['selectedThemeType']) ??
           TLThemeType.sunOrange,
@@ -22,10 +21,12 @@ _$TLAppStateImpl _$$TLAppStateImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$TLAppStateImplToJson(_$TLAppStateImpl instance) =>
     <String, dynamic>{
       'tlWorkspaces': instance.tlWorkspaces,
-      'currentWorkspaceIndex': instance.currentWorkspaceIndex,
+      'currentWorkspaceID': instance.currentWorkspaceID,
       'selectedThemeType': instance.selectedThemeType,
     };
 
 const _$TLThemeTypeEnumMap = {
   TLThemeType.sunOrange: 'sunOrange',
+  TLThemeType.limeGreen: 'limeGreen',
+  TLThemeType.marineBlue: 'marineBlue',
 };

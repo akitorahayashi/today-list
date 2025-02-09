@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/resource/initial_tl_workspaces.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/view/component/dialog/for_category/delete_category_dialog.dart';
 import 'package:today_list/view/component/dialog/for_category/rename_category_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';

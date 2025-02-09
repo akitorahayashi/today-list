@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/tl_app_state.dart';
+import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/resource/initial_tl_workspaces.dart';
+import 'package:today_list/service/tl_vibration.dart';
+import 'package:today_list/styles.dart';
 import 'package:today_list/util/tl_validation.dart';
+import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
-import '../common/tl_single_option_dialog.dart';
-import '../../../../styles.dart';
-import '../../../../model/design/tl_theme/tl_theme.dart';
-import '../../../../model/todo/tl_category.dart';
-import '../../../../model/todo/tl_workspace.dart';
-import '../../../../model/todo/tl_todos_in_today_and_whenever.dart';
-import '../../../../service/tl_vibration.dart';
 
 class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget
     with TLBaseDialogMixin {
-  final int? oldIndexInWorkspaces;
-  const AddOrEditWorkspaceDialog(
-      {super.key, required this.oldIndexInWorkspaces});
+  final String? oldWorkspaceId; // IDベースに変更
+  const AddOrEditWorkspaceDialog({super.key, required this.oldWorkspaceId});
 
   @override
   ConsumerState<AddOrEditWorkspaceDialog> createState() =>
@@ -30,146 +29,175 @@ class _AddOrEditWorkspaceDialogState
   final TextEditingController _workspaceNameInputController =
       TextEditingController();
 
-  Future<void> _onEditSuccess(BuildContext context,
-      List<TLWorkspace> tlWorkspaces, int oldIndex, String newName) async {
-    // notifier
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-
-    final TLWorkspace editedWorkspace = tlWorkspaces[oldIndex];
-    tlWorkspaces[oldIndex] = editedWorkspace.copyWith(name: newName);
-    tlAppStateReducer.dispatchWorkspaceAction(
-        TLWorkspaceAction.updateWorkspaceList(
-            List<TLWorkspace>.from(tlWorkspaces)));
-    const TLSingleOptionDialog(title: "変更することに\n成功しました！")
-        .show(context: context);
-  }
-
-  Future<void> _onAddSuccess(
-      BuildContext context, String workspaceName, WidgetRef ref) async {
-    // 新しくできたWorkspace
-    final createdWorkspace = TLWorkspace(
-        id: UniqueKey().toString(),
-        name: workspaceName,
-        bigCategories: [
-          const TLCategory(id: noneID, title: "なし")
-        ],
-        smallCategories: {
-          noneID: []
-        },
-        categoryIDToToDos: {
-          noneID: const TLToDosInTodayAndWhenever(
-              toDosInToday: [], toDosInWhenever: [])
-        });
-    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-        TLWorkspaceAction.addWorkspace(createdWorkspace));
-    TLSingleOptionDialog(title: workspaceName, message: "が追加されました!")
-        .show(context: context);
-  }
-
+  // MARK: - Lifecycle (Init & Dispose)
   @override
   void initState() {
     super.initState();
-    if (widget.oldIndexInWorkspaces == null) return;
-    Future.microtask(() {
-      final List<TLWorkspace> workspaces =
-          ref.read(tlAppStateProvider).tlWorkspaces;
-      _workspaceNameInputController.text =
-          workspaces[widget.oldIndexInWorkspaces!].name;
-    });
+    _initializeWorkspaceName();
   }
 
   @override
-  dispose() {
+  void dispose() {
     _workspaceNameInputController.dispose();
     super.dispose();
   }
 
+  // MARK: - Initialization
+  void _initializeWorkspaceName() {
+    if (widget.oldWorkspaceId == null) return;
+    Future.microtask(() {
+      final List<TLWorkspace> workspaces =
+          ref.read(tlAppStateProvider).tlWorkspaces;
+      final workspace = workspaces.firstWhere(
+        (ws) => ws.id == widget.oldWorkspaceId,
+        orElse: () => throw Exception(
+            "Workspace ID: ${widget.oldWorkspaceId} not found."),
+      );
+      _workspaceNameInputController.text = workspace.name;
+    });
+  }
+
+  // MARK: - UI (Build)
   @override
   Widget build(BuildContext context) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final List<TLWorkspace> tlWorkspaces =
-        ref.watch(tlAppStateProvider).tlWorkspaces;
+    final TLThemeConfig theme = TLTheme.of(context);
+    final List<TLWorkspace> workspaces = ref.watch(
+      tlAppStateProvider.select((state) => state.tlWorkspaces),
+    );
 
     return Dialog(
-      backgroundColor: tlThemeData.alertBackgroundColor,
+      backgroundColor: theme.alertBackgroundColor,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 28.0),
-            child: Text(
-              "Workspace",
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black.withOpacity(0.4)),
-            ),
-          ),
-          // スペーサー
-          const SizedBox(
-            height: 40,
-          ),
-          // 新しいworkspace名を入力するTextField
-          Padding(
-            padding: const EdgeInsets.only(bottom: 30.0),
-            child: SizedBox(
-                width: 230,
-                child: TextField(
-                  autofocus: true,
-                  cursorColor: tlThemeData.accentColor,
-                  controller: _workspaceNameInputController,
-                  style: TextStyle(
-                      color: Colors.black.withOpacity(0.5),
-                      fontWeight: FontWeight.w600),
-                  decoration: tlInputDecoration(
-                      context: context,
-                      labelText: "新しい名前",
-                      icon: null,
-                      suffixIcon: null),
-                )),
-          ),
-          // 閉じる 追加するボタン
-          OverflowBar(
-            alignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              // カテゴリーを作らずにアラートを閉じるボタン
-              TextButton(
-                  style: alertButtonStyle(accentColor: tlThemeData.accentColor),
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text("閉じる")),
-              // workspaceを追加するボタン
-              TextButton(
-                  style: alertButtonStyle(accentColor: tlThemeData.accentColor),
-                  onPressed: () async {
-                    TLVibrationService.vibrate();
-                    final workspaceName = _workspaceNameInputController.text;
-                    // バリデーションを実施し、成功した場合は該当する処理を実行
-                    await TLValidation.validateNameAndExecute(
-                        context: context,
-                        name: workspaceName,
-                        validator: TLValidation.validateWorkspaceName,
-                        onSuccess: () async {
-                          Navigator.pop(context);
-                          if (widget.oldIndexInWorkspaces == null) {
-                            // add action
-                            await _onAddSuccess(context, workspaceName, ref);
-                          } else {
-                            // edit action
-                            await _onEditSuccess(context, tlWorkspaces,
-                                widget.oldIndexInWorkspaces!, workspaceName);
-                          }
-                        });
-                  },
-                  child:
-                      Text(widget.oldIndexInWorkspaces == null ? "追加" : "編集"))
-            ],
-          ),
-          const SizedBox(
-            height: 16,
-          )
+          _buildDialogTitle(),
+          _buildWorkspaceTextField(theme),
+          _buildActionButtons(context, theme, workspaces),
+          const SizedBox(height: 16),
         ],
       ),
     );
+  }
+
+  // MARK: - UI Components
+  Widget _buildDialogTitle() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 28.0),
+      child: Text(
+        "Workspace",
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.black.withOpacity(0.4),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildWorkspaceTextField(TLThemeConfig theme) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 30.0),
+      child: SizedBox(
+        width: 230,
+        child: TextField(
+          autofocus: true,
+          cursorColor: theme.accentColor,
+          controller: _workspaceNameInputController,
+          style: TextStyle(
+            color: Colors.black.withOpacity(0.5),
+            fontWeight: FontWeight.w600,
+          ),
+          decoration: tlInputDecoration(
+            context: context,
+            labelText: "新しい名前",
+            icon: null,
+            suffixIcon: null,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons(
+      BuildContext context, TLThemeConfig theme, List<TLWorkspace> workspaces) {
+    return OverflowBar(
+      alignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TextButton(
+          style: alertButtonStyle(accentColor: theme.accentColor),
+          onPressed: () => Navigator.pop(context),
+          child: const Text("閉じる"),
+        ),
+        TextButton(
+          style: alertButtonStyle(accentColor: theme.accentColor),
+          onPressed: () async => _handleSave(context, workspaces),
+          child: Text(widget.oldWorkspaceId == null ? "追加" : "編集"),
+        ),
+      ],
+    );
+  }
+
+  // MARK: - Actions
+  Future<void> _handleSave(
+      BuildContext context, List<TLWorkspace> workspaces) async {
+    TLVibrationService.vibrate();
+    final workspaceName = _workspaceNameInputController.text;
+
+    await TLValidation.validateNameAndExecute(
+      context: context,
+      name: workspaceName,
+      validator: TLValidation.validateWorkspaceName,
+      onSuccess: () async {
+        Navigator.pop(context);
+        if (widget.oldWorkspaceId == null) {
+          await _onAddSuccess(context, workspaceName);
+        } else {
+          await _onEditSuccess(context, workspaces, workspaceName);
+        }
+      },
+    );
+  }
+
+  Future<void> _onEditSuccess(BuildContext context,
+      List<TLWorkspace> workspaces, String newName) async {
+    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+
+    final workspaceIndex =
+        workspaces.indexWhere((ws) => ws.id == widget.oldWorkspaceId);
+    if (workspaceIndex == -1) {
+      throw Exception("Workspace ID: ${widget.oldWorkspaceId} not found.");
+    }
+
+    final TLWorkspace editedWorkspace =
+        workspaces[workspaceIndex].copyWith(name: newName);
+    final updatedWorkspaces = List<TLWorkspace>.from(workspaces);
+    updatedWorkspaces[workspaceIndex] = editedWorkspace;
+
+    tlAppStateReducer.dispatchWorkspaceAction(
+      TLWorkspaceAction.updateWorkspaceList(updatedWorkspaces),
+    );
+
+    const TLSingleOptionDialog(title: "変更することに\n成功しました！")
+        .show(context: context);
+  }
+
+  Future<void> _onAddSuccess(BuildContext context, String workspaceName) async {
+    final createdWorkspace = TLWorkspace(
+      id: UniqueKey().toString(),
+      name: workspaceName,
+      bigCategories: [const TLCategory(id: noneID, title: "なし")],
+      smallCategories: {noneID: []},
+      categoryIDToToDos: {
+        noneID: const TLToDosInTodayAndWhenever(
+            toDosInToday: [], toDosInWhenever: [])
+      },
+    );
+
+    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+          TLWorkspaceAction.addWorkspace(createdWorkspace),
+        );
+
+    TLSingleOptionDialog(title: workspaceName, message: "が追加されました!")
+        .show(context: context);
   }
 }

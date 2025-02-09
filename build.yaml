@@ -6,6 +6,7 @@ targets:
     sources:
       include:
         - lib/model/todo/**
+        - lib/model/setting_data/**
         - lib/model/tl_app_state.dart
         - lib/resource/tl_theme_type.dart
         - lib/redux/action/**
@@ -17,12 +18,14 @@ targets:
       source_gen|combining_builder:
         generate_for:
           - lib/model/todo/**
+          - lib/model/setting_data/**
           - lib/model/tl_app_state.dart
           - lib/resource/tl_theme_type.dart
           - lib/redux/action/**
         options:
           build_extensions:
             '^lib/model/todo/{{}}.dart': 'lib/model/generate/{{}}.g.dart'
+            '^lib/model/setting_data/{{}}.dart': 'lib/model/generate/{{}}.g.dart'
             '^lib/model/tl_app_state.dart': 'lib/model/generate/tl_app_state.g.dart'
             '^lib/resource/tl_theme_type.dart': 'lib/resource/generate/tl_theme_type.g.dart'
             '^lib/redux/action/{{}}.dart': 'lib/redux/action/generate/{{}}.g.dart'
@@ -31,10 +34,12 @@ targets:
       freezed:
         generate_for:
           - lib/model/todo/**
+          - lib/model/setting_data/**
           - lib/model/tl_app_state.dart
           - lib/redux/action/**
         options:
           build_extensions:
             '^lib/model/todo/{{}}.dart': 'lib/model/generate/{{}}.freezed.dart'
+            '^lib/model/setting_data/{{}}.dart': 'lib/model/generate/{{}}.freezed.dart'
             '^lib/model/tl_app_state.dart': 'lib/model/generate/tl_app_state.freezed.dart'
             '^lib/redux/action/{{}}.dart': 'lib/redux/action/generate/{{}}.freezed.dart'

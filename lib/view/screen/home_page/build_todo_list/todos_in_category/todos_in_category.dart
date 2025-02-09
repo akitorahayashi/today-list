@@ -27,7 +27,7 @@ class ToDosInCategory extends ConsumerWidget {
     // provider
     final tlAppState = ref.watch(tlAppStateProvider);
     final TLWorkspace currentTLWorkspaceReference =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
+        tlAppState.getCurrentWorkspace;
     // notifier
     final tlAppStateNotifier = ref.read(tlAppStateProvider.notifier);
     // others

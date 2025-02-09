@@ -5,16 +5,27 @@ import 'package:today_list/resource/tl_theme_type.dart';
 part 'generate/tl_app_state.freezed.dart';
 part 'generate/tl_app_state.g.dart';
 
-// $ dart run build_runner build --delete-conflicting-outputs
+// $ dart run build_runner build
+
+const String noneID = "defaultID";
 
 @freezed
 class TLAppState with _$TLAppState {
+  const TLAppState._();
+
   const factory TLAppState({
     @Default([]) List<TLWorkspace> tlWorkspaces,
-    @Default(0) int currentWorkspaceIndex,
+    @Default(noneID) String currentWorkspaceID,
     @Default(TLThemeType.sunOrange) TLThemeType selectedThemeType,
   }) = _TLAppState;
 
   factory TLAppState.fromJson(Map<String, dynamic> json) =>
       _$TLAppStateFromJson(json);
+
+  /// 現在のワークスペースを取得する
+  TLWorkspace get getCurrentWorkspace => tlWorkspaces.firstWhere(
+        (workspace) => workspace.id == currentWorkspaceID,
+        orElse: () =>
+            tlWorkspaces.firstWhere((workspace) => workspace.id == noneID),
+      );
 }

@@ -15,14 +15,18 @@ import 'package:today_list/service/tl_vibration.dart';
 class TLAppStateReducer extends StateNotifier<TLAppState> {
   TLAppStateReducer()
       : super(TLAppState(
-            tlWorkspaces: initialTLWorkspaces, currentWorkspaceIndex: 0)) {
+          tlWorkspaces: initialTLWorkspaces,
+          currentWorkspaceID: initialTLWorkspaces.isNotEmpty
+              ? initialTLWorkspaces.first.id
+              : noneID, // デフォルトワークスペースのID
+        )) {
     _loadSavedAppState();
   }
 
   // --- Load Workspaces from Local Storage ---
   Future<void> _loadSavedAppState() async {
     final pref = await TLPrefService().getPref;
-    final currentIndex = pref.getInt('currentWorkspaceIndex') ?? 0;
+    final savedWorkspaceID = pref.getString('currentWorkspaceID') ?? noneID;
 
     final encodedWorkspaces = pref.getString("tlWorkspaces");
     if (encodedWorkspaces != null) {
@@ -30,6 +34,12 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
       final List<TLWorkspace> loadedWorkspaces = jsonWorkspaces.map((json) {
         return TLWorkspace.fromJson(json);
       }).toList();
+
+      // 現在の ID に一致するワークスペースを探す
+      final TLWorkspace validWorkspace = loadedWorkspaces.firstWhere(
+        (w) => w.id == savedWorkspaceID,
+        orElse: () => loadedWorkspaces.first,
+      );
 
       // 保存されたテーマを取得
       final themeName = pref.getString('themeType');
@@ -40,18 +50,11 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
 
       state = state.copyWith(
         tlWorkspaces: loadedWorkspaces,
-        currentWorkspaceIndex: currentIndex,
+        currentWorkspaceID: validWorkspace.id,
         selectedThemeType: savedTheme,
       );
     }
   }
-
-  // --- Dispatch Todo Actions ---
-  // void dispatchTodoAction(TLToDoAction action) {
-  // state = state.copyWith(
-  //   todos: RPTodosReducer.handle(state.todos, action),
-  // );
-  // }
 
   // --- Dispatch Theme Actions ---
   void dispatchThemeAction(TLThemeAction action) {
@@ -63,11 +66,10 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   // --- Dispatch Workspace Actions ---
   Future<void> dispatchWorkspaceAction(TLWorkspaceAction action) async {
     List<TLWorkspace> updatedWorkspaces = await TLWorkspaceReducer.handle(
-        state.tlWorkspaces, action, state.currentWorkspaceIndex);
+        state.tlWorkspaces, action, state.currentWorkspaceID);
 
     state = action.map(
-      changeCurrentWorkspaceIndex: (a) =>
-          _changeCurrentWorkspaceIndex(a.newIndex),
+      changeCurrentWorkspaceID: (a) => _changeCurrentWorkspaceID(a.newID),
       addWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
       removeWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
       updateCurrentWorkspace: (a) =>
@@ -77,19 +79,19 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     );
   }
 
-  // --- Change Current Workspace Index ---
-  TLAppState _changeCurrentWorkspaceIndex(int newIndex) {
-    if (state.currentWorkspaceIndex == newIndex) return state; // 変更不要
+  // --- Change Current Workspace ID ---
+  TLAppState _changeCurrentWorkspaceID(String newID) {
+    if (state.currentWorkspaceID == newID) return state; // 変更不要
 
-    _saveCurrentWorkspaceIndex(newIndex);
-    TLVibrationService.vibrate(); // バイブレーション
+    _saveCurrentWorkspaceID(newID);
+    TLVibrationService.vibrate();
 
-    return state.copyWith(currentWorkspaceIndex: newIndex);
+    return state.copyWith(currentWorkspaceID: newID);
   }
 
-  // --- Save Current Workspace Index ---
-  Future<void> _saveCurrentWorkspaceIndex(int index) async {
+  // --- Save Current Workspace ID ---
+  Future<void> _saveCurrentWorkspaceID(String id) async {
     final pref = await TLPrefService().getPref;
-    await pref.setInt('currentWorkspaceIndex', index);
+    await pref.setString('currentWorkspaceID', id);
   }
 }

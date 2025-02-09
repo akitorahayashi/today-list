@@ -10,6 +10,7 @@ class AlreadyExist extends ConsumerWidget {
   final String? smallCategoryID;
   final bool ifInToday;
   final Function tapToEditAction;
+
   const AlreadyExist({
     super.key,
     required this.bigCategoryID,
@@ -24,13 +25,19 @@ class AlreadyExist extends ConsumerWidget {
     final tlAppState = ref.watch(tlAppStateProvider);
     // others
     final TLWorkspace currentWorkspaceReference =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
+        tlAppState.getCurrentWorkspace;
     // others
     final String categoryOfThisToDo = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisBlock = currentWorkspaceReference
             .categoryIDToToDos[categoryOfThisToDo]
             ?.getToDos(ifInToday) ??
         [];
+
+    // `toDoArrayOfThisBlock` が空の場合は何も表示しない
+    if (toDoArrayOfThisBlock.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Card(

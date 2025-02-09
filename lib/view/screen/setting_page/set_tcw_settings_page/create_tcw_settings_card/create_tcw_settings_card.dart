@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/setting_data/widget_kit_setting.dart';
+import 'package:today_list/model/settings_data/todos_in_category_widget_settings.dart';
+import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
+import 'package:today_list/util/tl_utils.dart';
 import 'package:today_list/util/tl_validation.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
-import 'package:today_list/view_model/settings/wks_provider.dart';
+import 'package:today_list/view_model/settings/tcw_provider.dart';
 import '../component/wks_header.dart';
 
 class CreateWKSettingsCard extends ConsumerStatefulWidget {
@@ -28,8 +30,13 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
   TLWorkspace get _currentWorkspace =>
       ref.watch(tlAppStateProvider).tlWorkspaces[_selectedWorkspaceIndex];
 
-  String get _currentBigCategoryID =>
-      _currentWorkspace.bigCategories[_selectedBCIdx].id;
+  TLCategory get _currentBigCategory =>
+      _currentWorkspace.bigCategories[_selectedBCIdx];
+
+  TLCategory? get _currentSmallCategory => _selectedSCIdx == null
+      ? null
+      : _currentWorkspace
+          .smallCategories[_currentBigCategory.id]![_selectedSCIdx!];
 
   @override
   void dispose() {
@@ -84,7 +91,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
     setState(() {
       if (!_ifUserHasEntered) {
         _wksInputController.text = _currentWorkspace
-            .smallCategories[_currentBigCategoryID]![newSCIdx].title;
+            .smallCategories[_currentBigCategory]![newSCIdx].title;
       }
       _selectedSCIdx = newSCIdx;
     });
@@ -118,7 +125,8 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
   }
 
   // MARK: - Build Control Buttons
-  Widget _buildControlButtons(WidgetKitSettingNotifier wksNotifier) {
+  Widget _buildControlButtons(
+      ToDosInCategoryWidgetSettingNotifier wksNotifier) {
     final controllButtonStyle = ButtonStyle(
       foregroundColor: WidgetStateProperty.all(TLTheme.of(context).accentColor),
       shape: WidgetStateProperty.all(
@@ -149,13 +157,14 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                 name: _wksInputController.text,
                 validator: TLValidation.validateWKSName,
                 onSuccess: () async {
-                  wksNotifier.addWidgetKitSettings(
-                    newWidgetKitSettings: WidgetKitSetting(
-                      id: UniqueKey().toString(),
+                  wksNotifier.addToDosInCategoryWidgetSettings(
+                    newToDosInCategoryWidgetSettings:
+                        ToDosInCategoryWidgetSettings(
+                      id: TLUtils.generateUniqueId(),
                       title: _wksInputController.text,
-                      workspaceIdx: _selectedWorkspaceIndex,
-                      bcIdx: _selectedBCIdx,
-                      scIdx: _selectedSCIdx,
+                      workspace: _currentWorkspace,
+                      bigCategory: _currentBigCategory,
+                      smallCategory: _currentSmallCategory,
                     ),
                   );
                   _resetState();
@@ -174,7 +183,8 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
 
   @override
   Widget build(BuildContext context) {
-    final wksNotifier = ref.read(widgetKitSettingsProvider.notifier);
+    final wksNotifier =
+        ref.read(toDosInCategoryWidgetSettingsProvider.notifier);
     final deviceWidth = MediaQuery.of(context).size.width;
     final workspaces = ref.watch(tlAppStateProvider).tlWorkspaces;
 

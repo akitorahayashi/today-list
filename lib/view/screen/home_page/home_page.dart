@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
@@ -50,10 +51,8 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
-    final currentWorkspaceRef = ref.watch(
-      tlAppStateProvider
-          .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]),
-    );
+    final currentWorkspaceRef = ref
+        .watch(tlAppStateProvider.select((state) => state.getCurrentWorkspace));
     final numOfToDosInToday =
         TLWorkspaceUtils.getNumOfToDo(currentWorkspaceRef, ifInToday: true);
     final numOfToDosInWhenever =
@@ -83,11 +82,11 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   // MARK - AppBar
-  PreferredSizeWidget _buildAppBar(
-      BuildContext context, tlAppState, TLWorkspace currentWorkspaceRef) {
+  PreferredSizeWidget _buildAppBar(BuildContext context, TLAppState tlAppState,
+      TLWorkspace currentWorkspaceRef) {
     return TLAppBar(
       context: context,
-      pageTitle: tlAppState.currentWorkspaceIndex == 0
+      pageTitle: tlAppState.currentWorkspaceID == noneID
           ? "Today List"
           : currentWorkspaceRef.name,
       leadingButtonOnPressed: () =>
@@ -129,8 +128,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   // MARK - Bottom Navigation Bar
   Widget _buildBottomNavbar(BuildContext context) {
     final currentWorkspaceRef = ref.watch(
-      tlAppStateProvider
-          .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]),
+      tlAppStateProvider.select((state) => state.getCurrentWorkspace),
     );
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 

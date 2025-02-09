@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/resource/initial_tl_workspaces.dart';
 import '../../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../../model/todo/tl_category.dart';
 import '../../../../component/dialog/for_category/add_category_dialog.dart';
@@ -20,7 +20,7 @@ class SelectBigCategoryDropDown extends ConsumerWidget {
     final tlAppState = ref.watch(tlAppStateProvider);
     // others
     final TLWorkspace currentWorkspaceReference =
-        tlAppState.tlWorkspaces[tlAppState.currentWorkspaceIndex];
+        tlAppState.getCurrentWorkspace;
     // notifier
     final EditingToDoNotifier editingToDoNotifier =
         ref.watch(editingToDoProvider.notifier);

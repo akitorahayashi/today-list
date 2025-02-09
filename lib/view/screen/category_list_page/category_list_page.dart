@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/component/dialog/for_category/add_category_dialog.dart';
 import 'big_and_small_category_card/big_and_small_category_card.dart';
@@ -18,8 +18,8 @@ class CategoryListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final currentWorkspace = ref.watch(tlAppStateProvider
-        .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]));
+    final currentWorkspace = ref
+        .watch(tlAppStateProvider.select((state) => state.getCurrentWorkspace));
 
     return Scaffold(
       appBar: _buildAppBar(context),

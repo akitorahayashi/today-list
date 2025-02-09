@@ -3,9 +3,10 @@ import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 
-class AddWKSButton extends StatelessWidget {
+class AddToDosInCategoryWidgetSettingsButton extends StatelessWidget {
   final VoidCallback? onPressed;
-  const AddWKSButton({super.key, required this.onPressed});
+  const AddToDosInCategoryWidgetSettingsButton(
+      {super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

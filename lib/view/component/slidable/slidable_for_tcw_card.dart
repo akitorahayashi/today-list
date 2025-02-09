@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/service/tl_vibration.dart';
-import 'package:today_list/view_model/settings/wks_provider.dart';
+import 'package:today_list/view_model/settings/tcw_provider.dart';
 import '../../../model/design/tl_theme/tl_theme.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class SlidableForWKSCard extends ConsumerWidget {
-  final int indexInWKSList;
+class SlidableForTCWCard extends ConsumerWidget {
+  final String corrTCWSettingsID;
   final Widget child;
-  const SlidableForWKSCard({
+  const SlidableForTCWCard({
     super.key,
-    required this.indexInWKSList,
+    required this.corrTCWSettingsID,
     required this.child,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final WidgetKitSettingNotifier wksNotifier =
-        ref.read(widgetKitSettingsProvider.notifier);
+    final ToDosInCategoryWidgetSettingNotifier wksNotifier =
+        ref.read(toDosInCategoryWidgetSettingsProvider.notifier);
     return Slidable(
       endActionPane: // デフォルトワークスペースの時は編集できないようにする
-          indexInWKSList == 0
+          corrTCWSettingsID == noneID
               ? null
               : ActionPane(
                   motion: const ScrollMotion(),
@@ -36,8 +37,8 @@ class SlidableForWKSCard extends ConsumerWidget {
                       backgroundColor: tlThemeData.backgroundColor,
                       foregroundColor: tlThemeData.accentColor,
                       onPressed: (BuildContext context) async {
-                        wksNotifier.removeWidgetKitSettings(
-                            index: indexInWKSList);
+                        wksNotifier.removeToDosInCategoryWidgetSettings(
+                            id: corrTCWSettingsID);
                         TLVibrationService.vibrate();
                       },
                       icon: Icons.remove,

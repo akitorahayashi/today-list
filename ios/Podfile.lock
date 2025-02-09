@@ -6,8 +6,6 @@ PODS:
     - Flutter
   - flutter_vibrate (0.0.1):
     - Flutter
-  - flutter_watch_os_connectivity (1.0.0):
-    - Flutter
   - Google-Mobile-Ads-SDK (11.10.0):
     - GoogleUserMessagingPlatform (>= 1.1)
   - google_mobile_ads (5.2.0):
@@ -27,7 +25,6 @@ DEPENDENCIES:
   - flutter_dynamic_icon (from `.symlinks/plugins/flutter_dynamic_icon/ios`)
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_vibrate (from `.symlinks/plugins/flutter_vibrate/ios`)
-  - flutter_watch_os_connectivity (from `.symlinks/plugins/flutter_watch_os_connectivity/ios`)
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/darwin`)
@@ -46,8 +43,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_native_splash/ios"
   flutter_vibrate:
     :path: ".symlinks/plugins/flutter_vibrate/ios"
-  flutter_watch_os_connectivity:
-    :path: ".symlinks/plugins/flutter_watch_os_connectivity/ios"
   google_mobile_ads:
     :path: ".symlinks/plugins/google_mobile_ads/ios"
   shared_preferences_foundation:
@@ -60,7 +55,6 @@ SPEC CHECKSUMS:
   flutter_dynamic_icon: fb0cd2f84c817c1a0ddbbc383fbebec3cd5e88d8
   flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
   flutter_vibrate: 9f4c2ab57008965f78969472367c329dd77eb801
-  flutter_watch_os_connectivity: 2c2f549d6d6d3e71ce19c12da2d64d2691c04861
   Google-Mobile-Ads-SDK: 13e6e98edfd78ad8d8a791edb927658cc260a56f
   google_mobile_ads: 2a538d8e42b1813809782792e48f8cf4374c2180
   GoogleUserMessagingPlatform: 0c3a08353e53ce8c2feab7addd0b652cde522450

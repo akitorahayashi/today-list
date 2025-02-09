@@ -38,8 +38,7 @@ class TLToDoCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     final currentWorkspace = ref.watch(
-      tlAppStateProvider
-          .select((state) => state.tlWorkspaces[state.currentWorkspaceIndex]),
+      tlAppStateProvider.select((state) => state.getCurrentWorkspace),
     );
 
     final TLCategory categoryOfThisToDo =

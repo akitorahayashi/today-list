@@ -28,7 +28,6 @@ dependencies:
 
   # 外部のツール
   google_mobile_ads: ^5.1.0
-  flutter_watch_os_connectivity: ^1.0.0
 
   # アイコン・スプラッシュ画面
   flutter_native_splash: ^2.4.1
