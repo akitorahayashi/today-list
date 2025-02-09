@@ -11,7 +11,7 @@ import AppIntents
 
 struct TCProvider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> TCWidgetEntry {
-        let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: kTLWorkspacesExample) ?? []
+        let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: TLWorkspacesExample.kTLWorkspacesExample.rawValue) ?? []
         return TCWidgetEntry(
             date: Date(),
             entity: defaultEntity,
@@ -24,7 +24,7 @@ struct TCProvider: AppIntentTimelineProvider {
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         let themeName = userDefaults?.string(forKey: "selectedThemeName") ?? TLThemeType.sunOrange.rawValue
         let corrThemeType = TLThemeType.from(themeName)
-        let tlWorkspacesSample = TLWorkspace.decodeWorkspaces(from: kTLWorkspacesExample) ?? []
+        let tlWorkspacesSample = TLWorkspace.decodeWorkspaces(from: TLWorkspacesExample.kTLWorkspacesExample.rawValue) ?? []
         return TCWidgetEntry(
             date: Date(),
             entity: defaultEntity,
@@ -39,7 +39,7 @@ struct TCProvider: AppIntentTimelineProvider {
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         let themeName = userDefaults?.string(forKey: "selectedThemeName") ?? TLThemeType.sunOrange.rawValue
         let corrThemeType = TLThemeType.from(themeName)
-        let stringOfTLWorkspace = userDefaults?.string(forKey: "tlWorkspaces") ?? kTLWorkspacesExample
+        let stringOfTLWorkspace = userDefaults?.string(forKey: "tlWorkspaces") ?? TLWorkspacesExample.kTLWorkspacesExample.rawValue
         let decodedTLWorkspaces = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? []
         
         let loadedEntry = TCWidgetEntry(

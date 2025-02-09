@@ -6,8 +6,6 @@ import 'package:today_list/view/screen/setting_page/set_tcw_settings_page/compon
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/view/component/slidable/slidable_for_tcw_card.dart';
 import 'package:today_list/model/settings_data/todos_in_category_widget_settings.dart';
-import 'package:today_list/model/todo/tl_category.dart';
-import 'package:today_list/view_model/settings/tcw_provider.dart';
 // import 'package:today_list/view/setting_page/set_ios_widget_page/wks_card_list/wks_card/medium_ios_widget_replica.dart';
 
 class CardOfToDosInCategoryWidgetSettings extends ConsumerWidget {
@@ -18,8 +16,6 @@ class CardOfToDosInCategoryWidgetSettings extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final deviceWidth = MediaQuery.of(context).size.width;
-    // provider
-    final tlAppState = ref.watch(tlAppStateProvider).tlWorkspaces;
     return SlidableForTCWCard(
       corrTCWSettingsID: corrToDosInCategoryWidgetSettings.id,
       child: TLDoubleCard(

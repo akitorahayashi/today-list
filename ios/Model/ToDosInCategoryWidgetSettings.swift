@@ -8,11 +8,11 @@
 import SwiftUI
 
 let defaultWKS = ToDosInCategoryWidgetSettings(
-    id: noneID,
+    id: TLWorkspacesExample.noneID.rawValue,
     title: "ToDo",
     // noneIDしか使わない予定
-    workspace: TLWorkspace(id: noneID, name: "Default", bigCategories: [], smallCategories: [:], categoryIDToToDos: [:]),
-    bigCategory: TLCategory(id: noneID, title: "なし")
+    workspace: TLWorkspace(id: TLWorkspacesExample.noneID.rawValue, name: "Default", bigCategories: [], smallCategories: [:], categoryIDToToDos: [:]),
+    bigCategory: TLCategory(id: TLWorkspacesExample.noneID.rawValue, title: "なし")
 )
 
 struct ToDosInCategoryWidgetSettings: Codable, Identifiable {

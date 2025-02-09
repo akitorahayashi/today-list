@@ -9,10 +9,10 @@ import WidgetKit
 import AppIntents
 
 let defaultEntity = TCEntity(
-    id: noneID,
+    id: TLWorkspacesExample.noneID.rawValue,
     title: "ToDo",
-    workspaceID: noneID,
-    categoryID: noneID
+    workspaceID: TLWorkspacesExample.noneID.rawValue,
+    categoryID: TLWorkspacesExample.noneID.rawValue
 )
 
 struct TCEntity: AppEntity {
