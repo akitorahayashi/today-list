@@ -6,7 +6,7 @@ import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 
 final List<TLWorkspace> initialTLWorkspaces = [
-  TLWorkspace(id: "defaultWorkspaceId", name: "Default", bigCategories: const [
+  TLWorkspace(id: noneID, name: "Default", bigCategories: const [
     TLCategory(id: noneID, title: "なし"),
     TLCategory(id: "superMarcketId", title: "スーパー"),
     TLCategory(id: "hundredStoreId", title: "100均"),

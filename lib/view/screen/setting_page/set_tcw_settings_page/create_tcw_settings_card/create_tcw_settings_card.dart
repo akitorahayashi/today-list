@@ -9,7 +9,7 @@ import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/util/tl_utils.dart';
 import 'package:today_list/util/tl_validation.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
-import 'package:today_list/view_model/settings/wks_provider.dart';
+import 'package:today_list/view_model/settings/tcw_provider.dart';
 import '../component/wks_header.dart';
 
 class CreateWKSettingsCard extends ConsumerStatefulWidget {
@@ -125,7 +125,8 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
   }
 
   // MARK: - Build Control Buttons
-  Widget _buildControlButtons(WidgetKitSettingNotifier wksNotifier) {
+  Widget _buildControlButtons(
+      ToDosInCategoryWidgetSettingNotifier wksNotifier) {
     final controllButtonStyle = ButtonStyle(
       foregroundColor: WidgetStateProperty.all(TLTheme.of(context).accentColor),
       shape: WidgetStateProperty.all(
@@ -156,8 +157,9 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                 name: _wksInputController.text,
                 validator: TLValidation.validateWKSName,
                 onSuccess: () async {
-                  wksNotifier.addWidgetKitSettings(
-                    newWidgetKitSettings: ToDosInCategoryWidgetSettings(
+                  wksNotifier.addToDosInCategoryWidgetSettings(
+                    newToDosInCategoryWidgetSettings:
+                        ToDosInCategoryWidgetSettings(
                       id: TLUtils.generateUniqueId(),
                       title: _wksInputController.text,
                       workspace: _currentWorkspace,
@@ -181,7 +183,8 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
 
   @override
   Widget build(BuildContext context) {
-    final wksNotifier = ref.read(widgetKitSettingsProvider.notifier);
+    final wksNotifier =
+        ref.read(toDosInCategoryWidgetSettingsProvider.notifier);
     final deviceWidth = MediaQuery.of(context).size.width;
     final workspaces = ref.watch(tlAppStateProvider).tlWorkspaces;
 

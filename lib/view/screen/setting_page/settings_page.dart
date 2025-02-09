@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/view/screen/setting_page/set_ios_widget_page/set_ios_widget_page.dart';
+import 'package:today_list/view/screen/setting_page/set_tcw_settings_page/set_ios_widget_page.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'set_features_page/set_appearance_page.dart';

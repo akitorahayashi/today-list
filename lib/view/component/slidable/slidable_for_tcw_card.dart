@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/service/tl_vibration.dart';
-import 'package:today_list/view_model/settings/wks_provider.dart';
+import 'package:today_list/view_model/settings/tcw_provider.dart';
 import '../../../model/design/tl_theme/tl_theme.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -20,8 +20,8 @@ class SlidableForTCWCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final WidgetKitSettingNotifier wksNotifier =
-        ref.read(widgetKitSettingsProvider.notifier);
+    final ToDosInCategoryWidgetSettingNotifier wksNotifier =
+        ref.read(toDosInCategoryWidgetSettingsProvider.notifier);
     return Slidable(
       endActionPane: // デフォルトワークスペースの時は編集できないようにする
           corrTCWSettingsID == noneID
@@ -37,7 +37,7 @@ class SlidableForTCWCard extends ConsumerWidget {
                       backgroundColor: tlThemeData.backgroundColor,
                       foregroundColor: tlThemeData.accentColor,
                       onPressed: (BuildContext context) async {
-                        wksNotifier.removeWidgetKitSettings(
+                        wksNotifier.removeToDosInCategoryWidgetSettings(
                             id: corrTCWSettingsID);
                         TLVibrationService.vibrate();
                       },

@@ -7,15 +7,16 @@ import 'package:today_list/model/settings_data/todos_in_category_widget_settings
 import 'package:today_list/service/tl_pref.dart';
 import 'dart:convert';
 
-final widgetKitSettingsProvider = StateNotifierProvider<
-    WidgetKitSettingNotifier, List<ToDosInCategoryWidgetSettings>>((ref) {
-  return WidgetKitSettingNotifier(ref);
+final toDosInCategoryWidgetSettingsProvider = StateNotifierProvider<
+    ToDosInCategoryWidgetSettingNotifier,
+    List<ToDosInCategoryWidgetSettings>>((ref) {
+  return ToDosInCategoryWidgetSettingNotifier(ref);
 });
 
-class WidgetKitSettingNotifier
+class ToDosInCategoryWidgetSettingNotifier
     extends StateNotifier<List<ToDosInCategoryWidgetSettings>> {
   final Ref ref;
-  WidgetKitSettingNotifier(this.ref)
+  ToDosInCategoryWidgetSettingNotifier(this.ref)
       : super([
           ToDosInCategoryWidgetSettings(
             id: noneID,
@@ -27,10 +28,10 @@ class WidgetKitSettingNotifier
           ),
         ]) {
     // SharedPreferenceからデータを取得
-    _loadWidgetKitSettings();
+    _loadToDosInCategoryWidgetSettings();
   }
 
-  Future<void> _loadWidgetKitSettings() async {
+  Future<void> _loadToDosInCategoryWidgetSettings() async {
     final pref = await TLPrefService().getPref;
     final encodedWidgetKitSettings = pref.getString("widgetKitSettings");
     if (encodedWidgetKitSettings != null) {
@@ -44,7 +45,7 @@ class WidgetKitSettingNotifier
     }
   }
 
-  Future<void> _saveWidgetKitSettings() async {
+  Future<void> _saveToDosInCategoryWidgetSettings() async {
     final pref = await TLPrefService().getPref;
     final encodedWidgetKitSettings =
         jsonEncode(state.map((w) => w.toJson()).toList());
@@ -54,26 +55,27 @@ class WidgetKitSettingNotifier
   }
 
   // WKSを追加するメソッド
-  Future<void> addWidgetKitSettings(
-      {required ToDosInCategoryWidgetSettings newWidgetKitSettings}) async {
-    state = [...state, newWidgetKitSettings];
-    await _saveWidgetKitSettings();
+  Future<void> addToDosInCategoryWidgetSettings(
+      {required ToDosInCategoryWidgetSettings
+          newToDosInCategoryWidgetSettings}) async {
+    state = [...state, newToDosInCategoryWidgetSettings];
+    await _saveToDosInCategoryWidgetSettings();
   }
 
-  Future<void> removeWidgetKitSettings({required String id}) async {
+  Future<void> removeToDosInCategoryWidgetSettings({required String id}) async {
     final index = state.indexWhere((element) => element.id == id);
     if (index == -1) {
       throw ArgumentError('IDが見つかりません: $id');
     }
     state = List.from(state)..removeAt(index);
-    await _saveWidgetKitSettings();
+    await _saveToDosInCategoryWidgetSettings();
   }
 
   // WKSListを更新するメソッド
-  Future<void> updateWidgetKitSettingsList(
+  Future<void> updateToDosInCategoryWidgetSettingsList(
       {required List<ToDosInCategoryWidgetSettings>
           updatedWidgetKitSettingsList}) async {
     state = updatedWidgetKitSettingsList;
-    await _saveWidgetKitSettings();
+    await _saveToDosInCategoryWidgetSettings();
   }
 }
