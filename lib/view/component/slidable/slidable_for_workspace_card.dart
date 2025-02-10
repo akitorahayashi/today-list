@@ -4,6 +4,7 @@ import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
 import 'package:today_list/view/component/dialog/for_workspace/delete_workspace_dialog.dart';
 
@@ -22,22 +23,27 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     // final TLWorkspace corrWorkspace = tlWorkspacesRef[corrWorkspacesID];
+
+    // MARK: - Colors
+    final backgroundColor = tlThemeData.canTapCardColor;
+    final foregroundColor = tlThemeData.accentColor;
+
     return Slidable(
       // currentWorkspaceの時や
       startActionPane: isCurrentWorkspace ||
               // デフォルトワークスペースの時は削除できないようにする
-              corrWorkspacesID == 0
+              corrWorkspacesID == noneID
           ? null
           : ActionPane(
               motion: const ScrollMotion(),
-              extentRatio: 0.35,
+              extentRatio: 0.25,
               children: [
                 // For deleting workspace
                 SlidableAction(
                   autoClose: true,
                   spacing: 8,
-                  backgroundColor: tlThemeData.canTapCardColor,
-                  foregroundColor: tlThemeData.accentColor,
+                  backgroundColor: backgroundColor,
+                  foregroundColor: foregroundColor,
                   onPressed: (BuildContext context) async {
                     await showDialog(
                         context: context,
@@ -45,29 +51,27 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                             corrWorkspaceID: corrWorkspacesID));
                   },
                   icon: Icons.remove,
-                  label: "Delete",
                 ),
               ],
             ),
       endActionPane: // デフォルトワークスペースの時は編集できないようにする
-          corrWorkspacesID == 0
+          corrWorkspacesID == noneID
               ? null
               : ActionPane(
                   motion: const ScrollMotion(),
-                  extentRatio: 0.35,
+                  extentRatio: 0.25,
                   children: [
                     SlidableAction(
                       autoClose: true,
                       spacing: 8,
-                      backgroundColor: tlThemeData.canTapCardColor,
-                      foregroundColor: tlThemeData.accentColor,
+                      backgroundColor: backgroundColor,
+                      foregroundColor: foregroundColor,
                       onPressed: (BuildContext context) async {
                         AddOrEditWorkspaceDialog(
                                 oldWorkspaceId: corrWorkspacesID)
                             .show(context: context);
                       },
                       icon: Icons.edit,
-                      label: "Edit",
                     ),
                   ],
                 ),

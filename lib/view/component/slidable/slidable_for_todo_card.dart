@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
@@ -43,7 +45,7 @@ class SlidableForToDoCard extends ConsumerWidget {
     final List<TLToDo> toDoArray =
         currentWorkspace.categoryIDToToDos[corrCategoryID]!.getToDos(ifInToday);
 
-    // MARK: - Common Colors
+    // MARK: - Colors
     final backgroundColor = tlThemeData.canTapCardColor;
     final foregroundColor = tlThemeData.accentColor;
 
@@ -53,7 +55,7 @@ class SlidableForToDoCard extends ConsumerWidget {
       // MARK: - Delete ToDo
       startActionPane: ActionPane(
         motion: const ScrollMotion(),
-        extentRatio: 0.2,
+        extentRatio: 0.15,
         children: [
           SlidableAction(
             autoClose: true,
@@ -69,7 +71,7 @@ class SlidableForToDoCard extends ConsumerWidget {
       // MARK: - Edit / Move ToDo
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
-        extentRatio: 0.6,
+        extentRatio: 0.4,
         children: [
           // MARK: - Edit ToDo
           if (!isForModelCard)
@@ -81,7 +83,6 @@ class SlidableForToDoCard extends ConsumerWidget {
               foregroundColor: foregroundColor,
               onPressed: (context) => _handleEditToDo(context, toDoArray),
               icon: Icons.edit,
-              label: 'Edit',
             ),
 
           // MARK: - Toggle Between Today and Whenever
@@ -94,7 +95,6 @@ class SlidableForToDoCard extends ConsumerWidget {
             onPressed: (context) => _toggleToDoTodayWhenever(
                 ref, context, currentWorkspace, toDoArray, corrCategoryID),
             icon: ifInToday ? Icons.schedule : Icons.light_mode,
-            label: ifInToday ? "whenever" : "today",
           ),
         ],
       ),

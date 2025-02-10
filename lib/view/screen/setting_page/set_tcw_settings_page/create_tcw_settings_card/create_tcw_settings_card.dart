@@ -10,7 +10,7 @@ import 'package:today_list/util/tl_utils.dart';
 import 'package:today_list/util/tl_validation.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/view_model/settings/tcw_provider.dart';
-import '../component/wks_header.dart';
+import '../tcw_card_list/component/wks_header.dart';
 
 class CreateWKSettingsCard extends ConsumerStatefulWidget {
   final VoidCallback showAddWKSButtonAction;

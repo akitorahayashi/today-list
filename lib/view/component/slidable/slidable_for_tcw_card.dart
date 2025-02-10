@@ -22,27 +22,31 @@ class SlidableForTCWCard extends ConsumerWidget {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     final ToDosInCategoryWidgetSettingNotifier wksNotifier =
         ref.read(toDosInCategoryWidgetSettingsProvider.notifier);
+
+    // MARK: - Colors
+    final backgroundColor = tlThemeData.whiteBasedCardColor;
+    final foregroundColor = tlThemeData.accentColor;
+
     return Slidable(
       endActionPane: // デフォルトワークスペースの時は編集できないようにする
           corrTCWSettingsID == noneID
               ? null
               : ActionPane(
                   motion: const ScrollMotion(),
-                  extentRatio: 0.35,
+                  extentRatio: 0.3,
                   children: [
                     // For deleting wks
                     SlidableAction(
                       autoClose: true,
-                      spacing: 8,
-                      backgroundColor: tlThemeData.backgroundColor,
-                      foregroundColor: tlThemeData.accentColor,
+                      backgroundColor: backgroundColor,
+                      foregroundColor: foregroundColor,
                       onPressed: (BuildContext context) async {
                         wksNotifier.removeToDosInCategoryWidgetSettings(
                             id: corrTCWSettingsID);
                         TLVibrationService.vibrate();
                       },
                       icon: Icons.remove,
-                      label: "Remove",
+                      label: "Delete",
                     ),
                   ],
                 ),
