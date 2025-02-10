@@ -48,7 +48,7 @@ class TLToDoCard extends ConsumerWidget {
         .getToDos(ifInToday);
     final TLToDo corrToDoData = toDoArray[indexOfThisToDoInToDos];
 
-    // MARK: - Common Colors
+    // MARK: - Colors
     final panelColor = tlThemeData.canTapCardColor;
     final textColor =
         Colors.black.withOpacity(corrToDoData.isChecked ? 0.3 : 0.6);
@@ -63,15 +63,15 @@ class TLToDoCard extends ConsumerWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: SlidableForToDoCard(
-            isForModelCard: false,
-            corrTLToDo: corrToDoData,
-            indexOfThisToDoInToDos: indexOfThisToDoInToDos,
-            ifInToday: ifInToday,
-            bigCategoryID: bigCategoryOfThisToDo.id,
-            smallCategoryID: smallCategoryOfThisToDo?.id,
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: SlidableForToDoCard(
+              isForModelCard: false,
+              corrTLToDo: corrToDoData,
+              indexOfThisToDoInToDos: indexOfThisToDoInToDos,
+              ifInToday: ifInToday,
+              bigCategoryID: bigCategoryOfThisToDo.id,
+              smallCategoryID: smallCategoryOfThisToDo?.id,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

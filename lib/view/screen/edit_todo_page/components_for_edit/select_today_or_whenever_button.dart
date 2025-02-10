@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 
 class SelectTodayOrWheneverButton extends StatelessWidget {
   final bool ifInToday;
@@ -12,6 +14,7 @@ class SelectTodayOrWheneverButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeConfig tlThemeData = TLTheme.of(context);
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: ToggleButtons(
@@ -19,8 +22,8 @@ class SelectTodayOrWheneverButton extends StatelessWidget {
           minHeight: 35,
           minWidth: 140,
         ),
-        fillColor: Colors.grey[300],
-        selectedColor: Colors.blueAccent,
+        fillColor: tlThemeData.accentColor.withOpacity(0.1),
+        selectedColor: tlThemeData.accentColor,
         color: Colors.black54,
         isSelected: [ifInToday, !ifInToday],
         onPressed: (int index) {
