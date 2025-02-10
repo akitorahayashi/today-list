@@ -52,7 +52,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
               filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
               child: SlidableForWorkspaceCard(
                 isCurrentWorkspace: isCurrentWorkspace,
-                corrWorkspacesID: corrWorkspace.id,
+                corrWorkspace: corrWorkspace,
                 child: _buildWorkspaceText(theme, isCurrentWorkspace),
               ),
             ),

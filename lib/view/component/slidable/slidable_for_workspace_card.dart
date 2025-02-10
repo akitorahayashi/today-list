@@ -5,17 +5,18 @@ import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:today_list/model/tl_app_state.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
 import 'package:today_list/view/component/dialog/for_workspace/delete_workspace_dialog.dart';
 
 class SlidableForWorkspaceCard extends ConsumerWidget {
   final bool isCurrentWorkspace;
-  final String corrWorkspacesID;
+  final TLWorkspace corrWorkspace;
   final Widget child;
   const SlidableForWorkspaceCard({
     super.key,
     required this.isCurrentWorkspace,
-    required this.corrWorkspacesID,
+    required this.corrWorkspace,
     required this.child,
   });
 
@@ -32,7 +33,7 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
       // currentWorkspaceの時や
       startActionPane: isCurrentWorkspace ||
               // デフォルトワークスペースの時は削除できないようにする
-              corrWorkspacesID == noneID
+              corrWorkspace == noneID
           ? null
           : ActionPane(
               motion: const ScrollMotion(),
@@ -48,7 +49,7 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                     await showDialog(
                         context: context,
                         builder: (context) => DeleteWorkspaceDialog(
-                            corrWorkspaceID: corrWorkspacesID));
+                            willDeletedWorkspace: corrWorkspace));
                   },
                   icon: Icons.remove,
                 ),
@@ -64,7 +65,7 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
             backgroundColor: backgroundColor,
             foregroundColor: foregroundColor,
             onPressed: (BuildContext context) async {
-              AddOrEditWorkspaceDialog(oldWorkspaceId: corrWorkspacesID)
+              AddOrEditWorkspaceDialog(oldWorkspaceId: corrWorkspace.id)
                   .show(context: context);
             },
             icon: Icons.edit,
