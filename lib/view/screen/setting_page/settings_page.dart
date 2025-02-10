@@ -87,9 +87,9 @@ class SettingsPage extends HookWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: (100 * MediaQuery.of(context).size.height / 896),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.black45, blurRadius: 8)],
+        decoration: BoxDecoration(
+          color: tlThemeConfig.whiteBasedCardColor,
+          boxShadow: const [BoxShadow(color: Colors.black45, blurRadius: 8)],
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

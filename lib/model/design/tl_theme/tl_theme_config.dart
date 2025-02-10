@@ -23,6 +23,7 @@ class TLThemeConfig {
   // Basics
   final MaterialColor accentColor;
   final Color canTapCardColor;
+  final Color whiteBasedCardColor;
   final Color tlDoubleCardBorderColor;
   final Color checkmarkColor;
 
@@ -58,6 +59,7 @@ class TLThemeConfig {
     // Basics
     required this.accentColor,
     required this.canTapCardColor,
+    required this.whiteBasedCardColor,
     required this.tlDoubleCardBorderColor,
     required this.checkmarkColor,
 

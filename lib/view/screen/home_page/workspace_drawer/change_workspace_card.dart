@@ -11,10 +11,12 @@ import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.
 import 'package:today_list/view/component/slidable/slidable_for_workspace_card.dart';
 
 class ChangeWorkspaceCard extends ConsumerWidget {
+  final bool isDefaultWorkspace;
   final TLWorkspace corrWorkspace;
 
   const ChangeWorkspaceCard({
     super.key,
+    required this.isDefaultWorkspace,
     required this.corrWorkspace,
   });
 
@@ -50,7 +52,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
               filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
               child: SlidableForWorkspaceCard(
                 isCurrentWorkspace: isCurrentWorkspace,
-                corrWorkspacesID: corrWorkspace.id,
+                corrWorkspace: corrWorkspace,
                 child: _buildWorkspaceText(theme, isCurrentWorkspace),
               ),
             ),
@@ -61,20 +63,34 @@ class ChangeWorkspaceCard extends ConsumerWidget {
   }
 
   Widget _buildWorkspaceText(TLThemeConfig theme, bool isCurrentWorkspace) {
-    return Align(
-      alignment: Alignment.center,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-        child: Text(
-          isCurrentWorkspace
-              ? "☆ ${corrWorkspace.name}   "
-              : corrWorkspace.name,
-          style: TextStyle(
-            fontWeight: FontWeight.w700,
-            color: theme.accentColor,
-            letterSpacing: 1,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (isDefaultWorkspace)
+            const Padding(
+              padding: EdgeInsets.only(bottom: 1.0),
+              child: Text("- Default -",
+                  style: TextStyle(
+                      color: Colors.black45,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12)),
+            ),
+          Padding(
+            padding: EdgeInsets.only(bottom: isDefaultWorkspace ? 10.0 : 0),
+            child: Text(
+              isCurrentWorkspace
+                  ? "☆ ${corrWorkspace.name}   "
+                  : corrWorkspace.name,
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 14,
+                color: theme.accentColor,
+                letterSpacing: 1,
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

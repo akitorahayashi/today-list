@@ -23,6 +23,7 @@ import 'build_todo_list/list_of_category_to_todos.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// MARK: - HomePage Widget
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -30,6 +31,7 @@ class HomePage extends ConsumerStatefulWidget {
   ConsumerState<HomePage> createState() => _HomePageState();
 }
 
+// MARK: - HomePage State
 class _HomePageState extends ConsumerState<HomePage> {
   bool _accetColorIsNotChanged = true;
   final GlobalKey<ScaffoldState> homePageScaffoldKey =
@@ -81,7 +83,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  // MARK - AppBar
+  // MARK: - AppBar の構築
   PreferredSizeWidget _buildAppBar(BuildContext context, TLAppState tlAppState,
       TLWorkspace currentWorkspaceRef) {
     return TLAppBar(
@@ -101,18 +103,18 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  // MARK - ToDo List Section
+  // MARK: - ToDo リストの構築
   Widget _buildTodoList(int numOfToDosInToday, int numOfToDosInWhenever,
       TLWorkspace currentWorkspaceRef) {
     return Column(
       children: [
-        // --- Today Section ---
+        // --- 今日のタスク ---
         Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
         ),
         const ListOfCategoryToToDos(ifInToday: true),
-        // --- Whenever Section ---
+        // --- いつでもタスク ---
         if (numOfToDosInWhenever != 0)
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
@@ -125,7 +127,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  // MARK - Bottom Navigation Bar
+  // MARK: - Bottom Bar の構築
   Widget _buildBottomNavbar(BuildContext context) {
     final currentWorkspaceRef = ref.watch(
       tlAppStateProvider.select((state) => state.getCurrentWorkspace),
@@ -145,7 +147,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  // MARK - Navigate to Edit ToDo Page
+  // MARK: - 編集ページへの遷移処理
   void _navigateToEditToDoPage(
       BuildContext context, TLWorkspace currentWorkspaceRef) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -159,7 +161,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     }));
   }
 
-  // TODO dispatchを使う方法に書き換える - Delete Checked ToDos
+  // MARK: - チェック済み ToDo の削除処理
   void _deleteCheckedToDos(BuildContext context,
       TLWorkspace currentWorkspaceRef, tlAppStateReducer) {
     showDialog(

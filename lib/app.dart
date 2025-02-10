@@ -13,9 +13,8 @@ class TodayListApp extends ConsumerWidget {
     final TLThemeType selectedThemeType = ref
         .watch(tlAppStateProvider.select((state) => state.selectedThemeType));
 
-    // システムのダークモード設定を取得
-    final Brightness brightness = MediaQuery.of(context).platformBrightness;
-    final bool isDarkMode = brightness == Brightness.dark;
+    // final Brightness brightness = MediaQuery.of(context).platformBrightness;
+    // final bool isDarkMode = brightness == Brightness.dark;
 
     return TLTheme(
       data:
