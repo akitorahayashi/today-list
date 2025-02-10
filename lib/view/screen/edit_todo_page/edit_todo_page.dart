@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
@@ -249,7 +250,7 @@ class EditToDoPage extends HookConsumerWidget {
                           smallCategoryID.value = null;
                           editingStepIndex.value = null;
                           if (newBigID == "---createBigCategory") {
-                            AddCategoryDialog().show(context: context);
+                            const AddCategoryDialog().show(context: context);
                           } else {
                             bigCategoryID.value = newBigID;
                           }

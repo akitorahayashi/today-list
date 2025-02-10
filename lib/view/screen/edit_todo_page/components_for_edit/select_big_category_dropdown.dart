@@ -23,6 +23,8 @@ class SelectBigCategoryDropdown extends ConsumerWidget {
     final tlAppState = ref.watch(tlAppStateProvider);
     final TLWorkspace currentWorkspace = tlAppState.getCurrentWorkspace;
 
+    final bigCategories = currentWorkspace.bigCategories;
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
       child: DropdownButton<TLCategory>(
@@ -31,23 +33,28 @@ class SelectBigCategoryDropdown extends ConsumerWidget {
         hint: Text(
           bigCategoryID == noneID
               ? "大カテゴリー"
-              : currentWorkspace.bigCategories
-                  .firstWhere((c) => c.id == bigCategoryID)
-                  .title,
+              : (() {
+                  final matchingCategories =
+                      bigCategories.where((c) => c.id == bigCategoryID);
+                  return matchingCategories.isNotEmpty
+                      ? matchingCategories.first.title
+                      : "不明なカテゴリー";
+                })(),
           style: const TextStyle(
               color: Colors.black45, fontWeight: FontWeight.bold),
         ),
         style:
             const TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
         items: [
-          ...currentWorkspace.bigCategories,
+          if (bigCategories.isEmpty) const TLCategory(id: noneID, title: "なし"),
+          ...bigCategories,
           const TLCategory(id: "---createBigCategory", title: "新しく作る"),
-        ].map((oneOfBigCategory) {
+        ].map((item) {
           return DropdownMenuItem(
-            value: oneOfBigCategory,
+            value: item,
             child: Text(
-              oneOfBigCategory.title,
-              style: oneOfBigCategory.id == bigCategoryID
+              item.title,
+              style: item.id == bigCategoryID
                   ? TextStyle(
                       color: tlThemeData.accentColor,
                       fontWeight: FontWeight.bold)
