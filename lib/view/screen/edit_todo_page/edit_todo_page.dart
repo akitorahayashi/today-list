@@ -100,6 +100,7 @@ class EditToDoPage extends HookConsumerWidget {
 
       final TLToDo newToDo = TLToDo(
         id: TLUtils.generateUniqueId(),
+        categoryID: categoryID,
         title: toDoTitleController.text,
         steps: steps.value,
       );

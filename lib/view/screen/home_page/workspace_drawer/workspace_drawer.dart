@@ -78,7 +78,10 @@ class TLWorkspaceDrawer extends ConsumerWidget {
           padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
           child: Column(
             children: [
-              ChangeWorkspaceCard(corrWorkspace: workspaces.first),
+              // デフォルトワークスペース
+              ChangeWorkspaceCard(
+                  isDefaultWorkspace: true, corrWorkspace: workspaces.first),
+              // デフォルト以外のワークスペース
               _buildReorderableWorkspaceList(
                   ref, currentWorkspaceId, workspaces),
               const AddWorkspaceButton(),
@@ -92,66 +95,39 @@ class TLWorkspaceDrawer extends ConsumerWidget {
   // MARK: - Reorderable Workspace List
   Widget _buildReorderableWorkspaceList(
       WidgetRef ref, String currentWorkspaceId, List<TLWorkspace> workspaces) {
-    return ReorderableColumn(
-      children: [
-        for (var workspace in workspaces.skip(1)) // 最初のワークスペースは固定
-          ChangeWorkspaceCard(
-            key: ValueKey(workspace.id),
-            corrWorkspace: workspace,
-          ),
-      ],
-      onReorder: (oldIndex, newIndex) {
-        _handleReorder(ref, workspaces[oldIndex + 1].id,
-            workspaces[newIndex + 1].id, currentWorkspaceId, workspaces);
-      },
+    return SingleChildScrollView(
+      child: ReorderableColumn(
+        children: [
+          for (var workspace in workspaces.skip(1)) // 最初のワークスペースは固定
+            ChangeWorkspaceCard(
+              key: ValueKey(workspace.id),
+              isDefaultWorkspace: false,
+              corrWorkspace: workspace,
+            ),
+        ],
+        onReorder: (oldIndex, newIndex) {
+          _handleReorder(ref, oldIndex, newIndex);
+        },
+      ),
     );
   }
 
   // MARK: - Handle Reordering Logic (Index → ID ベースに変更)
-  void _handleReorder(
-      WidgetRef ref,
-      String oldWorkspaceId,
-      String newWorkspaceId,
-      String currentWorkspaceId,
-      List<TLWorkspace> workspaces) {
-    if (oldWorkspaceId == newWorkspaceId) return;
+  void _handleReorder(WidgetRef ref, int oldIndex, int newIndex) {
+    if (newIndex == oldIndex) return;
+
+    final revisedOldIndex = oldIndex + 1;
+    final revisedNewIndex = newIndex + 1;
 
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    final workspaces = ref.read(tlAppStateProvider).tlWorkspaces;
 
     List<TLWorkspace> copiedWorkspaces = List.from(workspaces);
-    final int oldIndex =
-        copiedWorkspaces.indexWhere((ws) => ws.id == oldWorkspaceId);
-    final int newIndex =
-        copiedWorkspaces.indexWhere((ws) => ws.id == newWorkspaceId);
-
-    if (oldIndex == -1 || newIndex == -1) return;
-
-    final TLWorkspace movedWorkspace = copiedWorkspaces.removeAt(oldIndex);
-    copiedWorkspaces.insert(newIndex, movedWorkspace);
-
-    // ワークスペースの並び替えによる影響をチェック
-    if (movedWorkspace.id == currentWorkspaceId) {
-      tlAppStateReducer.dispatchWorkspaceAction(
-        TLWorkspaceAction.changeCurrentWorkspaceID(movedWorkspace.id),
-      );
-    } else if (oldIndex <
-            copiedWorkspaces.indexWhere((ws) => ws.id == currentWorkspaceId) &&
-        newIndex >=
-            copiedWorkspaces.indexWhere((ws) => ws.id == currentWorkspaceId)) {
-      tlAppStateReducer.dispatchWorkspaceAction(
-        TLWorkspaceAction.changeCurrentWorkspaceID(currentWorkspaceId),
-      );
-    } else if (oldIndex >
-            copiedWorkspaces.indexWhere((ws) => ws.id == currentWorkspaceId) &&
-        newIndex <=
-            copiedWorkspaces.indexWhere((ws) => ws.id == currentWorkspaceId)) {
-      tlAppStateReducer.dispatchWorkspaceAction(
-        TLWorkspaceAction.changeCurrentWorkspaceID(currentWorkspaceId),
-      );
-    }
+    final TLWorkspace movedWorkspace =
+        copiedWorkspaces.removeAt(revisedOldIndex);
+    copiedWorkspaces.insert(revisedNewIndex, movedWorkspace);
 
     tlAppStateReducer.dispatchWorkspaceAction(
-      TLWorkspaceAction.updateWorkspaceList(copiedWorkspaces),
-    );
+        TLWorkspaceAction.updateWorkspaceList(copiedWorkspaces));
   }
 }

@@ -21,8 +21,7 @@ struct TCProvider: AppIntentTimelineProvider {
     }
     
     func snapshot(for configuration: TCIntent, in context: Context) async -> TCWidgetEntry {
-        let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
-        let themeName = userDefaults?.string(forKey: "selectedThemeName") ?? TLThemeType.sunOrange.rawValue
+        let themeName = TLThemeType.sunOrange.rawValue
         let corrThemeType = TLThemeType.from(themeName)
         let tlWorkspacesSample = TLWorkspace.decodeWorkspaces(from: TLWorkspacesExample.kTLWorkspacesExample.rawValue) ?? []
         return TCWidgetEntry(

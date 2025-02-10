@@ -35,6 +35,7 @@ class PanelWithTitle extends StatelessWidget {
               ),
             ),
             Card(
+              color: tlThemeData.whiteBasedCardColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
