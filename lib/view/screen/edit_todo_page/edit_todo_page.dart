@@ -97,6 +97,7 @@ class EditToDoPage extends HookConsumerWidget {
         steps.value = updatedSteps;
       }
       editingStepIndex.value = null;
+      stepTitleController.clear();
     }
 
     Future<void> completeEditing() async {
@@ -203,9 +204,13 @@ class EditToDoPage extends HookConsumerWidget {
                     ),
                     AddedStepsColumn(
                       steps: steps.value,
-                      onEditStep: (index) =>
-                          stepTitleController.text = steps.value[index].title,
-                      onRemoveStep: (index) => steps.value.removeAt(index),
+                      onEditStep: (index) {
+                        stepTitleController.text = steps.value[index].title;
+                      },
+                      onRemoveStep: (index) {
+                        steps.value = List<TLStep>.from(steps.value)
+                          ..removeAt(index);
+                      },
                     ),
 
                     StepTitleInputField(
