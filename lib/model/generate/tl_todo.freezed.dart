@@ -21,6 +21,7 @@ TLToDo _$TLToDoFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TLToDo {
   String get id => throw _privateConstructorUsedError;
+  String get categoryID => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   bool get isChecked => throw _privateConstructorUsedError;
   List<TLStep> get steps => throw _privateConstructorUsedError;
@@ -39,7 +40,12 @@ abstract class $TLToDoCopyWith<$Res> {
   factory $TLToDoCopyWith(TLToDo value, $Res Function(TLToDo) then) =
       _$TLToDoCopyWithImpl<$Res, TLToDo>;
   @useResult
-  $Res call({String id, String title, bool isChecked, List<TLStep> steps});
+  $Res call(
+      {String id,
+      String categoryID,
+      String title,
+      bool isChecked,
+      List<TLStep> steps});
 }
 
 /// @nodoc
@@ -58,6 +64,7 @@ class _$TLToDoCopyWithImpl<$Res, $Val extends TLToDo>
   @override
   $Res call({
     Object? id = null,
+    Object? categoryID = null,
     Object? title = null,
     Object? isChecked = null,
     Object? steps = null,
@@ -66,6 +73,10 @@ class _$TLToDoCopyWithImpl<$Res, $Val extends TLToDo>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryID: null == categoryID
+          ? _value.categoryID
+          : categoryID // ignore: cast_nullable_to_non_nullable
               as String,
       title: null == title
           ? _value.title
@@ -90,7 +101,12 @@ abstract class _$$TLToDoImplCopyWith<$Res> implements $TLToDoCopyWith<$Res> {
       __$$TLToDoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, bool isChecked, List<TLStep> steps});
+  $Res call(
+      {String id,
+      String categoryID,
+      String title,
+      bool isChecked,
+      List<TLStep> steps});
 }
 
 /// @nodoc
@@ -107,6 +123,7 @@ class __$$TLToDoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? categoryID = null,
     Object? title = null,
     Object? isChecked = null,
     Object? steps = null,
@@ -115,6 +132,10 @@ class __$$TLToDoImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryID: null == categoryID
+          ? _value.categoryID
+          : categoryID // ignore: cast_nullable_to_non_nullable
               as String,
       title: null == title
           ? _value.title
@@ -137,6 +158,7 @@ class __$$TLToDoImplCopyWithImpl<$Res>
 class _$TLToDoImpl implements _TLToDo {
   const _$TLToDoImpl(
       {required this.id,
+      required this.categoryID,
       required this.title,
       this.isChecked = false,
       final List<TLStep> steps = const []})
@@ -147,6 +169,8 @@ class _$TLToDoImpl implements _TLToDo {
 
   @override
   final String id;
+  @override
+  final String categoryID;
   @override
   final String title;
   @override
@@ -163,7 +187,7 @@ class _$TLToDoImpl implements _TLToDo {
 
   @override
   String toString() {
-    return 'TLToDo(id: $id, title: $title, isChecked: $isChecked, steps: $steps)';
+    return 'TLToDo(id: $id, categoryID: $categoryID, title: $title, isChecked: $isChecked, steps: $steps)';
   }
 
   @override
@@ -172,6 +196,8 @@ class _$TLToDoImpl implements _TLToDo {
         (other.runtimeType == runtimeType &&
             other is _$TLToDoImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.categoryID, categoryID) ||
+                other.categoryID == categoryID) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.isChecked, isChecked) ||
                 other.isChecked == isChecked) &&
@@ -180,7 +206,7 @@ class _$TLToDoImpl implements _TLToDo {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, isChecked,
+  int get hashCode => Object.hash(runtimeType, id, categoryID, title, isChecked,
       const DeepCollectionEquality().hash(_steps));
 
   /// Create a copy of TLToDo
@@ -202,6 +228,7 @@ class _$TLToDoImpl implements _TLToDo {
 abstract class _TLToDo implements TLToDo {
   const factory _TLToDo(
       {required final String id,
+      required final String categoryID,
       required final String title,
       final bool isChecked,
       final List<TLStep> steps}) = _$TLToDoImpl;
@@ -210,6 +237,8 @@ abstract class _TLToDo implements TLToDo {
 
   @override
   String get id;
+  @override
+  String get categoryID;
   @override
   String get title;
   @override

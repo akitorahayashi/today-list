@@ -7,6 +7,8 @@ part '../generate/tl_category.g.dart';
 
 @freezed
 class TLCategory with _$TLCategory {
+  static const String noneID = "defaultID";
+
   const factory TLCategory({
     required String id,
     required String title,

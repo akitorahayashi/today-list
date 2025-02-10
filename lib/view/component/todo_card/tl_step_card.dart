@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
@@ -28,6 +30,7 @@ class TLStepCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final currentWorkspace = ref.watch(
       tlAppStateProvider.select((state) => state.getCurrentWorkspace),
     );
@@ -39,7 +42,7 @@ class TLStepCard extends ConsumerWidget {
     final TLStep corrStepData = corrToDoData.steps[indexInSteps];
 
     // MARK: - Common Colors
-    const cardColor = Colors.white;
+    final cardColor = tlThemeConfig.whiteBasedCardColor;
     final titleColor =
         Colors.black.withOpacity(corrStepData.isChecked ? 0.3 : 0.6);
 
