@@ -50,7 +50,6 @@ class EditToDoPage extends HookConsumerWidget {
     final smallCategoryID = useState<String?>(selectedSmallCategoryID);
     final isToday = useState<bool>(ifInToday);
     final editingToDoIndex = useState<int?>(indexOfEdittedTodo);
-    final editingStepIndex = useState<int?>(null);
 
     final bannerAd = useState<BannerAd?>(null);
 
@@ -87,16 +86,9 @@ class EditToDoPage extends HookConsumerWidget {
     }, []);
 
     // MARK: - ToDo Operations
-    void addToStepList(String stepTitle, int? index) {
+    void addToStepList(String stepTitle) {
       final newStep = TLStep(id: TLUtils.generateUniqueId(), title: stepTitle);
-      if (index == null) {
-        steps.value = [...steps.value, newStep];
-      } else {
-        final updatedSteps = [...steps.value];
-        updatedSteps[index] = newStep;
-        steps.value = updatedSteps;
-      }
-      editingStepIndex.value = null;
+      steps.value = [...steps.value, newStep];
       stepTitleController.clear();
     }
 
@@ -214,10 +206,8 @@ class EditToDoPage extends HookConsumerWidget {
                     ),
 
                     StepTitleInputField(
-                      isEditing: editingStepIndex.value != null,
                       stepTitleController: stepTitleController,
-                      onAddOrEditStep: (title) =>
-                          addToStepList(title, editingStepIndex.value),
+                      onAddOrEditStep: (title) => addToStepList(title),
                     ),
                     const SizedBox(height: 45),
                   ],

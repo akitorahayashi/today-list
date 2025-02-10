@@ -6,13 +6,11 @@ import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 
 class StepTitleInputField extends StatefulWidget {
   final TextEditingController stepTitleController;
-  final bool isEditing;
   final Function(String) onAddOrEditStep;
 
   const StepTitleInputField({
     super.key,
     required this.stepTitleController,
-    required this.isEditing,
     required this.onAddOrEditStep,
   });
 
@@ -78,7 +76,7 @@ class _StepTitleInputFieldState extends State<StepTitleInputField> {
                         // → 今回は親から clear される前提でもOK
                       },
                 child: Icon(
-                  widget.isEditing ? Icons.edit : Icons.add,
+                  Icons.add,
                   color: _enteredStepTitle.trim().isNotEmpty
                       ? tlThemeData.accentColor
                       : Colors.black,
