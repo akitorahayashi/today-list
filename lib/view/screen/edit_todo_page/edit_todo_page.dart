@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/redux/store/editing_provider/editing_todo_provider.dart';
+import 'package:today_list/model/tl_app_state.dart';
+import 'package:today_list/model/todo/tl_step.dart';
+import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/redux/action/tl_todo_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/util/tl_utils.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
-import 'components_for_edit/select_category_dropdown/select_small_category_dropdown.dart';
-import 'components_for_edit/input_field/step_title_input_field.dart';
-import 'components_for_edit/input_field/todo_title_input_field.dart';
-import 'components_for_edit/select_today_or_whenever_button.dart';
-import 'components_for_edit/select_category_dropdown/select_big_category_dropdown.dart';
-import 'components_for_edit/added_steps_column.dart';
-import 'already_exist/already_exist.dart';
+import 'package:today_list/view/screen/edit_todo_page/already_exist/already_exist.dart';
+import 'package:today_list/view/screen/edit_todo_page/components_for_edit/select_big_category_dropdown.dart';
+import 'package:today_list/view/screen/edit_todo_page/components_for_edit/select_small_category_dropdown.dart';
+import 'package:today_list/view/screen/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
+import 'package:today_list/view/screen/edit_todo_page/components_for_edit/todo_title_input_field.dart';
+import 'package:today_list/view/screen/edit_todo_page/components_for_edit/added_steps_column.dart';
+import 'package:today_list/view/screen/edit_todo_page/components_for_edit/step_title_input_field.dart';
 
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-class EditToDoPage extends ConsumerStatefulWidget {
+class EditToDoPage extends HookConsumerWidget {
   final bool ifInToday;
   final String selectedBigCategoryID;
   final String? selectedSmallCategoryID;
   final String? editedToDoTitle;
   final int? indexOfEdittedTodo;
+
   const EditToDoPage({
     super.key,
     required this.ifInToday,
@@ -31,133 +37,193 @@ class EditToDoPage extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<EditToDoPage> createState() => EditToDoPageState();
-}
-
-class EditToDoPageState extends ConsumerState<EditToDoPage> {
-  late EditingToDoNotifier edittingToDoNotifier;
-  BannerAd? _bannerAd;
-
-  @override
-  void initState() {
-    super.initState();
-    _bannerAd?.load();
-    EditingTodo.updateTextEdittingController(
-        editedToDoTitle: widget.editedToDoTitle);
-    // ウィジェットツリーが構築された後に状態を変更
-    Future.microtask(() {
-      edittingToDoNotifier = ref.read(editingToDoProvider.notifier);
-
-      if (widget.indexOfEdittedTodo == null) {
-        edittingToDoNotifier.setInitialValue();
-      } else {
-        edittingToDoNotifier.setEditedToDo(
-          ifInToday: widget.ifInToday,
-          selectedBigCategoryID: widget.selectedBigCategoryID,
-          selectedSmallCategoryID: widget.selectedSmallCategoryID,
-          indexOfEditingToDo: widget.indexOfEdittedTodo!,
-        );
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    // provider
-    final EditingTodo editingToDo = ref.watch(editingToDoProvider);
+
+    // MARK: - State Management
+    final toDoTitleController =
+        useTextEditingController(text: editedToDoTitle ?? "");
+    final stepTitleController = useTextEditingController();
+
+    final steps = useState<List<TLStep>>([]);
+    final bigCategoryID = useState<String>(selectedBigCategoryID);
+    final smallCategoryID = useState<String?>(selectedSmallCategoryID);
+    final isToday = useState<bool>(ifInToday);
+    final editingToDoIndex = useState<int?>(indexOfEdittedTodo);
+
+    final bannerAd = useState<BannerAd?>(null);
+
+    // MARK: - Initialize Editing State
+    useEffect(() {
+      if (indexOfEdittedTodo == null) {
+        steps.value = [];
+      } else {
+        final appState = ref.read(tlAppStateProvider);
+        final currentWorkspace = appState.getCurrentWorkspace;
+        final String categoryID =
+            selectedSmallCategoryID ?? selectedBigCategoryID;
+        final TLToDo edittedToDo = currentWorkspace
+            .categoryIDToToDos[categoryID]!
+            .getToDos(ifInToday)[indexOfEdittedTodo!];
+
+        steps.value = edittedToDo.steps;
+      }
+      return null;
+    }, const []);
+
+    // MARK: - Ad Loading
+    useEffect(() {
+      final ad = BannerAd(
+        size: AdSize.banner,
+        adUnitId: 'TEST_AD_UNIT_ID',
+        listener: BannerAdListener(
+          onAdLoaded: (ad) => bannerAd.value = ad as BannerAd?,
+        ),
+        request: const AdRequest(),
+      );
+      ad.load();
+      return null;
+    }, []);
+
+    // MARK: - ToDo Operations
+    void addToStepList(String stepTitle) {
+      final newStep = TLStep(id: TLUtils.generateUniqueId(), title: stepTitle);
+      steps.value = [...steps.value, newStep];
+      stepTitleController.clear();
+    }
+
+    Future<void> completeEditing() async {
+      if (toDoTitleController.text.trim().isEmpty) return;
+
+      final appStateReducer = ref.read(tlAppStateProvider.notifier);
+      final categoryID = smallCategoryID.value ?? bigCategoryID.value;
+
+      final TLToDo newToDo = TLToDo(
+        id: TLUtils.generateUniqueId(),
+        title: toDoTitleController.text,
+        steps: steps.value,
+      );
+
+      if (editingToDoIndex.value == null) {
+        // MARK: - Add New ToDo
+        appStateReducer.dispatchToDoAction(TLToDoAction.addToDo(
+          workspaceID: ref.read(tlAppStateProvider).currentWorkspaceID,
+          categoryID: categoryID,
+          ifInToday: isToday.value,
+          todo: newToDo,
+        ));
+      } else {
+        // MARK: - Update Existing ToDo
+        appStateReducer.dispatchToDoAction(TLToDoAction.updateToDo(
+          workspaceID: ref.read(tlAppStateProvider).currentWorkspaceID,
+          categoryID: categoryID,
+          ifInToday: isToday.value,
+          index: editingToDoIndex.value!,
+          newToDo: newToDo,
+        ));
+      }
+
+      // Reset fields
+      steps.value = [];
+      toDoTitleController.clear();
+      stepTitleController.clear();
+    }
+
     return Scaffold(
       appBar: TLAppBar(
         context: context,
         pageTitle: "ToDo",
-        leadingButtonOnPressed: () async {
-          if (EditingTodo.toDoTitleInputController?.text.isEmpty ?? true) {
-            // 元のページに戻る
+        leadingIcon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        leadingButtonOnPressed: () {
+          if (toDoTitleController.text.isEmpty) {
             Navigator.pop(context);
           } else {
             showDialog(
-                context: context,
-                builder: (context) => TLYesNoDialog(
-                    title: "本当に戻りますか？",
-                    message: "ToDoは + から保存できます",
-                    yesAction: () {
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                    }));
+              context: context,
+              builder: (_) => TLYesNoDialog(
+                title: "本当に戻りますか？",
+                message: "ToDoは + から保存できます",
+                yesAction: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+              ),
+            );
           }
         },
-        leadingIcon: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.white,
-        ),
-        trailingButtonOnPressed: null,
         trailingIcon: null,
+        trailingButtonOnPressed: null,
       ),
       body: Stack(
         children: [
-          // 背景色
           Container(
-              decoration: BoxDecoration(color: tlThemeData.backgroundColor),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height),
+            decoration: BoxDecoration(color: tlThemeData.backgroundColor),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+          ),
           ListView(
             children: [
               const SizedBox(height: 10),
-              // 入力部分
-              GestureDetector(
-                onTap: () => FocusScope.of(context).unfocus(),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  child: const Column(children: [
-                    // ビッグカテゴリーを選択してsmallCategory選択のためのdropdownを更新する
-                    SelectBigCategoryDropDown(),
+              Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                child: Column(
+                  children: [
+                    SelectBigCategoryDropdown(
+                      bigCategoryID: bigCategoryID.value,
+                      onSelected: (newBigID) {
+                        smallCategoryID.value = null;
+                        bigCategoryID.value = newBigID;
+                      },
+                    ),
+                    SelectSmallCategoryDropdown(
+                      bigCategoryID: bigCategoryID.value,
+                      smallCategoryID: smallCategoryID.value,
+                      onSelected: (newSmallID) {
+                        smallCategoryID.value =
+                            newSmallID == noneID ? null : newSmallID;
+                      },
+                    ),
+                    SelectTodayOrWheneverButton(
+                      ifInToday: isToday.value,
+                      onChanged: (bool newValue) => isToday.value = newValue,
+                    ),
+                    // The named parameter 'isEditing' is required, but there's no corresponding argument.
+                    ToDoTitleInputField(
+                      isEditing: editingToDoIndex.value != null,
+                      toDoTitleController: toDoTitleController,
+                      onCompleteEditing: completeEditing,
+                    ),
+                    AddedStepsColumn(
+                      steps: steps.value,
+                      onEditStep: (index) {
+                        stepTitleController.text = steps.value[index].title;
+                      },
+                      onRemoveStep: (index) {
+                        steps.value = List<TLStep>.from(steps.value)
+                          ..removeAt(index);
+                      },
+                    ),
 
-                    // スモールカテゴリーを選択する
-                    SelectSmallCategoryDropDown(),
-
-                    // 今日かいつでもか選択する
-                    SelectTodayOrWheneverButton(),
-
-                    // ToDoのタイトルを入力するTextFormField
-                    ToDoTitleInputField(),
-
-                    // 入力したstepsを表示
-                    AddedStepsColumn(),
-
-                    // steps入力のtextFormField
-                    StepTitleInputField(),
-
-                    SizedBox(height: 45),
-                  ]),
+                    StepTitleInputField(
+                      stepTitleController: stepTitleController,
+                      onAddOrEditStep: (title) => addToStepList(title),
+                    ),
+                    const SizedBox(height: 45),
+                  ],
                 ),
               ),
-              // 広告
-              if (_bannerAd != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: SizedBox(
-                      width: _bannerAd!.size.width.toDouble(),
-                      height: _bannerAd!.size.height.toDouble(),
-                      child: AdWidget(ad: _bannerAd!),
-                    ),
-                  ),
-                ),
-              // already exist
+              if (bannerAd.value != null) AdWidget(ad: bannerAd.value!),
               AlreadyExist(
-                  ifInToday: editingToDo.ifInToday,
-                  bigCategoryID: editingToDo.bigCatgoeyID,
-                  smallCategoryID: editingToDo.smallCategoryID,
+                  ifInToday: isToday.value,
+                  bigCategoryID: bigCategoryID.value,
+                  smallCategoryID: smallCategoryID.value,
                   tapToEditAction: () async {
                     Navigator.pop(context);
                   }),
-              const SizedBox(
-                height: 250,
-              ),
+              const SizedBox(height: 250),
             ],
-          )
+          ),
         ],
       ),
     );

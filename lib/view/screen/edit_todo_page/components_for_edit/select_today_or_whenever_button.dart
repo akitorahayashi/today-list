@@ -1,54 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import '../../../../model/design/tl_theme/tl_theme.dart';
-import '../../../../redux/store/editing_provider/editing_todo_provider.dart';
 
-class SelectTodayOrWheneverButton extends ConsumerStatefulWidget {
-  const SelectTodayOrWheneverButton({super.key});
+class SelectTodayOrWheneverButton extends StatelessWidget {
+  final bool ifInToday;
+  final ValueChanged<bool> onChanged;
 
-  @override
-  ConsumerState<SelectTodayOrWheneverButton> createState() =>
-      _SelectTodayOrWheneverButtonState();
-}
+  const SelectTodayOrWheneverButton({
+    super.key,
+    required this.ifInToday,
+    required this.onChanged,
+  });
 
-class _SelectTodayOrWheneverButtonState
-    extends ConsumerState<SelectTodayOrWheneverButton> {
   @override
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    // provider
-    final EditingTodo editingTodo = ref.watch(editingToDoProvider);
-    // notifier
-    final EditingToDoNotifier editingToDoNotifier =
-        ref.watch(editingToDoProvider.notifier);
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: ToggleButtons(
-        // 大きさ
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           minHeight: 35,
-          minWidth: (MediaQuery.of(context).size.width - 50) / 2,
+          minWidth: 140,
         ),
-        // 背景色
-        fillColor: tlThemeData.toggleButtonsBackgroundColor,
-        // 文字色
+        fillColor: tlThemeData.accentColor.withOpacity(0.1),
         selectedColor: tlThemeData.accentColor,
-        color: tlThemeData.accentColor,
-        // splashColor
-        splashColor: tlThemeData.toggleButtonsBackgroundSplashColor,
-        // isSelected
-        isSelected: [
-          editingTodo.ifInToday,
-          !editingTodo.ifInToday,
-        ],
+        color: Colors.black54,
+        isSelected: [ifInToday, !ifInToday],
         onPressed: (int index) {
-          editingToDoNotifier.updateEditingTodo(
-            ifInToday: index == 0,
-            smallCategoryID: editingTodo.smallCategoryID,
-            indexOfEditingToDo: editingTodo.indexOfEditingToDo,
-            indexOfEditingStep: editingTodo.indexOfEditingStep,
-          );
+          onChanged(index == 0); // true なら今日, falseならいつでも
         },
         children: const [
           Text("今日"),

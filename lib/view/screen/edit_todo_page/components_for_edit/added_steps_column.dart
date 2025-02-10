@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/model/todo/tl_step.dart';
-import '../../../component/todo_card/tl_checkbox.dart';
-import '../../../../redux/store/editing_provider/editing_todo_provider.dart';
+import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 
-class AddedStepsColumn extends ConsumerWidget {
-  const AddedStepsColumn({super.key});
+class AddedStepsColumn extends StatelessWidget {
+  final List<TLStep> steps;
+  final Function(int) onEditStep;
+  final Function(int) onRemoveStep;
+
+  const AddedStepsColumn({
+    super.key,
+    required this.steps,
+    required this.onEditStep,
+    required this.onRemoveStep,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // provider
-    final EditingTodo editingToDo = ref.watch(editingToDoProvider);
-    // notifier
-    final EditingToDoNotifier editingToDoNotifier =
-        ref.read(editingToDoProvider.notifier);
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Column(
-        children: List<Widget>.generate(editingToDo.steps.length, (i) {
+        children: List.generate(steps.length, (i) {
+          final step = steps[i];
           return Padding(
-            key: ValueKey(editingToDo.steps[i].id),
+            key: ValueKey(step.id),
             padding: const EdgeInsets.only(left: 37.0, top: 1),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                // 見た目だけのチェックボックス
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0),
                   child: TLCheckBox(
@@ -33,42 +36,25 @@ class AddedStepsColumn extends ConsumerWidget {
                     iconSize: 23,
                   ),
                 ),
+                // Step タイトル
                 Expanded(
                   child: GestureDetector(
-                      onTap: () {
-                        EditingTodo.stepTitleInputController?.text =
-                            editingToDo.steps[i].title;
-                        editingToDoNotifier.updateEditingTodo(
-                            indexOfEditingStep: i);
-                        TLVibrationService.vibrate();
-                      },
-                      child: Text(
-                        editingToDo.steps[i].title,
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black.withOpacity(0.55)),
-                      )),
+                    onTap: () => onEditStep(i),
+                    child: Text(
+                      step.title,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black.withOpacity(0.55),
+                      ),
+                    ),
+                  ),
                 ),
-                // step を消す
+                // Step削除ボタン
                 Padding(
                   padding: const EdgeInsets.only(right: 16.0),
                   child: TextButton(
-                    onPressed: () {
-                      final copiedSteps = List<TLStep>.from(editingToDo.steps);
-                      copiedSteps.removeAt(i);
-                      editingToDoNotifier.updateEditingTodo(
-                        steps: copiedSteps,
-                        smallCategoryID: editingToDo.smallCategoryID,
-                        indexOfEditingToDo: editingToDo.indexOfEditingToDo,
-                        indexOfEditingStep: null,
-                      );
-                      editingToDo.indexOfEditingStep = null;
-                      TLVibrationService.vibrate();
-                    },
-                    style: TextButton.styleFrom(
-                      splashFactory: NoSplash.splashFactory,
-                    ),
+                    onPressed: () => onRemoveStep(i),
                     child: Padding(
                       padding: const EdgeInsets.only(right: 9.0),
                       child: Icon(

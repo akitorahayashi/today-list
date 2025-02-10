@@ -16,67 +16,77 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TLToDoAction {
+  String get workspaceID =>
+      throw _privateConstructorUsedError; // どのWorkspaceを更新するか
+  String get categoryID => throw _privateConstructorUsedError; // どのカテゴリーに紐付けるか
+  bool get ifInToday => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)
-        startEditingToDo,
-    required TResult Function(String newTitle) updateToDoTitle,
-    required TResult Function(String stepTitle) addStep,
-    required TResult Function() completeEditing,
-    required TResult Function() resetEditingToDo,
+    required TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)
+        addToDo,
+    required TResult Function(String workspaceID, String categoryID,
+            bool ifInToday, int index, TLToDo newToDo)
+        updateToDo,
+    required TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)
+        removeToDo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult? Function(String newTitle)? updateToDoTitle,
-    TResult? Function(String stepTitle)? addStep,
-    TResult? Function()? completeEditing,
-    TResult? Function()? resetEditingToDo,
+    TResult? Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
+        addToDo,
+    TResult? Function(String workspaceID, String categoryID, bool ifInToday,
+            int index, TLToDo newToDo)?
+        updateToDo,
+    TResult? Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)?
+        removeToDo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult Function(String newTitle)? updateToDoTitle,
-    TResult Function(String stepTitle)? addStep,
-    TResult Function()? completeEditing,
-    TResult Function()? resetEditingToDo,
+    TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
+        addToDo,
+    TResult Function(String workspaceID, String categoryID, bool ifInToday,
+            int index, TLToDo newToDo)?
+        updateToDo,
+    TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)?
+        removeToDo,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(StartEditingToDoAction value) startEditingToDo,
-    required TResult Function(UpdateToDoTitleAction value) updateToDoTitle,
-    required TResult Function(AddStepAction value) addStep,
-    required TResult Function(CompleteEditingToDoAction value) completeEditing,
-    required TResult Function(ResetEditingToDoAction value) resetEditingToDo,
+    required TResult Function(_AddToDo value) addToDo,
+    required TResult Function(_UpdateToDo value) updateToDo,
+    required TResult Function(_RemoveToDo value) removeToDo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult? Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult? Function(AddStepAction value)? addStep,
-    TResult? Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult? Function(ResetEditingToDoAction value)? resetEditingToDo,
+    TResult? Function(_AddToDo value)? addToDo,
+    TResult? Function(_UpdateToDo value)? updateToDo,
+    TResult? Function(_RemoveToDo value)? removeToDo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult Function(AddStepAction value)? addStep,
-    TResult Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult Function(ResetEditingToDoAction value)? resetEditingToDo,
+    TResult Function(_AddToDo value)? addToDo,
+    TResult Function(_UpdateToDo value)? updateToDo,
+    TResult Function(_RemoveToDo value)? removeToDo,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $TLToDoActionCopyWith<TLToDoAction> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -85,6 +95,8 @@ abstract class $TLToDoActionCopyWith<$Res> {
   factory $TLToDoActionCopyWith(
           TLToDoAction value, $Res Function(TLToDoAction) then) =
       _$TLToDoActionCopyWithImpl<$Res, TLToDoAction>;
+  @useResult
+  $Res call({String workspaceID, String categoryID, bool ifInToday});
 }
 
 /// @nodoc
@@ -99,158 +111,193 @@ class _$TLToDoActionCopyWithImpl<$Res, $Val extends TLToDoAction>
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-abstract class _$$StartEditingToDoActionImplCopyWith<$Res> {
-  factory _$$StartEditingToDoActionImplCopyWith(
-          _$StartEditingToDoActionImpl value,
-          $Res Function(_$StartEditingToDoActionImpl) then) =
-      __$$StartEditingToDoActionImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call(
-      {String categoryId,
-      String? smallCategoryId,
-      int indexOfEditingToDo,
-      bool ifInToday});
-}
-
-/// @nodoc
-class __$$StartEditingToDoActionImplCopyWithImpl<$Res>
-    extends _$TLToDoActionCopyWithImpl<$Res, _$StartEditingToDoActionImpl>
-    implements _$$StartEditingToDoActionImplCopyWith<$Res> {
-  __$$StartEditingToDoActionImplCopyWithImpl(
-      _$StartEditingToDoActionImpl _value,
-      $Res Function(_$StartEditingToDoActionImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of TLToDoAction
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categoryId = null,
-    Object? smallCategoryId = freezed,
-    Object? indexOfEditingToDo = null,
+    Object? workspaceID = null,
+    Object? categoryID = null,
     Object? ifInToday = null,
   }) {
-    return _then(_$StartEditingToDoActionImpl(
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
+    return _then(_value.copyWith(
+      workspaceID: null == workspaceID
+          ? _value.workspaceID
+          : workspaceID // ignore: cast_nullable_to_non_nullable
               as String,
-      smallCategoryId: freezed == smallCategoryId
-          ? _value.smallCategoryId
-          : smallCategoryId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      indexOfEditingToDo: null == indexOfEditingToDo
-          ? _value.indexOfEditingToDo
-          : indexOfEditingToDo // ignore: cast_nullable_to_non_nullable
-              as int,
+      categoryID: null == categoryID
+          ? _value.categoryID
+          : categoryID // ignore: cast_nullable_to_non_nullable
+              as String,
       ifInToday: null == ifInToday
           ? _value.ifInToday
           : ifInToday // ignore: cast_nullable_to_non_nullable
               as bool,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$AddToDoImplCopyWith<$Res>
+    implements $TLToDoActionCopyWith<$Res> {
+  factory _$$AddToDoImplCopyWith(
+          _$AddToDoImpl value, $Res Function(_$AddToDoImpl) then) =
+      __$$AddToDoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String workspaceID, String categoryID, bool ifInToday, TLToDo todo});
+
+  $TLToDoCopyWith<$Res> get todo;
+}
+
+/// @nodoc
+class __$$AddToDoImplCopyWithImpl<$Res>
+    extends _$TLToDoActionCopyWithImpl<$Res, _$AddToDoImpl>
+    implements _$$AddToDoImplCopyWith<$Res> {
+  __$$AddToDoImplCopyWithImpl(
+      _$AddToDoImpl _value, $Res Function(_$AddToDoImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? workspaceID = null,
+    Object? categoryID = null,
+    Object? ifInToday = null,
+    Object? todo = null,
+  }) {
+    return _then(_$AddToDoImpl(
+      workspaceID: null == workspaceID
+          ? _value.workspaceID
+          : workspaceID // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryID: null == categoryID
+          ? _value.categoryID
+          : categoryID // ignore: cast_nullable_to_non_nullable
+              as String,
+      ifInToday: null == ifInToday
+          ? _value.ifInToday
+          : ifInToday // ignore: cast_nullable_to_non_nullable
+              as bool,
+      todo: null == todo
+          ? _value.todo
+          : todo // ignore: cast_nullable_to_non_nullable
+              as TLToDo,
     ));
+  }
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLToDoCopyWith<$Res> get todo {
+    return $TLToDoCopyWith<$Res>(_value.todo, (value) {
+      return _then(_value.copyWith(todo: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _$StartEditingToDoActionImpl implements StartEditingToDoAction {
-  const _$StartEditingToDoActionImpl(
-      {required this.categoryId,
-      required this.smallCategoryId,
-      required this.indexOfEditingToDo,
-      required this.ifInToday});
+class _$AddToDoImpl implements _AddToDo {
+  const _$AddToDoImpl(
+      {required this.workspaceID,
+      required this.categoryID,
+      required this.ifInToday,
+      required this.todo});
 
   @override
-  final String categoryId;
+  final String workspaceID;
+// どのWorkspaceを更新するか
   @override
-  final String? smallCategoryId;
-  @override
-  final int indexOfEditingToDo;
+  final String categoryID;
+// どのカテゴリーに紐付けるか
   @override
   final bool ifInToday;
+// 今日リストかいつでもリストか
+  @override
+  final TLToDo todo;
 
   @override
   String toString() {
-    return 'TLToDoAction.startEditingToDo(categoryId: $categoryId, smallCategoryId: $smallCategoryId, indexOfEditingToDo: $indexOfEditingToDo, ifInToday: $ifInToday)';
+    return 'TLToDoAction.addToDo(workspaceID: $workspaceID, categoryID: $categoryID, ifInToday: $ifInToday, todo: $todo)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$StartEditingToDoActionImpl &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId) &&
-            (identical(other.smallCategoryId, smallCategoryId) ||
-                other.smallCategoryId == smallCategoryId) &&
-            (identical(other.indexOfEditingToDo, indexOfEditingToDo) ||
-                other.indexOfEditingToDo == indexOfEditingToDo) &&
+            other is _$AddToDoImpl &&
+            (identical(other.workspaceID, workspaceID) ||
+                other.workspaceID == workspaceID) &&
+            (identical(other.categoryID, categoryID) ||
+                other.categoryID == categoryID) &&
             (identical(other.ifInToday, ifInToday) ||
-                other.ifInToday == ifInToday));
+                other.ifInToday == ifInToday) &&
+            (identical(other.todo, todo) || other.todo == todo));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, categoryId, smallCategoryId, indexOfEditingToDo, ifInToday);
+  int get hashCode =>
+      Object.hash(runtimeType, workspaceID, categoryID, ifInToday, todo);
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$StartEditingToDoActionImplCopyWith<_$StartEditingToDoActionImpl>
-      get copyWith => __$$StartEditingToDoActionImplCopyWithImpl<
-          _$StartEditingToDoActionImpl>(this, _$identity);
+  _$$AddToDoImplCopyWith<_$AddToDoImpl> get copyWith =>
+      __$$AddToDoImplCopyWithImpl<_$AddToDoImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)
-        startEditingToDo,
-    required TResult Function(String newTitle) updateToDoTitle,
-    required TResult Function(String stepTitle) addStep,
-    required TResult Function() completeEditing,
-    required TResult Function() resetEditingToDo,
+    required TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)
+        addToDo,
+    required TResult Function(String workspaceID, String categoryID,
+            bool ifInToday, int index, TLToDo newToDo)
+        updateToDo,
+    required TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)
+        removeToDo,
   }) {
-    return startEditingToDo(
-        categoryId, smallCategoryId, indexOfEditingToDo, ifInToday);
+    return addToDo(workspaceID, categoryID, ifInToday, todo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult? Function(String newTitle)? updateToDoTitle,
-    TResult? Function(String stepTitle)? addStep,
-    TResult? Function()? completeEditing,
-    TResult? Function()? resetEditingToDo,
+    TResult? Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
+        addToDo,
+    TResult? Function(String workspaceID, String categoryID, bool ifInToday,
+            int index, TLToDo newToDo)?
+        updateToDo,
+    TResult? Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)?
+        removeToDo,
   }) {
-    return startEditingToDo?.call(
-        categoryId, smallCategoryId, indexOfEditingToDo, ifInToday);
+    return addToDo?.call(workspaceID, categoryID, ifInToday, todo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult Function(String newTitle)? updateToDoTitle,
-    TResult Function(String stepTitle)? addStep,
-    TResult Function()? completeEditing,
-    TResult Function()? resetEditingToDo,
+    TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
+        addToDo,
+    TResult Function(String workspaceID, String categoryID, bool ifInToday,
+            int index, TLToDo newToDo)?
+        updateToDo,
+    TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)?
+        removeToDo,
     required TResult orElse(),
   }) {
-    if (startEditingToDo != null) {
-      return startEditingToDo(
-          categoryId, smallCategoryId, indexOfEditingToDo, ifInToday);
+    if (addToDo != null) {
+      return addToDo(workspaceID, categoryID, ifInToday, todo);
     }
     return orElse();
   }
@@ -258,480 +305,235 @@ class _$StartEditingToDoActionImpl implements StartEditingToDoAction {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(StartEditingToDoAction value) startEditingToDo,
-    required TResult Function(UpdateToDoTitleAction value) updateToDoTitle,
-    required TResult Function(AddStepAction value) addStep,
-    required TResult Function(CompleteEditingToDoAction value) completeEditing,
-    required TResult Function(ResetEditingToDoAction value) resetEditingToDo,
+    required TResult Function(_AddToDo value) addToDo,
+    required TResult Function(_UpdateToDo value) updateToDo,
+    required TResult Function(_RemoveToDo value) removeToDo,
   }) {
-    return startEditingToDo(this);
+    return addToDo(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult? Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult? Function(AddStepAction value)? addStep,
-    TResult? Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult? Function(ResetEditingToDoAction value)? resetEditingToDo,
+    TResult? Function(_AddToDo value)? addToDo,
+    TResult? Function(_UpdateToDo value)? updateToDo,
+    TResult? Function(_RemoveToDo value)? removeToDo,
   }) {
-    return startEditingToDo?.call(this);
+    return addToDo?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult Function(AddStepAction value)? addStep,
-    TResult Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult Function(ResetEditingToDoAction value)? resetEditingToDo,
+    TResult Function(_AddToDo value)? addToDo,
+    TResult Function(_UpdateToDo value)? updateToDo,
+    TResult Function(_RemoveToDo value)? removeToDo,
     required TResult orElse(),
   }) {
-    if (startEditingToDo != null) {
-      return startEditingToDo(this);
+    if (addToDo != null) {
+      return addToDo(this);
     }
     return orElse();
   }
 }
 
-abstract class StartEditingToDoAction implements TLToDoAction {
-  const factory StartEditingToDoAction(
-      {required final String categoryId,
-      required final String? smallCategoryId,
-      required final int indexOfEditingToDo,
-      required final bool ifInToday}) = _$StartEditingToDoActionImpl;
+abstract class _AddToDo implements TLToDoAction {
+  const factory _AddToDo(
+      {required final String workspaceID,
+      required final String categoryID,
+      required final bool ifInToday,
+      required final TLToDo todo}) = _$AddToDoImpl;
 
-  String get categoryId;
-  String? get smallCategoryId;
-  int get indexOfEditingToDo;
-  bool get ifInToday;
+  @override
+  String get workspaceID; // どのWorkspaceを更新するか
+  @override
+  String get categoryID; // どのカテゴリーに紐付けるか
+  @override
+  bool get ifInToday; // 今日リストかいつでもリストか
+  TLToDo get todo;
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$StartEditingToDoActionImplCopyWith<_$StartEditingToDoActionImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UpdateToDoTitleActionImplCopyWith<$Res> {
-  factory _$$UpdateToDoTitleActionImplCopyWith(
-          _$UpdateToDoTitleActionImpl value,
-          $Res Function(_$UpdateToDoTitleActionImpl) then) =
-      __$$UpdateToDoTitleActionImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String newTitle});
-}
-
-/// @nodoc
-class __$$UpdateToDoTitleActionImplCopyWithImpl<$Res>
-    extends _$TLToDoActionCopyWithImpl<$Res, _$UpdateToDoTitleActionImpl>
-    implements _$$UpdateToDoTitleActionImplCopyWith<$Res> {
-  __$$UpdateToDoTitleActionImplCopyWithImpl(_$UpdateToDoTitleActionImpl _value,
-      $Res Function(_$UpdateToDoTitleActionImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of TLToDoAction
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? newTitle = null,
-  }) {
-    return _then(_$UpdateToDoTitleActionImpl(
-      newTitle: null == newTitle
-          ? _value.newTitle
-          : newTitle // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$UpdateToDoTitleActionImpl implements UpdateToDoTitleAction {
-  const _$UpdateToDoTitleActionImpl({required this.newTitle});
-
-  @override
-  final String newTitle;
-
-  @override
-  String toString() {
-    return 'TLToDoAction.updateToDoTitle(newTitle: $newTitle)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UpdateToDoTitleActionImpl &&
-            (identical(other.newTitle, newTitle) ||
-                other.newTitle == newTitle));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, newTitle);
-
-  /// Create a copy of TLToDoAction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UpdateToDoTitleActionImplCopyWith<_$UpdateToDoTitleActionImpl>
-      get copyWith => __$$UpdateToDoTitleActionImplCopyWithImpl<
-          _$UpdateToDoTitleActionImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)
-        startEditingToDo,
-    required TResult Function(String newTitle) updateToDoTitle,
-    required TResult Function(String stepTitle) addStep,
-    required TResult Function() completeEditing,
-    required TResult Function() resetEditingToDo,
-  }) {
-    return updateToDoTitle(newTitle);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult? Function(String newTitle)? updateToDoTitle,
-    TResult? Function(String stepTitle)? addStep,
-    TResult? Function()? completeEditing,
-    TResult? Function()? resetEditingToDo,
-  }) {
-    return updateToDoTitle?.call(newTitle);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult Function(String newTitle)? updateToDoTitle,
-    TResult Function(String stepTitle)? addStep,
-    TResult Function()? completeEditing,
-    TResult Function()? resetEditingToDo,
-    required TResult orElse(),
-  }) {
-    if (updateToDoTitle != null) {
-      return updateToDoTitle(newTitle);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(StartEditingToDoAction value) startEditingToDo,
-    required TResult Function(UpdateToDoTitleAction value) updateToDoTitle,
-    required TResult Function(AddStepAction value) addStep,
-    required TResult Function(CompleteEditingToDoAction value) completeEditing,
-    required TResult Function(ResetEditingToDoAction value) resetEditingToDo,
-  }) {
-    return updateToDoTitle(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult? Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult? Function(AddStepAction value)? addStep,
-    TResult? Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult? Function(ResetEditingToDoAction value)? resetEditingToDo,
-  }) {
-    return updateToDoTitle?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult Function(AddStepAction value)? addStep,
-    TResult Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult Function(ResetEditingToDoAction value)? resetEditingToDo,
-    required TResult orElse(),
-  }) {
-    if (updateToDoTitle != null) {
-      return updateToDoTitle(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class UpdateToDoTitleAction implements TLToDoAction {
-  const factory UpdateToDoTitleAction({required final String newTitle}) =
-      _$UpdateToDoTitleActionImpl;
-
-  String get newTitle;
-
-  /// Create a copy of TLToDoAction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UpdateToDoTitleActionImplCopyWith<_$UpdateToDoTitleActionImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AddStepActionImplCopyWith<$Res> {
-  factory _$$AddStepActionImplCopyWith(
-          _$AddStepActionImpl value, $Res Function(_$AddStepActionImpl) then) =
-      __$$AddStepActionImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String stepTitle});
-}
-
-/// @nodoc
-class __$$AddStepActionImplCopyWithImpl<$Res>
-    extends _$TLToDoActionCopyWithImpl<$Res, _$AddStepActionImpl>
-    implements _$$AddStepActionImplCopyWith<$Res> {
-  __$$AddStepActionImplCopyWithImpl(
-      _$AddStepActionImpl _value, $Res Function(_$AddStepActionImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of TLToDoAction
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? stepTitle = null,
-  }) {
-    return _then(_$AddStepActionImpl(
-      stepTitle: null == stepTitle
-          ? _value.stepTitle
-          : stepTitle // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AddStepActionImpl implements AddStepAction {
-  const _$AddStepActionImpl({required this.stepTitle});
-
-  @override
-  final String stepTitle;
-
-  @override
-  String toString() {
-    return 'TLToDoAction.addStep(stepTitle: $stepTitle)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddStepActionImpl &&
-            (identical(other.stepTitle, stepTitle) ||
-                other.stepTitle == stepTitle));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, stepTitle);
-
-  /// Create a copy of TLToDoAction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AddStepActionImplCopyWith<_$AddStepActionImpl> get copyWith =>
-      __$$AddStepActionImplCopyWithImpl<_$AddStepActionImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)
-        startEditingToDo,
-    required TResult Function(String newTitle) updateToDoTitle,
-    required TResult Function(String stepTitle) addStep,
-    required TResult Function() completeEditing,
-    required TResult Function() resetEditingToDo,
-  }) {
-    return addStep(stepTitle);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult? Function(String newTitle)? updateToDoTitle,
-    TResult? Function(String stepTitle)? addStep,
-    TResult? Function()? completeEditing,
-    TResult? Function()? resetEditingToDo,
-  }) {
-    return addStep?.call(stepTitle);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult Function(String newTitle)? updateToDoTitle,
-    TResult Function(String stepTitle)? addStep,
-    TResult Function()? completeEditing,
-    TResult Function()? resetEditingToDo,
-    required TResult orElse(),
-  }) {
-    if (addStep != null) {
-      return addStep(stepTitle);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(StartEditingToDoAction value) startEditingToDo,
-    required TResult Function(UpdateToDoTitleAction value) updateToDoTitle,
-    required TResult Function(AddStepAction value) addStep,
-    required TResult Function(CompleteEditingToDoAction value) completeEditing,
-    required TResult Function(ResetEditingToDoAction value) resetEditingToDo,
-  }) {
-    return addStep(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult? Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult? Function(AddStepAction value)? addStep,
-    TResult? Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult? Function(ResetEditingToDoAction value)? resetEditingToDo,
-  }) {
-    return addStep?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult Function(AddStepAction value)? addStep,
-    TResult Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult Function(ResetEditingToDoAction value)? resetEditingToDo,
-    required TResult orElse(),
-  }) {
-    if (addStep != null) {
-      return addStep(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AddStepAction implements TLToDoAction {
-  const factory AddStepAction({required final String stepTitle}) =
-      _$AddStepActionImpl;
-
-  String get stepTitle;
-
-  /// Create a copy of TLToDoAction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AddStepActionImplCopyWith<_$AddStepActionImpl> get copyWith =>
+  _$$AddToDoImplCopyWith<_$AddToDoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$CompleteEditingToDoActionImplCopyWith<$Res> {
-  factory _$$CompleteEditingToDoActionImplCopyWith(
-          _$CompleteEditingToDoActionImpl value,
-          $Res Function(_$CompleteEditingToDoActionImpl) then) =
-      __$$CompleteEditingToDoActionImplCopyWithImpl<$Res>;
+abstract class _$$UpdateToDoImplCopyWith<$Res>
+    implements $TLToDoActionCopyWith<$Res> {
+  factory _$$UpdateToDoImplCopyWith(
+          _$UpdateToDoImpl value, $Res Function(_$UpdateToDoImpl) then) =
+      __$$UpdateToDoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String workspaceID,
+      String categoryID,
+      bool ifInToday,
+      int index,
+      TLToDo newToDo});
+
+  $TLToDoCopyWith<$Res> get newToDo;
 }
 
 /// @nodoc
-class __$$CompleteEditingToDoActionImplCopyWithImpl<$Res>
-    extends _$TLToDoActionCopyWithImpl<$Res, _$CompleteEditingToDoActionImpl>
-    implements _$$CompleteEditingToDoActionImplCopyWith<$Res> {
-  __$$CompleteEditingToDoActionImplCopyWithImpl(
-      _$CompleteEditingToDoActionImpl _value,
-      $Res Function(_$CompleteEditingToDoActionImpl) _then)
+class __$$UpdateToDoImplCopyWithImpl<$Res>
+    extends _$TLToDoActionCopyWithImpl<$Res, _$UpdateToDoImpl>
+    implements _$$UpdateToDoImplCopyWith<$Res> {
+  __$$UpdateToDoImplCopyWithImpl(
+      _$UpdateToDoImpl _value, $Res Function(_$UpdateToDoImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? workspaceID = null,
+    Object? categoryID = null,
+    Object? ifInToday = null,
+    Object? index = null,
+    Object? newToDo = null,
+  }) {
+    return _then(_$UpdateToDoImpl(
+      workspaceID: null == workspaceID
+          ? _value.workspaceID
+          : workspaceID // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryID: null == categoryID
+          ? _value.categoryID
+          : categoryID // ignore: cast_nullable_to_non_nullable
+              as String,
+      ifInToday: null == ifInToday
+          ? _value.ifInToday
+          : ifInToday // ignore: cast_nullable_to_non_nullable
+              as bool,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+      newToDo: null == newToDo
+          ? _value.newToDo
+          : newToDo // ignore: cast_nullable_to_non_nullable
+              as TLToDo,
+    ));
+  }
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLToDoCopyWith<$Res> get newToDo {
+    return $TLToDoCopyWith<$Res>(_value.newToDo, (value) {
+      return _then(_value.copyWith(newToDo: value));
+    });
+  }
 }
 
 /// @nodoc
 
-class _$CompleteEditingToDoActionImpl implements CompleteEditingToDoAction {
-  const _$CompleteEditingToDoActionImpl();
+class _$UpdateToDoImpl implements _UpdateToDo {
+  const _$UpdateToDoImpl(
+      {required this.workspaceID,
+      required this.categoryID,
+      required this.ifInToday,
+      required this.index,
+      required this.newToDo});
+
+  @override
+  final String workspaceID;
+  @override
+  final String categoryID;
+  @override
+  final bool ifInToday;
+  @override
+  final int index;
+// どのToDo(何番目)を更新するか
+  @override
+  final TLToDo newToDo;
 
   @override
   String toString() {
-    return 'TLToDoAction.completeEditing()';
+    return 'TLToDoAction.updateToDo(workspaceID: $workspaceID, categoryID: $categoryID, ifInToday: $ifInToday, index: $index, newToDo: $newToDo)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CompleteEditingToDoActionImpl);
+            other is _$UpdateToDoImpl &&
+            (identical(other.workspaceID, workspaceID) ||
+                other.workspaceID == workspaceID) &&
+            (identical(other.categoryID, categoryID) ||
+                other.categoryID == categoryID) &&
+            (identical(other.ifInToday, ifInToday) ||
+                other.ifInToday == ifInToday) &&
+            (identical(other.index, index) || other.index == index) &&
+            (identical(other.newToDo, newToDo) || other.newToDo == newToDo));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType, workspaceID, categoryID, ifInToday, index, newToDo);
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateToDoImplCopyWith<_$UpdateToDoImpl> get copyWith =>
+      __$$UpdateToDoImplCopyWithImpl<_$UpdateToDoImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)
-        startEditingToDo,
-    required TResult Function(String newTitle) updateToDoTitle,
-    required TResult Function(String stepTitle) addStep,
-    required TResult Function() completeEditing,
-    required TResult Function() resetEditingToDo,
+    required TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)
+        addToDo,
+    required TResult Function(String workspaceID, String categoryID,
+            bool ifInToday, int index, TLToDo newToDo)
+        updateToDo,
+    required TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)
+        removeToDo,
   }) {
-    return completeEditing();
+    return updateToDo(workspaceID, categoryID, ifInToday, index, newToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult? Function(String newTitle)? updateToDoTitle,
-    TResult? Function(String stepTitle)? addStep,
-    TResult? Function()? completeEditing,
-    TResult? Function()? resetEditingToDo,
+    TResult? Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
+        addToDo,
+    TResult? Function(String workspaceID, String categoryID, bool ifInToday,
+            int index, TLToDo newToDo)?
+        updateToDo,
+    TResult? Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)?
+        removeToDo,
   }) {
-    return completeEditing?.call();
+    return updateToDo?.call(workspaceID, categoryID, ifInToday, index, newToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult Function(String newTitle)? updateToDoTitle,
-    TResult Function(String stepTitle)? addStep,
-    TResult Function()? completeEditing,
-    TResult Function()? resetEditingToDo,
+    TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
+        addToDo,
+    TResult Function(String workspaceID, String categoryID, bool ifInToday,
+            int index, TLToDo newToDo)?
+        updateToDo,
+    TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)?
+        removeToDo,
     required TResult orElse(),
   }) {
-    if (completeEditing != null) {
-      return completeEditing();
+    if (updateToDo != null) {
+      return updateToDo(workspaceID, categoryID, ifInToday, index, newToDo);
     }
     return orElse();
   }
@@ -739,131 +541,210 @@ class _$CompleteEditingToDoActionImpl implements CompleteEditingToDoAction {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(StartEditingToDoAction value) startEditingToDo,
-    required TResult Function(UpdateToDoTitleAction value) updateToDoTitle,
-    required TResult Function(AddStepAction value) addStep,
-    required TResult Function(CompleteEditingToDoAction value) completeEditing,
-    required TResult Function(ResetEditingToDoAction value) resetEditingToDo,
+    required TResult Function(_AddToDo value) addToDo,
+    required TResult Function(_UpdateToDo value) updateToDo,
+    required TResult Function(_RemoveToDo value) removeToDo,
   }) {
-    return completeEditing(this);
+    return updateToDo(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult? Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult? Function(AddStepAction value)? addStep,
-    TResult? Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult? Function(ResetEditingToDoAction value)? resetEditingToDo,
+    TResult? Function(_AddToDo value)? addToDo,
+    TResult? Function(_UpdateToDo value)? updateToDo,
+    TResult? Function(_RemoveToDo value)? removeToDo,
   }) {
-    return completeEditing?.call(this);
+    return updateToDo?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult Function(AddStepAction value)? addStep,
-    TResult Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult Function(ResetEditingToDoAction value)? resetEditingToDo,
+    TResult Function(_AddToDo value)? addToDo,
+    TResult Function(_UpdateToDo value)? updateToDo,
+    TResult Function(_RemoveToDo value)? removeToDo,
     required TResult orElse(),
   }) {
-    if (completeEditing != null) {
-      return completeEditing(this);
+    if (updateToDo != null) {
+      return updateToDo(this);
     }
     return orElse();
   }
 }
 
-abstract class CompleteEditingToDoAction implements TLToDoAction {
-  const factory CompleteEditingToDoAction() = _$CompleteEditingToDoActionImpl;
+abstract class _UpdateToDo implements TLToDoAction {
+  const factory _UpdateToDo(
+      {required final String workspaceID,
+      required final String categoryID,
+      required final bool ifInToday,
+      required final int index,
+      required final TLToDo newToDo}) = _$UpdateToDoImpl;
+
+  @override
+  String get workspaceID;
+  @override
+  String get categoryID;
+  @override
+  bool get ifInToday;
+  int get index; // どのToDo(何番目)を更新するか
+  TLToDo get newToDo;
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateToDoImplCopyWith<_$UpdateToDoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ResetEditingToDoActionImplCopyWith<$Res> {
-  factory _$$ResetEditingToDoActionImplCopyWith(
-          _$ResetEditingToDoActionImpl value,
-          $Res Function(_$ResetEditingToDoActionImpl) then) =
-      __$$ResetEditingToDoActionImplCopyWithImpl<$Res>;
+abstract class _$$RemoveToDoImplCopyWith<$Res>
+    implements $TLToDoActionCopyWith<$Res> {
+  factory _$$RemoveToDoImplCopyWith(
+          _$RemoveToDoImpl value, $Res Function(_$RemoveToDoImpl) then) =
+      __$$RemoveToDoImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String workspaceID, String categoryID, bool ifInToday, int index});
 }
 
 /// @nodoc
-class __$$ResetEditingToDoActionImplCopyWithImpl<$Res>
-    extends _$TLToDoActionCopyWithImpl<$Res, _$ResetEditingToDoActionImpl>
-    implements _$$ResetEditingToDoActionImplCopyWith<$Res> {
-  __$$ResetEditingToDoActionImplCopyWithImpl(
-      _$ResetEditingToDoActionImpl _value,
-      $Res Function(_$ResetEditingToDoActionImpl) _then)
+class __$$RemoveToDoImplCopyWithImpl<$Res>
+    extends _$TLToDoActionCopyWithImpl<$Res, _$RemoveToDoImpl>
+    implements _$$RemoveToDoImplCopyWith<$Res> {
+  __$$RemoveToDoImplCopyWithImpl(
+      _$RemoveToDoImpl _value, $Res Function(_$RemoveToDoImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? workspaceID = null,
+    Object? categoryID = null,
+    Object? ifInToday = null,
+    Object? index = null,
+  }) {
+    return _then(_$RemoveToDoImpl(
+      workspaceID: null == workspaceID
+          ? _value.workspaceID
+          : workspaceID // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryID: null == categoryID
+          ? _value.categoryID
+          : categoryID // ignore: cast_nullable_to_non_nullable
+              as String,
+      ifInToday: null == ifInToday
+          ? _value.ifInToday
+          : ifInToday // ignore: cast_nullable_to_non_nullable
+              as bool,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$ResetEditingToDoActionImpl implements ResetEditingToDoAction {
-  const _$ResetEditingToDoActionImpl();
+class _$RemoveToDoImpl implements _RemoveToDo {
+  const _$RemoveToDoImpl(
+      {required this.workspaceID,
+      required this.categoryID,
+      required this.ifInToday,
+      required this.index});
+
+  @override
+  final String workspaceID;
+  @override
+  final String categoryID;
+  @override
+  final bool ifInToday;
+  @override
+  final int index;
 
   @override
   String toString() {
-    return 'TLToDoAction.resetEditingToDo()';
+    return 'TLToDoAction.removeToDo(workspaceID: $workspaceID, categoryID: $categoryID, ifInToday: $ifInToday, index: $index)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ResetEditingToDoActionImpl);
+            other is _$RemoveToDoImpl &&
+            (identical(other.workspaceID, workspaceID) ||
+                other.workspaceID == workspaceID) &&
+            (identical(other.categoryID, categoryID) ||
+                other.categoryID == categoryID) &&
+            (identical(other.ifInToday, ifInToday) ||
+                other.ifInToday == ifInToday) &&
+            (identical(other.index, index) || other.index == index));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, workspaceID, categoryID, ifInToday, index);
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveToDoImplCopyWith<_$RemoveToDoImpl> get copyWith =>
+      __$$RemoveToDoImplCopyWithImpl<_$RemoveToDoImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)
-        startEditingToDo,
-    required TResult Function(String newTitle) updateToDoTitle,
-    required TResult Function(String stepTitle) addStep,
-    required TResult Function() completeEditing,
-    required TResult Function() resetEditingToDo,
+    required TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)
+        addToDo,
+    required TResult Function(String workspaceID, String categoryID,
+            bool ifInToday, int index, TLToDo newToDo)
+        updateToDo,
+    required TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)
+        removeToDo,
   }) {
-    return resetEditingToDo();
+    return removeToDo(workspaceID, categoryID, ifInToday, index);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult? Function(String newTitle)? updateToDoTitle,
-    TResult? Function(String stepTitle)? addStep,
-    TResult? Function()? completeEditing,
-    TResult? Function()? resetEditingToDo,
+    TResult? Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
+        addToDo,
+    TResult? Function(String workspaceID, String categoryID, bool ifInToday,
+            int index, TLToDo newToDo)?
+        updateToDo,
+    TResult? Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)?
+        removeToDo,
   }) {
-    return resetEditingToDo?.call();
+    return removeToDo?.call(workspaceID, categoryID, ifInToday, index);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String categoryId, String? smallCategoryId,
-            int indexOfEditingToDo, bool ifInToday)?
-        startEditingToDo,
-    TResult Function(String newTitle)? updateToDoTitle,
-    TResult Function(String stepTitle)? addStep,
-    TResult Function()? completeEditing,
-    TResult Function()? resetEditingToDo,
+    TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
+        addToDo,
+    TResult Function(String workspaceID, String categoryID, bool ifInToday,
+            int index, TLToDo newToDo)?
+        updateToDo,
+    TResult Function(
+            String workspaceID, String categoryID, bool ifInToday, int index)?
+        removeToDo,
     required TResult orElse(),
   }) {
-    if (resetEditingToDo != null) {
-      return resetEditingToDo();
+    if (removeToDo != null) {
+      return removeToDo(workspaceID, categoryID, ifInToday, index);
     }
     return orElse();
   }
@@ -871,44 +752,57 @@ class _$ResetEditingToDoActionImpl implements ResetEditingToDoAction {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(StartEditingToDoAction value) startEditingToDo,
-    required TResult Function(UpdateToDoTitleAction value) updateToDoTitle,
-    required TResult Function(AddStepAction value) addStep,
-    required TResult Function(CompleteEditingToDoAction value) completeEditing,
-    required TResult Function(ResetEditingToDoAction value) resetEditingToDo,
+    required TResult Function(_AddToDo value) addToDo,
+    required TResult Function(_UpdateToDo value) updateToDo,
+    required TResult Function(_RemoveToDo value) removeToDo,
   }) {
-    return resetEditingToDo(this);
+    return removeToDo(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult? Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult? Function(AddStepAction value)? addStep,
-    TResult? Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult? Function(ResetEditingToDoAction value)? resetEditingToDo,
+    TResult? Function(_AddToDo value)? addToDo,
+    TResult? Function(_UpdateToDo value)? updateToDo,
+    TResult? Function(_RemoveToDo value)? removeToDo,
   }) {
-    return resetEditingToDo?.call(this);
+    return removeToDo?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(StartEditingToDoAction value)? startEditingToDo,
-    TResult Function(UpdateToDoTitleAction value)? updateToDoTitle,
-    TResult Function(AddStepAction value)? addStep,
-    TResult Function(CompleteEditingToDoAction value)? completeEditing,
-    TResult Function(ResetEditingToDoAction value)? resetEditingToDo,
+    TResult Function(_AddToDo value)? addToDo,
+    TResult Function(_UpdateToDo value)? updateToDo,
+    TResult Function(_RemoveToDo value)? removeToDo,
     required TResult orElse(),
   }) {
-    if (resetEditingToDo != null) {
-      return resetEditingToDo(this);
+    if (removeToDo != null) {
+      return removeToDo(this);
     }
     return orElse();
   }
 }
 
-abstract class ResetEditingToDoAction implements TLToDoAction {
-  const factory ResetEditingToDoAction() = _$ResetEditingToDoActionImpl;
+abstract class _RemoveToDo implements TLToDoAction {
+  const factory _RemoveToDo(
+      {required final String workspaceID,
+      required final String categoryID,
+      required final bool ifInToday,
+      required final int index}) = _$RemoveToDoImpl;
+
+  @override
+  String get workspaceID;
+  @override
+  String get categoryID;
+  @override
+  bool get ifInToday;
+  int get index;
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RemoveToDoImplCopyWith<_$RemoveToDoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
