@@ -2,8 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_theme_action.dart';
+import 'package:today_list/redux/action/tl_todo_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/reducer/property/tl_theme_reducer.dart';
+import 'package:today_list/redux/reducer/property/tl_todo_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_workspace_reducer.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
@@ -77,6 +79,38 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
       updateWorkspaceList: (a) =>
           state.copyWith(tlWorkspaces: updatedWorkspaces),
     );
+  }
+
+  // MARK: - Dispatch ToDo Actions
+  Future<void> dispatchToDoAction(TLToDoAction action) async {
+    final updatedWorkspaces = action.map(
+      addToDo: (a) => TLToDoReducer.addToDo(
+        workspaces: state.tlWorkspaces,
+        workspaceID: a.workspaceID,
+        categoryID: a.categoryID,
+        ifInToday: a.ifInToday,
+        todo: a.todo,
+      ),
+      updateToDo: (a) => TLToDoReducer.updateToDo(
+        workspaces: state.tlWorkspaces,
+        workspaceID: a.workspaceID,
+        categoryID: a.categoryID,
+        ifInToday: a.ifInToday,
+        index: a.index,
+        newToDo: a.newToDo,
+      ),
+      removeToDo: (a) => TLToDoReducer.removeToDo(
+        workspaces: state.tlWorkspaces,
+        workspaceID: a.workspaceID,
+        categoryID: a.categoryID,
+        ifInToday: a.ifInToday,
+        index: a.index,
+      ),
+    );
+
+    // MARK: - Update State and Save
+    dispatchWorkspaceAction(
+        TLWorkspaceAction.updateWorkspaceList(updatedWorkspaces));
   }
 
   // --- Change Current Workspace ID ---
