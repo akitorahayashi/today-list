@@ -54,27 +54,23 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                 ),
               ],
             ),
-      endActionPane: // デフォルトワークスペースの時は編集できないようにする
-          corrWorkspacesID == noneID
-              ? null
-              : ActionPane(
-                  motion: const ScrollMotion(),
-                  extentRatio: 0.25,
-                  children: [
-                    SlidableAction(
-                      autoClose: true,
-                      spacing: 8,
-                      backgroundColor: backgroundColor,
-                      foregroundColor: foregroundColor,
-                      onPressed: (BuildContext context) async {
-                        AddOrEditWorkspaceDialog(
-                                oldWorkspaceId: corrWorkspacesID)
-                            .show(context: context);
-                      },
-                      icon: Icons.edit,
-                    ),
-                  ],
-                ),
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        extentRatio: 0.25,
+        children: [
+          SlidableAction(
+            autoClose: true,
+            spacing: 8,
+            backgroundColor: backgroundColor,
+            foregroundColor: foregroundColor,
+            onPressed: (BuildContext context) async {
+              AddOrEditWorkspaceDialog(oldWorkspaceId: corrWorkspacesID)
+                  .show(context: context);
+            },
+            icon: Icons.edit,
+          ),
+        ],
+      ),
       child: child,
     );
   }
