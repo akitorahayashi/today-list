@@ -9,63 +9,63 @@ import WidgetKit
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         let controller = window?.rootViewController as! FlutterViewController
+        let widgetKind = "ToDosInCategoryWidget"
         
-        let userdefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
+        // MARK: - ToDos In Category Widgetの処理
+        let tcwMethodChannel = FlutterMethodChannel(
+            name: "com.akitora0703.todaylist/todos_in_category_widget",
+            binaryMessenger: controller.binaryMessenger
+        )
         
-        let toDosInCategoryWidgetKind: String = "ToDosInCategoryWidget"
-        
-        // --- TodosInCategoryWidget
-        let todosInCategoryWidgetMethodChannel = FlutterMethodChannel(name: "com.akitora0703.todaylist/todos_in_category_widget", binaryMessenger: controller.binaryMessenger)
-        
-        todosInCategoryWidgetMethodChannel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
+        tcwMethodChannel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
+            guard let arguments = call.arguments as? String else {
+                let errorMessage = "Expected a String for \(call.method)"
+                print(errorMessage)
+                result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
+                return
+            }
+            
             switch call.method {
-            case "updateTLWorkspaces":
-                if let tlWorkspacesString = call.arguments as? String {
-                    userdefaults?.set(tlWorkspacesString, forKey: "tlWorkspaces")
-                    // メインスレッドでの更新を追加
-                    DispatchQueue.main.async {
-                        WidgetCenter.shared.reloadTimelines(ofKind: toDosInCategoryWidgetKind)
-                    }
+                case "updateTLWorkspaces":
+                    self.updateTLWorkspaces(arguments, widgetKind)
                     result("workspaces saved successfully")
-                } else {
-                    let errorMessage = "Expected a String for updateTLWorkspaces"
-                    print(errorMessage) // Log error
-                    result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
-                }
-            case "updateListOfToDosInCategoryWidgetSettings":
-                if let stringListOfToDosInCategoryWidgetSettings = call.arguments as? String {
-                    userdefaults?.set(stringListOfToDosInCategoryWidgetSettings, forKey: "listOfToDosInCategoryWidgetSettings")
-                    // メインスレッドでの更新を追加
-                    DispatchQueue.main.async {
-                        WidgetCenter.shared.reloadTimelines(ofKind: toDosInCategoryWidgetKind)
-                    }
+
+                case "updateListOfToDosInCategoryWidgetSettings":
+                    self.updateListOfToDosInCategoryWidgetSettings(arguments, widgetKind)
                     result("ListOfToDosInCategoryWidgetSettings saved successfully")
-                } else {
-                    let errorMessage = "Expected a String for ListOfToDosInCategoryWidgetSettings"
-                    print(errorMessage) // Log error
-                    result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
-                }
-                
-            case "updateSelectedTheme":
-                if let selectedTheme = call.arguments as? String {
-                    userdefaults?.set(selectedTheme, forKey: "selectedThemeName")
-                    // メインスレッドでの更新を追加
-                    DispatchQueue.main.async {
-                        WidgetCenter.shared.reloadTimelines(ofKind: toDosInCategoryWidgetKind)
-                    }
+
+                case "updateSelectedTheme":
+                    self.updateSelectedTheme(arguments, widgetKind)
                     result("selectedTheme saved successfully")
-                } else {
-                    let errorMessage = "Expected a String for updateSelectedTheme"
-                    print(errorMessage) // Log error
-                    result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
-                }
-                
-            default:
-                result(FlutterMethodNotImplemented)
+
+                default:
+                    result(FlutterMethodNotImplemented)
             }
         }
-        
+
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+
+    private func updateTLWorkspaces(_ value: String, _ widgetKind: String) {
+        TLUserDefaultsManager.shared.userDefaults?.set(value, forKey: "tlWorkspaces")
+        reloadWidget(widgetKind)
+    }
+
+    private func updateListOfToDosInCategoryWidgetSettings(_ value: String, _ widgetKind: String) {
+        TLUserDefaultsManager.shared.userDefaults?.set(value, forKey: "listOfToDosInCategoryWidgetSettings")
+        reloadWidget(widgetKind)
+    }
+
+    private func updateSelectedTheme(_ value: String, _ widgetKind: String) {
+        TLUserDefaultsManager.shared.userDefaults?.set(value, forKey: "selectedThemeName")
+        reloadWidget(widgetKind)
+    }
+
+    /// ウィジェットの更新
+    private func reloadWidget(_ widgetKind: String) {
+        DispatchQueue.main.async {
+            WidgetCenter.shared.reloadTimelines(ofKind: widgetKind)
+        }
     }
 }

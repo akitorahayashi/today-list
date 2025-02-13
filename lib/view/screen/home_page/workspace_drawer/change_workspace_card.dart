@@ -69,7 +69,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
         children: [
           if (isDefaultWorkspace)
             const Padding(
-              padding: EdgeInsets.only(bottom: 1.0),
+              padding: EdgeInsets.only(bottom: 0.0),
               child: Text("- Default -",
                   style: TextStyle(
                       color: Colors.black45,

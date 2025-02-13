@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		00C58B75916649A72A2719DF /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDCA1D1226874CC2A0AB193 /* Pods_Runner.framework */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
+		1B41EE692D5DAF3900207D88 /* TLUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B41EE682D5DAF2800207D88 /* TLUserDefaultsManager.swift */; };
+		1B41EE6A2D5DAF3900207D88 /* TLUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B41EE682D5DAF2800207D88 /* TLUserDefaultsManager.swift */; };
 		1B43F7C42D5866FC000D4044 /* TCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43F7C32D5866F6000D4044 /* TCProvider.swift */; };
 		1B43F7C62D58682E000D4044 /* TCWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43F7C52D58682D000D4044 /* TCWidgetEntry.swift */; };
 		1B43F7C82D5869BB000D4044 /* TCToDoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43F7C72D5869B7000D4044 /* TCToDoRow.swift */; };
@@ -96,6 +98,7 @@
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
+		1B41EE682D5DAF2800207D88 /* TLUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLUserDefaultsManager.swift; sourceTree = "<group>"; };
 		1B43F7C32D5866F6000D4044 /* TCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCProvider.swift; sourceTree = "<group>"; };
 		1B43F7C52D58682D000D4044 /* TCWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCWidgetEntry.swift; sourceTree = "<group>"; };
 		1B43F7C72D5869B7000D4044 /* TCToDoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCToDoRow.swift; sourceTree = "<group>"; };
@@ -256,6 +259,7 @@
 		1BA7C2FA2CC6861C00DCF511 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1B41EE682D5DAF2800207D88 /* TLUserDefaultsManager.swift */,
 				1BF526BD2D584B440039CDE3 /* Model.swift */,
 				1BC297262CF1DECE00AAE33A /* ToDosInCategoryWidgetSettings.swift */,
 			);
@@ -606,6 +610,7 @@
 				1B94F34D2D58253200915981 /* ToDosInCategoryWidget.swift in Sources */,
 				1BF526B92D58468D0039CDE3 /* TLThemeConfig.swift in Sources */,
 				1BF526B82D5846890039CDE3 /* TLWorkspacesExample.swift in Sources */,
+				1B41EE6A2D5DAF3900207D88 /* TLUserDefaultsManager.swift in Sources */,
 				1BF526B42D5845180039CDE3 /* TCQuery.swift in Sources */,
 				1BF526B52D5845B70039CDE3 /* ToDosInCategoryWidgetSettings.swift in Sources */,
 				1B43F7C42D5866FC000D4044 /* TCProvider.swift in Sources */,
@@ -628,6 +633,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B41EE692D5DAF3900207D88 /* TLUserDefaultsManager.swift in Sources */,
 				1B43F7D02D586AC4000D4044 /* TLThemeConfig.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1B93BB102CF30DEF00772777 /* TLWorkspacesExample.swift in Sources */,
