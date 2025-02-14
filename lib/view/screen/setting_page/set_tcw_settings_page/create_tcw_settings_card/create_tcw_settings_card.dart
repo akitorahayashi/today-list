@@ -85,106 +85,9 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
   }
 
   // MARK: - Handle Small Category Change
-  void _onSmallCategoryChanged(int? newSCIdx) {
-    if (newSCIdx == null) return;
-    TLVibrationService.vibrate();
-    setState(() {
-      if (!_ifUserHasEntered) {
-        _wksInputController.text = _currentWorkspace
-            .smallCategories[_currentBigCategory]![newSCIdx].title;
-      }
-      _selectedSCIdx = newSCIdx;
-    });
-  }
-
-  // MARK: - Build Dropdown
-  Widget _buildDropdown<T>({
-    required String label,
-    required T value,
-    required List<DropdownMenuItem<T>> items,
-    required ValueChanged<T?> onChanged,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          WKSHeader(text: label),
-          DropdownButton<T>(
-            isExpanded: true,
-            iconEnabledColor: TLTheme.of(context).accentColor,
-            value: value,
-            items: items,
-            style: const TextStyle(
-                color: Colors.black45, fontWeight: FontWeight.bold),
-            onChanged: onChanged,
-          ),
-        ],
-      ),
-    );
-  }
-
-  // MARK: - Build Control Buttons
-  Widget _buildControlButtons(
-      ToDosInCategoryWidgetSettingNotifier wksNotifier) {
-    final controllButtonStyle = ButtonStyle(
-      foregroundColor: WidgetStateProperty.all(TLTheme.of(context).accentColor),
-      shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-      overlayColor: WidgetStateProperty.resolveWith(
-          (states) => TLTheme.of(context).accentColor.withOpacity(0.1)),
-    );
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
-      child: OverflowBar(
-        alignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          TextButton(
-            onPressed: () {
-              _resetState();
-              widget.showAddWKSButtonAction();
-            },
-            style: controllButtonStyle,
-            child:
-                const Text("戻る", style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-          TextButton(
-            onPressed: () async {
-              TLVibrationService.vibrate();
-              await TLValidation.validateNameAndExecute(
-                context: context,
-                name: _wksInputController.text,
-                validator: TLValidation.validateWKSName,
-                onSuccess: () async {
-                  wksNotifier.addToDosInCategoryWidgetSettings(
-                    newToDosInCategoryWidgetSettings:
-                        ToDosInCategoryWidgetSettings(
-                      id: TLUtils.generateUniqueId(),
-                      title: _wksInputController.text,
-                      workspace: _currentWorkspace,
-                      bigCategory: _currentBigCategory,
-                      smallCategory: _currentSmallCategory,
-                    ),
-                  );
-                  _resetState();
-                  widget.showAddWKSButtonAction();
-                },
-              );
-            },
-            style: controllButtonStyle,
-            child:
-                const Text("追加", style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    final wksNotifier =
-        ref.read(toDosInCategoryWidgetSettingsProvider.notifier);
     final deviceWidth = MediaQuery.of(context).size.width;
     final workspaces = ref.watch(tlAppStateProvider).tlWorkspaces;
 
@@ -214,7 +117,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                   ),
                 ),
                 // Workspace Selection
-                _buildDropdown(
+                _DropdownWidget<int>(
                   label: "Workspace",
                   value: _selectedWorkspaceIndex,
                   items: workspaces
@@ -226,7 +129,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                   onChanged: _onWorkspaceChanged,
                 ),
                 // Big Category Selection
-                _buildDropdown(
+                _DropdownWidget<int>(
                   label: "Big Category",
                   value: _selectedBCIdx,
                   items: _currentWorkspace.bigCategories
@@ -237,11 +140,132 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                       .toList(),
                   onChanged: _onBigCategoryChanged,
                 ),
-                _buildControlButtons(wksNotifier),
+                _ControlButtons(
+                  resetState: _resetState,
+                  showAddWKSButtonAction: widget.showAddWKSButtonAction,
+                  wksInputController: _wksInputController,
+                  currentWorkspace: _currentWorkspace,
+                  currentBigCategory: _currentBigCategory,
+                  currentSmallCategory: _currentSmallCategory,
+                ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+// MARK: - Dropdown Widget
+class _DropdownWidget<T> extends StatelessWidget {
+  final String label;
+  final T value;
+  final List<DropdownMenuItem<T>> items;
+  final ValueChanged<T?> onChanged;
+
+  const _DropdownWidget({
+    required this.label,
+    required this.value,
+    required this.items,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TCWHeader(text: label),
+          DropdownButton<T>(
+            isExpanded: true,
+            iconEnabledColor: TLTheme.of(context).accentColor,
+            value: value,
+            items: items,
+            style: const TextStyle(
+                color: Colors.black45, fontWeight: FontWeight.bold),
+            onChanged: onChanged,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// MARK: - Control Buttons Widget
+class _ControlButtons extends ConsumerWidget {
+  final VoidCallback resetState;
+  final VoidCallback showAddWKSButtonAction;
+  final TextEditingController wksInputController;
+  final TLWorkspace currentWorkspace;
+  final TLCategory currentBigCategory;
+  final TLCategory? currentSmallCategory;
+
+  const _ControlButtons({
+    required this.resetState,
+    required this.showAddWKSButtonAction,
+    required this.wksInputController,
+    required this.currentWorkspace,
+    required this.currentBigCategory,
+    required this.currentSmallCategory,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controllButtonStyle = ButtonStyle(
+      foregroundColor: WidgetStateProperty.all(TLTheme.of(context).accentColor),
+      shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+      overlayColor: WidgetStateProperty.resolveWith(
+          (states) => TLTheme.of(context).accentColor.withOpacity(0.1)),
+    );
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
+      child: OverflowBar(
+        alignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          TextButton(
+            onPressed: () {
+              resetState();
+              showAddWKSButtonAction();
+            },
+            style: controllButtonStyle,
+            child:
+                const Text("戻る", style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+          TextButton(
+            onPressed: () async {
+              TLVibrationService.vibrate();
+              await TLValidation.validateNameAndExecute(
+                context: context,
+                name: wksInputController.text,
+                validator: TLValidation.validateWKSName,
+                onSuccess: () async {
+                  ref
+                      .read(toDosInCategoryWidgetSettingsProvider.notifier)
+                      .addToDosInCategoryWidgetSettings(
+                        newToDosInCategoryWidgetSettings:
+                            ToDosInCategoryWidgetSettings(
+                          id: TLUtils.generateUniqueId(),
+                          title: wksInputController.text,
+                          workspace: currentWorkspace,
+                          bigCategory: currentBigCategory,
+                          smallCategory: currentSmallCategory,
+                        ),
+                      );
+                  resetState();
+                  showAddWKSButtonAction();
+                },
+              );
+            },
+            style: controllButtonStyle,
+            child:
+                const Text("追加", style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+        ],
       ),
     );
   }

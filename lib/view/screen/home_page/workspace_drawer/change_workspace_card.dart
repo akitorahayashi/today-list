@@ -31,13 +31,32 @@ class ChangeWorkspaceCard extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 1, 5, 0),
-      child: _buildWorkspaceCard(context, ref, theme, isCurrentWorkspace),
+      child: _WorkspaceCard(
+        theme: theme,
+        isCurrentWorkspace: isCurrentWorkspace,
+        corrWorkspace: corrWorkspace,
+        isDefaultWorkspace: isDefaultWorkspace,
+      ),
     );
   }
+}
 
-  // MARK: - UI Components
-  Widget _buildWorkspaceCard(BuildContext context, WidgetRef ref,
-      TLThemeConfig theme, bool isCurrentWorkspace) {
+// MARK: - Workspace Card Widget
+class _WorkspaceCard extends ConsumerWidget {
+  final TLThemeConfig theme;
+  final bool isCurrentWorkspace;
+  final TLWorkspace corrWorkspace;
+  final bool isDefaultWorkspace;
+
+  const _WorkspaceCard({
+    required this.theme,
+    required this.isCurrentWorkspace,
+    required this.corrWorkspace,
+    required this.isDefaultWorkspace,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return ConstrainedBox(
       constraints: const BoxConstraints(minHeight: 70),
       child: Card(
@@ -46,14 +65,18 @@ class ChangeWorkspaceCard extends ConsumerWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: GestureDetector(
-            onTap: () =>
-                _handleWorkspaceSelection(context, ref, isCurrentWorkspace),
+            onTap: () => _handleWorkspaceSelection(ref, isCurrentWorkspace),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
               child: SlidableForWorkspaceCard(
                 isCurrentWorkspace: isCurrentWorkspace,
                 corrWorkspace: corrWorkspace,
-                child: _buildWorkspaceText(theme, isCurrentWorkspace),
+                child: _WorkspaceText(
+                  theme: theme,
+                  isCurrentWorkspace: isCurrentWorkspace,
+                  corrWorkspace: corrWorkspace,
+                  isDefaultWorkspace: isDefaultWorkspace,
+                ),
               ),
             ),
           ),
@@ -62,7 +85,43 @@ class ChangeWorkspaceCard extends ConsumerWidget {
     );
   }
 
-  Widget _buildWorkspaceText(TLThemeConfig theme, bool isCurrentWorkspace) {
+  // MARK: - Handle Workspace Selection
+  void _handleWorkspaceSelection(WidgetRef ref, bool isCurrentWorkspace) async {
+    if (isCurrentWorkspace) {
+      Navigator.pop(ref.context);
+      return;
+    }
+
+    await ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+          TLWorkspaceAction.changeCurrentWorkspaceID(corrWorkspace.id),
+        );
+
+    if (ref.context.mounted) {
+      Navigator.pop(ref.context);
+      TLSingleOptionDialog(
+        title: corrWorkspace.name,
+        message: "に変更しました！",
+      ).show(context: ref.context);
+    }
+  }
+}
+
+// MARK: - Workspace Text Widget
+class _WorkspaceText extends StatelessWidget {
+  final TLThemeConfig theme;
+  final bool isCurrentWorkspace;
+  final TLWorkspace corrWorkspace;
+  final bool isDefaultWorkspace;
+
+  const _WorkspaceText({
+    required this.theme,
+    required this.isCurrentWorkspace,
+    required this.corrWorkspace,
+    required this.isDefaultWorkspace,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -93,27 +152,5 @@ class ChangeWorkspaceCard extends ConsumerWidget {
         ],
       ),
     );
-  }
-
-  // MARK: - Handle Workspace Selection
-  void _handleWorkspaceSelection(
-      BuildContext context, WidgetRef ref, bool isCurrentWorkspace) async {
-    if (isCurrentWorkspace) {
-      Navigator.pop(context);
-      return;
-    }
-
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-    await tlAppStateReducer.dispatchWorkspaceAction(
-      TLWorkspaceAction.changeCurrentWorkspaceID(corrWorkspace.id),
-    );
-
-    if (context.mounted) {
-      Navigator.pop(context);
-      TLSingleOptionDialog(
-        title: corrWorkspace.name,
-        message: "に変更しました！",
-      ).show(context: context);
-    }
   }
 }

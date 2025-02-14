@@ -63,8 +63,12 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Scaffold(
       key: homePageScaffoldKey,
       drawer: const TLWorkspaceDrawer(isContentMode: false),
-      appBar: _buildAppBar(context, tlAppState, currentWorkspaceRef),
-      bottomNavigationBar: _buildBottomNavbar(context),
+      appBar: _AppBar(
+        tlAppState: tlAppState,
+        currentWorkspaceRef: currentWorkspaceRef,
+        homePageScaffoldKey: homePageScaffoldKey,
+      ),
+      bottomNavigationBar: _BottomNavbar(),
       floatingActionButton: CenterButtonOfBottomNavBar(
           onPressed: () =>
               _navigateToEditToDoPage(context, currentWorkspaceRef)),
@@ -74,8 +78,10 @@ class _HomePageState extends ConsumerState<HomePage> {
           Container(color: tlThemeData.backgroundColor),
           ListView(
             children: [
-              _buildTodoList(
-                  numOfToDosInToday, numOfToDosInWhenever, currentWorkspaceRef),
+              _TodoList(
+                  numOfToDosInToday: numOfToDosInToday,
+                  numOfToDosInWhenever: numOfToDosInWhenever,
+                  currentWorkspaceRef: currentWorkspaceRef),
             ],
           ),
         ],
@@ -83,9 +89,68 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  // MARK: - AppBar の構築
-  PreferredSizeWidget _buildAppBar(BuildContext context, TLAppState tlAppState,
-      TLWorkspace currentWorkspaceRef) {
+  // MARK: - 編集ページへの遷移処理
+  void _navigateToEditToDoPage(
+      BuildContext context, TLWorkspace currentWorkspaceRef) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return EditToDoPage(
+            ifInToday: true,
+            selectedBigCategoryID: currentWorkspaceRef.bigCategories[0].id,
+            selectedSmallCategoryID: null,
+            editedToDoTitle: null,
+            indexOfEdittedTodo: null,
+          );
+        },
+      ),
+    );
+  }
+
+  // MARK: - チェック済み ToDo の削除処理
+  void _deleteCheckedToDos(BuildContext context,
+      TLWorkspace currentWorkspaceRef, tlAppStateReducer) {
+    showDialog(
+      context: context,
+      builder: ((context) => TLYesNoDialog(
+            title: "チェック済みToDoを\n削除しますか?",
+            message: null,
+            yesAction: () async {
+              Navigator.pop(context);
+              final updatedWorkspace =
+                  await TLWorkspaceUtils.deleteCheckedToDosInTodayInAWorkspace(
+                currentWorkspaceRef,
+                onlyToday: false,
+              );
+              tlAppStateReducer.dispatchWorkspaceAction(
+                  TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace));
+
+              if (context.mounted) {
+                const TLSingleOptionDialog(title: "削除が完了しました！")
+                    .show(context: context);
+              }
+              TLVibrationService.vibrate();
+            },
+          )),
+    );
+  }
+}
+
+// MARK: - AppBar Widget
+class _AppBar extends StatelessWidget implements PreferredSizeWidget {
+  final TLAppState tlAppState;
+  final TLWorkspace currentWorkspaceRef;
+  final GlobalKey<ScaffoldState> homePageScaffoldKey;
+
+  const _AppBar({
+    required this.tlAppState,
+    required this.currentWorkspaceRef,
+    required this.homePageScaffoldKey,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return TLAppBar(
       context: context,
       pageTitle: tlAppState.currentWorkspaceID == noneID
@@ -103,9 +168,24 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  // MARK: - ToDo リストの構築
-  Widget _buildTodoList(int numOfToDosInToday, int numOfToDosInWhenever,
-      TLWorkspace currentWorkspaceRef) {
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+// MARK: - TodoList Widget
+class _TodoList extends StatelessWidget {
+  final int numOfToDosInToday;
+  final int numOfToDosInWhenever;
+  final TLWorkspace currentWorkspaceRef;
+
+  const _TodoList({
+    required this.numOfToDosInToday,
+    required this.numOfToDosInWhenever,
+    required this.currentWorkspaceRef,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         // --- 今日のタスク ---
@@ -126,10 +206,13 @@ class _HomePageState extends ConsumerState<HomePage> {
       ],
     );
   }
+}
 
-  // MARK: - Bottom Bar の構築
-  Widget _buildBottomNavbar(BuildContext context) {
-    final currentWorkspaceRef = ref.watch(
+// MARK: - Bottom Navbar Widget
+class _BottomNavbar extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentWorkspaceRef = ref.read(
       tlAppStateProvider.select((state) => state.getCurrentWorkspace),
     );
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
@@ -147,21 +230,6 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  // MARK: - 編集ページへの遷移処理
-  void _navigateToEditToDoPage(
-      BuildContext context, TLWorkspace currentWorkspaceRef) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return EditToDoPage(
-        ifInToday: true,
-        selectedBigCategoryID: currentWorkspaceRef.bigCategories[0].id,
-        selectedSmallCategoryID: null,
-        editedToDoTitle: null,
-        indexOfEdittedTodo: null,
-      );
-    }));
-  }
-
-  // MARK: - チェック済み ToDo の削除処理
   void _deleteCheckedToDos(BuildContext context,
       TLWorkspace currentWorkspaceRef, tlAppStateReducer) {
     showDialog(

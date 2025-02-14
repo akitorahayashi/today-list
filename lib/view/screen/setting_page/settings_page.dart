@@ -6,8 +6,10 @@ import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'set_features_page/set_appearance_page.dart';
 import 'dart:io';
+
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
+// MARK: - SettingsPage
 class SettingsPage extends HookWidget {
   const SettingsPage({super.key});
 
@@ -15,7 +17,7 @@ class SettingsPage extends HookWidget {
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
 
-    // MARK - Hooks for state management
+    // MARK: - Hooks for state management
     final selectedPageIndex = useState<int>(Platform.isIOS ? 1 : 0);
     final pageController =
         usePageController(initialPage: selectedPageIndex.value);
@@ -43,16 +45,23 @@ class SettingsPage extends HookWidget {
         body: Stack(
           children: [
             Container(color: tlThemeData.backgroundColor),
-            _buildPageView(pageController, contentsInSettingPage),
-            _buildBottomNavBar(context, tlThemeData, selectedPageIndex,
-                pageController, iconDataOfSettingPageContents),
+            _PageViewWidget(
+                pageController: pageController,
+                contents: contentsInSettingPage),
+            _BottomNavBar(
+              context: context,
+              tlThemeConfig: tlThemeData,
+              selectedPageIndex: selectedPageIndex,
+              pageController: pageController,
+              iconDataOfSettingPageContents: iconDataOfSettingPageContents,
+            ),
           ],
         ),
       ),
     );
   }
 
-  // MARK - Build AppBar
+  // MARK: - Build AppBar
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return TLAppBar(
       context: context,
@@ -63,9 +72,20 @@ class SettingsPage extends HookWidget {
       trailingIcon: null,
     );
   }
+}
 
-  // MARK - Build PageView
-  Widget _buildPageView(PageController pageController, List<Widget> contents) {
+// MARK: - PageView Widget
+class _PageViewWidget extends StatelessWidget {
+  final PageController pageController;
+  final List<Widget> contents;
+
+  const _PageViewWidget({
+    required this.pageController,
+    required this.contents,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return PageView.builder(
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) => contents[index],
@@ -73,15 +93,26 @@ class SettingsPage extends HookWidget {
       controller: pageController,
     );
   }
+}
 
-  // MARK - Build Bottom Navigation Bar
-  Widget _buildBottomNavBar(
-    BuildContext context,
-    TLThemeConfig tlThemeConfig,
-    ValueNotifier<int> selectedPageIndex,
-    PageController pageController,
-    List<dynamic> iconDataOfSettingPageContents,
-  ) {
+// MARK: - Bottom Navigation Bar Widget
+class _BottomNavBar extends StatelessWidget {
+  final BuildContext context;
+  final TLThemeConfig tlThemeConfig;
+  final ValueNotifier<int> selectedPageIndex;
+  final PageController pageController;
+  final List<dynamic> iconDataOfSettingPageContents;
+
+  const _BottomNavBar({
+    required this.context,
+    required this.tlThemeConfig,
+    required this.selectedPageIndex,
+    required this.pageController,
+    required this.iconDataOfSettingPageContents,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Positioned(
       bottom: 0,
       child: Container(
@@ -97,22 +128,38 @@ class SettingsPage extends HookWidget {
             for (int index = 0;
                 index < iconDataOfSettingPageContents.length;
                 index++)
-              _buildBottomNavItem(index, selectedPageIndex, pageController,
-                  tlThemeConfig, iconDataOfSettingPageContents),
+              _BottomNavItem(
+                index: index,
+                selectedPageIndex: selectedPageIndex,
+                pageController: pageController,
+                tlThemeData: tlThemeConfig,
+                iconDataOfSettingPageContents: iconDataOfSettingPageContents,
+              ),
           ],
         ),
       ),
     );
   }
+}
 
-  // MARK - Build Navigation Item
-  Widget _buildBottomNavItem(
-    int index,
-    ValueNotifier<int> selectedPageIndex,
-    PageController pageController,
-    TLThemeConfig tlThemeData,
-    List<dynamic> iconDataOfSettingPageContents,
-  ) {
+// MARK: - Bottom Navigation Item Widget
+class _BottomNavItem extends StatelessWidget {
+  final int index;
+  final ValueNotifier<int> selectedPageIndex;
+  final PageController pageController;
+  final TLThemeConfig tlThemeData;
+  final List<dynamic> iconDataOfSettingPageContents;
+
+  const _BottomNavItem({
+    required this.index,
+    required this.selectedPageIndex,
+    required this.pageController,
+    required this.tlThemeData,
+    required this.iconDataOfSettingPageContents,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () =>
           _onBottomNavItemTapped(index, selectedPageIndex, pageController),
@@ -143,7 +190,6 @@ class SettingsPage extends HookWidget {
     );
   }
 
-  // MARK - Handle Navigation Item Tap
   void _onBottomNavItemTapped(int index, ValueNotifier<int> selectedPageIndex,
       PageController pageController) {
     if (selectedPageIndex.value != index) {

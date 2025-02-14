@@ -19,7 +19,7 @@ class SetIOSWidgetPage extends ConsumerStatefulWidget {
 class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
   // 広告
   BannerAd? _bannerAd;
-  // wks追加ボタンを表示するか
+  // tcw追加ボタンを表示するか
   bool _showAddWKSButton = true;
 
   @override

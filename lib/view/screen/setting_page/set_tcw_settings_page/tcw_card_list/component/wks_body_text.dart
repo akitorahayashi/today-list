@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class WKSBodyText extends StatelessWidget {
+class TCWBodyText extends StatelessWidget {
   final String text;
-  const WKSBodyText({
+  const TCWBodyText({
     super.key,
     required this.text,
   });

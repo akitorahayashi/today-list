@@ -17,23 +17,36 @@ class ListOfCategoryToToDos extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentWorkspace = ref
-        .watch(
-          tlAppStateProvider.select((state) => state.getCurrentWorkspace),
-        )
-        .copyWith();
+        .watch(tlAppStateProvider.select((state) => state.getCurrentWorkspace));
 
     return Column(
       children: [
-        _buildDefaultCategory(currentWorkspace),
+        _DefaultCategory(
+            currentWorkspace: currentWorkspace, ifInToday: ifInToday),
         for (TLCategory bigCategory
             in currentWorkspace.bigCategories.sublist(1))
-          _buildBigCategorySection(currentWorkspace, bigCategory),
+          _BigCategorySection(
+            currentWorkspace: currentWorkspace,
+            bigCategory: bigCategory,
+            ifInToday: ifInToday,
+          ),
       ],
     );
   }
+}
 
-  // MARK - Default Category Section (bigCategories[0])
-  Widget _buildDefaultCategory(TLWorkspace currentWorkspace) {
+// MARK - Default Category Section (bigCategories[0])
+class _DefaultCategory extends StatelessWidget {
+  final TLWorkspace currentWorkspace;
+  final bool ifInToday;
+
+  const _DefaultCategory({
+    required this.currentWorkspace,
+    required this.ifInToday,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     // ビッグカテゴリの最初の要素に ToDo がある場合のみ表示
     if (currentWorkspace
         .categoryIDToToDos[currentWorkspace.bigCategories[0].id]!
@@ -49,10 +62,22 @@ class ListOfCategoryToToDos extends ConsumerWidget {
       ),
     );
   }
+}
 
-  // MARK - Big Category Section
-  Widget _buildBigCategorySection(
-      TLWorkspace currentWorkspace, TLCategory bigCategory) {
+// MARK - Big Category Section
+class _BigCategorySection extends StatelessWidget {
+  final TLWorkspace currentWorkspace;
+  final TLCategory bigCategory;
+  final bool ifInToday;
+
+  const _BigCategorySection({
+    required this.currentWorkspace,
+    required this.bigCategory,
+    required this.ifInToday,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         if (_shouldShowBigCategoryHeader(currentWorkspace, bigCategory))
@@ -68,29 +93,12 @@ class ListOfCategoryToToDos extends ConsumerWidget {
           ),
         for (TLCategory smallCategory
             in currentWorkspace.smallCategories[bigCategory.id] ?? [])
-          _buildSmallCategorySection(
-              currentWorkspace, bigCategory, smallCategory),
-      ],
-    );
-  }
-
-  // MARK - Small Category Section
-  Widget _buildSmallCategorySection(TLWorkspace currentWorkspace,
-      TLCategory bigCategory, TLCategory smallCategory) {
-    // スモールカテゴリに ToDo がある場合のみ表示
-    if (currentWorkspace.categoryIDToToDos[smallCategory.id]!
-        .getToDos(ifInToday)
-        .isEmpty) return const SizedBox.shrink();
-
-    return Column(
-      children: [
-        CategoryHeaderForToDos(
-            isBigCategory: false, corrCategory: smallCategory),
-        ToDosInCategory(
-          ifInToday: ifInToday,
-          bigCategoryOfThisToDo: bigCategory,
-          smallCategoryOfThisToDo: smallCategory,
-        ),
+          _SmallCategorySection(
+            currentWorkspace: currentWorkspace,
+            bigCategory: bigCategory,
+            smallCategory: smallCategory,
+            ifInToday: ifInToday,
+          ),
       ],
     );
   }
@@ -112,5 +120,40 @@ class ListOfCategoryToToDos extends ConsumerWidget {
                                 .getToDos(ifInToday)
                                 .isNotEmpty) !=
                         -1);
+  }
+}
+
+// MARK - Small Category Section
+class _SmallCategorySection extends StatelessWidget {
+  final TLWorkspace currentWorkspace;
+  final TLCategory bigCategory;
+  final TLCategory smallCategory;
+  final bool ifInToday;
+
+  const _SmallCategorySection({
+    required this.currentWorkspace,
+    required this.bigCategory,
+    required this.smallCategory,
+    required this.ifInToday,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // スモールカテゴリに ToDo がある場合のみ表示
+    if (currentWorkspace.categoryIDToToDos[smallCategory.id]!
+        .getToDos(ifInToday)
+        .isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      children: [
+        CategoryHeaderForToDos(
+            isBigCategory: false, corrCategory: smallCategory),
+        ToDosInCategory(
+          ifInToday: ifInToday,
+          bigCategoryOfThisToDo: bigCategory,
+          smallCategoryOfThisToDo: smallCategory,
+        ),
+      ],
+    );
   }
 }

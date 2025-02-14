@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class WKSHeader extends StatelessWidget {
+class TCWHeader extends StatelessWidget {
   final String text;
-  const WKSHeader({
+  const TCWHeader({
     super.key,
     required this.text,
   });

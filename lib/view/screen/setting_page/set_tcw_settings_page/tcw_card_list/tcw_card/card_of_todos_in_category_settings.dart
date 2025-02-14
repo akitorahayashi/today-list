@@ -35,16 +35,34 @@ class CardOfToDosInCategoryWidgetSettings extends ConsumerWidget {
             borderRadius: BorderRadius.circular(10),
             child: SlidableForTCWCard(
               corrTCWSettingsID: corrToDosInCategoryWidgetSettings.id,
-              child: _buildCardContent(tlThemeConfig, deviceWidth),
+              child: _CardContent(
+                theme: tlThemeConfig,
+                deviceWidth: deviceWidth,
+                corrToDosInCategoryWidgetSettings:
+                    corrToDosInCategoryWidgetSettings,
+              ),
             ),
           ),
         ),
       ),
     );
   }
+}
 
-  // MARK: - カードのコンテンツ
-  Widget _buildCardContent(TLThemeConfig theme, double deviceWidth) {
+// MARK: - カードのコンテンツ
+class _CardContent extends StatelessWidget {
+  final TLThemeConfig theme;
+  final double deviceWidth;
+  final ToDosInCategoryWidgetSettings corrToDosInCategoryWidgetSettings;
+
+  const _CardContent({
+    required this.theme,
+    required this.deviceWidth,
+    required this.corrToDosInCategoryWidgetSettings,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -56,17 +74,28 @@ class CardOfToDosInCategoryWidgetSettings extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildTitle(),
-            _buildCategoryInfo(),
+            _Title(
+                corrToDosInCategoryWidgetSettings:
+                    corrToDosInCategoryWidgetSettings),
+            _CategoryInfo(
+                corrToDosInCategoryWidgetSettings:
+                    corrToDosInCategoryWidgetSettings),
             const SizedBox(height: 16),
           ],
         ),
       ),
     );
   }
+}
 
-  // MARK: - タイトル
-  Widget _buildTitle() {
+// MARK: - タイトル
+class _Title extends StatelessWidget {
+  final ToDosInCategoryWidgetSettings corrToDosInCategoryWidgetSettings;
+
+  const _Title({required this.corrToDosInCategoryWidgetSettings});
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(top: 16.0),
@@ -81,33 +110,40 @@ class CardOfToDosInCategoryWidgetSettings extends ConsumerWidget {
       ),
     );
   }
+}
 
-  // MARK: - カテゴリ情報
-  Widget _buildCategoryInfo() {
+// MARK: - カテゴリ情報
+class _CategoryInfo extends StatelessWidget {
+  final ToDosInCategoryWidgetSettings corrToDosInCategoryWidgetSettings;
+
+  const _CategoryInfo({required this.corrToDosInCategoryWidgetSettings});
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Workspace
         const Padding(
           padding: EdgeInsets.only(top: 4.0),
-          child: WKSHeader(text: "Workspace"),
+          child: TCWHeader(text: "Workspace"),
         ),
-        WKSBodyText(text: corrToDosInCategoryWidgetSettings.workspace.name),
+        TCWBodyText(text: corrToDosInCategoryWidgetSettings.workspace.name),
 
         // Big Category
         const Padding(
           padding: EdgeInsets.only(top: 4.0),
-          child: WKSHeader(text: "Big Category"),
+          child: TCWHeader(text: "Big Category"),
         ),
-        WKSBodyText(text: corrToDosInCategoryWidgetSettings.bigCategory.title),
+        TCWBodyText(text: corrToDosInCategoryWidgetSettings.bigCategory.title),
 
         // Small Category（存在する場合のみ）
         if (corrToDosInCategoryWidgetSettings.smallCategory != null) ...[
           const Padding(
             padding: EdgeInsets.only(top: 4.0),
-            child: WKSHeader(text: "Small Category"),
+            child: TCWHeader(text: "Small Category"),
           ),
-          WKSBodyText(
+          TCWBodyText(
               text: corrToDosInCategoryWidgetSettings.smallCategory!.title),
         ],
       ],

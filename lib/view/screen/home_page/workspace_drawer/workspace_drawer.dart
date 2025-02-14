@@ -119,7 +119,6 @@ class TLWorkspaceDrawer extends ConsumerWidget {
     final revisedOldIndex = oldIndex + 1;
     final revisedNewIndex = newIndex + 1;
 
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
     final workspaces = ref.read(tlAppStateProvider).tlWorkspaces;
 
     List<TLWorkspace> copiedWorkspaces = List.from(workspaces);
@@ -127,7 +126,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
         copiedWorkspaces.removeAt(revisedOldIndex);
     copiedWorkspaces.insert(revisedNewIndex, movedWorkspace);
 
-    tlAppStateReducer.dispatchWorkspaceAction(
+    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
         TLWorkspaceAction.updateWorkspaceList(copiedWorkspaces));
   }
 }
