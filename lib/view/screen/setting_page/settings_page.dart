@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/view/screen/setting_page/set_tcw_settings_page/set_ios_widget_page.dart';
+import 'package:today_list/view/screen/setting_page/set_tcw_settings_page/set_tcw_page.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'set_features_page/set_appearance_page.dart';
@@ -21,9 +21,10 @@ class SettingsPage extends HookWidget {
     final selectedPageIndex = useState<int>(Platform.isIOS ? 1 : 0);
     final pageController =
         usePageController(initialPage: selectedPageIndex.value);
+    final showBottomNavBar = useState<bool>(true);
 
     final List<Widget> contentsInSettingPage = [
-      if (Platform.isIOS) const SetIOSWidgetPage(),
+      if (Platform.isIOS) SetTCWPage(showBottomNavBar: showBottomNavBar),
       const SetAppearancePage(),
     ];
 
@@ -48,12 +49,20 @@ class SettingsPage extends HookWidget {
             _PageViewWidget(
                 pageController: pageController,
                 contents: contentsInSettingPage),
-            _BottomNavBar(
-              context: context,
-              tlThemeConfig: tlThemeData,
-              selectedPageIndex: selectedPageIndex,
-              pageController: pageController,
-              iconDataOfSettingPageContents: iconDataOfSettingPageContents,
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: showBottomNavBar.value
+                  ? Align(
+                      alignment: Alignment.bottomCenter,
+                      child: _BottomNavBar(
+                        tlThemeConfig: tlThemeData,
+                        selectedPageIndex: selectedPageIndex,
+                        pageController: pageController,
+                        iconDataOfSettingPageContents:
+                            iconDataOfSettingPageContents,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
             ),
           ],
         ),
@@ -97,14 +106,12 @@ class _PageViewWidget extends StatelessWidget {
 
 // MARK: - Bottom Navigation Bar Widget
 class _BottomNavBar extends StatelessWidget {
-  final BuildContext context;
   final TLThemeConfig tlThemeConfig;
   final ValueNotifier<int> selectedPageIndex;
   final PageController pageController;
   final List<dynamic> iconDataOfSettingPageContents;
 
   const _BottomNavBar({
-    required this.context,
     required this.tlThemeConfig,
     required this.selectedPageIndex,
     required this.pageController,
@@ -115,27 +122,29 @@ class _BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       bottom: 0,
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: (100 * MediaQuery.of(context).size.height / 896),
-        decoration: BoxDecoration(
-          color: tlThemeConfig.whiteBasedCardColor,
-          boxShadow: const [BoxShadow(color: Colors.black45, blurRadius: 8)],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            for (int index = 0;
-                index < iconDataOfSettingPageContents.length;
-                index++)
-              _BottomNavItem(
-                index: index,
-                selectedPageIndex: selectedPageIndex,
-                pageController: pageController,
-                tlThemeData: tlThemeConfig,
-                iconDataOfSettingPageContents: iconDataOfSettingPageContents,
-              ),
-          ],
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: tlThemeConfig.whiteBasedCardColor,
+            boxShadow: const [BoxShadow(color: Colors.black45, blurRadius: 8)],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              for (int index = 0;
+                  index < iconDataOfSettingPageContents.length;
+                  index++)
+                _BottomNavItem(
+                  index: index,
+                  selectedPageIndex: selectedPageIndex,
+                  pageController: pageController,
+                  tlThemeData: tlThemeConfig,
+                  iconDataOfSettingPageContents: iconDataOfSettingPageContents,
+                ),
+            ],
+          ),
         ),
       ),
     );

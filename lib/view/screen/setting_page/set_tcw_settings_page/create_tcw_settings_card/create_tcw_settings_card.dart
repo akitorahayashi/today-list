@@ -14,7 +14,13 @@ import '../tcw_card_list/component/wks_header.dart';
 
 class CreateWKSettingsCard extends ConsumerStatefulWidget {
   final VoidCallback showAddWKSButtonAction;
-  const CreateWKSettingsCard({super.key, required this.showAddWKSButtonAction});
+  final ValueNotifier<bool> showBottomNavBar;
+
+  const CreateWKSettingsCard({
+    super.key,
+    required this.showAddWKSButtonAction,
+    required this.showBottomNavBar,
+  });
 
   @override
   CreateWKSettingsCardState createState() => CreateWKSettingsCardState();
@@ -104,16 +110,21 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                 // Title Input
                 Padding(
                   padding: const EdgeInsets.only(top: 16.0),
-                  child: TextField(
-                    autofocus: true,
-                    controller: _wksInputController,
-                    onChanged: (t) => _ifUserHasEntered = true,
-                    style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black45),
-                    cursorColor: TLTheme.of(context).accentColor,
-                    decoration: const InputDecoration(labelText: '- Title -'),
+                  child: Focus(
+                    onFocusChange: (hasFocus) {
+                      widget.showBottomNavBar.value = !hasFocus;
+                    },
+                    child: TextField(
+                      autofocus: true,
+                      controller: _wksInputController,
+                      onChanged: (t) => _ifUserHasEntered = true,
+                      style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black45),
+                      cursorColor: TLTheme.of(context).accentColor,
+                      decoration: const InputDecoration(labelText: '- Title -'),
+                    ),
                   ),
                 ),
                 // Workspace Selection

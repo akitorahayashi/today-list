@@ -9,14 +9,16 @@ import '../../../../service/tl_ads.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class SetIOSWidgetPage extends ConsumerStatefulWidget {
-  const SetIOSWidgetPage({super.key});
+class SetTCWPage extends ConsumerStatefulWidget {
+  final ValueNotifier<bool> showBottomNavBar;
+
+  const SetTCWPage({super.key, required this.showBottomNavBar});
 
   @override
-  ConsumerState<SetIOSWidgetPage> createState() => _SetIOSWidgetPageState();
+  ConsumerState<SetTCWPage> createState() => _SetIOSWidgetPageState();
 }
 
-class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
+class _SetIOSWidgetPageState extends ConsumerState<SetTCWPage> {
   // 広告
   BannerAd? _bannerAd;
   // tcw追加ボタンを表示するか
@@ -91,6 +93,7 @@ class _SetIOSWidgetPageState extends ConsumerState<SetIOSWidgetPage> {
                   _showAddWKSButton = true;
                 });
               },
+              showBottomNavBar: widget.showBottomNavBar,
             ),
             crossFadeState: _showAddWKSButton
                 ? CrossFadeState.showFirst
