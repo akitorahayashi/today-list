@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of '../tl_category_action.dart';
+part of '../tl_todo_category_action.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,15 +15,15 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$TLCategoryAction {
-  String get workspaceID => throw _privateConstructorUsedError;
+mixin _$TLToDoCategoryAction {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String workspaceID, TLToDoCategory category)
         addCategory,
     required TResult Function(String workspaceID, TLToDoCategory newCategory)
         updateCategory,
-    required TResult Function(String workspaceID, TLToDoCategory newCategory)
+    required TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory newCategory)
         removeCategory,
   }) =>
       throw _privateConstructorUsedError;
@@ -32,7 +32,7 @@ mixin _$TLCategoryAction {
     TResult? Function(String workspaceID, TLToDoCategory category)? addCategory,
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
         removeCategory,
   }) =>
       throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ mixin _$TLCategoryAction {
     TResult Function(String workspaceID, TLToDoCategory category)? addCategory,
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
         removeCategory,
     required TResult orElse(),
   }) =>
@@ -68,56 +68,35 @@ mixin _$TLCategoryAction {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  /// Create a copy of TLCategoryAction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $TLCategoryActionCopyWith<TLCategoryAction> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TLCategoryActionCopyWith<$Res> {
-  factory $TLCategoryActionCopyWith(
-          TLCategoryAction value, $Res Function(TLCategoryAction) then) =
-      _$TLCategoryActionCopyWithImpl<$Res, TLCategoryAction>;
-  @useResult
-  $Res call({String workspaceID});
+abstract class $TLToDoCategoryActionCopyWith<$Res> {
+  factory $TLToDoCategoryActionCopyWith(TLToDoCategoryAction value,
+          $Res Function(TLToDoCategoryAction) then) =
+      _$TLToDoCategoryActionCopyWithImpl<$Res, TLToDoCategoryAction>;
 }
 
 /// @nodoc
-class _$TLCategoryActionCopyWithImpl<$Res, $Val extends TLCategoryAction>
-    implements $TLCategoryActionCopyWith<$Res> {
-  _$TLCategoryActionCopyWithImpl(this._value, this._then);
+class _$TLToDoCategoryActionCopyWithImpl<$Res,
+        $Val extends TLToDoCategoryAction>
+    implements $TLToDoCategoryActionCopyWith<$Res> {
+  _$TLToDoCategoryActionCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? workspaceID = null,
-  }) {
-    return _then(_value.copyWith(
-      workspaceID: null == workspaceID
-          ? _value.workspaceID
-          : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$AddCategoryImplCopyWith<$Res>
-    implements $TLCategoryActionCopyWith<$Res> {
+abstract class _$$AddCategoryImplCopyWith<$Res> {
   factory _$$AddCategoryImplCopyWith(
           _$AddCategoryImpl value, $Res Function(_$AddCategoryImpl) then) =
       __$$AddCategoryImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String workspaceID, TLToDoCategory category});
 
@@ -126,13 +105,13 @@ abstract class _$$AddCategoryImplCopyWith<$Res>
 
 /// @nodoc
 class __$$AddCategoryImplCopyWithImpl<$Res>
-    extends _$TLCategoryActionCopyWithImpl<$Res, _$AddCategoryImpl>
+    extends _$TLToDoCategoryActionCopyWithImpl<$Res, _$AddCategoryImpl>
     implements _$$AddCategoryImplCopyWith<$Res> {
   __$$AddCategoryImplCopyWithImpl(
       _$AddCategoryImpl _value, $Res Function(_$AddCategoryImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -152,7 +131,7 @@ class __$$AddCategoryImplCopyWithImpl<$Res>
     ));
   }
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -175,7 +154,7 @@ class _$AddCategoryImpl implements _AddCategory {
 
   @override
   String toString() {
-    return 'TLCategoryAction.addCategory(workspaceID: $workspaceID, category: $category)';
+    return 'TLToDoCategoryAction.addCategory(workspaceID: $workspaceID, category: $category)';
   }
 
   @override
@@ -192,7 +171,7 @@ class _$AddCategoryImpl implements _AddCategory {
   @override
   int get hashCode => Object.hash(runtimeType, workspaceID, category);
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -207,7 +186,8 @@ class _$AddCategoryImpl implements _AddCategory {
         addCategory,
     required TResult Function(String workspaceID, TLToDoCategory newCategory)
         updateCategory,
-    required TResult Function(String workspaceID, TLToDoCategory newCategory)
+    required TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory newCategory)
         removeCategory,
   }) {
     return addCategory(workspaceID, category);
@@ -219,7 +199,7 @@ class _$AddCategoryImpl implements _AddCategory {
     TResult? Function(String workspaceID, TLToDoCategory category)? addCategory,
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
         removeCategory,
   }) {
     return addCategory?.call(workspaceID, category);
@@ -231,7 +211,7 @@ class _$AddCategoryImpl implements _AddCategory {
     TResult Function(String workspaceID, TLToDoCategory category)? addCategory,
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
         removeCategory,
     required TResult orElse(),
   }) {
@@ -276,30 +256,26 @@ class _$AddCategoryImpl implements _AddCategory {
   }
 }
 
-abstract class _AddCategory implements TLCategoryAction {
+abstract class _AddCategory implements TLToDoCategoryAction {
   const factory _AddCategory(
       {required final String workspaceID,
       required final TLToDoCategory category}) = _$AddCategoryImpl;
 
-  @override
   String get workspaceID;
   TLToDoCategory get category;
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddCategoryImplCopyWith<_$AddCategoryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UpdateCategoryImplCopyWith<$Res>
-    implements $TLCategoryActionCopyWith<$Res> {
+abstract class _$$UpdateCategoryImplCopyWith<$Res> {
   factory _$$UpdateCategoryImplCopyWith(_$UpdateCategoryImpl value,
           $Res Function(_$UpdateCategoryImpl) then) =
       __$$UpdateCategoryImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String workspaceID, TLToDoCategory newCategory});
 
@@ -308,13 +284,13 @@ abstract class _$$UpdateCategoryImplCopyWith<$Res>
 
 /// @nodoc
 class __$$UpdateCategoryImplCopyWithImpl<$Res>
-    extends _$TLCategoryActionCopyWithImpl<$Res, _$UpdateCategoryImpl>
+    extends _$TLToDoCategoryActionCopyWithImpl<$Res, _$UpdateCategoryImpl>
     implements _$$UpdateCategoryImplCopyWith<$Res> {
   __$$UpdateCategoryImplCopyWithImpl(
       _$UpdateCategoryImpl _value, $Res Function(_$UpdateCategoryImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -334,7 +310,7 @@ class __$$UpdateCategoryImplCopyWithImpl<$Res>
     ));
   }
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -358,7 +334,7 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
 
   @override
   String toString() {
-    return 'TLCategoryAction.updateCategory(workspaceID: $workspaceID, newCategory: $newCategory)';
+    return 'TLToDoCategoryAction.updateCategory(workspaceID: $workspaceID, newCategory: $newCategory)';
   }
 
   @override
@@ -375,7 +351,7 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
   @override
   int get hashCode => Object.hash(runtimeType, workspaceID, newCategory);
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -391,7 +367,8 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
         addCategory,
     required TResult Function(String workspaceID, TLToDoCategory newCategory)
         updateCategory,
-    required TResult Function(String workspaceID, TLToDoCategory newCategory)
+    required TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory newCategory)
         removeCategory,
   }) {
     return updateCategory(workspaceID, newCategory);
@@ -403,7 +380,7 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
     TResult? Function(String workspaceID, TLToDoCategory category)? addCategory,
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
         removeCategory,
   }) {
     return updateCategory?.call(workspaceID, newCategory);
@@ -415,7 +392,7 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
     TResult Function(String workspaceID, TLToDoCategory category)? addCategory,
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
         removeCategory,
     required TResult orElse(),
   }) {
@@ -460,57 +437,54 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
   }
 }
 
-abstract class _UpdateCategory implements TLCategoryAction {
+abstract class _UpdateCategory implements TLToDoCategoryAction {
   const factory _UpdateCategory(
       {required final String workspaceID,
       required final TLToDoCategory newCategory}) = _$UpdateCategoryImpl;
 
-  @override
   String get workspaceID;
   TLToDoCategory get newCategory;
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdateCategoryImplCopyWith<_$UpdateCategoryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RemoveCategoryImplCopyWith<$Res>
-    implements $TLCategoryActionCopyWith<$Res> {
+abstract class _$$RemoveCategoryImplCopyWith<$Res> {
   factory _$$RemoveCategoryImplCopyWith(_$RemoveCategoryImpl value,
           $Res Function(_$RemoveCategoryImpl) then) =
       __$$RemoveCategoryImplCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({String workspaceID, TLToDoCategory newCategory});
+  $Res call({TLWorkspace corrWorkspace, TLToDoCategory newCategory});
 
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
   $TLToDoCategoryCopyWith<$Res> get newCategory;
 }
 
 /// @nodoc
 class __$$RemoveCategoryImplCopyWithImpl<$Res>
-    extends _$TLCategoryActionCopyWithImpl<$Res, _$RemoveCategoryImpl>
+    extends _$TLToDoCategoryActionCopyWithImpl<$Res, _$RemoveCategoryImpl>
     implements _$$RemoveCategoryImplCopyWith<$Res> {
   __$$RemoveCategoryImplCopyWithImpl(
       _$RemoveCategoryImpl _value, $Res Function(_$RemoveCategoryImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? workspaceID = null,
+    Object? corrWorkspace = null,
     Object? newCategory = null,
   }) {
     return _then(_$RemoveCategoryImpl(
-      workspaceID: null == workspaceID
-          ? _value.workspaceID
-          : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
+      corrWorkspace: null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
       newCategory: null == newCategory
           ? _value.newCategory
           : newCategory // ignore: cast_nullable_to_non_nullable
@@ -518,7 +492,17 @@ class __$$RemoveCategoryImplCopyWithImpl<$Res>
     ));
   }
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace {
+    return $TLWorkspaceCopyWith<$Res>(_value.corrWorkspace, (value) {
+      return _then(_value.copyWith(corrWorkspace: value));
+    });
+  }
+
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -533,16 +517,16 @@ class __$$RemoveCategoryImplCopyWithImpl<$Res>
 
 class _$RemoveCategoryImpl implements _RemoveCategory {
   const _$RemoveCategoryImpl(
-      {required this.workspaceID, required this.newCategory});
+      {required this.corrWorkspace, required this.newCategory});
 
   @override
-  final String workspaceID;
+  final TLWorkspace corrWorkspace;
   @override
   final TLToDoCategory newCategory;
 
   @override
   String toString() {
-    return 'TLCategoryAction.removeCategory(workspaceID: $workspaceID, newCategory: $newCategory)';
+    return 'TLToDoCategoryAction.removeCategory(corrWorkspace: $corrWorkspace, newCategory: $newCategory)';
   }
 
   @override
@@ -550,16 +534,16 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RemoveCategoryImpl &&
-            (identical(other.workspaceID, workspaceID) ||
-                other.workspaceID == workspaceID) &&
+            (identical(other.corrWorkspace, corrWorkspace) ||
+                other.corrWorkspace == corrWorkspace) &&
             (identical(other.newCategory, newCategory) ||
                 other.newCategory == newCategory));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, workspaceID, newCategory);
+  int get hashCode => Object.hash(runtimeType, corrWorkspace, newCategory);
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -575,10 +559,11 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
         addCategory,
     required TResult Function(String workspaceID, TLToDoCategory newCategory)
         updateCategory,
-    required TResult Function(String workspaceID, TLToDoCategory newCategory)
+    required TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory newCategory)
         removeCategory,
   }) {
-    return removeCategory(workspaceID, newCategory);
+    return removeCategory(corrWorkspace, newCategory);
   }
 
   @override
@@ -587,10 +572,10 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
     TResult? Function(String workspaceID, TLToDoCategory category)? addCategory,
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
         removeCategory,
   }) {
-    return removeCategory?.call(workspaceID, newCategory);
+    return removeCategory?.call(corrWorkspace, newCategory);
   }
 
   @override
@@ -599,12 +584,12 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
     TResult Function(String workspaceID, TLToDoCategory category)? addCategory,
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
         removeCategory,
     required TResult orElse(),
   }) {
     if (removeCategory != null) {
-      return removeCategory(workspaceID, newCategory);
+      return removeCategory(corrWorkspace, newCategory);
     }
     return orElse();
   }
@@ -644,18 +629,16 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
   }
 }
 
-abstract class _RemoveCategory implements TLCategoryAction {
+abstract class _RemoveCategory implements TLToDoCategoryAction {
   const factory _RemoveCategory(
-      {required final String workspaceID,
+      {required final TLWorkspace corrWorkspace,
       required final TLToDoCategory newCategory}) = _$RemoveCategoryImpl;
 
-  @override
-  String get workspaceID;
+  TLWorkspace get corrWorkspace;
   TLToDoCategory get newCategory;
 
-  /// Create a copy of TLCategoryAction
+  /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RemoveCategoryImplCopyWith<_$RemoveCategoryImpl> get copyWith =>
       throw _privateConstructorUsedError;

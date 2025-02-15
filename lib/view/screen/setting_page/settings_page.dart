@@ -42,7 +42,7 @@ class SettingsPage extends HookWidget {
         decoration: TextDecoration.none,
       ),
       child: Scaffold(
-        appBar: _buildAppBar(context),
+        appBar: _AppBar(),
         body: Stack(
           children: [
             Container(color: tlThemeData.backgroundColor),
@@ -69,9 +69,12 @@ class SettingsPage extends HookWidget {
       ),
     );
   }
+}
 
-  // MARK: - Build AppBar
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
+// MARK: - AppBar Widget
+class _AppBar extends StatelessWidget implements PreferredSizeWidget {
+  @override
+  Widget build(BuildContext context) {
     return TLAppBar(
       context: context,
       pageTitle: "Settings",
@@ -81,6 +84,9 @@ class SettingsPage extends HookWidget {
       trailingIcon: null,
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 // MARK: - PageView Widget
@@ -120,8 +126,8 @@ class _BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
+    return Align(
+      alignment: Alignment.bottomCenter,
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: (100 * MediaQuery.of(context).size.height / 896),

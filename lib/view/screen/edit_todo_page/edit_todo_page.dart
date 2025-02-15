@@ -9,7 +9,7 @@ import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/util/tl_utils.dart';
+import 'package:today_list/util/tl_uuid_generator.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view/screen/edit_todo_page/already_exist/already_exist.dart';
@@ -87,7 +87,7 @@ class EditToDoPage extends HookConsumerWidget {
 
     // MARK: - ToDo Operations
     void addToStepList(String stepTitle) {
-      final newStep = TLStep(id: TLUtils.generateUniqueId(), title: stepTitle);
+      final newStep = TLStep(id: TLUUIDGenerator.generate(), title: stepTitle);
       steps.value = [...steps.value, newStep];
       stepTitleController.clear();
     }
@@ -99,7 +99,7 @@ class EditToDoPage extends HookConsumerWidget {
       final categoryID = smallCategoryID.value ?? bigCategoryID.value;
 
       final TLToDo newToDo = TLToDo(
-        id: TLUtils.generateUniqueId(),
+        id: TLUUIDGenerator.generate(),
         categoryID: categoryID,
         title: toDoTitleController.text,
         steps: steps.value,

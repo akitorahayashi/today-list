@@ -16,9 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TLToDoAction {
-  String get workspaceID =>
-      throw _privateConstructorUsedError; // どのWorkspaceを更新するか
-  String get categoryID => throw _privateConstructorUsedError; // どのカテゴリーに紐付けるか
+  String get workspaceID => throw _privateConstructorUsedError;
+  String get categoryID => throw _privateConstructorUsedError;
   bool get ifInToday => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -209,13 +208,10 @@ class _$AddToDoImpl implements _AddToDo {
 
   @override
   final String workspaceID;
-// どのWorkspaceを更新するか
   @override
   final String categoryID;
-// どのカテゴリーに紐付けるか
   @override
   final bool ifInToday;
-// 今日リストかいつでもリストか
   @override
   final TLToDo todo;
 
@@ -345,11 +341,11 @@ abstract class _AddToDo implements TLToDoAction {
       required final TLToDo todo}) = _$AddToDoImpl;
 
   @override
-  String get workspaceID; // どのWorkspaceを更新するか
+  String get workspaceID;
   @override
-  String get categoryID; // どのカテゴリーに紐付けるか
+  String get categoryID;
   @override
-  bool get ifInToday; // 今日リストかいつでもリストか
+  bool get ifInToday;
   TLToDo get todo;
 
   /// Create a copy of TLToDoAction
@@ -450,7 +446,6 @@ class _$UpdateToDoImpl implements _UpdateToDo {
   final bool ifInToday;
   @override
   final int index;
-// どのToDo(何番目)を更新するか
   @override
   final TLToDo newToDo;
 
@@ -587,7 +582,7 @@ abstract class _UpdateToDo implements TLToDoAction {
   String get categoryID;
   @override
   bool get ifInToday;
-  int get index; // どのToDo(何番目)を更新するか
+  int get index;
   TLToDo get newToDo;
 
   /// Create a copy of TLToDoAction

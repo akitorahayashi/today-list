@@ -34,15 +34,30 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BigCategoryChip(indexOfBigCategory: indexOfBigCategory),
-          _buildSmallCategoryList(ref, currentWorkspace, coorBigCategory),
+          _SmallCategoryList(
+            ref: ref,
+            currentWorkspace: currentWorkspace,
+            coorBigCategory: coorBigCategory,
+          ),
         ],
       ),
     );
   }
+}
 
-  // MARK - Small Category List
-  Widget _buildSmallCategoryList(WidgetRef ref, TLWorkspace currentWorkspace,
-      TLToDoCategory coorBigCategory) {
+class _SmallCategoryList extends StatelessWidget {
+  final WidgetRef ref;
+  final TLWorkspace currentWorkspace;
+  final TLToDoCategory coorBigCategory;
+
+  const _SmallCategoryList({
+    required this.ref,
+    required this.currentWorkspace,
+    required this.coorBigCategory,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final smallCategories =
         currentWorkspace.smallCategories[coorBigCategory.id] ?? [];
 
@@ -51,9 +66,7 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
         for (int i = 0; i < smallCategories.length; i++)
           SmallCategoryChip(
             key: ValueKey(smallCategories[i].id),
-            corrBigCategory: coorBigCategory,
-            corrIndexOfBigCategory: indexOfBigCategory,
-            corrIndexOfSmallCategory: i,
+            corrSmallCategory: smallCategories[i],
           ),
       ],
       onReorder: (oldIndex, newIndex) {
@@ -63,7 +76,6 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
     );
   }
 
-  // MARK - Handle Small Category Reorder Logic
   void _handleSmallCategoryReorder(WidgetRef ref, TLWorkspace currentWorkspace,
       TLToDoCategory coorBigCategory, int oldIndex, int newIndex) {
     if (oldIndex == newIndex) return;

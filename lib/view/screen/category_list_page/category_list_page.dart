@@ -38,7 +38,7 @@ class CategoryListPage extends ConsumerWidget {
               ),
             ],
           ),
-          _buildAddCategoryButton(context, tlThemeData),
+          _buildAddCategoryButton(context, currentWorkspace, tlThemeData),
         ],
       ),
     );
@@ -98,13 +98,15 @@ class CategoryListPage extends ConsumerWidget {
   }
 
   // MARK - Add Category Button
-  Widget _buildAddCategoryButton(
-      BuildContext context, TLThemeConfig tlThemeData) {
+  Widget _buildAddCategoryButton(BuildContext context,
+      TLWorkspace currentWorkspace, TLThemeConfig tlThemeData) {
     return Positioned(
       right: 50,
       bottom: 70,
       child: GestureDetector(
-        onTap: () => const AddCategoryDialog().show(context: context),
+        onTap: () => AddCategoryDialog(currentWorkspace: currentWorkspace).show(
+          context: context,
+        ),
         child: Container(
           width: 70,
           height: 70,

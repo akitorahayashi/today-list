@@ -17,13 +17,14 @@ class BigCategoryChip extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final currentWorkspace = ref
+    final currentWorkspaceRef = ref
         .watch(tlAppStateProvider.select((state) => state.getCurrentWorkspace));
 
-    final bigCategory = _getBigCategory(currentWorkspace);
-    final numberOfToDos = _getNumberOfToDos(currentWorkspace, bigCategory);
+    final bigCategory = _getBigCategory(currentWorkspaceRef);
+    final numberOfToDos = _getNumberOfToDos(currentWorkspaceRef, bigCategory);
 
-    return _buildChipUI(context, tlThemeData, bigCategory, numberOfToDos);
+    return _buildChipUI(context, currentWorkspaceRef.id, tlThemeData,
+        bigCategory, numberOfToDos);
   }
 
   // MARK - Get Big Category Data
@@ -41,23 +42,26 @@ class BigCategoryChip extends ConsumerWidget {
   }
 
   // MARK - Show Edit Dialog
-  Future<void> _showEditDialog(
-      BuildContext context, TLToDoCategory bigCategory) async {
+  Future<void> _showEditDialog(BuildContext context, String workspaceID,
+      TLToDoCategory bigCategory) async {
     await showDialog(
       context: context,
       builder: (context) {
         return SelectEditMethodDialog(
+          corrWorkspaceID: workspaceID,
           categoryOfThisPage: bigCategory,
-          indexOfBigCategory: indexOfBigCategory,
-          indexOfSmallCategory: null,
         );
       },
     );
   }
 
   // MARK - Build Chip UI
-  Widget _buildChipUI(BuildContext context, TLThemeConfig tlThemeData,
-      TLToDoCategory bigCategory, int numberOfToDos) {
+  Widget _buildChipUI(
+      BuildContext context,
+      String workspaceID,
+      TLThemeConfig tlThemeData,
+      TLToDoCategory bigCategory,
+      int numberOfToDos) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: SizedBox(
@@ -91,7 +95,7 @@ class BigCategoryChip extends ConsumerWidget {
           ),
           pressElevation: 3,
           elevation: 3,
-          onPressed: () => _showEditDialog(context, bigCategory),
+          onPressed: () => _showEditDialog(context, workspaceID, bigCategory),
         ),
       ),
     );

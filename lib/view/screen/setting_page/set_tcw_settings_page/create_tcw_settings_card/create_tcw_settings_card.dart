@@ -6,7 +6,7 @@ import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
-import 'package:today_list/util/tl_utils.dart';
+import 'package:today_list/util/tl_uuid_generator.dart';
 import 'package:today_list/util/tl_validation.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/view_model/settings/tcw_provider.dart';
@@ -260,7 +260,7 @@ class _ControlButtons extends ConsumerWidget {
                       .addToDosInCategoryWidgetSettings(
                         newToDosInCategoryWidgetSettings:
                             ToDosInCategoryWidgetSettings(
-                          id: TLUtils.generateUniqueId(),
+                          id: TLUUIDGenerator.generate(),
                           title: wksInputController.text,
                           workspace: currentWorkspace,
                           bigCategory: currentBigCategory,

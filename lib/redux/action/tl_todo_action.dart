@@ -7,30 +7,28 @@ part 'generate/tl_todo_action.freezed.dart';
 
 @freezed
 sealed class TLToDoAction with _$TLToDoAction {
-  /// 新規のToDoを追加するアクション
+  // 新規のToDoを追加する
   const factory TLToDoAction.addToDo({
-    required String workspaceID, // どのWorkspaceを更新するか
-    required String categoryID, // どのカテゴリーに紐付けるか
-    required bool ifInToday, // 今日リストかいつでもリストか
-    required TLToDo todo, // 追加するToDo本体
+    required String workspaceID,
+    required String categoryID,
+    required bool ifInToday,
+    required TLToDo todo,
   }) = _AddToDo;
 
-  /// 既存のToDoを更新するアクション
+  // 既存のToDoを更新する
   const factory TLToDoAction.updateToDo({
     required String workspaceID,
     required String categoryID,
     required bool ifInToday,
-    required int index, // どのToDo(何番目)を更新するか
+    required int index,
     required TLToDo newToDo,
   }) = _UpdateToDo;
 
-  /// 既存のToDoを削除するアクション（必要なら）
+  // 既存のToDoを削除する
   const factory TLToDoAction.removeToDo({
     required String workspaceID,
     required String categoryID,
     required bool ifInToday,
     required int index,
   }) = _RemoveToDo;
-
-  // 他に、「ToDoを並べ替える」「チェック状態を切り替える」などのアクションを追加してもOK
 }

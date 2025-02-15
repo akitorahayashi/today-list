@@ -31,12 +31,4 @@ class TLAppState with _$TLAppState {
         orElse: () =>
             tlWorkspaces.firstWhere((workspace) => workspace.id == noneID),
       );
-
-  /// カテゴリーの変更を保存する
-  Future<void> saveCategoryChanges() async {
-    final pref = await TLPrefService().getPref;
-    final encodedWorkspaces =
-        jsonEncode(tlWorkspaces.map((w) => w.toJson()).toList());
-    await pref.setString("tlWorkspaces", encodedWorkspaces);
-  }
 }

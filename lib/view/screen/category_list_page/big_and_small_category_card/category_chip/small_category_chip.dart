@@ -9,15 +9,11 @@ import 'package:today_list/util/tl_category_utils.dart';
 import 'package:today_list/view/component/dialog/for_category/select_edit_method_dialog.dart';
 
 class SmallCategoryChip extends ConsumerWidget {
-  final TLToDoCategory corrBigCategory;
-  final int corrIndexOfBigCategory;
-  final int corrIndexOfSmallCategory;
+  final TLToDoCategory corrSmallCategory;
 
   const SmallCategoryChip({
     super.key,
-    required this.corrBigCategory,
-    required this.corrIndexOfBigCategory,
-    required this.corrIndexOfSmallCategory,
+    required this.corrSmallCategory,
   });
 
   @override
@@ -26,20 +22,52 @@ class SmallCategoryChip extends ConsumerWidget {
     final currentWorkspace = ref
         .watch(tlAppStateProvider.select((state) => state.getCurrentWorkspace));
 
-    final smallCategory = _getSmallCategory(currentWorkspace);
-    final numberOfToDos = _getNumberOfToDos(currentWorkspace, smallCategory);
+    final numberOfToDos =
+        _getNumberOfToDos(currentWorkspace, corrSmallCategory);
 
     return GestureDetector(
-      onTap: () => _showEditDialog(context, smallCategory),
-      child:
-          _buildSmallCategoryChipUI(tlThemeData, smallCategory, numberOfToDos),
+      onTap: () =>
+          _showEditDialog(context, currentWorkspace.id, corrSmallCategory),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: SizedBox(
+          height: 50,
+          child: Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      corrSmallCategory.title,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        overflow: TextOverflow.ellipsis,
+                        fontSize: 15,
+                        color: tlThemeData.accentColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              if (numberOfToDos != 0)
+                Padding(
+                  padding: const EdgeInsets.only(right: 24.0),
+                  child: Text(
+                    "$numberOfToDos",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: tlThemeData.accentColor,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
     );
-  }
-
-  // MARK - Get Small Category Data
-  TLToDoCategory _getSmallCategory(TLWorkspace currentWorkspace) {
-    return currentWorkspace
-        .smallCategories[corrBigCategory.id]![corrIndexOfSmallCategory];
   }
 
   // MARK - Get Number of ToDos
@@ -52,61 +80,16 @@ class SmallCategoryChip extends ConsumerWidget {
   }
 
   // MARK - Show Edit Dialog
-  Future<void> _showEditDialog(
-      BuildContext context, TLToDoCategory smallCategory) async {
+  Future<void> _showEditDialog(BuildContext context, String corrWorkspaceID,
+      TLToDoCategory smallCategory) async {
     await showDialog(
       context: context,
       builder: (context) {
         return SelectEditMethodDialog(
+          corrWorkspaceID: corrWorkspaceID,
           categoryOfThisPage: smallCategory,
-          indexOfBigCategory: corrIndexOfBigCategory,
-          indexOfSmallCategory: corrIndexOfSmallCategory,
         );
       },
-    );
-  }
-
-  // MARK - Build Small Category Chip UI
-  Widget _buildSmallCategoryChipUI(TLThemeConfig tlThemeData,
-      TLToDoCategory smallCategory, int numberOfToDos) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: SizedBox(
-        height: 50,
-        child: Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    smallCategory.title,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      overflow: TextOverflow.ellipsis,
-                      fontSize: 15,
-                      color: tlThemeData.accentColor,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            if (numberOfToDos != 0)
-              Padding(
-                padding: const EdgeInsets.only(right: 24.0),
-                child: Text(
-                  "$numberOfToDos",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                    color: tlThemeData.accentColor,
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -9,14 +9,12 @@ import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 
 class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
+  final String corrWorkspaceID;
   final TLToDoCategory categoryOfThisPage;
-  final int indexOfBigCategory;
-  final int? indexOfSmallCategory;
   const SelectEditMethodDialog({
     super.key,
+    required this.corrWorkspaceID,
     required this.categoryOfThisPage,
-    required this.indexOfBigCategory,
-    this.indexOfSmallCategory,
   });
 
   @override
@@ -59,8 +57,8 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => RenameCategoryDialog(
-                  indexOfBigCategory: indexOfBigCategory,
-                  indexOfSmallCategory: indexOfSmallCategory,
+                  corrWorkspaceID: corrWorkspaceID,
+                  categoryToRename: categoryOfThisPage,
                 ),
               );
             },
@@ -81,8 +79,8 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
                   context: context,
                   builder: (context) {
                     return DeleteCategoryDialog(
-                      indexOfBigCategory: indexOfBigCategory,
-                      indexOfSmallCategory: indexOfSmallCategory,
+                      corrWorkspaceID: corrWorkspaceID,
+                      categoryToDelete: categoryOfThisPage,
                     );
                   });
             },
