@@ -87,7 +87,8 @@ class EditToDoPage extends HookConsumerWidget {
 
     // MARK: - ToDo Operations
     void addToStepList(String stepTitle) {
-      final newStep = TLStep(id: TLUUIDGenerator.generate(), title: stepTitle);
+      final newStep =
+          TLStep(id: TLUUIDGenerator.generate(), content: stepTitle);
       steps.value = [...steps.value, newStep];
       stepTitleController.clear();
     }
@@ -101,7 +102,7 @@ class EditToDoPage extends HookConsumerWidget {
       final TLToDo newToDo = TLToDo(
         id: TLUUIDGenerator.generate(),
         categoryID: categoryID,
-        title: toDoTitleController.text,
+        content: toDoTitleController.text,
         steps: steps.value,
       );
 
@@ -198,7 +199,7 @@ class EditToDoPage extends HookConsumerWidget {
                     AddedStepsColumn(
                       steps: steps.value,
                       onEditStep: (index) {
-                        stepTitleController.text = steps.value[index].title;
+                        stepTitleController.text = steps.value[index].content;
                       },
                       onRemoveStep: (index) {
                         steps.value = List<TLStep>.from(steps.value)

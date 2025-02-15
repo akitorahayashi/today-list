@@ -38,7 +38,7 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
           Align(
             alignment: Alignment.center,
             child: Text(
-              categoryOfThisPage.title,
+              categoryOfThisPage.name,
               style: TextStyle(
                   color: tlThemeData.accentColor,
                   fontSize: 20,

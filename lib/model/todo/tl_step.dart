@@ -9,7 +9,7 @@ part '../generate/tl_step.g.dart';
 class TLStep with _$TLStep {
   const factory TLStep({
     required String id,
-    required String title,
+    required String content,
     @Default(false) bool isChecked,
   }) = _TLStep;
 

@@ -10,7 +10,7 @@ _$TLToDoCategoryImpl _$$TLToDoCategoryImplFromJson(Map<String, dynamic> json) =>
     _$TLToDoCategoryImpl(
       id: json['id'] as String,
       parentBigCategoryID: json['parentBigCategoryID'] as String?,
-      title: json['title'] as String,
+      name: (json['name'] ?? json['title']) as String,
     );
 
 Map<String, dynamic> _$$TLToDoCategoryImplToJson(
@@ -18,5 +18,5 @@ Map<String, dynamic> _$$TLToDoCategoryImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'parentBigCategoryID': instance.parentBigCategoryID,
-      'title': instance.title,
+      'name': instance.name,
     };

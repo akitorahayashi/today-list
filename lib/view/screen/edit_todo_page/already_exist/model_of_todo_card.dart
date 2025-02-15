@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import '../../../component/todo_card/tl_checkbox.dart';
-import '../../../../model/todo/tl_todo.dart';
-import '../../../component/slidable/slidable_for_todo_card.dart';
+import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/view/component/slidable/slidable_for_todo_card.dart';
+import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 
 class ModelOfToDoCard extends ConsumerWidget {
   // todoのデータ
@@ -89,7 +89,7 @@ class ModelOfToDoCard extends ConsumerWidget {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          corrTLToDo.title,
+                          corrTLToDo.content,
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
@@ -130,7 +130,7 @@ class ModelOfToDoCard extends ConsumerWidget {
                                 ),
                                 // stepのタイトル
                                 Expanded(
-                                  child: Text(stepData.title,
+                                  child: Text(stepData.content,
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,

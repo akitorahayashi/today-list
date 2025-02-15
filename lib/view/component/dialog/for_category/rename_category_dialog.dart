@@ -56,12 +56,12 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
               final newCategory = TLToDoCategory(
                 id: categoryToRename.id,
                 parentBigCategoryID: categoryToRename.parentBigCategoryID,
-                title: enteredCategoryTitle.value,
+                name: enteredCategoryTitle.value,
               );
               TLVibrationService.vibrate();
               TLValidation.validateNameAndExecute(
                 context: navigator.context,
-                name: newCategory.title,
+                name: newCategory.name,
                 validator: TLValidation.validateCategoryName,
                 onSuccess: () async {
                   ref
@@ -83,7 +83,7 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
   }
 
   void _initializeCategoryData(ValueNotifier<String> enteredCategoryTitle) {
-    enteredCategoryTitle.value = categoryToRename.title;
+    enteredCategoryTitle.value = categoryToRename.name;
   }
 }
 

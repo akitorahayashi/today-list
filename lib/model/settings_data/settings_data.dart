@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:today_list/resource/tl_theme_type.dart';
 
 part '../generate/settings_data.freezed.dart';
 part '../generate/settings_data.g.dart';

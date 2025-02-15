@@ -41,7 +41,7 @@ class AddedStepsColumn extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () => onEditStep(i),
                     child: Text(
-                      step.title,
+                      step.content,
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,

@@ -37,7 +37,7 @@ class SelectBigCategoryDropdown extends ConsumerWidget {
                   final matchingCategories =
                       bigCategories.where((c) => c.id == bigCategoryID);
                   return matchingCategories.isNotEmpty
-                      ? matchingCategories.first.title
+                      ? matchingCategories.first.name
                       : "不明なカテゴリー";
                 })(),
           style: const TextStyle(
@@ -48,17 +48,17 @@ class SelectBigCategoryDropdown extends ConsumerWidget {
         items: [
           if (bigCategories.isEmpty)
             const TLToDoCategory(
-                id: noneID, parentBigCategoryID: null, title: "なし"),
+                id: noneID, parentBigCategoryID: null, name: "なし"),
           ...bigCategories,
           const TLToDoCategory(
               id: "---createBigCategory",
               parentBigCategoryID: null,
-              title: "新しく作る"),
+              name: "新しく作る"),
         ].map((item) {
           return DropdownMenuItem(
             value: item,
             child: Text(
-              item.title,
+              item.name,
               style: item.id == bigCategoryID
                   ? TextStyle(
                       color: tlThemeData.accentColor,

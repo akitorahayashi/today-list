@@ -186,7 +186,7 @@ class _AddOrEditWorkspaceDialogState
       id: UniqueKey().toString(),
       name: workspaceName,
       bigCategories: [
-        const TLToDoCategory(id: noneID, parentBigCategoryID: null, title: "なし")
+        const TLToDoCategory(id: noneID, parentBigCategoryID: null, name: "なし")
       ],
       smallCategories: {noneID: []},
       categoryIDToToDos: {

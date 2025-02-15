@@ -83,7 +83,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
     setState(() {
       if (!_ifUserHasEntered) {
         _wksInputController.text =
-            _currentWorkspace.bigCategories[newBCIdx].title;
+            _currentWorkspace.bigCategories[newBCIdx].name;
       }
       _selectedBCIdx = newBCIdx;
       _selectedSCIdx = null;
@@ -147,7 +147,7 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
                       .asMap()
                       .entries
                       .map((entry) => DropdownMenuItem<int>(
-                          value: entry.key, child: Text(entry.value.title)))
+                          value: entry.key, child: Text(entry.value.name)))
                       .toList(),
                   onChanged: _onBigCategoryChanged,
                 ),

@@ -135,7 +135,7 @@ class _CategoryInfo extends StatelessWidget {
           padding: EdgeInsets.only(top: 4.0),
           child: TCWHeader(text: "Big Category"),
         ),
-        TCWBodyText(text: corrToDosInCategoryWidgetSettings.bigCategory.title),
+        TCWBodyText(text: corrToDosInCategoryWidgetSettings.bigCategory.name),
 
         // Small Category（存在する場合のみ）
         if (corrToDosInCategoryWidgetSettings.smallCategory != null) ...[
@@ -144,7 +144,7 @@ class _CategoryInfo extends StatelessWidget {
             child: TCWHeader(text: "Small Category"),
           ),
           TCWBodyText(
-              text: corrToDosInCategoryWidgetSettings.smallCategory!.title),
+              text: corrToDosInCategoryWidgetSettings.smallCategory!.name),
         ],
       ],
     );

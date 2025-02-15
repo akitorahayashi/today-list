@@ -53,7 +53,7 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
               final categoryToAdd = TLToDoCategory(
                 id: TLUUIDGenerator.generate(),
                 parentBigCategoryID: selectedBigCategoryID.value,
-                title: enteredCategoryTitle.value,
+                name: enteredCategoryTitle.value,
               );
               ref.read(tlAppStateProvider.notifier).dispatchToDoCategoryAction(
                     TLToDoCategoryAction.addCategory(
@@ -62,7 +62,7 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
                   );
               Navigator.pop(context);
               TLSingleOptionDialog(
-                title: categoryToAdd.title,
+                title: categoryToAdd.name,
                 message: "カテゴリーを追加しました！",
               ).show(context: context);
             },
@@ -97,13 +97,13 @@ class _BigCategoryDropdown extends StatelessWidget {
           hint: _buildDropdownHint(selectedBigCategoryID, currentWorkspace),
           items: [
             const TLToDoCategory(
-                id: noneID, parentBigCategoryID: null, title: "なし"),
+                id: noneID, parentBigCategoryID: null, name: "なし"),
             ...currentWorkspace.bigCategories.sublist(1),
           ].map((TLToDoCategory bigCategory) {
             return DropdownMenuItem(
               value: bigCategory.id,
               child: Text(
-                bigCategory.title,
+                bigCategory.name,
                 style: _getDropdownItemStyle(
                   theme,
                   bigCategory.id == selectedBigCategoryID,
@@ -122,7 +122,7 @@ class _BigCategoryDropdown extends StatelessWidget {
     final found = workspace.bigCategories.where((bc) => bc.id == selectedID);
     return found.isEmpty
         ? const Text("なし")
-        : Text(found.first.title,
+        : Text(found.first.name,
             style: const TextStyle(fontWeight: FontWeight.bold));
   }
 

@@ -22,7 +22,7 @@ TLToDo _$TLToDoFromJson(Map<String, dynamic> json) {
 mixin _$TLToDo {
   String get id => throw _privateConstructorUsedError;
   String get categoryID => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
+  String get content => throw _privateConstructorUsedError;
   bool get isChecked => throw _privateConstructorUsedError;
   List<TLStep> get steps => throw _privateConstructorUsedError;
 
@@ -43,7 +43,7 @@ abstract class $TLToDoCopyWith<$Res> {
   $Res call(
       {String id,
       String categoryID,
-      String title,
+      String content,
       bool isChecked,
       List<TLStep> steps});
 }
@@ -65,7 +65,7 @@ class _$TLToDoCopyWithImpl<$Res, $Val extends TLToDo>
   $Res call({
     Object? id = null,
     Object? categoryID = null,
-    Object? title = null,
+    Object? content = null,
     Object? isChecked = null,
     Object? steps = null,
   }) {
@@ -78,9 +78,9 @@ class _$TLToDoCopyWithImpl<$Res, $Val extends TLToDo>
           ? _value.categoryID
           : categoryID // ignore: cast_nullable_to_non_nullable
               as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
               as String,
       isChecked: null == isChecked
           ? _value.isChecked
@@ -104,7 +104,7 @@ abstract class _$$TLToDoImplCopyWith<$Res> implements $TLToDoCopyWith<$Res> {
   $Res call(
       {String id,
       String categoryID,
-      String title,
+      String content,
       bool isChecked,
       List<TLStep> steps});
 }
@@ -124,7 +124,7 @@ class __$$TLToDoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? categoryID = null,
-    Object? title = null,
+    Object? content = null,
     Object? isChecked = null,
     Object? steps = null,
   }) {
@@ -137,9 +137,9 @@ class __$$TLToDoImplCopyWithImpl<$Res>
           ? _value.categoryID
           : categoryID // ignore: cast_nullable_to_non_nullable
               as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
               as String,
       isChecked: null == isChecked
           ? _value.isChecked
@@ -159,7 +159,7 @@ class _$TLToDoImpl implements _TLToDo {
   const _$TLToDoImpl(
       {required this.id,
       required this.categoryID,
-      required this.title,
+      required this.content,
       this.isChecked = false,
       final List<TLStep> steps = const []})
       : _steps = steps;
@@ -172,7 +172,7 @@ class _$TLToDoImpl implements _TLToDo {
   @override
   final String categoryID;
   @override
-  final String title;
+  final String content;
   @override
   @JsonKey()
   final bool isChecked;
@@ -187,7 +187,7 @@ class _$TLToDoImpl implements _TLToDo {
 
   @override
   String toString() {
-    return 'TLToDo(id: $id, categoryID: $categoryID, title: $title, isChecked: $isChecked, steps: $steps)';
+    return 'TLToDo(id: $id, categoryID: $categoryID, content: $content, isChecked: $isChecked, steps: $steps)';
   }
 
   @override
@@ -198,7 +198,7 @@ class _$TLToDoImpl implements _TLToDo {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.categoryID, categoryID) ||
                 other.categoryID == categoryID) &&
-            (identical(other.title, title) || other.title == title) &&
+            (identical(other.content, content) || other.content == content) &&
             (identical(other.isChecked, isChecked) ||
                 other.isChecked == isChecked) &&
             const DeepCollectionEquality().equals(other._steps, _steps));
@@ -206,8 +206,8 @@ class _$TLToDoImpl implements _TLToDo {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, categoryID, title, isChecked,
-      const DeepCollectionEquality().hash(_steps));
+  int get hashCode => Object.hash(runtimeType, id, categoryID, content,
+      isChecked, const DeepCollectionEquality().hash(_steps));
 
   /// Create a copy of TLToDo
   /// with the given fields replaced by the non-null parameter values.
@@ -229,7 +229,7 @@ abstract class _TLToDo implements TLToDo {
   const factory _TLToDo(
       {required final String id,
       required final String categoryID,
-      required final String title,
+      required final String content,
       final bool isChecked,
       final List<TLStep> steps}) = _$TLToDoImpl;
 
@@ -240,7 +240,7 @@ abstract class _TLToDo implements TLToDo {
   @override
   String get categoryID;
   @override
-  String get title;
+  String get content;
   @override
   bool get isChecked;
   @override

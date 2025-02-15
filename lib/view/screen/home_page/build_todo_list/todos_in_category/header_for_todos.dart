@@ -16,7 +16,7 @@ class CategoryHeaderForToDos extends StatelessWidget {
           margin: EdgeInsets.only(
               left: isBigCategory ? 10 : 30, bottom: isBigCategory ? 3 : 0),
           child: Text(
-            corrCategory.title,
+            corrCategory.name,
             style: isBigCategory
                 ? const TextStyle(
                     fontSize: 19,

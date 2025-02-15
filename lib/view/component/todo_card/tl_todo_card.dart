@@ -107,7 +107,7 @@ class TLToDoCard extends ConsumerWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                corrToDoData.title,
+                corrToDoData.content,
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -194,7 +194,7 @@ class TLToDoCard extends ConsumerWidget {
     TLVibrationService.vibrate();
     NotifyTodoOrStepIsEditedSnackBar.show(
       context: context,
-      newTitle: corrToDoData.title,
+      newTitle: corrToDoData.content,
       newCheckedState: newCheckedState,
       quickChangeToToday: null,
     );

@@ -9,7 +9,7 @@ part of '../todo/tl_todo.dart';
 _$TLToDoImpl _$$TLToDoImplFromJson(Map<String, dynamic> json) => _$TLToDoImpl(
       id: json['id'] as String,
       categoryID: json['categoryID'] as String,
-      title: json['title'] as String,
+      content: (json['content'] ?? json['title']) as String,
       isChecked: json['isChecked'] as bool? ?? false,
       steps: (json['steps'] as List<dynamic>?)
               ?.map((e) => TLStep.fromJson(e as Map<String, dynamic>))
@@ -21,7 +21,7 @@ Map<String, dynamic> _$$TLToDoImplToJson(_$TLToDoImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'categoryID': instance.categoryID,
-      'title': instance.title,
+      'content': instance.content,
       'isChecked': instance.isChecked,
       'steps': instance.steps,
     };

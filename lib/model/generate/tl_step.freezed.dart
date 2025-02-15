@@ -21,7 +21,7 @@ TLStep _$TLStepFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TLStep {
   String get id => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
+  String get content => throw _privateConstructorUsedError;
   bool get isChecked => throw _privateConstructorUsedError;
 
   /// Serializes this TLStep to a JSON map.
@@ -38,7 +38,7 @@ abstract class $TLStepCopyWith<$Res> {
   factory $TLStepCopyWith(TLStep value, $Res Function(TLStep) then) =
       _$TLStepCopyWithImpl<$Res, TLStep>;
   @useResult
-  $Res call({String id, String title, bool isChecked});
+  $Res call({String id, String content, bool isChecked});
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$TLStepCopyWithImpl<$Res, $Val extends TLStep>
   @override
   $Res call({
     Object? id = null,
-    Object? title = null,
+    Object? content = null,
     Object? isChecked = null,
   }) {
     return _then(_value.copyWith(
@@ -65,9 +65,9 @@ class _$TLStepCopyWithImpl<$Res, $Val extends TLStep>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
               as String,
       isChecked: null == isChecked
           ? _value.isChecked
@@ -84,7 +84,7 @@ abstract class _$$TLStepImplCopyWith<$Res> implements $TLStepCopyWith<$Res> {
       __$$TLStepImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, bool isChecked});
+  $Res call({String id, String content, bool isChecked});
 }
 
 /// @nodoc
@@ -101,7 +101,7 @@ class __$$TLStepImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? title = null,
+    Object? content = null,
     Object? isChecked = null,
   }) {
     return _then(_$TLStepImpl(
@@ -109,9 +109,9 @@ class __$$TLStepImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
               as String,
       isChecked: null == isChecked
           ? _value.isChecked
@@ -125,7 +125,7 @@ class __$$TLStepImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TLStepImpl implements _TLStep {
   const _$TLStepImpl(
-      {required this.id, required this.title, this.isChecked = false});
+      {required this.id, required this.content, this.isChecked = false});
 
   factory _$TLStepImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLStepImplFromJson(json);
@@ -133,14 +133,14 @@ class _$TLStepImpl implements _TLStep {
   @override
   final String id;
   @override
-  final String title;
+  final String content;
   @override
   @JsonKey()
   final bool isChecked;
 
   @override
   String toString() {
-    return 'TLStep(id: $id, title: $title, isChecked: $isChecked)';
+    return 'TLStep(id: $id, content: $content, isChecked: $isChecked)';
   }
 
   @override
@@ -149,14 +149,14 @@ class _$TLStepImpl implements _TLStep {
         (other.runtimeType == runtimeType &&
             other is _$TLStepImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.title, title) || other.title == title) &&
+            (identical(other.content, content) || other.content == content) &&
             (identical(other.isChecked, isChecked) ||
                 other.isChecked == isChecked));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, isChecked);
+  int get hashCode => Object.hash(runtimeType, id, content, isChecked);
 
   /// Create a copy of TLStep
   /// with the given fields replaced by the non-null parameter values.
@@ -177,7 +177,7 @@ class _$TLStepImpl implements _TLStep {
 abstract class _TLStep implements TLStep {
   const factory _TLStep(
       {required final String id,
-      required final String title,
+      required final String content,
       final bool isChecked}) = _$TLStepImpl;
 
   factory _TLStep.fromJson(Map<String, dynamic> json) = _$TLStepImpl.fromJson;
@@ -185,7 +185,7 @@ abstract class _TLStep implements TLStep {
   @override
   String get id;
   @override
-  String get title;
+  String get content;
   @override
   bool get isChecked;
 

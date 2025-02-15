@@ -76,7 +76,7 @@ class BigCategoryChip extends ConsumerWidget {
                 Expanded(
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(bigCategory.title),
+                    child: Text(bigCategory.name),
                   ),
                 ),
                 if (numberOfToDos != 0)

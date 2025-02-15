@@ -69,7 +69,7 @@ class TLStepCard extends ConsumerWidget {
               // MARK: - Step Title
               Expanded(
                 child: Text(
-                  corrStepData.title,
+                  corrStepData.content,
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -142,7 +142,7 @@ class TLStepCard extends ConsumerWidget {
     TLVibrationService.vibrate();
     NotifyTodoOrStepIsEditedSnackBar.show(
       context: context,
-      newTitle: updatedStep.title,
+      newTitle: updatedStep.content,
       newCheckedState: updatedStep.isChecked,
       quickChangeToToday: null,
     );

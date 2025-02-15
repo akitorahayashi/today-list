@@ -11,7 +11,7 @@ class TLToDo with _$TLToDo {
   const factory TLToDo({
     required String id,
     required String categoryID,
-    required String title,
+    required String content,
     @Default(false) bool isChecked,
     @Default([]) List<TLStep> steps,
   }) = _TLToDo;

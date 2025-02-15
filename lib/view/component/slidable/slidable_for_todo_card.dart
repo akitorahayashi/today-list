@@ -135,7 +135,7 @@ class SlidableForToDoCard extends ConsumerWidget {
             ifInToday: true,
             selectedBigCategoryID: bigCategoryID,
             selectedSmallCategoryID: smallCategoryID,
-            editedToDoTitle: toDoArray[indexOfThisToDoInToDos].title,
+            editedToDoTitle: toDoArray[indexOfThisToDoInToDos].content,
             indexOfEdittedTodo: indexOfThisToDoInToDos,
           );
         },
@@ -183,7 +183,7 @@ class SlidableForToDoCard extends ConsumerWidget {
     TLVibrationService.vibrate();
     NotifyTodoOrStepIsEditedSnackBar.show(
       context: context,
-      newTitle: corrTLToDo.title,
+      newTitle: corrTLToDo.content,
       newCheckedState: corrTLToDo.isChecked,
       quickChangeToToday: !ifInToday,
     );

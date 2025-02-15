@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
-import 'package:today_list/service/tl_pref.dart';
 
 part 'generate/tl_app_state.freezed.dart';
 part 'generate/tl_app_state.g.dart';

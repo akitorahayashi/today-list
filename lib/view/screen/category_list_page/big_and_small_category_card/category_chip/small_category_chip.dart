@@ -40,7 +40,7 @@ class SmallCategoryChip extends ConsumerWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      corrSmallCategory.title,
+                      corrSmallCategory.name,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         overflow: TextOverflow.ellipsis,

@@ -10,7 +10,7 @@ class TLToDoCategory with _$TLToDoCategory {
   const factory TLToDoCategory({
     required String id,
     required String? parentBigCategoryID,
-    required String title,
+    required String name,
   }) = _TLToDoCategory;
 
   factory TLToDoCategory.fromJson(Map<String, dynamic> json) =>

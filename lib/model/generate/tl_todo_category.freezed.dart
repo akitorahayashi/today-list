@@ -22,7 +22,7 @@ TLToDoCategory _$TLToDoCategoryFromJson(Map<String, dynamic> json) {
 mixin _$TLToDoCategory {
   String get id => throw _privateConstructorUsedError;
   String? get parentBigCategoryID => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
 
   /// Serializes this TLToDoCategory to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $TLToDoCategoryCopyWith<$Res> {
           TLToDoCategory value, $Res Function(TLToDoCategory) then) =
       _$TLToDoCategoryCopyWithImpl<$Res, TLToDoCategory>;
   @useResult
-  $Res call({String id, String? parentBigCategoryID, String title});
+  $Res call({String id, String? parentBigCategoryID, String name});
 }
 
 /// @nodoc
@@ -60,7 +60,7 @@ class _$TLToDoCategoryCopyWithImpl<$Res, $Val extends TLToDoCategory>
   $Res call({
     Object? id = null,
     Object? parentBigCategoryID = freezed,
-    Object? title = null,
+    Object? name = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -71,9 +71,9 @@ class _$TLToDoCategoryCopyWithImpl<$Res, $Val extends TLToDoCategory>
           ? _value.parentBigCategoryID
           : parentBigCategoryID // ignore: cast_nullable_to_non_nullable
               as String?,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -87,7 +87,7 @@ abstract class _$$TLToDoCategoryImplCopyWith<$Res>
       __$$TLToDoCategoryImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String? parentBigCategoryID, String title});
+  $Res call({String id, String? parentBigCategoryID, String name});
 }
 
 /// @nodoc
@@ -105,7 +105,7 @@ class __$$TLToDoCategoryImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? parentBigCategoryID = freezed,
-    Object? title = null,
+    Object? name = null,
   }) {
     return _then(_$TLToDoCategoryImpl(
       id: null == id
@@ -116,9 +116,9 @@ class __$$TLToDoCategoryImplCopyWithImpl<$Res>
           ? _value.parentBigCategoryID
           : parentBigCategoryID // ignore: cast_nullable_to_non_nullable
               as String?,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -130,7 +130,7 @@ class _$TLToDoCategoryImpl implements _TLToDoCategory {
   const _$TLToDoCategoryImpl(
       {required this.id,
       required this.parentBigCategoryID,
-      required this.title});
+      required this.name});
 
   factory _$TLToDoCategoryImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLToDoCategoryImplFromJson(json);
@@ -140,11 +140,11 @@ class _$TLToDoCategoryImpl implements _TLToDoCategory {
   @override
   final String? parentBigCategoryID;
   @override
-  final String title;
+  final String name;
 
   @override
   String toString() {
-    return 'TLToDoCategory(id: $id, parentBigCategoryID: $parentBigCategoryID, title: $title)';
+    return 'TLToDoCategory(id: $id, parentBigCategoryID: $parentBigCategoryID, name: $name)';
   }
 
   @override
@@ -155,12 +155,12 @@ class _$TLToDoCategoryImpl implements _TLToDoCategory {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.parentBigCategoryID, parentBigCategoryID) ||
                 other.parentBigCategoryID == parentBigCategoryID) &&
-            (identical(other.title, title) || other.title == title));
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, parentBigCategoryID, title);
+  int get hashCode => Object.hash(runtimeType, id, parentBigCategoryID, name);
 
   /// Create a copy of TLToDoCategory
   /// with the given fields replaced by the non-null parameter values.
@@ -183,7 +183,7 @@ abstract class _TLToDoCategory implements TLToDoCategory {
   const factory _TLToDoCategory(
       {required final String id,
       required final String? parentBigCategoryID,
-      required final String title}) = _$TLToDoCategoryImpl;
+      required final String name}) = _$TLToDoCategoryImpl;
 
   factory _TLToDoCategory.fromJson(Map<String, dynamic> json) =
       _$TLToDoCategoryImpl.fromJson;
@@ -193,7 +193,7 @@ abstract class _TLToDoCategory implements TLToDoCategory {
   @override
   String? get parentBigCategoryID;
   @override
-  String get title;
+  String get name;
 
   /// Create a copy of TLToDoCategory
   /// with the given fields replaced by the non-null parameter values.

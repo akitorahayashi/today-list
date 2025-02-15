@@ -39,9 +39,9 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
                   .firstWhere(
                     (cat) => cat.id == smallCategoryID,
                     orElse: () => const TLToDoCategory(
-                        id: '', parentBigCategoryID: null, title: '小カテゴリー'),
+                        id: '', parentBigCategoryID: null, name: '小カテゴリー'),
                   )
-                  .title,
+                  .name,
           style: const TextStyle(
               color: Colors.black45, fontWeight: FontWeight.bold),
         ),
@@ -50,18 +50,18 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
         items: [
           if (smallCats.isEmpty)
             const TLToDoCategory(
-                id: noneID, parentBigCategoryID: null, title: "なし"),
+                id: noneID, parentBigCategoryID: null, name: "なし"),
           ...smallCats,
           if (bigCategoryID != noneID)
             const TLToDoCategory(
                 id: "---createSmallCategory",
                 parentBigCategoryID: null,
-                title: "新しく作る"),
+                name: "新しく作る"),
         ].map((item) {
           return DropdownMenuItem(
             value: item,
             child: Text(
-              item.title,
+              item.name,
               style: item.id == smallCategoryID
                   ? TextStyle(
                       color: tlThemeData.accentColor,
