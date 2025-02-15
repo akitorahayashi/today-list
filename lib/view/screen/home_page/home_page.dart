@@ -107,34 +107,6 @@ class _HomePageState extends ConsumerState<HomePage> {
       ),
     );
   }
-
-  // MARK: - チェック済み ToDo の削除処理
-  void _deleteCheckedToDos(BuildContext context,
-      TLWorkspace currentWorkspaceRef, tlAppStateReducer) {
-    showDialog(
-      context: context,
-      builder: ((context) => TLYesNoDialog(
-            title: "チェック済みToDoを\n削除しますか?",
-            message: null,
-            yesAction: () async {
-              Navigator.pop(context);
-              final updatedWorkspace =
-                  await TLWorkspaceUtils.deleteCheckedToDosInTodayInAWorkspace(
-                currentWorkspaceRef,
-                onlyToday: false,
-              );
-              tlAppStateReducer.dispatchWorkspaceAction(
-                  TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace));
-
-              if (context.mounted) {
-                const TLSingleOptionDialog(title: "削除が完了しました！")
-                    .show(context: context);
-              }
-              TLVibrationService.vibrate();
-            },
-          )),
-    );
-  }
 }
 
 // MARK: - AppBar Widget
@@ -153,9 +125,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return TLAppBar(
       context: context,
-      pageTitle: tlAppState.currentWorkspaceID == noneID
-          ? "Today List"
-          : currentWorkspaceRef.name,
+      pageTitle: currentWorkspaceRef.name,
       leadingButtonOnPressed: () =>
           homePageScaffoldKey.currentState!.openDrawer(),
       leadingIcon: const Icon(Icons.menu, color: Colors.white),

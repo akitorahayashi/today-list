@@ -6,7 +6,7 @@ import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 
 final List<TLWorkspace> initialTLWorkspaces = [
-  TLWorkspace(id: noneID, name: "Default", bigCategories: const [
+  TLWorkspace(id: noneID, name: "Shopping", bigCategories: const [
     TLToDoCategory(id: noneID, parentBigCategoryID: null, title: "なし"),
     TLToDoCategory(
         id: "superMarcketId", parentBigCategoryID: null, title: "スーパー"),
