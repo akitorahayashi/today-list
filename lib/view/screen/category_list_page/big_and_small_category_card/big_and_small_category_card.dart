@@ -6,16 +6,16 @@ import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'category_chip/big_category_chip.dart';
-import 'category_chip/small_category_chip.dart';
+import 'category_card/big_category_chip.dart';
+import 'category_card/small_category_chip.dart';
 import 'package:reorderables/reorderables.dart';
 
 class BigAndSmallCategoryCard extends ConsumerWidget {
-  final int indexOfBigCategory;
+  final TLToDoCategory corrBigCategory;
 
   const BigAndSmallCategoryCard({
     super.key,
-    required this.indexOfBigCategory,
+    required this.corrBigCategory,
   });
 
   @override
@@ -25,39 +25,37 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
       tlAppStateProvider.select((state) => state.getCurrentWorkspace),
     );
 
-    final coorBigCategory = currentWorkspace.bigCategories[indexOfBigCategory];
-
     return Card(
       color: tlThemeData.canTapCardColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BigCategoryChip(indexOfBigCategory: indexOfBigCategory),
-          _SmallCategoryList(
-            ref: ref,
-            currentWorkspace: currentWorkspace,
-            coorBigCategory: coorBigCategory,
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BigCategoryCard(corrBigCategory: corrBigCategory),
+            _SmallCategoryList(
+              currentWorkspace: currentWorkspace,
+              coorBigCategory: corrBigCategory,
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class _SmallCategoryList extends StatelessWidget {
-  final WidgetRef ref;
+class _SmallCategoryList extends ConsumerWidget {
   final TLWorkspace currentWorkspace;
   final TLToDoCategory coorBigCategory;
 
   const _SmallCategoryList({
-    required this.ref,
     required this.currentWorkspace,
     required this.coorBigCategory,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final smallCategories =
         currentWorkspace.smallCategories[coorBigCategory.id] ?? [];
 

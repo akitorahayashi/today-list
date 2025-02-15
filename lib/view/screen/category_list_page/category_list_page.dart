@@ -61,12 +61,11 @@ class CategoryListPage extends ConsumerWidget {
       WidgetRef ref, TLWorkspace currentWorkspace) {
     return ReorderableColumn(
       children: [
-        for (int i = 0; i < currentWorkspace.bigCategories.length; i++)
+        for (TLToDoCategory bigCategory in currentWorkspace.bigCategories)
           GestureDetector(
-            key: ValueKey(currentWorkspace.bigCategories[i].id),
-            onLongPress:
-                currentWorkspace.bigCategories[i].id != noneID ? null : () {},
-            child: BigAndSmallCategoryCard(indexOfBigCategory: i),
+            key: ValueKey(bigCategory.id),
+            onLongPress: bigCategory.id != noneID ? null : () {},
+            child: BigAndSmallCategoryCard(corrBigCategory: bigCategory),
           ),
       ],
       onReorder: (oldIndex, newIndex) {
