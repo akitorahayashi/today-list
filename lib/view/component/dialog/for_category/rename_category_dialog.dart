@@ -23,14 +23,9 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final enteredCategoryTitle = useState<String>("");
+    final enteredCategoryTitle = useState<String>(categoryToRename.name);
     final String currentWorkspaceID = ref
         .watch(tlAppStateProvider.select((state) => state.currentWorkspaceID));
-
-    useEffect(() {
-      _initializeCategoryData(enteredCategoryTitle);
-      return null;
-    }, const []);
 
     final navigator = Navigator.of(context);
 
@@ -45,6 +40,7 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
               padding: const EdgeInsets.only(bottom: 12.0),
               child: _NewCategoryNameInputField(
                 enteredCategoryTitle: enteredCategoryTitle,
+                initialText: categoryToRename.name,
               ),
             ),
           ),
@@ -71,7 +67,7 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
                               workspaceID: currentWorkspaceID,
                               newCategory: newCategory));
                   navigator.pop();
-                  const TLSingleOptionDialog(title: "カテゴリーが\n変更されました！")
+                  const TLSingleOptionDialog(title: "カテゴリー名が\n変更されました！")
                       .show(context: navigator.context);
                 },
               );
@@ -87,19 +83,28 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
   }
 }
 
-class _NewCategoryNameInputField extends StatelessWidget {
+class _NewCategoryNameInputField extends HookWidget {
   final ValueNotifier<String> enteredCategoryTitle;
+  final String initialText;
 
   const _NewCategoryNameInputField({
     required this.enteredCategoryTitle,
+    required this.initialText,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = TLTheme.of(context);
+    final textController = useTextEditingController(text: initialText);
+
+    useEffect(() {
+      return () => textController.dispose();
+    }, [textController]);
+
     return SizedBox(
       width: 230,
       child: TextField(
+        controller: textController,
         autofocus: true,
         onChanged: (text) => enteredCategoryTitle.value = text,
         cursorColor: theme.accentColor,

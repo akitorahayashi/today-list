@@ -1,11 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
-import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_category_utils.dart';
 import 'package:today_list/view/component/dialog/for_category/select_edit_method_dialog.dart';
@@ -22,8 +19,8 @@ class BigCategoryCard extends ConsumerWidget {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     final currentWorkspaceID = ref
         .watch(tlAppStateProvider.select((state) => state.currentWorkspaceID));
-    final currentWorkspaceRef = ref
-        .watch(tlAppStateProvider.select((state) => state.getCurrentWorkspace));
+    final categoryIDToToDosRefOfCurrentWorkspace = ref.watch(tlAppStateProvider
+        .select((state) => state.getCurrentWorkspace.categoryIDToToDos));
 
     const double cardHeight = 64.0;
 
@@ -44,9 +41,8 @@ class BigCategoryCard extends ConsumerWidget {
 
     final numberOfToDos = TLCategoryUtils.getNumberOfToDosInThisCategory(
       ifInToday: null,
-      corrToDos: currentWorkspaceRef.categoryIDToToDos[corrBigCategory.id]!,
+      corrToDos: categoryIDToToDosRefOfCurrentWorkspace[corrBigCategory.id]!,
     );
-    ;
 
     return SizedBox(
       height: cardHeight,
