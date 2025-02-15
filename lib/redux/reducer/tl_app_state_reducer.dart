@@ -13,6 +13,8 @@ import 'package:today_list/service/tl_pref.dart';
 import 'dart:convert';
 
 import 'package:today_list/service/tl_vibration.dart';
+import 'package:today_list/redux/action/tl_category_action.dart';
+import 'package:today_list/redux/reducer/property/tl_todo_category_reducer.dart';
 
 class TLAppStateReducer extends StateNotifier<TLAppState> {
   TLAppStateReducer()
@@ -111,6 +113,15 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     // MARK: - Update State and Save
     dispatchWorkspaceAction(
         TLWorkspaceAction.updateWorkspaceList(updatedWorkspaces));
+  }
+
+  // --- Dispatch Category Actions ---
+  Future<void> dispatchCategoryAction(TLCategoryAction action) async {
+    List<TLWorkspace> updatedWorkspaces = await TLCategoryReducer.handle(
+        state.tlWorkspaces, action, state.currentWorkspaceID);
+
+    state = state.copyWith(tlWorkspaces: updatedWorkspaces);
+    await state.saveCategoryChanges(); // カテゴリーの変更を保存
   }
 
   // --- Change Current Workspace ID ---

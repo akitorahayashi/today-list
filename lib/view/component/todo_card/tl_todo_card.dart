@@ -8,7 +8,7 @@ import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/view/component/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import 'package:today_list/view/component/slidable/slidable_for_todo_card.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
@@ -23,8 +23,8 @@ import 'package:reorderables/reorderables.dart';
 class TLToDoCard extends ConsumerWidget {
   final bool ifInToday;
   final int indexOfThisToDoInToDos;
-  final TLCategory bigCategoryOfThisToDo;
-  final TLCategory? smallCategoryOfThisToDo;
+  final TLToDoCategory bigCategoryOfThisToDo;
+  final TLToDoCategory? smallCategoryOfThisToDo;
 
   const TLToDoCard({
     super.key,
@@ -41,7 +41,7 @@ class TLToDoCard extends ConsumerWidget {
       tlAppStateProvider.select((state) => state.getCurrentWorkspace),
     );
 
-    final TLCategory categoryOfThisToDo =
+    final TLToDoCategory categoryOfThisToDo =
         smallCategoryOfThisToDo ?? bigCategoryOfThisToDo;
     final List<TLToDo> toDoArray = currentWorkspace
         .categoryIDToToDos[categoryOfThisToDo.id]!
@@ -122,7 +122,7 @@ class TLToDoCard extends ConsumerWidget {
 
   // MARK: - Build Steps List
   Widget _buildStepsList(WidgetRef ref, TLWorkspace currentWorkspace,
-      TLCategory categoryOfThisToDo, TLToDo corrToDoData) {
+      TLToDoCategory categoryOfThisToDo, TLToDo corrToDoData) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: ReorderableColumn(
@@ -150,7 +150,7 @@ class TLToDoCard extends ConsumerWidget {
     WidgetRef ref,
     BuildContext context,
     TLWorkspace currentWorkspace,
-    TLCategory categoryOfThisToDo,
+    TLToDoCategory categoryOfThisToDo,
   ) {
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
     final TLToDosInTodayAndWhenever toDosInCategory =
@@ -204,7 +204,7 @@ class TLToDoCard extends ConsumerWidget {
   void _reorderSteps(
     WidgetRef ref,
     TLWorkspace currentWorkspace,
-    TLCategory categoryOfThisToDo,
+    TLToDoCategory categoryOfThisToDo,
     int oldIndex,
     int newIndex,
   ) {

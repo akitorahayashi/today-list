@@ -6,12 +6,12 @@ part of '../settings_data/settings_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SettingDataImpl _$$SettingDataImplFromJson(Map<String, dynamic> json) =>
-    _$SettingDataImpl(
-      currentAppIconName: json['currentAppIconName'] as String? ?? "Sun Orange",
+_$SettingsDataImpl _$$SettingsDataImplFromJson(Map<String, dynamic> json) =>
+    _$SettingsDataImpl(
+      currentAppIconName: json['currentAppIconName'] as String? ?? 'sunOrange',
     );
 
-Map<String, dynamic> _$$SettingDataImplToJson(_$SettingDataImpl instance) =>
+Map<String, dynamic> _$$SettingsDataImplToJson(_$SettingsDataImpl instance) =>
     <String, dynamic>{
       'currentAppIconName': instance.currentAppIconName,
     };

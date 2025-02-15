@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/settings_data/todos_in_category_widget_settings.dart';
-import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
@@ -36,10 +36,10 @@ class CreateWKSettingsCardState extends ConsumerState<CreateWKSettingsCard> {
   TLWorkspace get _currentWorkspace =>
       ref.watch(tlAppStateProvider).tlWorkspaces[_selectedWorkspaceIndex];
 
-  TLCategory get _currentBigCategory =>
+  TLToDoCategory get _currentBigCategory =>
       _currentWorkspace.bigCategories[_selectedBCIdx];
 
-  TLCategory? get _currentSmallCategory => _selectedSCIdx == null
+  TLToDoCategory? get _currentSmallCategory => _selectedSCIdx == null
       ? null
       : _currentWorkspace
           .smallCategories[_currentBigCategory.id]![_selectedSCIdx!];
@@ -211,8 +211,8 @@ class _ControlButtons extends ConsumerWidget {
   final VoidCallback showAddWKSButtonAction;
   final TextEditingController wksInputController;
   final TLWorkspace currentWorkspace;
-  final TLCategory currentBigCategory;
-  final TLCategory? currentSmallCategory;
+  final TLToDoCategory currentBigCategory;
+  final TLToDoCategory? currentSmallCategory;
 
   const _ControlButtons({
     required this.resetState,

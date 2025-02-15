@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'todos_in_category/header_for_todos.dart';
@@ -23,7 +23,7 @@ class ListOfCategoryToToDos extends ConsumerWidget {
       children: [
         _DefaultCategory(
             currentWorkspace: currentWorkspace, ifInToday: ifInToday),
-        for (TLCategory bigCategory
+        for (TLToDoCategory bigCategory
             in currentWorkspace.bigCategories.sublist(1))
           _BigCategorySection(
             currentWorkspace: currentWorkspace,
@@ -67,7 +67,7 @@ class _DefaultCategory extends StatelessWidget {
 // MARK - Big Category Section
 class _BigCategorySection extends StatelessWidget {
   final TLWorkspace currentWorkspace;
-  final TLCategory bigCategory;
+  final TLToDoCategory bigCategory;
   final bool ifInToday;
 
   const _BigCategorySection({
@@ -91,7 +91,7 @@ class _BigCategorySection extends StatelessWidget {
             bigCategoryOfThisToDo: bigCategory,
             smallCategoryOfThisToDo: null,
           ),
-        for (TLCategory smallCategory
+        for (TLToDoCategory smallCategory
             in currentWorkspace.smallCategories[bigCategory.id] ?? [])
           _SmallCategorySection(
             currentWorkspace: currentWorkspace,
@@ -105,7 +105,7 @@ class _BigCategorySection extends StatelessWidget {
 
   // MARK - Determine if Big Category Header Should Be Displayed
   bool _shouldShowBigCategoryHeader(
-      TLWorkspace currentWorkspace, TLCategory bigCategory) {
+      TLWorkspace currentWorkspace, TLToDoCategory bigCategory) {
     return
         // ① ビッグカテゴリ自体に ToDo が 1 つでもある場合、ヘッダーを表示する
         currentWorkspace.categoryIDToToDos[bigCategory.id]!
@@ -126,8 +126,8 @@ class _BigCategorySection extends StatelessWidget {
 // MARK - Small Category Section
 class _SmallCategorySection extends StatelessWidget {
   final TLWorkspace currentWorkspace;
-  final TLCategory bigCategory;
-  final TLCategory smallCategory;
+  final TLToDoCategory bigCategory;
+  final TLToDoCategory smallCategory;
   final bool ifInToday;
 
   const _SmallCategorySection({

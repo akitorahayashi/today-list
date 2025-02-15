@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_category_utils.dart';
 import 'package:today_list/view/component/dialog/for_category/select_edit_method_dialog.dart';
 
 class SmallCategoryChip extends ConsumerWidget {
-  final TLCategory corrBigCategory;
+  final TLToDoCategory corrBigCategory;
   final int corrIndexOfBigCategory;
   final int corrIndexOfSmallCategory;
 
@@ -37,14 +37,14 @@ class SmallCategoryChip extends ConsumerWidget {
   }
 
   // MARK - Get Small Category Data
-  TLCategory _getSmallCategory(TLWorkspace currentWorkspace) {
+  TLToDoCategory _getSmallCategory(TLWorkspace currentWorkspace) {
     return currentWorkspace
         .smallCategories[corrBigCategory.id]![corrIndexOfSmallCategory];
   }
 
   // MARK - Get Number of ToDos
   int _getNumberOfToDos(
-      TLWorkspace currentWorkspace, TLCategory smallCategory) {
+      TLWorkspace currentWorkspace, TLToDoCategory smallCategory) {
     return TLCategoryUtils.getNumberOfToDosInThisCategory(
       ifInToday: null,
       corrToDos: currentWorkspace.categoryIDToToDos[smallCategory.id]!,
@@ -53,7 +53,7 @@ class SmallCategoryChip extends ConsumerWidget {
 
   // MARK - Show Edit Dialog
   Future<void> _showEditDialog(
-      BuildContext context, TLCategory smallCategory) async {
+      BuildContext context, TLToDoCategory smallCategory) async {
     await showDialog(
       context: context,
       builder: (context) {
@@ -67,8 +67,8 @@ class SmallCategoryChip extends ConsumerWidget {
   }
 
   // MARK - Build Small Category Chip UI
-  Widget _buildSmallCategoryChipUI(
-      TLThemeConfig tlThemeData, TLCategory smallCategory, int numberOfToDos) {
+  Widget _buildSmallCategoryChipUI(TLThemeConfig tlThemeData,
+      TLToDoCategory smallCategory, int numberOfToDos) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: SizedBox(

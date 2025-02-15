@@ -8,7 +8,7 @@ import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import '../common/tl_single_option_dialog.dart';
 import '../../../../model/design/tl_theme/tl_theme.dart';
 import '../../../../service/tl_vibration.dart';
-import '../../../../model/todo/tl_category.dart';
+import '../../../../model/todo/tl_todo_category.dart';
 import '../../../../model/todo/tl_todos_in_today_and_whenever.dart';
 import '../../../../styles.dart';
 
@@ -30,7 +30,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
       tlAppStateProvider.select((state) => state.getCurrentWorkspace),
     );
 
-    final TLCategory? categoryToDelete = _getCategory(currentWorkspace);
+    final TLToDoCategory? categoryToDelete = _getCategory(currentWorkspace);
 
     if (categoryToDelete == null) {
       return _buildErrorDialog(theme);
@@ -41,7 +41,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
   }
 
   // MARK: - Category Retrieval
-  TLCategory? _getCategory(TLWorkspace workspace) {
+  TLToDoCategory? _getCategory(TLWorkspace workspace) {
     if (indexOfSmallCategory == null) {
       return (indexOfBigCategory >= 0 &&
               indexOfBigCategory < workspace.bigCategories.length)
@@ -50,7 +50,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
     } else {
       final String bigCategoryId =
           workspace.bigCategories[indexOfBigCategory].id;
-      final List<TLCategory>? smallCategories =
+      final List<TLToDoCategory>? smallCategories =
           workspace.smallCategories[bigCategoryId];
       return (smallCategories != null &&
               indexOfSmallCategory! >= 0 &&
@@ -79,7 +79,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
     WidgetRef ref,
     TLThemeConfig theme,
     TLWorkspace workspace,
-    TLCategory categoryToDelete,
+    TLToDoCategory categoryToDelete,
   ) {
     return Dialog(
       backgroundColor: theme.alertBackgroundColor,
@@ -130,7 +130,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
     WidgetRef ref,
     TLThemeConfig theme,
     TLWorkspace workspace,
-    TLCategory categoryToDelete,
+    TLToDoCategory categoryToDelete,
   ) {
     return OverflowBar(
       alignment: MainAxisAlignment.spaceEvenly,
@@ -157,12 +157,12 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   // MARK: - Category Deletion
   void _deleteCategory(
-      WidgetRef ref, TLWorkspace workspace, TLCategory categoryToDelete) {
-    final List<TLCategory> updatedBigCategories =
-        List<TLCategory>.from(workspace.bigCategories);
-    final Map<String, List<TLCategory>> updatedSmallCategories = {
+      WidgetRef ref, TLWorkspace workspace, TLToDoCategory categoryToDelete) {
+    final List<TLToDoCategory> updatedBigCategories =
+        List<TLToDoCategory>.from(workspace.bigCategories);
+    final Map<String, List<TLToDoCategory>> updatedSmallCategories = {
       for (var entry in workspace.smallCategories.entries)
-        entry.key: List<TLCategory>.from(entry.value),
+        entry.key: List<TLToDoCategory>.from(entry.value),
     };
     final Map<String, TLToDosInTodayAndWhenever> updatedCategoryIDToToDos = {
       for (var entry in workspace.categoryIDToToDos.entries)
@@ -182,7 +182,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
 
       // smallCategories 内の関連タスクを削除
       if (workspace.smallCategories[bigCategoryId] != null) {
-        for (TLCategory smallCategory
+        for (TLToDoCategory smallCategory
             in workspace.smallCategories[bigCategoryId]!) {
           updatedCategoryIDToToDos.remove(smallCategory.id);
         }

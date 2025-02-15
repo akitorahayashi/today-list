@@ -1,4 +1,4 @@
-import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -13,8 +13,8 @@ class ToDosInCategoryWidgetSettings with _$ToDosInCategoryWidgetSettings {
     required String id,
     required String title,
     required TLWorkspace workspace,
-    required TLCategory bigCategory,
-    required TLCategory? smallCategory,
+    required TLToDoCategory bigCategory,
+    required TLToDoCategory? smallCategory,
   }) = _ToDosInCategoryWidgetSettings;
 
   factory ToDosInCategoryWidgetSettings.fromJson(Map<String, dynamic> json) =>

@@ -1,4 +1,4 @@
-import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
@@ -59,12 +59,12 @@ class TLWorkspaceUtils {
 
   static int getNumOfToDo(TLWorkspace workspace, {required bool ifInToday}) {
     int todoCount = 0;
-    for (TLCategory bigCategory in workspace.bigCategories) {
+    for (TLToDoCategory bigCategory in workspace.bigCategories) {
       todoCount += TLCategoryUtils.getNumberOfToDosInThisCategory(
         ifInToday: ifInToday,
         corrToDos: workspace.categoryIDToToDos[bigCategory.id]!,
       );
-      for (TLCategory smallCategory
+      for (TLToDoCategory smallCategory
           in workspace.smallCategories[bigCategory.id]!) {
         todoCount += TLCategoryUtils.getNumberOfToDosInThisCategory(
           ifInToday: ifInToday,

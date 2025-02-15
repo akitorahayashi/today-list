@@ -14,44 +14,44 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-SettingsData _$SettingDataFromJson(Map<String, dynamic> json) {
-  return _SettingData.fromJson(json);
+SettingsData _$SettingsDataFromJson(Map<String, dynamic> json) {
+  return _SettingsData.fromJson(json);
 }
 
 /// @nodoc
-mixin _$SettingData {
+mixin _$SettingsData {
   String get currentAppIconName => throw _privateConstructorUsedError;
 
-  /// Serializes this SettingData to a JSON map.
+  /// Serializes this SettingsData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of SettingData
+  /// Create a copy of SettingsData
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $SettingDataCopyWith<SettingsData> get copyWith =>
+  $SettingsDataCopyWith<SettingsData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SettingDataCopyWith<$Res> {
-  factory $SettingDataCopyWith(
+abstract class $SettingsDataCopyWith<$Res> {
+  factory $SettingsDataCopyWith(
           SettingsData value, $Res Function(SettingsData) then) =
-      _$SettingDataCopyWithImpl<$Res, SettingsData>;
+      _$SettingsDataCopyWithImpl<$Res, SettingsData>;
   @useResult
   $Res call({String currentAppIconName});
 }
 
 /// @nodoc
-class _$SettingDataCopyWithImpl<$Res, $Val extends SettingsData>
-    implements $SettingDataCopyWith<$Res> {
-  _$SettingDataCopyWithImpl(this._value, this._then);
+class _$SettingsDataCopyWithImpl<$Res, $Val extends SettingsData>
+    implements $SettingsDataCopyWith<$Res> {
+  _$SettingsDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of SettingData
+  /// Create a copy of SettingsData
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -68,32 +68,32 @@ class _$SettingDataCopyWithImpl<$Res, $Val extends SettingsData>
 }
 
 /// @nodoc
-abstract class _$$SettingDataImplCopyWith<$Res>
-    implements $SettingDataCopyWith<$Res> {
-  factory _$$SettingDataImplCopyWith(
-          _$SettingDataImpl value, $Res Function(_$SettingDataImpl) then) =
-      __$$SettingDataImplCopyWithImpl<$Res>;
+abstract class _$$SettingsDataImplCopyWith<$Res>
+    implements $SettingsDataCopyWith<$Res> {
+  factory _$$SettingsDataImplCopyWith(
+          _$SettingsDataImpl value, $Res Function(_$SettingsDataImpl) then) =
+      __$$SettingsDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String currentAppIconName});
 }
 
 /// @nodoc
-class __$$SettingDataImplCopyWithImpl<$Res>
-    extends _$SettingDataCopyWithImpl<$Res, _$SettingDataImpl>
-    implements _$$SettingDataImplCopyWith<$Res> {
-  __$$SettingDataImplCopyWithImpl(
-      _$SettingDataImpl _value, $Res Function(_$SettingDataImpl) _then)
+class __$$SettingsDataImplCopyWithImpl<$Res>
+    extends _$SettingsDataCopyWithImpl<$Res, _$SettingsDataImpl>
+    implements _$$SettingsDataImplCopyWith<$Res> {
+  __$$SettingsDataImplCopyWithImpl(
+      _$SettingsDataImpl _value, $Res Function(_$SettingsDataImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SettingData
+  /// Create a copy of SettingsData
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? currentAppIconName = null,
   }) {
-    return _then(_$SettingDataImpl(
+    return _then(_$SettingsDataImpl(
       currentAppIconName: null == currentAppIconName
           ? _value.currentAppIconName
           : currentAppIconName // ignore: cast_nullable_to_non_nullable
@@ -104,11 +104,11 @@ class __$$SettingDataImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$SettingDataImpl implements _SettingData {
-  const _$SettingDataImpl({this.currentAppIconName = "Sun Orange"});
+class _$SettingsDataImpl implements _SettingsData {
+  const _$SettingsDataImpl({this.currentAppIconName = 'sunOrange'});
 
-  factory _$SettingDataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SettingDataImplFromJson(json);
+  factory _$SettingsDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SettingsDataImplFromJson(json);
 
   @override
   @JsonKey()
@@ -116,14 +116,14 @@ class _$SettingDataImpl implements _SettingData {
 
   @override
   String toString() {
-    return 'SettingData(currentAppIconName: $currentAppIconName)';
+    return 'SettingsData(currentAppIconName: $currentAppIconName)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SettingDataImpl &&
+            other is _$SettingsDataImpl &&
             (identical(other.currentAppIconName, currentAppIconName) ||
                 other.currentAppIconName == currentAppIconName));
   }
@@ -132,36 +132,36 @@ class _$SettingDataImpl implements _SettingData {
   @override
   int get hashCode => Object.hash(runtimeType, currentAppIconName);
 
-  /// Create a copy of SettingData
+  /// Create a copy of SettingsData
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$SettingDataImplCopyWith<_$SettingDataImpl> get copyWith =>
-      __$$SettingDataImplCopyWithImpl<_$SettingDataImpl>(this, _$identity);
+  _$$SettingsDataImplCopyWith<_$SettingsDataImpl> get copyWith =>
+      __$$SettingsDataImplCopyWithImpl<_$SettingsDataImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SettingDataImplToJson(
+    return _$$SettingsDataImplToJson(
       this,
     );
   }
 }
 
-abstract class _SettingData implements SettingsData {
-  const factory _SettingData({final String currentAppIconName}) =
-      _$SettingDataImpl;
+abstract class _SettingsData implements SettingsData {
+  const factory _SettingsData({final String currentAppIconName}) =
+      _$SettingsDataImpl;
 
-  factory _SettingData.fromJson(Map<String, dynamic> json) =
-      _$SettingDataImpl.fromJson;
+  factory _SettingsData.fromJson(Map<String, dynamic> json) =
+      _$SettingsDataImpl.fromJson;
 
   @override
   String get currentAppIconName;
 
-  /// Create a copy of SettingData
+  /// Create a copy of SettingsData
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SettingDataImplCopyWith<_$SettingDataImpl> get copyWith =>
+  _$$SettingsDataImplCopyWith<_$SettingsDataImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,16 +1,17 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:today_list/resource/tl_theme_type.dart';
 
-part '../generate/setting_data.freezed.dart';
-part '../generate/setting_data.g.dart';
+part '../generate/settings_data.freezed.dart';
+part '../generate/settings_data.g.dart';
 
 // $ dart run build_runner build
 
 @freezed
-class SettingsData with _$SettingData {
+class SettingsData with _$SettingsData {
   const factory SettingsData({
-    @Default("Sun Orange") String currentAppIconName,
-  }) = _SettingData;
+    @Default('sunOrange') String currentAppIconName,
+  }) = _SettingsData;
 
   factory SettingsData.fromJson(Map<String, dynamic> json) =>
-      _$SettingDataFromJson(json);
+      _$SettingsDataFromJson(json);
 }

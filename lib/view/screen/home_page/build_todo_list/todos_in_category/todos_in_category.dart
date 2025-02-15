@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
@@ -12,8 +12,8 @@ import 'package:reorderables/reorderables.dart';
 
 class ToDosInCategory extends ConsumerWidget {
   final bool ifInToday;
-  final TLCategory bigCategoryOfThisToDo;
-  final TLCategory? smallCategoryOfThisToDo;
+  final TLToDoCategory bigCategoryOfThisToDo;
+  final TLToDoCategory? smallCategoryOfThisToDo;
 
   const ToDosInCategory({
     super.key,

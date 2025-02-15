@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
@@ -41,8 +41,8 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
   }
 
   // MARK - Small Category List
-  Widget _buildSmallCategoryList(
-      WidgetRef ref, TLWorkspace currentWorkspace, TLCategory coorBigCategory) {
+  Widget _buildSmallCategoryList(WidgetRef ref, TLWorkspace currentWorkspace,
+      TLToDoCategory coorBigCategory) {
     final smallCategories =
         currentWorkspace.smallCategories[coorBigCategory.id] ?? [];
 
@@ -65,18 +65,18 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
 
   // MARK - Handle Small Category Reorder Logic
   void _handleSmallCategoryReorder(WidgetRef ref, TLWorkspace currentWorkspace,
-      TLCategory coorBigCategory, int oldIndex, int newIndex) {
+      TLToDoCategory coorBigCategory, int oldIndex, int newIndex) {
     if (oldIndex == newIndex) return;
 
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 
     final copiedSmallCategories = {
       for (var entry in currentWorkspace.smallCategories.entries)
-        entry.key: List<TLCategory>.from(entry.value),
+        entry.key: List<TLToDoCategory>.from(entry.value),
     };
 
     // 並び替え処理
-    final TLCategory reOrderedSmallCategory =
+    final TLToDoCategory reOrderedSmallCategory =
         copiedSmallCategories[coorBigCategory.id]!.removeAt(oldIndex);
     copiedSmallCategories[coorBigCategory.id]!
         .insert(newIndex, reOrderedSmallCategory);

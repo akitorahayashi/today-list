@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/tl_app_state.dart';
-import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 
@@ -29,7 +29,7 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
-      child: DropdownButton<TLCategory>(
+      child: DropdownButton<TLToDoCategory>(
         iconEnabledColor: tlThemeData.accentColor,
         isExpanded: true,
         hint: Text(
@@ -38,7 +38,8 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
               : smallCats
                   .firstWhere(
                     (cat) => cat.id == smallCategoryID,
-                    orElse: () => const TLCategory(id: '', title: '小カテゴリー'),
+                    orElse: () => const TLToDoCategory(
+                        id: '', parentBigCategoryID: null, title: '小カテゴリー'),
                   )
                   .title,
           style: const TextStyle(
@@ -47,10 +48,15 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
         style:
             const TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
         items: [
-          if (smallCats.isEmpty) const TLCategory(id: noneID, title: "なし"),
+          if (smallCats.isEmpty)
+            const TLToDoCategory(
+                id: noneID, parentBigCategoryID: null, title: "なし"),
           ...smallCats,
           if (bigCategoryID != noneID)
-            const TLCategory(id: "---createSmallCategory", title: "新しく作る"),
+            const TLToDoCategory(
+                id: "---createSmallCategory",
+                parentBigCategoryID: null,
+                title: "新しく作る"),
         ].map((item) {
           return DropdownMenuItem(
             value: item,
@@ -66,7 +72,7 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
             ),
           );
         }).toList(),
-        onChanged: (TLCategory? selected) {
+        onChanged: (TLToDoCategory? selected) {
           if (selected == null) return;
           onSelected(selected.id);
         },

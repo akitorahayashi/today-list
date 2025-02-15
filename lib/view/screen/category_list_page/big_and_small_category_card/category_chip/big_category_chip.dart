@@ -5,7 +5,7 @@ import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_category_utils.dart';
 import '../../../../component/dialog/for_category/select_edit_method_dialog.dart';
 import '../../../../../model/design/tl_theme/tl_theme.dart';
-import '../../../../../model/todo/tl_category.dart';
+import '../../../../../model/todo/tl_todo_category.dart';
 import '../../../../../model/todo/tl_workspace.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -27,12 +27,13 @@ class BigCategoryChip extends ConsumerWidget {
   }
 
   // MARK - Get Big Category Data
-  TLCategory _getBigCategory(TLWorkspace currentWorkspace) {
+  TLToDoCategory _getBigCategory(TLWorkspace currentWorkspace) {
     return currentWorkspace.bigCategories[indexOfBigCategory];
   }
 
   // MARK - Get Number of ToDos
-  int _getNumberOfToDos(TLWorkspace currentWorkspace, TLCategory bigCategory) {
+  int _getNumberOfToDos(
+      TLWorkspace currentWorkspace, TLToDoCategory bigCategory) {
     return TLCategoryUtils.getNumberOfToDosInThisCategory(
       ifInToday: null,
       corrToDos: currentWorkspace.categoryIDToToDos[bigCategory.id]!,
@@ -41,7 +42,7 @@ class BigCategoryChip extends ConsumerWidget {
 
   // MARK - Show Edit Dialog
   Future<void> _showEditDialog(
-      BuildContext context, TLCategory bigCategory) async {
+      BuildContext context, TLToDoCategory bigCategory) async {
     await showDialog(
       context: context,
       builder: (context) {
@@ -56,7 +57,7 @@ class BigCategoryChip extends ConsumerWidget {
 
   // MARK - Build Chip UI
   Widget _buildChipUI(BuildContext context, TLThemeConfig tlThemeData,
-      TLCategory bigCategory, int numberOfToDos) {
+      TLToDoCategory bigCategory, int numberOfToDos) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: SizedBox(

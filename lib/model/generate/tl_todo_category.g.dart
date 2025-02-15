@@ -1,19 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../todo/tl_category.dart';
+part of '../todo/tl_todo_category.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TLCategoryImpl _$$TLCategoryImplFromJson(Map<String, dynamic> json) =>
-    _$TLCategoryImpl(
+_$TLToDoCategoryImpl _$$TLToDoCategoryImplFromJson(Map<String, dynamic> json) =>
+    _$TLToDoCategoryImpl(
       id: json['id'] as String,
+      parentBigCategoryID: json['parentBigCategoryID'] as String?,
       title: json['title'] as String,
     );
 
-Map<String, dynamic> _$$TLCategoryImplToJson(_$TLCategoryImpl instance) =>
+Map<String, dynamic> _$$TLToDoCategoryImplToJson(
+        _$TLToDoCategoryImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'parentBigCategoryID': instance.parentBigCategoryID,
       'title': instance.title,
     };

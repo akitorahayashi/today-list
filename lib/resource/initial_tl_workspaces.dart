@@ -1,5 +1,5 @@
 import 'package:today_list/model/tl_app_state.dart';
-import 'package:today_list/model/todo/tl_category.dart';
+import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
@@ -7,13 +7,18 @@ import 'package:today_list/model/todo/tl_workspace.dart';
 
 final List<TLWorkspace> initialTLWorkspaces = [
   TLWorkspace(id: noneID, name: "Default", bigCategories: const [
-    TLCategory(id: noneID, title: "なし"),
-    TLCategory(id: "superMarcketId", title: "スーパー"),
-    TLCategory(id: "hundredStoreId", title: "100均"),
+    TLToDoCategory(id: noneID, parentBigCategoryID: null, title: "なし"),
+    TLToDoCategory(
+        id: "superMarcketId", parentBigCategoryID: null, title: "スーパー"),
+    TLToDoCategory(
+        id: "hundredStoreId", parentBigCategoryID: null, title: "100均"),
   ], smallCategories: {
     noneID: [],
     "superMarcketId": [
-      const TLCategory(id: "vegetableId", title: "野菜"),
+      const TLToDoCategory(
+          id: "vegetableId",
+          parentBigCategoryID: "superMarcketId",
+          title: "野菜"),
     ],
     "hundredStoreId": [],
   }, categoryIDToToDos: {
@@ -37,14 +42,15 @@ final List<TLWorkspace> initialTLWorkspaces = [
   }),
   // --- 学校
   TLWorkspace(id: "schoolWorksapceId", name: "School", bigCategories: const [
-    TLCategory(id: noneID, title: "なし"),
-    TLCategory(id: "mathId", title: "数学"),
-    TLCategory(id: "englishId", title: "英語"),
+    TLToDoCategory(id: noneID, parentBigCategoryID: null, title: "なし"),
+    TLToDoCategory(id: "mathId", parentBigCategoryID: null, title: "数学"),
+    TLToDoCategory(id: "englishId", parentBigCategoryID: null, title: "英語"),
   ], smallCategories: {
     noneID: [],
     "mathId": const [
-      TLCategory(id: "mathAId", title: "数学A"),
-      TLCategory(id: "mathIId", title: "数学I")
+      TLToDoCategory(
+          id: "mathAId", parentBigCategoryID: "mathId", title: "数学A"),
+      TLToDoCategory(id: "mathIId", parentBigCategoryID: "mathId", title: "数学I")
     ],
     "englishId": []
   }, categoryIDToToDos: {

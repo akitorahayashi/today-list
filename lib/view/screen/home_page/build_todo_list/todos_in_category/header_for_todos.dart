@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../../../model/todo/tl_category.dart';
+import '../../../../../model/todo/tl_todo_category.dart';
 
 class CategoryHeaderForToDos extends StatelessWidget {
   final bool isBigCategory;
-  final TLCategory corrCategory;
+  final TLToDoCategory corrCategory;
   const CategoryHeaderForToDos(
       {super.key, required this.isBigCategory, required this.corrCategory});
 

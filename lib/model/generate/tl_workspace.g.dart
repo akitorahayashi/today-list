@@ -11,13 +11,13 @@ _$TLWorkspaceImpl _$$TLWorkspaceImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       name: json['name'] as String,
       bigCategories: (json['bigCategories'] as List<dynamic>)
-          .map((e) => TLCategory.fromJson(e as Map<String, dynamic>))
+          .map((e) => TLToDoCategory.fromJson(e as Map<String, dynamic>))
           .toList(),
       smallCategories: (json['smallCategories'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(
             k,
             (e as List<dynamic>)
-                .map((e) => TLCategory.fromJson(e as Map<String, dynamic>))
+                .map((e) => TLToDoCategory.fromJson(e as Map<String, dynamic>))
                 .toList()),
       ),
       categoryIDToToDos:
