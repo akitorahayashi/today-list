@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/model/todo/tl_step.dart';
-import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/view/component/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import 'package:today_list/view/component/slidable/slidable_for_todo_card.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
@@ -21,21 +18,19 @@ import 'package:reorderables/reorderables.dart';
 
 class TLToDoCard extends ConsumerWidget {
   final bool ifInToday;
+  final TLWorkspace corrWorkspace;
   final TLToDo corrToDo;
 
   const TLToDoCard({
     super.key,
     required this.ifInToday,
+    required this.corrWorkspace,
     required this.corrToDo,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final TLWorkspace? corrWorkspace = ref.watch(
-      tlAppStateProvider
-          .select((state) => state.getCorrWorkspace(corrToDo.workspaceID)),
-    );
 
     // MARK: - Colors
     final panelColor = tlThemeData.canTapCardColor;
@@ -43,7 +38,7 @@ class TLToDoCard extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () => _toggleToDoCheckStatus(
-          ref, context, corrWorkspace, categoryOfThisToDo),
+          ref, context, ifInToday, corrWorkspace, corrToDo),
       onLongPress: corrToDo.isChecked ? () {} : null,
       child: Card(
         color: panelColor,
@@ -54,16 +49,15 @@ class TLToDoCard extends ConsumerWidget {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: SlidableForToDoCard(
-              isForModelCard: false,
               ifInToday: ifInToday,
-              corrTLToDo: corrToDo,
+              corrWorkspace: corrWorkspace,
+              corrToDo: corrToDo,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildToDoContent(corrToDo, textColor),
                   if (corrToDo.steps.isNotEmpty)
-                    _buildStepsList(
-                        ref, corrWorkspace, categoryOfThisToDo, corrToDo),
+                    _buildStepsList(ref, corrWorkspace, corrToDo),
                 ],
               ),
             ),
@@ -106,26 +100,26 @@ class TLToDoCard extends ConsumerWidget {
   }
 
   // MARK: - Build Steps List
-  Widget _buildStepsList(WidgetRef ref, TLWorkspace currentWorkspace,
-      TLToDoCategory categoryOfThisToDo, TLToDo corrToDoData) {
+  Widget _buildStepsList(
+      WidgetRef ref, TLWorkspace corrWorkspace, TLToDo corrToDo) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: ReorderableColumn(
         children: List.generate(
-          corrToDoData.steps.length,
+          corrToDo.steps.length,
           (int index) => Padding(
-            key: ValueKey(corrToDoData.steps[index].id),
+            key: ValueKey(corrToDo.steps[index].id),
             padding: const EdgeInsets.fromLTRB(8, 0, 2, 0),
             child: TLStepCard(
-              corrCategoryID: categoryOfThisToDo.id,
               ifInToday: ifInToday,
-              indexInToDos: indexOfThisToDoInToDos,
-              indexInSteps: index,
+              corrWorkspace: corrWorkspace,
+              corrToDo: corrToDo,
+              corrStep: corrToDo.steps[index],
             ),
           ),
         ),
-        onReorder: (oldIndex, newIndex) => _reorderSteps(
-            ref, currentWorkspace, categoryOfThisToDo, oldIndex, newIndex),
+        onReorder: (oldIndex, newIndex) =>
+            _reorderSteps(ref, corrWorkspace, corrToDo, oldIndex, newIndex),
       ),
     );
   }
@@ -134,99 +128,121 @@ class TLToDoCard extends ConsumerWidget {
   void _toggleToDoCheckStatus(
     WidgetRef ref,
     BuildContext context,
+    bool ifInToday,
     TLWorkspace currentWorkspace,
-    TLToDoCategory categoryOfThisToDo,
+    TLToDo corrToDo,
   ) {
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-    final TLToDosInTodayAndWhenever toDosInCategory =
-        currentWorkspace.categoryIDToToDos[categoryOfThisToDo.id]!;
+    // チェック状態を反転
+    final newCheckedState = !corrToDo.isChecked;
 
-    final List<TLToDo> toDoArray =
-        List<TLToDo>.from(toDosInCategory.getToDos(ifInToday));
-    final TLToDo corrToDoData = toDoArray[indexOfThisToDoInToDos];
-
-    final newCheckedState = !corrToDoData.isChecked;
-    final updatedSteps = corrToDoData.steps
+    // ステップのチェック状態を更新
+    final updatedSteps = corrToDo.steps
         .map((step) => step.copyWith(isChecked: newCheckedState))
         .toList();
-    final updatedToDo =
-        corrToDoData.copyWith(isChecked: newCheckedState, steps: updatedSteps);
 
-    final updatedToDos = List<TLToDo>.from(toDoArray)
+    // 更新後の ToDo データ
+    final TLToDo updatedToDo =
+        corrToDo.copyWith(isChecked: newCheckedState, steps: updatedSteps);
+
+    // 該当する位置に入れる
+    final List<TLToDo> corrListOfToDo = corrWorkspace
+        .categoryIDToToDos[corrToDo.categoryID]!
+        .getToDos(ifInToday);
+    final indexOfThisToDoInToDos = corrListOfToDo.indexOf(corrToDo);
+    final updatedCorrListOfToDo = corrListOfToDo
       ..[indexOfThisToDoInToDos] = updatedToDo;
 
-    final updatedToDosInCategory = toDosInCategory.copyWith(
-      toDosInToday: ifInToday ? updatedToDos : toDosInCategory.toDosInToday,
-      toDosInWhenever:
-          ifInToday ? toDosInCategory.toDosInWhenever : updatedToDos,
-    );
-
-    final updatedCategoryIDToToDos = {
-      ...currentWorkspace.categoryIDToToDos,
-      categoryOfThisToDo.id: updatedToDosInCategory,
-    };
-
-    final updatedWorkspace = TLWorkspaceUtils.reorderWhenToggle(
-      corrWorkspace: currentWorkspace.copyWith(
-          categoryIDToToDos: updatedCategoryIDToToDos),
-      categoryId: categoryOfThisToDo.id,
-      ifInToday: ifInToday,
+    // 所属するToDoの配列の中での並び替え
+    final reorderedCorrListOfToDo = TLWorkspaceUtils.reorderWhenToggle(
+      toDoArrayOfThisToDo: updatedCorrListOfToDo,
       indexOfThisToDoInToDos: indexOfThisToDoInToDos,
     );
 
-    tlAppStateReducer.dispatchWorkspaceAction(
-        TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace));
+    // 変更があったToDoの変更を反映させる
+    final updatedCategoryIDToToDos = {
+      ...currentWorkspace.categoryIDToToDos,
+      corrToDo.categoryID:
+          currentWorkspace.categoryIDToToDos[corrToDo.categoryID]!.copyWith(
+        toDosInToday: ifInToday ? reorderedCorrListOfToDo : corrListOfToDo,
+        toDosInWhenever: ifInToday ? corrListOfToDo : reorderedCorrListOfToDo,
+      ),
+    };
+
+    // アプリの状態を更新
+    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+            TLWorkspaceAction.updateCorrWorkspace(corrWorkspace.copyWith(
+          categoryIDToToDos: updatedCategoryIDToToDos,
+        )));
+
+    // バイブレーション
     TLVibrationService.vibrate();
+
+    // スナックバーを表示
     NotifyTodoOrStepIsEditedSnackBar.show(
       context: context,
-      newTitle: corrToDoData.content,
+      newTitle: corrToDo.content,
       newCheckedState: newCheckedState,
       quickChangeToToday: null,
     );
   }
 
-// MARK: - Reorder Steps in ToDo
+  // MARK: - Reorder Steps in ToDo
   void _reorderSteps(
     WidgetRef ref,
     TLWorkspace currentWorkspace,
-    TLToDoCategory categoryOfThisToDo,
+    TLToDo corrToDo,
     int oldIndex,
     int newIndex,
   ) {
     if (oldIndex == newIndex) return;
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 
-    final TLToDosInTodayAndWhenever toDosInCategory =
-        currentWorkspace.categoryIDToToDos[categoryOfThisToDo.id]!;
+    // 現在の ToDo リストを取得
+    final toDosInCategory =
+        currentWorkspace.categoryIDToToDos[corrToDo.categoryID]!;
+    final toDoList = toDosInCategory.getToDos(ifInToday);
+    final indexOfThisToDoInToDos = toDoList.indexOf(corrToDo);
 
-    final List<TLToDo> toDoList =
-        List<TLToDo>.from(toDosInCategory.getToDos(ifInToday));
-    final TLToDo toDoData = toDoList[indexOfThisToDoInToDos];
+    // 操作対象の ToDo を取得
+    final toDoData = toDoList[indexOfThisToDoInToDos];
 
-    final List<TLStep> reorderedSteps = List<TLStep>.from(toDoData.steps);
-    final TLStep movedStep = reorderedSteps.removeAt(oldIndex);
-    reorderedSteps.insert(newIndex, movedStep);
+    // ステップの並び順を更新（元のリストを変更せずに新しいリストを作成）
+    final reorderedSteps = [
+      ...toDoData.steps.sublist(0, oldIndex),
+      ...toDoData.steps.sublist(oldIndex + 1, newIndex),
+      toDoData.steps[oldIndex],
+      ...toDoData.steps.sublist(newIndex),
+    ];
 
-    final TLToDo updatedToDo = toDoData.copyWith(steps: reorderedSteps);
-    final updatedToDoList = List<TLToDo>.from(toDoList)
-      ..[indexOfThisToDoInToDos] = updatedToDo;
+    // 更新後の ToDo データを作成
+    final updatedToDo = toDoData.copyWith(steps: reorderedSteps);
 
+    // 更新後の ToDo リストを作成
+    final updatedToDoList = toDoList
+        .map(
+          (todo) => todo == corrToDo ? updatedToDo : todo,
+        )
+        .toList();
+
+    // 更新後の ToDosInCategory を作成
     final updatedToDosInCategory = toDosInCategory.copyWith(
       toDosInToday: ifInToday ? updatedToDoList : toDosInCategory.toDosInToday,
       toDosInWhenever:
           ifInToday ? toDosInCategory.toDosInWhenever : updatedToDoList,
     );
 
+    // 更新後のカテゴリIDマップを作成
     final updatedCategoryIDToToDos = {
       ...currentWorkspace.categoryIDToToDos,
-      categoryOfThisToDo.id: updatedToDosInCategory,
+      corrToDo.categoryID: updatedToDosInCategory,
     };
 
-    final TLWorkspace updatedWorkspace = currentWorkspace.copyWith(
+    // アップデートした Workspace を作成
+    final updatedWorkspace = currentWorkspace.copyWith(
       categoryIDToToDos: updatedCategoryIDToToDos,
     );
 
-    tlAppStateReducer.dispatchWorkspaceAction(
-        TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace));
+    // 状態を更新
+    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+        TLWorkspaceAction.updateCorrWorkspace(updatedWorkspace));
   }
 }

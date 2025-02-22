@@ -25,9 +25,6 @@ class ToDosInCategory extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // List<TLToDo> toDosInTodayInThisCategory =
-    //     corrWorkspace.categoryIDToToDos[categoryID]!.getToDos(ifInToday);
-
     return Column(
       children: [
         Padding(
@@ -39,6 +36,7 @@ class ToDosInCategory extends ConsumerWidget {
                   .getToDos(ifInToday))
                 TLToDoCard(
                   key: ValueKey(corrToDo.id),
+                  corrWorkspace: corrWorkspace,
                   corrToDo: corrToDo,
                   ifInToday: ifInToday,
                 ),

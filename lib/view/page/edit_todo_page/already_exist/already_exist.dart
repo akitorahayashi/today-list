@@ -45,6 +45,7 @@ class AlreadyExist extends StatelessWidget {
                 ModelOfToDoCard(
                   key:
                       ValueKey(toDoArrayOfThisBlock[indexOfThisToDoInToDos].id),
+                  corrWorkspace: corrWorkspace,
                   ifInToday: ifInToday,
                   corrTLToDo: toDoArrayOfThisBlock[indexOfThisToDoInToDos],
                   // 編集系のメンバー

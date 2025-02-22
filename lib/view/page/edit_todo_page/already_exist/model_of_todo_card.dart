@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/view/component/slidable/slidable_for_todo_card.dart';
 import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 
 class ModelOfToDoCard extends StatelessWidget {
-  final TLToDo corrTLToDo;
   final bool ifInToday;
+  final TLWorkspace corrWorkspace;
+  final TLToDo corrTLToDo;
   const ModelOfToDoCard({
     super.key,
     required this.ifInToday,
+    required this.corrWorkspace,
     required this.corrTLToDo,
   });
 
@@ -25,9 +28,10 @@ class ModelOfToDoCard extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: SlidableForToDoCard(
-          isForModelCard: true,
-          corrTLToDo: corrTLToDo,
+          corrToDo: corrTLToDo,
           ifInToday: ifInToday,
+          corrWorkspace:
+              corrWorkspace, // Add the appropriate workspace object here
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

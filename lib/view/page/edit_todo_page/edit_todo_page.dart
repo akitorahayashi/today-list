@@ -22,8 +22,8 @@ import 'package:today_list/view/page/edit_todo_page/components_for_edit/added_st
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/step_title_input_field.dart';
 
 class EditToDoPage extends HookConsumerWidget {
-  final TLWorkspace corrWorkspace;
   final bool ifInToday;
+  final TLWorkspace corrWorkspace;
   final String selectedBigCategoryID;
   final String? selectedSmallCategoryID;
   final String? editedToDoTitle;
@@ -31,8 +31,8 @@ class EditToDoPage extends HookConsumerWidget {
 
   const EditToDoPage({
     super.key,
-    required this.corrWorkspace,
     required this.ifInToday,
+    required this.corrWorkspace,
     required this.selectedBigCategoryID,
     required this.selectedSmallCategoryID,
     required this.editedToDoTitle,
