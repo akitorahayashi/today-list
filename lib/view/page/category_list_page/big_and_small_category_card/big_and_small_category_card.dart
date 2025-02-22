@@ -94,7 +94,7 @@ class _SmallCategoryList extends ConsumerWidget {
 
     // 状態を更新
     tlAppStateReducer.dispatchWorkspaceAction(
-      TLWorkspaceAction.updateCurrentWorkspace(
+      TLWorkspaceAction.updateCorrWorkspace(
         corrWorkspace.copyWith(smallCategories: copiedSmallCategories),
       ),
     );

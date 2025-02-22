@@ -7,6 +7,7 @@ import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_uuid_generator.dart';
@@ -21,7 +22,7 @@ import 'package:today_list/view/page/edit_todo_page/components_for_edit/added_st
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/step_title_input_field.dart';
 
 class EditToDoPage extends HookConsumerWidget {
-  final String corrWorkspaceID;
+  final TLWorkspace corrWorkspace;
   final bool ifInToday;
   final String selectedBigCategoryID;
   final String? selectedSmallCategoryID;
@@ -30,7 +31,7 @@ class EditToDoPage extends HookConsumerWidget {
 
   const EditToDoPage({
     super.key,
-    required this.corrWorkspaceID,
+    required this.corrWorkspace,
     required this.ifInToday,
     required this.selectedBigCategoryID,
     required this.selectedSmallCategoryID,
@@ -60,12 +61,9 @@ class EditToDoPage extends HookConsumerWidget {
       if (indexOfEdittedTodo == null) {
         steps.value = [];
       } else {
-        final appState = ref.read(tlAppStateProvider);
-        final currentWorkspace = appState.getCorrWorkspace;
         final String categoryID =
             selectedSmallCategoryID ?? selectedBigCategoryID;
-        final TLToDo edittedToDo = currentWorkspace
-            .categoryIDToToDos[categoryID]!
+        final TLToDo edittedToDo = corrWorkspace.categoryIDToToDos[categoryID]!
             .getToDos(ifInToday)[indexOfEdittedTodo!];
 
         steps.value = edittedToDo.steps;
@@ -103,6 +101,7 @@ class EditToDoPage extends HookConsumerWidget {
 
       final TLToDo newToDo = TLToDo(
         id: TLUUIDGenerator.generate(),
+        workspaceID: corrWorkspace.id,
         categoryID: categoryID,
         content: toDoTitleController.text,
         steps: steps.value,
@@ -111,7 +110,7 @@ class EditToDoPage extends HookConsumerWidget {
       if (editingToDoIndex.value == null) {
         // MARK: - Add New ToDo
         appStateReducer.dispatchToDoAction(TLToDoAction.addToDo(
-          workspaceID: corrWorkspaceID,
+          workspaceID: corrWorkspace.id,
           categoryID: categoryID,
           ifInToday: isToday.value,
           todo: newToDo,
@@ -119,7 +118,7 @@ class EditToDoPage extends HookConsumerWidget {
       } else {
         // MARK: - Update Existing ToDo
         appStateReducer.dispatchToDoAction(TLToDoAction.updateToDo(
-          workspaceID: corrWorkspaceID,
+          workspaceID: corrWorkspace.id,
           categoryID: categoryID,
           ifInToday: isToday.value,
           index: editingToDoIndex.value!,
@@ -174,6 +173,7 @@ class EditToDoPage extends HookConsumerWidget {
                 child: Column(
                   children: [
                     SelectBigCategoryDropdown(
+                      corrWorkspace: corrWorkspace,
                       bigCategoryID: bigCategoryID.value,
                       onSelected: (newBigID) {
                         smallCategoryID.value = null;
@@ -181,6 +181,7 @@ class EditToDoPage extends HookConsumerWidget {
                       },
                     ),
                     SelectSmallCategoryDropdown(
+                      corrWorkspace: corrWorkspace,
                       bigCategoryID: bigCategoryID.value,
                       smallCategoryID: smallCategoryID.value,
                       onSelected: (newSmallID) {
@@ -219,13 +220,11 @@ class EditToDoPage extends HookConsumerWidget {
               ),
               if (bannerAd.value != null) AdWidget(ad: bannerAd.value!),
               AlreadyExist(
-                  corrWorkspace: ref.watch(tlAppStateProvider).getCorrWorkspace,
-                  ifInToday: isToday.value,
-                  bigCategoryID: bigCategoryID.value,
-                  smallCategoryID: smallCategoryID.value,
-                  tapToEditAction: () async {
-                    Navigator.pop(context);
-                  }),
+                corrWorkspace: corrWorkspace,
+                ifInToday: isToday.value,
+                bigCategoryID: bigCategoryID.value,
+                smallCategoryID: smallCategoryID.value,
+              ),
               const SizedBox(height: 250),
             ],
           ),

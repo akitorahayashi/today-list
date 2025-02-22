@@ -143,7 +143,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     if (id == null) {
       await pref.remove("currentWorkspaceID");
     } else {
-      await pref.setString('currentWorkspaceID', id!);
+      await pref.setString('currentWorkspaceID', id);
     }
   }
 }

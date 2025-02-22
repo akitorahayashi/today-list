@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
-import 'view/screen/home_page/home_page.dart';
+import 'view/page/home_page/home_page.dart';
 import 'model/design/tl_theme/tl_theme.dart';
 
 class TodayListApp extends ConsumerWidget {

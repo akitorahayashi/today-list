@@ -89,7 +89,7 @@ class CategoryListPage extends ConsumerWidget {
 
     // 状態を更新
     tlAppStateReducer.dispatchWorkspaceAction(
-      TLWorkspaceAction.updateCurrentWorkspace(
+      TLWorkspaceAction.updateCorrWorkspace(
         currentWorkspace.copyWith(bigCategories: copiedBigCategories),
       ),
     );

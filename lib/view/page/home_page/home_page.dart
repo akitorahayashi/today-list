@@ -38,14 +38,6 @@ class _HomePageState extends ConsumerState<HomePage>
   final GlobalKey<ScaffoldState> homePageScaffoldKey =
       GlobalKey<ScaffoldState>();
 
-  int _adjustTabControllerIdxToTLWorkspacesIdx(int tabControllerIdx) {
-    return tabControllerIdx - 1;
-  }
-
-  int _adjustTLWorkspacesIdxToTabControllerIdx(int selectedTLWorkspacesIdx) {
-    return selectedTLWorkspacesIdx + 1;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -64,10 +56,8 @@ class _HomePageState extends ConsumerState<HomePage>
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
         ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-            TLWorkspaceAction.changeCurrentWorkspaceID(tlAppState
-                .tlWorkspaces[_adjustTabControllerIdxToTLWorkspacesIdx(
-                    _tabController.index)]
-                .id));
+            TLWorkspaceAction.changeCurrentWorkspaceID(
+                tlAppState.tlWorkspaces[_tabController.index - 1].id));
       }
     });
   }
@@ -82,11 +72,11 @@ class _HomePageState extends ConsumerState<HomePage>
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
-    final currentWorkspaceRef =
-        ref.watch(tlAppStateProvider.select((state) => state.getCorrWorkspace));
-
     final String? currentWorkspaceID = ref
         .watch(tlAppStateProvider.select((state) => state.currentWorkspaceID));
+    final TLWorkspace? currentWorkspaceNullAble =
+        tlAppState.getCorrWorkspace(currentWorkspaceID);
+
     final currentWorkspaceIdx = tlAppState.tlWorkspaces
         .indexWhere((workspace) => workspace.id == currentWorkspaceID);
     if (currentWorkspaceIdx != -1 &&
@@ -95,6 +85,10 @@ class _HomePageState extends ConsumerState<HomePage>
         _tabController.animateTo(currentWorkspaceIdx);
       });
     }
+
+    // currentWorkspaceを選択しているか
+    final bool doesCurrentWorkspaceExist =
+        currentWorkspaceNullAble != null ? true : false;
 
     return DefaultTabController(
       length: tlAppState.tlWorkspaces.length + 1,
@@ -105,7 +99,7 @@ class _HomePageState extends ConsumerState<HomePage>
         appBar: TLAppBar(
           context: context,
           height: 100,
-          pageTitle: currentWorkspaceRef.name,
+          pageTitle: currentWorkspaceNullAble?.name ?? "Today List",
           leadingButtonOnPressed: () =>
               homePageScaffoldKey.currentState!.openDrawer(),
           leadingIcon: const Icon(Icons.menu, color: Colors.white),
@@ -142,11 +136,6 @@ class _HomePageState extends ConsumerState<HomePage>
             },
           ),
         ),
-        bottomNavigationBar: _BottomNavbar(),
-        floatingActionButton: CenterButtonOfBottomNavBar(
-            onPressed: () =>
-                _navigateToEditToDoPage(context, currentWorkspaceRef)),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: TabBarView(
           controller: _tabController,
           children: [
@@ -154,21 +143,33 @@ class _HomePageState extends ConsumerState<HomePage>
               _TodoListInTodayAndWhenever(corrWorkspace: workspace),
           ],
         ),
+        // 以下の要素はcurrentWorkspaceが存在しない場合は表示しない
+        bottomNavigationBar: doesCurrentWorkspaceExist
+            ? _BottomNavbar(corrWorkspace: currentWorkspaceNullAble)
+            : null,
+        floatingActionButton: doesCurrentWorkspaceExist
+            ? CenterButtonOfBottomNavBar(
+                onPressed: () =>
+                    _navigateToEditToDoPage(context, currentWorkspaceNullAble))
+            : null,
+        floatingActionButtonLocation: doesCurrentWorkspaceExist
+            ? FloatingActionButtonLocation.centerDocked
+            : null,
       ),
     );
   }
 
   // MARK: - 編集ページへの遷移処理
   void _navigateToEditToDoPage(
-      BuildContext context, TLWorkspace currentWorkspace) {
+      BuildContext context, TLWorkspace corrWorkspace) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
           return EditToDoPage(
-            corrWorkspaceID: currentWorkspace.id,
+            corrWorkspace: corrWorkspace,
             ifInToday: true,
-            selectedBigCategoryID: currentWorkspace.bigCategories[0].id,
+            selectedBigCategoryID: corrWorkspace.bigCategories[0].id,
             selectedSmallCategoryID: null,
             editedToDoTitle: null,
             indexOfEdittedTodo: null,
@@ -199,14 +200,14 @@ class _TodoListInTodayAndWhenever extends StatelessWidget {
           padding: const EdgeInsets.only(top: 16.0),
           child: NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
         ),
-        const ListOfCategoryToToDos(ifInToday: true),
+        ListOfCategoryToToDos(ifInToday: true, corrWorkspace: corrWorkspace),
         if (numOfToDosInWhenever != 0)
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child:
                 NumToDosCard(ifInToday: false, numTodos: numOfToDosInWhenever),
           ),
-        const ListOfCategoryToToDos(ifInToday: false),
+        ListOfCategoryToToDos(ifInToday: false, corrWorkspace: corrWorkspace),
         const SizedBox(height: 250),
       ],
     );
@@ -215,11 +216,11 @@ class _TodoListInTodayAndWhenever extends StatelessWidget {
 
 // MARK: - Bottom Navbar Widget
 class _BottomNavbar extends ConsumerWidget {
+  final TLWorkspace corrWorkspace;
+
+  const _BottomNavbar({required this.corrWorkspace});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentWorkspace = ref.read(
-      tlAppStateProvider.select((state) => state.getCorrWorkspace),
-    );
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 
     return TLBottomNavBar(
@@ -229,13 +230,13 @@ class _BottomNavbar extends ConsumerWidget {
         message: null,
         yesAction: () async {
           Navigator.pop(context);
-          final updatedWorkspace =
+          final TLWorkspace updatedWorkspace =
               await TLWorkspaceUtils.deleteCheckedToDosInTodayInAWorkspace(
-            currentWorkspace,
+            corrWorkspace,
             onlyToday: false,
           );
           tlAppStateReducer.dispatchWorkspaceAction(
-              TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace));
+              TLWorkspaceAction.updateCorrWorkspace(updatedWorkspace));
 
           if (context.mounted) {
             const TLSingleOptionDialog(title: "削除が完了しました！")
@@ -247,7 +248,7 @@ class _BottomNavbar extends ConsumerWidget {
       trailingIconData: FontAwesomeIcons.list,
       trailingButtonOnPressed: () async {
         await Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return CategoryListPage(corrWorkspace: currentWorkspace);
+          return CategoryListPage(corrWorkspace: corrWorkspace);
         }));
       },
     );

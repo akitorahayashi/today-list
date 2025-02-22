@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
@@ -17,46 +15,36 @@ import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/util/tl_workspace_utils.dart';
 import 'tl_checkbox.dart';
 import 'tl_step_card.dart';
+import 'dart:ui';
 
 import 'package:reorderables/reorderables.dart';
 
 class TLToDoCard extends ConsumerWidget {
   final bool ifInToday;
-  final int indexOfThisToDoInToDos;
-  final TLToDoCategory bigCategoryOfThisToDo;
-  final TLToDoCategory? smallCategoryOfThisToDo;
+  final TLToDo corrToDo;
 
   const TLToDoCard({
     super.key,
     required this.ifInToday,
-    required this.indexOfThisToDoInToDos,
-    required this.bigCategoryOfThisToDo,
-    this.smallCategoryOfThisToDo,
+    required this.corrToDo,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final currentWorkspace = ref.watch(
-      tlAppStateProvider.select((state) => state.getCorrWorkspace),
+    final TLWorkspace? corrWorkspace = ref.watch(
+      tlAppStateProvider
+          .select((state) => state.getCorrWorkspace(corrToDo.workspaceID)),
     );
-
-    final TLToDoCategory categoryOfThisToDo =
-        smallCategoryOfThisToDo ?? bigCategoryOfThisToDo;
-    final List<TLToDo> toDoArray = currentWorkspace
-        .categoryIDToToDos[categoryOfThisToDo.id]!
-        .getToDos(ifInToday);
-    final TLToDo corrToDoData = toDoArray[indexOfThisToDoInToDos];
 
     // MARK: - Colors
     final panelColor = tlThemeData.canTapCardColor;
-    final textColor =
-        Colors.black.withOpacity(corrToDoData.isChecked ? 0.3 : 0.6);
+    final textColor = Colors.black.withOpacity(corrToDo.isChecked ? 0.3 : 0.6);
 
     return GestureDetector(
       onTap: () => _toggleToDoCheckStatus(
-          ref, context, currentWorkspace, categoryOfThisToDo),
-      onLongPress: corrToDoData.isChecked ? () {} : null,
+          ref, context, corrWorkspace, categoryOfThisToDo),
+      onLongPress: corrToDo.isChecked ? () {} : null,
       child: Card(
         color: panelColor,
         elevation: 2,
@@ -67,18 +55,15 @@ class TLToDoCard extends ConsumerWidget {
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: SlidableForToDoCard(
               isForModelCard: false,
-              corrTLToDo: corrToDoData,
-              indexOfThisToDoInToDos: indexOfThisToDoInToDos,
               ifInToday: ifInToday,
-              bigCategoryID: bigCategoryOfThisToDo.id,
-              smallCategoryID: smallCategoryOfThisToDo?.id,
+              corrTLToDo: corrToDo,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildToDoContent(corrToDoData, textColor),
-                  if (corrToDoData.steps.isNotEmpty)
-                    _buildStepsList(ref, currentWorkspace, categoryOfThisToDo,
-                        corrToDoData),
+                  _buildToDoContent(corrToDo, textColor),
+                  if (corrToDo.steps.isNotEmpty)
+                    _buildStepsList(
+                        ref, corrWorkspace, categoryOfThisToDo, corrToDo),
                 ],
               ),
             ),

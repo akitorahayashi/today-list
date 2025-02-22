@@ -12,12 +12,12 @@ import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 
 class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
-  final String corrWorkspaceID;
+  final TLWorkspace corrWorkspace;
   final TLToDoCategory categoryToDelete;
 
   const DeleteCategoryDialog({
     super.key,
-    required this.corrWorkspaceID,
+    required this.corrWorkspace,
     required this.categoryToDelete,
   });
 
@@ -25,9 +25,6 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig theme = TLTheme.of(context);
-    final TLWorkspace currentWorkspace = ref.read(
-      tlAppStateProvider.select((state) => state.getCorrWorkspace),
-    );
 
     return Dialog(
       backgroundColor: theme.alertBackgroundColor,
@@ -42,7 +39,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
               context: context,
               ref: ref,
               theme: theme,
-              corrWorkspace: currentWorkspace,
+              corrWorkspace: corrWorkspace,
               categoryToDelete: categoryToDelete,
             ),
           ],

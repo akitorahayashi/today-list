@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/view/screen/setting_page/set_tcw_settings_page/tcw_card_list/component/wks_body_text.dart';
-import 'package:today_list/view/screen/setting_page/set_tcw_settings_page/tcw_card_list/component/wks_header.dart';
+import 'package:today_list/view/page/setting_page/set_tcw_settings_page/tcw_card_list/component/wks_body_text.dart';
+import 'package:today_list/view/page/setting_page/set_tcw_settings_page/tcw_card_list/component/wks_header.dart';
 import 'package:today_list/view/component/slidable/slidable_for_tcw_card.dart';
 import 'package:today_list/model/settings_data/todos_in_category_widget_settings.dart';
 

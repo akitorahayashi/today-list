@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/screen/setting_page/set_tcw_settings_page/create_tcw_settings_card/add_tcw_button.dart';
-import 'package:today_list/view/screen/setting_page/set_tcw_settings_page/create_tcw_settings_card/create_tcw_settings_card.dart';
-import 'package:today_list/view/screen/setting_page/set_tcw_settings_page/tcw_card_list/card_list_of_todos_in_category_settings.dart';
+import 'package:today_list/view/page/setting_page/set_tcw_settings_page/create_tcw_settings_card/add_tcw_button.dart';
+import 'package:today_list/view/page/setting_page/set_tcw_settings_page/create_tcw_settings_card/create_tcw_settings_card.dart';
+import 'package:today_list/view/page/setting_page/set_tcw_settings_page/tcw_card_list/card_list_of_todos_in_category_settings.dart';
 import 'package:today_list/main.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import '../../../../service/tl_ads.dart';

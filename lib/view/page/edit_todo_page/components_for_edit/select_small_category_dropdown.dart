@@ -8,12 +8,14 @@ import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 
 class SelectSmallCategoryDropdown extends ConsumerWidget {
+  final TLWorkspace corrWorkspace;
   final String bigCategoryID;
   final String? smallCategoryID;
   final Function(String) onSelected;
 
   const SelectSmallCategoryDropdown({
     super.key,
+    required this.corrWorkspace,
     required this.bigCategoryID,
     required this.smallCategoryID,
     required this.onSelected,
@@ -22,10 +24,8 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final tlAppState = ref.watch(tlAppStateProvider);
-    final TLWorkspace currentWorkspace = tlAppState.getCorrWorkspace;
 
-    final smallCats = currentWorkspace.smallCategories[bigCategoryID] ?? [];
+    final smallCats = corrWorkspace.smallCategories[bigCategoryID] ?? [];
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),

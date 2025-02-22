@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/tl_app_state.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/dialog/for_category/delete_category_dialog.dart';
 import 'package:today_list/view/component/dialog/for_category/rename_category_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
@@ -75,11 +77,15 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
           SimpleDialogOption(
             onPressed: () async {
               Navigator.pop(context);
+              final TLWorkspace? corrWorkspace = ref
+                  .read(tlAppStateProvider)
+                  .getCorrWorkspace(corrWorkspaceID);
+              if (corrWorkspace == null) return;
               await showDialog(
                   context: context,
                   builder: (context) {
                     return DeleteCategoryDialog(
-                      corrWorkspaceID: corrWorkspaceID,
+                      corrWorkspace: corrWorkspace,
                       categoryToDelete: categoryOfThisPage,
                     );
                   });

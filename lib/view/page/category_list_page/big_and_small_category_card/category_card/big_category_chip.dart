@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_category_utils.dart';
 import 'package:today_list/view/component/dialog/for_category/select_edit_method_dialog.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class BigCategoryCard extends ConsumerWidget {
+class BigCategoryCard extends StatelessWidget {
   final TLWorkspace corrWorkspace;
   final TLToDoCategory corrBigCategory;
 
@@ -21,10 +19,8 @@ class BigCategoryCard extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final categoryIDToToDosRefOfCurrentWorkspace = ref.watch(tlAppStateProvider
-        .select((state) => state.getCorrWorkspace.categoryIDToToDos));
 
     const double cardHeight = 64.0;
 
@@ -45,7 +41,7 @@ class BigCategoryCard extends ConsumerWidget {
 
     final numberOfToDos = TLCategoryUtils.getNumberOfToDosInThisCategory(
       ifInToday: null,
-      corrToDos: categoryIDToToDosRefOfCurrentWorkspace[corrBigCategory.id]!,
+      corrToDos: corrWorkspace.categoryIDToToDos[corrBigCategory.id]!,
     );
 
     return SizedBox(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
@@ -12,73 +11,74 @@ import 'package:reorderables/reorderables.dart';
 
 class ToDosInCategory extends ConsumerWidget {
   final bool ifInToday;
-  final TLToDoCategory bigCategoryOfThisToDo;
-  final TLToDoCategory? smallCategoryOfThisToDo;
+  final TLWorkspace corrWorkspace;
+  final String categoryID;
+  final bool isBigCategory;
 
   const ToDosInCategory({
     super.key,
+    required this.corrWorkspace,
+    required this.categoryID,
     required this.ifInToday,
-    required this.bigCategoryOfThisToDo,
-    required this.smallCategoryOfThisToDo,
+    required this.isBigCategory,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // provider
-    final tlAppState = ref.watch(tlAppStateProvider);
-    final TLWorkspace currentTLWorkspaceReference = tlAppState.getCorrWorkspace;
-    // notifier
-    final tlAppStateNotifier = ref.read(tlAppStateProvider.notifier);
-    // others
-    final coorCategoryIDToToDos = Map<String, TLToDosInTodayAndWhenever>.from(
-        currentTLWorkspaceReference.categoryIDToToDos);
-
-    List<TLToDo> toDosInTodayInThisCategory = coorCategoryIDToToDos[
-            smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id]!
-        .getToDos(ifInToday);
+    // List<TLToDo> toDosInTodayInThisCategory =
+    //     corrWorkspace.categoryIDToToDos[categoryID]!.getToDos(ifInToday);
 
     return Column(
       children: [
         Padding(
-          padding:
-              EdgeInsets.only(left: smallCategoryOfThisToDo == null ? 5 : 18),
+          padding: EdgeInsets.only(left: isBigCategory ? 5 : 18),
           child: ReorderableColumn(
             children: [
-              for (int i = 0; i < toDosInTodayInThisCategory.length; i++)
+              for (TLToDo corrToDo in corrWorkspace
+                  .categoryIDToToDos[categoryID]!
+                  .getToDos(ifInToday))
                 TLToDoCard(
-                  key: ValueKey(toDosInTodayInThisCategory[i].id),
+                  key: ValueKey(corrToDo.id),
+                  corrToDo: corrToDo,
                   ifInToday: ifInToday,
-                  indexOfThisToDoInToDos: i,
-                  bigCategoryOfThisToDo: bigCategoryOfThisToDo,
-                  smallCategoryOfThisToDo: smallCategoryOfThisToDo,
                 ),
             ],
             onReorder: (oldIndex, newIndex) {
-              final int indexOfCheckedToDo = toDosInTodayInThisCategory
-                  .indexWhere((todo) => todo.isChecked);
+              final TLToDosInTodayAndWhenever copiedTLToDosInTodayAndWhenever =
+                  corrWorkspace.categoryIDToToDos[categoryID]!.copyWith();
+
+              final List<TLToDo> corrToDoArray =
+                  copiedTLToDosInTodayAndWhenever.getToDos(ifInToday);
+
+              final int indexOfCheckedToDo =
+                  corrToDoArray.indexWhere((todo) => todo.isChecked);
 
               if (indexOfCheckedToDo == -1 || newIndex < indexOfCheckedToDo) {
-                // 新しいリストを生成
-                final List<TLToDo> updatedToDos =
-                    List.from(toDosInTodayInThisCategory);
-                final TLToDo reorderedToDo = updatedToDos.removeAt(oldIndex);
-                updatedToDos.insert(newIndex, reorderedToDo);
-
+                final TLToDo reorderedToDo = corrToDoArray.removeAt(oldIndex);
+                corrToDoArray.insert(newIndex, reorderedToDo);
+                late final Map<String, TLToDosInTodayAndWhenever>
+                    updatedCategoryIDToToDos;
                 // `categoryIDToToDos` を再構築
-                final updatedCategoryIDToToDos = {
-                  ...coorCategoryIDToToDos,
-                  (smallCategoryOfThisToDo?.id ?? bigCategoryOfThisToDo.id):
-                      coorCategoryIDToToDos[smallCategoryOfThisToDo?.id ??
-                              bigCategoryOfThisToDo.id]!
-                          .copyWith(toDosInToday: updatedToDos),
-                };
+                if (ifInToday) {
+                  updatedCategoryIDToToDos = {
+                    ...corrWorkspace.categoryIDToToDos,
+                    categoryID: copiedTLToDosInTodayAndWhenever.copyWith(
+                        toDosInToday: corrToDoArray),
+                  };
+                } else {
+                  updatedCategoryIDToToDos = {
+                    ...corrWorkspace.categoryIDToToDos,
+                    categoryID: copiedTLToDosInTodayAndWhenever.copyWith(
+                        toDosInWhenever: corrToDoArray),
+                  };
+                }
 
                 // 更新されたワークスペースを保存
-                tlAppStateNotifier.dispatchWorkspaceAction(
-                    TLWorkspaceAction.updateCurrentWorkspace(
-                        currentTLWorkspaceReference.copyWith(
-                  categoryIDToToDos: updatedCategoryIDToToDos,
-                )));
+                ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+                        TLWorkspaceAction.updateCorrWorkspace(
+                            corrWorkspace.copyWith(
+                      categoryIDToToDos: updatedCategoryIDToToDos,
+                    )));
               }
             },
           ),

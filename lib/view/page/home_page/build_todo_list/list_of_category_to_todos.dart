@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
@@ -8,26 +9,24 @@ import 'todos_in_category/todos_in_category.dart';
 
 class ListOfCategoryToToDos extends ConsumerWidget {
   final bool ifInToday;
+  final TLWorkspace corrWorkspace;
 
   const ListOfCategoryToToDos({
     super.key,
     required this.ifInToday,
+    required this.corrWorkspace,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentWorkspace =
-        ref.watch(tlAppStateProvider.select((state) => state.getCorrWorkspace));
-
     return Column(
       children: [
-        _DefaultCategory(
-            currentWorkspace: currentWorkspace, ifInToday: ifInToday),
+        _DefaultCategory(corrWorkspace: corrWorkspace, ifInToday: ifInToday),
         for (TLToDoCategory bigCategory
-            in currentWorkspace.bigCategories.sublist(1))
+            in corrWorkspace.bigCategories.sublist(1))
           _BigCategorySection(
-            currentWorkspace: currentWorkspace,
-            bigCategory: bigCategory,
+            corrWorkspace: corrWorkspace,
+            corrBigCategory: bigCategory,
             ifInToday: ifInToday,
           ),
       ],
@@ -37,28 +36,28 @@ class ListOfCategoryToToDos extends ConsumerWidget {
 
 // MARK - Default Category Section (bigCategories[0])
 class _DefaultCategory extends StatelessWidget {
-  final TLWorkspace currentWorkspace;
+  final TLWorkspace corrWorkspace;
   final bool ifInToday;
 
   const _DefaultCategory({
-    required this.currentWorkspace,
+    required this.corrWorkspace,
     required this.ifInToday,
   });
 
   @override
   Widget build(BuildContext context) {
     // ビッグカテゴリの最初の要素に ToDo がある場合のみ表示
-    if (currentWorkspace
-        .categoryIDToToDos[currentWorkspace.bigCategories[0].id]!
+    if (corrWorkspace.categoryIDToToDos[corrWorkspace.bigCategories[0].id]!
         .getToDos(ifInToday)
         .isEmpty) return const SizedBox.shrink();
 
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: ToDosInCategory(
+        corrWorkspace: corrWorkspace,
         ifInToday: ifInToday,
-        bigCategoryOfThisToDo: currentWorkspace.bigCategories[0],
-        smallCategoryOfThisToDo: null,
+        categoryID: noneID,
+        isBigCategory: true,
       ),
     );
   }
@@ -66,13 +65,13 @@ class _DefaultCategory extends StatelessWidget {
 
 // MARK - Big Category Section
 class _BigCategorySection extends StatelessWidget {
-  final TLWorkspace currentWorkspace;
-  final TLToDoCategory bigCategory;
+  final TLWorkspace corrWorkspace;
+  final TLToDoCategory corrBigCategory;
   final bool ifInToday;
 
   const _BigCategorySection({
-    required this.currentWorkspace,
-    required this.bigCategory,
+    required this.corrWorkspace,
+    required this.corrBigCategory,
     required this.ifInToday,
   });
 
@@ -80,23 +79,25 @@ class _BigCategorySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (_shouldShowBigCategoryHeader(currentWorkspace, bigCategory))
+        if (_shouldShowBigCategoryHeader(corrWorkspace, corrBigCategory))
           CategoryHeaderForToDos(
-              isBigCategory: true, corrCategory: bigCategory),
-        if (currentWorkspace.categoryIDToToDos[bigCategory.id]!
+              isBigCategory: true, corrCategory: corrBigCategory),
+        if (corrWorkspace.categoryIDToToDos[corrBigCategory.id]!
             .getToDos(ifInToday)
             .isNotEmpty)
           ToDosInCategory(
             ifInToday: ifInToday,
-            bigCategoryOfThisToDo: bigCategory,
-            smallCategoryOfThisToDo: null,
+            corrWorkspace: corrWorkspace,
+            categoryID: corrBigCategory.id,
+            isBigCategory: true,
           ),
+
+        // _SmallCategorySection
         for (TLToDoCategory smallCategory
-            in currentWorkspace.smallCategories[bigCategory.id] ?? [])
+            in corrWorkspace.smallCategories[corrBigCategory.id] ?? [])
           _SmallCategorySection(
-            currentWorkspace: currentWorkspace,
-            bigCategory: bigCategory,
-            smallCategory: smallCategory,
+            corrWorkspace: corrWorkspace,
+            corrSmallCategory: smallCategory,
             ifInToday: ifInToday,
           ),
       ],
@@ -125,33 +126,34 @@ class _BigCategorySection extends StatelessWidget {
 
 // MARK - Small Category Section
 class _SmallCategorySection extends StatelessWidget {
-  final TLWorkspace currentWorkspace;
-  final TLToDoCategory bigCategory;
-  final TLToDoCategory smallCategory;
+  final TLWorkspace corrWorkspace;
+  final TLToDoCategory corrSmallCategory;
   final bool ifInToday;
 
   const _SmallCategorySection({
-    required this.currentWorkspace,
-    required this.bigCategory,
-    required this.smallCategory,
+    required this.corrWorkspace,
+    required this.corrSmallCategory,
     required this.ifInToday,
   });
 
   @override
   Widget build(BuildContext context) {
     // スモールカテゴリに ToDo がある場合のみ表示
-    if (currentWorkspace.categoryIDToToDos[smallCategory.id]!
+    if (corrWorkspace.categoryIDToToDos[corrSmallCategory.id]!
         .getToDos(ifInToday)
-        .isEmpty) return const SizedBox.shrink();
+        .isEmpty) {
+      return const SizedBox.shrink();
+    }
 
     return Column(
       children: [
         CategoryHeaderForToDos(
-            isBigCategory: false, corrCategory: smallCategory),
+            isBigCategory: false, corrCategory: corrSmallCategory),
         ToDosInCategory(
           ifInToday: ifInToday,
-          bigCategoryOfThisToDo: bigCategory,
-          smallCategoryOfThisToDo: smallCategory,
+          corrWorkspace: corrWorkspace,
+          categoryID: corrSmallCategory.id,
+          isBigCategory: false,
         ),
       ],
     );

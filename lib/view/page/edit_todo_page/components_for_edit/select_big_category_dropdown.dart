@@ -7,23 +7,23 @@ import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 
-class SelectBigCategoryDropdown extends ConsumerWidget {
+class SelectBigCategoryDropdown extends StatelessWidget {
+  final TLWorkspace corrWorkspace;
   final String bigCategoryID;
   final Function(String) onSelected;
 
   const SelectBigCategoryDropdown({
     super.key,
+    required this.corrWorkspace,
     required this.bigCategoryID,
     required this.onSelected,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final tlAppState = ref.watch(tlAppStateProvider);
-    final TLWorkspace currentWorkspace = tlAppState.getCorrWorkspace;
 
-    final bigCategories = currentWorkspace.bigCategories;
+    final bigCategories = corrWorkspace.bigCategories;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
