@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:today_list/model/tl_app_state.dart';
-import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
 import 'package:today_list/view/component/dialog/for_workspace/delete_workspace_dialog.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
+
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SlidableForWorkspaceCard extends ConsumerWidget {
   final bool isCurrentWorkspace;
@@ -30,10 +29,8 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
     final foregroundColor = tlThemeData.accentColor;
 
     return Slidable(
-      // currentWorkspaceの時や
-      startActionPane: isCurrentWorkspace ||
-              // デフォルトワークスペースの時は削除できないようにする
-              corrWorkspace == noneID
+      // currentWorkspaceの時は削除できないようにする
+      startActionPane: isCurrentWorkspace
           ? null
           : ActionPane(
               motion: const ScrollMotion(),
@@ -46,10 +43,9 @@ class SlidableForWorkspaceCard extends ConsumerWidget {
                   backgroundColor: backgroundColor,
                   foregroundColor: foregroundColor,
                   onPressed: (BuildContext context) async {
-                    await showDialog(
-                        context: context,
-                        builder: (context) => DeleteWorkspaceDialog(
-                            willDeletedWorkspace: corrWorkspace));
+                    await DeleteWorkspaceDialog(
+                            willDeletedWorkspace: corrWorkspace)
+                        .show(context: context);
                   },
                   icon: Icons.remove,
                 ),

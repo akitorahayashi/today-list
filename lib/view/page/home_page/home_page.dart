@@ -35,7 +35,7 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage>
     with TickerProviderStateMixin {
   bool _accentColorIsNotChanged = true;
-  late TabController tabController;
+  late TabController _tabController;
   final GlobalKey<ScaffoldState> homePageScaffoldKey =
       GlobalKey<ScaffoldState>();
 
@@ -63,22 +63,25 @@ class _HomePageState extends ConsumerState<HomePage>
     final tlAppState = ref.read(tlAppStateProvider);
 
     // TabControllerを初期化（initialIndexを設定）
-    tabController = TabController(
-      length: tlAppState.tlWorkspaces.length + 1,
+    final length = tlAppState.tlWorkspaces.length + 1; // +1 は"Today"タブ分
+
+    // 初回生成
+    _tabController = TabController(
+      length: length,
       vsync: this,
-      initialIndex: 0, // ★初期インデックスをセット
+      initialIndex: 0,
     );
 
-    tabController.addListener(() {
-      if (tabController.indexIsChanging) {
-        _handleTabIndexChange(tabController.index, ref, tlAppState);
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        _handleTabIndexChange(_tabController.index, ref, tlAppState);
       }
     });
   }
 
   @override
   void dispose() {
-    tabController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -94,22 +97,35 @@ class _HomePageState extends ConsumerState<HomePage>
       return matches.isNotEmpty ? matches.first : null;
     }();
 
-    // 現在のWorkspaceのIndexを取得
-    final currentWorkspaceIdx = tlAppState.tlWorkspaces.indexWhere(
-        (workspace) => workspace.id == tlAppState.currentWorkspaceID);
-    final expectedIndex =
-        currentWorkspaceIdx != -1 ? currentWorkspaceIdx + 1 : 0;
-    // tabController.dispose();
-    // tabController = TabController(
-    //   length: tlAppState.tlWorkspaces.length + 1,
-    //   vsync: this,
-    //   initialIndex: expectedIndex,
-    // );
+    // workspace数が増減して newLength と tabController.length が異なる場合は再生成する
+    final newLength = tlAppState.tlWorkspaces.length + 1;
+    if (_tabController.length != newLength) {
+      _tabController.dispose(); // 古いのはdispose
 
-    // ビルド後にタブインデックスを更新
+      _tabController = TabController(
+        length: newLength,
+        vsync: this,
+        // 今回は期待インデックスを使う or 既存の oldIndex と比較して安全に設定
+        initialIndex: 0,
+      );
+
+      // リスナーを再設定
+      _tabController.addListener(() {
+        if (_tabController.indexIsChanging) {
+          _handleTabIndexChange(_tabController.index, ref, tlAppState);
+        }
+      });
+    }
+
+    // ビルド後にタブインデックスの調整を行う（アプリ起動時ぐらいで使用）
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (tabController.index != expectedIndex) {
-        tabController.index = expectedIndex;
+      // 現在のWorkspaceのIndexを取得
+      final currentWorkspaceIdx = tlAppState.tlWorkspaces.indexWhere(
+          (workspace) => workspace.id == tlAppState.currentWorkspaceID);
+      final expectedTabControllerIndex =
+          currentWorkspaceIdx != -1 ? currentWorkspaceIdx + 1 : 0;
+      if (_tabController.index != expectedTabControllerIndex) {
+        _tabController.index = expectedTabControllerIndex;
       }
     });
 
@@ -120,11 +136,11 @@ class _HomePageState extends ConsumerState<HomePage>
     return Scaffold(
       backgroundColor: tlThemeConfig.backgroundColor,
       key: homePageScaffoldKey,
-      drawer: const TLWorkspaceDrawer(isContentMode: false),
+      drawer: const TLWorkspaceDrawer(),
       appBar: TLAppBar(
         context: context,
         height: 100,
-        pageTitle: tabController.index == 0
+        pageTitle: _tabController.index == 0
             ? "Today List"
             : currentWorkspaceNullAble?.name ?? "Error",
         leadingButtonOnPressed: () =>
@@ -137,7 +153,7 @@ class _HomePageState extends ConsumerState<HomePage>
         },
         trailingIcon: const Icon(Icons.settings, color: Colors.white),
         bottom: TabBar(
-          controller: tabController,
+          controller: _tabController,
           isScrollable: true,
           labelColor: tlThemeConfig.accentColor,
           unselectedLabelColor: Colors.white,
@@ -158,7 +174,7 @@ class _HomePageState extends ConsumerState<HomePage>
         ),
       ),
       body: TabBarView(
-        controller: tabController,
+        controller: _tabController,
         children: [
           const ToDoListOfAllWorkspacesInToday(),
           for (final workspace in tlAppState.tlWorkspaces)

@@ -11,8 +11,7 @@ import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_works
 import 'change_workspace_card.dart';
 
 class TLWorkspaceDrawer extends ConsumerWidget {
-  final bool isContentMode;
-  const TLWorkspaceDrawer({super.key, required this.isContentMode});
+  const TLWorkspaceDrawer({super.key});
 
   // MARK: - UI (Build)
   @override
