@@ -42,7 +42,7 @@ class TLStepCard extends ConsumerWidget {
     final TLStep corrStepData = corrToDoData.steps[indexInSteps];
 
     // MARK: - Common Colors
-    final cardColor = tlThemeConfig.whiteBasedCardColor;
+    final cardColor = tlThemeConfig.whiteBasedColor;
     final titleColor =
         Colors.black.withOpacity(corrStepData.isChecked ? 0.3 : 0.6);
 

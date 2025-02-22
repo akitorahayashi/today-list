@@ -36,7 +36,7 @@ enum TLThemeType {
       // Basics
       accentColor: Colors.orange,
       canTapCardColor: Color.fromRGBO(235, 255, 179, 1),
-      whiteBasedCardColor: Color.fromRGBO(255, 255, 255, 1),
+      whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(255, 192, 97, 1),
       checkmarkColor: Color.fromRGBO(255, 190, 86, 1),
 
@@ -100,7 +100,7 @@ enum TLThemeType {
       // Basics
       accentColor: Colors.lightGreen,
       canTapCardColor: Color.fromRGBO(255, 253, 184, 1),
-      whiteBasedCardColor: Color.fromRGBO(255, 255, 255, 1),
+      whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(225, 163, 102, 1),
       checkmarkColor: Color.fromRGBO(123, 212, 28, 1),
 
@@ -143,7 +143,7 @@ enum TLThemeType {
       // Basics
       accentColor: Colors.cyan,
       canTapCardColor: Color.fromRGBO(214, 252, 255, 1),
-      whiteBasedCardColor: Color.fromRGBO(255, 255, 255, 1),
+      whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(129, 221, 234, 1),
       checkmarkColor: Color.fromRGBO(66, 183, 255, 1),
 

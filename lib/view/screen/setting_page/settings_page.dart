@@ -133,7 +133,7 @@ class _BottomNavBar extends StatelessWidget {
         height: (100 * MediaQuery.of(context).size.height / 896),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: tlThemeConfig.whiteBasedCardColor,
+            color: tlThemeConfig.whiteBasedColor,
             boxShadow: const [BoxShadow(color: Colors.black45, blurRadius: 8)],
           ),
           child: Row(

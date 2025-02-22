@@ -32,59 +32,96 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 // MARK: - HomePage State
-class _HomePageState extends ConsumerState<HomePage> {
-  bool _accetColorIsNotChanged = true;
-  final GlobalKey<ScaffoldState> homePageScaffoldKey =
-      GlobalKey<ScaffoldState>();
+class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMixin {
+  bool _accentColorIsNotChanged = true;
+  late TabController _tabController;
+  final GlobalKey<ScaffoldState> homePageScaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_accetColorIsNotChanged) {
-        _accetColorIsNotChanged = false;
+      if (_accentColorIsNotChanged) {
+        _accentColorIsNotChanged = false;
         setState(() {});
         FlutterNativeSplash.remove();
+      }
+    });
+
+    final tlAppState = ref.read(tlAppStateProvider);
+    _tabController = TabController(length: tlAppState.tlWorkspaces.length, vsync: this);
+    
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging || _tabController.index != tlAppState.currentWorkspaceIndex) {
+        ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+            TLWorkspaceAction.changeCurrentWorkspaceID(tlAppState.tlWorkspaces[_tabController.index].id));
       }
     });
   }
 
   @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
     final currentWorkspaceRef = ref
         .watch(tlAppStateProvider.select((state) => state.getCurrentWorkspace));
-    final numOfToDosInToday =
-        TLWorkspaceUtils.getNumOfToDo(currentWorkspaceRef, ifInToday: true);
-    final numOfToDosInWhenever =
-        TLWorkspaceUtils.getNumOfToDo(currentWorkspaceRef, ifInToday: false);
 
-    return Scaffold(
-      key: homePageScaffoldKey,
-      drawer: const TLWorkspaceDrawer(isContentMode: false),
-      appBar: _AppBar(
-        tlAppState: tlAppState,
-        currentWorkspaceRef: currentWorkspaceRef,
-        homePageScaffoldKey: homePageScaffoldKey,
-      ),
-      bottomNavigationBar: _BottomNavbar(),
-      floatingActionButton: CenterButtonOfBottomNavBar(
-          onPressed: () =>
-              _navigateToEditToDoPage(context, currentWorkspaceRef)),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: Stack(
-        children: [
-          Container(color: tlThemeData.backgroundColor),
-          ListView(
-            children: [
-              _TodoList(
-                  numOfToDosInToday: numOfToDosInToday,
-                  numOfToDosInWhenever: numOfToDosInWhenever,
-                  currentWorkspaceRef: currentWorkspaceRef),
-            ],
+    return DefaultTabController(
+      length: tlAppState.tlWorkspaces.length,
+      child: Scaffold(
+        key: homePageScaffoldKey,
+        drawer: const TLWorkspaceDrawer(isContentMode: false),
+        appBar: TLAppBar(
+          context: context,
+          height: 100,
+          pageTitle: currentWorkspaceRef.name,
+          leadingButtonOnPressed: () =>
+              homePageScaffoldKey.currentState!.openDrawer(),
+          leadingIcon: const Icon(Icons.menu, color: Colors.white),
+          trailingButtonOnPressed: () async {
+            await Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const SettingsPage();
+            }));
+          },
+          trailingIcon: const Icon(Icons.settings, color: Colors.white),
+          bottom: TabBar(
+            controller: _tabController,
+            isScrollable: true,
+            labelColor: tlThemeConfig.accentColor,
+            unselectedLabelColor: Colors.white,
+            indicator: BoxDecoration(
+              color: tlThemeConfig.whiteBasedColor,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            indicatorSize: TabBarIndicatorSize.tab,
+            tabs: tlAppState.tlWorkspaces
+                .map((workspace) => Tab(text: workspace.name))
+                .toList(),
+        onTap: (index) {
+          ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+              TLWorkspaceAction.changeCurrentWorkspaceID(tlAppState.tlWorkspaces[index].id));
+        },
           ),
-        ],
+        ),
+        bottomNavigationBar: _BottomNavbar(),
+        floatingActionButton: CenterButtonOfBottomNavBar(
+            onPressed: () =>
+                _navigateToEditToDoPage(context, currentWorkspaceRef)),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        body: TabBarView(
+          controller: _tabController,
+          children: tlAppState.tlWorkspaces.map((workspace) {
+            return _TodoList(
+              workspace: workspace,
+            );
+          }).toList(),
+        ),
       ),
     );
   }
@@ -109,67 +146,29 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 }
 
-// MARK: - AppBar Widget
-class _AppBar extends StatelessWidget implements PreferredSizeWidget {
-  final TLAppState tlAppState;
-  final TLWorkspace currentWorkspaceRef;
-  final GlobalKey<ScaffoldState> homePageScaffoldKey;
-
-  const _AppBar({
-    required this.tlAppState,
-    required this.currentWorkspaceRef,
-    required this.homePageScaffoldKey,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TLAppBar(
-      context: context,
-      pageTitle: currentWorkspaceRef.name,
-      leadingButtonOnPressed: () =>
-          homePageScaffoldKey.currentState!.openDrawer(),
-      leadingIcon: const Icon(Icons.menu, color: Colors.white),
-      trailingButtonOnPressed: () async {
-        await Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const SettingsPage();
-        }));
-      },
-      trailingIcon: const Icon(Icons.settings, color: Colors.white),
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-}
-
 // MARK: - TodoList Widget
 class _TodoList extends StatelessWidget {
-  final int numOfToDosInToday;
-  final int numOfToDosInWhenever;
-  final TLWorkspace currentWorkspaceRef;
+  final TLWorkspace workspace;
 
-  const _TodoList({
-    required this.numOfToDosInToday,
-    required this.numOfToDosInWhenever,
-    required this.currentWorkspaceRef,
-  });
+  const _TodoList({required this.workspace});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final numOfToDosInToday = TLWorkspaceUtils.getNumOfToDo(workspace, ifInToday: true);
+    final numOfToDosInWhenever = TLWorkspaceUtils.getNumOfToDo(workspace, ifInToday: false);
+
+    return ListView(
+      key: PageStorageKey(workspace.id), // スクロール位置を保持
       children: [
-        // --- 今日のタスク ---
         Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
         ),
         const ListOfCategoryToToDos(ifInToday: true),
-        // --- いつでもタスク ---
         if (numOfToDosInWhenever != 0)
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
-            child:
-                NumToDosCard(ifInToday: false, numTodos: numOfToDosInWhenever),
+            child: NumToDosCard(ifInToday: false, numTodos: numOfToDosInWhenever),
           ),
         const ListOfCategoryToToDos(ifInToday: false),
         const SizedBox(height: 250),
@@ -190,21 +189,7 @@ class _BottomNavbar extends ConsumerWidget {
     return TLBottomNavBar(
       leadingIconData: FontAwesomeIcons.squareCheck,
       leadingButtonOnPressed: () =>
-          _deleteCheckedToDos(context, currentWorkspaceRef, tlAppStateReducer),
-      trailingIconData: FontAwesomeIcons.list,
-      trailingButtonOnPressed: () async {
-        await Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const CategoryListPage();
-        }));
-      },
-    );
-  }
-
-  void _deleteCheckedToDos(BuildContext context,
-      TLWorkspace currentWorkspaceRef, tlAppStateReducer) {
-    showDialog(
-      context: context,
-      builder: ((context) => TLYesNoDialog(
+          TLYesNoDialog(
             title: "チェック済みToDoを\n削除しますか?",
             message: null,
             yesAction: () async {
@@ -223,7 +208,13 @@ class _BottomNavbar extends ConsumerWidget {
               }
               TLVibrationService.vibrate();
             },
-          )),
+          ).show(context: context),
+      trailingIconData: FontAwesomeIcons.list,
+      trailingButtonOnPressed: () async {
+        await Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const CategoryListPage();
+        }));
+      },
     );
   }
 }
