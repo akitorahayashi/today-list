@@ -29,7 +29,7 @@ class SmallCategoryChip extends ConsumerWidget {
       onTap: () =>
           _showEditDialog(context, currentWorkspace.id, corrSmallCategory),
       child: Card(
-        color: tlThemeData.whiteBasedCardColor,
+        color: tlThemeData.whiteBasedColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: SizedBox(
           height: 50,

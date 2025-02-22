@@ -15,7 +15,7 @@ class TLDoubleCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 10)),
       child: Card(
-        color: tlThemeData.whiteBasedCardColor,
+        color: tlThemeData.whiteBasedColor,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius ?? 10)),
         child: child,

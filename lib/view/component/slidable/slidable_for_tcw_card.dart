@@ -24,7 +24,7 @@ class SlidableForTCWCard extends ConsumerWidget {
         ref.read(toDosInCategoryWidgetSettingsProvider.notifier);
 
     // MARK: - Colors
-    final backgroundColor = tlThemeData.whiteBasedCardColor;
+    final backgroundColor = tlThemeData.whiteBasedColor;
     final foregroundColor = tlThemeData.accentColor;
 
     return Slidable(

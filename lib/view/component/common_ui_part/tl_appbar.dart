@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 
 class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final BuildContext context;
+  final double height;
   final String pageTitle;
   final Function()? leadingButtonOnPressed;
   final Widget? leadingIcon;
@@ -9,12 +12,13 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget? trailingIcon;
   final double? titleFontSize;
   final double? titleSpacing;
-  final List<Widget>? actions;
-  final BuildContext context;
+  final List<Widget>? trailingIcons;
+  final PreferredSizeWidget? bottom;
 
   const TLAppBar({
     super.key,
     required this.context,
+    this.height = kToolbarHeight,
     this.titleFontSize,
     this.titleSpacing,
     required this.pageTitle,
@@ -22,14 +26,16 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.leadingIcon,
     required this.trailingButtonOnPressed,
     required this.trailingIcon,
-    this.actions,
+    this.trailingIcons,
+    this.bottom,
   });
 
   @override
   Widget build(BuildContext context) {
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     return Container(
       decoration: BoxDecoration(
-        gradient: TLTheme.of(context).gradientOfNavBar,
+        gradient: tlThemeConfig.gradientOfNavBar,
         boxShadow: const [
           BoxShadow(
             color: Colors.black26,
@@ -56,7 +62,7 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ),
               ),
-        actions: actions ??
+        actions: trailingIcons ??
             [
               trailingIcon == null
                   ? Container()
@@ -74,17 +80,18 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
         title: Text(
           pageTitle,
           style: TextStyle(
-            color: Colors.white,
+            color: tlThemeConfig.whiteBasedColor,
             fontWeight: FontWeight.w900,
             fontSize: titleFontSize ?? 30,
             letterSpacing: titleSpacing ?? 1,
             overflow: TextOverflow.ellipsis,
           ),
         ),
+        bottom: bottom,
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(height);
 }

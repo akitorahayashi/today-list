@@ -9,6 +9,7 @@ ButtonStyle alertButtonStyle({required Color accentColor}) {
       accentColor,
     ),
     overlayColor: WidgetStateProperty.all<Color>(
+      // ignore: deprecated_member_use
       accentColor.withOpacity(0.1),
     ),
   );

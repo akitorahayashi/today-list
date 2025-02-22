@@ -25,7 +25,7 @@ class CardOfToDosInCategoryWidgetSettings extends ConsumerWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Card(
-        color: tlThemeConfig.whiteBasedCardColor,
+        color: tlThemeConfig.whiteBasedColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -66,7 +66,7 @@ class _CardContent extends StatelessWidget {
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        color: theme.whiteBasedCardColor,
+        color: theme.whiteBasedColor,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
