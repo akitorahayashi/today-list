@@ -4,11 +4,11 @@ import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 
 class NumToDosCard extends StatelessWidget {
-  final bool ifInToday;
+  final String? title;
   final int numTodos;
   const NumToDosCard({
     super.key,
-    required this.ifInToday,
+    required this.title,
     required this.numTodos,
   });
 
@@ -27,9 +27,9 @@ class NumToDosCard extends StatelessWidget {
             child: Column(
               children: [
                 // wheneverの場合のラベル
-                if (!ifInToday)
-                  const Text("in Whenever",
-                      style: TextStyle(
+                if (title != null)
+                  Text(title!,
+                      style: const TextStyle(
                         color: Colors.black45,
                         fontWeight: FontWeight.bold,
                         fontSize: 14,

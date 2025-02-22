@@ -139,7 +139,7 @@ class _HomePageState extends ConsumerState<HomePage>
         body: TabBarView(
           controller: _tabController,
           children: [
-            const TodosOfAllWorkspacesInToday(),
+            const TodoListOfAllWorkspacesInToday(),
             for (final workspace in tlAppState.tlWorkspaces)
               _TodoListInTodayAndWhenever(corrWorkspace: workspace),
           ],
@@ -199,14 +199,14 @@ class _TodoListInTodayAndWhenever extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 16.0),
-          child: NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
+          child: NumToDosCard(title: null, numTodos: numOfToDosInToday),
         ),
         ListOfCategoryToToDos(ifInToday: true, corrWorkspace: corrWorkspace),
         if (numOfToDosInWhenever != 0)
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
-            child:
-                NumToDosCard(ifInToday: false, numTodos: numOfToDosInWhenever),
+            child: NumToDosCard(
+                title: "In Whenever", numTodos: numOfToDosInWhenever),
           ),
         ListOfCategoryToToDos(ifInToday: false, corrWorkspace: corrWorkspace),
         const SizedBox(height: 250),

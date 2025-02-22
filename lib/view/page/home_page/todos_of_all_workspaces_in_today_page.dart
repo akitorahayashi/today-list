@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TodosOfAllWorkspacesInToday extends StatelessWidget {
-  const TodosOfAllWorkspacesInToday({super.key});
+class TodoListOfAllWorkspacesInToday extends ConsumerWidget {
+  const TodoListOfAllWorkspacesInToday({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Text("TodosOfAllWorkspacesInTodayPage");
   }
 }
