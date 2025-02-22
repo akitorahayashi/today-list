@@ -36,7 +36,7 @@ class _HomePageState extends ConsumerState<HomePage>
     with TickerProviderStateMixin {
   bool _accentColorIsNotChanged = true;
   late TabController _tabController;
-  final GlobalKey<ScaffoldState> homePageScaffoldKey =
+  final GlobalKey<ScaffoldState> _homePageScaffoldKey =
       GlobalKey<ScaffoldState>();
 
   void _handleTabIndexChange(int index, WidgetRef ref, TLAppState tlAppState) {
@@ -73,9 +73,7 @@ class _HomePageState extends ConsumerState<HomePage>
     );
 
     _tabController.addListener(() {
-      if (_tabController.indexIsChanging) {
-        _handleTabIndexChange(_tabController.index, ref, tlAppState);
-      }
+      _handleTabIndexChange(_tabController.index, ref, tlAppState);
     });
   }
 
@@ -111,9 +109,7 @@ class _HomePageState extends ConsumerState<HomePage>
 
       // リスナーを再設定
       _tabController.addListener(() {
-        if (_tabController.indexIsChanging) {
-          _handleTabIndexChange(_tabController.index, ref, tlAppState);
-        }
+        _handleTabIndexChange(_tabController.index, ref, tlAppState);
       });
     }
 
@@ -135,7 +131,7 @@ class _HomePageState extends ConsumerState<HomePage>
 
     return Scaffold(
       backgroundColor: tlThemeConfig.backgroundColor,
-      key: homePageScaffoldKey,
+      key: _homePageScaffoldKey,
       drawer: const TLWorkspaceDrawer(),
       appBar: TLAppBar(
         context: context,
@@ -144,7 +140,7 @@ class _HomePageState extends ConsumerState<HomePage>
             ? "Today List"
             : currentWorkspaceNullAble?.name ?? "Error",
         leadingButtonOnPressed: () =>
-            homePageScaffoldKey.currentState!.openDrawer(),
+            _homePageScaffoldKey.currentState!.openDrawer(),
         leadingIcon: const Icon(Icons.menu, color: Colors.white),
         trailingButtonOnPressed: () async {
           await Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -182,9 +178,10 @@ class _HomePageState extends ConsumerState<HomePage>
         ],
       ),
       // 以下の要素はcurrentWorkspaceが存在しない場合は表示しない
-      bottomNavigationBar: doesCurrentWorkspaceExist
-          ? _BottomNavbar(corrWorkspace: currentWorkspaceNullAble)
-          : null,
+      bottomNavigationBar: _BottomNavbar(
+        currentWorkspaceNullAble: currentWorkspaceNullAble,
+        homePageScaffoldKey: _homePageScaffoldKey,
+      ),
       floatingActionButton: doesCurrentWorkspaceExist
           ? CenterButtonOfBottomNavBar(
               onPressed: () => Navigator.push(
@@ -213,13 +210,15 @@ class _HomePageState extends ConsumerState<HomePage>
 
 // MARK: - Bottom Navbar Widget
 class _BottomNavbar extends ConsumerWidget {
-  final TLWorkspace corrWorkspace;
+  final GlobalKey<ScaffoldState> homePageScaffoldKey;
+  final TLWorkspace? currentWorkspaceNullAble;
 
-  const _BottomNavbar({required this.corrWorkspace});
+  const _BottomNavbar({
+    required this.homePageScaffoldKey,
+    required this.currentWorkspaceNullAble,
+  });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-
     return TLBottomNavBar(
       leadingIconData: FontAwesomeIcons.squareCheck,
       leadingButtonOnPressed: () => TLYesNoDialog(
@@ -227,13 +226,20 @@ class _BottomNavbar extends ConsumerWidget {
         message: null,
         yesAction: () async {
           Navigator.pop(context);
-          final TLWorkspace updatedWorkspace =
-              await TLWorkspaceUtils.deleteCheckedToDosInTodayInAWorkspace(
-            corrWorkspace,
-            onlyToday: false,
-          );
-          tlAppStateReducer.dispatchWorkspaceAction(
-              TLWorkspaceAction.updateCorrWorkspace(updatedWorkspace));
+          if (currentWorkspaceNullAble != null) {
+            // 該当するワークスペースのチェック済みToDo(Today + Whenever)を削除
+            final TLWorkspace updatedWorkspace =
+                await TLWorkspaceUtils.deleteCheckedToDosInTodayInAWorkspace(
+              currentWorkspaceNullAble!,
+              onlyToday: false,
+            );
+            // ワークスペースの更新
+            ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+                TLWorkspaceAction.updateCorrWorkspace(updatedWorkspace));
+          } else {
+            // 全てのワークスペースのチェック済みToDo(Today)を削除
+            // ワークスペースの更新
+          }
 
           if (context.mounted) {
             const TLSingleOptionDialog(title: "削除が完了しました！")
@@ -243,10 +249,14 @@ class _BottomNavbar extends ConsumerWidget {
         },
       ).show(context: context),
       trailingIconData: FontAwesomeIcons.list,
-      trailingButtonOnPressed: () async {
-        await Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return CategoryListPage(corrWorkspace: corrWorkspace);
-        }));
+      trailingButtonOnPressed: () {
+        if (currentWorkspaceNullAble != null) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return CategoryListPage(corrWorkspace: currentWorkspaceNullAble!);
+          }));
+        } else {
+          homePageScaffoldKey.currentState?.openDrawer();
+        }
       },
     );
   }
