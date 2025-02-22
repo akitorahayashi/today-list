@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
-import 'package:today_list/view/page/home_page/build_todo_list/list_of_category_to_todos.dart';
-import 'package:today_list/view/page/home_page/build_todo_list/num_todos_card.dart';
+import 'package:today_list/view/page/home_page/tab_content/build_todo_list/list_of_category_to_todos/list_of_category_to_todos.dart';
+import 'package:today_list/view/page/home_page/tab_content/build_todo_list/num_todos_card.dart';
 
 class ToDoListOfAllWorkspacesInToday extends ConsumerWidget {
   const ToDoListOfAllWorkspacesInToday({super.key});
