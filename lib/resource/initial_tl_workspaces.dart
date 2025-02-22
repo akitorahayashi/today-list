@@ -5,78 +5,161 @@ import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 
+class TLWorkspaceID {
+  static const String school = "schoolWorksapceId";
+  static const String supermarket = "superMarcketId";
+  static const String vegetable = "vegetableId";
+}
+
+class TLCategoryID {
+  static const String none = noneID;
+  static const String supermarket = "superMarcketId";
+  static const String hundredStore = "hundredStoreId";
+  static const String vegetable = "vegetableId";
+  static const String math = "mathId";
+  static const String mathA = "mathAId";
+  static const String mathI = "mathIId";
+  static const String english = "englishId";
+}
+
 final List<TLWorkspace> initialTLWorkspaces = [
-  TLWorkspace(id: noneID, name: "Shopping", bigCategories: const [
-    TLToDoCategory(id: noneID, parentBigCategoryID: null, name: "なし"),
-    TLToDoCategory(
-        id: "superMarcketId", parentBigCategoryID: null, name: "スーパー"),
-    TLToDoCategory(
-        id: "hundredStoreId", parentBigCategoryID: null, name: "100均"),
-  ], smallCategories: {
-    noneID: [],
-    "superMarcketId": [
-      const TLToDoCategory(
-          id: "vegetableId", parentBigCategoryID: "superMarcketId", name: "野菜"),
-    ],
-    "hundredStoreId": [],
-  }, categoryIDToToDos: {
-    noneID: const TLToDosInTodayAndWhenever(toDosInToday: [
-      TLToDo(id: "todo1", categoryID: noneID, content: "のり", steps: []),
-      TLToDo(id: "todo2", categoryID: noneID, content: "まくらカバー", steps: []),
-    ], toDosInWhenever: []),
-    "superMarcketId": const TLToDosInTodayAndWhenever(toDosInToday: [
-      TLToDo(id: "todo3", categoryID: "superMarcketId", content: "パスタ", steps: [
-        TLStep(id: "step1", content: "パスタの束"),
-        TLStep(id: "step2", content: "オリーブオイル")
-      ]),
-    ], toDosInWhenever: []),
-    "vegetableId": const TLToDosInTodayAndWhenever(toDosInToday: [
-      TLToDo(
-          id: "todo4", categoryID: "vegetableId", content: "キャベツ", steps: []),
-      TLToDo(
-          id: "todo5", categoryID: "vegetableId", content: "にんじん", steps: []),
-    ], toDosInWhenever: []),
-    "hundredStoreId": const TLToDosInTodayAndWhenever(toDosInToday: [
-      TLToDo(
-          id: "todo6", categoryID: "hundredStoreId", content: "お皿", steps: [])
-    ], toDosInWhenever: []),
-  }),
+  TLWorkspace(
+      id: TLWorkspaceID.supermarket,
+      name: "Shopping",
+      bigCategories: const [
+        TLToDoCategory(
+            id: TLCategoryID.none, parentBigCategoryID: null, name: "なし"),
+        TLToDoCategory(
+            id: TLCategoryID.supermarket,
+            parentBigCategoryID: null,
+            name: "スーパー"),
+        TLToDoCategory(
+            id: TLCategoryID.hundredStore,
+            parentBigCategoryID: null,
+            name: "100均"),
+      ],
+      smallCategories: {
+        TLCategoryID.none: [],
+        TLCategoryID.supermarket: [
+          const TLToDoCategory(
+              id: TLCategoryID.vegetable,
+              parentBigCategoryID: TLCategoryID.supermarket,
+              name: "野菜"),
+        ],
+        TLCategoryID.hundredStore: [],
+      },
+      categoryIDToToDos: {
+        TLCategoryID.none: const TLToDosInTodayAndWhenever(toDosInToday: [
+          TLToDo(
+              id: "todo1",
+              workspaceID: TLCategoryID.none,
+              categoryID: TLCategoryID.none,
+              content: "のり",
+              steps: []),
+          TLToDo(
+              id: "todo2",
+              workspaceID: TLCategoryID.none,
+              categoryID: TLCategoryID.none,
+              content: "まくらカバー",
+              steps: []),
+        ], toDosInWhenever: []),
+        TLCategoryID.supermarket:
+            const TLToDosInTodayAndWhenever(toDosInToday: [
+          TLToDo(
+              id: "todo3",
+              workspaceID: TLCategoryID.none,
+              categoryID: TLCategoryID.supermarket,
+              content: "パスタ",
+              steps: [
+                TLStep(id: "step1", content: "パスタの束"),
+                TLStep(id: "step2", content: "オリーブオイル")
+              ]),
+        ], toDosInWhenever: []),
+        TLCategoryID.vegetable: const TLToDosInTodayAndWhenever(toDosInToday: [
+          TLToDo(
+              id: "todo4",
+              workspaceID: TLCategoryID.none,
+              categoryID: TLCategoryID.vegetable,
+              content: "キャベツ",
+              steps: []),
+          TLToDo(
+              id: "todo5",
+              workspaceID: TLCategoryID.none,
+              categoryID: TLCategoryID.vegetable,
+              content: "にんじん",
+              steps: []),
+        ], toDosInWhenever: []),
+        TLCategoryID.hundredStore:
+            const TLToDosInTodayAndWhenever(toDosInToday: [
+          TLToDo(
+              id: "todo6",
+              workspaceID: TLCategoryID.none,
+              categoryID: TLCategoryID.hundredStore,
+              content: "お皿",
+              steps: [])
+        ], toDosInWhenever: []),
+      }),
   // --- 学校
-  TLWorkspace(id: "schoolWorksapceId", name: "School", bigCategories: const [
-    TLToDoCategory(id: noneID, parentBigCategoryID: null, name: "なし"),
-    TLToDoCategory(id: "mathId", parentBigCategoryID: null, name: "数学"),
-    TLToDoCategory(id: "englishId", parentBigCategoryID: null, name: "英語"),
+  TLWorkspace(id: TLWorkspaceID.school, name: "School", bigCategories: const [
+    TLToDoCategory(
+        id: TLCategoryID.none, parentBigCategoryID: null, name: "なし"),
+    TLToDoCategory(
+        id: TLCategoryID.math, parentBigCategoryID: null, name: "数学"),
+    TLToDoCategory(
+        id: TLCategoryID.english, parentBigCategoryID: null, name: "英語"),
   ], smallCategories: {
-    noneID: [],
-    "mathId": const [
-      TLToDoCategory(id: "mathAId", parentBigCategoryID: "mathId", name: "数学A"),
-      TLToDoCategory(id: "mathIId", parentBigCategoryID: "mathId", name: "数学I")
+    TLCategoryID.none: [],
+    TLCategoryID.math: const [
+      TLToDoCategory(
+          id: TLCategoryID.mathA,
+          parentBigCategoryID: TLCategoryID.math,
+          name: "数学A"),
+      TLToDoCategory(
+          id: TLCategoryID.mathI,
+          parentBigCategoryID: TLCategoryID.math,
+          name: "数学I")
     ],
-    "englishId": []
+    TLCategoryID.english: []
   }, categoryIDToToDos: {
-    noneID: const TLToDosInTodayAndWhenever(toDosInToday: [
-      TLToDo(id: "todo7", categoryID: noneID, content: "~のプリントを出す", steps: [])
+    TLCategoryID.none: const TLToDosInTodayAndWhenever(toDosInToday: [
+      TLToDo(
+          id: "todo7",
+          workspaceID: TLWorkspaceID.school,
+          categoryID: TLCategoryID.none,
+          content: "~のプリントを出す",
+          steps: [])
     ], toDosInWhenever: []),
-    "mathId":
+    TLCategoryID.math:
         const TLToDosInTodayAndWhenever(toDosInToday: [], toDosInWhenever: []),
-    "mathAId": const TLToDosInTodayAndWhenever(toDosInToday: [
-      TLToDo(id: "todo8", categoryID: "mathAId", content: "~を復習する", steps: []),
+    TLCategoryID.mathA: const TLToDosInTodayAndWhenever(toDosInToday: [
+      TLToDo(
+          id: "todo8",
+          workspaceID: TLWorkspaceID.school,
+          categoryID: TLCategoryID.mathA,
+          content: "~を復習する",
+          steps: []),
       TLToDo(
           id: "todo9",
-          categoryID: "mathAId",
+          workspaceID: TLWorkspaceID.school,
+          categoryID: TLCategoryID.mathA,
           content: "ワーク12ページの宿題をやる",
           steps: []),
     ], toDosInWhenever: []),
-    "mathIId": const TLToDosInTodayAndWhenever(toDosInToday: [
+    TLCategoryID.mathI: const TLToDosInTodayAndWhenever(toDosInToday: [
       TLToDo(
           id: "todo10",
-          categoryID: "mathIId",
+          workspaceID: TLWorkspaceID.school,
+          categoryID: TLCategoryID.mathI,
           content: "ドリル20~25ページ",
           steps: [])
     ], toDosInWhenever: []),
-    "englishId": const TLToDosInTodayAndWhenever(toDosInToday: [
+    TLCategoryID.english: const TLToDosInTodayAndWhenever(toDosInToday: [
       TLToDo(
-          id: "todo11", categoryID: "mathIId", content: "単語帳301~400", steps: [])
+          id: "todo11",
+          workspaceID: TLWorkspaceID.school,
+          categoryID: TLCategoryID.mathI,
+          content: "単語帳301~400",
+          steps: [])
     ], toDosInWhenever: []),
   }),
 ];

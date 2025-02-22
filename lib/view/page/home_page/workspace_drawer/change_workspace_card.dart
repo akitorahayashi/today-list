@@ -24,9 +24,8 @@ class ChangeWorkspaceCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig theme = TLTheme.of(context);
-    final String currentWorkspaceId = ref.watch(
-      tlAppStateProvider.select((state) => state.currentWorkspaceID),
-    );
+    final String? currentWorkspaceId = ref
+        .watch(tlAppStateProvider.select((state) => state.currentWorkspaceID));
     final bool isCurrentWorkspace = corrWorkspace.id == currentWorkspaceId;
 
     return Padding(

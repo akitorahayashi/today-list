@@ -7,7 +7,6 @@ class TLToDoCategoryReducer {
   static Future<List<TLWorkspace>> handle(
     List<TLWorkspace> workspaces,
     TLToDoCategoryAction action,
-    String currentWorkspaceID,
   ) async {
     return action.map(
       addCategory: (a) => _addCategory(

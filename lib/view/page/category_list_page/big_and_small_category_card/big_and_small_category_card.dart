@@ -11,19 +11,18 @@ import 'category_card/small_category_chip.dart';
 import 'package:reorderables/reorderables.dart';
 
 class BigAndSmallCategoryCard extends ConsumerWidget {
+  final TLWorkspace corrWorkspace;
   final TLToDoCategory corrBigCategory;
 
   const BigAndSmallCategoryCard({
     super.key,
+    required this.corrWorkspace,
     required this.corrBigCategory,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final currentWorkspace = ref.watch(
-      tlAppStateProvider.select((state) => state.getCurrentWorkspace),
-    );
 
     return Card(
       color: tlThemeData.canTapCardColor,
@@ -33,9 +32,10 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BigCategoryCard(corrBigCategory: corrBigCategory),
+            BigCategoryCard(
+                corrWorkspace: corrWorkspace, corrBigCategory: corrBigCategory),
             _SmallCategoryList(
-              currentWorkspace: currentWorkspace,
+              corrWorkspace: corrWorkspace,
               coorBigCategory: corrBigCategory,
             ),
           ],
@@ -46,42 +46,43 @@ class BigAndSmallCategoryCard extends ConsumerWidget {
 }
 
 class _SmallCategoryList extends ConsumerWidget {
-  final TLWorkspace currentWorkspace;
+  final TLWorkspace corrWorkspace;
   final TLToDoCategory coorBigCategory;
 
   const _SmallCategoryList({
-    required this.currentWorkspace,
+    required this.corrWorkspace,
     required this.coorBigCategory,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final smallCategories =
-        currentWorkspace.smallCategories[coorBigCategory.id] ?? [];
+        corrWorkspace.smallCategories[coorBigCategory.id] ?? [];
 
     return ReorderableColumn(
       children: [
         for (int i = 0; i < smallCategories.length; i++)
           SmallCategoryChip(
             key: ValueKey(smallCategories[i].id),
+            corrWorkspace: corrWorkspace,
             corrSmallCategory: smallCategories[i],
           ),
       ],
       onReorder: (oldIndex, newIndex) {
         _handleSmallCategoryReorder(
-            ref, currentWorkspace, coorBigCategory, oldIndex, newIndex);
+            ref, corrWorkspace, coorBigCategory, oldIndex, newIndex);
       },
     );
   }
 
-  void _handleSmallCategoryReorder(WidgetRef ref, TLWorkspace currentWorkspace,
+  void _handleSmallCategoryReorder(WidgetRef ref, TLWorkspace corrWorkspace,
       TLToDoCategory coorBigCategory, int oldIndex, int newIndex) {
     if (oldIndex == newIndex) return;
 
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 
     final copiedSmallCategories = {
-      for (var entry in currentWorkspace.smallCategories.entries)
+      for (var entry in corrWorkspace.smallCategories.entries)
         entry.key: List<TLToDoCategory>.from(entry.value),
     };
 
@@ -94,7 +95,7 @@ class _SmallCategoryList extends ConsumerWidget {
     // 状態を更新
     tlAppStateReducer.dispatchWorkspaceAction(
       TLWorkspaceAction.updateCurrentWorkspace(
-        currentWorkspace.copyWith(smallCategories: copiedSmallCategories),
+        corrWorkspace.copyWith(smallCategories: copiedSmallCategories),
       ),
     );
   }

@@ -8,6 +8,7 @@ import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 
 class ModelOfToDoCard extends ConsumerWidget {
   // todoのデータ
+  final String corrWorkspaceID;
   final TLToDo corrTLToDo;
   final bool ifInToday;
   final String bigCategoryID;
@@ -19,6 +20,7 @@ class ModelOfToDoCard extends ConsumerWidget {
   const ModelOfToDoCard({
     super.key,
     // todoのデータ
+    required this.corrWorkspaceID,
     required this.corrTLToDo,
     required this.ifInToday,
     required this.bigCategoryID,
@@ -40,6 +42,7 @@ class ModelOfToDoCard extends ConsumerWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: SlidableForToDoCard(
+          corrWorkspaceID: corrWorkspaceID,
           isForModelCard: true,
           corrTLToDo: corrTLToDo,
           ifInToday: ifInToday,

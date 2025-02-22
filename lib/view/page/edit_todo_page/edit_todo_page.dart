@@ -12,15 +12,16 @@ import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_uuid_generator.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
-import 'package:today_list/view/screen/edit_todo_page/already_exist/already_exist.dart';
-import 'package:today_list/view/screen/edit_todo_page/components_for_edit/select_big_category_dropdown.dart';
-import 'package:today_list/view/screen/edit_todo_page/components_for_edit/select_small_category_dropdown.dart';
-import 'package:today_list/view/screen/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
-import 'package:today_list/view/screen/edit_todo_page/components_for_edit/todo_title_input_field.dart';
-import 'package:today_list/view/screen/edit_todo_page/components_for_edit/added_steps_column.dart';
-import 'package:today_list/view/screen/edit_todo_page/components_for_edit/step_title_input_field.dart';
+import 'package:today_list/view/page/edit_todo_page/already_exist/already_exist.dart';
+import 'package:today_list/view/page/edit_todo_page/components_for_edit/select_big_category_dropdown.dart';
+import 'package:today_list/view/page/edit_todo_page/components_for_edit/select_small_category_dropdown.dart';
+import 'package:today_list/view/page/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
+import 'package:today_list/view/page/edit_todo_page/components_for_edit/todo_title_input_field.dart';
+import 'package:today_list/view/page/edit_todo_page/components_for_edit/added_steps_column.dart';
+import 'package:today_list/view/page/edit_todo_page/components_for_edit/step_title_input_field.dart';
 
 class EditToDoPage extends HookConsumerWidget {
+  final String corrWorkspaceID;
   final bool ifInToday;
   final String selectedBigCategoryID;
   final String? selectedSmallCategoryID;
@@ -29,6 +30,7 @@ class EditToDoPage extends HookConsumerWidget {
 
   const EditToDoPage({
     super.key,
+    required this.corrWorkspaceID,
     required this.ifInToday,
     required this.selectedBigCategoryID,
     required this.selectedSmallCategoryID,
@@ -59,7 +61,7 @@ class EditToDoPage extends HookConsumerWidget {
         steps.value = [];
       } else {
         final appState = ref.read(tlAppStateProvider);
-        final currentWorkspace = appState.getCurrentWorkspace;
+        final currentWorkspace = appState.getCorrWorkspace;
         final String categoryID =
             selectedSmallCategoryID ?? selectedBigCategoryID;
         final TLToDo edittedToDo = currentWorkspace
@@ -109,7 +111,7 @@ class EditToDoPage extends HookConsumerWidget {
       if (editingToDoIndex.value == null) {
         // MARK: - Add New ToDo
         appStateReducer.dispatchToDoAction(TLToDoAction.addToDo(
-          workspaceID: ref.read(tlAppStateProvider).currentWorkspaceID,
+          workspaceID: corrWorkspaceID,
           categoryID: categoryID,
           ifInToday: isToday.value,
           todo: newToDo,
@@ -117,7 +119,7 @@ class EditToDoPage extends HookConsumerWidget {
       } else {
         // MARK: - Update Existing ToDo
         appStateReducer.dispatchToDoAction(TLToDoAction.updateToDo(
-          workspaceID: ref.read(tlAppStateProvider).currentWorkspaceID,
+          workspaceID: corrWorkspaceID,
           categoryID: categoryID,
           ifInToday: isToday.value,
           index: editingToDoIndex.value!,
@@ -217,6 +219,7 @@ class EditToDoPage extends HookConsumerWidget {
               ),
               if (bannerAd.value != null) AdWidget(ad: bannerAd.value!),
               AlreadyExist(
+                  corrWorkspace: ref.watch(tlAppStateProvider).getCorrWorkspace,
                   ifInToday: isToday.value,
                   bigCategoryID: bigCategoryID.value,
                   smallCategoryID: smallCategoryID.value,

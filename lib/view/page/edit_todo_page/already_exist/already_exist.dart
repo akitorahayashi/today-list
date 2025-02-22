@@ -6,6 +6,7 @@ import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'model_of_todo_card.dart';
 
 class AlreadyExist extends ConsumerWidget {
+  final TLWorkspace corrWorkspace;
   final String bigCategoryID;
   final String? smallCategoryID;
   final bool ifInToday;
@@ -13,6 +14,7 @@ class AlreadyExist extends ConsumerWidget {
 
   const AlreadyExist({
     super.key,
+    required this.corrWorkspace,
     required this.bigCategoryID,
     required this.smallCategoryID,
     required this.ifInToday,
@@ -21,14 +23,9 @@ class AlreadyExist extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // provider
-    final tlAppState = ref.watch(tlAppStateProvider);
-    // others
-    final TLWorkspace currentWorkspaceReference =
-        tlAppState.getCurrentWorkspace;
     // others
     final String categoryOfThisToDo = smallCategoryID ?? bigCategoryID;
-    final List<TLToDo> toDoArrayOfThisBlock = currentWorkspaceReference
+    final List<TLToDo> toDoArrayOfThisBlock = corrWorkspace
             .categoryIDToToDos[categoryOfThisToDo]
             ?.getToDos(ifInToday) ??
         [];
@@ -53,6 +50,7 @@ class AlreadyExist extends ConsumerWidget {
                   key:
                       ValueKey(toDoArrayOfThisBlock[indexOfThisToDoInToDos].id),
                   // todoのメンバー
+                  corrWorkspaceID: corrWorkspace.id,
                   corrTLToDo: toDoArrayOfThisBlock[indexOfThisToDoInToDos],
                   ifInToday: ifInToday,
                   bigCategoryID: bigCategoryID,

@@ -10,6 +10,7 @@ part '../generate/tl_todo.g.dart';
 class TLToDo with _$TLToDo {
   const factory TLToDo({
     required String id,
+    required String workspaceID,
     required String categoryID,
     required String content,
     @Default(false) bool isChecked,

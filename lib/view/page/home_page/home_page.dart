@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
@@ -13,9 +12,9 @@ import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/component/common_ui_part/tl_bottom_navbar/tl_bottom_navbar.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
-import 'package:today_list/view/screen/category_list_page/category_list_page.dart';
-import 'package:today_list/view/screen/edit_todo_page/edit_todo_page.dart';
-import 'package:today_list/view/screen/setting_page/settings_page.dart';
+import 'package:today_list/view/page/category_list_page/category_list_page.dart';
+import 'package:today_list/view/page/edit_todo_page/edit_todo_page.dart';
+import 'package:today_list/view/page/setting_page/settings_page.dart';
 import 'workspace_drawer/workspace_drawer.dart';
 import 'build_todo_list/num_todos_card.dart';
 import 'build_todo_list/list_of_category_to_todos.dart';
@@ -39,6 +38,14 @@ class _HomePageState extends ConsumerState<HomePage>
   final GlobalKey<ScaffoldState> homePageScaffoldKey =
       GlobalKey<ScaffoldState>();
 
+  int _adjustTabControllerIdxToTLWorkspacesIdx(int tabControllerIdx) {
+    return tabControllerIdx - 1;
+  }
+
+  int _adjustTLWorkspacesIdxToTabControllerIdx(int selectedTLWorkspacesIdx) {
+    return selectedTLWorkspacesIdx + 1;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -52,13 +59,15 @@ class _HomePageState extends ConsumerState<HomePage>
 
     final tlAppState = ref.read(tlAppStateProvider);
     _tabController =
-        TabController(length: tlAppState.tlWorkspaces.length, vsync: this);
+        TabController(length: tlAppState.tlWorkspaces.length + 1, vsync: this);
 
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
         ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-            TLWorkspaceAction.changeCurrentWorkspaceID(
-                tlAppState.tlWorkspaces[_tabController.index].id));
+            TLWorkspaceAction.changeCurrentWorkspaceID(tlAppState
+                .tlWorkspaces[_adjustTabControllerIdxToTLWorkspacesIdx(
+                    _tabController.index)]
+                .id));
       }
     });
   }
@@ -73,23 +82,22 @@ class _HomePageState extends ConsumerState<HomePage>
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
-    final currentWorkspaceRef = ref
-        .watch(tlAppStateProvider.select((state) => state.getCurrentWorkspace));
-    final currentWorkspaceID = ref
+    final currentWorkspaceRef =
+        ref.watch(tlAppStateProvider.select((state) => state.getCorrWorkspace));
+
+    final String? currentWorkspaceID = ref
         .watch(tlAppStateProvider.select((state) => state.currentWorkspaceID));
-
-    final currentWorkspaceIndex = tlAppState.tlWorkspaces
+    final currentWorkspaceIdx = tlAppState.tlWorkspaces
         .indexWhere((workspace) => workspace.id == currentWorkspaceID);
-
-    if (currentWorkspaceIndex != -1 &&
-        _tabController.index != currentWorkspaceIndex) {
+    if (currentWorkspaceIdx != -1 &&
+        _tabController.index != currentWorkspaceIdx) {
       Future.microtask(() {
-        _tabController.animateTo(currentWorkspaceIndex);
+        _tabController.animateTo(currentWorkspaceIdx);
       });
     }
 
     return DefaultTabController(
-      length: tlAppState.tlWorkspaces.length,
+      length: tlAppState.tlWorkspaces.length + 1,
       child: Scaffold(
         backgroundColor: tlThemeConfig.backgroundColor,
         key: homePageScaffoldKey,
@@ -117,13 +125,20 @@ class _HomePageState extends ConsumerState<HomePage>
               borderRadius: BorderRadius.circular(8),
             ),
             indicatorSize: TabBarIndicatorSize.tab,
-            tabs: tlAppState.tlWorkspaces
-                .map((workspace) => Tab(text: workspace.name))
-                .toList(),
+            tabs: [
+              const Tab(text: "Today"),
+              for (TLWorkspace workspace in tlAppState.tlWorkspaces)
+                Tab(text: workspace.name),
+            ],
             onTap: (index) {
-              ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-                  TLWorkspaceAction.changeCurrentWorkspaceID(
-                      tlAppState.tlWorkspaces[index].id));
+              if (index != 0) {
+                ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+                    const TLWorkspaceAction.changeCurrentWorkspaceID(null));
+              } else {
+                ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+                    TLWorkspaceAction.changeCurrentWorkspaceID(
+                        tlAppState.tlWorkspaces[index].id));
+              }
             },
           ),
         ),
@@ -136,7 +151,7 @@ class _HomePageState extends ConsumerState<HomePage>
           controller: _tabController,
           children: [
             for (final workspace in tlAppState.tlWorkspaces)
-              _TodoList(corrWorkspace: workspace),
+              _TodoListInTodayAndWhenever(corrWorkspace: workspace),
           ],
         ),
       ),
@@ -145,14 +160,15 @@ class _HomePageState extends ConsumerState<HomePage>
 
   // MARK: - 編集ページへの遷移処理
   void _navigateToEditToDoPage(
-      BuildContext context, TLWorkspace currentWorkspaceRef) {
+      BuildContext context, TLWorkspace currentWorkspace) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
           return EditToDoPage(
+            corrWorkspaceID: currentWorkspace.id,
             ifInToday: true,
-            selectedBigCategoryID: currentWorkspaceRef.bigCategories[0].id,
+            selectedBigCategoryID: currentWorkspace.bigCategories[0].id,
             selectedSmallCategoryID: null,
             editedToDoTitle: null,
             indexOfEdittedTodo: null,
@@ -164,10 +180,10 @@ class _HomePageState extends ConsumerState<HomePage>
 }
 
 // MARK: - TodoList Widget
-class _TodoList extends StatelessWidget {
+class _TodoListInTodayAndWhenever extends StatelessWidget {
   final TLWorkspace corrWorkspace;
 
-  const _TodoList({required this.corrWorkspace});
+  const _TodoListInTodayAndWhenever({required this.corrWorkspace});
 
   @override
   Widget build(BuildContext context) {
@@ -201,8 +217,8 @@ class _TodoList extends StatelessWidget {
 class _BottomNavbar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentWorkspaceRef = ref.read(
-      tlAppStateProvider.select((state) => state.getCurrentWorkspace),
+    final currentWorkspace = ref.read(
+      tlAppStateProvider.select((state) => state.getCorrWorkspace),
     );
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 
@@ -215,7 +231,7 @@ class _BottomNavbar extends ConsumerWidget {
           Navigator.pop(context);
           final updatedWorkspace =
               await TLWorkspaceUtils.deleteCheckedToDosInTodayInAWorkspace(
-            currentWorkspaceRef,
+            currentWorkspace,
             onlyToday: false,
           );
           tlAppStateReducer.dispatchWorkspaceAction(
@@ -231,7 +247,7 @@ class _BottomNavbar extends ConsumerWidget {
       trailingIconData: FontAwesomeIcons.list,
       trailingButtonOnPressed: () async {
         await Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const CategoryListPage();
+          return CategoryListPage(corrWorkspace: currentWorkspace);
         }));
       },
     );

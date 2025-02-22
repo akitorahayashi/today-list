@@ -32,7 +32,7 @@ class TLStepCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final currentWorkspace = ref.watch(
-      tlAppStateProvider.select((state) => state.getCurrentWorkspace),
+      tlAppStateProvider.select((state) => state.getCorrWorkspace),
     );
 
     final corrToDosReference =

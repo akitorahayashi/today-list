@@ -69,14 +69,14 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
 
   // --- Dispatch Workspace Actions ---
   Future<void> dispatchWorkspaceAction(TLWorkspaceAction action) async {
-    List<TLWorkspace> updatedWorkspaces = await TLWorkspaceReducer.handle(
-        state.tlWorkspaces, action, state.currentWorkspaceID);
+    List<TLWorkspace> updatedWorkspaces =
+        await TLWorkspaceReducer.handle(state.tlWorkspaces, action);
 
     state = action.map(
       changeCurrentWorkspaceID: (a) => _changeCurrentWorkspaceID(a.newID),
       addWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
       removeWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
-      updateCurrentWorkspace: (a) =>
+      updateCorrWorkspace: (a) =>
           state.copyWith(tlWorkspaces: updatedWorkspaces),
       updateWorkspaceList: (a) =>
           state.copyWith(tlWorkspaces: updatedWorkspaces),
@@ -117,8 +117,8 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
 
   // --- Dispatch Category Actions ---
   Future<void> dispatchToDoCategoryAction(TLToDoCategoryAction action) async {
-    List<TLWorkspace> updatedWorkspaces = await TLToDoCategoryReducer.handle(
-        state.tlWorkspaces, action, state.currentWorkspaceID);
+    List<TLWorkspace> updatedWorkspaces =
+        await TLToDoCategoryReducer.handle(state.tlWorkspaces, action);
 
     state = state.copyWith(tlWorkspaces: updatedWorkspaces);
     // カテゴリーの変更を保存
@@ -128,7 +128,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   }
 
   // --- Change Current Workspace ID ---
-  TLAppState _changeCurrentWorkspaceID(String newID) {
+  TLAppState _changeCurrentWorkspaceID(String? newID) {
     if (state.currentWorkspaceID == newID) return state; // 変更不要
 
     _saveCurrentWorkspaceID(newID);
@@ -138,8 +138,12 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   }
 
   // --- Save Current Workspace ID ---
-  Future<void> _saveCurrentWorkspaceID(String id) async {
+  Future<void> _saveCurrentWorkspaceID(String? id) async {
     final pref = await TLPrefService().getPref;
-    await pref.setString('currentWorkspaceID', id);
+    if (id == null) {
+      await pref.remove("currentWorkspaceID");
+    } else {
+      await pref.setString('currentWorkspaceID', id!);
+    }
   }
 }

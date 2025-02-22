@@ -13,13 +13,15 @@ import 'big_and_small_category_card/big_and_small_category_card.dart';
 import 'package:reorderables/reorderables.dart';
 
 class CategoryListPage extends ConsumerWidget {
-  const CategoryListPage({super.key});
+  final TLWorkspace corrWorkspace;
+  const CategoryListPage({
+    super.key,
+    required this.corrWorkspace,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final currentWorkspace = ref
-        .watch(tlAppStateProvider.select((state) => state.getCurrentWorkspace));
 
     return Scaffold(
       appBar: _buildAppBar(context),
@@ -32,13 +34,28 @@ class CategoryListPage extends ConsumerWidget {
               SliverList(
                 delegate: SliverChildListDelegate([
                   const SizedBox(height: 5),
-                  _buildReorderableCategories(ref, currentWorkspace),
+                  ReorderableColumn(
+                    children: [
+                      for (TLToDoCategory bigCategory
+                          in corrWorkspace.bigCategories)
+                        GestureDetector(
+                          key: ValueKey(bigCategory.id),
+                          onLongPress: bigCategory.id != noneID ? null : () {},
+                          child: BigAndSmallCategoryCard(
+                              corrWorkspace: corrWorkspace,
+                              corrBigCategory: bigCategory),
+                        ),
+                    ],
+                    onReorder: (oldIndex, newIndex) {
+                      _handleReorder(ref, corrWorkspace, oldIndex, newIndex);
+                    },
+                  ),
                   const SizedBox(height: 200),
                 ]),
               ),
             ],
           ),
-          _buildAddCategoryButton(context, currentWorkspace, tlThemeData),
+          _buildAddCategoryButton(context, corrWorkspace, tlThemeData),
         ],
       ),
     );
@@ -53,24 +70,6 @@ class CategoryListPage extends ConsumerWidget {
       leadingIcon: const Icon(Icons.arrow_back_ios, color: Colors.white),
       trailingButtonOnPressed: null,
       trailingIcon: null,
-    );
-  }
-
-  // MARK - Reorderable Category List
-  Widget _buildReorderableCategories(
-      WidgetRef ref, TLWorkspace currentWorkspace) {
-    return ReorderableColumn(
-      children: [
-        for (TLToDoCategory bigCategory in currentWorkspace.bigCategories)
-          GestureDetector(
-            key: ValueKey(bigCategory.id),
-            onLongPress: bigCategory.id != noneID ? null : () {},
-            child: BigAndSmallCategoryCard(corrBigCategory: bigCategory),
-          ),
-      ],
-      onReorder: (oldIndex, newIndex) {
-        _handleReorder(ref, currentWorkspace, oldIndex, newIndex);
-      },
     );
   }
 
@@ -98,7 +97,7 @@ class CategoryListPage extends ConsumerWidget {
 
   // MARK - Add Category Button
   Widget _buildAddCategoryButton(BuildContext context,
-      TLWorkspace currentWorkspace, TLThemeConfig tlThemeData) {
+      TLWorkspace currentWorkspace, TLThemeConfig tlThemeDataConfig) {
     return Positioned(
       right: 50,
       bottom: 70,
@@ -111,13 +110,13 @@ class CategoryListPage extends ConsumerWidget {
           height: 70,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.white,
+            color: tlThemeDataConfig.whiteBasedColor,
             border: Border.all(color: Colors.black26, width: 2),
           ),
           child: ClipOval(
             child: Icon(
               Icons.add,
-              color: tlThemeData.accentColor,
+              color: tlThemeDataConfig.accentColor,
               size: 30,
             ),
           ),

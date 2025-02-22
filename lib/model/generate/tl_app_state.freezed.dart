@@ -21,7 +21,7 @@ TLAppState _$TLAppStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TLAppState {
   List<TLWorkspace> get tlWorkspaces => throw _privateConstructorUsedError;
-  String get currentWorkspaceID => throw _privateConstructorUsedError;
+  String? get currentWorkspaceID => throw _privateConstructorUsedError;
   TLThemeType get selectedThemeType => throw _privateConstructorUsedError;
 
   /// Serializes this TLAppState to a JSON map.
@@ -42,7 +42,7 @@ abstract class $TLAppStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<TLWorkspace> tlWorkspaces,
-      String currentWorkspaceID,
+      String? currentWorkspaceID,
       TLThemeType selectedThemeType});
 }
 
@@ -62,7 +62,7 @@ class _$TLAppStateCopyWithImpl<$Res, $Val extends TLAppState>
   @override
   $Res call({
     Object? tlWorkspaces = null,
-    Object? currentWorkspaceID = null,
+    Object? currentWorkspaceID = freezed,
     Object? selectedThemeType = null,
   }) {
     return _then(_value.copyWith(
@@ -70,10 +70,10 @@ class _$TLAppStateCopyWithImpl<$Res, $Val extends TLAppState>
           ? _value.tlWorkspaces
           : tlWorkspaces // ignore: cast_nullable_to_non_nullable
               as List<TLWorkspace>,
-      currentWorkspaceID: null == currentWorkspaceID
+      currentWorkspaceID: freezed == currentWorkspaceID
           ? _value.currentWorkspaceID
           : currentWorkspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       selectedThemeType: null == selectedThemeType
           ? _value.selectedThemeType
           : selectedThemeType // ignore: cast_nullable_to_non_nullable
@@ -92,7 +92,7 @@ abstract class _$$TLAppStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<TLWorkspace> tlWorkspaces,
-      String currentWorkspaceID,
+      String? currentWorkspaceID,
       TLThemeType selectedThemeType});
 }
 
@@ -110,7 +110,7 @@ class __$$TLAppStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? tlWorkspaces = null,
-    Object? currentWorkspaceID = null,
+    Object? currentWorkspaceID = freezed,
     Object? selectedThemeType = null,
   }) {
     return _then(_$TLAppStateImpl(
@@ -118,10 +118,10 @@ class __$$TLAppStateImplCopyWithImpl<$Res>
           ? _value._tlWorkspaces
           : tlWorkspaces // ignore: cast_nullable_to_non_nullable
               as List<TLWorkspace>,
-      currentWorkspaceID: null == currentWorkspaceID
+      currentWorkspaceID: freezed == currentWorkspaceID
           ? _value.currentWorkspaceID
           : currentWorkspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       selectedThemeType: null == selectedThemeType
           ? _value.selectedThemeType
           : selectedThemeType // ignore: cast_nullable_to_non_nullable
@@ -135,7 +135,7 @@ class __$$TLAppStateImplCopyWithImpl<$Res>
 class _$TLAppStateImpl extends _TLAppState {
   const _$TLAppStateImpl(
       {final List<TLWorkspace> tlWorkspaces = const [],
-      this.currentWorkspaceID = noneID,
+      this.currentWorkspaceID = null,
       this.selectedThemeType = TLThemeType.sunOrange})
       : _tlWorkspaces = tlWorkspaces,
         super._();
@@ -154,7 +154,7 @@ class _$TLAppStateImpl extends _TLAppState {
 
   @override
   @JsonKey()
-  final String currentWorkspaceID;
+  final String? currentWorkspaceID;
   @override
   @JsonKey()
   final TLThemeType selectedThemeType;
@@ -204,7 +204,7 @@ class _$TLAppStateImpl extends _TLAppState {
 abstract class _TLAppState extends TLAppState {
   const factory _TLAppState(
       {final List<TLWorkspace> tlWorkspaces,
-      final String currentWorkspaceID,
+      final String? currentWorkspaceID,
       final TLThemeType selectedThemeType}) = _$TLAppStateImpl;
   const _TLAppState._() : super._();
 
@@ -214,7 +214,7 @@ abstract class _TLAppState extends TLAppState {
   @override
   List<TLWorkspace> get tlWorkspaces;
   @override
-  String get currentWorkspaceID;
+  String? get currentWorkspaceID;
   @override
   TLThemeType get selectedThemeType;
 

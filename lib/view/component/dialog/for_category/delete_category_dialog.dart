@@ -26,7 +26,7 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig theme = TLTheme.of(context);
     final TLWorkspace currentWorkspace = ref.read(
-      tlAppStateProvider.select((state) => state.getCurrentWorkspace),
+      tlAppStateProvider.select((state) => state.getCorrWorkspace),
     );
 
     return Dialog(

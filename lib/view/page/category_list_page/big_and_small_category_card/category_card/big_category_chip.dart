@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/util/tl_category_utils.dart';
 import 'package:today_list/view/component/dialog/for_category/select_edit_method_dialog.dart';
@@ -10,17 +11,20 @@ import 'package:today_list/view/component/dialog/for_category/select_edit_method
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BigCategoryCard extends ConsumerWidget {
+  final TLWorkspace corrWorkspace;
   final TLToDoCategory corrBigCategory;
 
-  const BigCategoryCard({super.key, required this.corrBigCategory});
+  const BigCategoryCard({
+    super.key,
+    required this.corrWorkspace,
+    required this.corrBigCategory,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final currentWorkspaceID = ref
-        .watch(tlAppStateProvider.select((state) => state.currentWorkspaceID));
     final categoryIDToToDosRefOfCurrentWorkspace = ref.watch(tlAppStateProvider
-        .select((state) => state.getCurrentWorkspace.categoryIDToToDos));
+        .select((state) => state.getCorrWorkspace.categoryIDToToDos));
 
     const double cardHeight = 64.0;
 
@@ -49,7 +53,7 @@ class BigCategoryCard extends ConsumerWidget {
       child: GestureDetector(
         onTap: () async {
           await SelectEditMethodDialog(
-            corrWorkspaceID: currentWorkspaceID,
+            corrWorkspaceID: corrWorkspace.id,
             categoryOfThisPage: corrBigCategory,
           ).show(context: context);
         },

@@ -7,12 +7,13 @@ import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
-import 'package:today_list/view/screen/edit_todo_page/edit_todo_page.dart';
+import 'package:today_list/view/page/edit_todo_page/edit_todo_page.dart';
 import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SlidableForToDoCard extends ConsumerWidget {
+  final String corrWorkspaceID;
   final bool isForModelCard;
   final TLToDo corrTLToDo;
   final int indexOfThisToDoInToDos;
@@ -23,6 +24,7 @@ class SlidableForToDoCard extends ConsumerWidget {
 
   const SlidableForToDoCard({
     super.key,
+    required this.corrWorkspaceID,
     required this.isForModelCard,
     required this.corrTLToDo,
     required this.indexOfThisToDoInToDos,
@@ -35,13 +37,8 @@ class SlidableForToDoCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final currentWorkspace = ref.watch(
-      tlAppStateProvider.select((state) => state.getCurrentWorkspace),
-    );
 
     final String corrCategoryID = smallCategoryID ?? bigCategoryID;
-    final List<TLToDo> toDoArray =
-        currentWorkspace.categoryIDToToDos[corrCategoryID]!.getToDos(ifInToday);
 
     // MARK: - Colors
     final backgroundColor = tlThemeData.canTapCardColor;
@@ -79,7 +76,8 @@ class SlidableForToDoCard extends ConsumerWidget {
               spacing: 8,
               backgroundColor: backgroundColor,
               foregroundColor: foregroundColor,
-              onPressed: (context) => _handleEditToDo(context, toDoArray),
+              onPressed: (context) =>
+                  _handleEditToDo(context, corrWorkspaceID, toDoArray),
               icon: Icons.edit,
             ),
 
@@ -101,12 +99,13 @@ class SlidableForToDoCard extends ConsumerWidget {
   }
 
   // MARK: - Handle Delete ToDo
-  void _handleDeleteToDo(WidgetRef ref, TLWorkspace currentWorkspace,
-      List<TLToDo> toDoArray, String corrCategoryID) {
+  void _handleDeleteToDo(
+      WidgetRef ref, TLWorkspace currentWorkspace, String corrCategoryID) {
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 
     // Remove the ToDo from the list
-    final List<TLToDo> updatedToDos = List.from(toDoArray)
+    final List<TLToDo> updatedToDos = List.from(
+        currentWorkspace.categoryIDToToDos[corrCategoryID]!.toDosInToday)
       ..removeAt(indexOfThisToDoInToDos);
 
     // Update the workspace state
@@ -126,12 +125,14 @@ class SlidableForToDoCard extends ConsumerWidget {
   }
 
   // MARK: - Handle Edit ToDo
-  void _handleEditToDo(BuildContext context, List<TLToDo> toDoArray) {
+  void _handleEditToDo(
+      BuildContext context, String corrWorkspaceID, List<TLToDo> toDoArray) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
           return EditToDoPage(
+            corrWorkspaceID: corrWorkspaceID,
             ifInToday: true,
             selectedBigCategoryID: bigCategoryID,
             selectedSmallCategoryID: smallCategoryID,
@@ -145,11 +146,11 @@ class SlidableForToDoCard extends ConsumerWidget {
 
   // MARK: - Toggle ToDo Between Today and Whenever
   void _toggleToDoTodayWhenever(
-      WidgetRef ref,
-      BuildContext context,
-      TLWorkspace currentWorkspace,
-      List<TLToDo> toDoArray,
-      String corrCategoryID) {
+    WidgetRef ref,
+    BuildContext context,
+    String corrWorkspaceID,
+    String corrCategoryID,
+  ) {
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
     final TLToDo switchedToDo = toDoArray[indexOfThisToDoInToDos];
 

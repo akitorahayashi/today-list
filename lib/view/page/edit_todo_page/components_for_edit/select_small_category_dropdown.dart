@@ -23,7 +23,7 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
-    final TLWorkspace currentWorkspace = tlAppState.getCurrentWorkspace;
+    final TLWorkspace currentWorkspace = tlAppState.getCorrWorkspace;
 
     final smallCats = currentWorkspace.smallCategories[bigCategoryID] ?? [];
 
