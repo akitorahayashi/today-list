@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
@@ -14,6 +15,7 @@ import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view/page/category_list_page/category_list_page.dart';
 import 'package:today_list/view/page/edit_todo_page/edit_todo_page.dart';
+import 'package:today_list/view/page/home_page/todos_of_all_workspaces_in_today_page.dart';
 import 'package:today_list/view/page/setting_page/settings_page.dart';
 import 'workspace_drawer/workspace_drawer.dart';
 import 'build_todo_list/num_todos_card.dart';
@@ -38,6 +40,15 @@ class _HomePageState extends ConsumerState<HomePage>
   final GlobalKey<ScaffoldState> homePageScaffoldKey =
       GlobalKey<ScaffoldState>();
 
+  void _handleTabIndexChange(int index, WidgetRef ref, TLAppState tlAppState) {
+    final newWorkspaceID = index == 0
+        ? null
+        : tlAppState.tlWorkspaces.elementAtOrNull(index - 1)?.id;
+
+    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+        TLWorkspaceAction.changeCurrentWorkspaceID(newWorkspaceID));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -55,17 +66,9 @@ class _HomePageState extends ConsumerState<HomePage>
 
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
-        ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-            TLWorkspaceAction.changeCurrentWorkspaceID(
-                tlAppState.tlWorkspaces[_tabController.index - 1].id));
+        _handleTabIndexChange(_tabController.index, ref, tlAppState);
       }
     });
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
   }
 
   @override
@@ -79,11 +82,12 @@ class _HomePageState extends ConsumerState<HomePage>
 
     final currentWorkspaceIdx = tlAppState.tlWorkspaces
         .indexWhere((workspace) => workspace.id == currentWorkspaceID);
-    if (currentWorkspaceIdx != -1 &&
-        _tabController.index != currentWorkspaceIdx) {
-      Future.microtask(() {
-        _tabController.animateTo(currentWorkspaceIdx);
-      });
+    final expectedIndex =
+        currentWorkspaceIdx != -1 ? currentWorkspaceIdx + 1 : 0;
+
+    // `expectedIndex` に同期
+    if (_tabController.index != expectedIndex && mounted) {
+      _tabController.animateTo(expectedIndex);
     }
 
     // currentWorkspaceを選択しているか
@@ -99,7 +103,9 @@ class _HomePageState extends ConsumerState<HomePage>
         appBar: TLAppBar(
           context: context,
           height: 100,
-          pageTitle: currentWorkspaceNullAble?.name ?? "Today List",
+          pageTitle: _tabController.index == 0
+              ? "Today List"
+              : currentWorkspaceNullAble?.name ?? "Error",
           leadingButtonOnPressed: () =>
               homePageScaffoldKey.currentState!.openDrawer(),
           leadingIcon: const Icon(Icons.menu, color: Colors.white),
@@ -118,27 +124,22 @@ class _HomePageState extends ConsumerState<HomePage>
               color: tlThemeConfig.whiteBasedColor,
               borderRadius: BorderRadius.circular(8),
             ),
-            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorSize: TabBarIndicatorSize.label,
+            indicatorPadding: const EdgeInsets.symmetric(horizontal: -16),
             tabs: [
               const Tab(text: "Today"),
               for (TLWorkspace workspace in tlAppState.tlWorkspaces)
                 Tab(text: workspace.name),
             ],
             onTap: (index) {
-              if (index != 0) {
-                ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-                    const TLWorkspaceAction.changeCurrentWorkspaceID(null));
-              } else {
-                ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-                    TLWorkspaceAction.changeCurrentWorkspaceID(
-                        tlAppState.tlWorkspaces[index].id));
-              }
+              _handleTabIndexChange(index, ref, tlAppState);
             },
           ),
         ),
         body: TabBarView(
           controller: _tabController,
           children: [
+            const TodosOfAllWorkspacesInToday(),
             for (final workspace in tlAppState.tlWorkspaces)
               _TodoListInTodayAndWhenever(corrWorkspace: workspace),
           ],
