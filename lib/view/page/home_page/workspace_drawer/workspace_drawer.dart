@@ -89,8 +89,8 @@ class TLWorkspaceDrawer extends ConsumerWidget {
   void _handleReorder(WidgetRef ref, int oldIndex, int newIndex) {
     if (newIndex == oldIndex) return;
 
-    final revisedOldIndex = oldIndex + 1;
-    final revisedNewIndex = newIndex + 1;
+    final revisedOldIndex = oldIndex;
+    final revisedNewIndex = newIndex;
 
     final workspaces = ref.read(tlAppStateProvider).tlWorkspaces;
 
