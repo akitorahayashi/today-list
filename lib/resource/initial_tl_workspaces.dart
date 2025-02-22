@@ -157,7 +157,7 @@ final List<TLWorkspace> initialTLWorkspaces = [
       TLToDo(
           id: "todo11",
           workspaceID: TLWorkspaceID.school,
-          categoryID: TLCategoryID.mathI,
+          categoryID: TLCategoryID.english,
           content: "単語帳301~400",
           steps: [])
     ], toDosInWhenever: []),

@@ -7,7 +7,8 @@ import 'package:today_list/view/page/home_page/tab_content/build_todo_list/num_t
 class ToDoListInWorkspaceInTodayAndWhenever extends StatelessWidget {
   final TLWorkspace corrWorkspace;
 
-  const ToDoListInWorkspaceInTodayAndWhenever({required this.corrWorkspace});
+  const ToDoListInWorkspaceInTodayAndWhenever(
+      {super.key, required this.corrWorkspace});
 
   @override
   Widget build(BuildContext context) {
