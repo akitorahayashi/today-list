@@ -6,8 +6,8 @@ import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/view/page/home_page/build_todo_list/list_of_category_to_todos.dart';
 import 'package:today_list/view/page/home_page/build_todo_list/num_todos_card.dart';
 
-class TodoListOfAllWorkspacesInToday extends ConsumerWidget {
-  const TodoListOfAllWorkspacesInToday({super.key});
+class ToDoListOfAllWorkspacesInToday extends ConsumerWidget {
+  const ToDoListOfAllWorkspacesInToday({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

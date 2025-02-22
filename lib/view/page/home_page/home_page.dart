@@ -15,11 +15,10 @@ import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view/page/category_list_page/category_list_page.dart';
 import 'package:today_list/view/page/edit_todo_page/edit_todo_page.dart';
-import 'package:today_list/view/page/home_page/todos_of_all_workspaces_in_today_page.dart';
+import 'package:today_list/view/page/home_page/tab_content/todo_list_in_workspace_in_today_and_whenever.dart';
+import 'package:today_list/view/page/home_page/tab_content/todo_list_of_all_workspaces_in_today.dart';
 import 'package:today_list/view/page/setting_page/settings_page.dart';
 import 'workspace_drawer/workspace_drawer.dart';
-import 'build_todo_list/num_todos_card.dart';
-import 'build_todo_list/list_of_category_to_todos.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -161,9 +160,9 @@ class _HomePageState extends ConsumerState<HomePage>
       body: TabBarView(
         controller: tabController,
         children: [
-          const TodoListOfAllWorkspacesInToday(),
+          const ToDoListOfAllWorkspacesInToday(),
           for (final workspace in tlAppState.tlWorkspaces)
-            _TodoListInTodayAndWhenever(corrWorkspace: workspace),
+            ToDoListInWorkspaceInTodayAndWhenever(corrWorkspace: workspace),
         ],
       ),
       // 以下の要素はcurrentWorkspaceが存在しない場合は表示しない
@@ -172,66 +171,26 @@ class _HomePageState extends ConsumerState<HomePage>
           : null,
       floatingActionButton: doesCurrentWorkspaceExist
           ? CenterButtonOfBottomNavBar(
-              onPressed: () =>
-                  _navigateToEditToDoPage(context, currentWorkspaceNullAble))
+              onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return EditToDoPage(
+                          corrWorkspace: currentWorkspaceNullAble,
+                          ifInToday: true,
+                          selectedBigCategoryID:
+                              currentWorkspaceNullAble.bigCategories[0].id,
+                          selectedSmallCategoryID: null,
+                          editedToDoTitle: null,
+                          indexOfEdittedTodo: null,
+                        );
+                      },
+                    ),
+                  ))
           : null,
       floatingActionButtonLocation: doesCurrentWorkspaceExist
           ? FloatingActionButtonLocation.centerDocked
           : null,
-    );
-  }
-
-  // MARK: - 編集ページへの遷移処理
-  void _navigateToEditToDoPage(
-      BuildContext context, TLWorkspace corrWorkspace) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return EditToDoPage(
-            corrWorkspace: corrWorkspace,
-            ifInToday: true,
-            selectedBigCategoryID: corrWorkspace.bigCategories[0].id,
-            selectedSmallCategoryID: null,
-            editedToDoTitle: null,
-            indexOfEdittedTodo: null,
-          );
-        },
-      ),
-    );
-  }
-}
-
-// MARK: - TodoList Widget
-class _TodoListInTodayAndWhenever extends StatelessWidget {
-  final TLWorkspace corrWorkspace;
-
-  const _TodoListInTodayAndWhenever({required this.corrWorkspace});
-
-  @override
-  Widget build(BuildContext context) {
-    final numOfToDosInToday =
-        TLWorkspaceUtils.getNumOfToDo(corrWorkspace, ifInToday: true);
-    final numOfToDosInWhenever =
-        TLWorkspaceUtils.getNumOfToDo(corrWorkspace, ifInToday: false);
-
-    return ListView(
-      key: PageStorageKey(corrWorkspace.id), // スクロール位置を保持
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 16.0),
-          child: NumToDosCard(title: null, numTodos: numOfToDosInToday),
-        ),
-        ListOfCategoryToToDos(ifInToday: true, corrWorkspace: corrWorkspace),
-        if (numOfToDosInWhenever != 0)
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: NumToDosCard(
-                title: "In Whenever", numTodos: numOfToDosInWhenever),
-          ),
-        ListOfCategoryToToDos(ifInToday: false, corrWorkspace: corrWorkspace),
-        const SizedBox(height: 250),
-      ],
     );
   }
 }
