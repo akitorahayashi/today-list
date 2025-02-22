@@ -21,12 +21,4 @@ class TLAppState with _$TLAppState {
 
   factory TLAppState.fromJson(Map<String, dynamic> json) =>
       _$TLAppStateFromJson(json);
-
-  /// 現在のワークスペースを取得する
-  TLWorkspace? getCorrWorkspace(String? corrWorkspaceID) {
-    if (corrWorkspaceID == null) return null;
-    final matches =
-        tlWorkspaces.where((workspace) => workspace.id == corrWorkspaceID);
-    return matches.isNotEmpty ? matches.first : null;
-  }
 }

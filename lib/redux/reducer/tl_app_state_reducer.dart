@@ -28,7 +28,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   // --- Load Workspaces from Local Storage ---
   Future<void> _loadSavedAppState() async {
     final pref = await TLPrefService().getPref;
-    final savedWorkspaceID = pref.getString('currentWorkspaceID') ?? noneID;
+    final savedWorkspaceID = pref.getString('currentWorkspaceID');
 
     final encodedWorkspaces = pref.getString("tlWorkspaces");
     if (encodedWorkspaces != null) {
@@ -36,12 +36,6 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
       final List<TLWorkspace> loadedWorkspaces = jsonWorkspaces.map((json) {
         return TLWorkspace.fromJson(json);
       }).toList();
-
-      // 現在の ID に一致するワークスペースを探す
-      final TLWorkspace validWorkspace = loadedWorkspaces.firstWhere(
-        (w) => w.id == savedWorkspaceID,
-        orElse: () => loadedWorkspaces.first,
-      );
 
       // 保存されたテーマを取得
       final themeName = pref.getString('themeType');
@@ -52,7 +46,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
 
       state = state.copyWith(
         tlWorkspaces: loadedWorkspaces,
-        currentWorkspaceID: validWorkspace.id,
+        currentWorkspaceID: savedWorkspaceID,
         selectedThemeType: savedTheme,
       );
     }
@@ -73,7 +67,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     state = action.map(
       changeCurrentWorkspaceID: (a) => _changeCurrentWorkspaceID(a.newID),
       addWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
-      removeWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
+      deleteWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
       updateCorrWorkspace: (a) =>
           state.copyWith(tlWorkspaces: updatedWorkspaces),
       updateWorkspaceList: (a) =>
@@ -127,7 +121,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
 
   // --- Change Current Workspace ID ---
   TLAppState _changeCurrentWorkspaceID(String? newID) {
-    if (state.currentWorkspaceID == newID) return state; // 変更不要
+    if (state.currentWorkspaceID == newID) return state;
 
     _saveCurrentWorkspaceID(newID);
     TLVibrationService.vibrate();
@@ -140,6 +134,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     final pref = await TLPrefService().getPref;
     if (id == null) {
       await pref.remove("currentWorkspaceID");
+      print("Removed currentWorkspaceID");
     } else {
       await pref.setString('currentWorkspaceID', id);
     }

@@ -49,7 +49,7 @@ class BigCategoryCard extends StatelessWidget {
       child: GestureDetector(
         onTap: () async {
           await SelectEditMethodDialog(
-            corrWorkspaceID: corrWorkspace.id,
+            corrWorkspace: corrWorkspace,
             categoryOfThisPage: corrBigCategory,
           ).show(context: context);
         },

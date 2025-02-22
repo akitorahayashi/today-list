@@ -11,11 +11,11 @@ import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 
 class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
-  final String corrWorkspaceID;
+  final TLWorkspace corrWorkspace;
   final TLToDoCategory categoryOfThisPage;
   const SelectEditMethodDialog({
     super.key,
-    required this.corrWorkspaceID,
+    required this.corrWorkspace,
     required this.categoryOfThisPage,
   });
 
@@ -59,7 +59,7 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => RenameCategoryDialog(
-                  corrWorkspaceID: corrWorkspaceID,
+                  corrWorkspaceID: corrWorkspace.id,
                   categoryToRename: categoryOfThisPage,
                 ),
               );
@@ -77,10 +77,6 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
           SimpleDialogOption(
             onPressed: () async {
               Navigator.pop(context);
-              final TLWorkspace? corrWorkspace = ref
-                  .read(tlAppStateProvider)
-                  .getCorrWorkspace(corrWorkspaceID);
-              if (corrWorkspace == null) return;
               await showDialog(
                   context: context,
                   builder: (context) {

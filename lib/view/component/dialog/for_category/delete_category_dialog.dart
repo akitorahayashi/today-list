@@ -117,7 +117,7 @@ class _ActionButtons extends StatelessWidget {
           style: alertButtonStyle(accentColor: theme.accentColor),
           onPressed: () async {
             ref.read(tlAppStateProvider.notifier).dispatchToDoCategoryAction(
-                TLToDoCategoryAction.removeCategory(
+                TLToDoCategoryAction.deleteCategory(
                     corrWorkspace: corrWorkspace,
                     newCategory: categoryToDelete));
             Navigator.pop(context);

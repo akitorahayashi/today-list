@@ -24,7 +24,7 @@ mixin _$TLToDoCategoryAction {
         updateCategory,
     required TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory newCategory)
-        removeCategory,
+        deleteCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -33,7 +33,7 @@ mixin _$TLToDoCategoryAction {
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
     TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
-        removeCategory,
+        deleteCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -42,7 +42,7 @@ mixin _$TLToDoCategoryAction {
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
     TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
-        removeCategory,
+        deleteCategory,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -50,21 +50,21 @@ mixin _$TLToDoCategoryAction {
   TResult map<TResult extends Object?>({
     required TResult Function(_AddCategory value) addCategory,
     required TResult Function(_UpdateCategory value) updateCategory,
-    required TResult Function(_RemoveCategory value) removeCategory,
+    required TResult Function(_RemoveCategory value) deleteCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddCategory value)? addCategory,
     TResult? Function(_UpdateCategory value)? updateCategory,
-    TResult? Function(_RemoveCategory value)? removeCategory,
+    TResult? Function(_RemoveCategory value)? deleteCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddCategory value)? addCategory,
     TResult Function(_UpdateCategory value)? updateCategory,
-    TResult Function(_RemoveCategory value)? removeCategory,
+    TResult Function(_RemoveCategory value)? deleteCategory,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -188,7 +188,7 @@ class _$AddCategoryImpl implements _AddCategory {
         updateCategory,
     required TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory newCategory)
-        removeCategory,
+        deleteCategory,
   }) {
     return addCategory(workspaceID, category);
   }
@@ -200,7 +200,7 @@ class _$AddCategoryImpl implements _AddCategory {
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
     TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
-        removeCategory,
+        deleteCategory,
   }) {
     return addCategory?.call(workspaceID, category);
   }
@@ -212,7 +212,7 @@ class _$AddCategoryImpl implements _AddCategory {
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
     TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
-        removeCategory,
+        deleteCategory,
     required TResult orElse(),
   }) {
     if (addCategory != null) {
@@ -226,7 +226,7 @@ class _$AddCategoryImpl implements _AddCategory {
   TResult map<TResult extends Object?>({
     required TResult Function(_AddCategory value) addCategory,
     required TResult Function(_UpdateCategory value) updateCategory,
-    required TResult Function(_RemoveCategory value) removeCategory,
+    required TResult Function(_RemoveCategory value) deleteCategory,
   }) {
     return addCategory(this);
   }
@@ -236,7 +236,7 @@ class _$AddCategoryImpl implements _AddCategory {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddCategory value)? addCategory,
     TResult? Function(_UpdateCategory value)? updateCategory,
-    TResult? Function(_RemoveCategory value)? removeCategory,
+    TResult? Function(_RemoveCategory value)? deleteCategory,
   }) {
     return addCategory?.call(this);
   }
@@ -246,7 +246,7 @@ class _$AddCategoryImpl implements _AddCategory {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddCategory value)? addCategory,
     TResult Function(_UpdateCategory value)? updateCategory,
-    TResult Function(_RemoveCategory value)? removeCategory,
+    TResult Function(_RemoveCategory value)? deleteCategory,
     required TResult orElse(),
   }) {
     if (addCategory != null) {
@@ -369,7 +369,7 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
         updateCategory,
     required TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory newCategory)
-        removeCategory,
+        deleteCategory,
   }) {
     return updateCategory(workspaceID, newCategory);
   }
@@ -381,7 +381,7 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
     TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
-        removeCategory,
+        deleteCategory,
   }) {
     return updateCategory?.call(workspaceID, newCategory);
   }
@@ -393,7 +393,7 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
     TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
-        removeCategory,
+        deleteCategory,
     required TResult orElse(),
   }) {
     if (updateCategory != null) {
@@ -407,7 +407,7 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
   TResult map<TResult extends Object?>({
     required TResult Function(_AddCategory value) addCategory,
     required TResult Function(_UpdateCategory value) updateCategory,
-    required TResult Function(_RemoveCategory value) removeCategory,
+    required TResult Function(_RemoveCategory value) deleteCategory,
   }) {
     return updateCategory(this);
   }
@@ -417,7 +417,7 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddCategory value)? addCategory,
     TResult? Function(_UpdateCategory value)? updateCategory,
-    TResult? Function(_RemoveCategory value)? removeCategory,
+    TResult? Function(_RemoveCategory value)? deleteCategory,
   }) {
     return updateCategory?.call(this);
   }
@@ -427,7 +427,7 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddCategory value)? addCategory,
     TResult Function(_UpdateCategory value)? updateCategory,
-    TResult Function(_RemoveCategory value)? removeCategory,
+    TResult Function(_RemoveCategory value)? deleteCategory,
     required TResult orElse(),
   }) {
     if (updateCategory != null) {
@@ -526,7 +526,7 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
 
   @override
   String toString() {
-    return 'TLToDoCategoryAction.removeCategory(corrWorkspace: $corrWorkspace, newCategory: $newCategory)';
+    return 'TLToDoCategoryAction.deleteCategory(corrWorkspace: $corrWorkspace, newCategory: $newCategory)';
   }
 
   @override
@@ -561,9 +561,9 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
         updateCategory,
     required TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory newCategory)
-        removeCategory,
+        deleteCategory,
   }) {
-    return removeCategory(corrWorkspace, newCategory);
+    return deleteCategory(corrWorkspace, newCategory);
   }
 
   @override
@@ -573,9 +573,9 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
     TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
-        removeCategory,
+        deleteCategory,
   }) {
-    return removeCategory?.call(corrWorkspace, newCategory);
+    return deleteCategory?.call(corrWorkspace, newCategory);
   }
 
   @override
@@ -585,11 +585,11 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
     TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
-        removeCategory,
+        deleteCategory,
     required TResult orElse(),
   }) {
-    if (removeCategory != null) {
-      return removeCategory(corrWorkspace, newCategory);
+    if (deleteCategory != null) {
+      return deleteCategory(corrWorkspace, newCategory);
     }
     return orElse();
   }
@@ -599,9 +599,9 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
   TResult map<TResult extends Object?>({
     required TResult Function(_AddCategory value) addCategory,
     required TResult Function(_UpdateCategory value) updateCategory,
-    required TResult Function(_RemoveCategory value) removeCategory,
+    required TResult Function(_RemoveCategory value) deleteCategory,
   }) {
-    return removeCategory(this);
+    return deleteCategory(this);
   }
 
   @override
@@ -609,9 +609,9 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddCategory value)? addCategory,
     TResult? Function(_UpdateCategory value)? updateCategory,
-    TResult? Function(_RemoveCategory value)? removeCategory,
+    TResult? Function(_RemoveCategory value)? deleteCategory,
   }) {
-    return removeCategory?.call(this);
+    return deleteCategory?.call(this);
   }
 
   @override
@@ -619,11 +619,11 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddCategory value)? addCategory,
     TResult Function(_UpdateCategory value)? updateCategory,
-    TResult Function(_RemoveCategory value)? removeCategory,
+    TResult Function(_RemoveCategory value)? deleteCategory,
     required TResult orElse(),
   }) {
-    if (removeCategory != null) {
-      return removeCategory(this);
+    if (deleteCategory != null) {
+      return deleteCategory(this);
     }
     return orElse();
   }

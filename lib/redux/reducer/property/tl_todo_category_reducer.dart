@@ -19,7 +19,7 @@ class TLToDoCategoryReducer {
         workspaceID: a.workspaceID,
         newCategory: a.newCategory,
       ),
-      removeCategory: (a) => _deleteCategory(
+      deleteCategory: (a) => _deleteCategory(
         workspaces: workspaces,
         corrWorkspace: a.corrWorkspace,
         categoryToDelete: a.newCategory,
@@ -43,7 +43,7 @@ class TLToDoCategoryReducer {
         Map<String, List<TLToDoCategory>>.from(corrWorkspace.smallCategories);
     final copiedCategoryIDToToDos = {
       ...corrWorkspace.categoryIDToToDos,
-      categoryToAdd.id: TLToDosInTodayAndWhenever(
+      categoryToAdd.id: const TLToDosInTodayAndWhenever(
         toDosInToday: [],
         toDosInWhenever: [],
       ),

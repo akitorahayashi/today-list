@@ -13,7 +13,7 @@ sealed class TLWorkspaceAction with _$TLWorkspaceAction {
   const factory TLWorkspaceAction.addWorkspace(TLWorkspace newWorkspace) =
       AddWorkspace;
 
-  const factory TLWorkspaceAction.removeWorkspace(String workspaceId) =
+  const factory TLWorkspaceAction.deleteWorkspace(String workspaceId) =
       RemoveWorkspace;
 
   const factory TLWorkspaceAction.updateCorrWorkspace(

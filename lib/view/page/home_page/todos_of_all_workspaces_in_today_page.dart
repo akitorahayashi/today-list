@@ -19,52 +19,22 @@ class TodoListOfAllWorkspacesInToday extends ConsumerWidget {
         const SizedBox(height: 12),
         for (TLWorkspace workspace in tlWorkspaces)
           TLDoubleCard(
+              borderRadius: 12,
               child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: NumToDosCard(title: workspace.name, numTodos: 0),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ListOfCategoryToToDos(
-                    ifInToday: true, corrWorkspace: workspace),
-              ),
-            ],
-          )),
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: NumToDosCard(title: workspace.name, numTodos: 0),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ListOfCategoryToToDos(
+                        ifInToday: true, corrWorkspace: workspace),
+                  ),
+                ],
+              )),
+        const SizedBox(height: 200),
       ],
     );
   }
 }
-    // final TLWorkspace corrWorkspace;
-
-  // const _TodoListInTodayAndWhenever({required this.corrWorkspace});
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   final numOfToDosInToday =
-  //       TLWorkspaceUtils.getNumOfToDo(corrWorkspace, ifInToday: true);
-  //   final numOfToDosInWhenever =
-  //       TLWorkspaceUtils.getNumOfToDo(corrWorkspace, ifInToday: false);
-
-  //   return ListView(
-  //     key: PageStorageKey(corrWorkspace.id), // スクロール位置を保持
-  //     children: [
-  //       Padding(
-  //         padding: const EdgeInsets.only(top: 16.0),
-  //         child: NumToDosCard(ifInToday: true, numTodos: numOfToDosInToday),
-  //       ),
-  //       ListOfCategoryToToDos(ifInToday: true, corrWorkspace: corrWorkspace),
-  //       if (numOfToDosInWhenever != 0)
-  //         Padding(
-  //           padding: const EdgeInsets.only(top: 16.0),
-  //           child:
-  //               NumToDosCard(ifInToday: false, numTodos: numOfToDosInWhenever),
-  //         ),
-  //       ListOfCategoryToToDos(ifInToday: false, corrWorkspace: corrWorkspace),
-  //       const SizedBox(height: 250),
-  //     ],
-  //   );
-  // }
-  //   return Text("TodosOfAllWorkspacesInTodayPage");
-  // }

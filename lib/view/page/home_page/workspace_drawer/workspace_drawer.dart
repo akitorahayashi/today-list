@@ -7,8 +7,8 @@ import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
+import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
 import 'change_workspace_card.dart';
-import 'add_workspace_button.dart';
 
 class TLWorkspaceDrawer extends ConsumerWidget {
   final bool isContentMode;
@@ -18,12 +18,10 @@ class TLWorkspaceDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
-    final String? currentWorkspaceId = ref
-        .watch(tlAppStateProvider.select((state) => state.currentWorkspaceID));
+
     final workspaces = ref.watch(
       tlAppStateProvider.select((state) => state.tlWorkspaces),
     );
-
     return Drawer(
       child: Stack(
         children: [
@@ -53,13 +51,28 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                       padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
                       child: Column(
                         children: [
-                          // デフォルトワークスペース
-                          ChangeWorkspaceCard(
-                              isDefaultWorkspace: true,
-                              corrWorkspace: workspaces.first),
+                          // // デフォルトワークスペース
+                          // ChangeWorkspaceCard(
+                          //     isDefaultWorkspace: true,
+                          //     corrWorkspace: workspaces.first),
                           // デフォルト以外のワークスペース
-                          const _BuildReorderableWorkspaceList(),
-                          const AddWorkspaceButton(),
+                          SingleChildScrollView(
+                            child: ReorderableColumn(
+                              children: [
+                                for (var workspace
+                                    in workspaces) // 最初のワークスペースは固定
+                                  ChangeWorkspaceCard(
+                                    key: ValueKey(workspace.id),
+                                    isDefaultWorkspace: false,
+                                    corrWorkspace: workspace,
+                                  ),
+                              ],
+                              onReorder: (oldIndex, newIndex) {
+                                _handleReorder(ref, oldIndex, newIndex);
+                              },
+                            ),
+                          ),
+                          const _AddWorkspaceButton(),
                         ],
                       ),
                     ),
@@ -72,12 +85,8 @@ class TLWorkspaceDrawer extends ConsumerWidget {
       ),
     );
   }
-}
 
-class _BuildReorderableWorkspaceList extends ConsumerWidget {
-  const _BuildReorderableWorkspaceList();
-
-  // MARK: - Handle Reordering Logic (Index → ID ベースに変更)
+  // MARK: - Handle Reordering Logic
   void _handleReorder(WidgetRef ref, int oldIndex, int newIndex) {
     if (newIndex == oldIndex) return;
 
@@ -94,25 +103,26 @@ class _BuildReorderableWorkspaceList extends ConsumerWidget {
     ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
         TLWorkspaceAction.updateWorkspaceList(copiedWorkspaces));
   }
+}
+
+class _AddWorkspaceButton extends StatelessWidget {
+  const _AddWorkspaceButton();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final workspaces = ref.watch(
-      tlAppStateProvider.select((state) => state.tlWorkspaces),
-    );
-    return SingleChildScrollView(
-      child: ReorderableColumn(
-        children: [
-          for (var workspace in workspaces) // 最初のワークスペースは固定
-            ChangeWorkspaceCard(
-              key: ValueKey(workspace.id),
-              isDefaultWorkspace: false,
-              corrWorkspace: workspace,
-            ),
-        ],
-        onReorder: (oldIndex, newIndex) {
-          _handleReorder(ref, oldIndex, newIndex);
-        },
+  Widget build(BuildContext context) {
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
+    return Align(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+        child: GestureDetector(
+          onTap: () => const AddOrEditWorkspaceDialog(oldWorkspaceId: null)
+              .show(context: context),
+          child: Icon(
+            Icons.add,
+            color: tlThemeConfig.accentColor,
+          ),
+        ),
       ),
     );
   }

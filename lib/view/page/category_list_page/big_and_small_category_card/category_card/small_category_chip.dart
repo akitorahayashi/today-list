@@ -24,8 +24,10 @@ class SmallCategoryChip extends ConsumerWidget {
     final numberOfToDos = _getNumberOfToDos(corrWorkspace, corrSmallCategory);
 
     return GestureDetector(
-      onTap: () =>
-          _showEditDialog(context, corrWorkspace.id, corrSmallCategory),
+      onTap: () => SelectEditMethodDialog(
+        corrWorkspace: corrWorkspace,
+        categoryOfThisPage: corrSmallCategory,
+      ).show(context: context),
       child: Card(
         color: tlThemeData.whiteBasedColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -75,20 +77,6 @@ class SmallCategoryChip extends ConsumerWidget {
     return TLCategoryUtils.getNumberOfToDosInThisCategory(
       ifInToday: null,
       corrToDos: corrWorkspace.categoryIDToToDos[smallCategory.id]!,
-    );
-  }
-
-  // MARK - Show Edit Dialog
-  Future<void> _showEditDialog(BuildContext context, String corrWorkspaceID,
-      TLToDoCategory smallCategory) async {
-    await showDialog(
-      context: context,
-      builder: (context) {
-        return SelectEditMethodDialog(
-          corrWorkspaceID: corrWorkspaceID,
-          categoryOfThisPage: smallCategory,
-        );
-      },
     );
   }
 }

@@ -10,7 +10,7 @@ class TLWorkspaceReducer {
     List<TLWorkspace> updatedWorkspaces = action.map(
       changeCurrentWorkspaceID: (a) => workspaces,
       addWorkspace: (a) => _addWorkspace(workspaces, a.newWorkspace),
-      removeWorkspace: (a) => _removeWorkspace(workspaces, a.workspaceId),
+      deleteWorkspace: (a) => _removeWorkspace(workspaces, a.workspaceId),
       updateCorrWorkspace: (a) =>
           _updateCorrWorkspace(workspaces, a.updatedWorkspace),
       updateWorkspaceList: (a) => a.updatedWorkspaceList,

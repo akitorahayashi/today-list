@@ -36,7 +36,7 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage>
     with TickerProviderStateMixin {
   bool _accentColorIsNotChanged = true;
-  late TabController _tabController;
+  late TabController tabController;
   final GlobalKey<ScaffoldState> homePageScaffoldKey =
       GlobalKey<ScaffoldState>();
 
@@ -52,6 +52,7 @@ class _HomePageState extends ConsumerState<HomePage>
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_accentColorIsNotChanged) {
         _accentColorIsNotChanged = false;
@@ -61,103 +62,122 @@ class _HomePageState extends ConsumerState<HomePage>
     });
 
     final tlAppState = ref.read(tlAppStateProvider);
-    _tabController =
-        TabController(length: tlAppState.tlWorkspaces.length + 1, vsync: this);
 
-    _tabController.addListener(() {
-      if (_tabController.indexIsChanging) {
-        _handleTabIndexChange(_tabController.index, ref, tlAppState);
+    // TabControllerを初期化（initialIndexを設定）
+    tabController = TabController(
+      length: tlAppState.tlWorkspaces.length + 1,
+      vsync: this,
+      initialIndex: 0, // ★初期インデックスをセット
+    );
+
+    tabController.addListener(() {
+      if (tabController.indexIsChanging) {
+        _handleTabIndexChange(tabController.index, ref, tlAppState);
       }
     });
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
-    final String? currentWorkspaceID = ref
-        .watch(tlAppStateProvider.select((state) => state.currentWorkspaceID));
-    final TLWorkspace? currentWorkspaceNullAble =
-        tlAppState.getCorrWorkspace(currentWorkspaceID);
+    // 現在のWorkspaceを取得
+    final TLWorkspace? currentWorkspaceNullAble = () {
+      if (tlAppState.currentWorkspaceID == null) return null;
+      final matches = tlAppState.tlWorkspaces
+          .where((workspace) => workspace.id == tlAppState.currentWorkspaceID);
+      return matches.isNotEmpty ? matches.first : null;
+    }();
 
-    final currentWorkspaceIdx = tlAppState.tlWorkspaces
-        .indexWhere((workspace) => workspace.id == currentWorkspaceID);
+    // 現在のWorkspaceのIndexを取得
+    final currentWorkspaceIdx = tlAppState.tlWorkspaces.indexWhere(
+        (workspace) => workspace.id == tlAppState.currentWorkspaceID);
     final expectedIndex =
         currentWorkspaceIdx != -1 ? currentWorkspaceIdx + 1 : 0;
+    // tabController.dispose();
+    // tabController = TabController(
+    //   length: tlAppState.tlWorkspaces.length + 1,
+    //   vsync: this,
+    //   initialIndex: expectedIndex,
+    // );
 
-    // `expectedIndex` に同期
-    print(expectedIndex);
-    if (_tabController.index != expectedIndex && mounted) {
-      _tabController.animateTo(expectedIndex);
-    }
+    // ビルド後にタブインデックスを更新
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (tabController.index != expectedIndex) {
+        tabController.index = expectedIndex;
+      }
+    });
 
     // currentWorkspaceを選択しているか
     final bool doesCurrentWorkspaceExist =
         currentWorkspaceNullAble != null ? true : false;
 
-    return DefaultTabController(
-      length: tlAppState.tlWorkspaces.length + 1,
-      child: Scaffold(
-        backgroundColor: tlThemeConfig.backgroundColor,
-        key: homePageScaffoldKey,
-        drawer: const TLWorkspaceDrawer(isContentMode: false),
-        appBar: TLAppBar(
-          context: context,
-          height: 100,
-          pageTitle: _tabController.index == 0
-              ? "Today List"
-              : currentWorkspaceNullAble?.name ?? "Error",
-          leadingButtonOnPressed: () =>
-              homePageScaffoldKey.currentState!.openDrawer(),
-          leadingIcon: const Icon(Icons.menu, color: Colors.white),
-          trailingButtonOnPressed: () async {
-            await Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const SettingsPage();
-            }));
-          },
-          trailingIcon: const Icon(Icons.settings, color: Colors.white),
-          bottom: TabBar(
-            controller: _tabController,
-            isScrollable: true,
-            labelColor: tlThemeConfig.accentColor,
-            unselectedLabelColor: Colors.white,
-            indicator: BoxDecoration(
-              color: tlThemeConfig.whiteBasedColor,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            indicatorSize: TabBarIndicatorSize.label,
-            indicatorPadding: const EdgeInsets.symmetric(horizontal: -16),
-            tabs: [
-              const Tab(text: "Today"),
-              for (TLWorkspace workspace in tlAppState.tlWorkspaces)
-                Tab(text: workspace.name),
-            ],
-            onTap: (index) {
-              _handleTabIndexChange(index, ref, tlAppState);
-            },
+    return Scaffold(
+      backgroundColor: tlThemeConfig.backgroundColor,
+      key: homePageScaffoldKey,
+      drawer: const TLWorkspaceDrawer(isContentMode: false),
+      appBar: TLAppBar(
+        context: context,
+        height: 100,
+        pageTitle: tabController.index == 0
+            ? "Today List"
+            : currentWorkspaceNullAble?.name ?? "Error",
+        leadingButtonOnPressed: () =>
+            homePageScaffoldKey.currentState!.openDrawer(),
+        leadingIcon: const Icon(Icons.menu, color: Colors.white),
+        trailingButtonOnPressed: () async {
+          await Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const SettingsPage();
+          }));
+        },
+        trailingIcon: const Icon(Icons.settings, color: Colors.white),
+        bottom: TabBar(
+          controller: tabController,
+          isScrollable: true,
+          labelColor: tlThemeConfig.accentColor,
+          unselectedLabelColor: Colors.white,
+          indicator: BoxDecoration(
+            color: tlThemeConfig.whiteBasedColor,
+            borderRadius: BorderRadius.circular(8),
           ),
-        ),
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            const TodoListOfAllWorkspacesInToday(),
-            for (final workspace in tlAppState.tlWorkspaces)
-              _TodoListInTodayAndWhenever(corrWorkspace: workspace),
+          indicatorSize: TabBarIndicatorSize.label,
+          indicatorPadding: const EdgeInsets.symmetric(horizontal: -16),
+          tabs: [
+            const Tab(text: "Today"),
+            for (TLWorkspace workspace in tlAppState.tlWorkspaces)
+              Tab(text: workspace.name),
           ],
+          onTap: (index) {
+            _handleTabIndexChange(index, ref, tlAppState);
+          },
         ),
-        // 以下の要素はcurrentWorkspaceが存在しない場合は表示しない
-        bottomNavigationBar: doesCurrentWorkspaceExist
-            ? _BottomNavbar(corrWorkspace: currentWorkspaceNullAble)
-            : null,
-        floatingActionButton: doesCurrentWorkspaceExist
-            ? CenterButtonOfBottomNavBar(
-                onPressed: () =>
-                    _navigateToEditToDoPage(context, currentWorkspaceNullAble))
-            : null,
-        floatingActionButtonLocation: doesCurrentWorkspaceExist
-            ? FloatingActionButtonLocation.centerDocked
-            : null,
       ),
+      body: TabBarView(
+        controller: tabController,
+        children: [
+          const TodoListOfAllWorkspacesInToday(),
+          for (final workspace in tlAppState.tlWorkspaces)
+            _TodoListInTodayAndWhenever(corrWorkspace: workspace),
+        ],
+      ),
+      // 以下の要素はcurrentWorkspaceが存在しない場合は表示しない
+      bottomNavigationBar: doesCurrentWorkspaceExist
+          ? _BottomNavbar(corrWorkspace: currentWorkspaceNullAble)
+          : null,
+      floatingActionButton: doesCurrentWorkspaceExist
+          ? CenterButtonOfBottomNavBar(
+              onPressed: () =>
+                  _navigateToEditToDoPage(context, currentWorkspaceNullAble))
+          : null,
+      floatingActionButtonLocation: doesCurrentWorkspaceExist
+          ? FloatingActionButtonLocation.centerDocked
+          : null,
     );
   }
 

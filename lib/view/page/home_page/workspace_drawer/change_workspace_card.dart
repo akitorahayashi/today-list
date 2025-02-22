@@ -34,7 +34,6 @@ class ChangeWorkspaceCard extends ConsumerWidget {
         theme: theme,
         isCurrentWorkspace: isCurrentWorkspace,
         corrWorkspace: corrWorkspace,
-        isDefaultWorkspace: isDefaultWorkspace,
       ),
     );
   }
@@ -45,13 +44,11 @@ class _WorkspaceCard extends ConsumerWidget {
   final TLThemeConfig theme;
   final bool isCurrentWorkspace;
   final TLWorkspace corrWorkspace;
-  final bool isDefaultWorkspace;
 
   const _WorkspaceCard({
     required this.theme,
     required this.isCurrentWorkspace,
     required this.corrWorkspace,
-    required this.isDefaultWorkspace,
   });
 
   @override
@@ -74,7 +71,6 @@ class _WorkspaceCard extends ConsumerWidget {
                   theme: theme,
                   isCurrentWorkspace: isCurrentWorkspace,
                   corrWorkspace: corrWorkspace,
-                  isDefaultWorkspace: isDefaultWorkspace,
                 ),
               ),
             ),
@@ -110,13 +106,11 @@ class _WorkspaceText extends StatelessWidget {
   final TLThemeConfig theme;
   final bool isCurrentWorkspace;
   final TLWorkspace corrWorkspace;
-  final bool isDefaultWorkspace;
 
   const _WorkspaceText({
     required this.theme,
     required this.isCurrentWorkspace,
     required this.corrWorkspace,
-    required this.isDefaultWorkspace,
   });
 
   @override
@@ -125,27 +119,15 @@ class _WorkspaceText extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (isDefaultWorkspace)
-            const Padding(
-              padding: EdgeInsets.only(bottom: 0.0),
-              child: Text("- Default -",
-                  style: TextStyle(
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12)),
-            ),
-          Padding(
-            padding: EdgeInsets.only(bottom: isDefaultWorkspace ? 10.0 : 0),
-            child: Text(
-              isCurrentWorkspace
-                  ? "☆ ${corrWorkspace.name}   "
-                  : corrWorkspace.name,
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 14,
-                color: theme.accentColor,
-                letterSpacing: 1,
-              ),
+          Text(
+            isCurrentWorkspace
+                ? "☆ ${corrWorkspace.name}   "
+                : corrWorkspace.name,
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 14,
+              color: theme.accentColor,
+              letterSpacing: 1,
             ),
           ),
         ],

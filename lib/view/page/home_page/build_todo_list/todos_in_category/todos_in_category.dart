@@ -45,8 +45,8 @@ class ToDosInCategory extends ConsumerWidget {
               final TLToDosInTodayAndWhenever copiedTLToDosInTodayAndWhenever =
                   corrWorkspace.categoryIDToToDos[categoryID]!.copyWith();
 
-              final List<TLToDo> corrToDoArray =
-                  copiedTLToDosInTodayAndWhenever.getToDos(ifInToday);
+              final List<TLToDo> corrToDoArray = List.from(
+                  copiedTLToDosInTodayAndWhenever.getToDos(ifInToday));
 
               final int indexOfCheckedToDo =
                   corrToDoArray.indexWhere((todo) => todo.isChecked);
