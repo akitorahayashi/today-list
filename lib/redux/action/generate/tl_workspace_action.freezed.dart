@@ -21,8 +21,7 @@ mixin _$TLWorkspaceAction {
     required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
     required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) =>
@@ -32,7 +31,7 @@ mixin _$TLWorkspaceAction {
     TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) =>
@@ -42,7 +41,7 @@ mixin _$TLWorkspaceAction {
     TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
@@ -54,8 +53,7 @@ mixin _$TLWorkspaceAction {
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
     required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) =>
       throw _privateConstructorUsedError;
@@ -64,7 +62,7 @@ mixin _$TLWorkspaceAction {
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
     TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) =>
       throw _privateConstructorUsedError;
@@ -73,7 +71,7 @@ mixin _$TLWorkspaceAction {
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
     TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) =>
@@ -176,8 +174,7 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
     required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
     required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) {
@@ -190,7 +187,7 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
     TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) {
@@ -203,7 +200,7 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
     TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
@@ -221,8 +218,7 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
     required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) {
     return changeCurrentWorkspaceID(this);
@@ -234,7 +230,7 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
     TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) {
     return changeCurrentWorkspaceID?.call(this);
@@ -246,7 +242,7 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
     TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) {
@@ -354,8 +350,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
     required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) {
@@ -368,7 +363,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) {
@@ -381,7 +376,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
@@ -399,8 +394,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
     required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) {
     return addWorkspace(this);
@@ -412,7 +406,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
     TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) {
     return addWorkspace?.call(this);
@@ -424,7 +418,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
     TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) {
@@ -521,8 +515,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
     required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) {
@@ -535,7 +528,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) {
@@ -548,7 +541,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
@@ -566,8 +559,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
     required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) {
     return removeWorkspace(this);
@@ -579,7 +571,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
     TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) {
     return removeWorkspace?.call(this);
@@ -591,7 +583,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
     TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) {
@@ -672,7 +664,7 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
 
   @override
   String toString() {
-    return 'TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace: $updatedWorkspace)';
+    return 'TLWorkspaceAction.updateCorrWorkspace(updatedWorkspace: $updatedWorkspace)';
   }
 
   @override
@@ -702,12 +694,11 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
     required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
     required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) {
-    return updateCurrentWorkspace(updatedWorkspace);
+    return updateCorrWorkspace(updatedWorkspace);
   }
 
   @override
@@ -716,11 +707,11 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
     TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) {
-    return updateCurrentWorkspace?.call(updatedWorkspace);
+    return updateCorrWorkspace?.call(updatedWorkspace);
   }
 
   @override
@@ -729,13 +720,13 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
     TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
   }) {
-    if (updateCurrentWorkspace != null) {
-      return updateCurrentWorkspace(updatedWorkspace);
+    if (updateCorrWorkspace != null) {
+      return updateCorrWorkspace(updatedWorkspace);
     }
     return orElse();
   }
@@ -747,11 +738,10 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
     required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) {
-    return updateCurrentWorkspace(this);
+    return updateCorrWorkspace(this);
   }
 
   @override
@@ -760,10 +750,10 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
     TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) {
-    return updateCurrentWorkspace?.call(this);
+    return updateCorrWorkspace?.call(this);
   }
 
   @override
@@ -772,12 +762,12 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
     TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) {
-    if (updateCurrentWorkspace != null) {
-      return updateCurrentWorkspace(this);
+    if (updateCorrWorkspace != null) {
+      return updateCorrWorkspace(this);
     }
     return orElse();
   }
@@ -877,8 +867,7 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
     required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
     required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) {
@@ -891,7 +880,7 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
     TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) {
@@ -904,7 +893,7 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
     TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
@@ -922,8 +911,7 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
     required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) {
     return updateWorkspaceList(this);
@@ -935,7 +923,7 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
     TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) {
     return updateWorkspaceList?.call(this);
@@ -947,7 +935,7 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
     TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) {
