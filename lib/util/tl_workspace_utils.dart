@@ -13,11 +13,13 @@ class TLWorkspaceUtils {
     final TLToDo toDoCheckStateHasChanged =
         toDoArrayOfThisToDo[indexOfThisToDoInToDos];
 
-    // チェック済みと未チェックのToDoを分類
-    final List<TLToDo> uncheckedToDos =
-        toDoArrayOfThisToDo.where((todo) => !todo.isChecked).toList();
-    final List<TLToDo> checkedToDos =
-        toDoArrayOfThisToDo.where((todo) => todo.isChecked).toList();
+    // チェック済みと未チェックのToDoを分類（取得したToDoを除外）
+    final List<TLToDo> uncheckedToDos = toDoArrayOfThisToDo
+        .where((todo) => !todo.isChecked && todo != toDoCheckStateHasChanged)
+        .toList();
+    final List<TLToDo> checkedToDos = toDoArrayOfThisToDo
+        .where((todo) => todo.isChecked && todo != toDoCheckStateHasChanged)
+        .toList();
 
     // 新しいリストを作成（変更後のToDoを適切な位置に挿入）
     return [...uncheckedToDos, toDoCheckStateHasChanged, ...checkedToDos];

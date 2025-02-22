@@ -86,6 +86,7 @@ class _HomePageState extends ConsumerState<HomePage>
         currentWorkspaceIdx != -1 ? currentWorkspaceIdx + 1 : 0;
 
     // `expectedIndex` に同期
+    print(expectedIndex);
     if (_tabController.index != expectedIndex && mounted) {
       _tabController.animateTo(expectedIndex);
     }

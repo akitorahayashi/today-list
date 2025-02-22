@@ -109,7 +109,7 @@ class TLStepCard extends ConsumerWidget {
 
     // Update CategoryIDToToDos
     final List<TLToDo> updatedListOfToDo =
-        corrTLToDosInTodayAndWhenever.getToDos(ifInToday);
+        List.from(corrTLToDosInTodayAndWhenever.getToDos(ifInToday));
     updatedListOfToDo[indexInToDos] = updatedToDo;
 
     final updatedCategoryIDToToDos = {

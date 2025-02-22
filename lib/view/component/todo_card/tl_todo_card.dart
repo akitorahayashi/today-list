@@ -149,7 +149,7 @@ class TLToDoCard extends ConsumerWidget {
         .categoryIDToToDos[corrToDo.categoryID]!
         .getToDos(ifInToday);
     final indexOfThisToDoInToDos = corrListOfToDo.indexOf(corrToDo);
-    final updatedCorrListOfToDo = corrListOfToDo
+    final updatedCorrListOfToDo = List<TLToDo>.from(corrListOfToDo)
       ..[indexOfThisToDoInToDos] = updatedToDo;
 
     // 所属するToDoの配列の中での並び替え

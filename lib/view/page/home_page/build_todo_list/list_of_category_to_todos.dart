@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'todos_in_category/header_for_todos.dart';
 import 'todos_in_category/todos_in_category.dart';
 
-class ListOfCategoryToToDos extends ConsumerWidget {
+class ListOfCategoryToToDos extends StatelessWidget {
   final bool ifInToday;
   final TLWorkspace corrWorkspace;
 
@@ -18,7 +16,7 @@ class ListOfCategoryToToDos extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Column(
       children: [
         _DefaultCategory(corrWorkspace: corrWorkspace, ifInToday: ifInToday),
@@ -49,7 +47,9 @@ class _DefaultCategory extends StatelessWidget {
     // ビッグカテゴリの最初の要素に ToDo がある場合のみ表示
     if (corrWorkspace.categoryIDToToDos[corrWorkspace.bigCategories[0].id]!
         .getToDos(ifInToday)
-        .isEmpty) return const SizedBox.shrink();
+        .isEmpty) {
+      return const SizedBox.shrink();
+    }
 
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),

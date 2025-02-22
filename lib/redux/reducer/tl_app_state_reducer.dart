@@ -20,9 +20,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   TLAppStateReducer()
       : super(TLAppState(
           tlWorkspaces: initialTLWorkspaces,
-          currentWorkspaceID: initialTLWorkspaces.isNotEmpty
-              ? initialTLWorkspaces.first.id
-              : noneID, // デフォルトワークスペースのID
+          currentWorkspaceID: null,
         )) {
     _loadSavedAppState();
   }
