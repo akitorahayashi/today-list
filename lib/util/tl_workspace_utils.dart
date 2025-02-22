@@ -5,56 +5,24 @@ import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/util/tl_category_utils.dart';
 
 class TLWorkspaceUtils {
-  static TLWorkspace reorderWhenToggle({
-    required TLWorkspace corrWorkspace,
-    required String categoryId,
-    required bool ifInToday,
+  static List<TLToDo> reorderWhenToggle({
+    required List<TLToDo> toDoArrayOfThisToDo,
     required int indexOfThisToDoInToDos,
   }) {
-    // カテゴリ内のToDosを取得
-    final TLToDosInTodayAndWhenever toDosInCategory =
-        corrWorkspace.categoryIDToToDos[categoryId]!;
-
-    // `ifInToday` に応じて対象のToDoリストを取得・コピー
-    final toDoArrayOfThisToDo = List<TLToDo>.from(
-      ifInToday
-          ? toDosInCategory.toDosInToday
-          : toDosInCategory.toDosInWhenever,
-    );
-
-    // 対象のToDoを取り出す
+    // 対象のToDoを取得
     final TLToDo toDoCheckStateHasChanged =
-        toDoArrayOfThisToDo.removeAt(indexOfThisToDoInToDos);
+        toDoArrayOfThisToDo[indexOfThisToDoInToDos];
 
-    // チェック済みのToDoの位置を取得
-    final int indexOfCheckedToDo =
-        toDoArrayOfThisToDo.indexWhere((todo) => todo.isChecked);
+    // チェック済みと未チェックのToDoを分類（取得したToDoを除外）
+    final List<TLToDo> uncheckedToDos = toDoArrayOfThisToDo
+        .where((todo) => !todo.isChecked && todo != toDoCheckStateHasChanged)
+        .toList();
+    final List<TLToDo> checkedToDos = toDoArrayOfThisToDo
+        .where((todo) => todo.isChecked && todo != toDoCheckStateHasChanged)
+        .toList();
 
-    // チェック済みの位置に挿入または末尾に追加
-    if (indexOfCheckedToDo == -1) {
-      toDoArrayOfThisToDo.add(toDoCheckStateHasChanged);
-    } else {
-      toDoArrayOfThisToDo.insert(indexOfCheckedToDo, toDoCheckStateHasChanged);
-    }
-
-    // `toDosInToday` or `toDosInWhenever` を更新
-    final updatedToDosInCategory = toDosInCategory.copyWith(
-      toDosInToday:
-          ifInToday ? toDoArrayOfThisToDo : toDosInCategory.toDosInToday,
-      toDosInWhenever:
-          ifInToday ? toDosInCategory.toDosInWhenever : toDoArrayOfThisToDo,
-    );
-
-    // `categoryIDToToDos` を更新
-    final updatedCategoryIDToToDos = {
-      ...corrWorkspace.categoryIDToToDos,
-      categoryId: updatedToDosInCategory,
-    };
-
-    // 更新後のWorkspaceを返す
-    return corrWorkspace.copyWith(
-      categoryIDToToDos: updatedCategoryIDToToDos,
-    );
+    // 新しいリストを作成（変更後のToDoを適切な位置に挿入）
+    return [...uncheckedToDos, toDoCheckStateHasChanged, ...checkedToDos];
   }
 
   static int getNumOfToDo(TLWorkspace workspace, {required bool ifInToday}) {

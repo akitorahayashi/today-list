@@ -20,9 +20,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   TLAppStateReducer()
       : super(TLAppState(
           tlWorkspaces: initialTLWorkspaces,
-          currentWorkspaceID: initialTLWorkspaces.isNotEmpty
-              ? initialTLWorkspaces.first.id
-              : noneID, // デフォルトワークスペースのID
+          currentWorkspaceID: null,
         )) {
     _loadSavedAppState();
   }
@@ -30,7 +28,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   // --- Load Workspaces from Local Storage ---
   Future<void> _loadSavedAppState() async {
     final pref = await TLPrefService().getPref;
-    final savedWorkspaceID = pref.getString('currentWorkspaceID') ?? noneID;
+    final savedWorkspaceID = pref.getString('currentWorkspaceID');
 
     final encodedWorkspaces = pref.getString("tlWorkspaces");
     if (encodedWorkspaces != null) {
@@ -38,12 +36,6 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
       final List<TLWorkspace> loadedWorkspaces = jsonWorkspaces.map((json) {
         return TLWorkspace.fromJson(json);
       }).toList();
-
-      // 現在の ID に一致するワークスペースを探す
-      final TLWorkspace validWorkspace = loadedWorkspaces.firstWhere(
-        (w) => w.id == savedWorkspaceID,
-        orElse: () => loadedWorkspaces.first,
-      );
 
       // 保存されたテーマを取得
       final themeName = pref.getString('themeType');
@@ -54,7 +46,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
 
       state = state.copyWith(
         tlWorkspaces: loadedWorkspaces,
-        currentWorkspaceID: validWorkspace.id,
+        currentWorkspaceID: savedWorkspaceID,
         selectedThemeType: savedTheme,
       );
     }
@@ -69,14 +61,14 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
 
   // --- Dispatch Workspace Actions ---
   Future<void> dispatchWorkspaceAction(TLWorkspaceAction action) async {
-    List<TLWorkspace> updatedWorkspaces = await TLWorkspaceReducer.handle(
-        state.tlWorkspaces, action, state.currentWorkspaceID);
+    List<TLWorkspace> updatedWorkspaces =
+        await TLWorkspaceReducer.handle(state.tlWorkspaces, action);
 
     state = action.map(
       changeCurrentWorkspaceID: (a) => _changeCurrentWorkspaceID(a.newID),
       addWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
-      removeWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
-      updateCurrentWorkspace: (a) =>
+      deleteWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
+      updateCorrWorkspace: (a) =>
           state.copyWith(tlWorkspaces: updatedWorkspaces),
       updateWorkspaceList: (a) =>
           state.copyWith(tlWorkspaces: updatedWorkspaces),
@@ -117,8 +109,8 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
 
   // --- Dispatch Category Actions ---
   Future<void> dispatchToDoCategoryAction(TLToDoCategoryAction action) async {
-    List<TLWorkspace> updatedWorkspaces = await TLToDoCategoryReducer.handle(
-        state.tlWorkspaces, action, state.currentWorkspaceID);
+    List<TLWorkspace> updatedWorkspaces =
+        await TLToDoCategoryReducer.handle(state.tlWorkspaces, action);
 
     state = state.copyWith(tlWorkspaces: updatedWorkspaces);
     // カテゴリーの変更を保存
@@ -128,8 +120,8 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   }
 
   // --- Change Current Workspace ID ---
-  TLAppState _changeCurrentWorkspaceID(String newID) {
-    if (state.currentWorkspaceID == newID) return state; // 変更不要
+  TLAppState _changeCurrentWorkspaceID(String? newID) {
+    if (state.currentWorkspaceID == newID) return state;
 
     _saveCurrentWorkspaceID(newID);
     TLVibrationService.vibrate();
@@ -138,8 +130,13 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   }
 
   // --- Save Current Workspace ID ---
-  Future<void> _saveCurrentWorkspaceID(String id) async {
+  Future<void> _saveCurrentWorkspaceID(String? id) async {
     final pref = await TLPrefService().getPref;
-    await pref.setString('currentWorkspaceID', id);
+    if (id == null) {
+      await pref.remove("currentWorkspaceID");
+      print("Removed currentWorkspaceID");
+    } else {
+      await pref.setString('currentWorkspaceID', id);
+    }
   }
 }

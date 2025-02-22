@@ -24,8 +24,6 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final enteredCategoryTitle = useState<String>(categoryToRename.name);
-    final String currentWorkspaceID = ref
-        .watch(tlAppStateProvider.select((state) => state.currentWorkspaceID));
 
     final navigator = Navigator.of(context);
 
@@ -64,7 +62,7 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
                       .read(tlAppStateProvider.notifier)
                       .dispatchToDoCategoryAction(
                           TLToDoCategoryAction.updateCategory(
-                              workspaceID: currentWorkspaceID,
+                              workspaceID: corrWorkspaceID,
                               newCategory: newCategory));
                   navigator.pop();
                   const TLSingleOptionDialog(title: "カテゴリー名が\n変更されました！")
@@ -76,10 +74,6 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
         ],
       ),
     );
-  }
-
-  void _initializeCategoryData(ValueNotifier<String> enteredCategoryTitle) {
-    enteredCategoryTitle.value = categoryToRename.name;
   }
 }
 

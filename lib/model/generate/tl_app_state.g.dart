@@ -12,7 +12,7 @@ _$TLAppStateImpl _$$TLAppStateImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => TLWorkspace.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      currentWorkspaceID: json['currentWorkspaceID'] as String? ?? noneID,
+      currentWorkspaceID: json['currentWorkspaceID'] as String? ?? null,
       selectedThemeType: $enumDecodeNullable(
               _$TLThemeTypeEnumMap, json['selectedThemeType']) ??
           TLThemeType.sunOrange,

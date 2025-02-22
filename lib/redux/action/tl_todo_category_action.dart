@@ -21,7 +21,7 @@ sealed class TLToDoCategoryAction with _$TLToDoCategoryAction {
   }) = _UpdateCategory;
 
   /// 既存のカテゴリーを削除する
-  const factory TLToDoCategoryAction.removeCategory({
+  const factory TLToDoCategoryAction.deleteCategory({
     required TLWorkspace corrWorkspace,
     required TLToDoCategory newCategory,
   }) = _RemoveCategory;

@@ -15,17 +15,10 @@ class TLAppState with _$TLAppState {
 
   const factory TLAppState({
     @Default([]) List<TLWorkspace> tlWorkspaces,
-    @Default(noneID) String currentWorkspaceID,
+    @Default(null) String? currentWorkspaceID,
     @Default(TLThemeType.sunOrange) TLThemeType selectedThemeType,
   }) = _TLAppState;
 
   factory TLAppState.fromJson(Map<String, dynamic> json) =>
       _$TLAppStateFromJson(json);
-
-  /// 現在のワークスペースを取得する
-  TLWorkspace get getCurrentWorkspace => tlWorkspaces.firstWhere(
-        (workspace) => workspace.id == currentWorkspaceID,
-        orElse: () =>
-            tlWorkspaces.firstWhere((workspace) => workspace.id == noneID),
-      );
 }

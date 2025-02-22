@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/service/tl_connectivity.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'service/tl_ads.dart';
 import './app.dart';

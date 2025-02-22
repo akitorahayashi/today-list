@@ -18,31 +18,30 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TLWorkspaceAction {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String newID) changeCurrentWorkspaceID,
+    required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
-    required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(String workspaceId) deleteWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String newID)? changeCurrentWorkspaceID,
+    TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(String workspaceId)? deleteWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String newID)? changeCurrentWorkspaceID,
+    TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(String workspaceId)? deleteWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
@@ -53,9 +52,8 @@ mixin _$TLWorkspaceAction {
     required TResult Function(ChangeCurrentWorkspaceID value)
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
-    required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(RemoveWorkspace value) deleteWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) =>
       throw _privateConstructorUsedError;
@@ -63,8 +61,8 @@ mixin _$TLWorkspaceAction {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
-    TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) =>
       throw _privateConstructorUsedError;
@@ -72,8 +70,8 @@ mixin _$TLWorkspaceAction {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
-    TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) =>
@@ -108,7 +106,7 @@ abstract class _$$ChangeCurrentWorkspaceIDImplCopyWith<$Res> {
           $Res Function(_$ChangeCurrentWorkspaceIDImpl) then) =
       __$$ChangeCurrentWorkspaceIDImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String newID});
+  $Res call({String? newID});
 }
 
 /// @nodoc
@@ -126,13 +124,13 @@ class __$$ChangeCurrentWorkspaceIDImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? newID = null,
+    Object? newID = freezed,
   }) {
     return _then(_$ChangeCurrentWorkspaceIDImpl(
-      null == newID
+      freezed == newID
           ? _value.newID
           : newID // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -143,7 +141,7 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   const _$ChangeCurrentWorkspaceIDImpl(this.newID);
 
   @override
-  final String newID;
+  final String? newID;
 
   @override
   String toString() {
@@ -173,11 +171,10 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String newID) changeCurrentWorkspaceID,
+    required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
-    required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(String workspaceId) deleteWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) {
@@ -187,10 +184,10 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String newID)? changeCurrentWorkspaceID,
+    TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(String workspaceId)? deleteWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) {
@@ -200,10 +197,10 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String newID)? changeCurrentWorkspaceID,
+    TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(String workspaceId)? deleteWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
@@ -220,9 +217,8 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
     required TResult Function(ChangeCurrentWorkspaceID value)
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
-    required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(RemoveWorkspace value) deleteWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) {
     return changeCurrentWorkspaceID(this);
@@ -233,8 +229,8 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
-    TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) {
     return changeCurrentWorkspaceID?.call(this);
@@ -245,8 +241,8 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
-    TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) {
@@ -258,10 +254,10 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
 }
 
 abstract class ChangeCurrentWorkspaceID implements TLWorkspaceAction {
-  const factory ChangeCurrentWorkspaceID(final String newID) =
+  const factory ChangeCurrentWorkspaceID(final String? newID) =
       _$ChangeCurrentWorkspaceIDImpl;
 
-  String get newID;
+  String? get newID;
 
   /// Create a copy of TLWorkspaceAction
   /// with the given fields replaced by the non-null parameter values.
@@ -351,11 +347,10 @@ class _$AddWorkspaceImpl implements AddWorkspace {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String newID) changeCurrentWorkspaceID,
+    required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
-    required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(String workspaceId) deleteWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) {
@@ -365,10 +360,10 @@ class _$AddWorkspaceImpl implements AddWorkspace {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String newID)? changeCurrentWorkspaceID,
+    TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(String workspaceId)? deleteWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) {
@@ -378,10 +373,10 @@ class _$AddWorkspaceImpl implements AddWorkspace {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String newID)? changeCurrentWorkspaceID,
+    TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(String workspaceId)? deleteWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
@@ -398,9 +393,8 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     required TResult Function(ChangeCurrentWorkspaceID value)
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
-    required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(RemoveWorkspace value) deleteWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) {
     return addWorkspace(this);
@@ -411,8 +405,8 @@ class _$AddWorkspaceImpl implements AddWorkspace {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
-    TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) {
     return addWorkspace?.call(this);
@@ -423,8 +417,8 @@ class _$AddWorkspaceImpl implements AddWorkspace {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
-    TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) {
@@ -491,7 +485,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
 
   @override
   String toString() {
-    return 'TLWorkspaceAction.removeWorkspace(workspaceId: $workspaceId)';
+    return 'TLWorkspaceAction.deleteWorkspace(workspaceId: $workspaceId)';
   }
 
   @override
@@ -518,43 +512,42 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String newID) changeCurrentWorkspaceID,
+    required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
-    required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(String workspaceId) deleteWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) {
-    return removeWorkspace(workspaceId);
+    return deleteWorkspace(workspaceId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String newID)? changeCurrentWorkspaceID,
+    TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(String workspaceId)? deleteWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) {
-    return removeWorkspace?.call(workspaceId);
+    return deleteWorkspace?.call(workspaceId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String newID)? changeCurrentWorkspaceID,
+    TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(String workspaceId)? deleteWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
   }) {
-    if (removeWorkspace != null) {
-      return removeWorkspace(workspaceId);
+    if (deleteWorkspace != null) {
+      return deleteWorkspace(workspaceId);
     }
     return orElse();
   }
@@ -565,12 +558,11 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     required TResult Function(ChangeCurrentWorkspaceID value)
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
-    required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(RemoveWorkspace value) deleteWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) {
-    return removeWorkspace(this);
+    return deleteWorkspace(this);
   }
 
   @override
@@ -578,11 +570,11 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
-    TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) {
-    return removeWorkspace?.call(this);
+    return deleteWorkspace?.call(this);
   }
 
   @override
@@ -590,13 +582,13 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
-    TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) {
-    if (removeWorkspace != null) {
-      return removeWorkspace(this);
+    if (deleteWorkspace != null) {
+      return deleteWorkspace(this);
     }
     return orElse();
   }
@@ -672,7 +664,7 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
 
   @override
   String toString() {
-    return 'TLWorkspaceAction.updateCurrentWorkspace(updatedWorkspace: $updatedWorkspace)';
+    return 'TLWorkspaceAction.updateCorrWorkspace(updatedWorkspace: $updatedWorkspace)';
   }
 
   @override
@@ -699,43 +691,42 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String newID) changeCurrentWorkspaceID,
+    required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
-    required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(String workspaceId) deleteWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) {
-    return updateCurrentWorkspace(updatedWorkspace);
+    return updateCorrWorkspace(updatedWorkspace);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String newID)? changeCurrentWorkspaceID,
+    TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(String workspaceId)? deleteWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) {
-    return updateCurrentWorkspace?.call(updatedWorkspace);
+    return updateCorrWorkspace?.call(updatedWorkspace);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String newID)? changeCurrentWorkspaceID,
+    TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(String workspaceId)? deleteWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
   }) {
-    if (updateCurrentWorkspace != null) {
-      return updateCurrentWorkspace(updatedWorkspace);
+    if (updateCorrWorkspace != null) {
+      return updateCorrWorkspace(updatedWorkspace);
     }
     return orElse();
   }
@@ -746,12 +737,11 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
     required TResult Function(ChangeCurrentWorkspaceID value)
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
-    required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(RemoveWorkspace value) deleteWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) {
-    return updateCurrentWorkspace(this);
+    return updateCorrWorkspace(this);
   }
 
   @override
@@ -759,11 +749,11 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
-    TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) {
-    return updateCurrentWorkspace?.call(this);
+    return updateCorrWorkspace?.call(this);
   }
 
   @override
@@ -771,13 +761,13 @@ class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
-    TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) {
-    if (updateCurrentWorkspace != null) {
-      return updateCurrentWorkspace(this);
+    if (updateCorrWorkspace != null) {
+      return updateCorrWorkspace(this);
     }
     return orElse();
   }
@@ -874,11 +864,10 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String newID) changeCurrentWorkspaceID,
+    required TResult Function(String? newID) changeCurrentWorkspaceID,
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
-    required TResult Function(String workspaceId) removeWorkspace,
-    required TResult Function(TLWorkspace updatedWorkspace)
-        updateCurrentWorkspace,
+    required TResult Function(String workspaceId) deleteWorkspace,
+    required TResult Function(TLWorkspace updatedWorkspace) updateCorrWorkspace,
     required TResult Function(List<TLWorkspace> updatedWorkspaceList)
         updateWorkspaceList,
   }) {
@@ -888,10 +877,10 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String newID)? changeCurrentWorkspaceID,
+    TResult? Function(String? newID)? changeCurrentWorkspaceID,
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult? Function(String workspaceId)? removeWorkspace,
-    TResult? Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult? Function(String workspaceId)? deleteWorkspace,
+    TResult? Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
   }) {
@@ -901,10 +890,10 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String newID)? changeCurrentWorkspaceID,
+    TResult Function(String? newID)? changeCurrentWorkspaceID,
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
-    TResult Function(String workspaceId)? removeWorkspace,
-    TResult Function(TLWorkspace updatedWorkspace)? updateCurrentWorkspace,
+    TResult Function(String workspaceId)? deleteWorkspace,
+    TResult Function(TLWorkspace updatedWorkspace)? updateCorrWorkspace,
     TResult Function(List<TLWorkspace> updatedWorkspaceList)?
         updateWorkspaceList,
     required TResult orElse(),
@@ -921,9 +910,8 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
     required TResult Function(ChangeCurrentWorkspaceID value)
         changeCurrentWorkspaceID,
     required TResult Function(AddWorkspace value) addWorkspace,
-    required TResult Function(RemoveWorkspace value) removeWorkspace,
-    required TResult Function(UpdateCurrentWorkspace value)
-        updateCurrentWorkspace,
+    required TResult Function(RemoveWorkspace value) deleteWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) updateCorrWorkspace,
     required TResult Function(UpdateWorkspaceList value) updateWorkspaceList,
   }) {
     return updateWorkspaceList(this);
@@ -934,8 +922,8 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult? Function(AddWorkspace value)? addWorkspace,
-    TResult? Function(RemoveWorkspace value)? removeWorkspace,
-    TResult? Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult? Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult? Function(UpdateWorkspaceList value)? updateWorkspaceList,
   }) {
     return updateWorkspaceList?.call(this);
@@ -946,8 +934,8 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
     TResult Function(AddWorkspace value)? addWorkspace,
-    TResult Function(RemoveWorkspace value)? removeWorkspace,
-    TResult Function(UpdateCurrentWorkspace value)? updateCurrentWorkspace,
+    TResult Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? updateCorrWorkspace,
     TResult Function(UpdateWorkspaceList value)? updateWorkspaceList,
     required TResult orElse(),
   }) {
