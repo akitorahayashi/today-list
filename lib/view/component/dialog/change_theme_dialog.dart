@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/redux/action/tl_theme_action.dart';
-import 'package:today_list/redux/reducer/tl_app_state_reducer.dart';
+import 'package:today_list/redux/reducer/tl_app_state_notifier.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
@@ -78,8 +78,8 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
   }
 
   // MARK - Build Action Buttons
-  Widget _buildActionButtons(
-      BuildContext context, TLAppStateReducer tlAppStateNotifier, themeConfig) {
+  Widget _buildActionButtons(BuildContext context,
+      TLAppStateNotifier tlAppStateNotifier, themeConfig) {
     return OverflowBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [

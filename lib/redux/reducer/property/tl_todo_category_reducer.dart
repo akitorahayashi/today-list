@@ -4,10 +4,10 @@ import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
 
 class TLToDoCategoryReducer {
-  static Future<List<TLWorkspace>> reduce(
+  static List<TLWorkspace> reduce(
     List<TLWorkspace> workspaces,
     TLToDoCategoryAction action,
-  ) async {
+  ) {
     final updatedWorkspaces = action.map(
       addCategory: (a) => _addCategory(
         workspaces: workspaces,

@@ -4,7 +4,7 @@ import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
-import 'package:today_list/redux/reducer/tl_app_state_reducer.dart';
+import 'package:today_list/redux/reducer/tl_app_state_notifier.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/styles.dart';
@@ -110,7 +110,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   // MARK - Handle Workspace Deletion
   void _handleDeleteWorkspace(BuildContext context, WidgetRef ref,
-      TLAppStateReducer tlAppStateReducer) {
+      TLAppStateNotifier tlAppStateReducer) {
     if (willDeletedWorkspace.id == "defaultID") {
       // Prevent deletion of default workspace
       Navigator.pop(context);

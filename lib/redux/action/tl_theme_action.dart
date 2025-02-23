@@ -7,6 +7,7 @@ part 'generate/tl_theme_action.freezed.dart';
 
 @freezed
 class TLThemeAction with _$TLThemeAction {
+  // テーマを変更する
   const factory TLThemeAction.changeTheme({
     required TLThemeType newThemeType,
   }) = ChangeThemeAction;
