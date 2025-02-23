@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
+import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
-import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
 import 'change_workspace_card.dart';
 
 class TLWorkspaceDrawer extends ConsumerWidget {
@@ -67,7 +66,12 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                   ),
                               ],
                               onReorder: (oldIndex, newIndex) {
-                                _handleReorder(ref, oldIndex, newIndex);
+                                ref.read(tlAppStateProvider.notifier).dispatch(
+                                      TLWorkspaceAction.reorderWorkspace(
+                                        oldIndex: oldIndex,
+                                        newIndex: newIndex,
+                                      ),
+                                    );
                               },
                             ),
                           ),
@@ -83,20 +87,6 @@ class TLWorkspaceDrawer extends ConsumerWidget {
         ],
       ),
     );
-  }
-
-  // MARK: - Handle Reordering Logic
-  void _handleReorder(WidgetRef ref, int oldIndex, int newIndex) {
-    if (newIndex == oldIndex) return;
-
-    final workspaces = ref.read(tlAppStateProvider).tlWorkspaces;
-
-    List<TLWorkspace> copiedWorkspaces = List.from(workspaces);
-    final TLWorkspace movedWorkspace = copiedWorkspaces.removeAt(oldIndex);
-    copiedWorkspaces.insert(newIndex, movedWorkspace);
-
-    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-        TLWorkspaceAction.updateWorkspaceList(copiedWorkspaces));
   }
 }
 

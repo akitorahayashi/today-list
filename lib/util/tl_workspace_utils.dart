@@ -1,8 +1,29 @@
 import 'package:today_list/model/todo/tl_todo_category.dart';
+import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 
 class TLWorkspaceUtils {
+  static List<TLToDo> reorderWhenToggle({
+    required List<TLToDo> toDoArrayOfThisToDo,
+    required int indexOfThisToDoInToDos,
+  }) {
+    // 対象のToDoを取得
+    final TLToDo toDoCheckStateHasChanged =
+        toDoArrayOfThisToDo[indexOfThisToDoInToDos];
+
+    // チェック済みと未チェックのToDoを分類（取得したToDoを除外）
+    final List<TLToDo> uncheckedToDos = toDoArrayOfThisToDo
+        .where((todo) => !todo.isChecked && todo != toDoCheckStateHasChanged)
+        .toList();
+    final List<TLToDo> checkedToDos = toDoArrayOfThisToDo
+        .where((todo) => todo.isChecked && todo != toDoCheckStateHasChanged)
+        .toList();
+
+    // 新しいリストを作成（変更後のToDoを適切な位置に挿入）
+    return [...uncheckedToDos, toDoCheckStateHasChanged, ...checkedToDos];
+  }
+
   static int getNumOfToDoInWorkspace(TLWorkspace workspace,
       {required bool ifInToday}) {
     int todoCount = 0;

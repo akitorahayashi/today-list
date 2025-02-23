@@ -22,4 +22,10 @@ sealed class TLWorkspaceAction with _$TLWorkspaceAction {
   // 選択したWorkspaceを保存する
   const factory TLWorkspaceAction.saveCorrWorkspace(TLWorkspace corrWorkspace) =
       UpdateCurrentWorkspace;
+
+  // ワークスペースの並び替え
+  const factory TLWorkspaceAction.reorderWorkspace({
+    required int oldIndex,
+    required int newIndex,
+  }) = ReorderWorkspace;
 }

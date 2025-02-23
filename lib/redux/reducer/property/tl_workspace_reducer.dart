@@ -11,6 +11,8 @@ class TLWorkspaceReducer {
       deleteAllCheckedToDosInWorkspace: (a) =>
           _deleteAllCheckedToDosInWorkspace(workspaces, a.corrWorkspace),
       saveCorrWorkspace: (a) => _saveCorrWorkspace(workspaces, a.corrWorkspace),
+      reorderWorkspace: (a) =>
+          _reorderWorkspace(workspaces, a.oldIndex, a.newIndex),
     );
 
     return updatedWorkspaces;
@@ -62,22 +64,16 @@ class TLWorkspaceReducer {
         .toList();
     return updatedWorkspaces;
   }
-  // --- Save Workspace to Local Storage ---
 
-  // static List<TLWorkspace> _updateCorrWorkspace(
-  //     List<TLWorkspace> workspaces, TLWorkspace updatedWorkspace) {
-  //   return workspaces.map((workspace) {
-  //     return workspace.id == updatedWorkspace.id ? updatedWorkspace : workspace;
-  //   }).toList();
-  // }
+  // MARK: - ワークスペースの並び替え
+  static List<TLWorkspace> _reorderWorkspace(
+      List<TLWorkspace> workspaces, int oldIndex, int newIndex) {
+    if (oldIndex == newIndex) return workspaces;
 
-  // static Future<void> _saveWorkspaces(List<TLWorkspace> workspaces) async {
-  //   final pref = await TLPrefService().getPref;
-  //   final encodedWorkspaces =
-  //       jsonEncode(workspaces.map((w) => w.toJson()).toList());
+    final List<TLWorkspace> copiedWorkspaces = List.from(workspaces);
+    final TLWorkspace movedWorkspace = copiedWorkspaces.removeAt(oldIndex);
+    copiedWorkspaces.insert(newIndex, movedWorkspace);
 
-  //   await pref.setString("tlWorkspaces", encodedWorkspaces);
-  //   TLMethodChannelService.updateTLWorkspaces(
-  //       encodedTLWorkspaces: encodedWorkspaces);
-  // }
+    return copiedWorkspaces;
+  }
 }
