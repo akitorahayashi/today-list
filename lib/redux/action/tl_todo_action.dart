@@ -39,6 +39,15 @@ sealed class TLToDoAction with _$TLToDoAction {
     required TLToDo corrToDo,
   }) = _ToggleToDoTodayWhenever;
 
+  // ToDo の並び替え
+  const factory TLToDoAction.reorderToDo({
+    required TLWorkspace corrWorkspace,
+    required String categoryID,
+    required bool ifInToday,
+    required int oldIndex,
+    required int newIndex,
+  }) = _ReorderToDo;
+
   // ステップの並び替え
   const factory TLToDoAction.reorderSteps({
     required TLWorkspace corrWorkspace,

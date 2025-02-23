@@ -29,6 +29,14 @@ class TLToDoReducer {
       ),
       toggleToDoTodayWhenever: (a) =>
           _toggleToDoTodayWhenever(workspaces, a.corrWorkspace, a.corrToDo),
+      reorderToDo: (a) => _reorderToDo(
+        workspaces,
+        a.corrWorkspace,
+        a.categoryID,
+        a.ifInToday,
+        a.oldIndex,
+        a.newIndex,
+      ),
       toggleStepCheckStatus: (a) => _toggleStepCheckStatus(
         workspaces,
         a.corrWorkspace,
@@ -166,6 +174,45 @@ class TLToDoReducer {
             })
           : ws;
     }).toList();
+  }
+
+  // MARK: - Reorder ToDo
+  static List<TLWorkspace> _reorderToDo(
+    List<TLWorkspace> workspaces,
+    TLWorkspace corrWorkspace,
+    String categoryID,
+    bool ifInToday,
+    int oldIndex,
+    int newIndex,
+  ) {
+    if (oldIndex == newIndex) return workspaces;
+
+    final toDosInCategory = corrWorkspace.categoryIDToToDos[categoryID]!;
+    final toDoList = List<TLToDo>.from(toDosInCategory.getToDos(ifInToday));
+
+    final int indexOfCheckedToDo =
+        toDoList.indexWhere((todo) => todo.isChecked);
+
+    if (indexOfCheckedToDo == -1 || newIndex < indexOfCheckedToDo) {
+      final movedToDo = toDoList.removeAt(oldIndex);
+      toDoList.insert(newIndex, movedToDo);
+
+      final updatedToDosInCategory = toDosInCategory.copyWith(
+        toDosInToday: ifInToday ? toDoList : toDosInCategory.toDosInToday,
+        toDosInWhenever: ifInToday ? toDosInCategory.toDosInWhenever : toDoList,
+      );
+
+      return workspaces.map((ws) {
+        return ws.id == corrWorkspace.id
+            ? ws.copyWith(categoryIDToToDos: {
+                ...corrWorkspace.categoryIDToToDos,
+                categoryID: updatedToDosInCategory,
+              })
+            : ws;
+      }).toList();
+    }
+
+    return workspaces;
   }
 
   // MARK: - Toggle Step Check Status

@@ -3,15 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
-import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
-import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/service/tl_vibration.dart';
-import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:today_list/view/component/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 
 class SlidableForToDoCard extends ConsumerWidget {
   final TLWorkspace corrWorkspace;
@@ -68,12 +65,20 @@ class SlidableForToDoCard extends ConsumerWidget {
             spacing: 8,
             backgroundColor: backgroundColor,
             foregroundColor: foregroundColor,
-            onPressed: (context) => ref
-                .read(tlAppStateProvider.notifier)
-                .dispatch(TLToDoAction.toggleToDoTodayWhenever(
-                  corrWorkspace: corrWorkspace,
-                  corrToDo: corrToDo,
-                )),
+            onPressed: (context) {
+              ref
+                  .read(tlAppStateProvider.notifier)
+                  .dispatch(TLToDoAction.toggleToDoTodayWhenever(
+                    corrWorkspace: corrWorkspace,
+                    corrToDo: corrToDo,
+                  ));
+              NotifyTodoOrStepIsEditedSnackBar.show(
+                context: context,
+                newTitle: corrToDo.content,
+                newCheckedState: corrToDo.isChecked,
+                quickChangeToToday: !corrToDo.isInToday,
+              );
+            },
             icon: corrToDo.isInToday ? Icons.schedule : Icons.light_mode,
           ),
         ],
