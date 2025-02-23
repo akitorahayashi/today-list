@@ -17,5 +17,5 @@ sealed class TLWorkspaceAction with _$TLWorkspaceAction {
 
   // Workspace内の全てのチェック済みToDoを削除する
   const factory TLWorkspaceAction.deleteAllCheckedToDosInWorkspace(
-      String workspaceID) = DeleteAllCheckedToDosInWorkspace;
+      TLWorkspace corrWorkspace) = DeleteAllCheckedToDosInWorkspace;
 }

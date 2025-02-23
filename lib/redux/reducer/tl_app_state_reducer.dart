@@ -64,7 +64,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
   // MARK: - Disp Workspace A
   Future<void> dispatchWorkspaceAction(TLWorkspaceAction action) async {
     List<TLWorkspace> updatedWorkspaces =
-        await TLWorkspaceReducer.handle(state.tlWorkspaces, action);
+        await TLWorkspaceReducer.reduce(state.tlWorkspaces, action);
 
     state = state.copyWith(tlWorkspaces: updatedWorkspaces);
   }

@@ -20,7 +20,7 @@ mixin _$TLWorkspaceAction {
   TResult when<TResult extends Object?>({
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
     required TResult Function(TLWorkspace corrWorkspace) deleteWorkspace,
-    required TResult Function(String workspaceID)
+    required TResult Function(TLWorkspace corrWorkspace)
         deleteAllCheckedToDosInWorkspace,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,14 +28,16 @@ mixin _$TLWorkspaceAction {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult? Function(TLWorkspace corrWorkspace)? deleteWorkspace,
-    TResult? Function(String workspaceID)? deleteAllCheckedToDosInWorkspace,
+    TResult? Function(TLWorkspace corrWorkspace)?
+        deleteAllCheckedToDosInWorkspace,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult Function(TLWorkspace corrWorkspace)? deleteWorkspace,
-    TResult Function(String workspaceID)? deleteAllCheckedToDosInWorkspace,
+    TResult Function(TLWorkspace corrWorkspace)?
+        deleteAllCheckedToDosInWorkspace,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -170,7 +172,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
   TResult when<TResult extends Object?>({
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
     required TResult Function(TLWorkspace corrWorkspace) deleteWorkspace,
-    required TResult Function(String workspaceID)
+    required TResult Function(TLWorkspace corrWorkspace)
         deleteAllCheckedToDosInWorkspace,
   }) {
     return addWorkspace(newWorkspace);
@@ -181,7 +183,8 @@ class _$AddWorkspaceImpl implements AddWorkspace {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult? Function(TLWorkspace corrWorkspace)? deleteWorkspace,
-    TResult? Function(String workspaceID)? deleteAllCheckedToDosInWorkspace,
+    TResult? Function(TLWorkspace corrWorkspace)?
+        deleteAllCheckedToDosInWorkspace,
   }) {
     return addWorkspace?.call(newWorkspace);
   }
@@ -191,7 +194,8 @@ class _$AddWorkspaceImpl implements AddWorkspace {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult Function(TLWorkspace corrWorkspace)? deleteWorkspace,
-    TResult Function(String workspaceID)? deleteAllCheckedToDosInWorkspace,
+    TResult Function(TLWorkspace corrWorkspace)?
+        deleteAllCheckedToDosInWorkspace,
     required TResult orElse(),
   }) {
     if (addWorkspace != null) {
@@ -335,7 +339,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
   TResult when<TResult extends Object?>({
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
     required TResult Function(TLWorkspace corrWorkspace) deleteWorkspace,
-    required TResult Function(String workspaceID)
+    required TResult Function(TLWorkspace corrWorkspace)
         deleteAllCheckedToDosInWorkspace,
   }) {
     return deleteWorkspace(corrWorkspace);
@@ -346,7 +350,8 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult? Function(TLWorkspace corrWorkspace)? deleteWorkspace,
-    TResult? Function(String workspaceID)? deleteAllCheckedToDosInWorkspace,
+    TResult? Function(TLWorkspace corrWorkspace)?
+        deleteAllCheckedToDosInWorkspace,
   }) {
     return deleteWorkspace?.call(corrWorkspace);
   }
@@ -356,7 +361,8 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult Function(TLWorkspace corrWorkspace)? deleteWorkspace,
-    TResult Function(String workspaceID)? deleteAllCheckedToDosInWorkspace,
+    TResult Function(TLWorkspace corrWorkspace)?
+        deleteAllCheckedToDosInWorkspace,
     required TResult orElse(),
   }) {
     if (deleteWorkspace != null) {
@@ -423,7 +429,9 @@ abstract class _$$DeleteAllCheckedToDosInWorkspaceImplCopyWith<$Res> {
           $Res Function(_$DeleteAllCheckedToDosInWorkspaceImpl) then) =
       __$$DeleteAllCheckedToDosInWorkspaceImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String workspaceID});
+  $Res call({TLWorkspace corrWorkspace});
+
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
 }
 
 /// @nodoc
@@ -441,14 +449,24 @@ class __$$DeleteAllCheckedToDosInWorkspaceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? workspaceID = null,
+    Object? corrWorkspace = null,
   }) {
     return _then(_$DeleteAllCheckedToDosInWorkspaceImpl(
-      null == workspaceID
-          ? _value.workspaceID
-          : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
+      null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
     ));
+  }
+
+  /// Create a copy of TLWorkspaceAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace {
+    return $TLWorkspaceCopyWith<$Res>(_value.corrWorkspace, (value) {
+      return _then(_value.copyWith(corrWorkspace: value));
+    });
   }
 }
 
@@ -456,14 +474,14 @@ class __$$DeleteAllCheckedToDosInWorkspaceImplCopyWithImpl<$Res>
 
 class _$DeleteAllCheckedToDosInWorkspaceImpl
     implements DeleteAllCheckedToDosInWorkspace {
-  const _$DeleteAllCheckedToDosInWorkspaceImpl(this.workspaceID);
+  const _$DeleteAllCheckedToDosInWorkspaceImpl(this.corrWorkspace);
 
   @override
-  final String workspaceID;
+  final TLWorkspace corrWorkspace;
 
   @override
   String toString() {
-    return 'TLWorkspaceAction.deleteAllCheckedToDosInWorkspace(workspaceID: $workspaceID)';
+    return 'TLWorkspaceAction.deleteAllCheckedToDosInWorkspace(corrWorkspace: $corrWorkspace)';
   }
 
   @override
@@ -471,12 +489,12 @@ class _$DeleteAllCheckedToDosInWorkspaceImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DeleteAllCheckedToDosInWorkspaceImpl &&
-            (identical(other.workspaceID, workspaceID) ||
-                other.workspaceID == workspaceID));
+            (identical(other.corrWorkspace, corrWorkspace) ||
+                other.corrWorkspace == corrWorkspace));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, workspaceID);
+  int get hashCode => Object.hash(runtimeType, corrWorkspace);
 
   /// Create a copy of TLWorkspaceAction
   /// with the given fields replaced by the non-null parameter values.
@@ -493,10 +511,10 @@ class _$DeleteAllCheckedToDosInWorkspaceImpl
   TResult when<TResult extends Object?>({
     required TResult Function(TLWorkspace newWorkspace) addWorkspace,
     required TResult Function(TLWorkspace corrWorkspace) deleteWorkspace,
-    required TResult Function(String workspaceID)
+    required TResult Function(TLWorkspace corrWorkspace)
         deleteAllCheckedToDosInWorkspace,
   }) {
-    return deleteAllCheckedToDosInWorkspace(workspaceID);
+    return deleteAllCheckedToDosInWorkspace(corrWorkspace);
   }
 
   @override
@@ -504,9 +522,10 @@ class _$DeleteAllCheckedToDosInWorkspaceImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult? Function(TLWorkspace corrWorkspace)? deleteWorkspace,
-    TResult? Function(String workspaceID)? deleteAllCheckedToDosInWorkspace,
+    TResult? Function(TLWorkspace corrWorkspace)?
+        deleteAllCheckedToDosInWorkspace,
   }) {
-    return deleteAllCheckedToDosInWorkspace?.call(workspaceID);
+    return deleteAllCheckedToDosInWorkspace?.call(corrWorkspace);
   }
 
   @override
@@ -514,11 +533,12 @@ class _$DeleteAllCheckedToDosInWorkspaceImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(TLWorkspace newWorkspace)? addWorkspace,
     TResult Function(TLWorkspace corrWorkspace)? deleteWorkspace,
-    TResult Function(String workspaceID)? deleteAllCheckedToDosInWorkspace,
+    TResult Function(TLWorkspace corrWorkspace)?
+        deleteAllCheckedToDosInWorkspace,
     required TResult orElse(),
   }) {
     if (deleteAllCheckedToDosInWorkspace != null) {
-      return deleteAllCheckedToDosInWorkspace(workspaceID);
+      return deleteAllCheckedToDosInWorkspace(corrWorkspace);
     }
     return orElse();
   }
@@ -562,10 +582,10 @@ class _$DeleteAllCheckedToDosInWorkspaceImpl
 }
 
 abstract class DeleteAllCheckedToDosInWorkspace implements TLWorkspaceAction {
-  const factory DeleteAllCheckedToDosInWorkspace(final String workspaceID) =
-      _$DeleteAllCheckedToDosInWorkspaceImpl;
+  const factory DeleteAllCheckedToDosInWorkspace(
+      final TLWorkspace corrWorkspace) = _$DeleteAllCheckedToDosInWorkspaceImpl;
 
-  String get workspaceID;
+  TLWorkspace get corrWorkspace;
 
   /// Create a copy of TLWorkspaceAction
   /// with the given fields replaced by the non-null parameter values.

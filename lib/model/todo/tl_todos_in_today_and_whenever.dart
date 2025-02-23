@@ -34,4 +34,31 @@ class TLToDosInTodayAndWhenever with _$TLToDosInTodayAndWhenever {
       toDosInWhenever: isInToday ? toDosInWhenever : updatedToDos,
     );
   }
+
+  /// `isInToday` の情報を元に、指定した `ToDo` を削除した新しいTLToDosInTodayAndWheneverのインスタンスを返す
+  TLToDosInTodayAndWhenever deleteAllCheckedToDosInAToDosList({
+    bool? isInToday,
+  }) {
+    final copiedToDosInTodayAndWhenever = copyWith();
+    if (isInToday != null) {
+      copiedToDosInTodayAndWhenever.updateListOfToDoInTodayOrWhenever(
+        isInToday: isInToday,
+        updatedToDos: getToDos(isInToday)
+            .where((TLToDo toDo) => !toDo.isChecked)
+            .toList(),
+      );
+    } else {
+      copiedToDosInTodayAndWhenever.updateListOfToDoInTodayOrWhenever(
+        isInToday: true,
+        updatedToDos:
+            toDosInToday.where((TLToDo toDo) => !toDo.isChecked).toList(),
+      );
+      copiedToDosInTodayAndWhenever.updateListOfToDoInTodayOrWhenever(
+        isInToday: false,
+        updatedToDos:
+            toDosInWhenever.where((TLToDo toDo) => !toDo.isChecked).toList(),
+      );
+    }
+    return copiedToDosInTodayAndWhenever;
+  }
 }
