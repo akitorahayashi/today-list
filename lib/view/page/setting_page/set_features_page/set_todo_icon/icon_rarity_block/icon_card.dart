@@ -42,44 +42,26 @@ class _IconCardState extends ConsumerState<IconCard> {
       flex: 1,
       child: GestureDetector(
         onTap: () async {
-          if (TLAdsService.isPassActive || kDebugMode) {
-            if (!isCurrentIcon) {
-              await TLYesNoDialog(
-                  title: "アイコンの変更",
-                  message: "チェックマークのアイコンを\n変更しますか?",
-                  yesAction: () async {
-                    Navigator.pop(context);
-                    tlIconDataNotifier.updateSelectedIcon(TLIconData(
-                        category: widget.tlIconCategory,
-                        rarity: widget.tlIconRarity,
-                        name: widget.tlIconName));
-                    TLVibrationService.vibrate();
-                    const TLSingleOptionDialog(title: "変更が完了しました!")
-                        .show(context: context);
-                    TLVibrationService.vibrate();
-                  }).show(context: context);
-              // SettingData.shared.askToSetDefaultIcon(
-              //     context: context,
-              //     iconCategoryName: widget.iconCategoryName,
-              //     iconRarity: widget.selectedIconRarity,
-              //     iconName: widget.iconName);
-            }
-          } else {
+          if (!isCurrentIcon) {
             await TLYesNoDialog(
-              title: "PASSを獲得しよう!",
-              message:
-                  "\n・広告を見てPASSの期間を増やすことでチェックボックスのアイコンやカラーテーマを変更することができます!\n\n・1回の動画広告で3日分獲得できます",
-              yesAction: () => TLAdsService.showRewardedAd(
-                context: context,
-                rewardAction: () async {
-                  TLAdsService.extendLimitOfPassReward(howManyDays: 3);
-                  await const TLSingleOptionDialog(
-                    title: "PASSが延長されました!",
-                    message: "3日分のPASSを獲得しました",
-                  ).show(context: context);
-                },
-              ),
-            ).show(context: context);
+                title: "アイコンの変更",
+                message: "チェックマークのアイコンを\n変更しますか?",
+                yesAction: () async {
+                  Navigator.pop(context);
+                  tlIconDataNotifier.updateSelectedIcon(TLIconData(
+                      category: widget.tlIconCategory,
+                      rarity: widget.tlIconRarity,
+                      name: widget.tlIconName));
+                  TLVibrationService.vibrate();
+                  const TLSingleOptionDialog(title: "変更が完了しました!")
+                      .show(context: context);
+                  TLVibrationService.vibrate();
+                }).show(context: context);
+            // SettingData.shared.askToSetDefaultIcon(
+            //     context: context,
+            //     iconCategoryName: widget.iconCategoryName,
+            //     iconRarity: widget.selectedIconRarity,
+            //     iconName: widget.iconName);
           }
         },
         child: Card(
