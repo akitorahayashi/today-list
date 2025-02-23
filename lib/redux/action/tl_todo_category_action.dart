@@ -25,4 +25,19 @@ sealed class TLToDoCategoryAction with _$TLToDoCategoryAction {
     required TLWorkspace corrWorkspace,
     required TLToDoCategory categoryToDelete,
   }) = _RemoveCategory;
+
+  /// Small Category の並び替え
+  const factory TLToDoCategoryAction.reorderSmallCategory({
+    required TLWorkspace corrWorkspace,
+    required TLToDoCategory bigCategory,
+    required int oldIndex,
+    required int newIndex,
+  }) = _ReorderSmallCategory;
+
+  /// Big Category の並び替え
+  const factory TLToDoCategoryAction.reorderBigCategory({
+    required TLWorkspace corrWorkspace,
+    required int oldIndex,
+    required int newIndex,
+  }) = _ReorderBigCategory;
 }

@@ -24,6 +24,19 @@ class TLToDoCategoryReducer {
         corrWorkspace: a.corrWorkspace,
         categoryToDelete: a.categoryToDelete,
       ),
+      reorderSmallCategory: (a) => _reorderSmallCategory(
+        workspaces,
+        a.corrWorkspace,
+        a.bigCategory,
+        a.oldIndex,
+        a.newIndex,
+      ),
+      reorderBigCategory: (a) => _reorderBigCategory(
+        workspaces,
+        a.corrWorkspace,
+        a.oldIndex,
+        a.newIndex,
+      ),
     );
 
     return updatedWorkspaces;
@@ -185,5 +198,56 @@ class TLToDoCategoryReducer {
     );
 
     return newWorkspaces;
+  }
+
+  // MARK: - Reorder Big Category
+  static List<TLWorkspace> _reorderBigCategory(
+    List<TLWorkspace> workspaces,
+    TLWorkspace corrWorkspace,
+    int oldIndex,
+    int newIndex,
+  ) {
+    if (newIndex == 0 || oldIndex == newIndex) return workspaces;
+
+    final copiedBigCategories =
+        List<TLToDoCategory>.from(corrWorkspace.bigCategories);
+    final movedCategory = copiedBigCategories.removeAt(oldIndex);
+    copiedBigCategories.insert(newIndex, movedCategory);
+
+    final updatedWorkspace = corrWorkspace.copyWith(
+      bigCategories: copiedBigCategories,
+    );
+
+    return workspaces
+        .map((ws) => ws.id == corrWorkspace.id ? updatedWorkspace : ws)
+        .toList();
+  }
+
+  // MARK: - Reorder SMall Category
+  static List<TLWorkspace> _reorderSmallCategory(
+    List<TLWorkspace> workspaces,
+    TLWorkspace corrWorkspace,
+    TLToDoCategory bigCategory,
+    int oldIndex,
+    int newIndex,
+  ) {
+    if (oldIndex == newIndex) return workspaces;
+
+    final copiedSmallCategories = {
+      for (var entry in corrWorkspace.smallCategories.entries)
+        entry.key: List<TLToDoCategory>.from(entry.value),
+    };
+
+    final movedCategory =
+        copiedSmallCategories[bigCategory.id]!.removeAt(oldIndex);
+    copiedSmallCategories[bigCategory.id]!.insert(newIndex, movedCategory);
+
+    final updatedWorkspace = corrWorkspace.copyWith(
+      smallCategories: copiedSmallCategories,
+    );
+
+    return workspaces
+        .map((ws) => ws.id == corrWorkspace.id ? updatedWorkspace : ws)
+        .toList();
   }
 }

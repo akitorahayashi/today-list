@@ -25,6 +25,12 @@ mixin _$TLToDoCategoryAction {
     required TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)
         deleteCategory,
+    required TResult Function(TLWorkspace corrWorkspace,
+            TLToDoCategory bigCategory, int oldIndex, int newIndex)
+        reorderSmallCategory,
+    required TResult Function(
+            TLWorkspace corrWorkspace, int oldIndex, int newIndex)
+        reorderBigCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +42,11 @@ mixin _$TLToDoCategoryAction {
     TResult? Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult? Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +58,11 @@ mixin _$TLToDoCategoryAction {
     TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
+    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -55,6 +71,8 @@ mixin _$TLToDoCategoryAction {
     required TResult Function(_AddCategory value) addCategory,
     required TResult Function(_UpdateCategory value) updateCategory,
     required TResult Function(_RemoveCategory value) deleteCategory,
+    required TResult Function(_ReorderSmallCategory value) reorderSmallCategory,
+    required TResult Function(_ReorderBigCategory value) reorderBigCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -62,6 +80,8 @@ mixin _$TLToDoCategoryAction {
     TResult? Function(_AddCategory value)? addCategory,
     TResult? Function(_UpdateCategory value)? updateCategory,
     TResult? Function(_RemoveCategory value)? deleteCategory,
+    TResult? Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult? Function(_ReorderBigCategory value)? reorderBigCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,6 +89,8 @@ mixin _$TLToDoCategoryAction {
     TResult Function(_AddCategory value)? addCategory,
     TResult Function(_UpdateCategory value)? updateCategory,
     TResult Function(_RemoveCategory value)? deleteCategory,
+    TResult Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult Function(_ReorderBigCategory value)? reorderBigCategory,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -194,6 +216,12 @@ class _$AddCategoryImpl implements _AddCategory {
     required TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)
         deleteCategory,
+    required TResult Function(TLWorkspace corrWorkspace,
+            TLToDoCategory bigCategory, int oldIndex, int newIndex)
+        reorderSmallCategory,
+    required TResult Function(
+            TLWorkspace corrWorkspace, int oldIndex, int newIndex)
+        reorderBigCategory,
   }) {
     return addCategory(workspaceID, newCategory);
   }
@@ -208,6 +236,11 @@ class _$AddCategoryImpl implements _AddCategory {
     TResult? Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult? Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
   }) {
     return addCategory?.call(workspaceID, newCategory);
   }
@@ -222,6 +255,11 @@ class _$AddCategoryImpl implements _AddCategory {
     TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
+    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
     required TResult orElse(),
   }) {
     if (addCategory != null) {
@@ -236,6 +274,8 @@ class _$AddCategoryImpl implements _AddCategory {
     required TResult Function(_AddCategory value) addCategory,
     required TResult Function(_UpdateCategory value) updateCategory,
     required TResult Function(_RemoveCategory value) deleteCategory,
+    required TResult Function(_ReorderSmallCategory value) reorderSmallCategory,
+    required TResult Function(_ReorderBigCategory value) reorderBigCategory,
   }) {
     return addCategory(this);
   }
@@ -246,6 +286,8 @@ class _$AddCategoryImpl implements _AddCategory {
     TResult? Function(_AddCategory value)? addCategory,
     TResult? Function(_UpdateCategory value)? updateCategory,
     TResult? Function(_RemoveCategory value)? deleteCategory,
+    TResult? Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult? Function(_ReorderBigCategory value)? reorderBigCategory,
   }) {
     return addCategory?.call(this);
   }
@@ -256,6 +298,8 @@ class _$AddCategoryImpl implements _AddCategory {
     TResult Function(_AddCategory value)? addCategory,
     TResult Function(_UpdateCategory value)? updateCategory,
     TResult Function(_RemoveCategory value)? deleteCategory,
+    TResult Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult Function(_ReorderBigCategory value)? reorderBigCategory,
     required TResult orElse(),
   }) {
     if (addCategory != null) {
@@ -379,6 +423,12 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
     required TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)
         deleteCategory,
+    required TResult Function(TLWorkspace corrWorkspace,
+            TLToDoCategory bigCategory, int oldIndex, int newIndex)
+        reorderSmallCategory,
+    required TResult Function(
+            TLWorkspace corrWorkspace, int oldIndex, int newIndex)
+        reorderBigCategory,
   }) {
     return updateCategory(workspaceID, newCategory);
   }
@@ -393,6 +443,11 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
     TResult? Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult? Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
   }) {
     return updateCategory?.call(workspaceID, newCategory);
   }
@@ -407,6 +462,11 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
     TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
+    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
     required TResult orElse(),
   }) {
     if (updateCategory != null) {
@@ -421,6 +481,8 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
     required TResult Function(_AddCategory value) addCategory,
     required TResult Function(_UpdateCategory value) updateCategory,
     required TResult Function(_RemoveCategory value) deleteCategory,
+    required TResult Function(_ReorderSmallCategory value) reorderSmallCategory,
+    required TResult Function(_ReorderBigCategory value) reorderBigCategory,
   }) {
     return updateCategory(this);
   }
@@ -431,6 +493,8 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
     TResult? Function(_AddCategory value)? addCategory,
     TResult? Function(_UpdateCategory value)? updateCategory,
     TResult? Function(_RemoveCategory value)? deleteCategory,
+    TResult? Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult? Function(_ReorderBigCategory value)? reorderBigCategory,
   }) {
     return updateCategory?.call(this);
   }
@@ -441,6 +505,8 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
     TResult Function(_AddCategory value)? addCategory,
     TResult Function(_UpdateCategory value)? updateCategory,
     TResult Function(_RemoveCategory value)? deleteCategory,
+    TResult Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult Function(_ReorderBigCategory value)? reorderBigCategory,
     required TResult orElse(),
   }) {
     if (updateCategory != null) {
@@ -575,6 +641,12 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
     required TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)
         deleteCategory,
+    required TResult Function(TLWorkspace corrWorkspace,
+            TLToDoCategory bigCategory, int oldIndex, int newIndex)
+        reorderSmallCategory,
+    required TResult Function(
+            TLWorkspace corrWorkspace, int oldIndex, int newIndex)
+        reorderBigCategory,
   }) {
     return deleteCategory(corrWorkspace, categoryToDelete);
   }
@@ -589,6 +661,11 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
     TResult? Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult? Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
   }) {
     return deleteCategory?.call(corrWorkspace, categoryToDelete);
   }
@@ -603,6 +680,11 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
     TResult Function(
             TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
+    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
     required TResult orElse(),
   }) {
     if (deleteCategory != null) {
@@ -617,6 +699,8 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
     required TResult Function(_AddCategory value) addCategory,
     required TResult Function(_UpdateCategory value) updateCategory,
     required TResult Function(_RemoveCategory value) deleteCategory,
+    required TResult Function(_ReorderSmallCategory value) reorderSmallCategory,
+    required TResult Function(_ReorderBigCategory value) reorderBigCategory,
   }) {
     return deleteCategory(this);
   }
@@ -627,6 +711,8 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
     TResult? Function(_AddCategory value)? addCategory,
     TResult? Function(_UpdateCategory value)? updateCategory,
     TResult? Function(_RemoveCategory value)? deleteCategory,
+    TResult? Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult? Function(_ReorderBigCategory value)? reorderBigCategory,
   }) {
     return deleteCategory?.call(this);
   }
@@ -637,6 +723,8 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
     TResult Function(_AddCategory value)? addCategory,
     TResult Function(_UpdateCategory value)? updateCategory,
     TResult Function(_RemoveCategory value)? deleteCategory,
+    TResult Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult Function(_ReorderBigCategory value)? reorderBigCategory,
     required TResult orElse(),
   }) {
     if (deleteCategory != null) {
@@ -658,5 +746,477 @@ abstract class _RemoveCategory implements TLToDoCategoryAction {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RemoveCategoryImplCopyWith<_$RemoveCategoryImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReorderSmallCategoryImplCopyWith<$Res> {
+  factory _$$ReorderSmallCategoryImplCopyWith(_$ReorderSmallCategoryImpl value,
+          $Res Function(_$ReorderSmallCategoryImpl) then) =
+      __$$ReorderSmallCategoryImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {TLWorkspace corrWorkspace,
+      TLToDoCategory bigCategory,
+      int oldIndex,
+      int newIndex});
+
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
+  $TLToDoCategoryCopyWith<$Res> get bigCategory;
+}
+
+/// @nodoc
+class __$$ReorderSmallCategoryImplCopyWithImpl<$Res>
+    extends _$TLToDoCategoryActionCopyWithImpl<$Res, _$ReorderSmallCategoryImpl>
+    implements _$$ReorderSmallCategoryImplCopyWith<$Res> {
+  __$$ReorderSmallCategoryImplCopyWithImpl(_$ReorderSmallCategoryImpl _value,
+      $Res Function(_$ReorderSmallCategoryImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TLToDoCategoryAction
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? corrWorkspace = null,
+    Object? bigCategory = null,
+    Object? oldIndex = null,
+    Object? newIndex = null,
+  }) {
+    return _then(_$ReorderSmallCategoryImpl(
+      corrWorkspace: null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
+      bigCategory: null == bigCategory
+          ? _value.bigCategory
+          : bigCategory // ignore: cast_nullable_to_non_nullable
+              as TLToDoCategory,
+      oldIndex: null == oldIndex
+          ? _value.oldIndex
+          : oldIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      newIndex: null == newIndex
+          ? _value.newIndex
+          : newIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+
+  /// Create a copy of TLToDoCategoryAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace {
+    return $TLWorkspaceCopyWith<$Res>(_value.corrWorkspace, (value) {
+      return _then(_value.copyWith(corrWorkspace: value));
+    });
+  }
+
+  /// Create a copy of TLToDoCategoryAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLToDoCategoryCopyWith<$Res> get bigCategory {
+    return $TLToDoCategoryCopyWith<$Res>(_value.bigCategory, (value) {
+      return _then(_value.copyWith(bigCategory: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ReorderSmallCategoryImpl implements _ReorderSmallCategory {
+  const _$ReorderSmallCategoryImpl(
+      {required this.corrWorkspace,
+      required this.bigCategory,
+      required this.oldIndex,
+      required this.newIndex});
+
+  @override
+  final TLWorkspace corrWorkspace;
+  @override
+  final TLToDoCategory bigCategory;
+  @override
+  final int oldIndex;
+  @override
+  final int newIndex;
+
+  @override
+  String toString() {
+    return 'TLToDoCategoryAction.reorderSmallCategory(corrWorkspace: $corrWorkspace, bigCategory: $bigCategory, oldIndex: $oldIndex, newIndex: $newIndex)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReorderSmallCategoryImpl &&
+            (identical(other.corrWorkspace, corrWorkspace) ||
+                other.corrWorkspace == corrWorkspace) &&
+            (identical(other.bigCategory, bigCategory) ||
+                other.bigCategory == bigCategory) &&
+            (identical(other.oldIndex, oldIndex) ||
+                other.oldIndex == oldIndex) &&
+            (identical(other.newIndex, newIndex) ||
+                other.newIndex == newIndex));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, corrWorkspace, bigCategory, oldIndex, newIndex);
+
+  /// Create a copy of TLToDoCategoryAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReorderSmallCategoryImplCopyWith<_$ReorderSmallCategoryImpl>
+      get copyWith =>
+          __$$ReorderSmallCategoryImplCopyWithImpl<_$ReorderSmallCategoryImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String workspaceID, TLToDoCategory newCategory)
+        addCategory,
+    required TResult Function(String workspaceID, TLToDoCategory newCategory)
+        updateCategory,
+    required TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)
+        deleteCategory,
+    required TResult Function(TLWorkspace corrWorkspace,
+            TLToDoCategory bigCategory, int oldIndex, int newIndex)
+        reorderSmallCategory,
+    required TResult Function(
+            TLWorkspace corrWorkspace, int oldIndex, int newIndex)
+        reorderBigCategory,
+  }) {
+    return reorderSmallCategory(corrWorkspace, bigCategory, oldIndex, newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
+    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+        updateCategory,
+    TResult? Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
+        deleteCategory,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult? Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
+  }) {
+    return reorderSmallCategory?.call(
+        corrWorkspace, bigCategory, oldIndex, newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
+    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+        updateCategory,
+    TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
+        deleteCategory,
+    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
+    required TResult orElse(),
+  }) {
+    if (reorderSmallCategory != null) {
+      return reorderSmallCategory(
+          corrWorkspace, bigCategory, oldIndex, newIndex);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddCategory value) addCategory,
+    required TResult Function(_UpdateCategory value) updateCategory,
+    required TResult Function(_RemoveCategory value) deleteCategory,
+    required TResult Function(_ReorderSmallCategory value) reorderSmallCategory,
+    required TResult Function(_ReorderBigCategory value) reorderBigCategory,
+  }) {
+    return reorderSmallCategory(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddCategory value)? addCategory,
+    TResult? Function(_UpdateCategory value)? updateCategory,
+    TResult? Function(_RemoveCategory value)? deleteCategory,
+    TResult? Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult? Function(_ReorderBigCategory value)? reorderBigCategory,
+  }) {
+    return reorderSmallCategory?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddCategory value)? addCategory,
+    TResult Function(_UpdateCategory value)? updateCategory,
+    TResult Function(_RemoveCategory value)? deleteCategory,
+    TResult Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult Function(_ReorderBigCategory value)? reorderBigCategory,
+    required TResult orElse(),
+  }) {
+    if (reorderSmallCategory != null) {
+      return reorderSmallCategory(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ReorderSmallCategory implements TLToDoCategoryAction {
+  const factory _ReorderSmallCategory(
+      {required final TLWorkspace corrWorkspace,
+      required final TLToDoCategory bigCategory,
+      required final int oldIndex,
+      required final int newIndex}) = _$ReorderSmallCategoryImpl;
+
+  TLWorkspace get corrWorkspace;
+  TLToDoCategory get bigCategory;
+  int get oldIndex;
+  int get newIndex;
+
+  /// Create a copy of TLToDoCategoryAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ReorderSmallCategoryImplCopyWith<_$ReorderSmallCategoryImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReorderBigCategoryImplCopyWith<$Res> {
+  factory _$$ReorderBigCategoryImplCopyWith(_$ReorderBigCategoryImpl value,
+          $Res Function(_$ReorderBigCategoryImpl) then) =
+      __$$ReorderBigCategoryImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({TLWorkspace corrWorkspace, int oldIndex, int newIndex});
+
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
+}
+
+/// @nodoc
+class __$$ReorderBigCategoryImplCopyWithImpl<$Res>
+    extends _$TLToDoCategoryActionCopyWithImpl<$Res, _$ReorderBigCategoryImpl>
+    implements _$$ReorderBigCategoryImplCopyWith<$Res> {
+  __$$ReorderBigCategoryImplCopyWithImpl(_$ReorderBigCategoryImpl _value,
+      $Res Function(_$ReorderBigCategoryImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TLToDoCategoryAction
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? corrWorkspace = null,
+    Object? oldIndex = null,
+    Object? newIndex = null,
+  }) {
+    return _then(_$ReorderBigCategoryImpl(
+      corrWorkspace: null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
+      oldIndex: null == oldIndex
+          ? _value.oldIndex
+          : oldIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      newIndex: null == newIndex
+          ? _value.newIndex
+          : newIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+
+  /// Create a copy of TLToDoCategoryAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace {
+    return $TLWorkspaceCopyWith<$Res>(_value.corrWorkspace, (value) {
+      return _then(_value.copyWith(corrWorkspace: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ReorderBigCategoryImpl implements _ReorderBigCategory {
+  const _$ReorderBigCategoryImpl(
+      {required this.corrWorkspace,
+      required this.oldIndex,
+      required this.newIndex});
+
+  @override
+  final TLWorkspace corrWorkspace;
+  @override
+  final int oldIndex;
+  @override
+  final int newIndex;
+
+  @override
+  String toString() {
+    return 'TLToDoCategoryAction.reorderBigCategory(corrWorkspace: $corrWorkspace, oldIndex: $oldIndex, newIndex: $newIndex)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReorderBigCategoryImpl &&
+            (identical(other.corrWorkspace, corrWorkspace) ||
+                other.corrWorkspace == corrWorkspace) &&
+            (identical(other.oldIndex, oldIndex) ||
+                other.oldIndex == oldIndex) &&
+            (identical(other.newIndex, newIndex) ||
+                other.newIndex == newIndex));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, corrWorkspace, oldIndex, newIndex);
+
+  /// Create a copy of TLToDoCategoryAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReorderBigCategoryImplCopyWith<_$ReorderBigCategoryImpl> get copyWith =>
+      __$$ReorderBigCategoryImplCopyWithImpl<_$ReorderBigCategoryImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String workspaceID, TLToDoCategory newCategory)
+        addCategory,
+    required TResult Function(String workspaceID, TLToDoCategory newCategory)
+        updateCategory,
+    required TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)
+        deleteCategory,
+    required TResult Function(TLWorkspace corrWorkspace,
+            TLToDoCategory bigCategory, int oldIndex, int newIndex)
+        reorderSmallCategory,
+    required TResult Function(
+            TLWorkspace corrWorkspace, int oldIndex, int newIndex)
+        reorderBigCategory,
+  }) {
+    return reorderBigCategory(corrWorkspace, oldIndex, newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
+    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+        updateCategory,
+    TResult? Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
+        deleteCategory,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult? Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
+  }) {
+    return reorderBigCategory?.call(corrWorkspace, oldIndex, newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
+    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+        updateCategory,
+    TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
+        deleteCategory,
+    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory bigCategory,
+            int oldIndex, int newIndex)?
+        reorderSmallCategory,
+    TResult Function(TLWorkspace corrWorkspace, int oldIndex, int newIndex)?
+        reorderBigCategory,
+    required TResult orElse(),
+  }) {
+    if (reorderBigCategory != null) {
+      return reorderBigCategory(corrWorkspace, oldIndex, newIndex);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddCategory value) addCategory,
+    required TResult Function(_UpdateCategory value) updateCategory,
+    required TResult Function(_RemoveCategory value) deleteCategory,
+    required TResult Function(_ReorderSmallCategory value) reorderSmallCategory,
+    required TResult Function(_ReorderBigCategory value) reorderBigCategory,
+  }) {
+    return reorderBigCategory(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddCategory value)? addCategory,
+    TResult? Function(_UpdateCategory value)? updateCategory,
+    TResult? Function(_RemoveCategory value)? deleteCategory,
+    TResult? Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult? Function(_ReorderBigCategory value)? reorderBigCategory,
+  }) {
+    return reorderBigCategory?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddCategory value)? addCategory,
+    TResult Function(_UpdateCategory value)? updateCategory,
+    TResult Function(_RemoveCategory value)? deleteCategory,
+    TResult Function(_ReorderSmallCategory value)? reorderSmallCategory,
+    TResult Function(_ReorderBigCategory value)? reorderBigCategory,
+    required TResult orElse(),
+  }) {
+    if (reorderBigCategory != null) {
+      return reorderBigCategory(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ReorderBigCategory implements TLToDoCategoryAction {
+  const factory _ReorderBigCategory(
+      {required final TLWorkspace corrWorkspace,
+      required final int oldIndex,
+      required final int newIndex}) = _$ReorderBigCategoryImpl;
+
+  TLWorkspace get corrWorkspace;
+  int get oldIndex;
+  int get newIndex;
+
+  /// Create a copy of TLToDoCategoryAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ReorderBigCategoryImplCopyWith<_$ReorderBigCategoryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
