@@ -247,7 +247,7 @@ class _HomePageState extends ConsumerState<HomePage>
                 message: null,
                 yesAction: () async {
                   Navigator.pop(context);
-                  // Delete checked ToDos (Today + Whenever) in the corresponding workspace
+                  // Delete checked ToDos (Today) in the workspace List
                   ref.read(tlAppStateProvider.notifier).dispatch(
                         TLAppStateAction
                             .deleteAllCheckedToDosInTodayInWorkspaceList(

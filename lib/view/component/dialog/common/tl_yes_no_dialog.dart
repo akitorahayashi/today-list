@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import '../../../../model/design/tl_theme/tl_theme.dart';
-import '../tl_base_dialog_mixin.dart';
-import '../../../../styles.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/styles.dart';
+import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 
 class TLYesNoDialog extends ConsumerWidget with TLBaseDialogMixin {
   final String title;
@@ -63,11 +63,11 @@ class TLYesNoDialog extends ConsumerWidget with TLBaseDialogMixin {
                     },
                     style:
                         alertButtonStyle(accentColor: tlThemeData.accentColor),
-                    child: const Text("いいえ")),
+                    child: const Text("Close")),
                 TextButton(
                   onPressed: yesAction,
                   style: alertButtonStyle(accentColor: tlThemeData.accentColor),
-                  child: const Text("はい"),
+                  child: const Text("OK"),
                 ),
               ],
             )

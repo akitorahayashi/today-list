@@ -12,19 +12,32 @@ import 'package:today_list/redux/reducer/property/tl_workspace_reducer.dart';
 
 class TLAppStateReducer {
   static TLAppState reduce(TLAppState state, dynamic action) {
+    // TLAppStateAction
     if (action is TLAppStateAction) {
       return _reduceAppStateAction(state, action);
-    } else if (action is TLWorkspaceAction) {
+    }
+
+    // TLWorkspaceAction
+    if (action is TLWorkspaceAction) {
       return state.copyWith(
           tlWorkspaces: TLWorkspaceReducer.reduce(state.tlWorkspaces, action));
-    } else if (action is TLToDoCategoryAction) {
+    }
+
+    // TLToDoCategoryAction
+    if (action is TLToDoCategoryAction) {
       return state.copyWith(
           tlWorkspaces:
               TLToDoCategoryReducer.reduce(state.tlWorkspaces, action));
-    } else if (action is TLToDoAction) {
+    }
+
+    // TLToDoAction
+    if (action is TLToDoAction) {
       return state.copyWith(
           tlWorkspaces: TLToDoReducer.reduce(state.tlWorkspaces, action));
-    } else if (action is TLThemeAction) {
+    }
+
+    // TLThemeAction
+    if (action is TLThemeAction) {
       return state.copyWith(
           selectedThemeType:
               TLThemeReducer.reduce(state.selectedThemeType, action));

@@ -39,26 +39,21 @@ class TLToDosInTodayAndWhenever with _$TLToDosInTodayAndWhenever {
   TLToDosInTodayAndWhenever deleteAllCheckedToDosInAToDosList({
     bool? isInToday,
   }) {
-    final copiedToDosInTodayAndWhenever = copyWith();
     if (isInToday != null) {
-      copiedToDosInTodayAndWhenever.updateListOfToDoInTodayOrWhenever(
-        isInToday: isInToday,
-        updatedToDos: getToDos(isInToday)
-            .where((TLToDo toDo) => !toDo.isChecked)
-            .toList(),
-      );
-    } else {
-      copiedToDosInTodayAndWhenever.updateListOfToDoInTodayOrWhenever(
-        isInToday: true,
-        updatedToDos:
-            toDosInToday.where((TLToDo toDo) => !toDo.isChecked).toList(),
-      );
-      copiedToDosInTodayAndWhenever.updateListOfToDoInTodayOrWhenever(
-        isInToday: false,
-        updatedToDos:
-            toDosInWhenever.where((TLToDo toDo) => !toDo.isChecked).toList(),
+      return copyWith(
+        toDosInToday: isInToday
+            ? toDosInToday.where((toDo) => !toDo.isChecked).toList()
+            : toDosInToday,
+        toDosInWhenever: !isInToday
+            ? toDosInWhenever.where((toDo) => !toDo.isChecked).toList()
+            : toDosInWhenever,
       );
     }
-    return copiedToDosInTodayAndWhenever;
+
+    return copyWith(
+      toDosInToday: toDosInToday.where((toDo) => !toDo.isChecked).toList(),
+      toDosInWhenever:
+          toDosInWhenever.where((toDo) => !toDo.isChecked).toList(),
+    );
   }
 }
