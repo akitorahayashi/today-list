@@ -145,25 +145,27 @@ class TLToDoReducer {
     TLWorkspace corrWorkspace,
     TLToDo corrToDo,
   ) {
+    final updatedToDo = corrToDo.copyWith(isInToday: !corrToDo.isInToday);
     final toDosInCategory =
-        corrWorkspace.categoryIDToToDos[corrToDo.categoryID]!;
+        corrWorkspace.categoryIDToToDos[updatedToDo.categoryID]!;
 
     // 現在のリストと移動先のリストを取得
-    final currentList = toDosInCategory.getToDos(corrToDo.isInToday);
-    final anotherList = toDosInCategory.getToDos(!corrToDo.isInToday);
+    final currentList = toDosInCategory.getToDos(updatedToDo.isInToday);
+    final anotherList = toDosInCategory.getToDos(!updatedToDo.isInToday);
 
     // 現在のリストから対象の ToDo を除外
     final updatedCurrentList =
-        currentList.where((todo) => todo.id != corrToDo.id).toList();
+        currentList.where((todo) => todo.id != updatedToDo.id).toList();
 
-    // 移動先のリストに対象の ToDo を先頭に追加
-    final updatedOtherList = [corrToDo, ...anotherList];
+    // 移動先のリストに対象の ToDo を先頭に追加、isInTodayをswitch
+    final updatedOtherList = [updatedToDo, ...anotherList];
 
     // ToDos のデータを更新
     final updatedToDosInCategory = toDosInCategory.copyWith(
-      toDosInToday: corrToDo.isInToday ? updatedCurrentList : updatedOtherList,
+      toDosInToday:
+          updatedToDo.isInToday ? updatedCurrentList : updatedOtherList,
       toDosInWhenever:
-          corrToDo.isInToday ? updatedOtherList : updatedCurrentList,
+          updatedToDo.isInToday ? updatedOtherList : updatedCurrentList,
     );
 
     return workspaces.map((ws) {

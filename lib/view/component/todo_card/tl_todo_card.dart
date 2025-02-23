@@ -36,16 +36,17 @@ class TLToDoCard extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        ref.read(tlAppStateProvider.notifier).updateState(
-            TLToDoAction.toggleToDoCheckStatus(
-                corrWorkspace: corrWorkspace, corrToDo: corrToDo));
         // スナックバーを表示
         NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,
           newTitle: corrToDo.content,
-          newCheckedState: corrToDo.isChecked,
+          newCheckedState: !corrToDo.isChecked,
+          isToDoCard: true,
           quickChangeToToday: null,
         );
+        ref.read(tlAppStateProvider.notifier).updateState(
+            TLToDoAction.toggleToDoCheckStatus(
+                corrWorkspace: corrWorkspace, corrToDo: corrToDo));
       },
       onLongPress: corrToDo.isChecked ? () {} : null,
       child: Card(

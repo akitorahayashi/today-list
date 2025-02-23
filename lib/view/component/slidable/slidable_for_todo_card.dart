@@ -76,6 +76,7 @@ class SlidableForToDoCard extends ConsumerWidget {
                 context: context,
                 newTitle: corrToDo.content,
                 newCheckedState: corrToDo.isChecked,
+                isToDoCard: true,
                 quickChangeToToday: !corrToDo.isInToday,
               );
             },

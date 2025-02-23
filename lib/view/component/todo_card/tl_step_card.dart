@@ -45,7 +45,8 @@ class TLStepCard extends ConsumerWidget {
         NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,
           newTitle: corrStep.content,
-          newCheckedState: corrStep.isChecked,
+          newCheckedState: !corrStep.isChecked,
+          isToDoCard: false,
           quickChangeToToday: null,
         );
       },

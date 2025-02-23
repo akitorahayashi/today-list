@@ -11,12 +11,14 @@ class NotifyTodoOrStepIsEditedSnackBar {
     required BuildContext context,
     required String newTitle,
     required bool newCheckedState,
+    required bool isToDoCard,
     required bool? quickChangeToToday,
   }) {
     final snackBar = _createSnackBar(
       context: context,
       newTitle: newTitle,
       newCheckedState: newCheckedState,
+      isToDoCard: isToDoCard,
       quickChangeToToday: quickChangeToToday,
     );
 
@@ -34,12 +36,14 @@ class NotifyTodoOrStepIsEditedSnackBar {
     required BuildContext context,
     required String newTitle,
     required bool newCheckedState,
+    required bool isToDoCard,
     bool? quickChangeToToday,
   }) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
 
     // MARK: - Common Colors
-    final backgroundColor = tlThemeData.canTapCardColor;
+    final backgroundColor =
+        isToDoCard ? tlThemeData.canTapCardColor : tlThemeData.whiteBasedColor;
     final accentColor = tlThemeData.accentColor;
     final titleColor = Colors.black.withOpacity(newCheckedState ? 0.3 : 0.6);
 

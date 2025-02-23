@@ -78,6 +78,7 @@ class _ToDoTitleInputFieldState extends State<ToDoTitleInputField> {
                         context: context,
                         newTitle: _enteredToDoTitle,
                         newCheckedState: false,
+                        isToDoCard: true,
                         quickChangeToToday: null,
                       );
                       TLVibrationService.vibrate();
