@@ -1,142 +1,89 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/tl_app_state_action.dart';
 import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
+import 'package:today_list/redux/action/tl_todo_category_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/reducer/property/tl_theme_reducer.dart';
+import 'package:today_list/redux/reducer/property/tl_todo_category_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_todo_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_workspace_reducer.dart';
-import 'package:today_list/resource/initial_tl_workspaces.dart';
-import 'package:today_list/resource/tl_theme_type.dart';
-import 'package:today_list/service/tl_pref.dart';
-import 'dart:convert';
 
-import 'package:today_list/service/tl_vibration.dart';
-import 'package:today_list/redux/action/tl_todo_category_action.dart';
-import 'package:today_list/redux/reducer/property/tl_todo_category_reducer.dart';
-
-class TLAppStateReducer extends StateNotifier<TLAppState> {
-  TLAppStateReducer()
-      : super(TLAppState(
-          tlWorkspaces: initialTLWorkspaces,
-          currentWorkspaceID: null,
-        )) {
-    _loadSavedAppState();
-  }
-
-  // --- Load Workspaces from Local Storage ---
-  Future<void> _loadSavedAppState() async {
-    final pref = await TLPrefService().getPref;
-    final savedWorkspaceID = pref.getString('currentWorkspaceID');
-
-    final encodedWorkspaces = pref.getString("tlWorkspaces");
-    if (encodedWorkspaces != null) {
-      final List<dynamic> jsonWorkspaces = jsonDecode(encodedWorkspaces);
-      final List<TLWorkspace> loadedWorkspaces = jsonWorkspaces.map((json) {
-        return TLWorkspace.fromJson(json);
-      }).toList();
-
-      // 保存されたテーマを取得
-      final themeName = pref.getString('themeType');
-      final savedTheme = TLThemeType.values.firstWhere(
-        (e) => e.name == themeName,
-        orElse: () => TLThemeType.sunOrange, // デフォルト値
-      );
-
-      state = state.copyWith(
-        tlWorkspaces: loadedWorkspaces,
-        currentWorkspaceID: savedWorkspaceID,
-        selectedThemeType: savedTheme,
-      );
+class TLAppStateReducer {
+  static TLAppState reduce(TLAppState state, dynamic action) {
+    // TLAppStateAction
+    if (action is TLAppStateAction) {
+      return _reduceAppStateAction(state, action);
     }
+
+    // TLWorkspaceAction
+    if (action is TLWorkspaceAction) {
+      return state.copyWith(
+          tlWorkspaces: TLWorkspaceReducer.reduce(state.tlWorkspaces, action));
+    }
+
+    // TLToDoCategoryAction
+    if (action is TLToDoCategoryAction) {
+      return state.copyWith(
+          tlWorkspaces:
+              TLToDoCategoryReducer.reduce(state.tlWorkspaces, action));
+    }
+
+    // TLToDoAction
+    if (action is TLToDoAction) {
+      return state.copyWith(
+          tlWorkspaces: TLToDoReducer.reduce(state.tlWorkspaces, action));
+    }
+
+    // TLThemeAction
+    if (action is TLThemeAction) {
+      return state.copyWith(
+          selectedThemeType:
+              TLThemeReducer.reduce(state.selectedThemeType, action));
+    }
+
+    return state;
   }
 
-  // --- Dispatch Theme Actions ---
-  void dispatchThemeAction(TLThemeAction action) {
-    state = state.copyWith(
-      selectedThemeType: TLThemeReducer.handle(state.selectedThemeType, action),
+  // MARK: - Reduce App State Action
+  static TLAppState _reduceAppStateAction(
+      TLAppState state, TLAppStateAction action) {
+    return action.when(
+      changeCurrentWorkspaceID: (newID) =>
+          _changeCurrentWorkspaceID(state, newID),
+      saveWorkspaceList: (updatedList) =>
+          _saveWorkspaceList(state, updatedList),
+      deleteAllCheckedToDosInTodayInWorkspaceList: (corrWorkspaceList) =>
+          _deleteAllCheckedToDosInTodayInWorkspaceList(
+              state, corrWorkspaceList),
     );
   }
 
-  // --- Dispatch Workspace Actions ---
-  Future<void> dispatchWorkspaceAction(TLWorkspaceAction action) async {
-    List<TLWorkspace> updatedWorkspaces =
-        await TLWorkspaceReducer.handle(state.tlWorkspaces, action);
-
-    state = action.map(
-      changeCurrentWorkspaceID: (a) => _changeCurrentWorkspaceID(a.newID),
-      addWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
-      deleteWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
-      updateCorrWorkspace: (a) =>
-          state.copyWith(tlWorkspaces: updatedWorkspaces),
-      updateWorkspaceList: (a) =>
-          state.copyWith(tlWorkspaces: updatedWorkspaces),
-    );
-  }
-
-  // MARK: - Dispatch ToDo Actions
-  Future<void> dispatchToDoAction(TLToDoAction action) async {
-    final updatedWorkspaces = action.map(
-      addToDo: (a) => TLToDoReducer.addToDo(
-        workspaces: state.tlWorkspaces,
-        workspaceID: a.workspaceID,
-        categoryID: a.categoryID,
-        ifInToday: a.ifInToday,
-        todo: a.todo,
-      ),
-      updateToDo: (a) => TLToDoReducer.updateToDo(
-        workspaces: state.tlWorkspaces,
-        workspaceID: a.workspaceID,
-        categoryID: a.categoryID,
-        ifInToday: a.ifInToday,
-        index: a.index,
-        newToDo: a.newToDo,
-      ),
-      removeToDo: (a) => TLToDoReducer.removeToDo(
-        workspaces: state.tlWorkspaces,
-        workspaceID: a.workspaceID,
-        categoryID: a.categoryID,
-        ifInToday: a.ifInToday,
-        index: a.index,
-      ),
-    );
-
-    // MARK: - Update State and Save
-    dispatchWorkspaceAction(
-        TLWorkspaceAction.updateWorkspaceList(updatedWorkspaces));
-  }
-
-  // --- Dispatch Category Actions ---
-  Future<void> dispatchToDoCategoryAction(TLToDoCategoryAction action) async {
-    List<TLWorkspace> updatedWorkspaces =
-        await TLToDoCategoryReducer.handle(state.tlWorkspaces, action);
-
-    state = state.copyWith(tlWorkspaces: updatedWorkspaces);
-    // カテゴリーの変更を保存
-    dispatchWorkspaceAction(
-      TLWorkspaceAction.updateWorkspaceList(updatedWorkspaces),
-    );
-  }
-
-  // --- Change Current Workspace ID ---
-  TLAppState _changeCurrentWorkspaceID(String? newID) {
-    if (state.currentWorkspaceID == newID) return state;
-
-    _saveCurrentWorkspaceID(newID);
-    TLVibrationService.vibrate();
-
+  // MARK: - Private Methods
+  static TLAppState _changeCurrentWorkspaceID(TLAppState state, String? newID) {
     return state.copyWith(currentWorkspaceID: newID);
   }
 
-  // --- Save Current Workspace ID ---
-  Future<void> _saveCurrentWorkspaceID(String? id) async {
-    final pref = await TLPrefService().getPref;
-    if (id == null) {
-      await pref.remove("currentWorkspaceID");
-      print("Removed currentWorkspaceID");
-    } else {
-      await pref.setString('currentWorkspaceID', id);
+  static TLAppState _saveWorkspaceList(
+      TLAppState state, List<TLWorkspace> updatedList) {
+    return state.copyWith(tlWorkspaces: updatedList);
+  }
+
+  static TLAppState _deleteAllCheckedToDosInTodayInWorkspaceList(
+      TLAppState state, List<TLWorkspace> corrWorkspaceList) {
+    List<TLWorkspace> updatedWorkspaceList = [];
+    for (TLWorkspace workspace in corrWorkspaceList) {
+      final updatedWorkspace = workspace.copyWith(categoryIDToToDos: workspace
+          .categoryIDToToDos
+          .map((categoryID, tlToDosInTodayAndWhenever) {
+        return MapEntry(
+            categoryID,
+            tlToDosInTodayAndWhenever.deleteAllCheckedToDosInAToDosList(
+                isInToday: true));
+      }));
+      updatedWorkspaceList = [...updatedWorkspaceList, updatedWorkspace];
     }
+    return state.copyWith(tlWorkspaces: updatedWorkspaceList);
   }
 }

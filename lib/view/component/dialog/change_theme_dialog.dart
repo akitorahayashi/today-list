@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/redux/action/tl_theme_action.dart';
-import 'package:today_list/redux/reducer/tl_app_state_reducer.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
-import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/styles.dart';
-import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
@@ -31,7 +30,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
             _buildThemePreview(corrThemeConfig),
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
-              child: Text("${corrThemeConfig.themeName}に変更しますか？"),
+              child: Text("Change to ${corrThemeConfig.themeName}?"),
             ),
             _buildActionButtons(context, tlAppStateNotifier, corrThemeConfig),
           ],
@@ -78,8 +77,8 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
   }
 
   // MARK - Build Action Buttons
-  Widget _buildActionButtons(
-      BuildContext context, TLAppStateReducer tlAppStateNotifier, themeConfig) {
+  Widget _buildActionButtons(BuildContext context,
+      TLAppStateNotifier tlAppStateNotifier, themeConfig) {
     return OverflowBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -87,21 +86,20 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
         TextButton(
           style: alertButtonStyle(accentColor: themeConfig.accentColor),
           onPressed: () => Navigator.pop(context),
-          child: const Text("戻る"),
+          child: const Text("Close"),
         ),
-        // Confirm Button
+// Confirm Button
         TextButton(
           style: alertButtonStyle(accentColor: themeConfig.accentColor),
           onPressed: () {
             Navigator.pop(context); // Close current dialog
-            tlAppStateNotifier.dispatchThemeAction(
-                TLThemeAction.changeTheme(themeType: corrThemeType));
-
+            tlAppStateNotifier.dispatch(
+                TLThemeAction.changeTheme(newThemeType: corrThemeType));
             // Show completion alert
-            const TLSingleOptionDialog(title: "変更が完了しました")
+            const TLSingleOptionDialog(title: "Change completed")
                 .show(context: context);
           },
-          child: const Text("変更"),
+          child: const Text("Change"),
         ),
       ],
     );

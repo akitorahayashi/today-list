@@ -103,25 +103,21 @@ class EditToDoPage extends HookConsumerWidget {
         id: TLUUIDGenerator.generate(),
         workspaceID: corrWorkspace.id,
         categoryID: categoryID,
+        isInToday: isToday.value,
         content: toDoTitleController.text,
         steps: steps.value,
       );
 
       if (editingToDoIndex.value == null) {
         // MARK: - Add New ToDo
-        appStateReducer.dispatchToDoAction(TLToDoAction.addToDo(
-          workspaceID: corrWorkspace.id,
-          categoryID: categoryID,
-          ifInToday: isToday.value,
-          todo: newToDo,
+        appStateReducer.dispatch(TLToDoAction.addToDo(
+          corrWorkspace: corrWorkspace,
+          newToDo: newToDo,
         ));
       } else {
         // MARK: - Update Existing ToDo
-        appStateReducer.dispatchToDoAction(TLToDoAction.updateToDo(
-          workspaceID: corrWorkspace.id,
-          categoryID: categoryID,
-          ifInToday: isToday.value,
-          index: editingToDoIndex.value!,
+        appStateReducer.dispatch(TLToDoAction.updateToDo(
+          corrWorkspace: corrWorkspace,
           newToDo: newToDo,
         ));
       }

@@ -3,7 +3,6 @@ import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/util/tl_category_utils.dart';
 import 'package:today_list/view/component/dialog/for_category/select_edit_method_dialog.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -39,7 +38,7 @@ class BigCategoryCard extends StatelessWidget {
       fontSize: textSize,
     );
 
-    final numberOfToDos = TLCategoryUtils.getNumberOfToDosInThisCategory(
+    final numberOfToDos = corrBigCategory.getNumberOfToDosInThisCategory(
       ifInToday: null,
       corrToDos: corrWorkspace.categoryIDToToDos[corrBigCategory.id]!,
     );

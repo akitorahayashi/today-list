@@ -10,8 +10,9 @@ _$TLToDoImpl _$$TLToDoImplFromJson(Map<String, dynamic> json) => _$TLToDoImpl(
       id: json['id'] as String,
       workspaceID: json['workspaceID'] as String,
       categoryID: json['categoryID'] as String,
-      content: json['content'] as String,
+      isInToday: json['isInToday'] as bool,
       isChecked: json['isChecked'] as bool? ?? false,
+      content: json['content'] as String,
       steps: (json['steps'] as List<dynamic>?)
               ?.map((e) => TLStep.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -23,7 +24,8 @@ Map<String, dynamic> _$$TLToDoImplToJson(_$TLToDoImpl instance) =>
       'id': instance.id,
       'workspaceID': instance.workspaceID,
       'categoryID': instance.categoryID,
-      'content': instance.content,
+      'isInToday': instance.isInToday,
       'isChecked': instance.isChecked,
+      'content': instance.content,
       'steps': instance.steps,
     };

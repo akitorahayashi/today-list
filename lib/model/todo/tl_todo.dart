@@ -12,8 +12,9 @@ class TLToDo with _$TLToDo {
     required String id,
     required String workspaceID,
     required String categoryID,
-    required String content,
+    required bool isInToday,
     @Default(false) bool isChecked,
+    required String content,
     @Default([]) List<TLStep> steps,
   }) = _TLToDo;
 

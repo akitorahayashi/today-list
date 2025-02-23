@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 
 part 'generate/tl_todo_action.freezed.dart';
 
@@ -7,28 +9,57 @@ part 'generate/tl_todo_action.freezed.dart';
 
 @freezed
 sealed class TLToDoAction with _$TLToDoAction {
-  // 新規のToDoを追加する
+  // ToDo を追加
   const factory TLToDoAction.addToDo({
-    required String workspaceID,
-    required String categoryID,
-    required bool ifInToday,
-    required TLToDo todo,
+    required TLWorkspace corrWorkspace,
+    required TLToDo newToDo,
   }) = _AddToDo;
 
-  // 既存のToDoを更新する
+  // ToDo を更新
   const factory TLToDoAction.updateToDo({
-    required String workspaceID,
-    required String categoryID,
-    required bool ifInToday,
-    required int index,
+    required TLWorkspace corrWorkspace,
     required TLToDo newToDo,
   }) = _UpdateToDo;
 
-  // 既存のToDoを削除する
-  const factory TLToDoAction.removeToDo({
-    required String workspaceID,
+  // ToDo を削除
+  const factory TLToDoAction.deleteToDo({
+    required TLWorkspace corrWorkspace,
+    required TLToDo corrToDo,
+  }) = _RemoveToDo;
+
+  // ToDo のチェック状態を切り替え
+  const factory TLToDoAction.toggleToDoCheckStatus({
+    required TLWorkspace corrWorkspace,
+    required TLToDo corrToDo,
+  }) = _ToggleToDoCheckStatus;
+
+  // ToDo を Today <-> Whenever に移動
+  const factory TLToDoAction.toggleToDoTodayWhenever({
+    required TLWorkspace corrWorkspace,
+    required TLToDo corrToDo,
+  }) = _ToggleToDoTodayWhenever;
+
+  // ToDo の並び替え
+  const factory TLToDoAction.reorderToDo({
+    required TLWorkspace corrWorkspace,
     required String categoryID,
     required bool ifInToday,
-    required int index,
-  }) = _RemoveToDo;
+    required int oldIndex,
+    required int newIndex,
+  }) = _ReorderToDo;
+
+  // ステップの並び替え
+  const factory TLToDoAction.reorderSteps({
+    required TLWorkspace corrWorkspace,
+    required TLToDo corrToDo,
+    required int oldIndex,
+    required int newIndex,
+  }) = _ReorderSteps;
+
+  // ステップのチェックの状態を切り替え
+  const factory TLToDoAction.toggleStepCheckStatus({
+    required TLWorkspace corrWorkspace,
+    required TLToDo corrToDo,
+    required TLStep corrStep,
+  }) = _ToggleStepCheckStatus;
 }

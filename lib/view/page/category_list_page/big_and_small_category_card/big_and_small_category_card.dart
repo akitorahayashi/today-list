@@ -4,6 +4,8 @@ import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/tl_app_state_action.dart';
+import 'package:today_list/redux/action/tl_todo_category_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'category_card/big_category_chip.dart';
@@ -69,34 +71,15 @@ class _SmallCategoryList extends ConsumerWidget {
           ),
       ],
       onReorder: (oldIndex, newIndex) {
-        _handleSmallCategoryReorder(
-            ref, corrWorkspace, coorBigCategory, oldIndex, newIndex);
+        ref.read(tlAppStateProvider.notifier).dispatch(
+              TLToDoCategoryAction.reorderSmallCategory(
+                corrWorkspace: corrWorkspace,
+                bigCategory: coorBigCategory,
+                oldIndex: oldIndex,
+                newIndex: newIndex,
+              ),
+            );
       },
-    );
-  }
-
-  void _handleSmallCategoryReorder(WidgetRef ref, TLWorkspace corrWorkspace,
-      TLToDoCategory coorBigCategory, int oldIndex, int newIndex) {
-    if (oldIndex == newIndex) return;
-
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-
-    final copiedSmallCategories = {
-      for (var entry in corrWorkspace.smallCategories.entries)
-        entry.key: List<TLToDoCategory>.from(entry.value),
-    };
-
-    // 並び替え処理
-    final TLToDoCategory reOrderedSmallCategory =
-        copiedSmallCategories[coorBigCategory.id]!.removeAt(oldIndex);
-    copiedSmallCategories[coorBigCategory.id]!
-        .insert(newIndex, reOrderedSmallCategory);
-
-    // 状態を更新
-    tlAppStateReducer.dispatchWorkspaceAction(
-      TLWorkspaceAction.updateCorrWorkspace(
-        corrWorkspace.copyWith(smallCategories: copiedSmallCategories),
-      ),
     );
   }
 }

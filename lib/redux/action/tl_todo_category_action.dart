@@ -11,7 +11,7 @@ sealed class TLToDoCategoryAction with _$TLToDoCategoryAction {
   /// 新規のカテゴリーを追加する
   const factory TLToDoCategoryAction.addCategory({
     required String workspaceID,
-    required TLToDoCategory category,
+    required TLToDoCategory newCategory,
   }) = _AddCategory;
 
   /// 既存のカテゴリーを更新する
@@ -23,6 +23,21 @@ sealed class TLToDoCategoryAction with _$TLToDoCategoryAction {
   /// 既存のカテゴリーを削除する
   const factory TLToDoCategoryAction.deleteCategory({
     required TLWorkspace corrWorkspace,
-    required TLToDoCategory newCategory,
+    required TLToDoCategory categoryToDelete,
   }) = _RemoveCategory;
+
+  /// Small Category の並び替え
+  const factory TLToDoCategoryAction.reorderSmallCategory({
+    required TLWorkspace corrWorkspace,
+    required TLToDoCategory bigCategory,
+    required int oldIndex,
+    required int newIndex,
+  }) = _ReorderSmallCategory;
+
+  /// Big Category の並び替え
+  const factory TLToDoCategoryAction.reorderBigCategory({
+    required TLWorkspace corrWorkspace,
+    required int oldIndex,
+    required int newIndex,
+  }) = _ReorderBigCategory;
 }

@@ -69,7 +69,7 @@ class SetAppearancePageState extends ConsumerState<SetAppearancePage> {
       // 広告
       if (_bannerAd != null)
         Padding(
-          padding: const EdgeInsets.only(top: 8.0),
+          padding: const EdgeInsets.only(top: 16.0),
           child: Align(
             alignment: Alignment.topCenter,
             child: SizedBox(

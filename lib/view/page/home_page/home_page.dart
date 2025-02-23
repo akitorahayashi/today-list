@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
+import 'package:today_list/view/page/home_page/tab_content/todo_list_in_workspace_in_today_and_whenever.dart';
+import 'package:today_list/view/page/home_page/tab_content/todo_list_of_all_workspaces_in_today.dart';
+import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/center_button_of_home_bottom_navbar.dart';
+import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/tl_home_bottom_navbar.dart';
+import 'package:today_list/view/page/category_list_page/category_list_page.dart';
+import 'package:today_list/view/page/edit_todo_page/edit_todo_page.dart';
+import 'package:today_list/view/page/setting_page/settings_page.dart';
+import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
+import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/tl_app_state_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/service/tl_vibration.dart';
-import 'package:today_list/util/tl_workspace_utils.dart';
-import 'package:today_list/view/component/common_ui_part/tl_bottom_navbar/center_button_of_bottom_navbar.dart';
-import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
-import 'package:today_list/view/component/common_ui_part/tl_bottom_navbar/tl_bottom_navbar.dart';
-import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
-import 'package:today_list/view/page/category_list_page/category_list_page.dart';
-import 'package:today_list/view/page/edit_todo_page/edit_todo_page.dart';
-import 'package:today_list/view/page/home_page/tab_content/todo_list_in_workspace_in_today_and_whenever.dart';
-import 'package:today_list/view/page/home_page/tab_content/todo_list_of_all_workspaces_in_today.dart';
-import 'package:today_list/view/page/setting_page/settings_page.dart';
 import 'workspace_drawer/workspace_drawer.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // MARK: - HomePage Widget
 class HomePage extends ConsumerStatefulWidget {
@@ -44,8 +43,9 @@ class _HomePageState extends ConsumerState<HomePage>
         ? null
         : tlAppState.tlWorkspaces.elementAtOrNull(index - 1)?.id;
 
-    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-        TLWorkspaceAction.changeCurrentWorkspaceID(newWorkspaceID));
+    ref
+        .read(tlAppStateProvider.notifier)
+        .dispatch(TLAppStateAction.changeCurrentWorkspaceID(newWorkspaceID));
   }
 
   @override
@@ -178,86 +178,90 @@ class _HomePageState extends ConsumerState<HomePage>
         ],
       ),
       // 以下の要素はcurrentWorkspaceが存在しない場合は表示しない
-      bottomNavigationBar: _BottomNavbar(
-        currentWorkspaceNullAble: currentWorkspaceNullAble,
-        homePageScaffoldKey: _homePageScaffoldKey,
-      ),
-      floatingActionButton: doesCurrentWorkspaceExist
-          ? CenterButtonOfBottomNavBar(
-              onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return EditToDoPage(
-                          corrWorkspace: currentWorkspaceNullAble,
-                          ifInToday: true,
-                          selectedBigCategoryID:
-                              currentWorkspaceNullAble.bigCategories[0].id,
-                          selectedSmallCategoryID: null,
-                          editedToDoTitle: null,
-                          indexOfEdittedTodo: null,
-                        );
-                      },
-                    ),
-                  ))
-          : null,
-      floatingActionButtonLocation: doesCurrentWorkspaceExist
-          ? FloatingActionButtonLocation.centerDocked
-          : null,
-    );
-  }
-}
+      bottomNavigationBar: TLHomeBottomNavBar(
+        doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
 
-// MARK: - Bottom Navbar Widget
-class _BottomNavbar extends ConsumerWidget {
-  final GlobalKey<ScaffoldState> homePageScaffoldKey;
-  final TLWorkspace? currentWorkspaceNullAble;
+        // MARK: - on Leading Button Pressed
+        leadingButtonOnPressed: () {
+          if (doesCurrentWorkspaceExist) {
+            TLYesNoDialog(
+              title: "Do you want to delete\nchecked ToDos?",
+              message: null,
+              yesAction: () async {
+                Navigator.pop(context);
+                // Delete checked ToDos (Today + Whenever) in the corresponding workspace
+                ref.read(tlAppStateProvider.notifier).dispatch(
+                    TLWorkspaceAction.deleteAllCheckedToDosInWorkspace(
+                        currentWorkspaceNullAble));
 
-  const _BottomNavbar({
-    required this.homePageScaffoldKey,
-    required this.currentWorkspaceNullAble,
-  });
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return TLBottomNavBar(
-      leadingIconData: FontAwesomeIcons.squareCheck,
-      leadingButtonOnPressed: () => TLYesNoDialog(
-        title: "チェック済みToDoを\n削除しますか?",
-        message: null,
-        yesAction: () async {
-          Navigator.pop(context);
-          if (currentWorkspaceNullAble != null) {
-            // 該当するワークスペースのチェック済みToDo(Today + Whenever)を削除
-            final TLWorkspace updatedWorkspace =
-                await TLWorkspaceUtils.deleteCheckedToDosInTodayInAWorkspace(
-              currentWorkspaceNullAble!,
-              onlyToday: false,
-            );
-            // ワークスペースの更新
-            ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-                TLWorkspaceAction.updateCorrWorkspace(updatedWorkspace));
+                if (context.mounted) {
+                  const TLSingleOptionDialog(title: "Deletion completed")
+                      .show(context: context);
+                }
+              },
+            ).show(context: context);
           } else {
-            // 全てのワークスペースのチェック済みToDo(Today)を削除
-            // ワークスペースの更新
-          }
-
-          if (context.mounted) {
-            const TLSingleOptionDialog(title: "削除が完了しました！")
+            // workspaceを追加するボタン
+            const AddOrEditWorkspaceDialog(oldWorkspaceId: null)
                 .show(context: context);
           }
-          TLVibrationService.vibrate();
         },
-      ).show(context: context),
-      trailingIconData: FontAwesomeIcons.list,
-      trailingButtonOnPressed: () {
-        if (currentWorkspaceNullAble != null) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return CategoryListPage(corrWorkspace: currentWorkspaceNullAble!);
-          }));
-        } else {
-          homePageScaffoldKey.currentState?.openDrawer();
-        }
-      },
+
+        // MARK: - on Trailing Button Pressed
+        trailingButtonOnPressed: () {
+          if (doesCurrentWorkspaceExist) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return CategoryListPage(corrWorkspace: currentWorkspaceNullAble);
+            }));
+          } else {
+            _homePageScaffoldKey.currentState?.openDrawer();
+          }
+        },
+      ),
+
+      // MARK: - on FAB Pressed
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: CenterButtonOfHomeBottomNavBar(
+          doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
+          onPressed: () {
+            if (doesCurrentWorkspaceExist) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return EditToDoPage(
+                      corrWorkspace: currentWorkspaceNullAble,
+                      ifInToday: true,
+                      selectedBigCategoryID:
+                          currentWorkspaceNullAble.bigCategories[0].id,
+                      selectedSmallCategoryID: null,
+                      editedToDoTitle: null,
+                      indexOfEdittedTodo: null,
+                    );
+                  },
+                ),
+              );
+            } else {
+              TLYesNoDialog(
+                title: "Do you want to delete\nchecked ToDos?",
+                message: null,
+                yesAction: () async {
+                  Navigator.pop(context);
+                  // Delete checked ToDos (Today) in the workspace List
+                  ref.read(tlAppStateProvider.notifier).dispatch(
+                        TLAppStateAction
+                            .deleteAllCheckedToDosInTodayInWorkspaceList(
+                                tlAppState.tlWorkspaces),
+                      );
+
+                  if (context.mounted) {
+                    const TLSingleOptionDialog(title: "Deletion completed")
+                        .show(context: context);
+                  }
+                },
+              ).show(context: context);
+            }
+          }),
     );
   }
 }

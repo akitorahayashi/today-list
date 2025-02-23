@@ -2,7 +2,6 @@ import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/util/tl_category_utils.dart';
 
 class TLWorkspaceUtils {
   static List<TLToDo> reorderWhenToggle({
@@ -25,45 +24,21 @@ class TLWorkspaceUtils {
     return [...uncheckedToDos, toDoCheckStateHasChanged, ...checkedToDos];
   }
 
-  static int getNumOfToDo(TLWorkspace workspace, {required bool ifInToday}) {
+  static int getNumOfToDoInWorkspace(TLWorkspace workspace,
+      {required bool ifInToday}) {
     int todoCount = 0;
     for (TLToDoCategory bigCategory in workspace.bigCategories) {
-      todoCount += TLCategoryUtils.getNumberOfToDosInThisCategory(
-        ifInToday: ifInToday,
-        corrToDos: workspace.categoryIDToToDos[bigCategory.id]!,
-      );
+      todoCount += bigCategory.getNumberOfToDosInThisCategory(
+          ifInToday: ifInToday,
+          corrToDos: workspace.categoryIDToToDos[bigCategory.id]!);
       for (TLToDoCategory smallCategory
           in workspace.smallCategories[bigCategory.id]!) {
-        todoCount += TLCategoryUtils.getNumberOfToDosInThisCategory(
-          ifInToday: ifInToday,
-          corrToDos: workspace.categoryIDToToDos[smallCategory.id]!,
-        );
+        todoCount += smallCategory.getNumberOfToDosInThisCategory(
+            ifInToday: ifInToday,
+            corrToDos: workspace.categoryIDToToDos[smallCategory.id]!);
       }
     }
     return todoCount;
-  }
-
-  static Future<TLWorkspace> deleteCheckedToDosInTodayInAWorkspace(
-    TLWorkspace corrWorkspace, {
-    required bool onlyToday,
-  }) async {
-    // `categoryIDToToDos` を再構築する
-    final updatedCategoryIDToToDos = corrWorkspace.categoryIDToToDos.map(
-      (categoryId, todos) {
-        return MapEntry(
-          categoryId,
-          deleteAllCheckedToDosInAToDos(
-            onlyToday: onlyToday,
-            selectedToDos: todos,
-          ),
-        );
-      },
-    );
-
-    // 新しいインスタンスを返す
-    return corrWorkspace.copyWith(
-      categoryIDToToDos: updatedCategoryIDToToDos,
-    );
   }
 
   static TLToDosInTodayAndWhenever deleteAllCheckedToDosInAToDos({

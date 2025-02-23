@@ -6,6 +6,7 @@ import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/tl_app_state_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
@@ -109,7 +110,7 @@ class _AddOrEditWorkspaceDialogState
           ),
           decoration: tlInputDecoration(
             context: context,
-            labelText: "新しい名前",
+            labelText: "New Workspace Name",
             icon: null,
             suffixIcon: null,
           ),
@@ -126,12 +127,12 @@ class _AddOrEditWorkspaceDialogState
         TextButton(
           style: alertButtonStyle(accentColor: theme.accentColor),
           onPressed: () => Navigator.pop(context),
-          child: const Text("閉じる"),
+          child: const Text("Close"),
         ),
         TextButton(
           style: alertButtonStyle(accentColor: theme.accentColor),
           onPressed: () async => _handleSave(context, workspaces),
-          child: Text(widget.oldWorkspaceId == null ? "追加" : "編集"),
+          child: Text(widget.oldWorkspaceId == null ? "Add" : "Edit"),
         ),
       ],
     );
@@ -173,11 +174,10 @@ class _AddOrEditWorkspaceDialogState
     final updatedWorkspaces = List<TLWorkspace>.from(workspaces);
     updatedWorkspaces[workspaceIndex] = editedWorkspace;
 
-    tlAppStateReducer.dispatchWorkspaceAction(
-      TLWorkspaceAction.updateWorkspaceList(updatedWorkspaces),
+    tlAppStateReducer.dispatch(
+      TLAppStateAction.saveWorkspaceList(updatedWorkspaces),
     );
-
-    const TLSingleOptionDialog(title: "変更することに\n成功しました！")
+    const TLSingleOptionDialog(title: "Successfully changed!")
         .show(context: context);
   }
 
@@ -186,7 +186,8 @@ class _AddOrEditWorkspaceDialogState
       id: UniqueKey().toString(),
       name: workspaceName,
       bigCategories: [
-        const TLToDoCategory(id: noneID, parentBigCategoryID: null, name: "なし")
+        const TLToDoCategory(
+            id: noneID, parentBigCategoryID: null, name: "None")
       ],
       smallCategories: {noneID: []},
       categoryIDToToDos: {
@@ -195,11 +196,11 @@ class _AddOrEditWorkspaceDialogState
       },
     );
 
-    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
+    ref.read(tlAppStateProvider.notifier).dispatch(
           TLWorkspaceAction.addWorkspace(createdWorkspace),
         );
-
-    TLSingleOptionDialog(title: workspaceName, message: "が追加されました!")
+    TLSingleOptionDialog(
+            title: workspaceName, message: "was successfully added!")
         .show(context: context);
   }
 }

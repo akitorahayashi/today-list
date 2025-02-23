@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/view/component/slidable/slidable_for_workspace_card.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/tl_workspace_action.dart';
+import 'package:today_list/redux/action/tl_app_state_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/view/component/slidable/slidable_for_workspace_card.dart';
 import 'dart:ui';
 
 class ChangeWorkspaceCard extends ConsumerWidget {
@@ -78,15 +78,15 @@ class ChangeWorkspaceCard extends ConsumerWidget {
       return;
     }
 
-    await ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-          TLWorkspaceAction.changeCurrentWorkspaceID(corrWorkspace.id),
-        );
+    ref
+        .read(tlAppStateProvider.notifier)
+        .dispatch(TLAppStateAction.changeCurrentWorkspaceID(corrWorkspace.id));
 
     if (ref.context.mounted) {
       Navigator.pop(ref.context);
       TLSingleOptionDialog(
         title: corrWorkspace.name,
-        message: "に変更しました！",
+        message: "switched!",
       ).show(context: ref.context);
     }
   }

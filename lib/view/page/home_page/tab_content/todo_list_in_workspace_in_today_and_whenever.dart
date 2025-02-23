@@ -12,10 +12,12 @@ class ToDoListInWorkspaceInTodayAndWhenever extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final numOfToDosInToday =
-        TLWorkspaceUtils.getNumOfToDo(corrWorkspace, ifInToday: true);
-    final numOfToDosInWhenever =
-        TLWorkspaceUtils.getNumOfToDo(corrWorkspace, ifInToday: false);
+    final numOfToDosInToday = TLWorkspaceUtils.getNumOfToDoInWorkspace(
+        corrWorkspace,
+        ifInToday: true);
+    final numOfToDosInWhenever = TLWorkspaceUtils.getNumOfToDoInWorkspace(
+        corrWorkspace,
+        ifInToday: false);
 
     return ListView(
       key: PageStorageKey(corrWorkspace.id), // スクロール位置を保持
