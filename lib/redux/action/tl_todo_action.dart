@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 
@@ -39,4 +40,11 @@ sealed class TLToDoAction with _$TLToDoAction {
     required int oldIndex,
     required int newIndex,
   }) = _ReorderSteps;
+
+  // ステップのチェックの状態を切り替え
+  const factory TLToDoAction.toggleStepCheckStatus({
+    required TLWorkspace corrWorkspace,
+    required TLToDo corrToDo,
+    required TLStep corrStep,
+  }) = _ToggleStepCheckStatus;
 }

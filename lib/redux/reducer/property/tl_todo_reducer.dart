@@ -27,6 +27,12 @@ class TLToDoReducer {
         a.corrWorkspace,
         a.corrToDo,
       ),
+      toggleStepCheckStatus: (a) => _toggleStepCheckStatus(
+        workspaces,
+        a.corrWorkspace,
+        a.corrToDo,
+        a.corrStep,
+      ),
       reorderSteps: (a) => _reorderSteps(
         workspaces,
         a.corrWorkspace,
@@ -85,6 +91,7 @@ class TLToDoReducer {
     );
   }
 
+  // MARK: - Toggle ToDo Check Status
   static List<TLWorkspace> _toggleToDoCheckStatus(
     List<TLWorkspace> workspaces,
     TLWorkspace corrWorkspace,
@@ -122,6 +129,37 @@ class TLToDoReducer {
     );
   }
 
+  // MARK: - Toggle Step Check Status
+  static List<TLWorkspace> _toggleStepCheckStatus(
+    List<TLWorkspace> workspaces,
+    TLWorkspace corrWorkspace,
+    TLToDo corrToDo,
+    TLStep corrStep,
+  ) {
+    final updatedSteps = corrToDo.steps
+        .map((step) => step.id == corrStep.id
+            ? step.copyWith(isChecked: !step.isChecked)
+            : step)
+        .toList();
+
+    // ToDoのチェック状態を更新（すべてのステップがチェック済みならToDoもチェック済みにする）
+    final updatedToDo = corrToDo.copyWith(
+      steps: updatedSteps,
+      isChecked: updatedSteps.every((step) => step.isChecked),
+    );
+
+    return _updateWorkspaceList(
+      workspaces: workspaces,
+      corrWorkspace: corrWorkspace,
+      categoryID: corrToDo.categoryID,
+      updateFn: (oldListOfToDo) => oldListOfToDo
+          .map((t) => t.id == updatedToDo.id ? updatedToDo : t)
+          .toList(),
+      isInToday: corrToDo.isInToday,
+    );
+  }
+
+  // MARK: - Reorder Steps
   static List<TLWorkspace> _reorderSteps(
     List<TLWorkspace> workspaces,
     TLWorkspace corrWorkspace,
