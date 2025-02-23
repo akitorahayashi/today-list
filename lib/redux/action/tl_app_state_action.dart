@@ -7,6 +7,10 @@ part 'generate/tl_app_state_action.freezed.dart';
 
 @freezed
 sealed class TLAppStateAction with _$TLAppStateAction {
+  // 現在のWorkspaceIDを変更する
+  const factory TLAppStateAction.changeCurrentWorkspaceID(String? newID) =
+      ChangeCurrentWorkspaceID;
+
   // 選択したWorkspaceを保存する
   const factory TLAppStateAction.saveCorrWorkspace(
       TLWorkspace updatedWorkspace) = UpdateCurrentWorkspace;
