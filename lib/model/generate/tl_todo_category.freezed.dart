@@ -126,11 +126,10 @@ class __$$TLToDoCategoryImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TLToDoCategoryImpl implements _TLToDoCategory {
+class _$TLToDoCategoryImpl extends _TLToDoCategory {
   const _$TLToDoCategoryImpl(
-      {required this.id,
-      required this.parentBigCategoryID,
-      required this.name});
+      {required this.id, required this.parentBigCategoryID, required this.name})
+      : super._();
 
   factory _$TLToDoCategoryImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLToDoCategoryImplFromJson(json);
@@ -179,11 +178,12 @@ class _$TLToDoCategoryImpl implements _TLToDoCategory {
   }
 }
 
-abstract class _TLToDoCategory implements TLToDoCategory {
+abstract class _TLToDoCategory extends TLToDoCategory {
   const factory _TLToDoCategory(
       {required final String id,
       required final String? parentBigCategoryID,
       required final String name}) = _$TLToDoCategoryImpl;
+  const _TLToDoCategory._() : super._();
 
   factory _TLToDoCategory.fromJson(Map<String, dynamic> json) =
       _$TLToDoCategoryImpl.fromJson;

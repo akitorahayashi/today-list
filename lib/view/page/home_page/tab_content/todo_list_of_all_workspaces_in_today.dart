@@ -27,7 +27,8 @@ class ToDoListOfAllWorkspacesInToday extends ConsumerWidget {
                     padding: const EdgeInsets.only(top: 16.0),
                     child: NumToDosCard(
                         title: workspace.name,
-                        numTodos: TLWorkspaceUtils.getNumOfToDo(workspace,
+                        numTodos: TLWorkspaceUtils.getNumOfToDoInWorkspace(
+                            workspace,
                             ifInToday: true)),
                   ),
                   Padding(
