@@ -6,23 +6,25 @@ import 'package:today_list/service/tl_vibration.dart';
 
 class TLThemeReducer {
   static TLThemeType handle(TLThemeType currentTheme, TLThemeAction action) {
-    return action.map(
-      changeTheme: (a) {
-        final newTheme = a.themeType;
-        _saveTheme(newTheme);
-        return newTheme;
-      },
+    final updatedThemeType = action.map(
+      changeTheme: (a) => _changeTheme(currentTheme, a.newThemeType),
     );
+    return updatedThemeType;
+  }
+
+  static TLThemeType _changeTheme(
+      TLThemeType currentTheme, TLThemeType newTheme) {
+    return newTheme;
   }
 
   // テーマをSharedPreferencesに保存する関数
-  static void _saveTheme(TLThemeType themeType) {
-    // TLConnectivityService.sendSelectedThemeToAppleWatch(
-    //     selectedThemeIndex: corrIndex);
-    TLMethodChannelService.updateSelectedTheme(selectedThemeType: themeType);
-    TLVibrationService.vibrate();
-    TLPrefService().getPref.then((pref) {
-      pref.setString('themeType', themeType.name);
-    });
-  }
+  // static Future<void> _saveTheme(TLThemeType themeType) async {
+  //   // TLConnectivityService.sendSelectedThemeToAppleWatch(
+  //   //     selectedThemeIndex: corrIndex);
+  //   TLMethodChannelService.updateSelectedTheme(selectedThemeType: themeType);
+  //   TLVibrationService.vibrate();
+  //   await TLPrefService().getPref.then((pref) {
+  //     pref.setString('themeType', themeType.name);
+  //   });
+  // }
 }

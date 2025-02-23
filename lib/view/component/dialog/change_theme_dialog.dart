@@ -95,7 +95,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
           onPressed: () {
             Navigator.pop(context); // Close current dialog
             tlAppStateNotifier.dispatchThemeAction(
-                TLThemeAction.changeTheme(themeType: corrThemeType));
+                TLThemeAction.changeTheme(newThemeType: corrThemeType));
 
             // Show completion alert
             const TLSingleOptionDialog(title: "変更が完了しました")

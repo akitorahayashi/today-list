@@ -25,7 +25,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     _loadSavedAppState();
   }
 
-  // --- Load Workspaces from Local Storage ---
+  // MARK: - Load AppState
   Future<void> _loadSavedAppState() async {
     final pref = await TLPrefService().getPref;
     final savedWorkspaceID = pref.getString('currentWorkspaceID');
@@ -52,58 +52,39 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     }
   }
 
-  // --- Dispatch Theme Actions ---
-  void dispatchThemeAction(TLThemeAction action) {
-    state = state.copyWith(
-      selectedThemeType: TLThemeReducer.handle(state.selectedThemeType, action),
+  // MARK: - Disp Theme A
+  void dispatchThemeAction(TLThemeAction action) async {
+    final newThemeType = await TLThemeReducer.handle(
+      state.selectedThemeType,
+      action,
     );
+    state = state.copyWith(selectedThemeType: newThemeType);
   }
 
-  // --- Dispatch Workspace Actions ---
+  // MARK: - Disp Workspace A
   Future<void> dispatchWorkspaceAction(TLWorkspaceAction action) async {
     List<TLWorkspace> updatedWorkspaces =
         await TLWorkspaceReducer.handle(state.tlWorkspaces, action);
 
-    state = action.map(
-      changeCurrentWorkspaceID: (a) => _changeCurrentWorkspaceID(a.newID),
-      addWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
-      deleteWorkspace: (a) => state.copyWith(tlWorkspaces: updatedWorkspaces),
-      updateCorrWorkspace: (a) =>
-          state.copyWith(tlWorkspaces: updatedWorkspaces),
-      updateWorkspaceList: (a) =>
-          state.copyWith(tlWorkspaces: updatedWorkspaces),
-    );
+    state = state.copyWith(tlWorkspaces: updatedWorkspaces);
   }
 
-  // MARK: - Dispatch ToDo Actions
+  // MARK: - Disp ToDo A
   Future<void> dispatchToDoAction(TLToDoAction action) async {
-    final updatedWorkspaces = action.map(
-      addToDo: (a) => TLToDoReducer.addToDo(
-        workspaces: state.tlWorkspaces,
-        corrWorkspace: a.corrWorkspace,
-        newToDo: a.newToDo,
-      ),
-      updateToDo: (a) => TLToDoReducer.updateToDo(
-        workspaces: state.tlWorkspaces,
-        corrWorkspace: a.corrWorkspace,
-        newToDo: a.newToDo,
-      ),
-      deleteToDo: (a) => TLToDoReducer.removeToDo(
-        workspaces: state.tlWorkspaces,
-        corrWorkspace: a.corrWorkspace,
-        corrToDo: a.corrToDo,
-      ),
-    );
+    List<TLWorkspace> updatedWorkspaces =
+        await TLToDoReducer.reduce(state.tlWorkspaces, action);
 
-    // MARK: - Update State and Save
+    state = state.copyWith(tlWorkspaces: updatedWorkspaces);
+
+    // Update Workspace List
     dispatchWorkspaceAction(
         TLWorkspaceAction.updateWorkspaceList(updatedWorkspaces));
   }
 
-  // --- Dispatch Category Actions ---
+  // MARK: - Disp Category A
   Future<void> dispatchToDoCategoryAction(TLToDoCategoryAction action) async {
     List<TLWorkspace> updatedWorkspaces =
-        await TLToDoCategoryReducer.handle(state.tlWorkspaces, action);
+        await TLToDoCategoryReducer.reduce(state.tlWorkspaces, action);
 
     state = state.copyWith(tlWorkspaces: updatedWorkspaces);
     // カテゴリーの変更を保存
@@ -112,7 +93,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     );
   }
 
-  // --- Change Current Workspace ID ---
+  // MARK: - Change Current Workspace ID
   TLAppState _changeCurrentWorkspaceID(String? newID) {
     if (state.currentWorkspaceID == newID) return state;
 
@@ -127,6 +108,7 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     final pref = await TLPrefService().getPref;
     if (id == null) {
       await pref.remove("currentWorkspaceID");
+      print("Removed currentWorkspaceID");
     } else {
       await pref.setString('currentWorkspaceID', id);
     }

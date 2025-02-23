@@ -16,20 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TLThemeAction {
-  TLThemeType get themeType => throw _privateConstructorUsedError;
+  TLThemeType get newThemeType => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TLThemeType themeType) changeTheme,
+    required TResult Function(TLThemeType newThemeType) changeTheme,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TLThemeType themeType)? changeTheme,
+    TResult? Function(TLThemeType newThemeType)? changeTheme,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TLThemeType themeType)? changeTheme,
+    TResult Function(TLThemeType newThemeType)? changeTheme,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +63,7 @@ abstract class $TLThemeActionCopyWith<$Res> {
           TLThemeAction value, $Res Function(TLThemeAction) then) =
       _$TLThemeActionCopyWithImpl<$Res, TLThemeAction>;
   @useResult
-  $Res call({TLThemeType themeType});
+  $Res call({TLThemeType newThemeType});
 }
 
 /// @nodoc
@@ -81,12 +81,12 @@ class _$TLThemeActionCopyWithImpl<$Res, $Val extends TLThemeAction>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? themeType = null,
+    Object? newThemeType = null,
   }) {
     return _then(_value.copyWith(
-      themeType: null == themeType
-          ? _value.themeType
-          : themeType // ignore: cast_nullable_to_non_nullable
+      newThemeType: null == newThemeType
+          ? _value.newThemeType
+          : newThemeType // ignore: cast_nullable_to_non_nullable
               as TLThemeType,
     ) as $Val);
   }
@@ -100,7 +100,7 @@ abstract class _$$ChangeThemeActionImplCopyWith<$Res>
       __$$ChangeThemeActionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({TLThemeType themeType});
+  $Res call({TLThemeType newThemeType});
 }
 
 /// @nodoc
@@ -116,12 +116,12 @@ class __$$ChangeThemeActionImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? themeType = null,
+    Object? newThemeType = null,
   }) {
     return _then(_$ChangeThemeActionImpl(
-      themeType: null == themeType
-          ? _value.themeType
-          : themeType // ignore: cast_nullable_to_non_nullable
+      newThemeType: null == newThemeType
+          ? _value.newThemeType
+          : newThemeType // ignore: cast_nullable_to_non_nullable
               as TLThemeType,
     ));
   }
@@ -130,14 +130,14 @@ class __$$ChangeThemeActionImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ChangeThemeActionImpl implements ChangeThemeAction {
-  const _$ChangeThemeActionImpl({required this.themeType});
+  const _$ChangeThemeActionImpl({required this.newThemeType});
 
   @override
-  final TLThemeType themeType;
+  final TLThemeType newThemeType;
 
   @override
   String toString() {
-    return 'TLThemeAction.changeTheme(themeType: $themeType)';
+    return 'TLThemeAction.changeTheme(newThemeType: $newThemeType)';
   }
 
   @override
@@ -145,12 +145,12 @@ class _$ChangeThemeActionImpl implements ChangeThemeAction {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ChangeThemeActionImpl &&
-            (identical(other.themeType, themeType) ||
-                other.themeType == themeType));
+            (identical(other.newThemeType, newThemeType) ||
+                other.newThemeType == newThemeType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, themeType);
+  int get hashCode => Object.hash(runtimeType, newThemeType);
 
   /// Create a copy of TLThemeAction
   /// with the given fields replaced by the non-null parameter values.
@@ -164,27 +164,27 @@ class _$ChangeThemeActionImpl implements ChangeThemeAction {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TLThemeType themeType) changeTheme,
+    required TResult Function(TLThemeType newThemeType) changeTheme,
   }) {
-    return changeTheme(themeType);
+    return changeTheme(newThemeType);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TLThemeType themeType)? changeTheme,
+    TResult? Function(TLThemeType newThemeType)? changeTheme,
   }) {
-    return changeTheme?.call(themeType);
+    return changeTheme?.call(newThemeType);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TLThemeType themeType)? changeTheme,
+    TResult Function(TLThemeType newThemeType)? changeTheme,
     required TResult orElse(),
   }) {
     if (changeTheme != null) {
-      return changeTheme(themeType);
+      return changeTheme(newThemeType);
     }
     return orElse();
   }
@@ -219,11 +219,11 @@ class _$ChangeThemeActionImpl implements ChangeThemeAction {
 }
 
 abstract class ChangeThemeAction implements TLThemeAction {
-  const factory ChangeThemeAction({required final TLThemeType themeType}) =
+  const factory ChangeThemeAction({required final TLThemeType newThemeType}) =
       _$ChangeThemeActionImpl;
 
   @override
-  TLThemeType get themeType;
+  TLThemeType get newThemeType;
 
   /// Create a copy of TLThemeAction
   /// with the given fields replaced by the non-null parameter values.

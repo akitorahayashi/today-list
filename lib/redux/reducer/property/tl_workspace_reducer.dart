@@ -5,18 +5,18 @@ import 'package:today_list/service/tl_pref.dart';
 import 'dart:convert';
 
 class TLWorkspaceReducer {
-  static Future<List<TLWorkspace>> handle(
-      List<TLWorkspace> workspaces, TLWorkspaceAction action) async {
+  static List<TLWorkspace> handle(
+      List<TLWorkspace> workspaces, TLWorkspaceAction action) {
     List<TLWorkspace> updatedWorkspaces = action.map(
       changeCurrentWorkspaceID: (a) => workspaces,
       addWorkspace: (a) => _addWorkspace(workspaces, a.newWorkspace),
-      deleteWorkspace: (a) => _removeWorkspace(workspaces, a.workspaceId),
+      deleteWorkspace: (a) => _removeWorkspace(workspaces, a.corrWorkspace.id),
+      deleteAllCheckedToDosInWorkspace: ,
       updateCorrWorkspace: (a) =>
           _updateCorrWorkspace(workspaces, a.updatedWorkspace),
       updateWorkspaceList: (a) => a.updatedWorkspaceList,
     );
 
-    await _saveWorkspaces(updatedWorkspaces);
     return updatedWorkspaces;
   }
 
@@ -33,6 +33,8 @@ class TLWorkspaceReducer {
     return updatedWorkspaces;
   }
 
+  // --- Save Workspace to Local Storage ---
+
   static List<TLWorkspace> _updateCorrWorkspace(
       List<TLWorkspace> workspaces, TLWorkspace updatedWorkspace) {
     return workspaces.map((workspace) {
@@ -40,7 +42,6 @@ class TLWorkspaceReducer {
     }).toList();
   }
 
-  // --- Save Workspaces to Local Storage ---
   static Future<void> _saveWorkspaces(List<TLWorkspace> workspaces) async {
     final pref = await TLPrefService().getPref;
     final encodedWorkspaces =

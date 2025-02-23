@@ -14,13 +14,13 @@ sealed class TLToDoAction with _$TLToDoAction {
     required TLToDo newToDo,
   }) = _AddToDo;
 
-  // 既存のToDoを更新する
+  // 指定したToDoを更新する
   const factory TLToDoAction.updateToDo({
     required TLWorkspace corrWorkspace,
     required TLToDo newToDo,
   }) = _UpdateToDo;
 
-  // 既存のToDoを削除する
+  // 該当するToDoを削除する
   const factory TLToDoAction.deleteToDo({
     required TLWorkspace corrWorkspace,
     required TLToDo corrToDo,

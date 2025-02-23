@@ -1,7 +1,30 @@
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/tl_todo_action.dart';
 
 class TLToDoReducer {
+  static List<TLWorkspace> reduce(
+      List<TLWorkspace> workspaces, TLToDoAction action) {
+    final updatedWorkspaces = action.map(
+      addToDo: (a) => TLToDoReducer.addToDo(
+        workspaces: workspaces,
+        corrWorkspace: a.corrWorkspace,
+        newToDo: a.newToDo,
+      ),
+      updateToDo: (a) => TLToDoReducer.updateToDo(
+        workspaces: workspaces,
+        corrWorkspace: a.corrWorkspace,
+        newToDo: a.newToDo,
+      ),
+      deleteToDo: (a) => TLToDoReducer.removeToDo(
+        workspaces: workspaces,
+        corrWorkspace: a.corrWorkspace,
+        corrToDo: a.corrToDo,
+      ),
+    );
+    return updatedWorkspaces;
+  }
+
   // MARK: - Add ToDo
   static List<TLWorkspace> addToDo({
     required List<TLWorkspace> workspaces,

@@ -7,18 +7,15 @@ part 'generate/tl_workspace_action.freezed.dart';
 
 @freezed
 sealed class TLWorkspaceAction with _$TLWorkspaceAction {
-  const factory TLWorkspaceAction.changeCurrentWorkspaceID(String? newID) =
-      ChangeCurrentWorkspaceID;
-
+  // WorkspaceをtlWorkspacesに追加する
   const factory TLWorkspaceAction.addWorkspace(TLWorkspace newWorkspace) =
       AddWorkspace;
 
-  const factory TLWorkspaceAction.deleteWorkspace(String workspaceId) =
+  // WorkspaceをtlWorkspacesから削除する
+  const factory TLWorkspaceAction.deleteWorkspace(TLWorkspace corrWorkspace) =
       RemoveWorkspace;
 
-  const factory TLWorkspaceAction.updateCorrWorkspace(
-      TLWorkspace updatedWorkspace) = UpdateCurrentWorkspace;
-
-  const factory TLWorkspaceAction.updateWorkspaceList(
-      List<TLWorkspace> updatedWorkspaceList) = UpdateWorkspaceList;
+  // Workspace内の全てのチェック済みToDoを削除する
+  const factory TLWorkspaceAction.deleteAllCheckedToDosInWorkspace(
+      String workspaceID) = DeleteAllCheckedToDosInWorkspace;
 }
