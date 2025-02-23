@@ -23,8 +23,9 @@ mixin _$TLToDo {
   String get id => throw _privateConstructorUsedError;
   String get workspaceID => throw _privateConstructorUsedError;
   String get categoryID => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
+  bool get isInToday => throw _privateConstructorUsedError;
   bool get isChecked => throw _privateConstructorUsedError;
+  String get content => throw _privateConstructorUsedError;
   List<TLStep> get steps => throw _privateConstructorUsedError;
 
   /// Serializes this TLToDo to a JSON map.
@@ -45,8 +46,9 @@ abstract class $TLToDoCopyWith<$Res> {
       {String id,
       String workspaceID,
       String categoryID,
-      String content,
+      bool isInToday,
       bool isChecked,
+      String content,
       List<TLStep> steps});
 }
 
@@ -68,8 +70,9 @@ class _$TLToDoCopyWithImpl<$Res, $Val extends TLToDo>
     Object? id = null,
     Object? workspaceID = null,
     Object? categoryID = null,
-    Object? content = null,
+    Object? isInToday = null,
     Object? isChecked = null,
+    Object? content = null,
     Object? steps = null,
   }) {
     return _then(_value.copyWith(
@@ -85,14 +88,18 @@ class _$TLToDoCopyWithImpl<$Res, $Val extends TLToDo>
           ? _value.categoryID
           : categoryID // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
+      isInToday: null == isInToday
+          ? _value.isInToday
+          : isInToday // ignore: cast_nullable_to_non_nullable
+              as bool,
       isChecked: null == isChecked
           ? _value.isChecked
           : isChecked // ignore: cast_nullable_to_non_nullable
               as bool,
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String,
       steps: null == steps
           ? _value.steps
           : steps // ignore: cast_nullable_to_non_nullable
@@ -112,8 +119,9 @@ abstract class _$$TLToDoImplCopyWith<$Res> implements $TLToDoCopyWith<$Res> {
       {String id,
       String workspaceID,
       String categoryID,
-      String content,
+      bool isInToday,
       bool isChecked,
+      String content,
       List<TLStep> steps});
 }
 
@@ -133,8 +141,9 @@ class __$$TLToDoImplCopyWithImpl<$Res>
     Object? id = null,
     Object? workspaceID = null,
     Object? categoryID = null,
-    Object? content = null,
+    Object? isInToday = null,
     Object? isChecked = null,
+    Object? content = null,
     Object? steps = null,
   }) {
     return _then(_$TLToDoImpl(
@@ -150,14 +159,18 @@ class __$$TLToDoImplCopyWithImpl<$Res>
           ? _value.categoryID
           : categoryID // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
+      isInToday: null == isInToday
+          ? _value.isInToday
+          : isInToday // ignore: cast_nullable_to_non_nullable
+              as bool,
       isChecked: null == isChecked
           ? _value.isChecked
           : isChecked // ignore: cast_nullable_to_non_nullable
               as bool,
+      content: null == content
+          ? _value.content
+          : content // ignore: cast_nullable_to_non_nullable
+              as String,
       steps: null == steps
           ? _value._steps
           : steps // ignore: cast_nullable_to_non_nullable
@@ -173,8 +186,9 @@ class _$TLToDoImpl implements _TLToDo {
       {required this.id,
       required this.workspaceID,
       required this.categoryID,
-      required this.content,
+      required this.isInToday,
       this.isChecked = false,
+      required this.content,
       final List<TLStep> steps = const []})
       : _steps = steps;
 
@@ -188,10 +202,12 @@ class _$TLToDoImpl implements _TLToDo {
   @override
   final String categoryID;
   @override
-  final String content;
+  final bool isInToday;
   @override
   @JsonKey()
   final bool isChecked;
+  @override
+  final String content;
   final List<TLStep> _steps;
   @override
   @JsonKey()
@@ -203,7 +219,7 @@ class _$TLToDoImpl implements _TLToDo {
 
   @override
   String toString() {
-    return 'TLToDo(id: $id, workspaceID: $workspaceID, categoryID: $categoryID, content: $content, isChecked: $isChecked, steps: $steps)';
+    return 'TLToDo(id: $id, workspaceID: $workspaceID, categoryID: $categoryID, isInToday: $isInToday, isChecked: $isChecked, content: $content, steps: $steps)';
   }
 
   @override
@@ -216,16 +232,25 @@ class _$TLToDoImpl implements _TLToDo {
                 other.workspaceID == workspaceID) &&
             (identical(other.categoryID, categoryID) ||
                 other.categoryID == categoryID) &&
-            (identical(other.content, content) || other.content == content) &&
+            (identical(other.isInToday, isInToday) ||
+                other.isInToday == isInToday) &&
             (identical(other.isChecked, isChecked) ||
                 other.isChecked == isChecked) &&
+            (identical(other.content, content) || other.content == content) &&
             const DeepCollectionEquality().equals(other._steps, _steps));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, workspaceID, categoryID,
-      content, isChecked, const DeepCollectionEquality().hash(_steps));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      workspaceID,
+      categoryID,
+      isInToday,
+      isChecked,
+      content,
+      const DeepCollectionEquality().hash(_steps));
 
   /// Create a copy of TLToDo
   /// with the given fields replaced by the non-null parameter values.
@@ -248,8 +273,9 @@ abstract class _TLToDo implements TLToDo {
       {required final String id,
       required final String workspaceID,
       required final String categoryID,
-      required final String content,
+      required final bool isInToday,
       final bool isChecked,
+      required final String content,
       final List<TLStep> steps}) = _$TLToDoImpl;
 
   factory _TLToDo.fromJson(Map<String, dynamic> json) = _$TLToDoImpl.fromJson;
@@ -261,9 +287,11 @@ abstract class _TLToDo implements TLToDo {
   @override
   String get categoryID;
   @override
-  String get content;
+  bool get isInToday;
   @override
   bool get isChecked;
+  @override
+  String get content;
   @override
   List<TLStep> get steps;
 

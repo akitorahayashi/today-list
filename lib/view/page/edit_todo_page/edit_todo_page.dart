@@ -103,6 +103,7 @@ class EditToDoPage extends HookConsumerWidget {
         id: TLUUIDGenerator.generate(),
         workspaceID: corrWorkspace.id,
         categoryID: categoryID,
+        isInToday: isToday.value,
         content: toDoTitleController.text,
         steps: steps.value,
       );

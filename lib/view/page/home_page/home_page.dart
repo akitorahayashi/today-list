@@ -191,7 +191,7 @@ class _HomePageState extends ConsumerState<HomePage>
                 // 該当するワークスペースのチェック済みToDo(Today + Whenever)を削除
                 final TLWorkspace updatedWorkspace = await TLWorkspaceUtils
                     .deleteCheckedToDosInTodayInAWorkspace(
-                  currentWorkspaceNullAble!,
+                  currentWorkspaceNullAble,
                   onlyToday: false,
                 );
                 // ワークスペースの更新
@@ -210,9 +210,9 @@ class _HomePageState extends ConsumerState<HomePage>
 
         // MARK: - on Trailing Button Pressed
         trailingButtonOnPressed: () {
-          if (currentWorkspaceNullAble != null) {
+          if (doesCurrentWorkspaceExist) {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return CategoryListPage(corrWorkspace: currentWorkspaceNullAble!);
+              return CategoryListPage(corrWorkspace: currentWorkspaceNullAble);
             }));
           } else {
             _homePageScaffoldKey.currentState?.openDrawer();
