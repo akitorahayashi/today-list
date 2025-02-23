@@ -47,7 +47,7 @@ class SlidableForToDoCard extends ConsumerWidget {
             foregroundColor: foregroundColor,
             onPressed: (context) => ref
                 .read(tlAppStateProvider.notifier)
-                .dispatchToDoAction(TLToDoAction.deleteToDo(
+                .dispatch(TLToDoAction.deleteToDo(
                   corrWorkspace: corrWorkspace,
                   corrToDo: corrToDo,
                 )),
@@ -68,64 +68,17 @@ class SlidableForToDoCard extends ConsumerWidget {
             spacing: 8,
             backgroundColor: backgroundColor,
             foregroundColor: foregroundColor,
-            onPressed: (context) =>
-                _toggleToDoTodayWhenever(ref, context, corrWorkspace, corrToDo),
+            onPressed: (context) => ref
+                .read(tlAppStateProvider.notifier)
+                .dispatch(TLToDoAction.toggleToDoTodayWhenever(
+                  corrWorkspace: corrWorkspace,
+                  corrToDo: corrToDo,
+                )),
             icon: corrToDo.isInToday ? Icons.schedule : Icons.light_mode,
           ),
         ],
       ),
       child: child,
-    );
-  }
-
-  // MARK: - Toggle ToDo Between Today and Whenever
-  void _toggleToDoTodayWhenever(
-    WidgetRef ref,
-    BuildContext context,
-    TLWorkspace corrWorkspace,
-    TLToDo corrToDo,
-  ) {
-    final TLToDosInTodayAndWhenever toDosInCategory =
-        corrWorkspace.categoryIDToToDos[corrToDo.categoryID]!;
-
-    // 現在のリストと移動先のリストを取得
-    final currentList = toDosInCategory.getToDos(corrToDo.isInToday);
-    final anotherList = toDosInCategory.getToDos(!corrToDo.isInToday);
-
-    // 現在のリストから対象の ToDo を除外
-    final updatedCurrentList =
-        currentList.where((todo) => todo != corrToDo).toList();
-
-    // 移動先のリストに対象の ToDo を先頭に追加
-    final updatedOtherList = [corrToDo, ...anotherList];
-
-    // ToDos のデータを更新
-    final updatedToDosInCategory = toDosInCategory.copyWith(
-      toDosInToday: corrToDo.isInToday ? updatedCurrentList : updatedOtherList,
-      toDosInWhenever:
-          corrToDo.isInToday ? updatedOtherList : updatedCurrentList,
-    );
-
-    // Workspace のデータを更新
-    final updatedCategoryIDToToDos = {
-      ...corrWorkspace.categoryIDToToDos,
-      corrToDo.categoryID: updatedToDosInCategory,
-    };
-
-    // Workspace の状態を更新
-    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-          TLWorkspaceAction.updateCorrWorkspace(
-            corrWorkspace.copyWith(categoryIDToToDos: updatedCategoryIDToToDos),
-          ),
-        );
-
-    // バイブレーション & スナックバー表示
-    TLVibrationService.vibrate();
-    NotifyTodoOrStepIsEditedSnackBar.show(
-      context: context,
-      newTitle: corrToDo.content,
-      newCheckedState: corrToDo.isChecked,
-      quickChangeToToday: !corrToDo.isInToday,
     );
   }
 }

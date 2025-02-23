@@ -27,6 +27,8 @@ class TLToDoReducer {
         a.corrWorkspace,
         a.corrToDo,
       ),
+      toggleToDoTodayWhenever: (a) =>
+          _toggleToDoTodayWhenever(workspaces, a.corrWorkspace, a.corrToDo),
       toggleStepCheckStatus: (a) => _toggleStepCheckStatus(
         workspaces,
         a.corrWorkspace,
@@ -127,6 +129,43 @@ class TLToDoReducer {
       updateFn: (oldList) => [...uncheckedToDos, copiedToDo, ...checkedToDos],
       isInToday: corrToDo.isInToday,
     );
+  }
+
+  // MARK: - Toggle ToDo Today <-> Whenever
+  static List<TLWorkspace> _toggleToDoTodayWhenever(
+    List<TLWorkspace> workspaces,
+    TLWorkspace corrWorkspace,
+    TLToDo corrToDo,
+  ) {
+    final toDosInCategory =
+        corrWorkspace.categoryIDToToDos[corrToDo.categoryID]!;
+
+    // 現在のリストと移動先のリストを取得
+    final currentList = toDosInCategory.getToDos(corrToDo.isInToday);
+    final anotherList = toDosInCategory.getToDos(!corrToDo.isInToday);
+
+    // 現在のリストから対象の ToDo を除外
+    final updatedCurrentList =
+        currentList.where((todo) => todo.id != corrToDo.id).toList();
+
+    // 移動先のリストに対象の ToDo を先頭に追加
+    final updatedOtherList = [corrToDo, ...anotherList];
+
+    // ToDos のデータを更新
+    final updatedToDosInCategory = toDosInCategory.copyWith(
+      toDosInToday: corrToDo.isInToday ? updatedCurrentList : updatedOtherList,
+      toDosInWhenever:
+          corrToDo.isInToday ? updatedOtherList : updatedCurrentList,
+    );
+
+    return workspaces.map((ws) {
+      return ws.id == corrWorkspace.id
+          ? ws.copyWith(categoryIDToToDos: {
+              ...corrWorkspace.categoryIDToToDos,
+              corrToDo.categoryID: updatedToDosInCategory,
+            })
+          : ws;
+    }).toList();
   }
 
   // MARK: - Toggle Step Check Status

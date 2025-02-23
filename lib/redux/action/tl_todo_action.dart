@@ -33,6 +33,12 @@ sealed class TLToDoAction with _$TLToDoAction {
     required TLToDo corrToDo,
   }) = _ToggleToDoCheckStatus;
 
+  // ToDo を Today <-> Whenever に移動
+  const factory TLToDoAction.toggleToDoTodayWhenever({
+    required TLWorkspace corrWorkspace,
+    required TLToDo corrToDo,
+  }) = _ToggleToDoTodayWhenever;
+
   // ステップの並び替え
   const factory TLToDoAction.reorderSteps({
     required TLWorkspace corrWorkspace,

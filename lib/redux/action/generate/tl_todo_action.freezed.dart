@@ -27,6 +27,8 @@ mixin _$TLToDoAction {
         deleteToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoTodayWhenever,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
             int oldIndex, int newIndex)
         reorderSteps,
@@ -42,6 +44,8 @@ mixin _$TLToDoAction {
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -57,6 +61,8 @@ mixin _$TLToDoAction {
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -73,6 +79,8 @@ mixin _$TLToDoAction {
     required TResult Function(_RemoveToDo value) deleteToDo,
     required TResult Function(_ToggleToDoCheckStatus value)
         toggleToDoCheckStatus,
+    required TResult Function(_ToggleToDoTodayWhenever value)
+        toggleToDoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
     required TResult Function(_ToggleStepCheckStatus value)
         toggleStepCheckStatus,
@@ -84,6 +92,7 @@ mixin _$TLToDoAction {
     TResult? Function(_UpdateToDo value)? updateToDo,
     TResult? Function(_RemoveToDo value)? deleteToDo,
     TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult? Function(_ReorderSteps value)? reorderSteps,
     TResult? Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
   }) =>
@@ -94,6 +103,7 @@ mixin _$TLToDoAction {
     TResult Function(_UpdateToDo value)? updateToDo,
     TResult Function(_RemoveToDo value)? deleteToDo,
     TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult Function(_ReorderSteps value)? reorderSteps,
     TResult Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
     required TResult orElse(),
@@ -255,6 +265,8 @@ class _$AddToDoImpl implements _AddToDo {
         deleteToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoTodayWhenever,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
             int oldIndex, int newIndex)
         reorderSteps,
@@ -273,6 +285,8 @@ class _$AddToDoImpl implements _AddToDo {
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -291,6 +305,8 @@ class _$AddToDoImpl implements _AddToDo {
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -313,6 +329,8 @@ class _$AddToDoImpl implements _AddToDo {
     required TResult Function(_RemoveToDo value) deleteToDo,
     required TResult Function(_ToggleToDoCheckStatus value)
         toggleToDoCheckStatus,
+    required TResult Function(_ToggleToDoTodayWhenever value)
+        toggleToDoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
     required TResult Function(_ToggleStepCheckStatus value)
         toggleStepCheckStatus,
@@ -327,6 +345,7 @@ class _$AddToDoImpl implements _AddToDo {
     TResult? Function(_UpdateToDo value)? updateToDo,
     TResult? Function(_RemoveToDo value)? deleteToDo,
     TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult? Function(_ReorderSteps value)? reorderSteps,
     TResult? Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
   }) {
@@ -340,6 +359,7 @@ class _$AddToDoImpl implements _AddToDo {
     TResult Function(_UpdateToDo value)? updateToDo,
     TResult Function(_RemoveToDo value)? deleteToDo,
     TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult Function(_ReorderSteps value)? reorderSteps,
     TResult Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
     required TResult orElse(),
@@ -469,6 +489,8 @@ class _$UpdateToDoImpl implements _UpdateToDo {
         deleteToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoTodayWhenever,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
             int oldIndex, int newIndex)
         reorderSteps,
@@ -487,6 +509,8 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -505,6 +529,8 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -527,6 +553,8 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     required TResult Function(_RemoveToDo value) deleteToDo,
     required TResult Function(_ToggleToDoCheckStatus value)
         toggleToDoCheckStatus,
+    required TResult Function(_ToggleToDoTodayWhenever value)
+        toggleToDoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
     required TResult Function(_ToggleStepCheckStatus value)
         toggleStepCheckStatus,
@@ -541,6 +569,7 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     TResult? Function(_UpdateToDo value)? updateToDo,
     TResult? Function(_RemoveToDo value)? deleteToDo,
     TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult? Function(_ReorderSteps value)? reorderSteps,
     TResult? Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
   }) {
@@ -554,6 +583,7 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     TResult Function(_UpdateToDo value)? updateToDo,
     TResult Function(_RemoveToDo value)? deleteToDo,
     TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult Function(_ReorderSteps value)? reorderSteps,
     TResult Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
     required TResult orElse(),
@@ -684,6 +714,8 @@ class _$RemoveToDoImpl implements _RemoveToDo {
         deleteToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoTodayWhenever,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
             int oldIndex, int newIndex)
         reorderSteps,
@@ -702,6 +734,8 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -720,6 +754,8 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -742,6 +778,8 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     required TResult Function(_RemoveToDo value) deleteToDo,
     required TResult Function(_ToggleToDoCheckStatus value)
         toggleToDoCheckStatus,
+    required TResult Function(_ToggleToDoTodayWhenever value)
+        toggleToDoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
     required TResult Function(_ToggleStepCheckStatus value)
         toggleStepCheckStatus,
@@ -756,6 +794,7 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     TResult? Function(_UpdateToDo value)? updateToDo,
     TResult? Function(_RemoveToDo value)? deleteToDo,
     TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult? Function(_ReorderSteps value)? reorderSteps,
     TResult? Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
   }) {
@@ -769,6 +808,7 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     TResult Function(_UpdateToDo value)? updateToDo,
     TResult Function(_RemoveToDo value)? deleteToDo,
     TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult Function(_ReorderSteps value)? reorderSteps,
     TResult Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
     required TResult orElse(),
@@ -902,6 +942,8 @@ class _$ToggleToDoCheckStatusImpl implements _ToggleToDoCheckStatus {
         deleteToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoTodayWhenever,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
             int oldIndex, int newIndex)
         reorderSteps,
@@ -920,6 +962,8 @@ class _$ToggleToDoCheckStatusImpl implements _ToggleToDoCheckStatus {
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -938,6 +982,8 @@ class _$ToggleToDoCheckStatusImpl implements _ToggleToDoCheckStatus {
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -960,6 +1006,8 @@ class _$ToggleToDoCheckStatusImpl implements _ToggleToDoCheckStatus {
     required TResult Function(_RemoveToDo value) deleteToDo,
     required TResult Function(_ToggleToDoCheckStatus value)
         toggleToDoCheckStatus,
+    required TResult Function(_ToggleToDoTodayWhenever value)
+        toggleToDoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
     required TResult Function(_ToggleStepCheckStatus value)
         toggleStepCheckStatus,
@@ -974,6 +1022,7 @@ class _$ToggleToDoCheckStatusImpl implements _ToggleToDoCheckStatus {
     TResult? Function(_UpdateToDo value)? updateToDo,
     TResult? Function(_RemoveToDo value)? deleteToDo,
     TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult? Function(_ReorderSteps value)? reorderSteps,
     TResult? Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
   }) {
@@ -987,6 +1036,7 @@ class _$ToggleToDoCheckStatusImpl implements _ToggleToDoCheckStatus {
     TResult Function(_UpdateToDo value)? updateToDo,
     TResult Function(_RemoveToDo value)? deleteToDo,
     TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult Function(_ReorderSteps value)? reorderSteps,
     TResult Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
     required TResult orElse(),
@@ -1012,6 +1062,235 @@ abstract class _ToggleToDoCheckStatus implements TLToDoAction {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ToggleToDoCheckStatusImplCopyWith<_$ToggleToDoCheckStatusImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ToggleToDoTodayWheneverImplCopyWith<$Res>
+    implements $TLToDoActionCopyWith<$Res> {
+  factory _$$ToggleToDoTodayWheneverImplCopyWith(
+          _$ToggleToDoTodayWheneverImpl value,
+          $Res Function(_$ToggleToDoTodayWheneverImpl) then) =
+      __$$ToggleToDoTodayWheneverImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({TLWorkspace corrWorkspace, TLToDo corrToDo});
+
+  @override
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
+  $TLToDoCopyWith<$Res> get corrToDo;
+}
+
+/// @nodoc
+class __$$ToggleToDoTodayWheneverImplCopyWithImpl<$Res>
+    extends _$TLToDoActionCopyWithImpl<$Res, _$ToggleToDoTodayWheneverImpl>
+    implements _$$ToggleToDoTodayWheneverImplCopyWith<$Res> {
+  __$$ToggleToDoTodayWheneverImplCopyWithImpl(
+      _$ToggleToDoTodayWheneverImpl _value,
+      $Res Function(_$ToggleToDoTodayWheneverImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? corrWorkspace = null,
+    Object? corrToDo = null,
+  }) {
+    return _then(_$ToggleToDoTodayWheneverImpl(
+      corrWorkspace: null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
+      corrToDo: null == corrToDo
+          ? _value.corrToDo
+          : corrToDo // ignore: cast_nullable_to_non_nullable
+              as TLToDo,
+    ));
+  }
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLToDoCopyWith<$Res> get corrToDo {
+    return $TLToDoCopyWith<$Res>(_value.corrToDo, (value) {
+      return _then(_value.copyWith(corrToDo: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ToggleToDoTodayWheneverImpl implements _ToggleToDoTodayWhenever {
+  const _$ToggleToDoTodayWheneverImpl(
+      {required this.corrWorkspace, required this.corrToDo});
+
+  @override
+  final TLWorkspace corrWorkspace;
+  @override
+  final TLToDo corrToDo;
+
+  @override
+  String toString() {
+    return 'TLToDoAction.toggleToDoTodayWhenever(corrWorkspace: $corrWorkspace, corrToDo: $corrToDo)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ToggleToDoTodayWheneverImpl &&
+            (identical(other.corrWorkspace, corrWorkspace) ||
+                other.corrWorkspace == corrWorkspace) &&
+            (identical(other.corrToDo, corrToDo) ||
+                other.corrToDo == corrToDo));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, corrWorkspace, corrToDo);
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ToggleToDoTodayWheneverImplCopyWith<_$ToggleToDoTodayWheneverImpl>
+      get copyWith => __$$ToggleToDoTodayWheneverImplCopyWithImpl<
+          _$ToggleToDoTodayWheneverImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        addToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        updateToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        deleteToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoTodayWhenever,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
+            int oldIndex, int newIndex)
+        reorderSteps,
+    required TResult Function(
+            TLWorkspace corrWorkspace, TLToDo corrToDo, TLStep corrStep)
+        toggleStepCheckStatus,
+  }) {
+    return toggleToDoTodayWhenever(corrWorkspace, corrToDo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
+    TResult? Function(
+            TLWorkspace corrWorkspace, TLToDo corrToDo, TLStep corrStep)?
+        toggleStepCheckStatus,
+  }) {
+    return toggleToDoTodayWhenever?.call(corrWorkspace, corrToDo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
+    TResult Function(
+            TLWorkspace corrWorkspace, TLToDo corrToDo, TLStep corrStep)?
+        toggleStepCheckStatus,
+    required TResult orElse(),
+  }) {
+    if (toggleToDoTodayWhenever != null) {
+      return toggleToDoTodayWhenever(corrWorkspace, corrToDo);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddToDo value) addToDo,
+    required TResult Function(_UpdateToDo value) updateToDo,
+    required TResult Function(_RemoveToDo value) deleteToDo,
+    required TResult Function(_ToggleToDoCheckStatus value)
+        toggleToDoCheckStatus,
+    required TResult Function(_ToggleToDoTodayWhenever value)
+        toggleToDoTodayWhenever,
+    required TResult Function(_ReorderSteps value) reorderSteps,
+    required TResult Function(_ToggleStepCheckStatus value)
+        toggleStepCheckStatus,
+  }) {
+    return toggleToDoTodayWhenever(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddToDo value)? addToDo,
+    TResult? Function(_UpdateToDo value)? updateToDo,
+    TResult? Function(_RemoveToDo value)? deleteToDo,
+    TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
+    TResult? Function(_ReorderSteps value)? reorderSteps,
+    TResult? Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
+  }) {
+    return toggleToDoTodayWhenever?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddToDo value)? addToDo,
+    TResult Function(_UpdateToDo value)? updateToDo,
+    TResult Function(_RemoveToDo value)? deleteToDo,
+    TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
+    TResult Function(_ReorderSteps value)? reorderSteps,
+    TResult Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
+    required TResult orElse(),
+  }) {
+    if (toggleToDoTodayWhenever != null) {
+      return toggleToDoTodayWhenever(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ToggleToDoTodayWhenever implements TLToDoAction {
+  const factory _ToggleToDoTodayWhenever(
+      {required final TLWorkspace corrWorkspace,
+      required final TLToDo corrToDo}) = _$ToggleToDoTodayWheneverImpl;
+
+  @override
+  TLWorkspace get corrWorkspace;
+  TLToDo get corrToDo;
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ToggleToDoTodayWheneverImplCopyWith<_$ToggleToDoTodayWheneverImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1141,6 +1420,8 @@ class _$ReorderStepsImpl implements _ReorderSteps {
         deleteToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoTodayWhenever,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
             int oldIndex, int newIndex)
         reorderSteps,
@@ -1159,6 +1440,8 @@ class _$ReorderStepsImpl implements _ReorderSteps {
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -1177,6 +1460,8 @@ class _$ReorderStepsImpl implements _ReorderSteps {
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -1199,6 +1484,8 @@ class _$ReorderStepsImpl implements _ReorderSteps {
     required TResult Function(_RemoveToDo value) deleteToDo,
     required TResult Function(_ToggleToDoCheckStatus value)
         toggleToDoCheckStatus,
+    required TResult Function(_ToggleToDoTodayWhenever value)
+        toggleToDoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
     required TResult Function(_ToggleStepCheckStatus value)
         toggleStepCheckStatus,
@@ -1213,6 +1500,7 @@ class _$ReorderStepsImpl implements _ReorderSteps {
     TResult? Function(_UpdateToDo value)? updateToDo,
     TResult? Function(_RemoveToDo value)? deleteToDo,
     TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult? Function(_ReorderSteps value)? reorderSteps,
     TResult? Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
   }) {
@@ -1226,6 +1514,7 @@ class _$ReorderStepsImpl implements _ReorderSteps {
     TResult Function(_UpdateToDo value)? updateToDo,
     TResult Function(_RemoveToDo value)? deleteToDo,
     TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult Function(_ReorderSteps value)? reorderSteps,
     TResult Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
     required TResult orElse(),
@@ -1386,6 +1675,8 @@ class _$ToggleStepCheckStatusImpl implements _ToggleStepCheckStatus {
         deleteToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoTodayWhenever,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
             int oldIndex, int newIndex)
         reorderSteps,
@@ -1404,6 +1695,8 @@ class _$ToggleStepCheckStatusImpl implements _ToggleStepCheckStatus {
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -1422,6 +1715,8 @@ class _$ToggleStepCheckStatusImpl implements _ToggleStepCheckStatus {
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoTodayWhenever,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
             int newIndex)?
         reorderSteps,
@@ -1444,6 +1739,8 @@ class _$ToggleStepCheckStatusImpl implements _ToggleStepCheckStatus {
     required TResult Function(_RemoveToDo value) deleteToDo,
     required TResult Function(_ToggleToDoCheckStatus value)
         toggleToDoCheckStatus,
+    required TResult Function(_ToggleToDoTodayWhenever value)
+        toggleToDoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
     required TResult Function(_ToggleStepCheckStatus value)
         toggleStepCheckStatus,
@@ -1458,6 +1755,7 @@ class _$ToggleStepCheckStatusImpl implements _ToggleStepCheckStatus {
     TResult? Function(_UpdateToDo value)? updateToDo,
     TResult? Function(_RemoveToDo value)? deleteToDo,
     TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult? Function(_ReorderSteps value)? reorderSteps,
     TResult? Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
   }) {
@@ -1471,6 +1769,7 @@ class _$ToggleStepCheckStatusImpl implements _ToggleStepCheckStatus {
     TResult Function(_UpdateToDo value)? updateToDo,
     TResult Function(_RemoveToDo value)? deleteToDo,
     TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ToggleToDoTodayWhenever value)? toggleToDoTodayWhenever,
     TResult Function(_ReorderSteps value)? reorderSteps,
     TResult Function(_ToggleStepCheckStatus value)? toggleStepCheckStatus,
     required TResult orElse(),
