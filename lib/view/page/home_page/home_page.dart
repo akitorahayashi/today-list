@@ -106,7 +106,6 @@ class _HomePageState extends ConsumerState<HomePage>
         // 今回は期待インデックスを使う or 既存の oldIndex と比較して安全に設定
         initialIndex: 0,
       );
-
       // リスナーを再設定
       _tabController.addListener(() {
         _handleTabIndexChange(_tabController.index, ref, tlAppState);
@@ -128,6 +127,12 @@ class _HomePageState extends ConsumerState<HomePage>
     // currentWorkspaceを選択しているか
     final bool doesCurrentWorkspaceExist =
         currentWorkspaceNullAble != null ? true : false;
+
+    final tabTextStyle = TextStyle(
+      color: tlThemeConfig.whiteBasedColor,
+      fontSize: 13.6,
+      fontWeight: FontWeight.bold,
+    );
 
     return Scaffold(
       backgroundColor: tlThemeConfig.backgroundColor,
@@ -159,6 +164,9 @@ class _HomePageState extends ConsumerState<HomePage>
           ),
           indicatorSize: TabBarIndicatorSize.label,
           indicatorPadding: const EdgeInsets.symmetric(horizontal: -16),
+          labelStyle: tabTextStyle,
+          unselectedLabelStyle: tabTextStyle,
+          splashFactory: NoSplash.splashFactory,
           tabs: [
             const Tab(text: "Today"),
             for (TLWorkspace workspace in tlAppState.tlWorkspaces)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/component/common_ui_part/tl_circular_action_button.dart';
 import 'package:today_list/view/component/dialog/for_category/add_category_dialog.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
@@ -79,33 +80,26 @@ class CategoryListPage extends ConsumerWidget {
 class _AddCategoryButton extends StatelessWidget {
   final TLWorkspace currentWorkspace;
   final TLThemeConfig tlThemeDataConfig;
-  const _AddCategoryButton(
-      {required this.currentWorkspace, required this.tlThemeDataConfig});
+
+  const _AddCategoryButton({
+    required this.currentWorkspace,
+    required this.tlThemeDataConfig,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
       right: 50,
       bottom: 70,
-      child: GestureDetector(
-        onTap: () => AddCategoryDialog(currentWorkspace: currentWorkspace)
-            .show(context: context),
-        child: Container(
-          width: 70,
-          height: 70,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: tlThemeDataConfig.whiteBasedColor,
-            border: Border.all(color: Colors.black26, width: 2),
-          ),
-          child: ClipOval(
-            child: Icon(
-              Icons.add,
-              color: tlThemeDataConfig.accentColor,
-              size: 30,
-            ),
-          ),
-        ),
+      child: TLCircularActionButton(
+        icon: Icons.add,
+        backgroundColor: tlThemeDataConfig.whiteBasedColor,
+        borderColor: Colors.black26,
+        iconColor: tlThemeDataConfig.accentColor,
+        onPressed: () {
+          AddCategoryDialog(currentWorkspace: currentWorkspace)
+              .show(context: context);
+        },
       ),
     );
   }

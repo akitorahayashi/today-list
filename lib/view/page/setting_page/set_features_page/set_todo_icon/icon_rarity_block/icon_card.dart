@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
@@ -8,7 +7,6 @@ import 'package:today_list/model/design/tl_icon_data.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
-import 'package:today_list/service/tl_ads.dart';
 import 'package:today_list/service/tl_vibration.dart';
 
 class IconCard extends ConsumerStatefulWidget {

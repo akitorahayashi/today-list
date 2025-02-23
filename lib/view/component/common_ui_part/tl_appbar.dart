@@ -77,14 +77,21 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                     ),
             ],
-        title: Text(
-          pageTitle,
-          style: TextStyle(
-            color: tlThemeConfig.whiteBasedColor,
-            fontWeight: FontWeight.w900,
-            fontSize: titleFontSize ?? 30,
-            letterSpacing: titleSpacing ?? 1,
-            overflow: TextOverflow.ellipsis,
+        title: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 200),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+          child: Text(
+            pageTitle,
+            key: ValueKey<String>(pageTitle),
+            style: TextStyle(
+              color: tlThemeConfig.whiteBasedColor,
+              fontWeight: FontWeight.w900,
+              fontSize: titleFontSize ?? 30,
+              letterSpacing: titleSpacing ?? 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ),
         bottom: bottom,
