@@ -43,7 +43,7 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
             ),
           ),
           _ActionButtons(
-            buttonText: "変更",
+            buttonText: "Change",
             enteredCategoryTitle: enteredCategoryTitle,
             onClose: () => Navigator.pop(context),
             onSubmit: () {
@@ -58,14 +58,13 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
                 name: newCategory.name,
                 validator: TLValidation.validateCategoryName,
                 onSuccess: () async {
-                  ref
-                      .read(tlAppStateProvider.notifier)
-                      .dispatchToDoCategoryAction(
-                          TLToDoCategoryAction.updateCategory(
-                              workspaceID: corrWorkspaceID,
-                              newCategory: newCategory));
+                  ref.read(tlAppStateProvider.notifier).dispatch(
+                      TLToDoCategoryAction.updateCategory(
+                          workspaceID: corrWorkspaceID,
+                          newCategory: newCategory));
                   navigator.pop();
-                  const TLSingleOptionDialog(title: "カテゴリー名が\n変更されました！")
+                  const TLSingleOptionDialog(
+                          title: "Category name\nhas been changed!")
                       .show(context: navigator.context);
                 },
               );
@@ -108,7 +107,7 @@ class _NewCategoryNameInputField extends HookWidget {
         ),
         decoration: tlInputDecoration(
           context: context,
-          labelText: "新しいカテゴリー名",
+          labelText: "New Category Name",
           icon: null,
           suffixIcon: null,
         ),
@@ -139,7 +138,7 @@ class _ActionButtons extends StatelessWidget {
         TextButton(
           style: alertButtonStyle(accentColor: theme.accentColor),
           onPressed: onClose,
-          child: const Text("閉じる"),
+          child: const Text("Close"),
         ),
         TextButton(
           style: alertButtonStyle(accentColor: theme.accentColor),

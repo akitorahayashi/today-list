@@ -31,7 +31,7 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
           const Padding(
             padding: EdgeInsets.only(bottom: 5.0),
             child: Text(
-              "カテゴリー名",
+              "Category Name",
               style: TextStyle(
                   color: Color.fromRGBO(120, 120, 120, 1), fontSize: 10),
             ),

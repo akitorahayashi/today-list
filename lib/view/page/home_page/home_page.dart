@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
+import 'package:today_list/view/page/home_page/tab_content/todo_list_in_workspace_in_today_and_whenever.dart';
+import 'package:today_list/view/page/home_page/tab_content/todo_list_of_all_workspaces_in_today.dart';
+import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/center_button_of_home_bottom_navbar.dart';
+import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/tl_home_bottom_navbar.dart';
+import 'package:today_list/view/page/category_list_page/category_list_page.dart';
+import 'package:today_list/view/page/edit_todo_page/edit_todo_page.dart';
+import 'package:today_list/view/page/setting_page/settings_page.dart';
+import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
+import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/tl_app_state_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/service/tl_vibration.dart';
-import 'package:today_list/util/tl_workspace_utils.dart';
-import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/center_button_of_home_bottom_navbar.dart';
-import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
-import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/tl_home_bottom_navbar.dart';
-import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
-import 'package:today_list/view/page/category_list_page/category_list_page.dart';
-import 'package:today_list/view/page/edit_todo_page/edit_todo_page.dart';
-import 'package:today_list/view/page/home_page/tab_content/todo_list_in_workspace_in_today_and_whenever.dart';
-import 'package:today_list/view/page/home_page/tab_content/todo_list_of_all_workspaces_in_today.dart';
-import 'package:today_list/view/page/setting_page/settings_page.dart';
 import 'workspace_drawer/workspace_drawer.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -43,8 +43,9 @@ class _HomePageState extends ConsumerState<HomePage>
         ? null
         : tlAppState.tlWorkspaces.elementAtOrNull(index - 1)?.id;
 
-    ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-        TLWorkspaceAction.changeCurrentWorkspaceID(newWorkspaceID));
+    ref
+        .read(tlAppStateProvider.notifier)
+        .dispatch(TLAppStateAction.changeCurrentWorkspaceID(newWorkspaceID));
   }
 
   @override
@@ -184,27 +185,25 @@ class _HomePageState extends ConsumerState<HomePage>
         leadingButtonOnPressed: () {
           if (doesCurrentWorkspaceExist) {
             TLYesNoDialog(
-              title: "チェック済みToDoを\n削除しますか?",
+              title: "Do you want to delete\nchecked ToDos?",
               message: null,
               yesAction: () async {
                 Navigator.pop(context);
-                // 該当するワークスペースのチェック済みToDo(Today + Whenever)を削除
-                final TLWorkspace updatedWorkspace = await TLWorkspaceUtils
-                    .deleteCheckedToDosInTodayInAWorkspace(
-                  currentWorkspaceNullAble,
-                  onlyToday: false,
-                );
-                // ワークスペースの更新
-                ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
-                    TLWorkspaceAction.updateCorrWorkspace(updatedWorkspace));
+                // Delete checked ToDos (Today + Whenever) in the corresponding workspace
+                ref.read(tlAppStateProvider.notifier).dispatch(
+                    TLWorkspaceAction.deleteAllCheckedToDosInWorkspace(
+                        currentWorkspaceNullAble));
 
                 if (context.mounted) {
-                  const TLSingleOptionDialog(title: "削除が完了しました！")
+                  const TLSingleOptionDialog(title: "Deletion completed")
                       .show(context: context);
                 }
-                TLVibrationService.vibrate();
               },
             ).show(context: context);
+          } else {
+            // workspaceを追加するボタン
+            const AddOrEditWorkspaceDialog(oldWorkspaceId: null)
+                .show(context: context);
           }
         },
 
@@ -243,7 +242,24 @@ class _HomePageState extends ConsumerState<HomePage>
                 ),
               );
             } else {
-              print("CenterButtonOfHomeBottomNavBar: currentWorkspace is null");
+              TLYesNoDialog(
+                title: "Do you want to delete\nchecked ToDos?",
+                message: null,
+                yesAction: () async {
+                  Navigator.pop(context);
+                  // Delete checked ToDos (Today + Whenever) in the corresponding workspace
+                  ref.read(tlAppStateProvider.notifier).dispatch(
+                        TLAppStateAction
+                            .deleteAllCheckedToDosInTodayInWorkspaceList(
+                                tlAppState.tlWorkspaces),
+                      );
+
+                  if (context.mounted) {
+                    const TLSingleOptionDialog(title: "Deletion completed")
+                        .show(context: context);
+                  }
+                },
+              ).show(context: context);
             }
           }),
     );

@@ -5,10 +5,10 @@ import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
-import 'package:today_list/redux/reducer/tl_theme_reducer.dart';
-import 'package:today_list/redux/reducer/tl_todo_category_reducer.dart';
-import 'package:today_list/redux/reducer/tl_todo_reducer.dart';
-import 'package:today_list/redux/reducer/tl_workspace_reducer.dart';
+import 'package:today_list/redux/reducer/property/tl_theme_reducer.dart';
+import 'package:today_list/redux/reducer/property/tl_todo_category_reducer.dart';
+import 'package:today_list/redux/reducer/property/tl_todo_reducer.dart';
+import 'package:today_list/redux/reducer/property/tl_workspace_reducer.dart';
 
 class TLAppStateReducer {
   static TLAppState reduce(TLAppState state, dynamic action) {
@@ -39,10 +39,11 @@ class TLAppStateReducer {
     return action.when(
       changeCurrentWorkspaceID: (newID) =>
           _changeCurrentWorkspaceID(state, newID),
-      saveCorrWorkspace: (updatedWorkspace) =>
-          _saveCorrWorkspace(state, updatedWorkspace),
       saveWorkspaceList: (updatedList) =>
           _saveWorkspaceList(state, updatedList),
+      deleteAllCheckedToDosInTodayInWorkspaceList: (corrWorkspaceList) =>
+          _deleteAllCheckedToDosInTodayInWorkspaceList(
+              state, corrWorkspaceList),
     );
   }
 
@@ -51,17 +52,25 @@ class TLAppStateReducer {
     return state.copyWith(currentWorkspaceID: newID);
   }
 
-  static TLAppState _saveCorrWorkspace(
-      TLAppState state, dynamic updatedWorkspace) {
-    final List<TLWorkspace> updatedWorkspaces = state.tlWorkspaces
-        .map((ws) => ws.id == updatedWorkspace.id ? updatedWorkspace : ws)
-        .toList()
-        .cast<TLWorkspace>();
-    return state.copyWith(tlWorkspaces: updatedWorkspaces);
-  }
-
   static TLAppState _saveWorkspaceList(
       TLAppState state, List<TLWorkspace> updatedList) {
     return state.copyWith(tlWorkspaces: updatedList);
+  }
+
+  static TLAppState _deleteAllCheckedToDosInTodayInWorkspaceList(
+      TLAppState state, List<TLWorkspace> corrWorkspaceList) {
+    List<TLWorkspace> updatedWorkspaceList = [];
+    for (TLWorkspace workspace in corrWorkspaceList) {
+      final updatedWorkspace = workspace.copyWith(categoryIDToToDos: workspace
+          .categoryIDToToDos
+          .map((categoryID, tlToDosInTodayAndWhenever) {
+        return MapEntry(
+            categoryID,
+            tlToDosInTodayAndWhenever.deleteAllCheckedToDosInAToDosList(
+                isInToday: true));
+      }));
+      updatedWorkspaceList = [...updatedWorkspaceList, updatedWorkspace];
+    }
+    return state.copyWith(tlWorkspaces: updatedWorkspaceList);
   }
 }

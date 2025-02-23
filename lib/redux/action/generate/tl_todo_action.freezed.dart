@@ -25,6 +25,11 @@ mixin _$TLToDoAction {
         updateToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         deleteToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
+            int oldIndex, int newIndex)
+        reorderSteps,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,6 +37,11 @@ mixin _$TLToDoAction {
     TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,6 +49,11 @@ mixin _$TLToDoAction {
     TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +62,9 @@ mixin _$TLToDoAction {
     required TResult Function(_AddToDo value) addToDo,
     required TResult Function(_UpdateToDo value) updateToDo,
     required TResult Function(_RemoveToDo value) deleteToDo,
+    required TResult Function(_ToggleToDoCheckStatus value)
+        toggleToDoCheckStatus,
+    required TResult Function(_ReorderSteps value) reorderSteps,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,6 +72,8 @@ mixin _$TLToDoAction {
     TResult? Function(_AddToDo value)? addToDo,
     TResult? Function(_UpdateToDo value)? updateToDo,
     TResult? Function(_RemoveToDo value)? deleteToDo,
+    TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ReorderSteps value)? reorderSteps,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,6 +81,8 @@ mixin _$TLToDoAction {
     TResult Function(_AddToDo value)? addToDo,
     TResult Function(_UpdateToDo value)? updateToDo,
     TResult Function(_RemoveToDo value)? deleteToDo,
+    TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ReorderSteps value)? reorderSteps,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -218,6 +240,11 @@ class _$AddToDoImpl implements _AddToDo {
         updateToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         deleteToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
+            int oldIndex, int newIndex)
+        reorderSteps,
   }) {
     return addToDo(corrWorkspace, newToDo);
   }
@@ -228,6 +255,11 @@ class _$AddToDoImpl implements _AddToDo {
     TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
   }) {
     return addToDo?.call(corrWorkspace, newToDo);
   }
@@ -238,6 +270,11 @@ class _$AddToDoImpl implements _AddToDo {
     TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
     required TResult orElse(),
   }) {
     if (addToDo != null) {
@@ -252,6 +289,9 @@ class _$AddToDoImpl implements _AddToDo {
     required TResult Function(_AddToDo value) addToDo,
     required TResult Function(_UpdateToDo value) updateToDo,
     required TResult Function(_RemoveToDo value) deleteToDo,
+    required TResult Function(_ToggleToDoCheckStatus value)
+        toggleToDoCheckStatus,
+    required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return addToDo(this);
   }
@@ -262,6 +302,8 @@ class _$AddToDoImpl implements _AddToDo {
     TResult? Function(_AddToDo value)? addToDo,
     TResult? Function(_UpdateToDo value)? updateToDo,
     TResult? Function(_RemoveToDo value)? deleteToDo,
+    TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ReorderSteps value)? reorderSteps,
   }) {
     return addToDo?.call(this);
   }
@@ -272,6 +314,8 @@ class _$AddToDoImpl implements _AddToDo {
     TResult Function(_AddToDo value)? addToDo,
     TResult Function(_UpdateToDo value)? updateToDo,
     TResult Function(_RemoveToDo value)? deleteToDo,
+    TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ReorderSteps value)? reorderSteps,
     required TResult orElse(),
   }) {
     if (addToDo != null) {
@@ -397,6 +441,11 @@ class _$UpdateToDoImpl implements _UpdateToDo {
         updateToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         deleteToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
+            int oldIndex, int newIndex)
+        reorderSteps,
   }) {
     return updateToDo(corrWorkspace, newToDo);
   }
@@ -407,6 +456,11 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
   }) {
     return updateToDo?.call(corrWorkspace, newToDo);
   }
@@ -417,6 +471,11 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
     required TResult orElse(),
   }) {
     if (updateToDo != null) {
@@ -431,6 +490,9 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     required TResult Function(_AddToDo value) addToDo,
     required TResult Function(_UpdateToDo value) updateToDo,
     required TResult Function(_RemoveToDo value) deleteToDo,
+    required TResult Function(_ToggleToDoCheckStatus value)
+        toggleToDoCheckStatus,
+    required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return updateToDo(this);
   }
@@ -441,6 +503,8 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     TResult? Function(_AddToDo value)? addToDo,
     TResult? Function(_UpdateToDo value)? updateToDo,
     TResult? Function(_RemoveToDo value)? deleteToDo,
+    TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ReorderSteps value)? reorderSteps,
   }) {
     return updateToDo?.call(this);
   }
@@ -451,6 +515,8 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     TResult Function(_AddToDo value)? addToDo,
     TResult Function(_UpdateToDo value)? updateToDo,
     TResult Function(_RemoveToDo value)? deleteToDo,
+    TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ReorderSteps value)? reorderSteps,
     required TResult orElse(),
   }) {
     if (updateToDo != null) {
@@ -577,6 +643,11 @@ class _$RemoveToDoImpl implements _RemoveToDo {
         updateToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         deleteToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
+            int oldIndex, int newIndex)
+        reorderSteps,
   }) {
     return deleteToDo(corrWorkspace, corrToDo);
   }
@@ -587,6 +658,11 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
   }) {
     return deleteToDo?.call(corrWorkspace, corrToDo);
   }
@@ -597,6 +673,11 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
     required TResult orElse(),
   }) {
     if (deleteToDo != null) {
@@ -611,6 +692,9 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     required TResult Function(_AddToDo value) addToDo,
     required TResult Function(_UpdateToDo value) updateToDo,
     required TResult Function(_RemoveToDo value) deleteToDo,
+    required TResult Function(_ToggleToDoCheckStatus value)
+        toggleToDoCheckStatus,
+    required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return deleteToDo(this);
   }
@@ -621,6 +705,8 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     TResult? Function(_AddToDo value)? addToDo,
     TResult? Function(_UpdateToDo value)? updateToDo,
     TResult? Function(_RemoveToDo value)? deleteToDo,
+    TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ReorderSteps value)? reorderSteps,
   }) {
     return deleteToDo?.call(this);
   }
@@ -631,6 +717,8 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     TResult Function(_AddToDo value)? addToDo,
     TResult Function(_UpdateToDo value)? updateToDo,
     TResult Function(_RemoveToDo value)? deleteToDo,
+    TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ReorderSteps value)? reorderSteps,
     required TResult orElse(),
   }) {
     if (deleteToDo != null) {
@@ -654,5 +742,440 @@ abstract class _RemoveToDo implements TLToDoAction {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RemoveToDoImplCopyWith<_$RemoveToDoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ToggleToDoCheckStatusImplCopyWith<$Res>
+    implements $TLToDoActionCopyWith<$Res> {
+  factory _$$ToggleToDoCheckStatusImplCopyWith(
+          _$ToggleToDoCheckStatusImpl value,
+          $Res Function(_$ToggleToDoCheckStatusImpl) then) =
+      __$$ToggleToDoCheckStatusImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({TLWorkspace corrWorkspace, TLToDo corrToDo});
+
+  @override
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
+  $TLToDoCopyWith<$Res> get corrToDo;
+}
+
+/// @nodoc
+class __$$ToggleToDoCheckStatusImplCopyWithImpl<$Res>
+    extends _$TLToDoActionCopyWithImpl<$Res, _$ToggleToDoCheckStatusImpl>
+    implements _$$ToggleToDoCheckStatusImplCopyWith<$Res> {
+  __$$ToggleToDoCheckStatusImplCopyWithImpl(_$ToggleToDoCheckStatusImpl _value,
+      $Res Function(_$ToggleToDoCheckStatusImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? corrWorkspace = null,
+    Object? corrToDo = null,
+  }) {
+    return _then(_$ToggleToDoCheckStatusImpl(
+      corrWorkspace: null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
+      corrToDo: null == corrToDo
+          ? _value.corrToDo
+          : corrToDo // ignore: cast_nullable_to_non_nullable
+              as TLToDo,
+    ));
+  }
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLToDoCopyWith<$Res> get corrToDo {
+    return $TLToDoCopyWith<$Res>(_value.corrToDo, (value) {
+      return _then(_value.copyWith(corrToDo: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ToggleToDoCheckStatusImpl implements _ToggleToDoCheckStatus {
+  const _$ToggleToDoCheckStatusImpl(
+      {required this.corrWorkspace, required this.corrToDo});
+
+  @override
+  final TLWorkspace corrWorkspace;
+  @override
+  final TLToDo corrToDo;
+
+  @override
+  String toString() {
+    return 'TLToDoAction.toggleToDoCheckStatus(corrWorkspace: $corrWorkspace, corrToDo: $corrToDo)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ToggleToDoCheckStatusImpl &&
+            (identical(other.corrWorkspace, corrWorkspace) ||
+                other.corrWorkspace == corrWorkspace) &&
+            (identical(other.corrToDo, corrToDo) ||
+                other.corrToDo == corrToDo));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, corrWorkspace, corrToDo);
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ToggleToDoCheckStatusImplCopyWith<_$ToggleToDoCheckStatusImpl>
+      get copyWith => __$$ToggleToDoCheckStatusImplCopyWithImpl<
+          _$ToggleToDoCheckStatusImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        addToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        updateToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        deleteToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
+            int oldIndex, int newIndex)
+        reorderSteps,
+  }) {
+    return toggleToDoCheckStatus(corrWorkspace, corrToDo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
+  }) {
+    return toggleToDoCheckStatus?.call(corrWorkspace, corrToDo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
+    required TResult orElse(),
+  }) {
+    if (toggleToDoCheckStatus != null) {
+      return toggleToDoCheckStatus(corrWorkspace, corrToDo);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddToDo value) addToDo,
+    required TResult Function(_UpdateToDo value) updateToDo,
+    required TResult Function(_RemoveToDo value) deleteToDo,
+    required TResult Function(_ToggleToDoCheckStatus value)
+        toggleToDoCheckStatus,
+    required TResult Function(_ReorderSteps value) reorderSteps,
+  }) {
+    return toggleToDoCheckStatus(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddToDo value)? addToDo,
+    TResult? Function(_UpdateToDo value)? updateToDo,
+    TResult? Function(_RemoveToDo value)? deleteToDo,
+    TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ReorderSteps value)? reorderSteps,
+  }) {
+    return toggleToDoCheckStatus?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddToDo value)? addToDo,
+    TResult Function(_UpdateToDo value)? updateToDo,
+    TResult Function(_RemoveToDo value)? deleteToDo,
+    TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ReorderSteps value)? reorderSteps,
+    required TResult orElse(),
+  }) {
+    if (toggleToDoCheckStatus != null) {
+      return toggleToDoCheckStatus(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ToggleToDoCheckStatus implements TLToDoAction {
+  const factory _ToggleToDoCheckStatus(
+      {required final TLWorkspace corrWorkspace,
+      required final TLToDo corrToDo}) = _$ToggleToDoCheckStatusImpl;
+
+  @override
+  TLWorkspace get corrWorkspace;
+  TLToDo get corrToDo;
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ToggleToDoCheckStatusImplCopyWith<_$ToggleToDoCheckStatusImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReorderStepsImplCopyWith<$Res>
+    implements $TLToDoActionCopyWith<$Res> {
+  factory _$$ReorderStepsImplCopyWith(
+          _$ReorderStepsImpl value, $Res Function(_$ReorderStepsImpl) then) =
+      __$$ReorderStepsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex, int newIndex});
+
+  @override
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
+  $TLToDoCopyWith<$Res> get corrToDo;
+}
+
+/// @nodoc
+class __$$ReorderStepsImplCopyWithImpl<$Res>
+    extends _$TLToDoActionCopyWithImpl<$Res, _$ReorderStepsImpl>
+    implements _$$ReorderStepsImplCopyWith<$Res> {
+  __$$ReorderStepsImplCopyWithImpl(
+      _$ReorderStepsImpl _value, $Res Function(_$ReorderStepsImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? corrWorkspace = null,
+    Object? corrToDo = null,
+    Object? oldIndex = null,
+    Object? newIndex = null,
+  }) {
+    return _then(_$ReorderStepsImpl(
+      corrWorkspace: null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
+      corrToDo: null == corrToDo
+          ? _value.corrToDo
+          : corrToDo // ignore: cast_nullable_to_non_nullable
+              as TLToDo,
+      oldIndex: null == oldIndex
+          ? _value.oldIndex
+          : oldIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      newIndex: null == newIndex
+          ? _value.newIndex
+          : newIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLToDoCopyWith<$Res> get corrToDo {
+    return $TLToDoCopyWith<$Res>(_value.corrToDo, (value) {
+      return _then(_value.copyWith(corrToDo: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ReorderStepsImpl implements _ReorderSteps {
+  const _$ReorderStepsImpl(
+      {required this.corrWorkspace,
+      required this.corrToDo,
+      required this.oldIndex,
+      required this.newIndex});
+
+  @override
+  final TLWorkspace corrWorkspace;
+  @override
+  final TLToDo corrToDo;
+  @override
+  final int oldIndex;
+  @override
+  final int newIndex;
+
+  @override
+  String toString() {
+    return 'TLToDoAction.reorderSteps(corrWorkspace: $corrWorkspace, corrToDo: $corrToDo, oldIndex: $oldIndex, newIndex: $newIndex)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReorderStepsImpl &&
+            (identical(other.corrWorkspace, corrWorkspace) ||
+                other.corrWorkspace == corrWorkspace) &&
+            (identical(other.corrToDo, corrToDo) ||
+                other.corrToDo == corrToDo) &&
+            (identical(other.oldIndex, oldIndex) ||
+                other.oldIndex == oldIndex) &&
+            (identical(other.newIndex, newIndex) ||
+                other.newIndex == newIndex));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, corrWorkspace, corrToDo, oldIndex, newIndex);
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReorderStepsImplCopyWith<_$ReorderStepsImpl> get copyWith =>
+      __$$ReorderStepsImplCopyWithImpl<_$ReorderStepsImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        addToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        updateToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        deleteToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        toggleToDoCheckStatus,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
+            int oldIndex, int newIndex)
+        reorderSteps,
+  }) {
+    return reorderSteps(corrWorkspace, corrToDo, oldIndex, newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
+  }) {
+    return reorderSteps?.call(corrWorkspace, corrToDo, oldIndex, newIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
+        toggleToDoCheckStatus,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
+            int newIndex)?
+        reorderSteps,
+    required TResult orElse(),
+  }) {
+    if (reorderSteps != null) {
+      return reorderSteps(corrWorkspace, corrToDo, oldIndex, newIndex);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_AddToDo value) addToDo,
+    required TResult Function(_UpdateToDo value) updateToDo,
+    required TResult Function(_RemoveToDo value) deleteToDo,
+    required TResult Function(_ToggleToDoCheckStatus value)
+        toggleToDoCheckStatus,
+    required TResult Function(_ReorderSteps value) reorderSteps,
+  }) {
+    return reorderSteps(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_AddToDo value)? addToDo,
+    TResult? Function(_UpdateToDo value)? updateToDo,
+    TResult? Function(_RemoveToDo value)? deleteToDo,
+    TResult? Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult? Function(_ReorderSteps value)? reorderSteps,
+  }) {
+    return reorderSteps?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_AddToDo value)? addToDo,
+    TResult Function(_UpdateToDo value)? updateToDo,
+    TResult Function(_RemoveToDo value)? deleteToDo,
+    TResult Function(_ToggleToDoCheckStatus value)? toggleToDoCheckStatus,
+    TResult Function(_ReorderSteps value)? reorderSteps,
+    required TResult orElse(),
+  }) {
+    if (reorderSteps != null) {
+      return reorderSteps(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ReorderSteps implements TLToDoAction {
+  const factory _ReorderSteps(
+      {required final TLWorkspace corrWorkspace,
+      required final TLToDo corrToDo,
+      required final int oldIndex,
+      required final int newIndex}) = _$ReorderStepsImpl;
+
+  @override
+  TLWorkspace get corrWorkspace;
+  TLToDo get corrToDo;
+  int get oldIndex;
+  int get newIndex;
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ReorderStepsImplCopyWith<_$ReorderStepsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

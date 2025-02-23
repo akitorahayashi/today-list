@@ -89,15 +89,11 @@ class TLWorkspaceDrawer extends ConsumerWidget {
   void _handleReorder(WidgetRef ref, int oldIndex, int newIndex) {
     if (newIndex == oldIndex) return;
 
-    final revisedOldIndex = oldIndex;
-    final revisedNewIndex = newIndex;
-
     final workspaces = ref.read(tlAppStateProvider).tlWorkspaces;
 
     List<TLWorkspace> copiedWorkspaces = List.from(workspaces);
-    final TLWorkspace movedWorkspace =
-        copiedWorkspaces.removeAt(revisedOldIndex);
-    copiedWorkspaces.insert(revisedNewIndex, movedWorkspace);
+    final TLWorkspace movedWorkspace = copiedWorkspaces.removeAt(oldIndex);
+    copiedWorkspaces.insert(newIndex, movedWorkspace);
 
     ref.read(tlAppStateProvider.notifier).dispatchWorkspaceAction(
         TLWorkspaceAction.updateWorkspaceList(copiedWorkspaces));

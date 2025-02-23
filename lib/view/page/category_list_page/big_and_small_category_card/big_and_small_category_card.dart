@@ -4,6 +4,7 @@ import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/tl_app_state_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'category_card/big_category_chip.dart';
@@ -79,7 +80,7 @@ class _SmallCategoryList extends ConsumerWidget {
       TLToDoCategory coorBigCategory, int oldIndex, int newIndex) {
     if (oldIndex == newIndex) return;
 
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
+    final tlAppStateNotifier = ref.read(tlAppStateProvider.notifier);
 
     final copiedSmallCategories = {
       for (var entry in corrWorkspace.smallCategories.entries)
@@ -93,10 +94,9 @@ class _SmallCategoryList extends ConsumerWidget {
         .insert(newIndex, reOrderedSmallCategory);
 
     // 状態を更新
-    tlAppStateReducer.dispatchWorkspaceAction(
-      TLWorkspaceAction.updateCorrWorkspace(
-        corrWorkspace.copyWith(smallCategories: copiedSmallCategories),
-      ),
-    );
+    tlAppStateNotifier
+        .dispatch(TLAppStateAction.saveCorrWorkspace(corrWorkspace.copyWith(
+      smallCategories: copiedSmallCategories,
+    )));
   }
 }

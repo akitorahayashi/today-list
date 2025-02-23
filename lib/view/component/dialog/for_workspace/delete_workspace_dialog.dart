@@ -4,7 +4,6 @@ import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
-import 'package:today_list/redux/reducer/tl_app_state_notifier.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/styles.dart';
@@ -47,7 +46,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   // MARK - Build Dialog Title
   Widget _buildDialogTitle() {
     return const Text(
-      "Workspaceの削除",
+      "Delete Workspace",
       style: TextStyle(
         color: Colors.black54,
         fontWeight: FontWeight.w600,
@@ -74,7 +73,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   // MARK - Build Warning Text
   Widget _buildWarningText() {
     return const Text(
-      "※Workspaceに含まれるToDoも削除されます",
+      "* ToDos included in the workspace will also be deleted.",
       style: TextStyle(
         color: Colors.black54,
         fontWeight: FontWeight.w600,
@@ -94,7 +93,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
         TextButton(
           style: alertButtonStyle(accentColor: tlThemeData.accentColor),
           onPressed: () => Navigator.pop(context),
-          child: const Text("戻る"),
+          child: const Text("Close"),
         ),
         // Delete Button
         TextButton(
@@ -102,7 +101,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
           onPressed: () async {
             _handleDeleteWorkspace(context, ref, tlAppStateReducer);
           },
-          child: const Text("削除"),
+          child: const Text("Delete"),
         ),
       ],
     );
@@ -111,23 +110,14 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   // MARK - Handle Workspace Deletion
   void _handleDeleteWorkspace(BuildContext context, WidgetRef ref,
       TLAppStateNotifier tlAppStateReducer) {
-    if (willDeletedWorkspace.id == "defaultID") {
-      // Prevent deletion of default workspace
-      Navigator.pop(context);
-      const TLSingleOptionDialog(
-        title: "エラー",
-        message: '"デフォルト"のWorkspaceは\n削除できません',
-      ).show(context: context);
-    } else {
-      // Remove workspace
-      tlAppStateReducer.dispatchWorkspaceAction(
-          TLWorkspaceAction.deleteWorkspace(willDeletedWorkspace));
+    // Remove workspace
+    tlAppStateReducer
+        .dispatch(TLWorkspaceAction.deleteWorkspace(willDeletedWorkspace));
 
-      // Close this dialog and show success notification
-      Navigator.pop(context);
-      TLVibrationService.vibrate();
-      const TLSingleOptionDialog(title: "削除することに\n成功しました！")
-          .show(context: context);
-    }
+    // Close this dialog and show success notification
+    Navigator.pop(context);
+    TLVibrationService.vibrate();
+    const TLSingleOptionDialog(title: "Successfully deleted!")
+        .show(context: context);
   }
 }

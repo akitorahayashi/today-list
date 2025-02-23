@@ -1,3 +1,4 @@
+import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
@@ -20,6 +21,18 @@ class TLToDoReducer {
         workspaces: workspaces,
         corrWorkspace: a.corrWorkspace,
         corrToDo: a.corrToDo,
+      ),
+      toggleToDoCheckStatus: (a) => _toggleToDoCheckStatus(
+        workspaces,
+        a.corrWorkspace,
+        a.corrToDo,
+      ),
+      reorderSteps: (a) => _reorderSteps(
+        workspaces,
+        a.corrWorkspace,
+        a.corrToDo,
+        a.oldIndex,
+        a.newIndex,
       ),
     );
     return updatedWorkspaces;
@@ -68,6 +81,68 @@ class TLToDoReducer {
       categoryID: corrToDo.categoryID,
       updateFn: (oldListOfToDo) =>
           oldListOfToDo.where((t) => t.id != corrToDo.id).toList(),
+      isInToday: corrToDo.isInToday,
+    );
+  }
+
+  static List<TLWorkspace> _toggleToDoCheckStatus(
+    List<TLWorkspace> workspaces,
+    TLWorkspace corrWorkspace,
+    TLToDo corrToDo,
+  ) {
+    final newCheckedState = !corrToDo.isChecked;
+    final updatedSteps = corrToDo.steps
+        .map((step) => step.copyWith(isChecked: newCheckedState))
+        .toList();
+
+    // 新しい状態のToDoを作成
+    final copiedToDo = corrToDo.copyWith(
+      isChecked: newCheckedState,
+      steps: updatedSteps,
+    );
+
+    final List<TLToDo> toDoArrayOfThisToDo = corrWorkspace
+        .categoryIDToToDos[corrToDo.categoryID]!
+        .getToDos(corrToDo.isInToday);
+
+    // チェック済みと未チェックのToDoを分類（状態を変更したToDoを除外）
+    final List<TLToDo> uncheckedToDos = toDoArrayOfThisToDo
+        .where((todo) => !todo.isChecked && todo.id != copiedToDo.id)
+        .toList();
+    final List<TLToDo> checkedToDos = toDoArrayOfThisToDo
+        .where((todo) => todo.isChecked && todo.id != copiedToDo.id)
+        .toList();
+
+    return _updateWorkspaceList(
+      workspaces: workspaces,
+      corrWorkspace: corrWorkspace,
+      categoryID: corrToDo.categoryID,
+      updateFn: (oldList) => [...uncheckedToDos, copiedToDo, ...checkedToDos],
+      isInToday: corrToDo.isInToday,
+    );
+  }
+
+  static List<TLWorkspace> _reorderSteps(
+    List<TLWorkspace> workspaces,
+    TLWorkspace corrWorkspace,
+    TLToDo corrToDo,
+    int oldIndex,
+    int newIndex,
+  ) {
+    if (oldIndex == newIndex) return workspaces;
+
+    final reorderedSteps = List<TLStep>.from(corrToDo.steps);
+    final step = reorderedSteps.removeAt(oldIndex);
+    reorderedSteps.insert(newIndex, step);
+
+    final updatedToDo = corrToDo.copyWith(steps: reorderedSteps);
+    return _updateWorkspaceList(
+      workspaces: workspaces,
+      corrWorkspace: corrWorkspace,
+      categoryID: corrToDo.categoryID,
+      updateFn: (oldListOfToDo) => oldListOfToDo
+          .map((t) => t.id == updatedToDo.id ? updatedToDo : t)
+          .toList(),
       isInToday: corrToDo.isInToday,
     );
   }

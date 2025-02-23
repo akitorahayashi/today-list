@@ -18,4 +18,8 @@ sealed class TLWorkspaceAction with _$TLWorkspaceAction {
   // Workspace内の全てのチェック済みToDoを削除する
   const factory TLWorkspaceAction.deleteAllCheckedToDosInWorkspace(
       TLWorkspace corrWorkspace) = DeleteAllCheckedToDosInWorkspace;
+
+  // 選択したWorkspaceを保存する
+  const factory TLWorkspaceAction.saveCorrWorkspace(TLWorkspace corrWorkspace) =
+      UpdateCurrentWorkspace;
 }

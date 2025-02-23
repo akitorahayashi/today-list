@@ -18,30 +18,34 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TLToDoCategoryAction {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String workspaceID, TLToDoCategory category)
+    required TResult Function(String workspaceID, TLToDoCategory newCategory)
         addCategory,
     required TResult Function(String workspaceID, TLToDoCategory newCategory)
         updateCategory,
     required TResult Function(
-            TLWorkspace corrWorkspace, TLToDoCategory newCategory)
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)
         deleteCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String workspaceID, TLToDoCategory category)? addCategory,
+    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
+    TResult? Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String workspaceID, TLToDoCategory category)? addCategory,
+    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
+    TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
     required TResult orElse(),
   }) =>
@@ -98,9 +102,9 @@ abstract class _$$AddCategoryImplCopyWith<$Res> {
           _$AddCategoryImpl value, $Res Function(_$AddCategoryImpl) then) =
       __$$AddCategoryImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String workspaceID, TLToDoCategory category});
+  $Res call({String workspaceID, TLToDoCategory newCategory});
 
-  $TLToDoCategoryCopyWith<$Res> get category;
+  $TLToDoCategoryCopyWith<$Res> get newCategory;
 }
 
 /// @nodoc
@@ -117,16 +121,16 @@ class __$$AddCategoryImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? workspaceID = null,
-    Object? category = null,
+    Object? newCategory = null,
   }) {
     return _then(_$AddCategoryImpl(
       workspaceID: null == workspaceID
           ? _value.workspaceID
           : workspaceID // ignore: cast_nullable_to_non_nullable
               as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
+      newCategory: null == newCategory
+          ? _value.newCategory
+          : newCategory // ignore: cast_nullable_to_non_nullable
               as TLToDoCategory,
     ));
   }
@@ -135,9 +139,9 @@ class __$$AddCategoryImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $TLToDoCategoryCopyWith<$Res> get category {
-    return $TLToDoCategoryCopyWith<$Res>(_value.category, (value) {
-      return _then(_value.copyWith(category: value));
+  $TLToDoCategoryCopyWith<$Res> get newCategory {
+    return $TLToDoCategoryCopyWith<$Res>(_value.newCategory, (value) {
+      return _then(_value.copyWith(newCategory: value));
     });
   }
 }
@@ -145,16 +149,17 @@ class __$$AddCategoryImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddCategoryImpl implements _AddCategory {
-  const _$AddCategoryImpl({required this.workspaceID, required this.category});
+  const _$AddCategoryImpl(
+      {required this.workspaceID, required this.newCategory});
 
   @override
   final String workspaceID;
   @override
-  final TLToDoCategory category;
+  final TLToDoCategory newCategory;
 
   @override
   String toString() {
-    return 'TLToDoCategoryAction.addCategory(workspaceID: $workspaceID, category: $category)';
+    return 'TLToDoCategoryAction.addCategory(workspaceID: $workspaceID, newCategory: $newCategory)';
   }
 
   @override
@@ -164,12 +169,12 @@ class _$AddCategoryImpl implements _AddCategory {
             other is _$AddCategoryImpl &&
             (identical(other.workspaceID, workspaceID) ||
                 other.workspaceID == workspaceID) &&
-            (identical(other.category, category) ||
-                other.category == category));
+            (identical(other.newCategory, newCategory) ||
+                other.newCategory == newCategory));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, workspaceID, category);
+  int get hashCode => Object.hash(runtimeType, workspaceID, newCategory);
 
   /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
@@ -182,41 +187,45 @@ class _$AddCategoryImpl implements _AddCategory {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String workspaceID, TLToDoCategory category)
+    required TResult Function(String workspaceID, TLToDoCategory newCategory)
         addCategory,
     required TResult Function(String workspaceID, TLToDoCategory newCategory)
         updateCategory,
     required TResult Function(
-            TLWorkspace corrWorkspace, TLToDoCategory newCategory)
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)
         deleteCategory,
   }) {
-    return addCategory(workspaceID, category);
+    return addCategory(workspaceID, newCategory);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String workspaceID, TLToDoCategory category)? addCategory,
+    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
+    TResult? Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
   }) {
-    return addCategory?.call(workspaceID, category);
+    return addCategory?.call(workspaceID, newCategory);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String workspaceID, TLToDoCategory category)? addCategory,
+    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
+    TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
     required TResult orElse(),
   }) {
     if (addCategory != null) {
-      return addCategory(workspaceID, category);
+      return addCategory(workspaceID, newCategory);
     }
     return orElse();
   }
@@ -259,10 +268,10 @@ class _$AddCategoryImpl implements _AddCategory {
 abstract class _AddCategory implements TLToDoCategoryAction {
   const factory _AddCategory(
       {required final String workspaceID,
-      required final TLToDoCategory category}) = _$AddCategoryImpl;
+      required final TLToDoCategory newCategory}) = _$AddCategoryImpl;
 
   String get workspaceID;
-  TLToDoCategory get category;
+  TLToDoCategory get newCategory;
 
   /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
@@ -363,12 +372,12 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String workspaceID, TLToDoCategory category)
+    required TResult Function(String workspaceID, TLToDoCategory newCategory)
         addCategory,
     required TResult Function(String workspaceID, TLToDoCategory newCategory)
         updateCategory,
     required TResult Function(
-            TLWorkspace corrWorkspace, TLToDoCategory newCategory)
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)
         deleteCategory,
   }) {
     return updateCategory(workspaceID, newCategory);
@@ -377,10 +386,12 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String workspaceID, TLToDoCategory category)? addCategory,
+    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
+    TResult? Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
   }) {
     return updateCategory?.call(workspaceID, newCategory);
@@ -389,10 +400,12 @@ class _$UpdateCategoryImpl implements _UpdateCategory {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String workspaceID, TLToDoCategory category)? addCategory,
+    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
+    TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
     required TResult orElse(),
   }) {
@@ -458,10 +471,10 @@ abstract class _$$RemoveCategoryImplCopyWith<$Res> {
           $Res Function(_$RemoveCategoryImpl) then) =
       __$$RemoveCategoryImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({TLWorkspace corrWorkspace, TLToDoCategory newCategory});
+  $Res call({TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete});
 
   $TLWorkspaceCopyWith<$Res> get corrWorkspace;
-  $TLToDoCategoryCopyWith<$Res> get newCategory;
+  $TLToDoCategoryCopyWith<$Res> get categoryToDelete;
 }
 
 /// @nodoc
@@ -478,16 +491,16 @@ class __$$RemoveCategoryImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? corrWorkspace = null,
-    Object? newCategory = null,
+    Object? categoryToDelete = null,
   }) {
     return _then(_$RemoveCategoryImpl(
       corrWorkspace: null == corrWorkspace
           ? _value.corrWorkspace
           : corrWorkspace // ignore: cast_nullable_to_non_nullable
               as TLWorkspace,
-      newCategory: null == newCategory
-          ? _value.newCategory
-          : newCategory // ignore: cast_nullable_to_non_nullable
+      categoryToDelete: null == categoryToDelete
+          ? _value.categoryToDelete
+          : categoryToDelete // ignore: cast_nullable_to_non_nullable
               as TLToDoCategory,
     ));
   }
@@ -506,9 +519,9 @@ class __$$RemoveCategoryImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $TLToDoCategoryCopyWith<$Res> get newCategory {
-    return $TLToDoCategoryCopyWith<$Res>(_value.newCategory, (value) {
-      return _then(_value.copyWith(newCategory: value));
+  $TLToDoCategoryCopyWith<$Res> get categoryToDelete {
+    return $TLToDoCategoryCopyWith<$Res>(_value.categoryToDelete, (value) {
+      return _then(_value.copyWith(categoryToDelete: value));
     });
   }
 }
@@ -517,16 +530,16 @@ class __$$RemoveCategoryImplCopyWithImpl<$Res>
 
 class _$RemoveCategoryImpl implements _RemoveCategory {
   const _$RemoveCategoryImpl(
-      {required this.corrWorkspace, required this.newCategory});
+      {required this.corrWorkspace, required this.categoryToDelete});
 
   @override
   final TLWorkspace corrWorkspace;
   @override
-  final TLToDoCategory newCategory;
+  final TLToDoCategory categoryToDelete;
 
   @override
   String toString() {
-    return 'TLToDoCategoryAction.deleteCategory(corrWorkspace: $corrWorkspace, newCategory: $newCategory)';
+    return 'TLToDoCategoryAction.deleteCategory(corrWorkspace: $corrWorkspace, categoryToDelete: $categoryToDelete)';
   }
 
   @override
@@ -536,12 +549,12 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
             other is _$RemoveCategoryImpl &&
             (identical(other.corrWorkspace, corrWorkspace) ||
                 other.corrWorkspace == corrWorkspace) &&
-            (identical(other.newCategory, newCategory) ||
-                other.newCategory == newCategory));
+            (identical(other.categoryToDelete, categoryToDelete) ||
+                other.categoryToDelete == categoryToDelete));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, corrWorkspace, newCategory);
+  int get hashCode => Object.hash(runtimeType, corrWorkspace, categoryToDelete);
 
   /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.
@@ -555,41 +568,45 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String workspaceID, TLToDoCategory category)
+    required TResult Function(String workspaceID, TLToDoCategory newCategory)
         addCategory,
     required TResult Function(String workspaceID, TLToDoCategory newCategory)
         updateCategory,
     required TResult Function(
-            TLWorkspace corrWorkspace, TLToDoCategory newCategory)
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)
         deleteCategory,
   }) {
-    return deleteCategory(corrWorkspace, newCategory);
+    return deleteCategory(corrWorkspace, categoryToDelete);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String workspaceID, TLToDoCategory category)? addCategory,
+    TResult? Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
     TResult? Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult? Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
+    TResult? Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
   }) {
-    return deleteCategory?.call(corrWorkspace, newCategory);
+    return deleteCategory?.call(corrWorkspace, categoryToDelete);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String workspaceID, TLToDoCategory category)? addCategory,
+    TResult Function(String workspaceID, TLToDoCategory newCategory)?
+        addCategory,
     TResult Function(String workspaceID, TLToDoCategory newCategory)?
         updateCategory,
-    TResult Function(TLWorkspace corrWorkspace, TLToDoCategory newCategory)?
+    TResult Function(
+            TLWorkspace corrWorkspace, TLToDoCategory categoryToDelete)?
         deleteCategory,
     required TResult orElse(),
   }) {
     if (deleteCategory != null) {
-      return deleteCategory(corrWorkspace, newCategory);
+      return deleteCategory(corrWorkspace, categoryToDelete);
     }
     return orElse();
   }
@@ -632,10 +649,10 @@ class _$RemoveCategoryImpl implements _RemoveCategory {
 abstract class _RemoveCategory implements TLToDoCategoryAction {
   const factory _RemoveCategory(
       {required final TLWorkspace corrWorkspace,
-      required final TLToDoCategory newCategory}) = _$RemoveCategoryImpl;
+      required final TLToDoCategory categoryToDelete}) = _$RemoveCategoryImpl;
 
   TLWorkspace get corrWorkspace;
-  TLToDoCategory get newCategory;
+  TLToDoCategory get categoryToDelete;
 
   /// Create a copy of TLToDoCategoryAction
   /// with the given fields replaced by the non-null parameter values.

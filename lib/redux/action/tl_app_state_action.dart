@@ -11,11 +11,12 @@ sealed class TLAppStateAction with _$TLAppStateAction {
   const factory TLAppStateAction.changeCurrentWorkspaceID(String? newID) =
       ChangeCurrentWorkspaceID;
 
-  // 選択したWorkspaceを保存する
-  const factory TLAppStateAction.saveCorrWorkspace(
-      TLWorkspace updatedWorkspace) = UpdateCurrentWorkspace;
-
   // TLWorkspacesを保存する
   const factory TLAppStateAction.saveWorkspaceList(
-      List<TLWorkspace> updatedWorkspaceList) = UpdateWorkspaceList;
+      List<TLWorkspace> tlWorkspaces) = SaveWorkspaceList;
+
+  // WorkspaceList内の今日に分類されているチェック済みのToDoを全て削除する
+  const factory TLAppStateAction.deleteAllCheckedToDosInTodayInWorkspaceList(
+          List<TLWorkspace> corrWorkspaceList) =
+      DeleteAllCheckedToDosInTodayInWorkspaceList;
 }

@@ -8,21 +8,35 @@ part 'generate/tl_todo_action.freezed.dart';
 
 @freezed
 sealed class TLToDoAction with _$TLToDoAction {
-  // 新規のToDoを追加する
+  // ToDo を追加
   const factory TLToDoAction.addToDo({
     required TLWorkspace corrWorkspace,
     required TLToDo newToDo,
   }) = _AddToDo;
 
-  // 指定したToDoを更新する
+  // ToDo を更新
   const factory TLToDoAction.updateToDo({
     required TLWorkspace corrWorkspace,
     required TLToDo newToDo,
   }) = _UpdateToDo;
 
-  // 該当するToDoを削除する
+  // ToDo を削除
   const factory TLToDoAction.deleteToDo({
     required TLWorkspace corrWorkspace,
     required TLToDo corrToDo,
   }) = _RemoveToDo;
+
+  // ToDo のチェック状態を切り替え
+  const factory TLToDoAction.toggleToDoCheckStatus({
+    required TLWorkspace corrWorkspace,
+    required TLToDo corrToDo,
+  }) = _ToggleToDoCheckStatus;
+
+  // ステップの並び替え
+  const factory TLToDoAction.reorderSteps({
+    required TLWorkspace corrWorkspace,
+    required TLToDo corrToDo,
+    required int oldIndex,
+    required int newIndex,
+  }) = _ReorderSteps;
 }

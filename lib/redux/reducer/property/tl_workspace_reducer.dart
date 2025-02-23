@@ -10,6 +10,7 @@ class TLWorkspaceReducer {
       deleteWorkspace: (a) => _removeWorkspace(workspaces, a.corrWorkspace.id),
       deleteAllCheckedToDosInWorkspace: (a) =>
           _deleteAllCheckedToDosInWorkspace(workspaces, a.corrWorkspace),
+      saveCorrWorkspace: (a) => _saveCorrWorkspace(workspaces, a.corrWorkspace),
     );
 
     return updatedWorkspaces;
@@ -54,6 +55,13 @@ class TLWorkspaceReducer {
     return updatedWorkspaces;
   }
 
+  static List<TLWorkspace> _saveCorrWorkspace(
+      List<TLWorkspace> workspaces, TLWorkspace updatedWorkspace) {
+    final updatedWorkspaces = workspaces
+        .map((ws) => ws.id == updatedWorkspace.id ? updatedWorkspace : ws)
+        .toList();
+    return updatedWorkspaces;
+  }
   // --- Save Workspace to Local Storage ---
 
   // static List<TLWorkspace> _updateCorrWorkspace(

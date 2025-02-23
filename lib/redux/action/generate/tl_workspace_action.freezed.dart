@@ -22,6 +22,7 @@ mixin _$TLWorkspaceAction {
     required TResult Function(TLWorkspace corrWorkspace) deleteWorkspace,
     required TResult Function(TLWorkspace corrWorkspace)
         deleteAllCheckedToDosInWorkspace,
+    required TResult Function(TLWorkspace corrWorkspace) saveCorrWorkspace,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +31,7 @@ mixin _$TLWorkspaceAction {
     TResult? Function(TLWorkspace corrWorkspace)? deleteWorkspace,
     TResult? Function(TLWorkspace corrWorkspace)?
         deleteAllCheckedToDosInWorkspace,
+    TResult? Function(TLWorkspace corrWorkspace)? saveCorrWorkspace,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +40,7 @@ mixin _$TLWorkspaceAction {
     TResult Function(TLWorkspace corrWorkspace)? deleteWorkspace,
     TResult Function(TLWorkspace corrWorkspace)?
         deleteAllCheckedToDosInWorkspace,
+    TResult Function(TLWorkspace corrWorkspace)? saveCorrWorkspace,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +50,7 @@ mixin _$TLWorkspaceAction {
     required TResult Function(RemoveWorkspace value) deleteWorkspace,
     required TResult Function(DeleteAllCheckedToDosInWorkspace value)
         deleteAllCheckedToDosInWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) saveCorrWorkspace,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +59,7 @@ mixin _$TLWorkspaceAction {
     TResult? Function(RemoveWorkspace value)? deleteWorkspace,
     TResult? Function(DeleteAllCheckedToDosInWorkspace value)?
         deleteAllCheckedToDosInWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +68,7 @@ mixin _$TLWorkspaceAction {
     TResult Function(RemoveWorkspace value)? deleteWorkspace,
     TResult Function(DeleteAllCheckedToDosInWorkspace value)?
         deleteAllCheckedToDosInWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -174,6 +180,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     required TResult Function(TLWorkspace corrWorkspace) deleteWorkspace,
     required TResult Function(TLWorkspace corrWorkspace)
         deleteAllCheckedToDosInWorkspace,
+    required TResult Function(TLWorkspace corrWorkspace) saveCorrWorkspace,
   }) {
     return addWorkspace(newWorkspace);
   }
@@ -185,6 +192,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     TResult? Function(TLWorkspace corrWorkspace)? deleteWorkspace,
     TResult? Function(TLWorkspace corrWorkspace)?
         deleteAllCheckedToDosInWorkspace,
+    TResult? Function(TLWorkspace corrWorkspace)? saveCorrWorkspace,
   }) {
     return addWorkspace?.call(newWorkspace);
   }
@@ -196,6 +204,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     TResult Function(TLWorkspace corrWorkspace)? deleteWorkspace,
     TResult Function(TLWorkspace corrWorkspace)?
         deleteAllCheckedToDosInWorkspace,
+    TResult Function(TLWorkspace corrWorkspace)? saveCorrWorkspace,
     required TResult orElse(),
   }) {
     if (addWorkspace != null) {
@@ -211,6 +220,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     required TResult Function(RemoveWorkspace value) deleteWorkspace,
     required TResult Function(DeleteAllCheckedToDosInWorkspace value)
         deleteAllCheckedToDosInWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) saveCorrWorkspace,
   }) {
     return addWorkspace(this);
   }
@@ -222,6 +232,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     TResult? Function(RemoveWorkspace value)? deleteWorkspace,
     TResult? Function(DeleteAllCheckedToDosInWorkspace value)?
         deleteAllCheckedToDosInWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
   }) {
     return addWorkspace?.call(this);
   }
@@ -233,6 +244,7 @@ class _$AddWorkspaceImpl implements AddWorkspace {
     TResult Function(RemoveWorkspace value)? deleteWorkspace,
     TResult Function(DeleteAllCheckedToDosInWorkspace value)?
         deleteAllCheckedToDosInWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
     required TResult orElse(),
   }) {
     if (addWorkspace != null) {
@@ -341,6 +353,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     required TResult Function(TLWorkspace corrWorkspace) deleteWorkspace,
     required TResult Function(TLWorkspace corrWorkspace)
         deleteAllCheckedToDosInWorkspace,
+    required TResult Function(TLWorkspace corrWorkspace) saveCorrWorkspace,
   }) {
     return deleteWorkspace(corrWorkspace);
   }
@@ -352,6 +365,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     TResult? Function(TLWorkspace corrWorkspace)? deleteWorkspace,
     TResult? Function(TLWorkspace corrWorkspace)?
         deleteAllCheckedToDosInWorkspace,
+    TResult? Function(TLWorkspace corrWorkspace)? saveCorrWorkspace,
   }) {
     return deleteWorkspace?.call(corrWorkspace);
   }
@@ -363,6 +377,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     TResult Function(TLWorkspace corrWorkspace)? deleteWorkspace,
     TResult Function(TLWorkspace corrWorkspace)?
         deleteAllCheckedToDosInWorkspace,
+    TResult Function(TLWorkspace corrWorkspace)? saveCorrWorkspace,
     required TResult orElse(),
   }) {
     if (deleteWorkspace != null) {
@@ -378,6 +393,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     required TResult Function(RemoveWorkspace value) deleteWorkspace,
     required TResult Function(DeleteAllCheckedToDosInWorkspace value)
         deleteAllCheckedToDosInWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) saveCorrWorkspace,
   }) {
     return deleteWorkspace(this);
   }
@@ -389,6 +405,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     TResult? Function(RemoveWorkspace value)? deleteWorkspace,
     TResult? Function(DeleteAllCheckedToDosInWorkspace value)?
         deleteAllCheckedToDosInWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
   }) {
     return deleteWorkspace?.call(this);
   }
@@ -400,6 +417,7 @@ class _$RemoveWorkspaceImpl implements RemoveWorkspace {
     TResult Function(RemoveWorkspace value)? deleteWorkspace,
     TResult Function(DeleteAllCheckedToDosInWorkspace value)?
         deleteAllCheckedToDosInWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
     required TResult orElse(),
   }) {
     if (deleteWorkspace != null) {
@@ -513,6 +531,7 @@ class _$DeleteAllCheckedToDosInWorkspaceImpl
     required TResult Function(TLWorkspace corrWorkspace) deleteWorkspace,
     required TResult Function(TLWorkspace corrWorkspace)
         deleteAllCheckedToDosInWorkspace,
+    required TResult Function(TLWorkspace corrWorkspace) saveCorrWorkspace,
   }) {
     return deleteAllCheckedToDosInWorkspace(corrWorkspace);
   }
@@ -524,6 +543,7 @@ class _$DeleteAllCheckedToDosInWorkspaceImpl
     TResult? Function(TLWorkspace corrWorkspace)? deleteWorkspace,
     TResult? Function(TLWorkspace corrWorkspace)?
         deleteAllCheckedToDosInWorkspace,
+    TResult? Function(TLWorkspace corrWorkspace)? saveCorrWorkspace,
   }) {
     return deleteAllCheckedToDosInWorkspace?.call(corrWorkspace);
   }
@@ -535,6 +555,7 @@ class _$DeleteAllCheckedToDosInWorkspaceImpl
     TResult Function(TLWorkspace corrWorkspace)? deleteWorkspace,
     TResult Function(TLWorkspace corrWorkspace)?
         deleteAllCheckedToDosInWorkspace,
+    TResult Function(TLWorkspace corrWorkspace)? saveCorrWorkspace,
     required TResult orElse(),
   }) {
     if (deleteAllCheckedToDosInWorkspace != null) {
@@ -550,6 +571,7 @@ class _$DeleteAllCheckedToDosInWorkspaceImpl
     required TResult Function(RemoveWorkspace value) deleteWorkspace,
     required TResult Function(DeleteAllCheckedToDosInWorkspace value)
         deleteAllCheckedToDosInWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) saveCorrWorkspace,
   }) {
     return deleteAllCheckedToDosInWorkspace(this);
   }
@@ -561,6 +583,7 @@ class _$DeleteAllCheckedToDosInWorkspaceImpl
     TResult? Function(RemoveWorkspace value)? deleteWorkspace,
     TResult? Function(DeleteAllCheckedToDosInWorkspace value)?
         deleteAllCheckedToDosInWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
   }) {
     return deleteAllCheckedToDosInWorkspace?.call(this);
   }
@@ -572,6 +595,7 @@ class _$DeleteAllCheckedToDosInWorkspaceImpl
     TResult Function(RemoveWorkspace value)? deleteWorkspace,
     TResult Function(DeleteAllCheckedToDosInWorkspace value)?
         deleteAllCheckedToDosInWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
     required TResult orElse(),
   }) {
     if (deleteAllCheckedToDosInWorkspace != null) {
@@ -592,5 +616,180 @@ abstract class DeleteAllCheckedToDosInWorkspace implements TLWorkspaceAction {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteAllCheckedToDosInWorkspaceImplCopyWith<
           _$DeleteAllCheckedToDosInWorkspaceImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateCurrentWorkspaceImplCopyWith<$Res> {
+  factory _$$UpdateCurrentWorkspaceImplCopyWith(
+          _$UpdateCurrentWorkspaceImpl value,
+          $Res Function(_$UpdateCurrentWorkspaceImpl) then) =
+      __$$UpdateCurrentWorkspaceImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({TLWorkspace corrWorkspace});
+
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
+}
+
+/// @nodoc
+class __$$UpdateCurrentWorkspaceImplCopyWithImpl<$Res>
+    extends _$TLWorkspaceActionCopyWithImpl<$Res, _$UpdateCurrentWorkspaceImpl>
+    implements _$$UpdateCurrentWorkspaceImplCopyWith<$Res> {
+  __$$UpdateCurrentWorkspaceImplCopyWithImpl(
+      _$UpdateCurrentWorkspaceImpl _value,
+      $Res Function(_$UpdateCurrentWorkspaceImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TLWorkspaceAction
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? corrWorkspace = null,
+  }) {
+    return _then(_$UpdateCurrentWorkspaceImpl(
+      null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
+    ));
+  }
+
+  /// Create a copy of TLWorkspaceAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace {
+    return $TLWorkspaceCopyWith<$Res>(_value.corrWorkspace, (value) {
+      return _then(_value.copyWith(corrWorkspace: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
+  const _$UpdateCurrentWorkspaceImpl(this.corrWorkspace);
+
+  @override
+  final TLWorkspace corrWorkspace;
+
+  @override
+  String toString() {
+    return 'TLWorkspaceAction.saveCorrWorkspace(corrWorkspace: $corrWorkspace)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateCurrentWorkspaceImpl &&
+            (identical(other.corrWorkspace, corrWorkspace) ||
+                other.corrWorkspace == corrWorkspace));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, corrWorkspace);
+
+  /// Create a copy of TLWorkspaceAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateCurrentWorkspaceImplCopyWith<_$UpdateCurrentWorkspaceImpl>
+      get copyWith => __$$UpdateCurrentWorkspaceImplCopyWithImpl<
+          _$UpdateCurrentWorkspaceImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(TLWorkspace newWorkspace) addWorkspace,
+    required TResult Function(TLWorkspace corrWorkspace) deleteWorkspace,
+    required TResult Function(TLWorkspace corrWorkspace)
+        deleteAllCheckedToDosInWorkspace,
+    required TResult Function(TLWorkspace corrWorkspace) saveCorrWorkspace,
+  }) {
+    return saveCorrWorkspace(corrWorkspace);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(TLWorkspace newWorkspace)? addWorkspace,
+    TResult? Function(TLWorkspace corrWorkspace)? deleteWorkspace,
+    TResult? Function(TLWorkspace corrWorkspace)?
+        deleteAllCheckedToDosInWorkspace,
+    TResult? Function(TLWorkspace corrWorkspace)? saveCorrWorkspace,
+  }) {
+    return saveCorrWorkspace?.call(corrWorkspace);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(TLWorkspace newWorkspace)? addWorkspace,
+    TResult Function(TLWorkspace corrWorkspace)? deleteWorkspace,
+    TResult Function(TLWorkspace corrWorkspace)?
+        deleteAllCheckedToDosInWorkspace,
+    TResult Function(TLWorkspace corrWorkspace)? saveCorrWorkspace,
+    required TResult orElse(),
+  }) {
+    if (saveCorrWorkspace != null) {
+      return saveCorrWorkspace(corrWorkspace);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AddWorkspace value) addWorkspace,
+    required TResult Function(RemoveWorkspace value) deleteWorkspace,
+    required TResult Function(DeleteAllCheckedToDosInWorkspace value)
+        deleteAllCheckedToDosInWorkspace,
+    required TResult Function(UpdateCurrentWorkspace value) saveCorrWorkspace,
+  }) {
+    return saveCorrWorkspace(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AddWorkspace value)? addWorkspace,
+    TResult? Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult? Function(DeleteAllCheckedToDosInWorkspace value)?
+        deleteAllCheckedToDosInWorkspace,
+    TResult? Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
+  }) {
+    return saveCorrWorkspace?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AddWorkspace value)? addWorkspace,
+    TResult Function(RemoveWorkspace value)? deleteWorkspace,
+    TResult Function(DeleteAllCheckedToDosInWorkspace value)?
+        deleteAllCheckedToDosInWorkspace,
+    TResult Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
+    required TResult orElse(),
+  }) {
+    if (saveCorrWorkspace != null) {
+      return saveCorrWorkspace(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UpdateCurrentWorkspace implements TLWorkspaceAction {
+  const factory UpdateCurrentWorkspace(final TLWorkspace corrWorkspace) =
+      _$UpdateCurrentWorkspaceImpl;
+
+  TLWorkspace get corrWorkspace;
+
+  /// Create a copy of TLWorkspaceAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateCurrentWorkspaceImplCopyWith<_$UpdateCurrentWorkspaceImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

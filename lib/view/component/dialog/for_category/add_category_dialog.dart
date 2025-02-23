@@ -46,7 +46,7 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
           ),
           _ActionButtons(
             theme: theme,
-            buttonText: "add",
+            buttonText: "Add",
             enteredCategoryTitle: enteredCategoryTitle,
             onClose: () => Navigator.pop(context),
             onSubmit: () {
@@ -55,15 +55,16 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
                 parentBigCategoryID: selectedBigCategoryID.value,
                 name: enteredCategoryTitle.value,
               );
-              ref.read(tlAppStateProvider.notifier).dispatchToDoCategoryAction(
+              ref.read(tlAppStateProvider.notifier).dispatch(
                     TLToDoCategoryAction.addCategory(
-                        workspaceID: currentWorkspace.id,
-                        category: categoryToAdd),
+                      workspaceID: currentWorkspace.id,
+                      newCategory: categoryToAdd,
+                    ),
                   );
               Navigator.pop(context);
               TLSingleOptionDialog(
                 title: categoryToAdd.name,
-                message: "カテゴリーを追加しました！",
+                message: "Category has been added!",
               ).show(context: context);
             },
           ),
@@ -118,10 +119,10 @@ class _BigCategoryDropdown extends StatelessWidget {
   }
 
   Widget _buildDropdownHint(String? selectedID, TLWorkspace workspace) {
-    if (selectedID == null) return const Text("なし");
+    if (selectedID == null) return const Text("None");
     final found = workspace.bigCategories.where((bc) => bc.id == selectedID);
     return found.isEmpty
-        ? const Text("なし")
+        ? const Text("None")
         : Text(found.first.name,
             style: const TextStyle(fontWeight: FontWeight.bold));
   }
@@ -159,7 +160,7 @@ class _NewCategoryNameInputField extends StatelessWidget {
           ),
           decoration: tlInputDecoration(
             context: context,
-            labelText: "新しいカテゴリー名",
+            labelText: "New Category Name",
             icon: null,
             suffixIcon: null,
           ),
@@ -192,7 +193,7 @@ class _ActionButtons extends StatelessWidget {
         TextButton(
           style: alertButtonStyle(accentColor: theme.accentColor),
           onPressed: onClose,
-          child: const Text("閉じる"),
+          child: const Text("Close"),
         ),
         TextButton(
           style: alertButtonStyle(accentColor: theme.accentColor),

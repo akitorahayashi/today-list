@@ -13,11 +13,13 @@ import 'package:today_list/service/tl_pref.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'dart:convert';
 
+// MARK: - Provider
 final tlAppStateProvider =
     StateNotifierProvider<TLAppStateNotifier, TLAppState>((ref) {
   return TLAppStateNotifier();
 });
 
+// MARK: - TLAppStateNotifier
 class TLAppStateNotifier extends StateNotifier<TLAppState> {
   TLAppStateNotifier()
       : super(TLAppState(
@@ -28,7 +30,9 @@ class TLAppStateNotifier extends StateNotifier<TLAppState> {
     _loadSavedAppState();
   }
 
-  /// **アクションを一括で処理**
+  // MARK: - Action Dispatcher
+
+  /// アクションを処理し、新しい状態を適用
   void dispatch(dynamic action) {
     final newState = TLAppStateReducer.reduce(state, action);
 
@@ -38,7 +42,9 @@ class TLAppStateNotifier extends StateNotifier<TLAppState> {
     }
   }
 
-  /// **副作用処理（バイブレーション、データ保存）**
+  // MARK: - Side Effects
+
+  /// 副作用（バイブレーション、データ保存）を処理
   void _sideEffectsFor(dynamic action, TLAppState newState) {
     if (action is ChangeCurrentWorkspaceID) {
       TLVibrationService.vibrate();
@@ -51,7 +57,9 @@ class TLAppStateNotifier extends StateNotifier<TLAppState> {
         (action is TLAppStateAction &&
             action.mapOrNull(saveWorkspaceList: (_) => true) == true) ||
         (action is TLAppStateAction &&
-            action.mapOrNull(saveCorrWorkspace: (_) => true) == true)) {
+            action.mapOrNull(
+                    deleteAllCheckedToDosInTodayInWorkspaceList: (_) => true) ==
+                true)) {
       _saveWorkspaces(newState.tlWorkspaces);
     }
 
@@ -60,7 +68,9 @@ class TLAppStateNotifier extends StateNotifier<TLAppState> {
     }
   }
 
-  /// **初回ロード**
+  // MARK: - Load State
+
+  /// 初回起動時に保存されたアプリの状態を読み込む
   Future<void> _loadSavedAppState() async {
     final pref = await TLPrefService().getPref;
     final savedWorkspaceID = pref.getString('currentWorkspaceID');
@@ -87,7 +97,9 @@ class TLAppStateNotifier extends StateNotifier<TLAppState> {
     );
   }
 
-  /// **データ保存**
+  // MARK: - Save State
+
+  /// 現在のワークスペースIDを保存
   Future<void> _saveCurrentWorkspaceID(String? id) async {
     final pref = await TLPrefService().getPref;
     if (id == null) {
@@ -97,6 +109,7 @@ class TLAppStateNotifier extends StateNotifier<TLAppState> {
     }
   }
 
+  /// ワークスペース一覧を保存
   Future<void> _saveWorkspaces(List<TLWorkspace> workspaces) async {
     final pref = await TLPrefService().getPref;
     final encodedWorkspaces =
@@ -104,6 +117,7 @@ class TLAppStateNotifier extends StateNotifier<TLAppState> {
     await pref.setString("tlWorkspaces", encodedWorkspaces);
   }
 
+  /// テーマ設定を保存
   Future<void> _saveTheme(TLThemeType themeType) async {
     final pref = await TLPrefService().getPref;
     await pref.setString('themeType', themeType.name);

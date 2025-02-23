@@ -19,24 +19,25 @@ mixin _$TLAppStateAction {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newID) changeCurrentWorkspaceID,
-    required TResult Function(TLWorkspace updatedWorkspace) saveCorrWorkspace,
-    required TResult Function(List<TLWorkspace> updatedWorkspaceList)
-        saveWorkspaceList,
+    required TResult Function(List<TLWorkspace> tlWorkspaces) saveWorkspaceList,
+    required TResult Function(List<TLWorkspace> corrWorkspaceList)
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? newID)? changeCurrentWorkspaceID,
-    TResult? Function(TLWorkspace updatedWorkspace)? saveCorrWorkspace,
-    TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
-        saveWorkspaceList,
+    TResult? Function(List<TLWorkspace> tlWorkspaces)? saveWorkspaceList,
+    TResult? Function(List<TLWorkspace> corrWorkspaceList)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newID)? changeCurrentWorkspaceID,
-    TResult Function(TLWorkspace updatedWorkspace)? saveCorrWorkspace,
-    TResult Function(List<TLWorkspace> updatedWorkspaceList)? saveWorkspaceList,
+    TResult Function(List<TLWorkspace> tlWorkspaces)? saveWorkspaceList,
+    TResult Function(List<TLWorkspace> corrWorkspaceList)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,22 +45,25 @@ mixin _$TLAppStateAction {
   TResult map<TResult extends Object?>({
     required TResult Function(ChangeCurrentWorkspaceID value)
         changeCurrentWorkspaceID,
-    required TResult Function(UpdateCurrentWorkspace value) saveCorrWorkspace,
-    required TResult Function(UpdateWorkspaceList value) saveWorkspaceList,
+    required TResult Function(SaveWorkspaceList value) saveWorkspaceList,
+    required TResult Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
-    TResult? Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
-    TResult? Function(UpdateWorkspaceList value)? saveWorkspaceList,
+    TResult? Function(SaveWorkspaceList value)? saveWorkspaceList,
+    TResult? Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
-    TResult Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
-    TResult Function(UpdateWorkspaceList value)? saveWorkspaceList,
+    TResult Function(SaveWorkspaceList value)? saveWorkspaceList,
+    TResult Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -158,9 +162,9 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newID) changeCurrentWorkspaceID,
-    required TResult Function(TLWorkspace updatedWorkspace) saveCorrWorkspace,
-    required TResult Function(List<TLWorkspace> updatedWorkspaceList)
-        saveWorkspaceList,
+    required TResult Function(List<TLWorkspace> tlWorkspaces) saveWorkspaceList,
+    required TResult Function(List<TLWorkspace> corrWorkspaceList)
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) {
     return changeCurrentWorkspaceID(newID);
   }
@@ -169,9 +173,9 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? newID)? changeCurrentWorkspaceID,
-    TResult? Function(TLWorkspace updatedWorkspace)? saveCorrWorkspace,
-    TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
-        saveWorkspaceList,
+    TResult? Function(List<TLWorkspace> tlWorkspaces)? saveWorkspaceList,
+    TResult? Function(List<TLWorkspace> corrWorkspaceList)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) {
     return changeCurrentWorkspaceID?.call(newID);
   }
@@ -180,8 +184,9 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newID)? changeCurrentWorkspaceID,
-    TResult Function(TLWorkspace updatedWorkspace)? saveCorrWorkspace,
-    TResult Function(List<TLWorkspace> updatedWorkspaceList)? saveWorkspaceList,
+    TResult Function(List<TLWorkspace> tlWorkspaces)? saveWorkspaceList,
+    TResult Function(List<TLWorkspace> corrWorkspaceList)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
     required TResult orElse(),
   }) {
     if (changeCurrentWorkspaceID != null) {
@@ -195,8 +200,9 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   TResult map<TResult extends Object?>({
     required TResult Function(ChangeCurrentWorkspaceID value)
         changeCurrentWorkspaceID,
-    required TResult Function(UpdateCurrentWorkspace value) saveCorrWorkspace,
-    required TResult Function(UpdateWorkspaceList value) saveWorkspaceList,
+    required TResult Function(SaveWorkspaceList value) saveWorkspaceList,
+    required TResult Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) {
     return changeCurrentWorkspaceID(this);
   }
@@ -205,8 +211,9 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
-    TResult? Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
-    TResult? Function(UpdateWorkspaceList value)? saveWorkspaceList,
+    TResult? Function(SaveWorkspaceList value)? saveWorkspaceList,
+    TResult? Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) {
     return changeCurrentWorkspaceID?.call(this);
   }
@@ -215,8 +222,9 @@ class _$ChangeCurrentWorkspaceIDImpl implements ChangeCurrentWorkspaceID {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
-    TResult Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
-    TResult Function(UpdateWorkspaceList value)? saveWorkspaceList,
+    TResult Function(SaveWorkspaceList value)? saveWorkspaceList,
+    TResult Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
     required TResult orElse(),
   }) {
     if (changeCurrentWorkspaceID != null) {
@@ -240,24 +248,20 @@ abstract class ChangeCurrentWorkspaceID implements TLAppStateAction {
 }
 
 /// @nodoc
-abstract class _$$UpdateCurrentWorkspaceImplCopyWith<$Res> {
-  factory _$$UpdateCurrentWorkspaceImplCopyWith(
-          _$UpdateCurrentWorkspaceImpl value,
-          $Res Function(_$UpdateCurrentWorkspaceImpl) then) =
-      __$$UpdateCurrentWorkspaceImplCopyWithImpl<$Res>;
+abstract class _$$SaveWorkspaceListImplCopyWith<$Res> {
+  factory _$$SaveWorkspaceListImplCopyWith(_$SaveWorkspaceListImpl value,
+          $Res Function(_$SaveWorkspaceListImpl) then) =
+      __$$SaveWorkspaceListImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({TLWorkspace updatedWorkspace});
-
-  $TLWorkspaceCopyWith<$Res> get updatedWorkspace;
+  $Res call({List<TLWorkspace> tlWorkspaces});
 }
 
 /// @nodoc
-class __$$UpdateCurrentWorkspaceImplCopyWithImpl<$Res>
-    extends _$TLAppStateActionCopyWithImpl<$Res, _$UpdateCurrentWorkspaceImpl>
-    implements _$$UpdateCurrentWorkspaceImplCopyWith<$Res> {
-  __$$UpdateCurrentWorkspaceImplCopyWithImpl(
-      _$UpdateCurrentWorkspaceImpl _value,
-      $Res Function(_$UpdateCurrentWorkspaceImpl) _then)
+class __$$SaveWorkspaceListImplCopyWithImpl<$Res>
+    extends _$TLAppStateActionCopyWithImpl<$Res, _$SaveWorkspaceListImpl>
+    implements _$$SaveWorkspaceListImplCopyWith<$Res> {
+  __$$SaveWorkspaceListImplCopyWithImpl(_$SaveWorkspaceListImpl _value,
+      $Res Function(_$SaveWorkspaceListImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of TLAppStateAction
@@ -265,174 +269,12 @@ class __$$UpdateCurrentWorkspaceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? updatedWorkspace = null,
+    Object? tlWorkspaces = null,
   }) {
-    return _then(_$UpdateCurrentWorkspaceImpl(
-      null == updatedWorkspace
-          ? _value.updatedWorkspace
-          : updatedWorkspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-    ));
-  }
-
-  /// Create a copy of TLAppStateAction
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $TLWorkspaceCopyWith<$Res> get updatedWorkspace {
-    return $TLWorkspaceCopyWith<$Res>(_value.updatedWorkspace, (value) {
-      return _then(_value.copyWith(updatedWorkspace: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$UpdateCurrentWorkspaceImpl implements UpdateCurrentWorkspace {
-  const _$UpdateCurrentWorkspaceImpl(this.updatedWorkspace);
-
-  @override
-  final TLWorkspace updatedWorkspace;
-
-  @override
-  String toString() {
-    return 'TLAppStateAction.saveCorrWorkspace(updatedWorkspace: $updatedWorkspace)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UpdateCurrentWorkspaceImpl &&
-            (identical(other.updatedWorkspace, updatedWorkspace) ||
-                other.updatedWorkspace == updatedWorkspace));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, updatedWorkspace);
-
-  /// Create a copy of TLAppStateAction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UpdateCurrentWorkspaceImplCopyWith<_$UpdateCurrentWorkspaceImpl>
-      get copyWith => __$$UpdateCurrentWorkspaceImplCopyWithImpl<
-          _$UpdateCurrentWorkspaceImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String? newID) changeCurrentWorkspaceID,
-    required TResult Function(TLWorkspace updatedWorkspace) saveCorrWorkspace,
-    required TResult Function(List<TLWorkspace> updatedWorkspaceList)
-        saveWorkspaceList,
-  }) {
-    return saveCorrWorkspace(updatedWorkspace);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? newID)? changeCurrentWorkspaceID,
-    TResult? Function(TLWorkspace updatedWorkspace)? saveCorrWorkspace,
-    TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
-        saveWorkspaceList,
-  }) {
-    return saveCorrWorkspace?.call(updatedWorkspace);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? newID)? changeCurrentWorkspaceID,
-    TResult Function(TLWorkspace updatedWorkspace)? saveCorrWorkspace,
-    TResult Function(List<TLWorkspace> updatedWorkspaceList)? saveWorkspaceList,
-    required TResult orElse(),
-  }) {
-    if (saveCorrWorkspace != null) {
-      return saveCorrWorkspace(updatedWorkspace);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(ChangeCurrentWorkspaceID value)
-        changeCurrentWorkspaceID,
-    required TResult Function(UpdateCurrentWorkspace value) saveCorrWorkspace,
-    required TResult Function(UpdateWorkspaceList value) saveWorkspaceList,
-  }) {
-    return saveCorrWorkspace(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
-    TResult? Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
-    TResult? Function(UpdateWorkspaceList value)? saveWorkspaceList,
-  }) {
-    return saveCorrWorkspace?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
-    TResult Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
-    TResult Function(UpdateWorkspaceList value)? saveWorkspaceList,
-    required TResult orElse(),
-  }) {
-    if (saveCorrWorkspace != null) {
-      return saveCorrWorkspace(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class UpdateCurrentWorkspace implements TLAppStateAction {
-  const factory UpdateCurrentWorkspace(final TLWorkspace updatedWorkspace) =
-      _$UpdateCurrentWorkspaceImpl;
-
-  TLWorkspace get updatedWorkspace;
-
-  /// Create a copy of TLAppStateAction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UpdateCurrentWorkspaceImplCopyWith<_$UpdateCurrentWorkspaceImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UpdateWorkspaceListImplCopyWith<$Res> {
-  factory _$$UpdateWorkspaceListImplCopyWith(_$UpdateWorkspaceListImpl value,
-          $Res Function(_$UpdateWorkspaceListImpl) then) =
-      __$$UpdateWorkspaceListImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({List<TLWorkspace> updatedWorkspaceList});
-}
-
-/// @nodoc
-class __$$UpdateWorkspaceListImplCopyWithImpl<$Res>
-    extends _$TLAppStateActionCopyWithImpl<$Res, _$UpdateWorkspaceListImpl>
-    implements _$$UpdateWorkspaceListImplCopyWith<$Res> {
-  __$$UpdateWorkspaceListImplCopyWithImpl(_$UpdateWorkspaceListImpl _value,
-      $Res Function(_$UpdateWorkspaceListImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of TLAppStateAction
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? updatedWorkspaceList = null,
-  }) {
-    return _then(_$UpdateWorkspaceListImpl(
-      null == updatedWorkspaceList
-          ? _value._updatedWorkspaceList
-          : updatedWorkspaceList // ignore: cast_nullable_to_non_nullable
+    return _then(_$SaveWorkspaceListImpl(
+      null == tlWorkspaces
+          ? _value._tlWorkspaces
+          : tlWorkspaces // ignore: cast_nullable_to_non_nullable
               as List<TLWorkspace>,
     ));
   }
@@ -440,78 +282,78 @@ class __$$UpdateWorkspaceListImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
-  const _$UpdateWorkspaceListImpl(final List<TLWorkspace> updatedWorkspaceList)
-      : _updatedWorkspaceList = updatedWorkspaceList;
+class _$SaveWorkspaceListImpl implements SaveWorkspaceList {
+  const _$SaveWorkspaceListImpl(final List<TLWorkspace> tlWorkspaces)
+      : _tlWorkspaces = tlWorkspaces;
 
-  final List<TLWorkspace> _updatedWorkspaceList;
+  final List<TLWorkspace> _tlWorkspaces;
   @override
-  List<TLWorkspace> get updatedWorkspaceList {
-    if (_updatedWorkspaceList is EqualUnmodifiableListView)
-      return _updatedWorkspaceList;
+  List<TLWorkspace> get tlWorkspaces {
+    if (_tlWorkspaces is EqualUnmodifiableListView) return _tlWorkspaces;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_updatedWorkspaceList);
+    return EqualUnmodifiableListView(_tlWorkspaces);
   }
 
   @override
   String toString() {
-    return 'TLAppStateAction.saveWorkspaceList(updatedWorkspaceList: $updatedWorkspaceList)';
+    return 'TLAppStateAction.saveWorkspaceList(tlWorkspaces: $tlWorkspaces)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UpdateWorkspaceListImpl &&
+            other is _$SaveWorkspaceListImpl &&
             const DeepCollectionEquality()
-                .equals(other._updatedWorkspaceList, _updatedWorkspaceList));
+                .equals(other._tlWorkspaces, _tlWorkspaces));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_updatedWorkspaceList));
+      runtimeType, const DeepCollectionEquality().hash(_tlWorkspaces));
 
   /// Create a copy of TLAppStateAction
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$UpdateWorkspaceListImplCopyWith<_$UpdateWorkspaceListImpl> get copyWith =>
-      __$$UpdateWorkspaceListImplCopyWithImpl<_$UpdateWorkspaceListImpl>(
+  _$$SaveWorkspaceListImplCopyWith<_$SaveWorkspaceListImpl> get copyWith =>
+      __$$SaveWorkspaceListImplCopyWithImpl<_$SaveWorkspaceListImpl>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? newID) changeCurrentWorkspaceID,
-    required TResult Function(TLWorkspace updatedWorkspace) saveCorrWorkspace,
-    required TResult Function(List<TLWorkspace> updatedWorkspaceList)
-        saveWorkspaceList,
+    required TResult Function(List<TLWorkspace> tlWorkspaces) saveWorkspaceList,
+    required TResult Function(List<TLWorkspace> corrWorkspaceList)
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) {
-    return saveWorkspaceList(updatedWorkspaceList);
+    return saveWorkspaceList(tlWorkspaces);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? newID)? changeCurrentWorkspaceID,
-    TResult? Function(TLWorkspace updatedWorkspace)? saveCorrWorkspace,
-    TResult? Function(List<TLWorkspace> updatedWorkspaceList)?
-        saveWorkspaceList,
+    TResult? Function(List<TLWorkspace> tlWorkspaces)? saveWorkspaceList,
+    TResult? Function(List<TLWorkspace> corrWorkspaceList)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) {
-    return saveWorkspaceList?.call(updatedWorkspaceList);
+    return saveWorkspaceList?.call(tlWorkspaces);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? newID)? changeCurrentWorkspaceID,
-    TResult Function(TLWorkspace updatedWorkspace)? saveCorrWorkspace,
-    TResult Function(List<TLWorkspace> updatedWorkspaceList)? saveWorkspaceList,
+    TResult Function(List<TLWorkspace> tlWorkspaces)? saveWorkspaceList,
+    TResult Function(List<TLWorkspace> corrWorkspaceList)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
     required TResult orElse(),
   }) {
     if (saveWorkspaceList != null) {
-      return saveWorkspaceList(updatedWorkspaceList);
+      return saveWorkspaceList(tlWorkspaces);
     }
     return orElse();
   }
@@ -521,8 +363,9 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
   TResult map<TResult extends Object?>({
     required TResult Function(ChangeCurrentWorkspaceID value)
         changeCurrentWorkspaceID,
-    required TResult Function(UpdateCurrentWorkspace value) saveCorrWorkspace,
-    required TResult Function(UpdateWorkspaceList value) saveWorkspaceList,
+    required TResult Function(SaveWorkspaceList value) saveWorkspaceList,
+    required TResult Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) {
     return saveWorkspaceList(this);
   }
@@ -531,8 +374,9 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
-    TResult? Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
-    TResult? Function(UpdateWorkspaceList value)? saveWorkspaceList,
+    TResult? Function(SaveWorkspaceList value)? saveWorkspaceList,
+    TResult? Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
   }) {
     return saveWorkspaceList?.call(this);
   }
@@ -541,8 +385,9 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
-    TResult Function(UpdateCurrentWorkspace value)? saveCorrWorkspace,
-    TResult Function(UpdateWorkspaceList value)? saveWorkspaceList,
+    TResult Function(SaveWorkspaceList value)? saveWorkspaceList,
+    TResult Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
     required TResult orElse(),
   }) {
     if (saveWorkspaceList != null) {
@@ -552,15 +397,193 @@ class _$UpdateWorkspaceListImpl implements UpdateWorkspaceList {
   }
 }
 
-abstract class UpdateWorkspaceList implements TLAppStateAction {
-  const factory UpdateWorkspaceList(
-      final List<TLWorkspace> updatedWorkspaceList) = _$UpdateWorkspaceListImpl;
+abstract class SaveWorkspaceList implements TLAppStateAction {
+  const factory SaveWorkspaceList(final List<TLWorkspace> tlWorkspaces) =
+      _$SaveWorkspaceListImpl;
 
-  List<TLWorkspace> get updatedWorkspaceList;
+  List<TLWorkspace> get tlWorkspaces;
 
   /// Create a copy of TLAppStateAction
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UpdateWorkspaceListImplCopyWith<_$UpdateWorkspaceListImpl> get copyWith =>
+  _$$SaveWorkspaceListImplCopyWith<_$SaveWorkspaceListImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteAllCheckedToDosInTodayInWorkspaceListImplCopyWith<
+    $Res> {
+  factory _$$DeleteAllCheckedToDosInTodayInWorkspaceListImplCopyWith(
+          _$DeleteAllCheckedToDosInTodayInWorkspaceListImpl value,
+          $Res Function(_$DeleteAllCheckedToDosInTodayInWorkspaceListImpl)
+              then) =
+      __$$DeleteAllCheckedToDosInTodayInWorkspaceListImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<TLWorkspace> corrWorkspaceList});
+}
+
+/// @nodoc
+class __$$DeleteAllCheckedToDosInTodayInWorkspaceListImplCopyWithImpl<$Res>
+    extends _$TLAppStateActionCopyWithImpl<$Res,
+        _$DeleteAllCheckedToDosInTodayInWorkspaceListImpl>
+    implements
+        _$$DeleteAllCheckedToDosInTodayInWorkspaceListImplCopyWith<$Res> {
+  __$$DeleteAllCheckedToDosInTodayInWorkspaceListImplCopyWithImpl(
+      _$DeleteAllCheckedToDosInTodayInWorkspaceListImpl _value,
+      $Res Function(_$DeleteAllCheckedToDosInTodayInWorkspaceListImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TLAppStateAction
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? corrWorkspaceList = null,
+  }) {
+    return _then(_$DeleteAllCheckedToDosInTodayInWorkspaceListImpl(
+      null == corrWorkspaceList
+          ? _value._corrWorkspaceList
+          : corrWorkspaceList // ignore: cast_nullable_to_non_nullable
+              as List<TLWorkspace>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteAllCheckedToDosInTodayInWorkspaceListImpl
+    implements DeleteAllCheckedToDosInTodayInWorkspaceList {
+  const _$DeleteAllCheckedToDosInTodayInWorkspaceListImpl(
+      final List<TLWorkspace> corrWorkspaceList)
+      : _corrWorkspaceList = corrWorkspaceList;
+
+  final List<TLWorkspace> _corrWorkspaceList;
+  @override
+  List<TLWorkspace> get corrWorkspaceList {
+    if (_corrWorkspaceList is EqualUnmodifiableListView)
+      return _corrWorkspaceList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_corrWorkspaceList);
+  }
+
+  @override
+  String toString() {
+    return 'TLAppStateAction.deleteAllCheckedToDosInTodayInWorkspaceList(corrWorkspaceList: $corrWorkspaceList)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteAllCheckedToDosInTodayInWorkspaceListImpl &&
+            const DeepCollectionEquality()
+                .equals(other._corrWorkspaceList, _corrWorkspaceList));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_corrWorkspaceList));
+
+  /// Create a copy of TLAppStateAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteAllCheckedToDosInTodayInWorkspaceListImplCopyWith<
+          _$DeleteAllCheckedToDosInTodayInWorkspaceListImpl>
+      get copyWith =>
+          __$$DeleteAllCheckedToDosInTodayInWorkspaceListImplCopyWithImpl<
+                  _$DeleteAllCheckedToDosInTodayInWorkspaceListImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? newID) changeCurrentWorkspaceID,
+    required TResult Function(List<TLWorkspace> tlWorkspaces) saveWorkspaceList,
+    required TResult Function(List<TLWorkspace> corrWorkspaceList)
+        deleteAllCheckedToDosInTodayInWorkspaceList,
+  }) {
+    return deleteAllCheckedToDosInTodayInWorkspaceList(corrWorkspaceList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? newID)? changeCurrentWorkspaceID,
+    TResult? Function(List<TLWorkspace> tlWorkspaces)? saveWorkspaceList,
+    TResult? Function(List<TLWorkspace> corrWorkspaceList)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
+  }) {
+    return deleteAllCheckedToDosInTodayInWorkspaceList?.call(corrWorkspaceList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? newID)? changeCurrentWorkspaceID,
+    TResult Function(List<TLWorkspace> tlWorkspaces)? saveWorkspaceList,
+    TResult Function(List<TLWorkspace> corrWorkspaceList)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
+    required TResult orElse(),
+  }) {
+    if (deleteAllCheckedToDosInTodayInWorkspaceList != null) {
+      return deleteAllCheckedToDosInTodayInWorkspaceList(corrWorkspaceList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeCurrentWorkspaceID value)
+        changeCurrentWorkspaceID,
+    required TResult Function(SaveWorkspaceList value) saveWorkspaceList,
+    required TResult Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)
+        deleteAllCheckedToDosInTodayInWorkspaceList,
+  }) {
+    return deleteAllCheckedToDosInTodayInWorkspaceList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
+    TResult? Function(SaveWorkspaceList value)? saveWorkspaceList,
+    TResult? Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
+  }) {
+    return deleteAllCheckedToDosInTodayInWorkspaceList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeCurrentWorkspaceID value)? changeCurrentWorkspaceID,
+    TResult Function(SaveWorkspaceList value)? saveWorkspaceList,
+    TResult Function(DeleteAllCheckedToDosInTodayInWorkspaceList value)?
+        deleteAllCheckedToDosInTodayInWorkspaceList,
+    required TResult orElse(),
+  }) {
+    if (deleteAllCheckedToDosInTodayInWorkspaceList != null) {
+      return deleteAllCheckedToDosInTodayInWorkspaceList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class DeleteAllCheckedToDosInTodayInWorkspaceList
+    implements TLAppStateAction {
+  const factory DeleteAllCheckedToDosInTodayInWorkspaceList(
+          final List<TLWorkspace> corrWorkspaceList) =
+      _$DeleteAllCheckedToDosInTodayInWorkspaceListImpl;
+
+  List<TLWorkspace> get corrWorkspaceList;
+
+  /// Create a copy of TLAppStateAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DeleteAllCheckedToDosInTodayInWorkspaceListImplCopyWith<
+          _$DeleteAllCheckedToDosInTodayInWorkspaceListImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

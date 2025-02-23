@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/styles.dart';
-import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 
 class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
   final TLWorkspace corrWorkspace;
@@ -59,7 +58,7 @@ class _DialogTitle extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0, bottom: 16),
       child: Text(
-        "本当にこのカテゴリーを\n削除しますか？",
+        "Are you sure you want to\ndelete this category?",
         style: TextStyle(
           color: theme.accentColor,
           fontWeight: FontWeight.bold,
@@ -78,7 +77,7 @@ class _WarningText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Text(
-        "※関連するToDoやCategoryが\n一緒に削除されます",
+        "* Related ToDos and categories will be deleted together.",
         style: TextStyle(
           color: Colors.black.withOpacity(0.6),
           fontWeight: FontWeight.w600,
@@ -111,21 +110,20 @@ class _ActionButtons extends StatelessWidget {
         TextButton(
           style: alertButtonStyle(accentColor: theme.accentColor),
           onPressed: () => Navigator.pop(context),
-          child: const Text("いいえ"),
+          child: const Text("Close"),
         ),
         TextButton(
           style: alertButtonStyle(accentColor: theme.accentColor),
           onPressed: () async {
-            ref.read(tlAppStateProvider.notifier).dispatchToDoCategoryAction(
+            ref.read(tlAppStateProvider.notifier).dispatch(
                 TLToDoCategoryAction.deleteCategory(
                     corrWorkspace: corrWorkspace,
-                    newCategory: categoryToDelete));
+                    categoryToDelete: categoryToDelete));
             Navigator.pop(context);
-            TLVibrationService.vibrate();
-            const TLSingleOptionDialog(title: "削除することに\n成功しました!")
+            const TLSingleOptionDialog(title: "Successfully deleted!")
                 .show(context: context);
           },
-          child: const Text("はい"),
+          child: const Text("Delete"),
         ),
       ],
     );

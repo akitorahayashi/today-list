@@ -24,7 +24,14 @@ class CategoryListPage extends ConsumerWidget {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
 
     return Scaffold(
-      appBar: _buildAppBar(context),
+      appBar: TLAppBar(
+        context: context,
+        pageTitle: "Category List",
+        leadingButtonOnPressed: () => Navigator.pop(context),
+        leadingIcon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        trailingButtonOnPressed: null,
+        trailingIcon: null,
+      ),
       body: Stack(
         children: [
           Container(color: tlThemeData.backgroundColor),
@@ -47,7 +54,8 @@ class CategoryListPage extends ConsumerWidget {
                         ),
                     ],
                     onReorder: (oldIndex, newIndex) {
-                      _handleReorder(ref, corrWorkspace, oldIndex, newIndex);
+                      _handleReorderBigCategories(
+                          ref, corrWorkspace, oldIndex, newIndex);
                     },
                   ),
                   const SizedBox(height: 200),
@@ -61,20 +69,8 @@ class CategoryListPage extends ConsumerWidget {
     );
   }
 
-  // MARK - AppBar
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return TLAppBar(
-      context: context,
-      pageTitle: "Category List",
-      leadingButtonOnPressed: () => Navigator.pop(context),
-      leadingIcon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-      trailingButtonOnPressed: null,
-      trailingIcon: null,
-    );
-  }
-
   // MARK - Handle Reorder Logic
-  void _handleReorder(
+  void _handleReorderBigCategories(
       WidgetRef ref, TLWorkspace currentWorkspace, int oldIndex, int newIndex) {
     if (newIndex == 0) return;
 

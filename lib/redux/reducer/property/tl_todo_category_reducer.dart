@@ -12,7 +12,7 @@ class TLToDoCategoryReducer {
       addCategory: (a) => _addCategory(
         workspaces: workspaces,
         workspaceID: a.workspaceID,
-        categoryToAdd: a.category,
+        categoryToAdd: a.newCategory,
       ),
       updateCategory: (a) => _updateCategory(
         workspaces: workspaces,
@@ -22,7 +22,7 @@ class TLToDoCategoryReducer {
       deleteCategory: (a) => _deleteCategory(
         workspaces: workspaces,
         corrWorkspace: a.corrWorkspace,
-        categoryToDelete: a.newCategory,
+        categoryToDelete: a.categoryToDelete,
       ),
     );
 
