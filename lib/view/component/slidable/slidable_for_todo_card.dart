@@ -44,7 +44,7 @@ class SlidableForToDoCard extends ConsumerWidget {
             foregroundColor: foregroundColor,
             onPressed: (context) => ref
                 .read(tlAppStateProvider.notifier)
-                .dispatch(TLToDoAction.deleteToDo(
+                .updateState(TLToDoAction.deleteToDo(
                   corrWorkspace: corrWorkspace,
                   corrToDo: corrToDo,
                 )),
@@ -68,7 +68,7 @@ class SlidableForToDoCard extends ConsumerWidget {
             onPressed: (context) {
               ref
                   .read(tlAppStateProvider.notifier)
-                  .dispatch(TLToDoAction.toggleToDoTodayWhenever(
+                  .updateState(TLToDoAction.toggleToDoTodayWhenever(
                     corrWorkspace: corrWorkspace,
                     corrToDo: corrToDo,
                   ));

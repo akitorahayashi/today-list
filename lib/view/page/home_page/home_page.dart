@@ -45,7 +45,7 @@ class _HomePageState extends ConsumerState<HomePage>
 
     ref
         .read(tlAppStateProvider.notifier)
-        .dispatch(TLAppStateAction.changeCurrentWorkspaceID(newWorkspaceID));
+        .updateState(TLAppStateAction.changeCurrentWorkspaceID(newWorkspaceID));
   }
 
   @override
@@ -190,7 +190,7 @@ class _HomePageState extends ConsumerState<HomePage>
               yesAction: () async {
                 Navigator.pop(context);
                 // Delete checked ToDos (Today + Whenever) in the corresponding workspace
-                ref.read(tlAppStateProvider.notifier).dispatch(
+                ref.read(tlAppStateProvider.notifier).updateState(
                     TLWorkspaceAction.deleteAllCheckedToDosInWorkspace(
                         currentWorkspaceNullAble));
 
@@ -248,7 +248,7 @@ class _HomePageState extends ConsumerState<HomePage>
                 yesAction: () async {
                   Navigator.pop(context);
                   // Delete checked ToDos (Today) in the workspace List
-                  ref.read(tlAppStateProvider.notifier).dispatch(
+                  ref.read(tlAppStateProvider.notifier).updateState(
                         TLAppStateAction
                             .deleteAllCheckedToDosInTodayInWorkspaceList(
                                 tlAppState.tlWorkspaces),

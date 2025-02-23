@@ -41,7 +41,7 @@ class ToDosInCategory extends ConsumerWidget {
                 ),
             ],
             onReorder: (oldIndex, newIndex) {
-              ref.read(tlAppStateProvider.notifier).dispatch(
+              ref.read(tlAppStateProvider.notifier).updateState(
                     TLToDoAction.reorderToDo(
                       corrWorkspace: corrWorkspace,
                       categoryID: categoryID,

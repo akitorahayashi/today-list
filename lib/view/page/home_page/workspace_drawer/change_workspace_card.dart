@@ -78,9 +78,8 @@ class ChangeWorkspaceCard extends ConsumerWidget {
       return;
     }
 
-    ref
-        .read(tlAppStateProvider.notifier)
-        .dispatch(TLAppStateAction.changeCurrentWorkspaceID(corrWorkspace.id));
+    ref.read(tlAppStateProvider.notifier).updateState(
+        TLAppStateAction.changeCurrentWorkspaceID(corrWorkspace.id));
 
     if (ref.context.mounted) {
       Navigator.pop(ref.context);

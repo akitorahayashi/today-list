@@ -58,7 +58,7 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
                 name: newCategory.name,
                 validator: TLValidation.validateCategoryName,
                 onSuccess: () async {
-                  ref.read(tlAppStateProvider.notifier).dispatch(
+                  ref.read(tlAppStateProvider.notifier).updateState(
                       TLToDoCategoryAction.updateCategory(
                           workspaceID: corrWorkspaceID,
                           newCategory: newCategory));

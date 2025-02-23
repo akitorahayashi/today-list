@@ -34,7 +34,7 @@ class TLStepCard extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        ref.read(tlAppStateProvider.notifier).dispatch(
+        ref.read(tlAppStateProvider.notifier).updateState(
               TLToDoAction.toggleStepCheckStatus(
                 corrWorkspace: corrWorkspace,
                 corrToDo: corrToDo,

@@ -14,38 +14,32 @@ import 'package:today_list/service/tl_vibration.dart';
 import 'dart:convert';
 
 // MARK: - Provider
-final tlAppStateProvider =
-    StateNotifierProvider<TLAppStateNotifier, TLAppState>((ref) {
-  return TLAppStateNotifier();
-});
+final tlAppStateProvider = NotifierProvider<TLAppStateController, TLAppState>(
+    TLAppStateController.new);
 
-// MARK: - TLAppStateNotifier
-class TLAppStateNotifier extends StateNotifier<TLAppState> {
-  TLAppStateNotifier()
-      : super(TLAppState(
-          tlWorkspaces: initialTLWorkspaces,
-          currentWorkspaceID: null,
-          selectedThemeType: TLThemeType.sunOrange,
-        )) {
+// MARK: - Notifier
+class TLAppStateController extends Notifier<TLAppState> {
+  @override
+  TLAppState build() {
     _loadSavedAppState();
+    return TLAppState(
+      tlWorkspaces: initialTLWorkspaces,
+      currentWorkspaceID: null,
+      selectedThemeType: TLThemeType.sunOrange,
+    );
   }
 
-  // MARK: - Action Dispatcher
-
-  /// アクションを処理し、新しい状態を適用
-  void dispatch(dynamic action) {
+  // MARK: - Action Handling
+  void updateState(dynamic action) {
     final newState = TLAppStateReducer.reduce(state, action);
-
     if (newState != state) {
-      _sideEffectsFor(action, newState);
+      _handleSideEffects(action, newState);
       state = newState;
     }
   }
 
   // MARK: - Side Effects
-
-  /// 副作用（バイブレーション、データ保存）を処理
-  void _sideEffectsFor(dynamic action, TLAppState newState) {
+  void _handleSideEffects(dynamic action, TLAppState newState) {
     if (action is ChangeCurrentWorkspaceID) {
       TLVibrationService.vibrate();
       _saveCurrentWorkspaceID(action.newID);
@@ -68,9 +62,7 @@ class TLAppStateNotifier extends StateNotifier<TLAppState> {
     }
   }
 
-  // MARK: - Load State
-
-  /// 初回起動時に保存されたアプリの状態を読み込む
+  // MARK: - Initial Load
   Future<void> _loadSavedAppState() async {
     final pref = await TLPrefService().getPref;
     final savedWorkspaceID = pref.getString('currentWorkspaceID');
@@ -98,8 +90,6 @@ class TLAppStateNotifier extends StateNotifier<TLAppState> {
   }
 
   // MARK: - Save State
-
-  /// 現在のワークスペースIDを保存
   Future<void> _saveCurrentWorkspaceID(String? id) async {
     final pref = await TLPrefService().getPref;
     if (id == null) {
@@ -109,7 +99,6 @@ class TLAppStateNotifier extends StateNotifier<TLAppState> {
     }
   }
 
-  /// ワークスペース一覧を保存
   Future<void> _saveWorkspaces(List<TLWorkspace> workspaces) async {
     final pref = await TLPrefService().getPref;
     final encodedWorkspaces =
@@ -117,7 +106,6 @@ class TLAppStateNotifier extends StateNotifier<TLAppState> {
     await pref.setString("tlWorkspaces", encodedWorkspaces);
   }
 
-  /// テーマ設定を保存
   Future<void> _saveTheme(TLThemeType themeType) async {
     final pref = await TLPrefService().getPref;
     await pref.setString('themeType', themeType.name);

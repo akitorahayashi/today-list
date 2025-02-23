@@ -71,7 +71,7 @@ class _SmallCategoryList extends ConsumerWidget {
           ),
       ],
       onReorder: (oldIndex, newIndex) {
-        ref.read(tlAppStateProvider.notifier).dispatch(
+        ref.read(tlAppStateProvider.notifier).updateState(
               TLToDoCategoryAction.reorderSmallCategory(
                 corrWorkspace: corrWorkspace,
                 bigCategory: coorBigCategory,

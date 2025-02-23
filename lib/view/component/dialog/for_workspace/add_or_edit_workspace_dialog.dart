@@ -174,7 +174,7 @@ class _AddOrEditWorkspaceDialogState
     final updatedWorkspaces = List<TLWorkspace>.from(workspaces);
     updatedWorkspaces[workspaceIndex] = editedWorkspace;
 
-    tlAppStateReducer.dispatch(
+    tlAppStateReducer.updateState(
       TLAppStateAction.saveWorkspaceList(updatedWorkspaces),
     );
     const TLSingleOptionDialog(title: "Successfully changed!")
@@ -196,7 +196,7 @@ class _AddOrEditWorkspaceDialogState
       },
     );
 
-    ref.read(tlAppStateProvider.notifier).dispatch(
+    ref.read(tlAppStateProvider.notifier).updateState(
           TLWorkspaceAction.addWorkspace(createdWorkspace),
         );
     TLSingleOptionDialog(

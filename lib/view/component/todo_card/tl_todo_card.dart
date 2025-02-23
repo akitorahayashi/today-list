@@ -36,7 +36,7 @@ class TLToDoCard extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        ref.read(tlAppStateProvider.notifier).dispatch(
+        ref.read(tlAppStateProvider.notifier).updateState(
             TLToDoAction.toggleToDoCheckStatus(
                 corrWorkspace: corrWorkspace, corrToDo: corrToDo));
         // スナックバーを表示
@@ -151,7 +151,7 @@ class _BuildStepsList extends ConsumerWidget {
           ),
           onReorder: (oldIndex, newIndex) => ref
               .read(tlAppStateProvider.notifier)
-              .dispatch(TLToDoAction.reorderSteps(
+              .updateState(TLToDoAction.reorderSteps(
                   corrWorkspace: corrWorkspace,
                   corrToDo: corrToDo,
                   oldIndex: oldIndex,

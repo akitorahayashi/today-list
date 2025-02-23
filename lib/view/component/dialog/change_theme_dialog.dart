@@ -78,7 +78,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   // MARK - Build Action Buttons
   Widget _buildActionButtons(BuildContext context,
-      TLAppStateNotifier tlAppStateNotifier, themeConfig) {
+      TLAppStateController tlAppStateNotifier, themeConfig) {
     return OverflowBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -93,7 +93,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
           style: alertButtonStyle(accentColor: themeConfig.accentColor),
           onPressed: () {
             Navigator.pop(context); // Close current dialog
-            tlAppStateNotifier.dispatch(
+            tlAppStateNotifier.updateState(
                 TLThemeAction.changeTheme(newThemeType: corrThemeType));
             // Show completion alert
             const TLSingleOptionDialog(title: "Change completed")

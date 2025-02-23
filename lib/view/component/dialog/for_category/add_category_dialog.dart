@@ -55,7 +55,7 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
                 parentBigCategoryID: selectedBigCategoryID.value,
                 name: enteredCategoryTitle.value,
               );
-              ref.read(tlAppStateProvider.notifier).dispatch(
+              ref.read(tlAppStateProvider.notifier).updateState(
                     TLToDoCategoryAction.addCategory(
                       workspaceID: currentWorkspace.id,
                       newCategory: categoryToAdd,

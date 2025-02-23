@@ -115,7 +115,7 @@ class _ActionButtons extends StatelessWidget {
         TextButton(
           style: alertButtonStyle(accentColor: theme.accentColor),
           onPressed: () async {
-            ref.read(tlAppStateProvider.notifier).dispatch(
+            ref.read(tlAppStateProvider.notifier).updateState(
                 TLToDoCategoryAction.deleteCategory(
                     corrWorkspace: corrWorkspace,
                     categoryToDelete: categoryToDelete));

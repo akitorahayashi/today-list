@@ -55,7 +55,7 @@ class CategoryListPage extends ConsumerWidget {
                         ),
                     ],
                     onReorder: (oldIndex, newIndex) =>
-                        ref.read(tlAppStateProvider.notifier).dispatch(
+                        ref.read(tlAppStateProvider.notifier).updateState(
                               TLToDoCategoryAction.reorderBigCategory(
                                 corrWorkspace: corrWorkspace,
                                 oldIndex: oldIndex,

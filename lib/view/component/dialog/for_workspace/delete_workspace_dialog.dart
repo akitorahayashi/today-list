@@ -109,10 +109,10 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   // MARK - Handle Workspace Deletion
   void _handleDeleteWorkspace(BuildContext context, WidgetRef ref,
-      TLAppStateNotifier tlAppStateReducer) {
+      TLAppStateController tlAppStateController) {
     // Remove workspace
-    tlAppStateReducer
-        .dispatch(TLWorkspaceAction.deleteWorkspace(willDeletedWorkspace));
+    tlAppStateController
+        .updateState(TLWorkspaceAction.deleteWorkspace(willDeletedWorkspace));
 
     // Close this dialog and show success notification
     Navigator.pop(context);
