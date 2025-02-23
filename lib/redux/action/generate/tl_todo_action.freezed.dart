@@ -16,46 +16,25 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TLToDoAction {
-  String get workspaceID => throw _privateConstructorUsedError;
-  String get categoryID => throw _privateConstructorUsedError;
-  bool get ifInToday => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)
-        addToDo,
-    required TResult Function(String workspaceID, String categoryID,
-            bool ifInToday, int index, TLToDo newToDo)
-        updateToDo,
-    required TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)
-        removeToDo,
+    required TResult Function(TLToDo newToDo) addToDo,
+    required TResult Function(TLToDo newToDo) updateToDo,
+    required TResult Function(TLToDo corrToDo) removeToDo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
-        addToDo,
-    TResult? Function(String workspaceID, String categoryID, bool ifInToday,
-            int index, TLToDo newToDo)?
-        updateToDo,
-    TResult? Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)?
-        removeToDo,
+    TResult? Function(TLToDo newToDo)? addToDo,
+    TResult? Function(TLToDo newToDo)? updateToDo,
+    TResult? Function(TLToDo corrToDo)? removeToDo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
-        addToDo,
-    TResult Function(String workspaceID, String categoryID, bool ifInToday,
-            int index, TLToDo newToDo)?
-        updateToDo,
-    TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)?
-        removeToDo,
+    TResult Function(TLToDo newToDo)? addToDo,
+    TResult Function(TLToDo newToDo)? updateToDo,
+    TResult Function(TLToDo corrToDo)? removeToDo,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -81,12 +60,6 @@ mixin _$TLToDoAction {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  /// Create a copy of TLToDoAction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $TLToDoActionCopyWith<TLToDoAction> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -94,8 +67,6 @@ abstract class $TLToDoActionCopyWith<$Res> {
   factory $TLToDoActionCopyWith(
           TLToDoAction value, $Res Function(TLToDoAction) then) =
       _$TLToDoActionCopyWithImpl<$Res, TLToDoAction>;
-  @useResult
-  $Res call({String workspaceID, String categoryID, bool ifInToday});
 }
 
 /// @nodoc
@@ -110,42 +81,17 @@ class _$TLToDoActionCopyWithImpl<$Res, $Val extends TLToDoAction>
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? workspaceID = null,
-    Object? categoryID = null,
-    Object? ifInToday = null,
-  }) {
-    return _then(_value.copyWith(
-      workspaceID: null == workspaceID
-          ? _value.workspaceID
-          : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryID: null == categoryID
-          ? _value.categoryID
-          : categoryID // ignore: cast_nullable_to_non_nullable
-              as String,
-      ifInToday: null == ifInToday
-          ? _value.ifInToday
-          : ifInToday // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$AddToDoImplCopyWith<$Res>
-    implements $TLToDoActionCopyWith<$Res> {
+abstract class _$$AddToDoImplCopyWith<$Res> {
   factory _$$AddToDoImplCopyWith(
           _$AddToDoImpl value, $Res Function(_$AddToDoImpl) then) =
       __$$AddToDoImplCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call(
-      {String workspaceID, String categoryID, bool ifInToday, TLToDo todo});
+  $Res call({TLToDo newToDo});
 
-  $TLToDoCopyWith<$Res> get todo;
+  $TLToDoCopyWith<$Res> get newToDo;
 }
 
 /// @nodoc
@@ -161,27 +107,12 @@ class __$$AddToDoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? workspaceID = null,
-    Object? categoryID = null,
-    Object? ifInToday = null,
-    Object? todo = null,
+    Object? newToDo = null,
   }) {
     return _then(_$AddToDoImpl(
-      workspaceID: null == workspaceID
-          ? _value.workspaceID
-          : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryID: null == categoryID
-          ? _value.categoryID
-          : categoryID // ignore: cast_nullable_to_non_nullable
-              as String,
-      ifInToday: null == ifInToday
-          ? _value.ifInToday
-          : ifInToday // ignore: cast_nullable_to_non_nullable
-              as bool,
-      todo: null == todo
-          ? _value.todo
-          : todo // ignore: cast_nullable_to_non_nullable
+      newToDo: null == newToDo
+          ? _value.newToDo
+          : newToDo // ignore: cast_nullable_to_non_nullable
               as TLToDo,
     ));
   }
@@ -190,9 +121,9 @@ class __$$AddToDoImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $TLToDoCopyWith<$Res> get todo {
-    return $TLToDoCopyWith<$Res>(_value.todo, (value) {
-      return _then(_value.copyWith(todo: value));
+  $TLToDoCopyWith<$Res> get newToDo {
+    return $TLToDoCopyWith<$Res>(_value.newToDo, (value) {
+      return _then(_value.copyWith(newToDo: value));
     });
   }
 }
@@ -200,24 +131,14 @@ class __$$AddToDoImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddToDoImpl implements _AddToDo {
-  const _$AddToDoImpl(
-      {required this.workspaceID,
-      required this.categoryID,
-      required this.ifInToday,
-      required this.todo});
+  const _$AddToDoImpl({required this.newToDo});
 
   @override
-  final String workspaceID;
-  @override
-  final String categoryID;
-  @override
-  final bool ifInToday;
-  @override
-  final TLToDo todo;
+  final TLToDo newToDo;
 
   @override
   String toString() {
-    return 'TLToDoAction.addToDo(workspaceID: $workspaceID, categoryID: $categoryID, ifInToday: $ifInToday, todo: $todo)';
+    return 'TLToDoAction.addToDo(newToDo: $newToDo)';
   }
 
   @override
@@ -225,18 +146,11 @@ class _$AddToDoImpl implements _AddToDo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddToDoImpl &&
-            (identical(other.workspaceID, workspaceID) ||
-                other.workspaceID == workspaceID) &&
-            (identical(other.categoryID, categoryID) ||
-                other.categoryID == categoryID) &&
-            (identical(other.ifInToday, ifInToday) ||
-                other.ifInToday == ifInToday) &&
-            (identical(other.todo, todo) || other.todo == todo));
+            (identical(other.newToDo, newToDo) || other.newToDo == newToDo));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, workspaceID, categoryID, ifInToday, todo);
+  int get hashCode => Object.hash(runtimeType, newToDo);
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -249,51 +163,33 @@ class _$AddToDoImpl implements _AddToDo {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)
-        addToDo,
-    required TResult Function(String workspaceID, String categoryID,
-            bool ifInToday, int index, TLToDo newToDo)
-        updateToDo,
-    required TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)
-        removeToDo,
+    required TResult Function(TLToDo newToDo) addToDo,
+    required TResult Function(TLToDo newToDo) updateToDo,
+    required TResult Function(TLToDo corrToDo) removeToDo,
   }) {
-    return addToDo(workspaceID, categoryID, ifInToday, todo);
+    return addToDo(newToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
-        addToDo,
-    TResult? Function(String workspaceID, String categoryID, bool ifInToday,
-            int index, TLToDo newToDo)?
-        updateToDo,
-    TResult? Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)?
-        removeToDo,
+    TResult? Function(TLToDo newToDo)? addToDo,
+    TResult? Function(TLToDo newToDo)? updateToDo,
+    TResult? Function(TLToDo corrToDo)? removeToDo,
   }) {
-    return addToDo?.call(workspaceID, categoryID, ifInToday, todo);
+    return addToDo?.call(newToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
-        addToDo,
-    TResult Function(String workspaceID, String categoryID, bool ifInToday,
-            int index, TLToDo newToDo)?
-        updateToDo,
-    TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)?
-        removeToDo,
+    TResult Function(TLToDo newToDo)? addToDo,
+    TResult Function(TLToDo newToDo)? updateToDo,
+    TResult Function(TLToDo corrToDo)? removeToDo,
     required TResult orElse(),
   }) {
     if (addToDo != null) {
-      return addToDo(workspaceID, categoryID, ifInToday, todo);
+      return addToDo(newToDo);
     }
     return orElse();
   }
@@ -334,42 +230,24 @@ class _$AddToDoImpl implements _AddToDo {
 }
 
 abstract class _AddToDo implements TLToDoAction {
-  const factory _AddToDo(
-      {required final String workspaceID,
-      required final String categoryID,
-      required final bool ifInToday,
-      required final TLToDo todo}) = _$AddToDoImpl;
+  const factory _AddToDo({required final TLToDo newToDo}) = _$AddToDoImpl;
 
-  @override
-  String get workspaceID;
-  @override
-  String get categoryID;
-  @override
-  bool get ifInToday;
-  TLToDo get todo;
+  TLToDo get newToDo;
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddToDoImplCopyWith<_$AddToDoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UpdateToDoImplCopyWith<$Res>
-    implements $TLToDoActionCopyWith<$Res> {
+abstract class _$$UpdateToDoImplCopyWith<$Res> {
   factory _$$UpdateToDoImplCopyWith(
           _$UpdateToDoImpl value, $Res Function(_$UpdateToDoImpl) then) =
       __$$UpdateToDoImplCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call(
-      {String workspaceID,
-      String categoryID,
-      bool ifInToday,
-      int index,
-      TLToDo newToDo});
+  $Res call({TLToDo newToDo});
 
   $TLToDoCopyWith<$Res> get newToDo;
 }
@@ -387,29 +265,9 @@ class __$$UpdateToDoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? workspaceID = null,
-    Object? categoryID = null,
-    Object? ifInToday = null,
-    Object? index = null,
     Object? newToDo = null,
   }) {
     return _then(_$UpdateToDoImpl(
-      workspaceID: null == workspaceID
-          ? _value.workspaceID
-          : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryID: null == categoryID
-          ? _value.categoryID
-          : categoryID // ignore: cast_nullable_to_non_nullable
-              as String,
-      ifInToday: null == ifInToday
-          ? _value.ifInToday
-          : ifInToday // ignore: cast_nullable_to_non_nullable
-              as bool,
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
       newToDo: null == newToDo
           ? _value.newToDo
           : newToDo // ignore: cast_nullable_to_non_nullable
@@ -431,27 +289,14 @@ class __$$UpdateToDoImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UpdateToDoImpl implements _UpdateToDo {
-  const _$UpdateToDoImpl(
-      {required this.workspaceID,
-      required this.categoryID,
-      required this.ifInToday,
-      required this.index,
-      required this.newToDo});
+  const _$UpdateToDoImpl({required this.newToDo});
 
-  @override
-  final String workspaceID;
-  @override
-  final String categoryID;
-  @override
-  final bool ifInToday;
-  @override
-  final int index;
   @override
   final TLToDo newToDo;
 
   @override
   String toString() {
-    return 'TLToDoAction.updateToDo(workspaceID: $workspaceID, categoryID: $categoryID, ifInToday: $ifInToday, index: $index, newToDo: $newToDo)';
+    return 'TLToDoAction.updateToDo(newToDo: $newToDo)';
   }
 
   @override
@@ -459,19 +304,11 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateToDoImpl &&
-            (identical(other.workspaceID, workspaceID) ||
-                other.workspaceID == workspaceID) &&
-            (identical(other.categoryID, categoryID) ||
-                other.categoryID == categoryID) &&
-            (identical(other.ifInToday, ifInToday) ||
-                other.ifInToday == ifInToday) &&
-            (identical(other.index, index) || other.index == index) &&
             (identical(other.newToDo, newToDo) || other.newToDo == newToDo));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, workspaceID, categoryID, ifInToday, index, newToDo);
+  int get hashCode => Object.hash(runtimeType, newToDo);
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -484,51 +321,33 @@ class _$UpdateToDoImpl implements _UpdateToDo {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)
-        addToDo,
-    required TResult Function(String workspaceID, String categoryID,
-            bool ifInToday, int index, TLToDo newToDo)
-        updateToDo,
-    required TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)
-        removeToDo,
+    required TResult Function(TLToDo newToDo) addToDo,
+    required TResult Function(TLToDo newToDo) updateToDo,
+    required TResult Function(TLToDo corrToDo) removeToDo,
   }) {
-    return updateToDo(workspaceID, categoryID, ifInToday, index, newToDo);
+    return updateToDo(newToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
-        addToDo,
-    TResult? Function(String workspaceID, String categoryID, bool ifInToday,
-            int index, TLToDo newToDo)?
-        updateToDo,
-    TResult? Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)?
-        removeToDo,
+    TResult? Function(TLToDo newToDo)? addToDo,
+    TResult? Function(TLToDo newToDo)? updateToDo,
+    TResult? Function(TLToDo corrToDo)? removeToDo,
   }) {
-    return updateToDo?.call(workspaceID, categoryID, ifInToday, index, newToDo);
+    return updateToDo?.call(newToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
-        addToDo,
-    TResult Function(String workspaceID, String categoryID, bool ifInToday,
-            int index, TLToDo newToDo)?
-        updateToDo,
-    TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)?
-        removeToDo,
+    TResult Function(TLToDo newToDo)? addToDo,
+    TResult Function(TLToDo newToDo)? updateToDo,
+    TResult Function(TLToDo corrToDo)? removeToDo,
     required TResult orElse(),
   }) {
     if (updateToDo != null) {
-      return updateToDo(workspaceID, categoryID, ifInToday, index, newToDo);
+      return updateToDo(newToDo);
     }
     return orElse();
   }
@@ -569,39 +388,26 @@ class _$UpdateToDoImpl implements _UpdateToDo {
 }
 
 abstract class _UpdateToDo implements TLToDoAction {
-  const factory _UpdateToDo(
-      {required final String workspaceID,
-      required final String categoryID,
-      required final bool ifInToday,
-      required final int index,
-      required final TLToDo newToDo}) = _$UpdateToDoImpl;
+  const factory _UpdateToDo({required final TLToDo newToDo}) = _$UpdateToDoImpl;
 
-  @override
-  String get workspaceID;
-  @override
-  String get categoryID;
-  @override
-  bool get ifInToday;
-  int get index;
   TLToDo get newToDo;
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdateToDoImplCopyWith<_$UpdateToDoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RemoveToDoImplCopyWith<$Res>
-    implements $TLToDoActionCopyWith<$Res> {
+abstract class _$$RemoveToDoImplCopyWith<$Res> {
   factory _$$RemoveToDoImplCopyWith(
           _$RemoveToDoImpl value, $Res Function(_$RemoveToDoImpl) then) =
       __$$RemoveToDoImplCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({String workspaceID, String categoryID, bool ifInToday, int index});
+  $Res call({TLToDo corrToDo});
+
+  $TLToDoCopyWith<$Res> get corrToDo;
 }
 
 /// @nodoc
@@ -617,53 +423,38 @@ class __$$RemoveToDoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? workspaceID = null,
-    Object? categoryID = null,
-    Object? ifInToday = null,
-    Object? index = null,
+    Object? corrToDo = null,
   }) {
     return _then(_$RemoveToDoImpl(
-      workspaceID: null == workspaceID
-          ? _value.workspaceID
-          : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryID: null == categoryID
-          ? _value.categoryID
-          : categoryID // ignore: cast_nullable_to_non_nullable
-              as String,
-      ifInToday: null == ifInToday
-          ? _value.ifInToday
-          : ifInToday // ignore: cast_nullable_to_non_nullable
-              as bool,
-      index: null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
-              as int,
+      corrToDo: null == corrToDo
+          ? _value.corrToDo
+          : corrToDo // ignore: cast_nullable_to_non_nullable
+              as TLToDo,
     ));
+  }
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLToDoCopyWith<$Res> get corrToDo {
+    return $TLToDoCopyWith<$Res>(_value.corrToDo, (value) {
+      return _then(_value.copyWith(corrToDo: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$RemoveToDoImpl implements _RemoveToDo {
-  const _$RemoveToDoImpl(
-      {required this.workspaceID,
-      required this.categoryID,
-      required this.ifInToday,
-      required this.index});
+  const _$RemoveToDoImpl({required this.corrToDo});
 
   @override
-  final String workspaceID;
-  @override
-  final String categoryID;
-  @override
-  final bool ifInToday;
-  @override
-  final int index;
+  final TLToDo corrToDo;
 
   @override
   String toString() {
-    return 'TLToDoAction.removeToDo(workspaceID: $workspaceID, categoryID: $categoryID, ifInToday: $ifInToday, index: $index)';
+    return 'TLToDoAction.removeToDo(corrToDo: $corrToDo)';
   }
 
   @override
@@ -671,18 +462,12 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RemoveToDoImpl &&
-            (identical(other.workspaceID, workspaceID) ||
-                other.workspaceID == workspaceID) &&
-            (identical(other.categoryID, categoryID) ||
-                other.categoryID == categoryID) &&
-            (identical(other.ifInToday, ifInToday) ||
-                other.ifInToday == ifInToday) &&
-            (identical(other.index, index) || other.index == index));
+            (identical(other.corrToDo, corrToDo) ||
+                other.corrToDo == corrToDo));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, workspaceID, categoryID, ifInToday, index);
+  int get hashCode => Object.hash(runtimeType, corrToDo);
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -695,51 +480,33 @@ class _$RemoveToDoImpl implements _RemoveToDo {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)
-        addToDo,
-    required TResult Function(String workspaceID, String categoryID,
-            bool ifInToday, int index, TLToDo newToDo)
-        updateToDo,
-    required TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)
-        removeToDo,
+    required TResult Function(TLToDo newToDo) addToDo,
+    required TResult Function(TLToDo newToDo) updateToDo,
+    required TResult Function(TLToDo corrToDo) removeToDo,
   }) {
-    return removeToDo(workspaceID, categoryID, ifInToday, index);
+    return removeToDo(corrToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
-        addToDo,
-    TResult? Function(String workspaceID, String categoryID, bool ifInToday,
-            int index, TLToDo newToDo)?
-        updateToDo,
-    TResult? Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)?
-        removeToDo,
+    TResult? Function(TLToDo newToDo)? addToDo,
+    TResult? Function(TLToDo newToDo)? updateToDo,
+    TResult? Function(TLToDo corrToDo)? removeToDo,
   }) {
-    return removeToDo?.call(workspaceID, categoryID, ifInToday, index);
+    return removeToDo?.call(corrToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, TLToDo todo)?
-        addToDo,
-    TResult Function(String workspaceID, String categoryID, bool ifInToday,
-            int index, TLToDo newToDo)?
-        updateToDo,
-    TResult Function(
-            String workspaceID, String categoryID, bool ifInToday, int index)?
-        removeToDo,
+    TResult Function(TLToDo newToDo)? addToDo,
+    TResult Function(TLToDo newToDo)? updateToDo,
+    TResult Function(TLToDo corrToDo)? removeToDo,
     required TResult orElse(),
   }) {
     if (removeToDo != null) {
-      return removeToDo(workspaceID, categoryID, ifInToday, index);
+      return removeToDo(corrToDo);
     }
     return orElse();
   }
@@ -780,23 +547,13 @@ class _$RemoveToDoImpl implements _RemoveToDo {
 }
 
 abstract class _RemoveToDo implements TLToDoAction {
-  const factory _RemoveToDo(
-      {required final String workspaceID,
-      required final String categoryID,
-      required final bool ifInToday,
-      required final int index}) = _$RemoveToDoImpl;
+  const factory _RemoveToDo({required final TLToDo corrToDo}) =
+      _$RemoveToDoImpl;
 
-  @override
-  String get workspaceID;
-  @override
-  String get categoryID;
-  @override
-  bool get ifInToday;
-  int get index;
+  TLToDo get corrToDo;
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RemoveToDoImplCopyWith<_$RemoveToDoImpl> get copyWith =>
       throw _privateConstructorUsedError;

@@ -6,121 +6,143 @@ class TLToDoReducer {
   // MARK: - Add ToDo
   static List<TLWorkspace> addToDo({
     required List<TLWorkspace> workspaces,
-    required String workspaceID,
-    required String categoryID,
-    required bool ifInToday,
-    required TLToDo todo,
+    required TLToDo newToDo,
   }) {
-    final idx = workspaces.indexWhere((w) => w.id == workspaceID);
-    if (idx < 0) return workspaces; // Workspaceが見つからない場合は何もしない
+    final corrWorkspaceIdx =
+        workspaces.indexWhere((w) => w.id == newToDo.workspaceID);
+    if (corrWorkspaceIdx < 0) {
+      return workspaces; // Workspaceが見つからない場合は何もしない（到達しない想定）
+    }
 
-    final oldWorkspace = workspaces[idx];
+    final corrWorkspace = workspaces[corrWorkspaceIdx];
+    // 該当箇所に追加
+    final newCategoryIDToToDosMap = Map<String, TLToDosInTodayAndWhenever>.from(
+        corrWorkspace.categoryIDToToDos);
+    newCategoryIDToToDosMap[newToDo.categoryID] = newToDo.isInToday
+        ? TLToDosInTodayAndWhenever(
+            toDosInToday: [
+              newToDo,
+              ...corrWorkspace
+                  .categoryIDToToDos[newToDo.categoryID]!.toDosInToday
+            ],
+            toDosInWhenever: corrWorkspace
+                .categoryIDToToDos[newToDo.categoryID]!.toDosInWhenever,
+          )
+        : TLToDosInTodayAndWhenever(
+            toDosInToday: corrWorkspace
+                .categoryIDToToDos[newToDo.categoryID]!.toDosInToday,
+            toDosInWhenever: [
+              newToDo,
+              ...corrWorkspace
+                  .categoryIDToToDos[newToDo.categoryID]!.toDosInWhenever
+            ],
+          );
 
-    // 対象カテゴリーのToDosを取得
-    final oldToDosInCat = oldWorkspace.categoryIDToToDos[categoryID];
-    if (oldToDosInCat == null) return workspaces; // 存在しない場合は何もしない
+    final TLWorkspace newWorkspace =
+        corrWorkspace.copyWith(categoryIDToToDos: newCategoryIDToToDosMap);
+    final List<TLWorkspace> newWorkspaceList = [
+      ...workspaces.sublist(0, corrWorkspaceIdx),
+      newWorkspace,
+      ...workspaces.sublist(corrWorkspaceIdx + 1),
+    ];
 
-    // ToDoリストを更新
-    final updatingList =
-        ifInToday ? oldToDosInCat.toDosInToday : oldToDosInCat.toDosInWhenever;
-    final newList = [todo, ...updatingList]; // 先頭に追加
-
-    final newToDosInCat = oldToDosInCat.copyWith(
-      toDosInToday: ifInToday ? newList : oldToDosInCat.toDosInToday,
-      toDosInWhenever: ifInToday ? oldToDosInCat.toDosInWhenever : newList,
-    );
-
-    // Workspaceを更新
-    final newCategoryMap = Map<String, TLToDosInTodayAndWhenever>.from(
-        oldWorkspace.categoryIDToToDos);
-    newCategoryMap[categoryID] = newToDosInCat;
-
-    final newWorkspace =
-        oldWorkspace.copyWith(categoryIDToToDos: newCategoryMap);
-    final newWorkspaces = [...workspaces];
-    newWorkspaces[idx] = newWorkspace;
-
-    return newWorkspaces;
+    return newWorkspaceList;
   }
 
   // MARK: - Update ToDo
   static List<TLWorkspace> updateToDo({
     required List<TLWorkspace> workspaces,
-    required String workspaceID,
-    required String categoryID,
-    required bool ifInToday,
-    required int index,
     required TLToDo newToDo,
   }) {
-    final idx = workspaces.indexWhere((w) => w.id == workspaceID);
-    if (idx < 0) return workspaces;
+    final workspaceIdx =
+        workspaces.indexWhere((w) => w.id == newToDo.workspaceID);
+    if (workspaceIdx < 0) return workspaces; // 該当Workspaceなし
 
-    final oldWorkspace = workspaces[idx];
-    final oldToDosInCat = oldWorkspace.categoryIDToToDos[categoryID];
-    if (oldToDosInCat == null) return workspaces;
+    final workspace = workspaces[workspaceIdx];
 
+    // 更新対象のカテゴリのToDoリストを取得
+    final newCategoryIDToToDosMap = Map<String, TLToDosInTodayAndWhenever>.from(
+        workspace.categoryIDToToDos);
+    final oldToDosInCat = newCategoryIDToToDosMap[newToDo.categoryID];
+    if (oldToDosInCat == null) return workspaces; // 該当カテゴリなし
+
+    // 更新対象のToDoのindexを取得
+    final isInToday = newToDo.isInToday;
     final updatingList =
-        ifInToday ? oldToDosInCat.toDosInToday : oldToDosInCat.toDosInWhenever;
-    if (index < 0 || index >= updatingList.length)
-      return workspaces; // 不正な index
+        isInToday ? oldToDosInCat.toDosInToday : oldToDosInCat.toDosInWhenever;
+    final index = updatingList.indexWhere((t) => t.id == newToDo.id);
+    if (index < 0) return workspaces; // 該当ToDoなし
 
     // ToDoを更新
     final newList = [...updatingList];
     newList[index] = newToDo;
 
-    final newToDosInCat = oldToDosInCat.copyWith(
-      toDosInToday: ifInToday ? newList : oldToDosInCat.toDosInToday,
-      toDosInWhenever: ifInToday ? oldToDosInCat.toDosInWhenever : newList,
-    );
+    // カテゴリのToDoリストを更新
+    newCategoryIDToToDosMap[newToDo.categoryID] = isInToday
+        ? TLToDosInTodayAndWhenever(
+            toDosInToday: newList,
+            toDosInWhenever: oldToDosInCat.toDosInWhenever,
+          )
+        : TLToDosInTodayAndWhenever(
+            toDosInToday: oldToDosInCat.toDosInToday,
+            toDosInWhenever: newList,
+          );
 
-    final newCategoryMap = Map<String, TLToDosInTodayAndWhenever>.from(
-        oldWorkspace.categoryIDToToDos);
-    newCategoryMap[categoryID] = newToDosInCat;
-
+    // Workspaceを更新
     final newWorkspace =
-        oldWorkspace.copyWith(categoryIDToToDos: newCategoryMap);
-    final newWorkspaces = [...workspaces];
-    newWorkspaces[idx] = newWorkspace;
+        workspace.copyWith(categoryIDToToDos: newCategoryIDToToDosMap);
 
-    return newWorkspaces;
+    // Workspaceリストを更新
+    return [
+      ...workspaces.sublist(0, workspaceIdx),
+      newWorkspace,
+      ...workspaces.sublist(workspaceIdx + 1),
+    ];
   }
 
   // MARK: - Remove ToDo
   static List<TLWorkspace> removeToDo({
     required List<TLWorkspace> workspaces,
-    required String workspaceID,
-    required String categoryID,
-    required bool ifInToday,
-    required int index,
+    required TLToDo corrToDo,
   }) {
-    final idx = workspaces.indexWhere((w) => w.id == workspaceID);
-    if (idx < 0) return workspaces;
+    final workspaceIdx =
+        workspaces.indexWhere((w) => w.id == corrToDo.workspaceID);
+    if (workspaceIdx < 0) return workspaces; // 該当Workspaceなし
 
-    final oldWorkspace = workspaces[idx];
-    final oldToDosInCat = oldWorkspace.categoryIDToToDos[categoryID];
-    if (oldToDosInCat == null) return workspaces;
+    final workspace = workspaces[workspaceIdx];
+    final oldToDosInCat = workspace.categoryIDToToDos[corrToDo.categoryID];
+    if (oldToDosInCat == null) return workspaces; // 該当カテゴリなし
 
+    final isInToday = corrToDo.isInToday;
     final updatingList =
-        ifInToday ? oldToDosInCat.toDosInToday : oldToDosInCat.toDosInWhenever;
-    if (index < 0 || index >= updatingList.length) return workspaces;
+        isInToday ? oldToDosInCat.toDosInToday : oldToDosInCat.toDosInWhenever;
 
-    // 指定indexのToDoを削除
-    final newList = [...updatingList]..removeAt(index);
+    // 指定ToDoを除外した新しいリストを作成
+    final newList = updatingList.where((t) => t.id != corrToDo.id).toList();
+    if (newList.length == updatingList.length) return workspaces; // 該当ToDoなし
 
-    final newToDosInCat = oldToDosInCat.copyWith(
-      toDosInToday: ifInToday ? newList : oldToDosInCat.toDosInToday,
-      toDosInWhenever: ifInToday ? oldToDosInCat.toDosInWhenever : newList,
-    );
+    // ToDoリストを更新
+    final newCategoryIDToToDosMap = Map<String, TLToDosInTodayAndWhenever>.from(
+        workspace.categoryIDToToDos);
+    newCategoryIDToToDosMap[corrToDo.categoryID] = isInToday
+        ? TLToDosInTodayAndWhenever(
+            toDosInToday: newList,
+            toDosInWhenever: oldToDosInCat.toDosInWhenever,
+          )
+        : TLToDosInTodayAndWhenever(
+            toDosInToday: oldToDosInCat.toDosInToday,
+            toDosInWhenever: newList,
+          );
 
-    final newCategoryMap = Map<String, TLToDosInTodayAndWhenever>.from(
-        oldWorkspace.categoryIDToToDos);
-    newCategoryMap[categoryID] = newToDosInCat;
-
+    // Workspaceを更新
     final newWorkspace =
-        oldWorkspace.copyWith(categoryIDToToDos: newCategoryMap);
-    final newWorkspaces = [...workspaces];
-    newWorkspaces[idx] = newWorkspace;
+        workspace.copyWith(categoryIDToToDos: newCategoryIDToToDosMap);
 
-    return newWorkspaces;
+    // Workspaceリストを更新
+    return [
+      ...workspaces.sublist(0, workspaceIdx),
+      newWorkspace,
+      ...workspaces.sublist(workspaceIdx + 1),
+    ];
   }
 }

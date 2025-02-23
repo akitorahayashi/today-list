@@ -80,25 +80,15 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     final updatedWorkspaces = action.map(
       addToDo: (a) => TLToDoReducer.addToDo(
         workspaces: state.tlWorkspaces,
-        workspaceID: a.workspaceID,
-        categoryID: a.categoryID,
-        ifInToday: a.ifInToday,
-        todo: a.todo,
+        newToDo: a.newToDo,
       ),
       updateToDo: (a) => TLToDoReducer.updateToDo(
         workspaces: state.tlWorkspaces,
-        workspaceID: a.workspaceID,
-        categoryID: a.categoryID,
-        ifInToday: a.ifInToday,
-        index: a.index,
         newToDo: a.newToDo,
       ),
       removeToDo: (a) => TLToDoReducer.removeToDo(
         workspaces: state.tlWorkspaces,
-        workspaceID: a.workspaceID,
-        categoryID: a.categoryID,
-        ifInToday: a.ifInToday,
-        index: a.index,
+        corrToDo: a.corrToDo,
       ),
     );
 
