@@ -16,25 +16,29 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TLToDoAction {
+  TLWorkspace get corrWorkspace => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TLToDo newToDo) addToDo,
-    required TResult Function(TLToDo newToDo) updateToDo,
-    required TResult Function(TLToDo corrToDo) removeToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        addToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        updateToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        deleteToDo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TLToDo newToDo)? addToDo,
-    TResult? Function(TLToDo newToDo)? updateToDo,
-    TResult? Function(TLToDo corrToDo)? removeToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TLToDo newToDo)? addToDo,
-    TResult Function(TLToDo newToDo)? updateToDo,
-    TResult Function(TLToDo corrToDo)? removeToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -42,23 +46,29 @@ mixin _$TLToDoAction {
   TResult map<TResult extends Object?>({
     required TResult Function(_AddToDo value) addToDo,
     required TResult Function(_UpdateToDo value) updateToDo,
-    required TResult Function(_RemoveToDo value) removeToDo,
+    required TResult Function(_RemoveToDo value) deleteToDo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddToDo value)? addToDo,
     TResult? Function(_UpdateToDo value)? updateToDo,
-    TResult? Function(_RemoveToDo value)? removeToDo,
+    TResult? Function(_RemoveToDo value)? deleteToDo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddToDo value)? addToDo,
     TResult Function(_UpdateToDo value)? updateToDo,
-    TResult Function(_RemoveToDo value)? removeToDo,
+    TResult Function(_RemoveToDo value)? deleteToDo,
     required TResult orElse(),
   }) =>
+      throw _privateConstructorUsedError;
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $TLToDoActionCopyWith<TLToDoAction> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -67,6 +77,10 @@ abstract class $TLToDoActionCopyWith<$Res> {
   factory $TLToDoActionCopyWith(
           TLToDoAction value, $Res Function(TLToDoAction) then) =
       _$TLToDoActionCopyWithImpl<$Res, TLToDoAction>;
+  @useResult
+  $Res call({TLWorkspace corrWorkspace});
+
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
 }
 
 /// @nodoc
@@ -81,16 +95,42 @@ class _$TLToDoActionCopyWithImpl<$Res, $Val extends TLToDoAction>
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? corrWorkspace = null,
+  }) {
+    return _then(_value.copyWith(
+      corrWorkspace: null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
+    ) as $Val);
+  }
+
+  /// Create a copy of TLToDoAction
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace {
+    return $TLWorkspaceCopyWith<$Res>(_value.corrWorkspace, (value) {
+      return _then(_value.copyWith(corrWorkspace: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
-abstract class _$$AddToDoImplCopyWith<$Res> {
+abstract class _$$AddToDoImplCopyWith<$Res>
+    implements $TLToDoActionCopyWith<$Res> {
   factory _$$AddToDoImplCopyWith(
           _$AddToDoImpl value, $Res Function(_$AddToDoImpl) then) =
       __$$AddToDoImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({TLToDo newToDo});
+  $Res call({TLWorkspace corrWorkspace, TLToDo newToDo});
 
+  @override
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
   $TLToDoCopyWith<$Res> get newToDo;
 }
 
@@ -107,9 +147,14 @@ class __$$AddToDoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? corrWorkspace = null,
     Object? newToDo = null,
   }) {
     return _then(_$AddToDoImpl(
+      corrWorkspace: null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
       newToDo: null == newToDo
           ? _value.newToDo
           : newToDo // ignore: cast_nullable_to_non_nullable
@@ -131,14 +176,16 @@ class __$$AddToDoImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AddToDoImpl implements _AddToDo {
-  const _$AddToDoImpl({required this.newToDo});
+  const _$AddToDoImpl({required this.corrWorkspace, required this.newToDo});
 
+  @override
+  final TLWorkspace corrWorkspace;
   @override
   final TLToDo newToDo;
 
   @override
   String toString() {
-    return 'TLToDoAction.addToDo(newToDo: $newToDo)';
+    return 'TLToDoAction.addToDo(corrWorkspace: $corrWorkspace, newToDo: $newToDo)';
   }
 
   @override
@@ -146,11 +193,13 @@ class _$AddToDoImpl implements _AddToDo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddToDoImpl &&
+            (identical(other.corrWorkspace, corrWorkspace) ||
+                other.corrWorkspace == corrWorkspace) &&
             (identical(other.newToDo, newToDo) || other.newToDo == newToDo));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, newToDo);
+  int get hashCode => Object.hash(runtimeType, corrWorkspace, newToDo);
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -163,33 +212,36 @@ class _$AddToDoImpl implements _AddToDo {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TLToDo newToDo) addToDo,
-    required TResult Function(TLToDo newToDo) updateToDo,
-    required TResult Function(TLToDo corrToDo) removeToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        addToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        updateToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        deleteToDo,
   }) {
-    return addToDo(newToDo);
+    return addToDo(corrWorkspace, newToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TLToDo newToDo)? addToDo,
-    TResult? Function(TLToDo newToDo)? updateToDo,
-    TResult? Function(TLToDo corrToDo)? removeToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
   }) {
-    return addToDo?.call(newToDo);
+    return addToDo?.call(corrWorkspace, newToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TLToDo newToDo)? addToDo,
-    TResult Function(TLToDo newToDo)? updateToDo,
-    TResult Function(TLToDo corrToDo)? removeToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     required TResult orElse(),
   }) {
     if (addToDo != null) {
-      return addToDo(newToDo);
+      return addToDo(corrWorkspace, newToDo);
     }
     return orElse();
   }
@@ -199,7 +251,7 @@ class _$AddToDoImpl implements _AddToDo {
   TResult map<TResult extends Object?>({
     required TResult Function(_AddToDo value) addToDo,
     required TResult Function(_UpdateToDo value) updateToDo,
-    required TResult Function(_RemoveToDo value) removeToDo,
+    required TResult Function(_RemoveToDo value) deleteToDo,
   }) {
     return addToDo(this);
   }
@@ -209,7 +261,7 @@ class _$AddToDoImpl implements _AddToDo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddToDo value)? addToDo,
     TResult? Function(_UpdateToDo value)? updateToDo,
-    TResult? Function(_RemoveToDo value)? removeToDo,
+    TResult? Function(_RemoveToDo value)? deleteToDo,
   }) {
     return addToDo?.call(this);
   }
@@ -219,7 +271,7 @@ class _$AddToDoImpl implements _AddToDo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddToDo value)? addToDo,
     TResult Function(_UpdateToDo value)? updateToDo,
-    TResult Function(_RemoveToDo value)? removeToDo,
+    TResult Function(_RemoveToDo value)? deleteToDo,
     required TResult orElse(),
   }) {
     if (addToDo != null) {
@@ -230,25 +282,34 @@ class _$AddToDoImpl implements _AddToDo {
 }
 
 abstract class _AddToDo implements TLToDoAction {
-  const factory _AddToDo({required final TLToDo newToDo}) = _$AddToDoImpl;
+  const factory _AddToDo(
+      {required final TLWorkspace corrWorkspace,
+      required final TLToDo newToDo}) = _$AddToDoImpl;
 
+  @override
+  TLWorkspace get corrWorkspace;
   TLToDo get newToDo;
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AddToDoImplCopyWith<_$AddToDoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UpdateToDoImplCopyWith<$Res> {
+abstract class _$$UpdateToDoImplCopyWith<$Res>
+    implements $TLToDoActionCopyWith<$Res> {
   factory _$$UpdateToDoImplCopyWith(
           _$UpdateToDoImpl value, $Res Function(_$UpdateToDoImpl) then) =
       __$$UpdateToDoImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({TLToDo newToDo});
+  $Res call({TLWorkspace corrWorkspace, TLToDo newToDo});
 
+  @override
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
   $TLToDoCopyWith<$Res> get newToDo;
 }
 
@@ -265,9 +326,14 @@ class __$$UpdateToDoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? corrWorkspace = null,
     Object? newToDo = null,
   }) {
     return _then(_$UpdateToDoImpl(
+      corrWorkspace: null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
       newToDo: null == newToDo
           ? _value.newToDo
           : newToDo // ignore: cast_nullable_to_non_nullable
@@ -289,14 +355,16 @@ class __$$UpdateToDoImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UpdateToDoImpl implements _UpdateToDo {
-  const _$UpdateToDoImpl({required this.newToDo});
+  const _$UpdateToDoImpl({required this.corrWorkspace, required this.newToDo});
 
+  @override
+  final TLWorkspace corrWorkspace;
   @override
   final TLToDo newToDo;
 
   @override
   String toString() {
-    return 'TLToDoAction.updateToDo(newToDo: $newToDo)';
+    return 'TLToDoAction.updateToDo(corrWorkspace: $corrWorkspace, newToDo: $newToDo)';
   }
 
   @override
@@ -304,11 +372,13 @@ class _$UpdateToDoImpl implements _UpdateToDo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateToDoImpl &&
+            (identical(other.corrWorkspace, corrWorkspace) ||
+                other.corrWorkspace == corrWorkspace) &&
             (identical(other.newToDo, newToDo) || other.newToDo == newToDo));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, newToDo);
+  int get hashCode => Object.hash(runtimeType, corrWorkspace, newToDo);
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -321,33 +391,36 @@ class _$UpdateToDoImpl implements _UpdateToDo {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TLToDo newToDo) addToDo,
-    required TResult Function(TLToDo newToDo) updateToDo,
-    required TResult Function(TLToDo corrToDo) removeToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        addToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        updateToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        deleteToDo,
   }) {
-    return updateToDo(newToDo);
+    return updateToDo(corrWorkspace, newToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TLToDo newToDo)? addToDo,
-    TResult? Function(TLToDo newToDo)? updateToDo,
-    TResult? Function(TLToDo corrToDo)? removeToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
   }) {
-    return updateToDo?.call(newToDo);
+    return updateToDo?.call(corrWorkspace, newToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TLToDo newToDo)? addToDo,
-    TResult Function(TLToDo newToDo)? updateToDo,
-    TResult Function(TLToDo corrToDo)? removeToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     required TResult orElse(),
   }) {
     if (updateToDo != null) {
-      return updateToDo(newToDo);
+      return updateToDo(corrWorkspace, newToDo);
     }
     return orElse();
   }
@@ -357,7 +430,7 @@ class _$UpdateToDoImpl implements _UpdateToDo {
   TResult map<TResult extends Object?>({
     required TResult Function(_AddToDo value) addToDo,
     required TResult Function(_UpdateToDo value) updateToDo,
-    required TResult Function(_RemoveToDo value) removeToDo,
+    required TResult Function(_RemoveToDo value) deleteToDo,
   }) {
     return updateToDo(this);
   }
@@ -367,7 +440,7 @@ class _$UpdateToDoImpl implements _UpdateToDo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddToDo value)? addToDo,
     TResult? Function(_UpdateToDo value)? updateToDo,
-    TResult? Function(_RemoveToDo value)? removeToDo,
+    TResult? Function(_RemoveToDo value)? deleteToDo,
   }) {
     return updateToDo?.call(this);
   }
@@ -377,7 +450,7 @@ class _$UpdateToDoImpl implements _UpdateToDo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddToDo value)? addToDo,
     TResult Function(_UpdateToDo value)? updateToDo,
-    TResult Function(_RemoveToDo value)? removeToDo,
+    TResult Function(_RemoveToDo value)? deleteToDo,
     required TResult orElse(),
   }) {
     if (updateToDo != null) {
@@ -388,25 +461,34 @@ class _$UpdateToDoImpl implements _UpdateToDo {
 }
 
 abstract class _UpdateToDo implements TLToDoAction {
-  const factory _UpdateToDo({required final TLToDo newToDo}) = _$UpdateToDoImpl;
+  const factory _UpdateToDo(
+      {required final TLWorkspace corrWorkspace,
+      required final TLToDo newToDo}) = _$UpdateToDoImpl;
 
+  @override
+  TLWorkspace get corrWorkspace;
   TLToDo get newToDo;
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdateToDoImplCopyWith<_$UpdateToDoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RemoveToDoImplCopyWith<$Res> {
+abstract class _$$RemoveToDoImplCopyWith<$Res>
+    implements $TLToDoActionCopyWith<$Res> {
   factory _$$RemoveToDoImplCopyWith(
           _$RemoveToDoImpl value, $Res Function(_$RemoveToDoImpl) then) =
       __$$RemoveToDoImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({TLToDo corrToDo});
+  $Res call({TLWorkspace corrWorkspace, TLToDo corrToDo});
 
+  @override
+  $TLWorkspaceCopyWith<$Res> get corrWorkspace;
   $TLToDoCopyWith<$Res> get corrToDo;
 }
 
@@ -423,9 +505,14 @@ class __$$RemoveToDoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? corrWorkspace = null,
     Object? corrToDo = null,
   }) {
     return _then(_$RemoveToDoImpl(
+      corrWorkspace: null == corrWorkspace
+          ? _value.corrWorkspace
+          : corrWorkspace // ignore: cast_nullable_to_non_nullable
+              as TLWorkspace,
       corrToDo: null == corrToDo
           ? _value.corrToDo
           : corrToDo // ignore: cast_nullable_to_non_nullable
@@ -447,14 +534,16 @@ class __$$RemoveToDoImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RemoveToDoImpl implements _RemoveToDo {
-  const _$RemoveToDoImpl({required this.corrToDo});
+  const _$RemoveToDoImpl({required this.corrWorkspace, required this.corrToDo});
 
+  @override
+  final TLWorkspace corrWorkspace;
   @override
   final TLToDo corrToDo;
 
   @override
   String toString() {
-    return 'TLToDoAction.removeToDo(corrToDo: $corrToDo)';
+    return 'TLToDoAction.deleteToDo(corrWorkspace: $corrWorkspace, corrToDo: $corrToDo)';
   }
 
   @override
@@ -462,12 +551,14 @@ class _$RemoveToDoImpl implements _RemoveToDo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RemoveToDoImpl &&
+            (identical(other.corrWorkspace, corrWorkspace) ||
+                other.corrWorkspace == corrWorkspace) &&
             (identical(other.corrToDo, corrToDo) ||
                 other.corrToDo == corrToDo));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, corrToDo);
+  int get hashCode => Object.hash(runtimeType, corrWorkspace, corrToDo);
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -480,33 +571,36 @@ class _$RemoveToDoImpl implements _RemoveToDo {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(TLToDo newToDo) addToDo,
-    required TResult Function(TLToDo newToDo) updateToDo,
-    required TResult Function(TLToDo corrToDo) removeToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        addToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)
+        updateToDo,
+    required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
+        deleteToDo,
   }) {
-    return removeToDo(corrToDo);
+    return deleteToDo(corrWorkspace, corrToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(TLToDo newToDo)? addToDo,
-    TResult? Function(TLToDo newToDo)? updateToDo,
-    TResult? Function(TLToDo corrToDo)? removeToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
   }) {
-    return removeToDo?.call(corrToDo);
+    return deleteToDo?.call(corrWorkspace, corrToDo);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(TLToDo newToDo)? addToDo,
-    TResult Function(TLToDo newToDo)? updateToDo,
-    TResult Function(TLToDo corrToDo)? removeToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? addToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo newToDo)? updateToDo,
+    TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)? deleteToDo,
     required TResult orElse(),
   }) {
-    if (removeToDo != null) {
-      return removeToDo(corrToDo);
+    if (deleteToDo != null) {
+      return deleteToDo(corrWorkspace, corrToDo);
     }
     return orElse();
   }
@@ -516,9 +610,9 @@ class _$RemoveToDoImpl implements _RemoveToDo {
   TResult map<TResult extends Object?>({
     required TResult Function(_AddToDo value) addToDo,
     required TResult Function(_UpdateToDo value) updateToDo,
-    required TResult Function(_RemoveToDo value) removeToDo,
+    required TResult Function(_RemoveToDo value) deleteToDo,
   }) {
-    return removeToDo(this);
+    return deleteToDo(this);
   }
 
   @override
@@ -526,9 +620,9 @@ class _$RemoveToDoImpl implements _RemoveToDo {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddToDo value)? addToDo,
     TResult? Function(_UpdateToDo value)? updateToDo,
-    TResult? Function(_RemoveToDo value)? removeToDo,
+    TResult? Function(_RemoveToDo value)? deleteToDo,
   }) {
-    return removeToDo?.call(this);
+    return deleteToDo?.call(this);
   }
 
   @override
@@ -536,24 +630,28 @@ class _$RemoveToDoImpl implements _RemoveToDo {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddToDo value)? addToDo,
     TResult Function(_UpdateToDo value)? updateToDo,
-    TResult Function(_RemoveToDo value)? removeToDo,
+    TResult Function(_RemoveToDo value)? deleteToDo,
     required TResult orElse(),
   }) {
-    if (removeToDo != null) {
-      return removeToDo(this);
+    if (deleteToDo != null) {
+      return deleteToDo(this);
     }
     return orElse();
   }
 }
 
 abstract class _RemoveToDo implements TLToDoAction {
-  const factory _RemoveToDo({required final TLToDo corrToDo}) =
-      _$RemoveToDoImpl;
+  const factory _RemoveToDo(
+      {required final TLWorkspace corrWorkspace,
+      required final TLToDo corrToDo}) = _$RemoveToDoImpl;
 
+  @override
+  TLWorkspace get corrWorkspace;
   TLToDo get corrToDo;
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RemoveToDoImplCopyWith<_$RemoveToDoImpl> get copyWith =>
       throw _privateConstructorUsedError;

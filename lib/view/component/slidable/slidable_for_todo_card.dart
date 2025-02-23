@@ -5,6 +5,7 @@ import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/tl_todo_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
@@ -13,7 +14,6 @@ import '../snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class SlidableForToDoCard extends ConsumerWidget {
-  final bool ifInToday;
   final TLWorkspace corrWorkspace;
   final TLToDo corrToDo;
   final Widget child;
@@ -21,7 +21,6 @@ class SlidableForToDoCard extends ConsumerWidget {
   const SlidableForToDoCard({
     super.key,
     required this.corrWorkspace,
-    required this.ifInToday,
     required this.corrToDo,
     required this.child,
   });
@@ -46,7 +45,12 @@ class SlidableForToDoCard extends ConsumerWidget {
             autoClose: true,
             backgroundColor: backgroundColor,
             foregroundColor: foregroundColor,
-            onPressed: (context) => _handleDeleteToDo(ref, corrWorkspace),
+            onPressed: (context) => ref
+                .read(tlAppStateProvider.notifier)
+                .dispatchToDoAction(TLToDoAction.deleteToDo(
+                  corrWorkspace: corrWorkspace,
+                  corrToDo: corrToDo,
+                )),
             icon: Icons.remove,
           ),
         ],
@@ -66,39 +70,12 @@ class SlidableForToDoCard extends ConsumerWidget {
             foregroundColor: foregroundColor,
             onPressed: (context) =>
                 _toggleToDoTodayWhenever(ref, context, corrWorkspace, corrToDo),
-            icon: ifInToday ? Icons.schedule : Icons.light_mode,
+            icon: corrToDo.isInToday ? Icons.schedule : Icons.light_mode,
           ),
         ],
       ),
       child: child,
     );
-  }
-
-  // MARK: - Handle Delete ToDo
-  void _handleDeleteToDo(WidgetRef ref, TLWorkspace corrWorkspace) {
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-
-    // Remove the ToDo from the list
-    final List<TLToDo> updatedCorrListOfToDo = corrWorkspace
-        .categoryIDToToDos[corrToDo.categoryID]!
-        .getToDos(ifInToday)
-        .where((element) => element.id != corrToDo.id)
-        .toList();
-
-    // Update the workspace state
-    final updatedCategoryIDToToDos = {
-      ...corrWorkspace.categoryIDToToDos,
-      corrToDo.categoryID: corrWorkspace.categoryIDToToDos[corrToDo.categoryID]!
-          .copyWith(toDosInToday: updatedCorrListOfToDo),
-    };
-
-    tlAppStateReducer.dispatchWorkspaceAction(
-      TLWorkspaceAction.updateCorrWorkspace(
-        corrWorkspace.copyWith(categoryIDToToDos: updatedCategoryIDToToDos),
-      ),
-    );
-
-    TLVibrationService.vibrate();
   }
 
   // MARK: - Toggle ToDo Between Today and Whenever
@@ -112,8 +89,8 @@ class SlidableForToDoCard extends ConsumerWidget {
         corrWorkspace.categoryIDToToDos[corrToDo.categoryID]!;
 
     // 現在のリストと移動先のリストを取得
-    final currentList = toDosInCategory.getToDos(ifInToday);
-    final anotherList = toDosInCategory.getToDos(!ifInToday);
+    final currentList = toDosInCategory.getToDos(corrToDo.isInToday);
+    final anotherList = toDosInCategory.getToDos(!corrToDo.isInToday);
 
     // 現在のリストから対象の ToDo を除外
     final updatedCurrentList =
@@ -124,8 +101,9 @@ class SlidableForToDoCard extends ConsumerWidget {
 
     // ToDos のデータを更新
     final updatedToDosInCategory = toDosInCategory.copyWith(
-      toDosInToday: ifInToday ? updatedCurrentList : updatedOtherList,
-      toDosInWhenever: ifInToday ? updatedOtherList : updatedCurrentList,
+      toDosInToday: corrToDo.isInToday ? updatedCurrentList : updatedOtherList,
+      toDosInWhenever:
+          corrToDo.isInToday ? updatedOtherList : updatedCurrentList,
     );
 
     // Workspace のデータを更新
@@ -147,7 +125,7 @@ class SlidableForToDoCard extends ConsumerWidget {
       context: context,
       newTitle: corrToDo.content,
       newCheckedState: corrToDo.isChecked,
-      quickChangeToToday: !ifInToday,
+      quickChangeToToday: !corrToDo.isInToday,
     );
   }
 }

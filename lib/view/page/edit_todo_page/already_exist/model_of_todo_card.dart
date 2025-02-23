@@ -29,7 +29,6 @@ class ModelOfToDoCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         child: SlidableForToDoCard(
           corrToDo: corrTLToDo,
-          ifInToday: ifInToday,
           corrWorkspace:
               corrWorkspace, // Add the appropriate workspace object here
           child: Column(

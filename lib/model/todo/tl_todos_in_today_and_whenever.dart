@@ -19,8 +19,19 @@ class TLToDosInTodayAndWhenever with _$TLToDosInTodayAndWhenever {
   factory TLToDosInTodayAndWhenever.fromJson(Map<String, dynamic> json) =>
       _$TLToDosInTodayAndWheneverFromJson(json);
 
-  /// `ifInToday` が `true` の場合は `toDosInToday` を、`false` の場合は `toDosInWhenever` を返す
-  List<TLToDo> getToDos(bool ifInToday) {
-    return ifInToday ? toDosInToday : toDosInWhenever;
+  /// `isInToday` が `true` の場合は `toDosInToday` を、`false` の場合は `toDosInWhenever` を返す
+  List<TLToDo> getToDos(bool isInToday) {
+    return isInToday ? toDosInToday : toDosInWhenever;
+  }
+
+  /// `isInToday` の情報を元に、新しい `ToDo` リストを適用した新しいTLToDosInTodayAndWheneverのインスタンスを返す
+  TLToDosInTodayAndWhenever updateListOfToDoInTodayOrWhenever({
+    required bool isInToday,
+    required List<TLToDo> updatedToDos,
+  }) {
+    return copyWith(
+      toDosInToday: isInToday ? updatedToDos : toDosInToday,
+      toDosInWhenever: isInToday ? toDosInWhenever : updatedToDos,
+    );
   }
 }

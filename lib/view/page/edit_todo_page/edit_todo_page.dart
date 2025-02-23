@@ -111,11 +111,13 @@ class EditToDoPage extends HookConsumerWidget {
       if (editingToDoIndex.value == null) {
         // MARK: - Add New ToDo
         appStateReducer.dispatchToDoAction(TLToDoAction.addToDo(
+          corrWorkspace: corrWorkspace,
           newToDo: newToDo,
         ));
       } else {
         // MARK: - Update Existing ToDo
         appStateReducer.dispatchToDoAction(TLToDoAction.updateToDo(
+          corrWorkspace: corrWorkspace,
           newToDo: newToDo,
         ));
       }

@@ -49,7 +49,6 @@ class TLToDoCard extends ConsumerWidget {
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: SlidableForToDoCard(
-              ifInToday: ifInToday,
               corrWorkspace: corrWorkspace,
               corrToDo: corrToDo,
               child: Column(

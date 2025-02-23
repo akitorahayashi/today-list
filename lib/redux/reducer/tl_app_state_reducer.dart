@@ -80,14 +80,17 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     final updatedWorkspaces = action.map(
       addToDo: (a) => TLToDoReducer.addToDo(
         workspaces: state.tlWorkspaces,
+        corrWorkspace: a.corrWorkspace,
         newToDo: a.newToDo,
       ),
       updateToDo: (a) => TLToDoReducer.updateToDo(
         workspaces: state.tlWorkspaces,
+        corrWorkspace: a.corrWorkspace,
         newToDo: a.newToDo,
       ),
-      removeToDo: (a) => TLToDoReducer.removeToDo(
+      deleteToDo: (a) => TLToDoReducer.removeToDo(
         workspaces: state.tlWorkspaces,
+        corrWorkspace: a.corrWorkspace,
         corrToDo: a.corrToDo,
       ),
     );
@@ -124,7 +127,6 @@ class TLAppStateReducer extends StateNotifier<TLAppState> {
     final pref = await TLPrefService().getPref;
     if (id == null) {
       await pref.remove("currentWorkspaceID");
-      print("Removed currentWorkspaceID");
     } else {
       await pref.setString('currentWorkspaceID', id);
     }
