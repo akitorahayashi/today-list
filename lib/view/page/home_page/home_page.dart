@@ -146,13 +146,13 @@ class _HomePageState extends ConsumerState<HomePage>
             : currentWorkspaceNullAble?.name ?? "Error",
         leadingButtonOnPressed: () =>
             _homePageScaffoldKey.currentState!.openDrawer(),
-        leadingIcon: const Icon(Icons.menu, color: Colors.white),
+        leadingIconData: Icons.menu,
         trailingButtonOnPressed: () async {
           await Navigator.push(context, MaterialPageRoute(builder: (context) {
             return const SettingsPage();
           }));
         },
-        trailingIcon: const Icon(Icons.settings, color: Colors.white),
+        trailingIconData: Icons.settings,
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,

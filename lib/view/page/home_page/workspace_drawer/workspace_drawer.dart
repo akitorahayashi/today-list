@@ -30,9 +30,9 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                 context: context,
                 pageTitle: "Workspace",
                 leadingButtonOnPressed: null,
-                leadingIcon: null,
+                leadingIconData: null,
                 trailingButtonOnPressed: null,
-                trailingIcon: null,
+                trailingIconData: null,
               ),
               Padding(
                 padding:

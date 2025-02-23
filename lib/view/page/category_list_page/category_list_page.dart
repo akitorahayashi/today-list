@@ -30,9 +30,9 @@ class CategoryListPage extends ConsumerWidget {
         context: context,
         pageTitle: "Category List",
         leadingButtonOnPressed: () => Navigator.pop(context),
-        leadingIcon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        leadingIconData: Icons.arrow_back_ios,
         trailingButtonOnPressed: null,
-        trailingIcon: null,
+        trailingIconData: null,
       ),
       body: Stack(
         children: [
@@ -69,7 +69,7 @@ class CategoryListPage extends ConsumerWidget {
               ),
             ],
           ),
-          _AddCategoryButton(
+          _AddToDoCategoryButton(
               currentWorkspace: corrWorkspace, tlThemeDataConfig: tlThemeData),
         ],
       ),
@@ -77,11 +77,11 @@ class CategoryListPage extends ConsumerWidget {
   }
 }
 
-class _AddCategoryButton extends StatelessWidget {
+class _AddToDoCategoryButton extends StatelessWidget {
   final TLWorkspace currentWorkspace;
   final TLThemeConfig tlThemeDataConfig;
 
-  const _AddCategoryButton({
+  const _AddToDoCategoryButton({
     required this.currentWorkspace,
     required this.tlThemeDataConfig,
   });

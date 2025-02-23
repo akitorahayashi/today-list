@@ -82,9 +82,9 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       context: context,
       pageTitle: "Settings",
       leadingButtonOnPressed: () => Navigator.pop(context),
-      leadingIcon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+      leadingIconData: Icons.arrow_back_ios,
       trailingButtonOnPressed: null,
-      trailingIcon: null,
+      trailingIconData: null,
     );
   }
 

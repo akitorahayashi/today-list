@@ -132,7 +132,7 @@ class EditToDoPage extends HookConsumerWidget {
       appBar: TLAppBar(
         context: context,
         pageTitle: "ToDo",
-        leadingIcon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+        leadingIconData: Icons.arrow_back_ios,
         leadingButtonOnPressed: () {
           if (toDoTitleController.text.isEmpty) {
             Navigator.pop(context);
@@ -150,7 +150,7 @@ class EditToDoPage extends HookConsumerWidget {
             );
           }
         },
-        trailingIcon: null,
+        trailingIconData: null,
         trailingButtonOnPressed: null,
       ),
       body: Stack(

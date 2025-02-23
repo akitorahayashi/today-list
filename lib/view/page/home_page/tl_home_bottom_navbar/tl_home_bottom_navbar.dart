@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:today_list/view/component/common_ui_part/tl_animated_icon_button.dart';
 
 class TLHomeBottomNavBar extends StatelessWidget {
   final bool doesCurrentWorkspaceExist;
@@ -49,13 +50,13 @@ class TLHomeBottomNavBar extends StatelessWidget {
             child: OverflowBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _AnimatedSideButton(
-                  iconData: leadingIconData,
+                TLAnimatedIconButton(
+                  icon: leadingIconData,
                   onPressed: leadingButtonOnPressed,
                 ),
                 const SizedBox(width: centerButtonSize), // 中央のボタン用のスペース
-                _AnimatedSideButton(
-                  iconData: trailingIconData,
+                TLAnimatedIconButton(
+                  icon: trailingIconData,
                   onPressed: trailingButtonOnPressed,
                 ),
               ],
@@ -63,38 +64,6 @@ class TLHomeBottomNavBar extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-// MARK: - アニメーション付きサイドボタン
-class _AnimatedSideButton extends HookWidget {
-  final IconData iconData;
-  final VoidCallback? onPressed;
-
-  const _AnimatedSideButton({
-    required this.iconData,
-    this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final isPressed = useState(false);
-
-    return GestureDetector(
-      onTapDown: (_) => isPressed.value = true,
-      onTapUp: (_) => isPressed.value = false,
-      onTapCancel: () => isPressed.value = false,
-      onTap: onPressed,
-      child: AnimatedScale(
-        scale: isPressed.value ? 0.85 : 1.0, // タップ時に85%に縮小
-        duration: const Duration(milliseconds: 100),
-        child: Icon(
-          iconData,
-          color: Colors.white,
-          size: 33,
-        ),
-      ),
     );
   }
 }
