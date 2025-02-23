@@ -160,7 +160,7 @@ class __$$TLWorkspaceImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TLWorkspaceImpl implements _TLWorkspace {
+class _$TLWorkspaceImpl extends _TLWorkspace {
   _$TLWorkspaceImpl(
       {required this.id,
       required this.name,
@@ -169,7 +169,8 @@ class _$TLWorkspaceImpl implements _TLWorkspace {
       required final Map<String, TLToDosInTodayAndWhenever> categoryIDToToDos})
       : _bigCategories = bigCategories,
         _smallCategories = smallCategories,
-        _categoryIDToToDos = categoryIDToToDos;
+        _categoryIDToToDos = categoryIDToToDos,
+        super._();
 
   factory _$TLWorkspaceImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLWorkspaceImplFromJson(json);
@@ -249,7 +250,7 @@ class _$TLWorkspaceImpl implements _TLWorkspace {
   }
 }
 
-abstract class _TLWorkspace implements TLWorkspace {
+abstract class _TLWorkspace extends TLWorkspace {
   factory _TLWorkspace(
       {required final String id,
       required final String name,
@@ -257,6 +258,7 @@ abstract class _TLWorkspace implements TLWorkspace {
       required final Map<String, List<TLToDoCategory>> smallCategories,
       required final Map<String, TLToDosInTodayAndWhenever>
           categoryIDToToDos}) = _$TLWorkspaceImpl;
+  _TLWorkspace._() : super._();
 
   factory _TLWorkspace.fromJson(Map<String, dynamic> json) =
       _$TLWorkspaceImpl.fromJson;

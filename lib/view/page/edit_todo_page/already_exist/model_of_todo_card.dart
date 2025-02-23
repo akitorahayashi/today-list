@@ -27,90 +27,84 @@ class ModelOfToDoCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        child: SlidableForToDoCard(
-          corrToDo: corrTLToDo,
-          corrWorkspace:
-              corrWorkspace, // Add the appropriate workspace object here
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                    16, 18, 16, corrTLToDo.steps.isNotEmpty ? 15 : 18),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    // 左側のチェックボックス
-                    Padding(
-                        padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
-                        // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                        child: Transform.scale(
-                          scale: 1.2,
-                          child: TLCheckBox(isChecked: corrTLToDo.isChecked),
-                        )),
-                    // toDoのタイトル
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          corrTLToDo.content,
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black.withOpacity(
-                                  corrTLToDo.isChecked ? 0.3 : 0.6)),
-                        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                  16, 18, 16, corrTLToDo.steps.isNotEmpty ? 15 : 18),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  // 左側のチェックボックス
+                  Padding(
+                      padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
+                      // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                      child: Transform.scale(
+                        scale: 1.2,
+                        child: TLCheckBox(isChecked: corrTLToDo.isChecked),
+                      )),
+                  // toDoのタイトル
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        corrTLToDo.content,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black
+                                .withOpacity(corrTLToDo.isChecked ? 0.3 : 0.6)),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              // steps
-              if (corrTLToDo.steps.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Column(
-                    children: corrTLToDo.steps.map((stepData) {
-                      return Padding(
-                        key: Key(UniqueKey().toString()),
-                        padding: const EdgeInsets.fromLTRB(8, 0, 2, 0),
-                        child: Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                            child: Row(
-                              children: [
-                                // 左側のチェックボックス
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(4, 0, 16, 0),
-                                  child: Transform.scale(
-                                    scale: 1.2,
-                                    child: TLCheckBox(
-                                        isChecked: stepData.isChecked),
-                                  ),
+            ),
+            // steps
+            if (corrTLToDo.steps.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Column(
+                  children: corrTLToDo.steps.map((stepData) {
+                    return Padding(
+                      key: Key(UniqueKey().toString()),
+                      padding: const EdgeInsets.fromLTRB(8, 0, 2, 0),
+                      child: Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+                          child: Row(
+                            children: [
+                              // 左側のチェックボックス
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
+                                child: Transform.scale(
+                                  scale: 1.2,
+                                  child:
+                                      TLCheckBox(isChecked: stepData.isChecked),
                                 ),
-                                // stepのタイトル
-                                Expanded(
-                                  child: Text(stepData.content,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black.withOpacity(
-                                              stepData.isChecked ? 0.3 : 0.6))),
-                                ),
-                              ],
-                            ),
+                              ),
+                              // stepのタイトル
+                              Expanded(
+                                child: Text(stepData.content,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black.withOpacity(
+                                            stepData.isChecked ? 0.3 : 0.6))),
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    }).toList(),
-                  ),
-                )
-            ],
-          ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              )
+          ],
         ),
       ),
     );

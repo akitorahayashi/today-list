@@ -22,54 +22,33 @@ import 'package:today_list/view/page/edit_todo_page/components_for_edit/added_st
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/step_title_input_field.dart';
 
 class EditToDoPage extends HookConsumerWidget {
-  final bool ifInToday;
-  final TLWorkspace corrWorkspace;
-  final String selectedBigCategoryID;
-  final String? selectedSmallCategoryID;
-  final String? editedToDoTitle;
-  final int? indexOfEdittedTodo;
-
+  final String corrWorkspaceID;
   const EditToDoPage({
     super.key,
-    required this.ifInToday,
-    required this.corrWorkspace,
-    required this.selectedBigCategoryID,
-    required this.selectedSmallCategoryID,
-    required this.editedToDoTitle,
-    required this.indexOfEdittedTodo,
+    required this.corrWorkspaceID,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final tlAppState = ref.watch(tlAppStateProvider);
+    final corrWorkspace = () {
+      if (tlAppState.currentWorkspaceID == null) return null;
+      final matches = tlAppState.tlWorkspaces
+          .where((workspace) => workspace.id == tlAppState.currentWorkspaceID);
+      return matches.isNotEmpty ? matches.first : null;
+    }()!;
 
     // MARK: - State Management
-    final toDoTitleController =
-        useTextEditingController(text: editedToDoTitle ?? "");
+    final toDoTitleController = useTextEditingController(text: "");
     final stepTitleController = useTextEditingController();
 
     final steps = useState<List<TLStep>>([]);
-    final bigCategoryID = useState<String>(selectedBigCategoryID);
-    final smallCategoryID = useState<String?>(selectedSmallCategoryID);
-    final isToday = useState<bool>(ifInToday);
-    final editingToDoIndex = useState<int?>(indexOfEdittedTodo);
+    final bigCategoryID = useState<String>(noneID);
+    final smallCategoryID = useState<String?>(null);
+    final isToday = useState<bool>(true);
 
     final bannerAd = useState<BannerAd?>(null);
-
-    // MARK: - Initialize Editing State
-    useEffect(() {
-      if (indexOfEdittedTodo == null) {
-        steps.value = [];
-      } else {
-        final String categoryID =
-            selectedSmallCategoryID ?? selectedBigCategoryID;
-        final TLToDo edittedToDo = corrWorkspace.categoryIDToToDos[categoryID]!
-            .getToDos(ifInToday)[indexOfEdittedTodo!];
-
-        steps.value = edittedToDo.steps;
-      }
-      return null;
-    }, const []);
 
     // MARK: - Ad Loading
     useEffect(() {
@@ -101,26 +80,18 @@ class EditToDoPage extends HookConsumerWidget {
 
       final TLToDo newToDo = TLToDo(
         id: TLUUIDGenerator.generate(),
-        workspaceID: corrWorkspace.id,
+        workspaceID: corrWorkspaceID,
         categoryID: categoryID,
         isInToday: isToday.value,
         content: toDoTitleController.text,
         steps: steps.value,
       );
 
-      if (editingToDoIndex.value == null) {
-        // MARK: - Add New ToDo
-        appStateReducer.updateState(TLToDoAction.addToDo(
-          corrWorkspace: corrWorkspace,
-          newToDo: newToDo,
-        ));
-      } else {
-        // MARK: - Update Existing ToDo
-        appStateReducer.updateState(TLToDoAction.updateToDo(
-          corrWorkspace: corrWorkspace,
-          newToDo: newToDo,
-        ));
-      }
+      // MARK: - Add New ToDo
+      appStateReducer.updateState(TLToDoAction.addToDo(
+        corrWorkspace: corrWorkspace,
+        newToDo: newToDo,
+      ));
 
       // Reset fields
       steps.value = [];
@@ -191,7 +162,6 @@ class EditToDoPage extends HookConsumerWidget {
                     ),
                     // The named parameter 'isEditing' is required, but there's no corresponding argument.
                     ToDoTitleInputField(
-                      isEditing: editingToDoIndex.value != null,
                       toDoTitleController: toDoTitleController,
                       onCompleteEditing: completeEditing,
                     ),

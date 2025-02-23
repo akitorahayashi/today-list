@@ -8,13 +8,11 @@ import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 
 class ToDoTitleInputField extends StatefulWidget {
   final TextEditingController toDoTitleController;
-  final bool isEditing;
   final Future<void> Function() onCompleteEditing;
 
   const ToDoTitleInputField({
     super.key,
     required this.toDoTitleController,
-    required this.isEditing,
     required this.onCompleteEditing,
   });
 
@@ -87,7 +85,7 @@ class _ToDoTitleInputFieldState extends State<ToDoTitleInputField> {
                       await widget.onCompleteEditing();
                     },
               child: Icon(
-                widget.isEditing ? Icons.edit : Icons.add,
+                Icons.add,
                 color: _enteredToDoTitle.trim().isNotEmpty
                     ? tlThemeData.accentColor
                     : Colors.black,

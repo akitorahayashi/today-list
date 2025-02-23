@@ -238,13 +238,7 @@ class _HomePageState extends ConsumerState<HomePage>
                 MaterialPageRoute(
                   builder: (context) {
                     return EditToDoPage(
-                      corrWorkspace: currentWorkspaceNullAble,
-                      ifInToday: true,
-                      selectedBigCategoryID:
-                          currentWorkspaceNullAble.bigCategories[0].id,
-                      selectedSmallCategoryID: null,
-                      editedToDoTitle: null,
-                      indexOfEdittedTodo: null,
+                      corrWorkspaceID: currentWorkspaceNullAble.id,
                     );
                   },
                 ),
@@ -261,7 +255,6 @@ class _HomePageState extends ConsumerState<HomePage>
                             .deleteAllCheckedToDosInTodayInWorkspaceList(
                                 tlAppState.tlWorkspaces),
                       );
-
                   if (context.mounted) {
                     const TLSingleOptionDialog(title: "Deletion completed")
                         .show(context: context);

@@ -7,17 +7,17 @@ class TLToDoReducer {
   static List<TLWorkspace> reduce(
       List<TLWorkspace> workspaces, TLToDoAction action) {
     final updatedWorkspaces = action.map(
-      addToDo: (a) => TLToDoReducer.addToDo(
+      addToDo: (a) => TLToDoReducer._addToDo(
         workspaces: workspaces,
         corrWorkspace: a.corrWorkspace,
         newToDo: a.newToDo,
       ),
-      updateToDo: (a) => TLToDoReducer.updateToDo(
+      updateToDo: (a) => TLToDoReducer._updateToDo(
         workspaces: workspaces,
         corrWorkspace: a.corrWorkspace,
         newToDo: a.newToDo,
       ),
-      deleteToDo: (a) => TLToDoReducer.removeToDo(
+      deleteToDo: (a) => TLToDoReducer._removeToDo(
         workspaces: workspaces,
         corrWorkspace: a.corrWorkspace,
         corrToDo: a.corrToDo,
@@ -55,7 +55,7 @@ class TLToDoReducer {
   }
 
   // MARK: - Add ToDo
-  static List<TLWorkspace> addToDo({
+  static List<TLWorkspace> _addToDo({
     required List<TLWorkspace> workspaces,
     required TLWorkspace corrWorkspace,
     required TLToDo newToDo,
@@ -70,7 +70,7 @@ class TLToDoReducer {
   }
 
   // MARK: - Update ToDo
-  static List<TLWorkspace> updateToDo({
+  static List<TLWorkspace> _updateToDo({
     required List<TLWorkspace> workspaces,
     required TLWorkspace corrWorkspace,
     required TLToDo newToDo,
@@ -86,7 +86,7 @@ class TLToDoReducer {
   }
 
   // MARK: - Remove ToDo
-  static List<TLWorkspace> removeToDo({
+  static List<TLWorkspace> _removeToDo({
     required List<TLWorkspace> workspaces,
     required TLWorkspace corrWorkspace,
     required TLToDo corrToDo,
@@ -139,35 +139,33 @@ class TLToDoReducer {
     );
   }
 
-  // MARK: - Toggle ToDo Today <-> Whenever
+  // MARK: - Toggle ToDo Between Today and Whenever
   static List<TLWorkspace> _toggleToDoTodayWhenever(
     List<TLWorkspace> workspaces,
     TLWorkspace corrWorkspace,
     TLToDo corrToDo,
   ) {
-    final updatedToDo = corrToDo.copyWith(isInToday: !corrToDo.isInToday);
+    final bool isMovingToToday = !corrToDo.isInToday; // Determine target list
+    final updatedToDo = corrToDo.copyWith(isInToday: isMovingToToday);
     final toDosInCategory =
-        corrWorkspace.categoryIDToToDos[updatedToDo.categoryID]!;
+        corrWorkspace.categoryIDToToDos[corrToDo.categoryID]!;
 
-    // 現在のリストと移動先のリストを取得
-    final currentList = toDosInCategory.getToDos(updatedToDo.isInToday);
-    final anotherList = toDosInCategory.getToDos(!updatedToDo.isInToday);
+    // Extract current lists
+    final List<TLToDo> fromList = toDosInCategory.getToDos(!isMovingToToday);
+    final List<TLToDo> toList = toDosInCategory.getToDos(isMovingToToday);
 
-    // 現在のリストから対象の ToDo を除外
-    final updatedCurrentList =
-        currentList.where((todo) => todo.id != updatedToDo.id).toList();
+    // Remove from current list & add to the new list
+    final List<TLToDo> updatedFromList =
+        fromList.where((todo) => todo.id != updatedToDo.id).toList();
+    final List<TLToDo> updatedToList = [updatedToDo, ...toList];
 
-    // 移動先のリストに対象の ToDo を先頭に追加、isInTodayをswitch
-    final updatedOtherList = [updatedToDo, ...anotherList];
-
-    // ToDos のデータを更新
+    // Update category's ToDo lists
     final updatedToDosInCategory = toDosInCategory.copyWith(
-      toDosInToday:
-          updatedToDo.isInToday ? updatedCurrentList : updatedOtherList,
-      toDosInWhenever:
-          updatedToDo.isInToday ? updatedOtherList : updatedCurrentList,
+      toDosInToday: isMovingToToday ? updatedToList : updatedFromList,
+      toDosInWhenever: isMovingToToday ? updatedFromList : updatedToList,
     );
 
+    // Update workspaces
     return workspaces.map((ws) {
       return ws.id == corrWorkspace.id
           ? ws.copyWith(categoryIDToToDos: {

@@ -4,7 +4,7 @@ import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/view/page/setting_page/set_tcw_settings_page/set_tcw_page.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'set_features_page/set_appearance_page.dart';
+import 'set_appearance_page/set_appearance_page.dart';
 import 'dart:io';
 
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';

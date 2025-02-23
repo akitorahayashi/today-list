@@ -9,6 +9,8 @@ part '../generate/tl_workspace.g.dart';
 
 @freezed
 class TLWorkspace with _$TLWorkspace {
+  const TLWorkspace._();
+
   factory TLWorkspace({
     required String id,
     required String name,
@@ -19,4 +21,18 @@ class TLWorkspace with _$TLWorkspace {
 
   factory TLWorkspace.fromJson(Map<String, dynamic> json) =>
       _$TLWorkspaceFromJson(json);
+
+  int getNumOfToDoInWorkspace({required bool ifInToday}) {
+    int todoCount = 0;
+    for (TLToDoCategory bigCategory in bigCategories) {
+      todoCount += bigCategory.getNumberOfToDosInThisCategory(
+          ifInToday: ifInToday, corrToDos: categoryIDToToDos[bigCategory.id]!);
+      for (TLToDoCategory smallCategory in smallCategories[bigCategory.id]!) {
+        todoCount += smallCategory.getNumberOfToDosInThisCategory(
+            ifInToday: ifInToday,
+            corrToDos: categoryIDToToDos[smallCategory.id]!);
+      }
+    }
+    return todoCount;
+  }
 }

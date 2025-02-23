@@ -30,19 +30,20 @@ class TLAppStateController extends Notifier<TLAppState> {
   }
 
   // MARK: - Action Handling
-  void updateState(dynamic action) {
+  Future<void> updateState(dynamic action) async {
     final newState = TLAppStateReducer.reduce(state, action);
     if (newState != state) {
-      _handleSideEffects(action, newState);
+      await _handleSideEffects(action, newState);
       state = newState;
     }
   }
 
   // MARK: - Side Effects
-  void _handleSideEffects(dynamic action, TLAppState newState) {
+  Future<void> _handleSideEffects(dynamic action, TLAppState newState) async {
+    TLVibrationService.vibrate();
+
     if (action is ChangeCurrentWorkspaceID) {
-      TLVibrationService.vibrate();
-      _saveCurrentWorkspaceID(action.newID);
+      await _saveCurrentWorkspaceID(action.newID);
     }
 
     if (action is TLWorkspaceAction ||
@@ -54,11 +55,11 @@ class TLAppStateController extends Notifier<TLAppState> {
             action.mapOrNull(
                     deleteAllCheckedToDosInTodayInWorkspaceList: (_) => true) ==
                 true)) {
-      _saveWorkspaces(newState.tlWorkspaces);
+      await _saveWorkspaces(newState.tlWorkspaces);
     }
 
     if (action is TLThemeAction) {
-      _saveTheme(newState.selectedThemeType);
+      await _saveTheme(newState.selectedThemeType);
     }
   }
 
