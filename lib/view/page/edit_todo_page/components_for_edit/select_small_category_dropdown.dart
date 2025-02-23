@@ -5,7 +5,6 @@ import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
 
 class SelectSmallCategoryDropdown extends ConsumerWidget {
   final TLWorkspace corrWorkspace;

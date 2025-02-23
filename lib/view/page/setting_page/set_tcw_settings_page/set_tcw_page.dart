@@ -61,7 +61,7 @@ class _SetIOSWidgetPageState extends ConsumerState<SetTCWPage> {
         // 広告
         if (_bannerAd != null)
           Padding(
-            padding: const EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(top: 16.0),
             child: Align(
               alignment: Alignment.topCenter,
               child: SizedBox(
@@ -73,7 +73,7 @@ class _SetIOSWidgetPageState extends ConsumerState<SetTCWPage> {
           ),
         // 設定済みのWidgetExtensionを表示
         const Padding(
-          padding: EdgeInsets.only(top: 12.0),
+          padding: EdgeInsets.only(top: 8.0),
           child: CardListOfToDosInCategoryWidgetSettings(),
         ),
         // 新たにWidgetExtensionを追加

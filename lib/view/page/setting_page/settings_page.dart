@@ -46,9 +46,12 @@ class SettingsPage extends HookWidget {
         body: Stack(
           children: [
             Container(color: tlThemeData.backgroundColor),
-            _PageViewWidget(
-                pageController: pageController,
-                contents: contentsInSettingPage),
+            PageView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) => contentsInSettingPage[index],
+              itemCount: contentsInSettingPage.length,
+              controller: pageController,
+            ),
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: showBottomNavBar.value
@@ -89,27 +92,6 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-// MARK: - PageView Widget
-class _PageViewWidget extends StatelessWidget {
-  final PageController pageController;
-  final List<Widget> contents;
-
-  const _PageViewWidget({
-    required this.pageController,
-    required this.contents,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return PageView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) => contents[index],
-      itemCount: contents.length,
-      controller: pageController,
-    );
-  }
-}
-
 // MARK: - Bottom Navigation Bar Widget
 class _BottomNavBar extends StatelessWidget {
   final TLThemeConfig tlThemeConfig;
@@ -126,11 +108,13 @@ class _BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double navBarHeight = 100 * MediaQuery.of(context).size.height / 896;
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        height: (100 * MediaQuery.of(context).size.height / 896),
+        height: navBarHeight,
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: tlThemeConfig.whiteBasedColor,
@@ -138,18 +122,16 @@ class _BottomNavBar extends StatelessWidget {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              for (int index = 0;
-                  index < iconDataOfSettingPageContents.length;
-                  index++)
-                _BottomNavItem(
-                  index: index,
-                  selectedPageIndex: selectedPageIndex,
-                  pageController: pageController,
-                  tlThemeData: tlThemeConfig,
-                  iconDataOfSettingPageContents: iconDataOfSettingPageContents,
-                ),
-            ],
+            children: List.generate(
+              iconDataOfSettingPageContents.length,
+              (index) => _BottomNavItem(
+                index: index,
+                selectedPageIndex: selectedPageIndex,
+                pageController: pageController,
+                tlThemeData: tlThemeConfig,
+                iconDataOfSettingPageContents: iconDataOfSettingPageContents,
+              ),
+            ),
           ),
         ),
       ),
@@ -158,7 +140,7 @@ class _BottomNavBar extends StatelessWidget {
 }
 
 // MARK: - Bottom Navigation Item Widget
-class _BottomNavItem extends StatelessWidget {
+class _BottomNavItem extends HookWidget {
   final int index;
   final ValueNotifier<int> selectedPageIndex;
   final PageController pageController;
@@ -175,32 +157,41 @@ class _BottomNavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isPressed = useState(false);
+
     return GestureDetector(
+      onTapDown: (_) => isPressed.value = true,
+      onTapUp: (_) => isPressed.value = false,
+      onTapCancel: () => isPressed.value = false,
       onTap: () =>
           _onBottomNavItemTapped(index, selectedPageIndex, pageController),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            iconDataOfSettingPageContents[index][0],
-            color: index == selectedPageIndex.value
-                ? tlThemeData.accentColor
-                : Colors.black45,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 11.0),
-            child: Text(
-              iconDataOfSettingPageContents[index][1],
-              style: TextStyle(
-                color: index == selectedPageIndex.value
-                    ? tlThemeData.accentColor
-                    : Colors.black45,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
+      child: AnimatedScale(
+        scale: isPressed.value ? 0.9 : 1.0, // タップ時に 90% に縮小
+        duration: const Duration(milliseconds: 100),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              iconDataOfSettingPageContents[index][0],
+              color: index == selectedPageIndex.value
+                  ? tlThemeData.accentColor
+                  : Colors.black45,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 11.0),
+              child: Text(
+                iconDataOfSettingPageContents[index][1],
+                style: TextStyle(
+                  color: index == selectedPageIndex.value
+                      ? tlThemeData.accentColor
+                      : Colors.black45,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
               ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

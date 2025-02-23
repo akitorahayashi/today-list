@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 
-class CenterButtonOfBottomNavBar extends StatelessWidget {
+class CenterButtonOfHomeBottomNavBar extends StatelessWidget {
+  final bool doesCurrentWorkspaceExist;
   final Function()? onPressed;
-  const CenterButtonOfBottomNavBar({super.key, required this.onPressed});
+  const CenterButtonOfHomeBottomNavBar({
+    super.key,
+    required this.doesCurrentWorkspaceExist,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
