@@ -236,7 +236,8 @@ class _HomePageState extends ConsumerState<HomePage>
         trailingButtonOnPressed: () {
           if (doesCurrentWorkspaceExist) {
             Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return CategoryListPage(corrWorkspace: currentWorkspaceNullAble);
+              return CategoryListPage(
+                  corrWorkspaceID: tlAppState.currentWorkspaceID!);
             }));
           } else {
             _homePageScaffoldKey.currentState?.openDrawer();

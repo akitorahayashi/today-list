@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
@@ -12,12 +13,12 @@ import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 
 class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
-  final String corrWorkspaceID;
+  final TLWorkspace corrWorkspace;
   final TLToDoCategory categoryToRename;
 
   const RenameCategoryDialog({
     super.key,
-    required this.corrWorkspaceID,
+    required this.corrWorkspace,
     required this.categoryToRename,
   });
 
@@ -58,10 +59,12 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
                 name: newCategory.name,
                 validator: TLValidation.validateCategoryName,
                 onSuccess: () async {
-                  ref.read(tlAppStateProvider.notifier).updateState(
-                      TLToDoCategoryAction.updateCategory(
-                          workspaceID: corrWorkspaceID,
-                          newCategory: newCategory));
+                  ref
+                      .read(tlAppStateProvider.notifier)
+                      .updateState(TLToDoCategoryAction.updateCategory(
+                        corrWorkspace: corrWorkspace,
+                        newCategory: newCategory,
+                      ));
                   navigator.pop();
                   const TLSingleOptionDialog(
                           title: "Category name\nhas been changed!")

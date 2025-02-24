@@ -5,7 +5,6 @@ import 'package:today_list/view/component/dialog/for_category/add_category_dialo
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
@@ -15,15 +14,17 @@ import 'big_and_small_category_card/big_and_small_category_card.dart';
 import 'package:reorderables/reorderables.dart';
 
 class CategoryListPage extends ConsumerWidget {
-  final TLWorkspace corrWorkspace;
+  final String corrWorkspaceID;
   const CategoryListPage({
     super.key,
-    required this.corrWorkspace,
+    required this.corrWorkspaceID,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final corrWorkspace = ref.watch(tlAppStateProvider.select((state) =>
+        state.tlWorkspaces.firstWhere((w) => w.id == corrWorkspaceID)));
 
     return Scaffold(
       appBar: TLAppBar(
@@ -98,7 +99,7 @@ class _AddToDoCategoryButton extends StatelessWidget {
         borderColor: Colors.black26,
         iconColor: tlThemeDataConfig.accentColor,
         onPressed: () {
-          AddCategoryDialog(currentWorkspace: currentWorkspace)
+          AddCategoryDialog(corrWorkspace: currentWorkspace)
               .show(context: context);
         },
       ),

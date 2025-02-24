@@ -14,11 +14,11 @@ import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 
 class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
-  final TLWorkspace currentWorkspace;
+  final TLWorkspace corrWorkspace;
 
   const AddCategoryDialog({
     super.key,
-    required this.currentWorkspace,
+    required this.corrWorkspace,
   });
 
   @override
@@ -34,10 +34,14 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
         children: [
           _BigCategoryDropdown(
             theme: theme,
-            corrWorkspace: currentWorkspace,
+            corrWorkspace: corrWorkspace,
             selectedBigCategoryID: selectedBigCategoryID.value,
             onChanged: (String? newBigCategoryId) {
-              selectedBigCategoryID.value = newBigCategoryId;
+              if (newBigCategoryId != corrWorkspace.id) {
+                selectedBigCategoryID.value = newBigCategoryId;
+              } else {
+                selectedBigCategoryID.value = null;
+              }
             },
           ),
           _NewCategoryNameInputField(
@@ -46,7 +50,6 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
           ),
           _ActionButtons(
             theme: theme,
-            buttonText: "Add",
             enteredCategoryTitle: enteredCategoryTitle,
             onClose: () => Navigator.pop(context),
             onSubmit: () {
@@ -57,7 +60,7 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
               );
               ref.read(tlAppStateProvider.notifier).updateState(
                     TLToDoCategoryAction.addCategory(
-                      workspaceID: currentWorkspace.id,
+                      corrWorkspace: corrWorkspace,
                       newCategory: categoryToAdd,
                     ),
                   );
@@ -98,16 +101,20 @@ class _BigCategoryDropdown extends StatelessWidget {
           hint: _buildDropdownHint(selectedBigCategoryID, corrWorkspace),
           items: [
             TLToDoCategory(
-                id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
+                id: corrWorkspace.id,
+                parentBigCategoryID: null,
+                name: "UnSelect"),
             ...corrWorkspace.bigCategories.sublist(1),
           ].map((TLToDoCategory bigCategory) {
             return DropdownMenuItem(
               value: bigCategory.id,
               child: Text(
                 bigCategory.name,
-                style: _getDropdownItemStyle(
-                  theme,
-                  bigCategory.id == selectedBigCategoryID,
+                style: TextStyle(
+                  color: bigCategory.id == selectedBigCategoryID
+                      ? theme.accentColor
+                      : Colors.black.withOpacity(0.5),
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             );
@@ -125,13 +132,6 @@ class _BigCategoryDropdown extends StatelessWidget {
         ? const Text("None")
         : Text(found.first.name,
             style: const TextStyle(fontWeight: FontWeight.bold));
-  }
-
-  TextStyle _getDropdownItemStyle(TLThemeConfig theme, bool isSelected) {
-    return TextStyle(
-      color: isSelected ? theme.accentColor : Colors.black.withOpacity(0.5),
-      fontWeight: FontWeight.bold,
-    );
   }
 }
 
@@ -172,14 +172,12 @@ class _NewCategoryNameInputField extends StatelessWidget {
 
 class _ActionButtons extends StatelessWidget {
   final TLThemeConfig theme;
-  final String buttonText;
   final ValueNotifier<String> enteredCategoryTitle;
   final VoidCallback onClose;
   final VoidCallback onSubmit;
 
   const _ActionButtons({
     required this.theme,
-    required this.buttonText,
     required this.enteredCategoryTitle,
     required this.onClose,
     required this.onSubmit,
@@ -199,7 +197,7 @@ class _ActionButtons extends StatelessWidget {
           style: alertButtonStyle(accentColor: theme.accentColor),
           onPressed:
               enteredCategoryTitle.value.trim().isEmpty ? null : onSubmit,
-          child: Text(buttonText),
+          child: const Text("Add"),
         ),
       ],
     );
