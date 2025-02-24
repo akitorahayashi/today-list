@@ -156,22 +156,39 @@ class _HomePageState extends ConsumerState<HomePage>
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
+
+          // ラベルのスタイル
           labelColor: tlThemeConfig.accentColor,
           unselectedLabelColor: Colors.white,
+          labelStyle: tabTextStyle,
+          unselectedLabelStyle: tabTextStyle,
+
+          // インジケーターの設定
           indicator: BoxDecoration(
             color: tlThemeConfig.whiteBasedColor,
             borderRadius: BorderRadius.circular(8),
           ),
           indicatorSize: TabBarIndicatorSize.label,
           indicatorPadding: const EdgeInsets.symmetric(horizontal: -16),
-          labelStyle: tabTextStyle,
-          unselectedLabelStyle: tabTextStyle,
+
+          // タッチ時のエフェクトを無効化
           splashFactory: NoSplash.splashFactory,
+          overlayColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.pressed) ||
+                states.contains(WidgetState.focused)) {
+              return Colors.transparent;
+            }
+            return null;
+          }),
+
+          // タブの内容
           tabs: [
             const Tab(text: "Today"),
             for (TLWorkspace workspace in tlAppState.tlWorkspaces)
               Tab(text: workspace.name),
           ],
+
+          // タブ変更時の処理
           onTap: (index) {
             _handleTabIndexChange(index, ref, tlAppState);
           },

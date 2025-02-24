@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/model/tl_app_state.dart';
-import 'package:today_list/model/todo/tl_step.dart';
-import 'package:today_list/model/todo/tl_todo.dart';
-import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/tl_todo_action.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/util/tl_uuid_generator.dart';
-import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
-import 'package:today_list/view/page/edit_todo_page/already_exist/already_exist.dart';
+import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/select_big_category_dropdown.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/select_small_category_dropdown.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/todo_title_input_field.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/added_steps_column.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/step_title_input_field.dart';
+import 'package:today_list/view/page/edit_todo_page/already_exist/already_exist.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/todo/tl_step.dart';
+import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/redux/action/tl_todo_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/util/tl_uuid_generator.dart';
+
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class EditToDoPage extends HookConsumerWidget {
   final String corrWorkspaceID;
@@ -44,7 +43,7 @@ class EditToDoPage extends HookConsumerWidget {
     final stepTitleController = useTextEditingController();
 
     final steps = useState<List<TLStep>>([]);
-    final bigCategoryID = useState<String>(noneID);
+    final bigCategoryID = useState<String>(corrWorkspace.id);
     final smallCategoryID = useState<String?>(null);
     final isToday = useState<bool>(true);
 
@@ -153,7 +152,7 @@ class EditToDoPage extends HookConsumerWidget {
                       smallCategoryID: smallCategoryID.value,
                       onSelected: (newSmallID) {
                         smallCategoryID.value =
-                            newSmallID == noneID ? null : newSmallID;
+                            newSmallID == corrWorkspace.id ? null : newSmallID;
                       },
                     ),
                     SelectTodayOrWheneverButton(

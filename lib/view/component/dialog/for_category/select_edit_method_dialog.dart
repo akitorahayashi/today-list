@@ -50,7 +50,7 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
       ),
       children: [
         // このカテゴリーを改名するボタン
-        if (categoryOfThisPage.id != noneID)
+        if (categoryOfThisPage.id != corrWorkspace.id)
           SimpleDialogOption(
             onPressed: () async {
               Navigator.pop(context);
@@ -72,7 +72,7 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
             ),
           ),
         // このカテゴリーを削除するボタン
-        if (categoryOfThisPage.id != noneID)
+        if (categoryOfThisPage.id != corrWorkspace.id)
           SimpleDialogOption(
             onPressed: () async {
               Navigator.pop(context);

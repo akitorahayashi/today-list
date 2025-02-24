@@ -11,5 +11,6 @@ struct TCWidgetEntry: TimelineEntry {
     let date: Date
     let entity: TCEntity
     let selectedThemeType: TLThemeType
-    let tlWorkspaces: [TLWorkspace]
+    // デコードや読み取り失敗時にnilとなる
+    let tlWorkspaces: [TLWorkspace]?
 }

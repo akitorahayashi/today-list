@@ -3,9 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/page/setting_page/set_tcw_settings_page/create_tcw_settings_card/add_tcw_button.dart';
 import 'package:today_list/view/page/setting_page/set_tcw_settings_page/create_tcw_settings_card/create_tcw_settings_card.dart';
 import 'package:today_list/view/page/setting_page/set_tcw_settings_page/tcw_card_list/card_list_of_todos_in_category_settings.dart';
-import 'package:today_list/main.dart';
 import 'package:today_list/service/tl_vibration.dart';
-import '../../../../service/tl_ads.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -25,52 +23,10 @@ class _SetIOSWidgetPageState extends ConsumerState<SetTCWPage> {
   bool _showAddWKSButton = true;
 
   @override
-  void initState() {
-    super.initState();
-    // 広告を読み込む
-    BannerAd(
-      adUnitId: TLAdsService.setFeaturesBannerAdUnitId(isTestMode: kAdTestMode),
-      request: const AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            _bannerAd = ad as BannerAd;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
-          ad.dispose();
-        },
-      ),
-    ).load();
-  }
-
-  @override
-  void dispose() {
-    TLAdsService.rewardedAd?.dispose();
-    _bannerAd?.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ListView(
       padding: EdgeInsets.zero,
       children: [
-        // 広告
-        if (_bannerAd != null)
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: SizedBox(
-                width: _bannerAd!.size.width.toDouble(),
-                height: _bannerAd!.size.height.toDouble(),
-                child: AdWidget(ad: _bannerAd!),
-              ),
-            ),
-          ),
         // 設定済みのWidgetExtensionを表示
         const Padding(
           padding: EdgeInsets.only(top: 8.0),

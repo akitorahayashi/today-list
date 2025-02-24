@@ -6,112 +6,160 @@
 //
 
 import Foundation
+// MARK: - Enums
 
-enum TLWorkspacesExample: String {
-    case noneID = "defaultID"
-    
-    case kTLWorkspacesExample = """
-[
-  {
-    "id": "defaultID",
-    "name": "Default",
-    "bigCategories": [
-      { "id": "defaultID", "title": "なし" },
-      { "id": "superMarcketId", "title": "スーパー" },
-      { "id": "hundredStoreId", "title": "100均" }
-    ],
-    "smallCategories": {
-      "defaultID": [],
-      "superMarcketId": [
-        { "id": "vegetableId", "title": "野菜" }
-      ],
-      "hundredStoreId": []
-    },
-    "categoryIDToToDos": {
-      "defaultID": {
-        "toDosInToday": [
-          { "id": "todo1", "title": "のり", "isChecked": false, "steps": [] },
-          { "id": "todo2", "title": "まくらカバー", "isChecked": false, "steps": [] }
-        ],
-        "toDosInWhenever": []
-      },
-      "superMarcketId": {
-        "toDosInToday": [
-          {
-            "id": "todo3",
-            "title": "パスタ",
-            "isChecked": false,
-            "steps": [
-              { "id": "step1", "title": "パスタの束", "isChecked": false },
-              { "id": "step2", "title": "オリーブオイル", "isChecked": false }
-            ]
-          }
-        ],
-        "toDosInWhenever": []
-      },
-      "vegetableId": {
-        "toDosInToday": [
-          { "id": "todo4", "title": "キャベツ", "isChecked": false, "steps": [] },
-          { "id": "todo5", "title": "にんじん", "isChecked": false, "steps": [] }
-        ],
-        "toDosInWhenever": []
-      },
-      "hundredStoreId": {
-        "toDosInToday": [
-          { "id": "todo6", "title": "お皿", "isChecked": false, "steps": [] }
-        ],
-        "toDosInWhenever": []
-      }
+import Foundation
+
+// MARK: - Workspace ID
+enum WorkspaceID: String, Codable {
+    case life = "lifeId"
+    case work = "workId"
+
+    var name: String {
+        switch self {
+        case .life: return "生活"
+        case .work: return "仕事"
+        }
     }
-  },
-  {
-    "id": "schoolWorksapceId",
-    "name": "School",
-    "bigCategories": [
-      { "id": "defaultID", "title": "なし" },
-      { "id": "mathId", "title": "数学" },
-      { "id": "englishId", "title": "英語" }
-    ],
-    "smallCategories": {
-      "defaultID": [],
-      "mathId": [
-        { "id": "mathAId", "title": "数学A" },
-        { "id": "mathIId", "title": "数学I" }
-      ],
-      "englishId": []
-    },
-    "categoryIDToToDos": {
-      "defaultID": {
-        "toDosInToday": [
-          { "id": "todo7", "title": "~のプリントを出す", "isChecked": false, "steps": [] }
-        ],
-        "toDosInWhenever": []
-      },
-      "mathId": {
-        "toDosInToday": [],
-        "toDosInWhenever": []
-      },
-      "mathAId": {
-        "toDosInToday": [
-          { "id": "todo8", "title": "~を復習する", "isChecked": false, "steps": [] },
-          { "id": "todo9", "title": "ワーク12ページの宿題をやる", "isChecked": false, "steps": [] }
-        ],
-        "toDosInWhenever": []
-      },
-      "mathIId": {
-        "toDosInToday": [
-          { "id": "todo10", "title": "ドリル20~25ページ", "isChecked": false, "steps": [] }
-        ],
-        "toDosInWhenever": []
-      },
-      "englishId": {
-        "toDosInToday": [
-          { "id": "todo11", "title": "単語帳301~400", "isChecked": false, "steps": [] }
-        ],
-        "toDosInWhenever": []
-      }
+
+    var bigCategories: [BigCategoryID] {
+        switch self {
+        case .life: return [.mealPrep]
+        case .work: return [.projectA]
+        }
     }
-  }
-]
-"""
 }
+
+// MARK: - BigCategory ID
+enum BigCategoryID: String, Codable {
+    case mealPrep = "mealPrepId"
+    case projectA = "projectAId"
+
+    var name: String {
+        switch self {
+        case .mealPrep: return "食事の準備"
+        case .projectA: return "プロジェクトA"
+        }
+    }
+
+    var smallCategories: [SmallCategoryID] {
+        switch self {
+        case .mealPrep: return [.breakfast, .lunch, .dinner]
+        case .projectA: return []
+        }
+    }
+}
+
+// MARK: - SmallCategory ID
+enum SmallCategoryID: String, Codable {
+    case breakfast = "breakfastId"
+    case lunch = "lunchId"
+    case dinner = "dinnerId"
+
+    var name: String {
+        switch self {
+        case .breakfast: return "朝食"
+        case .lunch: return "昼食"
+        case .dinner: return "夕食"
+        }
+    }
+}
+
+
+let kTLWorkspacesExample: [TLWorkspace] = [
+    // MARK: - Work Workspace
+    TLWorkspace(
+        id: WorkspaceID.work.rawValue,
+        name: "Work",
+        bigCategories: [
+            TLToDoCategory(id: BigCategoryID.projectA.rawValue, parentBigCategoryID: nil, name: BigCategoryID.projectA.name)
+        ],
+        smallCategories: [
+            BigCategoryID.projectA.rawValue: []
+        ],
+        categoryIDToToDos: [
+            WorkspaceID.work.rawValue: TLToDosInTodayAndWhenever(categoryID: WorkspaceID.work.rawValue),
+            BigCategoryID.projectA.rawValue: TLToDosInTodayAndWhenever(
+                categoryID: BigCategoryID.projectA.rawValue,
+                toDosInToday: [
+                    TLToDo(workspaceID: WorkspaceID.work.rawValue, categoryID: BigCategoryID.projectA.rawValue, isInToday: true, content: "Aさんとのスケジュールを調整"),
+                    TLToDo(
+                        workspaceID: WorkspaceID.work.rawValue,
+                        categoryID: BigCategoryID.projectA.rawValue,
+                        isInToday: true,
+                        content: "書類の作成",
+                        steps: [
+                            TLStep(content: "資料を用意する"),
+                            TLStep(content: "送り先に送信する")
+                        ]
+                    )
+                ],
+                toDosInWhenever: [
+                    TLToDo(
+                        workspaceID: WorkspaceID.work.rawValue,
+                        categoryID: BigCategoryID.projectA.rawValue,
+                        isInToday: false,
+                        content: "次回会議の資料作成",
+                        steps: [
+                            TLStep(content: "構成を考える"),
+                            TLStep(content: "スライド作成"),
+                            TLStep(content: "チームに共有")
+                        ]
+                    )
+                ]
+            )
+        ]
+    ),
+
+    // MARK: - Life Workspace
+    TLWorkspace(
+        id: WorkspaceID.life.rawValue,
+        name: "Life",
+        bigCategories: [
+            TLToDoCategory(
+                id: BigCategoryID.mealPrep.rawValue,
+                parentBigCategoryID: nil,
+                name: BigCategoryID.mealPrep.name
+            )
+        ],
+        smallCategories: [
+            BigCategoryID.mealPrep.rawValue: [
+                TLToDoCategory(id: SmallCategoryID.breakfast.rawValue, parentBigCategoryID: BigCategoryID.mealPrep.rawValue, name: SmallCategoryID.breakfast.name),
+                TLToDoCategory(id: SmallCategoryID.lunch.rawValue, parentBigCategoryID: BigCategoryID.mealPrep.rawValue, name: SmallCategoryID.lunch.name),
+                TLToDoCategory(id: SmallCategoryID.dinner.rawValue, parentBigCategoryID: BigCategoryID.mealPrep.rawValue, name: SmallCategoryID.dinner.name)
+            ]
+        ],
+        categoryIDToToDos: [
+            WorkspaceID.life.rawValue: TLToDosInTodayAndWhenever(categoryID: WorkspaceID.life.rawValue),
+            BigCategoryID.mealPrep.rawValue: TLToDosInTodayAndWhenever(categoryID: BigCategoryID.mealPrep.rawValue),
+            SmallCategoryID.breakfast.rawValue: TLToDosInTodayAndWhenever(
+                categoryID: SmallCategoryID.breakfast.rawValue,
+                toDosInToday: [
+                    TLToDo(
+                        workspaceID: WorkspaceID.life.rawValue,
+                        categoryID: SmallCategoryID.breakfast.rawValue,
+                        isInToday: true,
+                        content: "ご飯を炊く"
+                    )
+                ]
+            ),
+            SmallCategoryID.lunch.rawValue: TLToDosInTodayAndWhenever(categoryID: SmallCategoryID.lunch.rawValue),
+            SmallCategoryID.dinner.rawValue: TLToDosInTodayAndWhenever(
+                categoryID: SmallCategoryID.dinner.rawValue,
+                toDosInToday: [
+                    TLToDo(workspaceID: WorkspaceID.life.rawValue, categoryID: SmallCategoryID.dinner.rawValue, isInToday: true, content: "鶏むね肉の照り焼き", steps: [
+                        TLStep(content: "鶏むね肉"),
+                        TLStep(content: "醤油"),
+                        TLStep(content: "みりん"),
+                        TLStep(content: "砂糖")
+                    ]),
+                    TLToDo(workspaceID: WorkspaceID.life.rawValue, categoryID: SmallCategoryID.dinner.rawValue, isInToday: true, content: "じゃがいもと玉ねぎの味噌汁", steps: [
+                        TLStep(content: "じゃがいも"),
+                        TLStep(content: "玉ねぎ"),
+                        TLStep(content: "味噌")
+                    ])
+                ]
+            )
+        ]
+    )
+]

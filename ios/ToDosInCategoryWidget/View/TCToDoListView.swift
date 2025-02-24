@@ -15,80 +15,98 @@ struct TCToDoListView: View {
     var body: some View {
         VStack(alignment: .leading) {
             let wksEntity = entry.entity
-            let corrWorkspace = TLWorkspace.getWorkspace(from: entry.tlWorkspaces, by: wksEntity.workspaceID)
             
-            if let workspace = corrWorkspace {
-                // MARK: - 正常時の UI
-                let corrCategoryID: String = wksEntity.categoryID
+            // `tlWorkspaces` が `nil` の場合のフォールバック UI
+            if let workspaces = entry.tlWorkspaces {
                 
-                let toDosInToday = workspace.categoryIDToToDos[corrCategoryID]?
-                    .toDosInToday.filter { !$0.isChecked } ?? []
+                // 設定のidに対して
+                let corrWorkspace = TLWorkspace.getWorkspace(from: workspaces, by: wksEntity.workspaceID)
                 
-                // 表示する最大アイテム数
-                let maxItems: Int = {
-                    switch widgetFamily {
-                    case .systemLarge:
-                        return 14
-                    default:
-                        return 5
-                    }
-                }()
-                
-                // ToDoとStepをまとめて上限まで並べる
-                let contentsToShow: [TLToDo] = {
-                    var contentCounter = 0
-                    var contents: [TLToDo] = []
+                if let workspace = corrWorkspace,
+                    let toDosInToday =
+                    (workspace.categoryIDToToDos[wksEntity.categoryID]?
+                        .toDosInToday.filter { !$0.isChecked }) {
+                    // MARK: - 正常時の UI
+                    // 表示する最大アイテム数
+                    let maxItems: Int = {
+                        switch widgetFamily {
+                        case .systemLarge:
+                            return 14
+                        default:
+                            return 5
+                        }
+                    }()
                     
-                    for tlToDo in toDosInToday {
-                        guard contentCounter < maxItems else { break }
+                    // ToDoとStepをまとめて上限まで並べる
+                    let contentsToShow: [TLToDo] = {
+                        var contentCounter = 0
+                        var contents: [TLToDo] = []
                         
-                        var createdToDo = TLToDo(id: tlToDo.id,
-                                                 title: tlToDo.title,
-                                                 isChecked: false,
-                                                 steps: [])
-                        contentCounter += 1
-                        
-                        for tlStep in tlToDo.steps {
+                        for tlToDo in toDosInToday {
                             guard contentCounter < maxItems else { break }
                             
-                            if !tlStep.isChecked {
-                                createdToDo.steps.append(tlStep)
-                                contentCounter += 1
+                            contentCounter += 1
+                            
+                            for tlStep in tlToDo.steps {
+                                guard contentCounter < maxItems else { break }
+                                
+                                if !tlStep.isChecked {
+                                    contentCounter += 1
+                                }
                             }
+                            contents.append(tlToDo)
                         }
-                        contents.append(createdToDo)
+                        return contents
+                    }()
+                    
+                    let spacing: CGFloat = {
+                        switch widgetFamily {
+                        case .systemLarge:
+                            return 3.0
+                        default:
+                            return 2.0
+                        }
+                    }()
+                    
+                    // ToDo本体とそのStepを順に表示
+                    ForEach(contentsToShow) { tlToDoData in
+                        TCToDoRow(spacing: spacing, tlToDoData: tlToDoData)
+                            .padding(.bottom, spacing)
                     }
-                    return contents
-                }()
-                
-                let spacing: CGFloat = {
-                    switch widgetFamily {
-                    case .systemLarge:
-                        return 3.0
-                    default:
-                        return 2.0
+                    
+                    Spacer()
+                } else {
+                    // MARK: - エラー時の UI（ワークスペースが見つからない場合）
+                    VStack {
+                        Spacer()
+                        Text("⚠️ 設定に対してデータがありません")
+                            .font(.system(size: 14, weight: .bold))
+                            .padding()
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(10)
+                        
+                        Text("ウィジェットの設定を確認してください")
+                            .font(.system(size: 12))
+                            .foregroundColor(.gray)
+                            .padding(.top, 4)
+                        
+                        Spacer()
                     }
-                }()
-                
-                // ToDo本体とそのStepを順に表示
-                ForEach(contentsToShow) { tlToDoData in
-                    TCToDoRow(spacing: spacing, tlToDoData: tlToDoData)
-                        .padding(.bottom, spacing)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                
-                Spacer()
             } else {
-                // MARK: - エラー時の UI
+                // MARK: - データ取得エラー
                 VStack {
                     Spacer()
-                    Text("⚠️ ワークスペースが見つかりません")
+                    Text("⚠️ データを取得できません")
                         .font(.system(size: 14, weight: .bold))
                         .padding()
+                        .background(Color.gray.opacity(0.2))
+                        .foregroundStyle(.gray)
                         .cornerRadius(10)
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.gray.opacity(0.2))
             }
         }
         .frame(maxWidth: .infinity,

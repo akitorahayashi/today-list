@@ -34,7 +34,7 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
         children: [
           _BigCategoryDropdown(
             theme: theme,
-            currentWorkspace: currentWorkspace,
+            corrWorkspace: currentWorkspace,
             selectedBigCategoryID: selectedBigCategoryID.value,
             onChanged: (String? newBigCategoryId) {
               selectedBigCategoryID.value = newBigCategoryId;
@@ -76,13 +76,13 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
 
 class _BigCategoryDropdown extends StatelessWidget {
   final TLThemeConfig theme;
-  final TLWorkspace currentWorkspace;
+  final TLWorkspace corrWorkspace;
   final String? selectedBigCategoryID;
   final ValueChanged<String?> onChanged;
 
   const _BigCategoryDropdown({
     required this.theme,
-    required this.currentWorkspace,
+    required this.corrWorkspace,
     required this.selectedBigCategoryID,
     required this.onChanged,
   });
@@ -95,11 +95,11 @@ class _BigCategoryDropdown extends StatelessWidget {
         width: 230,
         child: DropdownButton<String>(
           isExpanded: true,
-          hint: _buildDropdownHint(selectedBigCategoryID, currentWorkspace),
+          hint: _buildDropdownHint(selectedBigCategoryID, corrWorkspace),
           items: [
-            const TLToDoCategory(
-                id: noneID, parentBigCategoryID: null, name: "なし"),
-            ...currentWorkspace.bigCategories.sublist(1),
+            TLToDoCategory(
+                id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
+            ...corrWorkspace.bigCategories.sublist(1),
           ].map((TLToDoCategory bigCategory) {
             return DropdownMenuItem(
               value: bigCategory.id,

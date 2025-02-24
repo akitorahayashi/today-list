@@ -21,6 +21,7 @@ TLToDosInTodayAndWhenever _$TLToDosInTodayAndWheneverFromJson(
 
 /// @nodoc
 mixin _$TLToDosInTodayAndWhenever {
+  String get categoryID => throw _privateConstructorUsedError;
   List<TLToDo> get toDosInToday => throw _privateConstructorUsedError;
   List<TLToDo> get toDosInWhenever => throw _privateConstructorUsedError;
 
@@ -40,7 +41,10 @@ abstract class $TLToDosInTodayAndWheneverCopyWith<$Res> {
           $Res Function(TLToDosInTodayAndWhenever) then) =
       _$TLToDosInTodayAndWheneverCopyWithImpl<$Res, TLToDosInTodayAndWhenever>;
   @useResult
-  $Res call({List<TLToDo> toDosInToday, List<TLToDo> toDosInWhenever});
+  $Res call(
+      {String categoryID,
+      List<TLToDo> toDosInToday,
+      List<TLToDo> toDosInWhenever});
 }
 
 /// @nodoc
@@ -59,10 +63,15 @@ class _$TLToDosInTodayAndWheneverCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? categoryID = null,
     Object? toDosInToday = null,
     Object? toDosInWhenever = null,
   }) {
     return _then(_value.copyWith(
+      categoryID: null == categoryID
+          ? _value.categoryID
+          : categoryID // ignore: cast_nullable_to_non_nullable
+              as String,
       toDosInToday: null == toDosInToday
           ? _value.toDosInToday
           : toDosInToday // ignore: cast_nullable_to_non_nullable
@@ -84,7 +93,10 @@ abstract class _$$TLToDosInTodayAndWheneverImplCopyWith<$Res>
       __$$TLToDosInTodayAndWheneverImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<TLToDo> toDosInToday, List<TLToDo> toDosInWhenever});
+  $Res call(
+      {String categoryID,
+      List<TLToDo> toDosInToday,
+      List<TLToDo> toDosInWhenever});
 }
 
 /// @nodoc
@@ -102,10 +114,15 @@ class __$$TLToDosInTodayAndWheneverImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? categoryID = null,
     Object? toDosInToday = null,
     Object? toDosInWhenever = null,
   }) {
     return _then(_$TLToDosInTodayAndWheneverImpl(
+      categoryID: null == categoryID
+          ? _value.categoryID
+          : categoryID // ignore: cast_nullable_to_non_nullable
+              as String,
       toDosInToday: null == toDosInToday
           ? _value._toDosInToday
           : toDosInToday // ignore: cast_nullable_to_non_nullable
@@ -122,7 +139,8 @@ class __$$TLToDosInTodayAndWheneverImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TLToDosInTodayAndWheneverImpl extends _TLToDosInTodayAndWhenever {
   const _$TLToDosInTodayAndWheneverImpl(
-      {final List<TLToDo> toDosInToday = const [],
+      {required this.categoryID,
+      final List<TLToDo> toDosInToday = const [],
       final List<TLToDo> toDosInWhenever = const []})
       : _toDosInToday = toDosInToday,
         _toDosInWhenever = toDosInWhenever,
@@ -131,6 +149,8 @@ class _$TLToDosInTodayAndWheneverImpl extends _TLToDosInTodayAndWhenever {
   factory _$TLToDosInTodayAndWheneverImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLToDosInTodayAndWheneverImplFromJson(json);
 
+  @override
+  final String categoryID;
   final List<TLToDo> _toDosInToday;
   @override
   @JsonKey()
@@ -151,7 +171,7 @@ class _$TLToDosInTodayAndWheneverImpl extends _TLToDosInTodayAndWhenever {
 
   @override
   String toString() {
-    return 'TLToDosInTodayAndWhenever(toDosInToday: $toDosInToday, toDosInWhenever: $toDosInWhenever)';
+    return 'TLToDosInTodayAndWhenever(categoryID: $categoryID, toDosInToday: $toDosInToday, toDosInWhenever: $toDosInWhenever)';
   }
 
   @override
@@ -159,6 +179,8 @@ class _$TLToDosInTodayAndWheneverImpl extends _TLToDosInTodayAndWhenever {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TLToDosInTodayAndWheneverImpl &&
+            (identical(other.categoryID, categoryID) ||
+                other.categoryID == categoryID) &&
             const DeepCollectionEquality()
                 .equals(other._toDosInToday, _toDosInToday) &&
             const DeepCollectionEquality()
@@ -169,6 +191,7 @@ class _$TLToDosInTodayAndWheneverImpl extends _TLToDosInTodayAndWhenever {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      categoryID,
       const DeepCollectionEquality().hash(_toDosInToday),
       const DeepCollectionEquality().hash(_toDosInWhenever));
 
@@ -191,13 +214,16 @@ class _$TLToDosInTodayAndWheneverImpl extends _TLToDosInTodayAndWhenever {
 
 abstract class _TLToDosInTodayAndWhenever extends TLToDosInTodayAndWhenever {
   const factory _TLToDosInTodayAndWhenever(
-      {final List<TLToDo> toDosInToday,
+      {required final String categoryID,
+      final List<TLToDo> toDosInToday,
       final List<TLToDo> toDosInWhenever}) = _$TLToDosInTodayAndWheneverImpl;
   const _TLToDosInTodayAndWhenever._() : super._();
 
   factory _TLToDosInTodayAndWhenever.fromJson(Map<String, dynamic> json) =
       _$TLToDosInTodayAndWheneverImpl.fromJson;
 
+  @override
+  String get categoryID;
   @override
   List<TLToDo> get toDosInToday;
   @override

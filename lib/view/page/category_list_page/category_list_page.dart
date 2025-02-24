@@ -49,7 +49,8 @@ class CategoryListPage extends ConsumerWidget {
                           in corrWorkspace.bigCategories)
                         GestureDetector(
                           key: ValueKey(bigCategory.id),
-                          onLongPress: bigCategory.id != noneID ? null : () {},
+                          onLongPress:
+                              bigCategory.id != corrWorkspace.id ? null : () {},
                           child: BigAndSmallCategoryCard(
                               corrWorkspace: corrWorkspace,
                               corrBigCategory: bigCategory),

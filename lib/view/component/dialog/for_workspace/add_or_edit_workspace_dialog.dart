@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/model/tl_app_state.dart';
-import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_app_state_action.dart';
@@ -11,13 +11,12 @@ import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/styles.dart';
+import 'package:today_list/util/tl_uuid_generator.dart';
 import 'package:today_list/util/tl_validation.dart';
-import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 
 class AddOrEditWorkspaceDialog extends ConsumerStatefulWidget
     with TLBaseDialogMixin {
-  final String? oldWorkspaceId; // IDベースに変更
+  final String? oldWorkspaceId;
   const AddOrEditWorkspaceDialog({super.key, required this.oldWorkspaceId});
 
   @override
@@ -151,7 +150,21 @@ class _AddOrEditWorkspaceDialogState
       onSuccess: () async {
         Navigator.pop(context);
         if (widget.oldWorkspaceId == null) {
-          await _onAddSuccess(context, workspaceName);
+          final String newWorkspaceID = TLUUIDGenerator.generate();
+          await _onAddSuccess(
+              context,
+              TLWorkspace(
+                id: newWorkspaceID,
+                name: workspaceName,
+                bigCategories: [],
+                smallCategories: {},
+                categoryIDToToDos: {
+                  newWorkspaceID: TLToDosInTodayAndWhenever(
+                      categoryID: newWorkspaceID,
+                      toDosInToday: [],
+                      toDosInWhenever: [])
+                },
+              ));
         } else {
           await _onEditSuccess(context, workspaces, workspaceName);
         }
@@ -181,26 +194,13 @@ class _AddOrEditWorkspaceDialogState
         .show(context: context);
   }
 
-  Future<void> _onAddSuccess(BuildContext context, String workspaceName) async {
-    final createdWorkspace = TLWorkspace(
-      id: UniqueKey().toString(),
-      name: workspaceName,
-      bigCategories: [
-        const TLToDoCategory(
-            id: noneID, parentBigCategoryID: null, name: "None")
-      ],
-      smallCategories: {noneID: []},
-      categoryIDToToDos: {
-        noneID: const TLToDosInTodayAndWhenever(
-            toDosInToday: [], toDosInWhenever: [])
-      },
-    );
-
-    ref.read(tlAppStateProvider.notifier).updateState(
-          TLWorkspaceAction.addWorkspace(createdWorkspace),
-        );
+  Future<void> _onAddSuccess(
+      BuildContext context, TLWorkspace newWorkspace) async {
+    ref
+        .read(tlAppStateProvider.notifier)
+        .updateState(TLWorkspaceAction.addWorkspace(newWorkspace));
     TLSingleOptionDialog(
-            title: workspaceName, message: "was successfully added!")
+            title: newWorkspace.name, message: "was successfully added!")
         .show(context: context);
   }
 }

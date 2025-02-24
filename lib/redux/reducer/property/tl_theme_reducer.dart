@@ -1,5 +1,6 @@
 import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
+import 'package:today_list/service/tl_method_channel.dart';
 
 class TLThemeReducer {
   static TLThemeType reduce(TLThemeType currentTheme, TLThemeAction action) {
@@ -11,6 +12,7 @@ class TLThemeReducer {
 
   static TLThemeType _changeTheme(
       TLThemeType currentTheme, TLThemeType newTheme) {
+    TCWiOSMethodChannelService.updateSelectedTheme(selectedThemeType: newTheme);
     return newTheme;
   }
 

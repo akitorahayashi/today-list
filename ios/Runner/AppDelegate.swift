@@ -9,7 +9,6 @@ import WidgetKit
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         let controller = window?.rootViewController as! FlutterViewController
-        let widgetKind = "ToDosInCategoryWidget"
         
         // MARK: - ToDos In Category Widgetの処理
         let tcwMethodChannel = FlutterMethodChannel(
@@ -24,6 +23,8 @@ import WidgetKit
                 result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
                 return
             }
+            
+            let widgetKind = "ToDosInCategoryWidget"
             
             switch call.method {
                 case "updateTLWorkspaces":

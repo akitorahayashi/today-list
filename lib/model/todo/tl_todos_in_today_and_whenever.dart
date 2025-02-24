@@ -12,6 +12,7 @@ class TLToDosInTodayAndWhenever with _$TLToDosInTodayAndWhenever {
   const TLToDosInTodayAndWhenever._();
 
   const factory TLToDosInTodayAndWhenever({
+    required String categoryID,
     @Default([]) List<TLToDo> toDosInToday,
     @Default([]) List<TLToDo> toDosInWhenever,
   }) = _TLToDosInTodayAndWhenever;

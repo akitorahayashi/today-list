@@ -29,7 +29,7 @@ class SelectBigCategoryDropdown extends StatelessWidget {
         iconEnabledColor: tlThemeData.accentColor,
         isExpanded: true,
         hint: Text(
-          bigCategoryID == noneID
+          bigCategoryID == corrWorkspace.id
               ? "大カテゴリー"
               : (() {
                   final matchingCategories =
@@ -45,8 +45,8 @@ class SelectBigCategoryDropdown extends StatelessWidget {
             const TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
         items: [
           if (bigCategories.isEmpty)
-            const TLToDoCategory(
-                id: noneID, parentBigCategoryID: null, name: "なし"),
+            TLToDoCategory(
+                id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
           ...bigCategories,
           const TLToDoCategory(
               id: "---createBigCategory",

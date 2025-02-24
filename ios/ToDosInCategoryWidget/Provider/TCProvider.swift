@@ -11,41 +11,45 @@ import AppIntents
 
 struct TCProvider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> TCWidgetEntry {
-        let tlWorkspacesSample: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: TLWorkspacesExample.kTLWorkspacesExample.rawValue) ?? []
         return TCWidgetEntry(
             date: Date(),
             entity: defaultEntity,
             selectedThemeType: TLThemeType.sunOrange,
-            tlWorkspaces: tlWorkspacesSample
+            tlWorkspaces: kTLWorkspacesExample
         )
     }
     
     func snapshot(for configuration: TCIntent, in context: Context) async -> TCWidgetEntry {
         let themeName = TLThemeType.sunOrange.rawValue
         let corrThemeType = TLThemeType.from(themeName)
-        let tlWorkspacesSample = TLWorkspace.decodeWorkspaces(from: TLWorkspacesExample.kTLWorkspacesExample.rawValue) ?? []
         return TCWidgetEntry(
             date: Date(),
             entity: defaultEntity,
             selectedThemeType: corrThemeType,
-            tlWorkspaces: tlWorkspacesSample
+            tlWorkspaces: kTLWorkspacesExample
         )
     }
     
     func timeline(for configuration: TCIntent, in context: Context) async -> Timeline<TCWidgetEntry> {
         var entries: [TCWidgetEntry] = []
         
-        let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
+        // 保存してあるデータの読み取り
+        let userDefaults = TLUserDefaultsManager.shared.userDefaults
         let themeName = userDefaults?.string(forKey: "selectedThemeName") ?? TLThemeType.sunOrange.rawValue
+        let stringOfTLWorkspace: String? = TLUserDefaultsManager.shared.userDefaults?.string(forKey: "tlWorkspaces")
+        
+        // workspaceのデコード
+        let tlWorkspaces: [TLWorkspace]? = kTLWorkspacesExample
+//        TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? kTLWorkspacesExample
+        
+        // テーマの特定
         let corrThemeType = TLThemeType.from(themeName)
-        let stringOfTLWorkspace = userDefaults?.string(forKey: "tlWorkspaces") ?? TLWorkspacesExample.kTLWorkspacesExample.rawValue
-        let decodedTLWorkspaces = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? []
         
         let loadedEntry = TCWidgetEntry(
             date: Date(),
-            entity: configuration.selectedWKS ?? defaultEntity,
+            entity: configuration.selectedWKS,
             selectedThemeType: corrThemeType,
-            tlWorkspaces: decodedTLWorkspaces
+            tlWorkspaces: tlWorkspaces
         )
         
         entries.append(loadedEntry)

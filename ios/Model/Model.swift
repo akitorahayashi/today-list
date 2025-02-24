@@ -7,32 +7,98 @@
 
 import SwiftUI
 
-struct TLCategory: Codable {
-    var id: String
-    var title: String
+struct TLToDoCategory: Identifiable, Codable {
+    let id: String
+    let parentBigCategoryID: String?
+    let name: String
+    
+    init(
+        id: String?,
+        parentBigCategoryID: String?,
+        name: String
+    ) {
+        self.id = id ?? TLUUIDGenerator.generate()
+        self.parentBigCategoryID = parentBigCategoryID
+        self.name = name
+    }
 }
 
 struct TLToDo: Identifiable, Codable {
-    var id: String
-    var title: String
+    let id: String
+    let workspaceID: String
+    let categoryID: String
+    let isInToday: Bool
     var isChecked: Bool
+    let content: String
     var steps: [TLStep]
+    
+    init(
+        id: String = TLUUIDGenerator.generate(),
+        workspaceID: String,
+        categoryID: String,
+        isInToday: Bool,
+        isChecked: Bool = false,
+        content: String,
+        steps: [TLStep] = []
+    ) {
+        self.id = id
+        self.workspaceID = workspaceID
+        self.categoryID = categoryID
+        self.isInToday = isInToday
+        self.isChecked = isChecked
+        self.content = content
+        self.steps = steps
+    }
 }
 
 struct TLStep: Identifiable, Codable {
     let id: String
-    let title: String
     let isChecked: Bool
+    let content: String
+    
+    init(
+        id: String = TLUUIDGenerator.generate(),
+        isChecked: Bool = false,
+        content: String
+    ) {
+        self.id = id
+        self.isChecked = isChecked
+        self.content = content
+    }
 }
 
 struct TLToDosInTodayAndWhenever: Codable {
+    let categoryID: String
     let toDosInToday: [TLToDo]
     let toDosInWhenever: [TLToDo]
     
+    init(
+        categoryID: String,
+        toDosInToday: [TLToDo] = [],
+        toDosInWhenever: [TLToDo] = []
+    ) {
+        self.categoryID = categoryID
+        self.toDosInToday = toDosInToday
+        self.toDosInWhenever = toDosInWhenever
+    }
+    
     // JSONからToDosをデコードする関数
     static func extractToDos(from jsonWorkspaces: String?, indexInWorkspaces: Int, toDosCategoryId: String) -> TLToDosInTodayAndWhenever? {
+        
+        // JSON文字列がnilまたは空の場合、エラーを出力して終了
+        guard let jsonWorkspaces = jsonWorkspaces else {
+            print("TLToDosInTodayAndWhenever.extractToDos - jsonWorkspaces is nil")
+            return nil
+        }
+        
+        // 文字列をData型に変換できるか
+        guard let data = jsonWorkspaces.data(using: .utf8) else {
+            print("TLToDosInTodayAndWhenever.extractToDos - Failed to convert JSON string to Data")
+            return nil
+        }
+        
         // JSONをデコード
-        guard let tlWorkspaces: [TLWorkspace] = TLiOSUtils.decodeCustomList(from: jsonWorkspaces) else {
+        guard let tlWorkspaces: [TLWorkspace] = try? JSONDecoder().decode([TLWorkspace].self, from: data) else {
             print("exit: デコードに失敗しました")
             return nil
         }
@@ -59,13 +125,46 @@ struct TLToDosInTodayAndWhenever: Codable {
 struct TLWorkspace: Codable, Identifiable {
     var id: String
     var name: String
-    var bigCategories: [TLCategory]
-    var smallCategories: [String: [TLCategory]]
+    var bigCategories: [TLToDoCategory]
+    var smallCategories: [String: [TLToDoCategory]]
     var categoryIDToToDos: [String: TLToDosInTodayAndWhenever]
     
+    init(
+        id: String?,
+        name: String,
+        bigCategories: [TLToDoCategory],
+        smallCategories: [String: [TLToDoCategory]],
+        categoryIDToToDos: [String: TLToDosInTodayAndWhenever]
+    ) {
+        self.id = id ?? TLUUIDGenerator.generate()
+        self.name = name
+        self.bigCategories = bigCategories
+        self.smallCategories = smallCategories
+        self.categoryIDToToDos = categoryIDToToDos
+    }
+    
     // JSONからワークスペースをデコードする関数
-    static func decodeWorkspaces(from jsonWorkspaces: String?) -> [TLWorkspace]? {
-        return TLiOSUtils.decodeCustomList(from: jsonWorkspaces)
+    static func decodeWorkspaces(from jsonStringWorkspaces: String?) -> [TLWorkspace]? {
+        // JSON文字列がnilの場合、エラーを出力して終了
+        guard let jsonStringWorkspaces = jsonStringWorkspaces else {
+            print("TLWorkspace.decodeWorkspaces - jsonString is nil")
+            return nil
+        }
+        
+        // 文字列をData型に変換できない場合
+        guard let data = jsonStringWorkspaces.data(using: .utf8) else {
+            print("TLWorkspace.decodeWorkspaces - Failed to convert JSON string to Data")
+            return nil
+        }
+        
+        // JSONデコード処理
+        do {
+            return try JSONDecoder().decode([TLWorkspace].self, from: data)
+        } catch {
+            print("decodeCustomListError: JSON decoding failed -> \(error.localizedDescription)")
+            return nil
+        }
+        
     }
     
     // 配列からIDに一致するワークスペースを取得

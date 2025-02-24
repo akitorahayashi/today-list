@@ -25,7 +25,6 @@ struct TCQuery: EntityQuery {
             print("UserDefaults does not contain listOfToDosInCategoryWidgetSettings key")
             return []
         }
-        print("JSON String: \(jsonString)")
         
         // 文字列をData型に変換できない場合
         guard let data = jsonString.data(using: .utf8) else {
@@ -45,7 +44,6 @@ struct TCQuery: EntityQuery {
                     categoryID: $0.smallCategory?.id ?? $0.bigCategory.id
                 )
             }
-            print("Loaded Entities: \(entities)")
             return entities
         } catch {
             print("decodeCustomListError: JSON decoding failed -> \(error.localizedDescription)")

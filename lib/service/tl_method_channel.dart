@@ -3,17 +3,17 @@ import 'dart:io';
 
 import 'package:today_list/resource/tl_theme_type.dart';
 
-class TLMethodChannelService {
+class TCWiOSMethodChannelService {
   static const methodChannel =
       MethodChannel('com.akitora0703.todaylist/todos_in_category_widget');
 
   static Future<void> updateTLWorkspaces(
-      {required String encodedTLWorkspaces}) async {
+      {required String encodedWorkspaces}) async {
     if (Platform.isIOS) {
       try {
         final String result = await methodChannel.invokeMethod(
           'updateTLWorkspaces',
-          encodedTLWorkspaces,
+          encodedWorkspaces,
         );
         print('SET setUserDefaultsForAppGroup: $result');
       } on PlatformException catch (e) {

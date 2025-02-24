@@ -31,8 +31,8 @@ class UpdateAppIconCard extends ConsumerWidget {
               ? null
               : () async {
                   await TLYesNoDialog(
-                    title: "アプリアイコンの変更",
-                    message: "テーマに合ったアプリアイコンに変更しますか？",
+                    title: "Change App Icon",
+                    message: "Change the app icon to match the theme?",
                     yesAction: () {
                       Navigator.pop(context);
                       TLVibrationService.vibrate();

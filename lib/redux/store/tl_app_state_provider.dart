@@ -9,6 +9,7 @@ import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/reducer/tl_app_state_reducer.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
+import 'package:today_list/service/tl_method_channel.dart';
 import 'package:today_list/service/tl_pref.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'dart:convert';
@@ -104,6 +105,8 @@ class TLAppStateController extends Notifier<TLAppState> {
     final pref = await TLPrefService().getPref;
     final encodedWorkspaces =
         jsonEncode(workspaces.map((w) => w.toJson()).toList());
+    TCWiOSMethodChannelService.updateTLWorkspaces(
+        encodedWorkspaces: encodedWorkspaces);
     await pref.setString("tlWorkspaces", encodedWorkspaces);
   }
 

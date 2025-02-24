@@ -42,8 +42,8 @@ class _IconCardState extends ConsumerState<IconCard> {
         onTap: () async {
           if (!isCurrentIcon) {
             await TLYesNoDialog(
-                title: "アイコンの変更",
-                message: "チェックマークのアイコンを\n変更しますか?",
+                title: "Change Icon",
+                message: "Do you want to change\nthe checkmark icon?",
                 yesAction: () async {
                   Navigator.pop(context);
                   tlIconDataNotifier.updateSelectedIcon(TLIconData(
@@ -51,10 +51,11 @@ class _IconCardState extends ConsumerState<IconCard> {
                       rarity: widget.tlIconRarity,
                       name: widget.tlIconName));
                   TLVibrationService.vibrate();
-                  const TLSingleOptionDialog(title: "変更が完了しました!")
+                  const TLSingleOptionDialog(title: "Change completed!")
                       .show(context: context);
                   TLVibrationService.vibrate();
                 }).show(context: context);
+
             // SettingData.shared.askToSetDefaultIcon(
             //     context: context,
             //     iconCategoryName: widget.iconCategoryName,

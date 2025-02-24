@@ -58,7 +58,8 @@ class TLToDoCategoryReducer {
         Map<String, List<TLToDoCategory>>.from(corrWorkspace.smallCategories);
     final copiedCategoryIDToToDos = {
       ...corrWorkspace.categoryIDToToDos,
-      categoryToAdd.id: const TLToDosInTodayAndWhenever(
+      categoryToAdd.id: TLToDosInTodayAndWhenever(
+        categoryID: categoryToAdd.id,
         toDosInToday: [],
         toDosInWhenever: [],
       ),
@@ -77,15 +78,15 @@ class TLToDoCategoryReducer {
       // bigCategoryの場合、対応するsmallCategoryのリストも作成する
       copiedSmallCategories[categoryToAdd.id] = [];
       // 対応するToDoリストを作成
-      copiedCategoryIDToToDos[categoryToAdd.id] =
-          const TLToDosInTodayAndWhenever(
+      copiedCategoryIDToToDos[categoryToAdd.id] = TLToDosInTodayAndWhenever(
+        categoryID: categoryToAdd.id,
         toDosInToday: [],
         toDosInWhenever: [],
       );
     } else {
       // smallCategoryの場合のToDoリストを作成
-      copiedCategoryIDToToDos[categoryToAdd.id] =
-          const TLToDosInTodayAndWhenever(
+      copiedCategoryIDToToDos[categoryToAdd.id] = TLToDosInTodayAndWhenever(
+        categoryID: categoryToAdd.id,
         toDosInToday: [],
         toDosInWhenever: [],
       );

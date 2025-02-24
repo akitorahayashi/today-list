@@ -7,25 +7,37 @@
 
 import SwiftUI
 
-let defaultWKS = ToDosInCategoryWidgetSettings(
-    id: TLWorkspacesExample.noneID.rawValue,
-    title: "ToDo",
-    // noneIDしか使わない予定
-    workspace: TLWorkspace(id: TLWorkspacesExample.noneID.rawValue, name: "Default", bigCategories: [], smallCategories: [:], categoryIDToToDos: [:]),
-    bigCategory: TLCategory(id: TLWorkspacesExample.noneID.rawValue, title: "なし")
-)
-
 struct ToDosInCategoryWidgetSettings: Codable, Identifiable {
     
     var id: String
     var title: String
-    // これより下はオブジェクトのIDしか使わない予定だが、flutterアプリで保存したjsonと対応させるため、クラスにしている
+    // これより下はオブジェクトのIDしか使わないが、flutterアプリで保存したjsonと対応させるため、クラスにしている
     var workspace: TLWorkspace
-    var bigCategory: TLCategory
-    var smallCategory: TLCategory?
+    var bigCategory: TLToDoCategory
+    var smallCategory: TLToDoCategory?
     
-    static func decodeListOfToDosInCategoryWidgetSettings(from jsonList: String?) -> [ToDosInCategoryWidgetSettings]? {
-        return TLiOSUtils.decodeCustomList(from: jsonList)
+    static func decodeListOfToDosInCategoryWidgetSettings(from jsonStringList: String?) -> [ToDosInCategoryWidgetSettings]? {
+        
+        // JSON文字列がnilまたは空の場合、エラーを出力して終了
+        guard let jsonStringList = jsonStringList, !jsonStringList.isEmpty else {
+            print("decodeListOfToDosInCategoryWidgetSettings - decodeCustomListError: jsonString is nil or empty")
+            return nil
+        }
+        
+        // 文字列をData型に変換できない場合
+        guard let data = jsonStringList.data(using: .utf8) else {
+            print("decodeListOfToDosInCategoryWidgetSettings - decodeCustomListError: Failed to convert JSON string to Data")
+            return nil
+        }
+        
+        // JSONデコード処理
+        do {
+            return try JSONDecoder().decode([ToDosInCategoryWidgetSettings].self, from: data)
+        } catch {
+            print("decodeCustomListError: JSON decoding failed -> \(error.localizedDescription)")
+            return nil
+        }
+        
     }
 }
 

@@ -50,11 +50,13 @@ class TLHomeBottomNavBar extends StatelessWidget {
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TLAnimatedIconButton(
+                  size: 33,
                   icon: leadingIconData,
                   onPressed: leadingButtonOnPressed,
                 ),
                 const SizedBox(width: centerButtonSize), // 中央のボタン用のスペース
                 TLAnimatedIconButton(
+                  size: 33,
                   icon: trailingIconData,
                   onPressed: trailingButtonOnPressed,
                 ),

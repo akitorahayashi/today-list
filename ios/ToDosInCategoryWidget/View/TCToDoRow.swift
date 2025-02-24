@@ -40,7 +40,7 @@ struct TCToDoRow: View {
                 Image(systemName: "square")
                     .toDoTextStyle(isToDo: true)
                 // タイトル
-                Text(tlToDoData.title)
+                Text(tlToDoData.content)
                     .toDoTextStyle(isToDo: true)
             }
             // ステップカード（ToDoに含まれるStep）
@@ -49,7 +49,7 @@ struct TCToDoRow: View {
                     Image(systemName: "square")
                         .toDoTextStyle(isToDo: false)
                     
-                    Text(step.title)
+                    Text(step.content)
                         .toDoTextStyle(isToDo: false)
                     
                 }
