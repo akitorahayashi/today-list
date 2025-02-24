@@ -54,7 +54,6 @@ class _ToDoListOfWorkspaceCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tlAppState = ref.watch(tlAppStateProvider);
     final int numTodos = workspace.getNumOfToDoInWorkspace(ifInToday: true);
 
     if (numTodos == 0) return const SizedBox.shrink(); // タスクがない場合は表示しない

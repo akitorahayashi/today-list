@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:today_list/main.dart';
+import 'package:today_list/service/tl_ads.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/select_big_category_dropdown.dart';
@@ -32,9 +34,8 @@ class EditToDoPage extends HookConsumerWidget {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
     final corrWorkspace = () {
-      if (tlAppState.currentWorkspaceID == null) return null;
       final matches = tlAppState.tlWorkspaces
-          .where((workspace) => workspace.id == tlAppState.currentWorkspaceID);
+          .where((workspace) => workspace.id == corrWorkspaceID);
       return matches.isNotEmpty ? matches.first : null;
     }()!;
 
@@ -51,16 +52,29 @@ class EditToDoPage extends HookConsumerWidget {
 
     // MARK: - Ad Loading
     useEffect(() {
+      TLAdsService.loadRewardedAd();
+
       final ad = BannerAd(
-        size: AdSize.banner,
-        adUnitId: 'TEST_AD_UNIT_ID',
-        listener: BannerAdListener(
-          onAdLoaded: (ad) => bannerAd.value = ad as BannerAd?,
-        ),
+        adUnitId: TLAdsService.editPageBannerAdUnitId(isTestMode: kAdTestMode),
         request: const AdRequest(),
+        size: AdSize.banner,
+        listener: BannerAdListener(
+          onAdLoaded: (ad) {
+            bannerAd.value = ad as BannerAd;
+          },
+          onAdFailedToLoad: (ad, err) {
+            print('Failed to load a banner ad: ${err.message}');
+            ad.dispose(); // Dispose failed ad immediately
+          },
+        ),
       );
+
       ad.load();
-      return null;
+
+      return () {
+        TLAdsService.rewardedAd?.dispose();
+        bannerAd.value?.dispose();
+      };
     }, []);
 
     // MARK: - ToDo Operations
@@ -132,7 +146,7 @@ class EditToDoPage extends HookConsumerWidget {
           ),
           ListView(
             children: [
-              const SizedBox(height: 10),
+              const SizedBox(height: 16),
               Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
@@ -151,8 +165,7 @@ class EditToDoPage extends HookConsumerWidget {
                       bigCategoryID: bigCategoryID.value,
                       smallCategoryID: smallCategoryID.value,
                       onSelected: (newSmallID) {
-                        smallCategoryID.value =
-                            newSmallID == corrWorkspace.id ? null : newSmallID;
+                        smallCategoryID.value = newSmallID;
                       },
                     ),
                     SelectTodayOrWheneverButton(
@@ -183,7 +196,18 @@ class EditToDoPage extends HookConsumerWidget {
                   ],
                 ),
               ),
-              if (bannerAd.value != null) AdWidget(ad: bannerAd.value!),
+              if (bannerAd.value != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: SizedBox(
+                      width: bannerAd.value!.size.width.toDouble(),
+                      height: bannerAd.value!.size.height.toDouble(),
+                      child: AdWidget(ad: bannerAd.value!),
+                    ),
+                  ),
+                ),
               AlreadyExist(
                 corrWorkspace: corrWorkspace,
                 ifInToday: isToday.value,

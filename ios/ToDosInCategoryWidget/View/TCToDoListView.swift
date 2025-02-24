@@ -26,7 +26,7 @@ struct TCToDoListView: View {
                 if let workspace = corrWorkspace,
                     let toDosInToday =
                     (workspace.categoryIDToToDos[wksEntity.categoryID]?
-                        .toDosInToday?.filter { !$0.isChecked }) {
+                        .toDosInToday.filter { !$0.isChecked }) {
                     
                     // MARK: - 正常時の UI
                     // 表示する最大アイテム数

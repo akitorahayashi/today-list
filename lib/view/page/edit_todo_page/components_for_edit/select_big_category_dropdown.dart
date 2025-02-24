@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/view/component/dialog/for_category/add_category_dialog.dart';
 
 class SelectBigCategoryDropdown extends StatelessWidget {
   final TLWorkspace corrWorkspace;
@@ -44,9 +44,8 @@ class SelectBigCategoryDropdown extends StatelessWidget {
         style:
             const TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
         items: [
-          if (bigCategories.isEmpty)
-            TLToDoCategory(
-                id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
+          TLToDoCategory(
+              id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
           ...bigCategories,
           const TLToDoCategory(
               id: "---createBigCategory",
@@ -69,7 +68,15 @@ class SelectBigCategoryDropdown extends StatelessWidget {
         }).toList(),
         onChanged: (TLToDoCategory? selected) {
           if (selected == null) return;
-          onSelected(selected.id);
+          if (selected.id == "---createBigCategory") {
+            AddCategoryDialog(
+              corrWorkspace: corrWorkspace,
+              parentBigCategoryID: null,
+            ).show(context: context);
+            return;
+          } else {
+            onSelected(selected.id);
+          }
         },
       ),
     );

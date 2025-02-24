@@ -58,7 +58,7 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
                 context: context,
                 barrierDismissible: false,
                 builder: (context) => RenameCategoryDialog(
-                  corrWorkspaceID: corrWorkspace.id,
+                  corrWorkspace: corrWorkspace,
                   categoryToRename: categoryOfThisPage,
                 ),
               );

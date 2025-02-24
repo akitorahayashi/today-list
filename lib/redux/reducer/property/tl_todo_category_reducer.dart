@@ -11,12 +11,12 @@ class TLToDoCategoryReducer {
     final updatedWorkspaces = action.map(
       addCategory: (a) => _addCategory(
         workspaces: workspaces,
-        workspaceID: a.workspaceID,
+        corrWorkspace: a.corrWorkspace,
         categoryToAdd: a.newCategory,
       ),
       updateCategory: (a) => _updateCategory(
         workspaces: workspaces,
-        workspaceID: a.workspaceID,
+        corrWorkspace: a.corrWorkspace,
         newCategory: a.newCategory,
       ),
       deleteCategory: (a) => _deleteCategory(
@@ -45,17 +45,25 @@ class TLToDoCategoryReducer {
   // MARK: - Add Category
   static List<TLWorkspace> _addCategory({
     required List<TLWorkspace> workspaces,
-    required String workspaceID,
+    required TLWorkspace corrWorkspace,
     required TLToDoCategory categoryToAdd,
   }) {
-    final idx = workspaces.indexWhere((w) => w.id == workspaceID);
-    if (idx < 0) return workspaces;
-
-    final corrWorkspace = workspaces[idx];
     final copiedBigCategories =
         List<TLToDoCategory>.from(corrWorkspace.bigCategories);
     final copiedSmallCategories =
         Map<String, List<TLToDoCategory>>.from(corrWorkspace.smallCategories);
+
+    // カテゴリーの追加
+    if (categoryToAdd.parentBigCategoryID == null) {
+      copiedBigCategories.add(categoryToAdd);
+      copiedSmallCategories[categoryToAdd.id] = [];
+    } else {
+      copiedSmallCategories
+          .putIfAbsent(categoryToAdd.parentBigCategoryID!, () => [])
+          .add(categoryToAdd);
+    }
+
+    // ToDoを追加するスペースをCategoryIDToToDosに作成
     final copiedCategoryIDToToDos = {
       ...corrWorkspace.categoryIDToToDos,
       categoryToAdd.id: TLToDosInTodayAndWhenever(
@@ -65,58 +73,30 @@ class TLToDoCategoryReducer {
       ),
     };
 
-    // カテゴリーの追加
-    if (categoryToAdd.parentBigCategoryID == null) {
-      copiedBigCategories.add(categoryToAdd);
-    } else {
-      copiedSmallCategories[categoryToAdd.parentBigCategoryID]
-          ?.add(categoryToAdd);
-    }
-
-    // ToDoを追加するスペースを作成
-    if (categoryToAdd.parentBigCategoryID == null) {
-      // bigCategoryの場合、対応するsmallCategoryのリストも作成する
-      copiedSmallCategories[categoryToAdd.id] = [];
-      // 対応するToDoリストを作成
-      copiedCategoryIDToToDos[categoryToAdd.id] = TLToDosInTodayAndWhenever(
-        categoryID: categoryToAdd.id,
-        toDosInToday: [],
-        toDosInWhenever: [],
-      );
-    } else {
-      // smallCategoryの場合のToDoリストを作成
-      copiedCategoryIDToToDos[categoryToAdd.id] = TLToDosInTodayAndWhenever(
-        categoryID: categoryToAdd.id,
-        toDosInToday: [],
-        toDosInWhenever: [],
-      );
-    }
-
-    final newWorkspace = corrWorkspace.copyWith(
+    final TLWorkspace newWorkspace = corrWorkspace.copyWith(
       bigCategories: copiedBigCategories,
       smallCategories: copiedSmallCategories,
       categoryIDToToDos: copiedCategoryIDToToDos,
     );
-    final newWorkspaces = [...workspaces];
-    newWorkspaces[idx] = newWorkspace;
 
-    return newWorkspaces;
+    final corrWorkspaceIdx =
+        workspaces.indexWhere((w) => w.id == corrWorkspace.id);
+    if (corrWorkspaceIdx < 0) return workspaces;
+    return workspaces
+        .map<TLWorkspace>((w) => w.id == corrWorkspace.id ? newWorkspace : w)
+        .toList();
   }
 
   // MARK: - Update Category
   static List<TLWorkspace> _updateCategory({
     required List<TLWorkspace> workspaces,
-    required String workspaceID,
+    required TLWorkspace corrWorkspace,
     required TLToDoCategory newCategory,
   }) {
-    final idx = workspaces.indexWhere((w) => w.id == workspaceID);
-    if (idx < 0) return workspaces;
-
-    final oldWorkspace = workspaces[idx];
     final copiedBigCategories =
-        List<TLToDoCategory>.from(oldWorkspace.bigCategories);
+        List<TLToDoCategory>.from(corrWorkspace.bigCategories);
     final copiedSmallCategories =
-        Map<String, List<TLToDoCategory>>.from(oldWorkspace.smallCategories);
+        Map<String, List<TLToDoCategory>>.from(corrWorkspace.smallCategories);
 
     if (newCategory.parentBigCategoryID == null) {
       final bigCategoryIdx =
@@ -136,14 +116,16 @@ class TLToDoCategoryReducer {
       }
     }
 
-    final newWorkspace = oldWorkspace.copyWith(
+    final corrWorkspaceIdx =
+        workspaces.indexWhere((w) => w.id == corrWorkspace.id);
+    if (corrWorkspaceIdx < 0) return workspaces;
+    final newWorkspace = corrWorkspace.copyWith(
       bigCategories: copiedBigCategories,
       smallCategories: copiedSmallCategories,
     );
-    final newWorkspaces = [...workspaces];
-    newWorkspaces[idx] = newWorkspace;
-
-    return newWorkspaces;
+    return workspaces
+        .map<TLWorkspace>((w) => w.id == corrWorkspace.id ? newWorkspace : w)
+        .toList();
   }
 
   // MARK: - Delete Category

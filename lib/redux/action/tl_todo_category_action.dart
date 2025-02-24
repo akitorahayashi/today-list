@@ -10,13 +10,13 @@ part 'generate/tl_todo_category_action.freezed.dart';
 sealed class TLToDoCategoryAction with _$TLToDoCategoryAction {
   /// 新規のカテゴリーを追加する
   const factory TLToDoCategoryAction.addCategory({
-    required String workspaceID,
+    required TLWorkspace corrWorkspace,
     required TLToDoCategory newCategory,
   }) = _AddCategory;
 
   /// 既存のカテゴリーを更新する
   const factory TLToDoCategoryAction.updateCategory({
-    required String workspaceID,
+    required TLWorkspace corrWorkspace,
     required TLToDoCategory newCategory,
   }) = _UpdateCategory;
 

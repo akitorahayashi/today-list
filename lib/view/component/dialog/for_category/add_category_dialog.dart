@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
@@ -14,18 +13,22 @@ import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 
 class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
-  final TLWorkspace currentWorkspace;
+  final TLWorkspace corrWorkspace;
+  final String? parentBigCategoryID;
 
   const AddCategoryDialog({
     super.key,
-    required this.currentWorkspace,
+    required this.corrWorkspace,
+    required this.parentBigCategoryID,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig theme = TLTheme.of(context);
-    final selectedBigCategoryID = useState<String?>(null);
+    final selectedBigCategoryID = useState<String?>(parentBigCategoryID);
     final enteredCategoryTitle = useState<String>("");
+
+    print(parentBigCategoryID);
 
     return AlertDialog(
       backgroundColor: theme.alertBackgroundColor,
@@ -34,10 +37,14 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
         children: [
           _BigCategoryDropdown(
             theme: theme,
-            corrWorkspace: currentWorkspace,
+            corrWorkspace: corrWorkspace,
             selectedBigCategoryID: selectedBigCategoryID.value,
             onChanged: (String? newBigCategoryId) {
-              selectedBigCategoryID.value = newBigCategoryId;
+              if (newBigCategoryId != corrWorkspace.id) {
+                selectedBigCategoryID.value = newBigCategoryId;
+              } else {
+                selectedBigCategoryID.value = null;
+              }
             },
           ),
           _NewCategoryNameInputField(
@@ -46,7 +53,6 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
           ),
           _ActionButtons(
             theme: theme,
-            buttonText: "Add",
             enteredCategoryTitle: enteredCategoryTitle,
             onClose: () => Navigator.pop(context),
             onSubmit: () {
@@ -57,11 +63,11 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
               );
               ref.read(tlAppStateProvider.notifier).updateState(
                     TLToDoCategoryAction.addCategory(
-                      workspaceID: currentWorkspace.id,
+                      corrWorkspace: corrWorkspace,
                       newCategory: categoryToAdd,
                     ),
                   );
-              Navigator.pop(context);
+              Navigator.pop(context, categoryToAdd);
               TLSingleOptionDialog(
                 title: categoryToAdd.name,
                 message: "Category has been added!",
@@ -98,16 +104,20 @@ class _BigCategoryDropdown extends StatelessWidget {
           hint: _buildDropdownHint(selectedBigCategoryID, corrWorkspace),
           items: [
             TLToDoCategory(
-                id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
+                id: corrWorkspace.id,
+                parentBigCategoryID: null,
+                name: "UnSelect"),
             ...corrWorkspace.bigCategories.sublist(1),
           ].map((TLToDoCategory bigCategory) {
             return DropdownMenuItem(
               value: bigCategory.id,
               child: Text(
                 bigCategory.name,
-                style: _getDropdownItemStyle(
-                  theme,
-                  bigCategory.id == selectedBigCategoryID,
+                style: TextStyle(
+                  color: bigCategory.id == selectedBigCategoryID
+                      ? theme.accentColor
+                      : Colors.black.withOpacity(0.5),
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             );
@@ -125,13 +135,6 @@ class _BigCategoryDropdown extends StatelessWidget {
         ? const Text("None")
         : Text(found.first.name,
             style: const TextStyle(fontWeight: FontWeight.bold));
-  }
-
-  TextStyle _getDropdownItemStyle(TLThemeConfig theme, bool isSelected) {
-    return TextStyle(
-      color: isSelected ? theme.accentColor : Colors.black.withOpacity(0.5),
-      fontWeight: FontWeight.bold,
-    );
   }
 }
 
@@ -172,14 +175,12 @@ class _NewCategoryNameInputField extends StatelessWidget {
 
 class _ActionButtons extends StatelessWidget {
   final TLThemeConfig theme;
-  final String buttonText;
   final ValueNotifier<String> enteredCategoryTitle;
   final VoidCallback onClose;
   final VoidCallback onSubmit;
 
   const _ActionButtons({
     required this.theme,
-    required this.buttonText,
     required this.enteredCategoryTitle,
     required this.onClose,
     required this.onSubmit,
@@ -199,7 +200,7 @@ class _ActionButtons extends StatelessWidget {
           style: alertButtonStyle(accentColor: theme.accentColor),
           onPressed:
               enteredCategoryTitle.value.trim().isEmpty ? null : onSubmit,
-          child: Text(buttonText),
+          child: const Text("Add"),
         ),
       ],
     );
