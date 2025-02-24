@@ -9,7 +9,6 @@ import 'package:today_list/redux/reducer/property/tl_theme_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_todo_category_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_todo_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_workspace_reducer.dart';
-import 'package:today_list/service/tl_method_channel.dart';
 
 class TLAppStateReducer {
   static TLAppState reduce(TLAppState state, dynamic action) {

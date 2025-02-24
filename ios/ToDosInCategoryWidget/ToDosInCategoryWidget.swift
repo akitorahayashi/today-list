@@ -21,7 +21,7 @@ struct ToDosInCategoryWidget: Widget {
                     VStack(spacing: 0) {
                         ZStack {
                             entry.selectedThemeType.config.gradientOfTopBar
-                            Text(entry.entity.title)
+                            Text(entry.entity?.title ?? "ToDo")
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.white)
                         }

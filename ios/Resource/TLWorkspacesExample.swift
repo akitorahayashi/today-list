@@ -17,8 +17,8 @@ enum WorkspaceID: String, Codable {
 
     var name: String {
         switch self {
-        case .life: return "生活"
-        case .work: return "仕事"
+        case .life: return "Life"
+        case .work: return "Work"
         }
     }
 
@@ -70,7 +70,7 @@ let kTLWorkspacesExample: [TLWorkspace] = [
     // MARK: - Work Workspace
     TLWorkspace(
         id: WorkspaceID.work.rawValue,
-        name: "Work",
+        name: WorkspaceID.work.name,
         bigCategories: [
             TLToDoCategory(id: BigCategoryID.projectA.rawValue, parentBigCategoryID: nil, name: BigCategoryID.projectA.name)
         ],

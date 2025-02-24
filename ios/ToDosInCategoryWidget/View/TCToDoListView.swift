@@ -17,7 +17,8 @@ struct TCToDoListView: View {
             let wksEntity = entry.entity
             
             // `tlWorkspaces` が `nil` の場合のフォールバック UI
-            if let workspaces = entry.tlWorkspaces {
+            if let workspaces = entry.tlWorkspaces,
+                let wksEntity = wksEntity {
                 
                 // 設定のidに対して
                 let corrWorkspace = TLWorkspace.getWorkspace(from: workspaces, by: wksEntity.workspaceID)
@@ -25,7 +26,8 @@ struct TCToDoListView: View {
                 if let workspace = corrWorkspace,
                     let toDosInToday =
                     (workspace.categoryIDToToDos[wksEntity.categoryID]?
-                        .toDosInToday.filter { !$0.isChecked }) {
+                        .toDosInToday?.filter { !$0.isChecked }) {
+                    
                     // MARK: - 正常時の UI
                     // 表示する最大アイテム数
                     let maxItems: Int = {
@@ -43,18 +45,27 @@ struct TCToDoListView: View {
                         var contents: [TLToDo] = []
                         
                         for tlToDo in toDosInToday {
-                            guard contentCounter < maxItems else { break }
+                            guard contentCounter < maxItems else {
+                                break }
                             
+                            var createdToDo = TLToDo(id: tlToDo.id,
+                                                     workspaceID: tlToDo.workspaceID,
+                                                     categoryID: tlToDo.categoryID,
+                                                     isInToday: true,
+                                                     isChecked: false,
+                                                     content: tlToDo.content,
+                                                     steps: [])
                             contentCounter += 1
                             
                             for tlStep in tlToDo.steps {
                                 guard contentCounter < maxItems else { break }
                                 
                                 if !tlStep.isChecked {
+                                    createdToDo.steps.append(tlStep)
                                     contentCounter += 1
                                 }
                             }
-                            contents.append(tlToDo)
+                            contents.append(createdToDo)
                         }
                         return contents
                     }()

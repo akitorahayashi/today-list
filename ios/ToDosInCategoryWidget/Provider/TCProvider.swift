@@ -39,15 +39,17 @@ struct TCProvider: AppIntentTimelineProvider {
         let stringOfTLWorkspace: String? = TLUserDefaultsManager.shared.userDefaults?.string(forKey: "tlWorkspaces")
         
         // workspaceのデコード
-        let tlWorkspaces: [TLWorkspace]? = kTLWorkspacesExample
-//        TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? kTLWorkspacesExample
+        let tlWorkspaces: [TLWorkspace]? =
+        TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? kTLWorkspacesExample
         
         // テーマの特定
         let corrThemeType = TLThemeType.from(themeName)
         
         let loadedEntry = TCWidgetEntry(
             date: Date(),
-            entity: configuration.selectedWKS,
+            entity:
+//                defaultEntity,
+                configuration.selectedWKS,
             selectedThemeType: corrThemeType,
             tlWorkspaces: tlWorkspaces
         )
