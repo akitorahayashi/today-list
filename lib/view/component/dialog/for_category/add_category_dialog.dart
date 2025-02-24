@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
@@ -15,17 +14,21 @@ import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 
 class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
   final TLWorkspace corrWorkspace;
+  final String? parentBigCategoryID;
 
   const AddCategoryDialog({
     super.key,
     required this.corrWorkspace,
+    required this.parentBigCategoryID,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig theme = TLTheme.of(context);
-    final selectedBigCategoryID = useState<String?>(null);
+    final selectedBigCategoryID = useState<String?>(parentBigCategoryID);
     final enteredCategoryTitle = useState<String>("");
+
+    print(parentBigCategoryID);
 
     return AlertDialog(
       backgroundColor: theme.alertBackgroundColor,
@@ -64,7 +67,7 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
                       newCategory: categoryToAdd,
                     ),
                   );
-              Navigator.pop(context);
+              Navigator.pop(context, categoryToAdd);
               TLSingleOptionDialog(
                 title: categoryToAdd.name,
                 message: "Category has been added!",

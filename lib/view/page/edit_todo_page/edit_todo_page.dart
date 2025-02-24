@@ -151,8 +151,7 @@ class EditToDoPage extends HookConsumerWidget {
                       bigCategoryID: bigCategoryID.value,
                       smallCategoryID: smallCategoryID.value,
                       onSelected: (newSmallID) {
-                        smallCategoryID.value =
-                            newSmallID == corrWorkspace.id ? null : newSmallID;
+                        smallCategoryID.value = newSmallID;
                       },
                     ),
                     SelectTodayOrWheneverButton(

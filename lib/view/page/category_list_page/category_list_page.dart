@@ -99,8 +99,10 @@ class _AddToDoCategoryButton extends StatelessWidget {
         borderColor: Colors.black26,
         iconColor: tlThemeDataConfig.accentColor,
         onPressed: () {
-          AddCategoryDialog(corrWorkspace: currentWorkspace)
-              .show(context: context);
+          AddCategoryDialog(
+            corrWorkspace: currentWorkspace,
+            parentBigCategoryID: null,
+          ).show(context: context);
         },
       ),
     );

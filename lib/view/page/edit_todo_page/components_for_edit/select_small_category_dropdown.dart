@@ -4,12 +4,13 @@ import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/view/component/dialog/for_category/add_category_dialog.dart';
 
 class SelectSmallCategoryDropdown extends ConsumerWidget {
   final TLWorkspace corrWorkspace;
   final String bigCategoryID;
   final String? smallCategoryID;
-  final Function(String) onSelected;
+  final Function(String?) onSelected;
 
   const SelectSmallCategoryDropdown({
     super.key,
@@ -46,9 +47,8 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
         style:
             const TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
         items: [
-          if (smallCats.isEmpty)
-            TLToDoCategory(
-                id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
+          TLToDoCategory(
+              id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
           ...smallCats,
           if (bigCategoryID != corrWorkspace.id)
             const TLToDoCategory(
@@ -70,9 +70,18 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
             ),
           );
         }).toList(),
-        onChanged: (TLToDoCategory? selected) {
+        onChanged: (TLToDoCategory? selected) async {
           if (selected == null) return;
-          onSelected(selected.id);
+          if (selected.id == corrWorkspace.id) {
+            onSelected(null);
+          } else if (selected.id == "---createSmallCategory") {
+            await AddCategoryDialog(
+              corrWorkspace: corrWorkspace,
+              parentBigCategoryID: bigCategoryID,
+            ).show(context: context);
+          } else {
+            onSelected(selected.id);
+          }
         },
       ),
     );

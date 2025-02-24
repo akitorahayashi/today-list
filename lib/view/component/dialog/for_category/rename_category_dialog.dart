@@ -93,10 +93,6 @@ class _NewCategoryNameInputField extends HookWidget {
     final theme = TLTheme.of(context);
     final textController = useTextEditingController(text: initialText);
 
-    useEffect(() {
-      return () => textController.dispose();
-    }, [textController]);
-
     return SizedBox(
       width: 230,
       child: TextField(
