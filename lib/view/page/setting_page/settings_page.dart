@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/view/page/setting_page/set_tcw_settings_page/set_tcw_page.dart';
+import 'package:today_list/view/page/setting_page/tcw_settings_page/tcw_settings_page.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'set_appearance_page/set_appearance_page.dart';
@@ -24,7 +24,7 @@ class SettingsPage extends HookWidget {
     final showBottomNavBar = useState<bool>(true);
 
     final List<Widget> contentsInSettingPage = [
-      if (Platform.isIOS) SetTCWPage(showBottomNavBar: showBottomNavBar),
+      if (Platform.isIOS) TCWSettingsPage(showBottomNavBar: showBottomNavBar),
       const SetAppearancePage(),
     ];
 

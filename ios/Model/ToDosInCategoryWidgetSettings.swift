@@ -13,7 +13,7 @@ struct ToDosInCategoryWidgetSettings: Codable, Identifiable {
     var title: String
     // これより下はオブジェクトのIDしか使わないが、flutterアプリで保存したjsonと対応させるため、クラスにしている
     var workspace: TLWorkspace
-    var bigCategory: TLToDoCategory
+    var bigCategory: TLToDoCategory?
     var smallCategory: TLToDoCategory?
     
     static func decodeListOfToDosInCategoryWidgetSettings(from jsonStringList: String?) -> [ToDosInCategoryWidgetSettings]? {

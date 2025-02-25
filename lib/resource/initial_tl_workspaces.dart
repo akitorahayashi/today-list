@@ -234,11 +234,11 @@ TLWorkspace createDefaultWorkspace({
             ))
         .toList(),
     smallCategories: {
-      for (var bigCategory in smallCategories.keys)
-        bigCategory.rawValue: smallCategories[bigCategory]!
+      for (var bigCategoryID in bigCategoryIDs)
+        bigCategoryID.rawValue: smallCategories[bigCategoryID]!
             .map((smallCategory) => TLToDoCategory(
                   id: smallCategory.rawValue,
-                  parentBigCategoryID: bigCategory.rawValue,
+                  parentBigCategoryID: bigCategoryID.rawValue,
                   name: smallCategory.name, // enum に name プロパティがない場合は手動で設定
                 ))
             .toList()

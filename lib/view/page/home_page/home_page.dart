@@ -112,6 +112,10 @@ class _HomePageState extends ConsumerState<HomePage>
       });
     }
 
+    String pageTitle = _tabController.index == 0
+        ? "Today List"
+        : currentWorkspaceNullAble?.name ?? "Error";
+
     // ビルド後にタブインデックスの調整を行う（アプリ起動時ぐらいで使用）
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // 現在のWorkspaceのIndexを取得
@@ -122,6 +126,11 @@ class _HomePageState extends ConsumerState<HomePage>
       if (_tabController.index != expectedTabControllerIndex) {
         _tabController.index = expectedTabControllerIndex;
       }
+      setState(() {
+        pageTitle = _tabController.index == 0
+            ? "Today List"
+            : currentWorkspaceNullAble?.name ?? "Error";
+      });
     });
 
     // currentWorkspaceを選択しているか
@@ -141,9 +150,7 @@ class _HomePageState extends ConsumerState<HomePage>
       appBar: TLAppBar(
         context: context,
         height: 100,
-        pageTitle: _tabController.index == 0
-            ? "Today List"
-            : currentWorkspaceNullAble?.name ?? "Error",
+        pageTitle: pageTitle,
         leadingButtonOnPressed: () =>
             _homePageScaffoldKey.currentState!.openDrawer(),
         leadingIconData: Icons.menu,

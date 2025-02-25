@@ -13,8 +13,10 @@ _$ToDosInCategoryWidgetSettingsImpl
           title: json['title'] as String,
           workspace:
               TLWorkspace.fromJson(json['workspace'] as Map<String, dynamic>),
-          bigCategory: TLToDoCategory.fromJson(
-              json['bigCategory'] as Map<String, dynamic>),
+          bigCategory: json['bigCategory'] == null
+              ? null
+              : TLToDoCategory.fromJson(
+                  json['bigCategory'] as Map<String, dynamic>),
           smallCategory: json['smallCategory'] == null
               ? null
               : TLToDoCategory.fromJson(
