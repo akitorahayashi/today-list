@@ -230,6 +230,7 @@
 		1B94F3502D58254700915981 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				785038B62D6D5E5E00DF73BA /* WidgetConfigurationIntent */,
 				1B43F7C52D58682D000D4044 /* TCWidgetEntry.swift */,
 				1BF526B32D5845170039CDE3 /* TCQuery.swift */,
 				1BF526B12D5845030039CDE3 /* TCEntity.swift */,
@@ -280,6 +281,13 @@
 				331C807B294A618700263BE5 /* RunnerTests.swift */,
 			);
 			path = RunnerTests;
+			sourceTree = "<group>";
+		};
+		785038B62D6D5E5E00DF73BA /* WidgetConfigurationIntent */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WidgetConfigurationIntent;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
