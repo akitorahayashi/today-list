@@ -125,12 +125,12 @@ class _HomePageState extends ConsumerState<HomePage>
           currentWorkspaceIdx != -1 ? currentWorkspaceIdx + 1 : 0;
       if (_tabController.index != expectedTabControllerIndex) {
         _tabController.index = expectedTabControllerIndex;
+        setState(() {
+          pageTitle = _tabController.index == 0
+              ? "Today List"
+              : currentWorkspaceNullAble?.name ?? "Error";
+        });
       }
-      setState(() {
-        pageTitle = _tabController.index == 0
-            ? "Today List"
-            : currentWorkspaceNullAble?.name ?? "Error";
-      });
     });
 
     // currentWorkspaceを選択しているか
