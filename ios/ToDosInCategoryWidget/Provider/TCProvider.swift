@@ -13,7 +13,7 @@ struct TCProvider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> TCWidgetEntry {
         return TCWidgetEntry(
             date: Date(),
-            entity: defaultEntity,
+            entity: TCEntity.defaultEntity,
             selectedThemeType: TLThemeType.sunOrange,
             tlWorkspaces: kTLWorkspacesExample
         )
@@ -24,38 +24,36 @@ struct TCProvider: AppIntentTimelineProvider {
         let corrThemeType = TLThemeType.from(themeName)
         return TCWidgetEntry(
             date: Date(),
-            entity: defaultEntity,
+            entity: TCEntity.defaultEntity,
             selectedThemeType: corrThemeType,
             tlWorkspaces: kTLWorkspacesExample
         )
     }
     
     func timeline(for configuration: TCIntent, in context: Context) async -> Timeline<TCWidgetEntry> {
-        var entries: [TCWidgetEntry] = []
         
         // 保存してあるデータの読み取り
         let userDefaults = TLUserDefaultsManager.shared.userDefaults
         let themeName = userDefaults?.string(forKey: "selectedThemeName") ?? TLThemeType.sunOrange.rawValue
         let stringOfTLWorkspace: String? = TLUserDefaultsManager.shared.userDefaults?.string(forKey: "tlWorkspaces")
         
-        // workspaceのデコード
-        let tlWorkspaces: [TLWorkspace]? =
-        TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? kTLWorkspacesExample
-        
         // テーマの特定
         let corrThemeType = TLThemeType.from(themeName)
         
+        // workspaceのデコード
+        let tlWorkspaces: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? kTLWorkspacesExample
+        
+        
         let loadedEntry = TCWidgetEntry(
             date: Date(),
-            entity:
-//                defaultEntity,
-                configuration.selectedWKS,
+            // selectedWKS は オプショナル
+            entity: configuration.selectedWKS,
             selectedThemeType: corrThemeType,
             tlWorkspaces: tlWorkspaces
         )
         
-        entries.append(loadedEntry)
         
-        return Timeline(entries: entries, policy: .never)
+        
+        return Timeline(entries: [loadedEntry], policy: .never)
     }
 }
