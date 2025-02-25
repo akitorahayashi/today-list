@@ -10,31 +10,65 @@ import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/styles.dart';
 import 'package:today_list/util/tl_uuid_generator.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 
-class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
+void showAddCategoryBottomSheet({
+  required BuildContext context,
+  required TLWorkspace corrWorkspace,
+  required String? parentBigCategoryID,
+  required WidgetRef ref,
+}) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: TLTheme.of(context).whiteBasedColor,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (context) => AddCategoryBottomSheet(
+      corrWorkspace: corrWorkspace,
+      parentBigCategoryID: parentBigCategoryID,
+      ref: ref,
+    ),
+  );
+}
+
+class AddCategoryBottomSheet extends HookWidget {
   final TLWorkspace corrWorkspace;
   final String? parentBigCategoryID;
+  final WidgetRef ref;
 
-  const AddCategoryDialog({
+  const AddCategoryBottomSheet({
     super.key,
     required this.corrWorkspace,
     required this.parentBigCategoryID,
+    required this.ref,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final TLThemeConfig theme = TLTheme.of(context);
     final selectedBigCategoryID = useState<String?>(parentBigCategoryID);
     final enteredCategoryTitle = useState<String>("");
 
-    print(parentBigCategoryID);
-
-    return AlertDialog(
-      backgroundColor: theme.alertBackgroundColor,
-      content: Column(
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 40,
+        right: 40,
+        top: 20,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+      ),
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Text(
+            "Add Category",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: theme.accentColor,
+            ),
+          ),
+          const SizedBox(height: 16),
           _BigCategoryDropdown(
             theme: theme,
             corrWorkspace: corrWorkspace,
@@ -68,10 +102,6 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
                     ),
                   );
               Navigator.pop(context, categoryToAdd);
-              TLSingleOptionDialog(
-                title: categoryToAdd.name,
-                message: "Category has been added!",
-              ).show(context: context);
             },
           ),
         ],
@@ -96,34 +126,37 @@ class _BigCategoryDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 40, bottom: 18.0),
-      child: SizedBox(
-        width: 230,
-        child: DropdownButton<String>(
-          isExpanded: true,
-          hint: _buildDropdownHint(selectedBigCategoryID, corrWorkspace),
-          items: [
-            TLToDoCategory(
-                id: corrWorkspace.id,
-                parentBigCategoryID: null,
-                name: "UnSelect"),
-            ...corrWorkspace.bigCategories,
-          ].map((TLToDoCategory bigCategory) {
-            return DropdownMenuItem(
-              value: bigCategory.id,
-              child: Text(
-                bigCategory.name,
-                style: TextStyle(
-                  color: bigCategory.id == selectedBigCategoryID
-                      ? theme.accentColor
-                      : Colors.black.withOpacity(0.5),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            );
-          }).toList(),
-          onChanged: onChanged,
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: DropdownButton<String>(
+        style: TextStyle(
+          // フォーカスしていないときのテキストスタイル
+          color: Colors.black.withOpacity(0.5),
+          fontWeight: FontWeight.bold,
         ),
+        focusColor: Colors.black.withOpacity(0.5),
+        isExpanded: true,
+        hint: _buildDropdownHint(selectedBigCategoryID, corrWorkspace),
+        items: [
+          TLToDoCategory(
+              id: corrWorkspace.id,
+              parentBigCategoryID: null,
+              name: "UnSelect"),
+          ...corrWorkspace.bigCategories,
+        ].map((TLToDoCategory bigCategory) {
+          return DropdownMenuItem(
+            value: bigCategory.id,
+            child: Text(
+              bigCategory.name,
+              style: TextStyle(
+                color: bigCategory.id == selectedBigCategoryID
+                    ? theme.accentColor
+                    : Colors.black.withOpacity(0.5),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          );
+        }).toList(),
+        onChanged: onChanged,
       ),
     );
   }
@@ -150,23 +183,20 @@ class _NewCategoryNameInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 30.0),
-      child: SizedBox(
-        width: 230,
-        child: TextField(
-          autofocus: true,
-          onChanged: (text) => enteredCategoryTitle.value = text,
-          cursorColor: theme.accentColor,
-          style: TextStyle(
-            color: Colors.black.withOpacity(0.5),
-            fontWeight: FontWeight.w600,
-          ),
-          decoration: tlInputDecoration(
-            context: context,
-            labelText: "New Category Name",
-            icon: null,
-            suffixIcon: null,
-          ),
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: TextField(
+        autofocus: true,
+        onChanged: (text) => enteredCategoryTitle.value = text,
+        cursorColor: theme.accentColor,
+        style: TextStyle(
+          color: Colors.black.withOpacity(0.5),
+          fontWeight: FontWeight.w600,
+        ),
+        decoration: tlInputDecoration(
+          context: context,
+          labelText: "New Category Name",
+          icon: null,
+          suffixIcon: null,
         ),
       ),
     );
@@ -188,21 +218,24 @@ class _ActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OverflowBar(
-      alignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        TextButton(
-          style: alertButtonStyle(accentColor: theme.accentColor),
-          onPressed: onClose,
-          child: const Text("Close"),
-        ),
-        TextButton(
-          style: alertButtonStyle(accentColor: theme.accentColor),
-          onPressed:
-              enteredCategoryTitle.value.trim().isEmpty ? null : onSubmit,
-          child: const Text("Add"),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          TextButton(
+            style: alertButtonStyle(accentColor: theme.accentColor),
+            onPressed: onClose,
+            child: const Text("Close"),
+          ),
+          TextButton(
+            style: alertButtonStyle(accentColor: theme.accentColor),
+            onPressed:
+                enteredCategoryTitle.value.trim().isEmpty ? null : onSubmit,
+            child: const Text("Add"),
+          ),
+        ],
+      ),
     );
   }
 }

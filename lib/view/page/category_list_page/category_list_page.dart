@@ -9,6 +9,7 @@ import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/view/component/sheet/show_add_category_sheet.dart';
 import 'big_and_small_category_card/big_and_small_category_card.dart';
 
 import 'package:reorderables/reorderables.dart';
@@ -72,24 +73,24 @@ class CategoryListPage extends ConsumerWidget {
             ],
           ),
           _AddToDoCategoryButton(
-              currentWorkspace: corrWorkspace, tlThemeDataConfig: tlThemeData),
+              corrWorkspace: corrWorkspace, tlThemeDataConfig: tlThemeData),
         ],
       ),
     );
   }
 }
 
-class _AddToDoCategoryButton extends StatelessWidget {
-  final TLWorkspace currentWorkspace;
+class _AddToDoCategoryButton extends ConsumerWidget {
+  final TLWorkspace corrWorkspace;
   final TLThemeConfig tlThemeDataConfig;
 
   const _AddToDoCategoryButton({
-    required this.currentWorkspace,
+    required this.corrWorkspace,
     required this.tlThemeDataConfig,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Positioned(
       right: 50,
       bottom: 70,
@@ -99,10 +100,12 @@ class _AddToDoCategoryButton extends StatelessWidget {
         borderColor: Colors.black26,
         iconColor: tlThemeDataConfig.accentColor,
         onPressed: () {
-          AddCategoryDialog(
-            corrWorkspace: currentWorkspace,
-            parentBigCategoryID: null,
-          ).show(context: context);
+          showAddCategoryBottomSheet(
+            context: context,
+            corrWorkspace: corrWorkspace, // TLWorkspace インスタンス
+            parentBigCategoryID: null, // 選択中の親カテゴリーID（null可）
+            ref: ref, // Riverpodのref
+          );
         },
       ),
     );
