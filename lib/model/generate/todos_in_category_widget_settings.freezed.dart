@@ -24,7 +24,7 @@ mixin _$ToDosInCategoryWidgetSettings {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   TLWorkspace get workspace => throw _privateConstructorUsedError;
-  TLToDoCategory get bigCategory => throw _privateConstructorUsedError;
+  TLToDoCategory? get bigCategory => throw _privateConstructorUsedError;
   TLToDoCategory? get smallCategory => throw _privateConstructorUsedError;
 
   /// Serializes this ToDosInCategoryWidgetSettings to a JSON map.
@@ -49,11 +49,11 @@ abstract class $ToDosInCategoryWidgetSettingsCopyWith<$Res> {
       {String id,
       String title,
       TLWorkspace workspace,
-      TLToDoCategory bigCategory,
+      TLToDoCategory? bigCategory,
       TLToDoCategory? smallCategory});
 
   $TLWorkspaceCopyWith<$Res> get workspace;
-  $TLToDoCategoryCopyWith<$Res> get bigCategory;
+  $TLToDoCategoryCopyWith<$Res>? get bigCategory;
   $TLToDoCategoryCopyWith<$Res>? get smallCategory;
 }
 
@@ -76,7 +76,7 @@ class _$ToDosInCategoryWidgetSettingsCopyWithImpl<$Res,
     Object? id = null,
     Object? title = null,
     Object? workspace = null,
-    Object? bigCategory = null,
+    Object? bigCategory = freezed,
     Object? smallCategory = freezed,
   }) {
     return _then(_value.copyWith(
@@ -92,10 +92,10 @@ class _$ToDosInCategoryWidgetSettingsCopyWithImpl<$Res,
           ? _value.workspace
           : workspace // ignore: cast_nullable_to_non_nullable
               as TLWorkspace,
-      bigCategory: null == bigCategory
+      bigCategory: freezed == bigCategory
           ? _value.bigCategory
           : bigCategory // ignore: cast_nullable_to_non_nullable
-              as TLToDoCategory,
+              as TLToDoCategory?,
       smallCategory: freezed == smallCategory
           ? _value.smallCategory
           : smallCategory // ignore: cast_nullable_to_non_nullable
@@ -117,8 +117,12 @@ class _$ToDosInCategoryWidgetSettingsCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $TLToDoCategoryCopyWith<$Res> get bigCategory {
-    return $TLToDoCategoryCopyWith<$Res>(_value.bigCategory, (value) {
+  $TLToDoCategoryCopyWith<$Res>? get bigCategory {
+    if (_value.bigCategory == null) {
+      return null;
+    }
+
+    return $TLToDoCategoryCopyWith<$Res>(_value.bigCategory!, (value) {
       return _then(_value.copyWith(bigCategory: value) as $Val);
     });
   }
@@ -151,13 +155,13 @@ abstract class _$$ToDosInCategoryWidgetSettingsImplCopyWith<$Res>
       {String id,
       String title,
       TLWorkspace workspace,
-      TLToDoCategory bigCategory,
+      TLToDoCategory? bigCategory,
       TLToDoCategory? smallCategory});
 
   @override
   $TLWorkspaceCopyWith<$Res> get workspace;
   @override
-  $TLToDoCategoryCopyWith<$Res> get bigCategory;
+  $TLToDoCategoryCopyWith<$Res>? get bigCategory;
   @override
   $TLToDoCategoryCopyWith<$Res>? get smallCategory;
 }
@@ -180,7 +184,7 @@ class __$$ToDosInCategoryWidgetSettingsImplCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? workspace = null,
-    Object? bigCategory = null,
+    Object? bigCategory = freezed,
     Object? smallCategory = freezed,
   }) {
     return _then(_$ToDosInCategoryWidgetSettingsImpl(
@@ -196,10 +200,10 @@ class __$$ToDosInCategoryWidgetSettingsImplCopyWithImpl<$Res>
           ? _value.workspace
           : workspace // ignore: cast_nullable_to_non_nullable
               as TLWorkspace,
-      bigCategory: null == bigCategory
+      bigCategory: freezed == bigCategory
           ? _value.bigCategory
           : bigCategory // ignore: cast_nullable_to_non_nullable
-              as TLToDoCategory,
+              as TLToDoCategory?,
       smallCategory: freezed == smallCategory
           ? _value.smallCategory
           : smallCategory // ignore: cast_nullable_to_non_nullable
@@ -230,7 +234,7 @@ class _$ToDosInCategoryWidgetSettingsImpl
   @override
   final TLWorkspace workspace;
   @override
-  final TLToDoCategory bigCategory;
+  final TLToDoCategory? bigCategory;
   @override
   final TLToDoCategory? smallCategory;
 
@@ -283,7 +287,7 @@ abstract class _ToDosInCategoryWidgetSettings
           {required final String id,
           required final String title,
           required final TLWorkspace workspace,
-          required final TLToDoCategory bigCategory,
+          required final TLToDoCategory? bigCategory,
           required final TLToDoCategory? smallCategory}) =
       _$ToDosInCategoryWidgetSettingsImpl;
 
@@ -297,7 +301,7 @@ abstract class _ToDosInCategoryWidgetSettings
   @override
   TLWorkspace get workspace;
   @override
-  TLToDoCategory get bigCategory;
+  TLToDoCategory? get bigCategory;
   @override
   TLToDoCategory? get smallCategory;
 

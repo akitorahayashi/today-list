@@ -13,7 +13,7 @@ class ToDosInCategoryWidgetSettings with _$ToDosInCategoryWidgetSettings {
     required String id,
     required String title,
     required TLWorkspace workspace,
-    required TLToDoCategory bigCategory,
+    required TLToDoCategory? bigCategory,
     required TLToDoCategory? smallCategory,
   }) = _ToDosInCategoryWidgetSettings;
 

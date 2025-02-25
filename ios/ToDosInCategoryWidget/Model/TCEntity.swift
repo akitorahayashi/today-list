@@ -70,7 +70,7 @@ struct TCQuery: EntityQuery {
                     id: $0.id,
                     title: $0.title,
                     workspaceID: $0.workspace.id,
-                    categoryID: $0.smallCategory?.id ?? $0.bigCategory.id
+                    categoryID: $0.smallCategory?.id ?? $0.bigCategory?.id ?? $0.workspace.id
                 )
             }
             return entities

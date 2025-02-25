@@ -67,7 +67,7 @@ class TLYesNoDialog extends ConsumerWidget with TLBaseDialogMixin {
                 TextButton(
                   onPressed: yesAction,
                   style: alertButtonStyle(accentColor: tlThemeData.accentColor),
-                  child: const Text("OK"),
+                  child: const Text("Yes"),
                 ),
               ],
             )

@@ -121,17 +121,14 @@ class EditToDoPage extends HookConsumerWidget {
           if (toDoTitleController.text.isEmpty) {
             Navigator.pop(context);
           } else {
-            showDialog(
-              context: context,
-              builder: (_) => TLYesNoDialog(
-                title: "本当に戻りますか？",
-                message: "ToDoは + から保存できます",
-                yesAction: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-              ),
-            );
+            TLYesNoDialog(
+              title: "本当に戻りますか？",
+              message: "ToDoは + から保存できます",
+              yesAction: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            ).show(context: context);
           }
         },
         trailingIconData: null,
