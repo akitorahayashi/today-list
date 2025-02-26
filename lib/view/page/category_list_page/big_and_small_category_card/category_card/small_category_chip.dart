@@ -4,7 +4,7 @@ import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/view/component/dialog/for_category/select_edit_method_dialog.dart';
+import 'package:today_list/view/component/dialog/for_category/select_edit_category_method_dialog.dart';
 
 class SmallCategoryChip extends ConsumerWidget {
   final TLWorkspace corrWorkspace;
@@ -26,7 +26,7 @@ class SmallCategoryChip extends ConsumerWidget {
     );
 
     return GestureDetector(
-      onTap: () => SelectEditMethodDialog(
+      onTap: () => SelectEditCategoryMethodDialog(
         corrWorkspace: corrWorkspace,
         categoryOfThisPage: corrSmallCategory,
       ).show(context: context),

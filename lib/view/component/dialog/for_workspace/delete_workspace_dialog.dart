@@ -7,8 +7,9 @@ import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/styles.dart';
+import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
-import '../common/tl_single_option_dialog.dart';
 
 class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   final TLWorkspace willDeletedWorkspace;
@@ -20,64 +21,56 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
     final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 
-    return Dialog(
-      backgroundColor: tlThemeData.alertBackgroundColor,
+    return TLDialog(
+      corrThemeConfig: tlThemeConfig,
       child: Padding(
-        padding: const EdgeInsets.only(top: 20.0),
+        padding: const EdgeInsets.fromLTRB(24, 28, 24, 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildDialogTitle(),
-            _buildWorkspaceNameDisplay(tlThemeData),
-            _buildWarningText(),
-            _buildActionButtons(
-                context, ref, tlAppState, tlAppStateReducer, tlThemeData),
+            const Text(
+              "Delete This Workspace?",
+              style: TextStyle(
+                color: Colors.black54,
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 5, bottom: 0.0, left: 10, right: 10),
+              child: Text(
+                willDeletedWorkspace.name,
+                style: TextStyle(
+                  color: tlThemeConfig.accentColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+              child: Text(
+                "ToDos included in the workspace will also be deleted.",
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: _buildActionButtons(
+                  context, ref, tlAppState, tlAppStateReducer, tlThemeConfig),
+            ),
           ],
         ),
-      ),
-    );
-  }
-
-  // MARK - Build Dialog Title
-  Widget _buildDialogTitle() {
-    return const Text(
-      "Delete Workspace",
-      style: TextStyle(
-        color: Colors.black54,
-        fontWeight: FontWeight.w600,
-        fontSize: 13,
-      ),
-    );
-  }
-
-  // MARK - Build Workspace Name Display
-  Widget _buildWorkspaceNameDisplay(TLThemeConfig tlThemeData) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 5, bottom: 15.0, left: 10, right: 10),
-      child: Text(
-        willDeletedWorkspace.name,
-        style: TextStyle(
-          color: tlThemeData.accentColor,
-          fontWeight: FontWeight.bold,
-          fontSize: 18,
-        ),
-      ),
-    );
-  }
-
-  // MARK - Build Warning Text
-  Widget _buildWarningText() {
-    return const Text(
-      "* ToDos included in the workspace will also be deleted.",
-      style: TextStyle(
-        color: Colors.black54,
-        fontWeight: FontWeight.w600,
-        fontSize: 13,
       ),
     );
   }

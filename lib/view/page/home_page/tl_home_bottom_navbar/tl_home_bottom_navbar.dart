@@ -22,9 +22,7 @@ class TLHomeBottomNavBar extends StatelessWidget {
     const double centerButtonSize = 48;
     const double bottomNavBarHeight = 65;
 
-    final IconData leadingIconData = doesCurrentWorkspaceExist
-        ? FontAwesomeIcons.squareCheck
-        : FontAwesomeIcons.plus;
+    final IconData leadingIconData = FontAwesomeIcons.squareCheck;
     final IconData trailingIconData = FontAwesomeIcons.list;
 
     return Stack(
