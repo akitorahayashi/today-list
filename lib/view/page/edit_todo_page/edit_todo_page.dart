@@ -208,11 +208,28 @@ class EditToDoPage extends HookConsumerWidget {
                     ),
                   ),
                 ),
-              AlreadyExist(
-                corrWorkspace: corrWorkspace,
-                ifInToday: isToday.value,
-                bigCategoryID: bigCategoryID.value,
-                smallCategoryID: smallCategoryID.value,
+              AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                transitionBuilder: (child, animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: SizeTransition(
+                      sizeFactor: CurvedAnimation(
+                        parent: animation,
+                        curve: Curves.easeInOutCubic,
+                      ),
+                      child: child,
+                    ),
+                  );
+                },
+                child: AlreadyExist(
+                  key: ValueKey(
+                      "${bigCategoryID.value}-${smallCategoryID.value}-${isToday.value}"),
+                  corrWorkspace: corrWorkspace,
+                  ifInToday: isToday.value,
+                  bigCategoryID: bigCategoryID.value,
+                  smallCategoryID: smallCategoryID.value,
+                ),
               ),
               const SizedBox(height: 250),
             ],

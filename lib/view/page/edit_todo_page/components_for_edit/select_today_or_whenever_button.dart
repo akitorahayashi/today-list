@@ -29,8 +29,7 @@ class SelectTodayOrWheneverButton extends StatelessWidget {
         fillColor: tlThemeData.accentColor.withValues(alpha: 0.1), // 透明度を調整
         selectedColor: tlThemeData.accentColor, // 選択時の文字色
         color: Colors.black54, // 未選択時の文字色
-        splashColor:
-            tlThemeData.accentColor.withValues(alpha: 0.1), // タップ時のスプラッシュを無効化
+        splashColor: Colors.transparent, // タップ時のスプラッシュを無効化
         hoverColor: Colors.transparent, // ホバー時のエフェクトを無効化
 
         // 動作

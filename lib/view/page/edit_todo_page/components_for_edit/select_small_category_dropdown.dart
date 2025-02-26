@@ -28,6 +28,7 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
       child: DropdownButton<TLToDoCategory>(
+        dropdownColor: tlThemeData.whiteBasedColor,
         isExpanded: true,
         iconEnabledColor: tlThemeData.accentColor,
         hint: Text(

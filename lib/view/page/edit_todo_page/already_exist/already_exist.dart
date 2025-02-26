@@ -39,21 +39,35 @@ class AlreadyExist extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              for (int indexOfThisToDoInToDos = 0;
-                  indexOfThisToDoInToDos < toDoArrayOfThisBlock.length;
-                  indexOfThisToDoInToDos++)
-                ModelOfToDoCard(
-                  key:
-                      ValueKey(toDoArrayOfThisBlock[indexOfThisToDoInToDos].id),
-                  corrWorkspace: corrWorkspace,
-                  ifInToday: ifInToday,
-                  corrTLToDo: toDoArrayOfThisBlock[indexOfThisToDoInToDos],
-                  // 編集系のメンバー
-                  // tapToEditAction: tapToEditAction,
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            transitionBuilder: (child, animation) {
+              return FadeTransition(
+                opacity: animation,
+                child: SizeTransition(
+                  sizeFactor: CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeInOutCubic,
+                  ),
+                  child: child,
                 ),
-            ],
+              );
+            },
+            child: Column(
+              key: ValueKey(toDoArrayOfThisBlock.length),
+              children: [
+                for (int indexOfThisToDoInToDos = 0;
+                    indexOfThisToDoInToDos < toDoArrayOfThisBlock.length;
+                    indexOfThisToDoInToDos++)
+                  ModelOfToDoCard(
+                    key: ValueKey(
+                        toDoArrayOfThisBlock[indexOfThisToDoInToDos].id),
+                    corrWorkspace: corrWorkspace,
+                    ifInToday: ifInToday,
+                    corrTLToDo: toDoArrayOfThisBlock[indexOfThisToDoInToDos],
+                  ),
+              ],
+            ),
           ),
         ),
       ),
