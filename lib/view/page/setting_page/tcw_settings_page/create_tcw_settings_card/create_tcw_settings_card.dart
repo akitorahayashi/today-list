@@ -60,7 +60,7 @@ class CreateWKSettingsCard extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 16.0),
+                padding: const EdgeInsets.only(top: 16.0, bottom: 12.0),
                 child: Focus(
                   onFocusChange: (hasFocus) =>
                       showBottomNavBar.value = !hasFocus,
@@ -83,6 +83,9 @@ class CreateWKSettingsCard extends HookConsumerWidget {
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black45),
                       ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black45),
+                      ),
                     ),
                   ),
                 ),
@@ -90,6 +93,14 @@ class CreateWKSettingsCard extends HookConsumerWidget {
               _DropdownWidget(
                 label: "Workspace",
                 value: selectedWorkspaceIndex.value,
+                displayWidget: Text(
+                  workspaces[selectedWorkspaceIndex.value].name,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black45, // 未選択時の色
+                  ),
+                ),
                 items: workspaces
                     .asMap()
                     .entries
@@ -108,11 +119,17 @@ class CreateWKSettingsCard extends HookConsumerWidget {
               _DropdownWidget(
                 label: "Big Category",
                 value: selectedBCIdx.value,
+                displayWidget: Text(
+                  selectedBCIdx.value == null
+                      ? "なし"
+                      : currentWorkspace
+                          .bigCategories[selectedBCIdx.value!].name,
+                ),
                 items: [
                   const DropdownMenuItem<int?>(
-                    value: null,
+                    value: -1,
                     child: Text(
-                      "Not selected",
+                      "なし",
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -126,7 +143,11 @@ class CreateWKSettingsCard extends HookConsumerWidget {
                       )
                 ],
                 onChanged: (newBCIdx) {
-                  selectedBCIdx.value = newBCIdx;
+                  if (newBCIdx == -1) {
+                    selectedBCIdx.value = null;
+                  } else {
+                    selectedBCIdx.value = newBCIdx;
+                  }
                   selectedSCIdx.value = null;
                 },
               ),
@@ -134,11 +155,20 @@ class CreateWKSettingsCard extends HookConsumerWidget {
                 _DropdownWidget(
                   label: "Small Category",
                   value: selectedSCIdx.value,
+                  displayWidget: Text(
+                    selectedSCIdx.value == null
+                        ? "なし"
+                        : currentWorkspace
+                            .smallCategories[currentWorkspace
+                                .bigCategories[selectedBCIdx.value!]
+                                .id]![selectedSCIdx.value!]
+                            .name,
+                  ),
                   items: [
                     const DropdownMenuItem<int?>(
-                      value: null,
+                      value: -1,
                       child: Text(
-                        "Not selected",
+                        "なし",
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -156,7 +186,11 @@ class CreateWKSettingsCard extends HookConsumerWidget {
                         )
                   ],
                   onChanged: (newSCIdx) {
-                    selectedSCIdx.value = newSCIdx;
+                    if (newSCIdx == -1) {
+                      selectedSCIdx.value = null;
+                    } else {
+                      selectedSCIdx.value = newSCIdx;
+                    }
                   },
                 ),
               _ControlButtons(
@@ -179,18 +213,22 @@ class CreateWKSettingsCard extends HookConsumerWidget {
 class _DropdownWidget<T> extends StatelessWidget {
   final String label;
   final T value;
+  final Widget displayWidget;
   final List<DropdownMenuItem<T>> items;
   final ValueChanged<T?> onChanged;
 
   const _DropdownWidget({
     required this.label,
     required this.value,
+    required this.displayWidget,
     required this.items,
     required this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
+    final tlThemeConfig = TLTheme.of(context);
+
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Column(
@@ -198,14 +236,29 @@ class _DropdownWidget<T> extends StatelessWidget {
         children: [
           TCWHeader(text: label),
           DropdownButton<T>(
+            dropdownColor: tlThemeConfig.whiteBasedColor,
             isExpanded: true,
-            iconEnabledColor: TLTheme.of(context).accentColor,
-            value: value,
-            items: items,
+            iconEnabledColor: tlThemeConfig.accentColor,
+            hint: displayWidget,
+            items: items.map((item) {
+              final isSelected = item.value == value;
+              return DropdownMenuItem<T>(
+                value: item.value,
+                child: Text(
+                  (item.child as Text).data ?? '',
+                  style: TextStyle(
+                    color:
+                        isSelected ? tlThemeConfig.accentColor : Colors.black45,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              );
+            }).toList(),
             style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black45,
-                fontWeight: FontWeight.bold),
+              fontSize: 14,
+              color: Colors.black45,
+              fontWeight: FontWeight.bold,
+            ),
             onChanged: onChanged,
           ),
         ],

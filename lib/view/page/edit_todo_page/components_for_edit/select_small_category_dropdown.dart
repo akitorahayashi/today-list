@@ -23,54 +23,26 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-
-    final smallCats = corrWorkspace.smallCategories[bigCategoryID] ?? [];
+    final smallCategories = corrWorkspace.smallCategories[bigCategoryID] ?? [];
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
       child: DropdownButton<TLToDoCategory>(
-        iconEnabledColor: tlThemeData.accentColor,
         isExpanded: true,
+        iconEnabledColor: tlThemeData.accentColor,
         hint: Text(
-          smallCategoryID == null
-              ? "小カテゴリー"
-              : smallCats
-                  .firstWhere(
-                    (cat) => cat.id == smallCategoryID,
-                    orElse: () => const TLToDoCategory(
-                        id: '', parentBigCategoryID: null, name: '小カテゴリー'),
-                  )
-                  .name,
+          getSelectedCategoryName(smallCategories),
           style: const TextStyle(
-              color: Colors.black45, fontWeight: FontWeight.bold),
+            color: Colors.black45,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        style:
-            const TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
-        items: [
-          TLToDoCategory(
-              id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
-          ...smallCats,
-          if (bigCategoryID != corrWorkspace.id)
-            const TLToDoCategory(
-                id: "---createSmallCategory",
-                parentBigCategoryID: null,
-                name: "新しく作る"),
-        ].map((item) {
-          return DropdownMenuItem(
-            value: item,
-            child: Text(
-              item.name,
-              style: item.id == smallCategoryID
-                  ? TextStyle(
-                      color: tlThemeData.accentColor,
-                      fontWeight: FontWeight.bold)
-                  : TextStyle(
-                      color: Colors.black.withOpacity(0.5),
-                      fontWeight: FontWeight.bold),
-            ),
-          );
-        }).toList(),
-        onChanged: (TLToDoCategory? selected) async {
+        style: const TextStyle(
+          color: Colors.black45,
+          fontWeight: FontWeight.bold,
+        ),
+        items: buildDropdownItems(smallCategories, tlThemeData),
+        onChanged: (selected) async {
           if (selected == null) return;
           if (selected.id == corrWorkspace.id) {
             onSelected(null);
@@ -85,5 +57,48 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
         },
       ),
     );
+  }
+
+  // MARK: - 選択中の小カテゴリー名を取得
+  String getSelectedCategoryName(List<TLToDoCategory> smallCategories) {
+    if (smallCategoryID == null) return "小カテゴリー";
+
+    return smallCategories
+        .firstWhere(
+          (cat) => cat.id == smallCategoryID,
+          orElse: () =>
+              TLToDoCategory(id: '', parentBigCategoryID: null, name: '小カテゴリー'),
+        )
+        .name;
+  }
+
+  // MARK: - ドロップダウンリストを生成
+  List<DropdownMenuItem<TLToDoCategory>> buildDropdownItems(
+      List<TLToDoCategory> smallCategories, TLThemeConfig theme) {
+    final items = [
+      TLToDoCategory(
+          id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
+      ...smallCategories,
+      if (bigCategoryID != corrWorkspace.id)
+        TLToDoCategory(
+            id: "---createSmallCategory",
+            parentBigCategoryID: null,
+            name: "新しく作る"),
+    ];
+
+    return items.map((item) {
+      final isSelected = item.id == smallCategoryID;
+      return DropdownMenuItem(
+        value: item,
+        child: Text(
+          item.name,
+          style: TextStyle(
+            color:
+                isSelected ? theme.accentColor : Colors.black.withOpacity(0.5),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
+    }).toList();
   }
 }

@@ -9,13 +9,11 @@ import 'package:today_list/redux/action/tl_todo_category_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/styles.dart';
 import 'package:today_list/util/tl_uuid_generator.dart';
-import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 
 void showAddCategoryBottomSheet({
   required BuildContext context,
   required TLWorkspace corrWorkspace,
   required String? parentBigCategoryID,
-  required WidgetRef ref,
 }) {
   showModalBottomSheet(
     context: context,
@@ -27,25 +25,22 @@ void showAddCategoryBottomSheet({
     builder: (context) => AddCategoryBottomSheet(
       corrWorkspace: corrWorkspace,
       parentBigCategoryID: parentBigCategoryID,
-      ref: ref,
     ),
   );
 }
 
-class AddCategoryBottomSheet extends HookWidget {
+class AddCategoryBottomSheet extends HookConsumerWidget {
   final TLWorkspace corrWorkspace;
   final String? parentBigCategoryID;
-  final WidgetRef ref;
 
   const AddCategoryBottomSheet({
     super.key,
     required this.corrWorkspace,
     required this.parentBigCategoryID,
-    required this.ref,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig theme = TLTheme.of(context);
     final selectedBigCategoryID = useState<String?>(parentBigCategoryID);
     final enteredCategoryTitle = useState<String>("");

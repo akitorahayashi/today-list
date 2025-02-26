@@ -105,7 +105,7 @@ class _NoTasksMessage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(
-          isNightTime ? CupertinoIcons.moon_fill : CupertinoIcons.square_list,
+          isNightTime ? CupertinoIcons.moon_fill : CupertinoIcons.sun_max,
           size: 80,
           color: Colors.grey,
         ),
@@ -115,7 +115,7 @@ class _NoTasksMessage extends StatelessWidget {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.grey[700],
+            color: Colors.grey,
           ),
         ),
       ],

@@ -7,8 +7,6 @@ part 'generate/tl_app_state.g.dart';
 
 // $ dart run build_runner build
 
-// const String noneID = "defaultID";
-
 @freezed
 class TLAppState with _$TLAppState {
   const TLAppState._();

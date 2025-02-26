@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/slidable/slidable_for_workspace_card.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
@@ -81,12 +80,6 @@ class ChangeWorkspaceCard extends ConsumerWidget {
     ref.read(tlAppStateProvider.notifier).updateState(
         TLAppStateAction.changeCurrentWorkspaceID(corrWorkspace.id));
 
-    if (ref.context.mounted) {
-      Navigator.pop(ref.context);
-      TLSingleOptionDialog(
-        title: corrWorkspace.name,
-        message: "switched!",
-      ).show(context: ref.context);
-    }
+    Navigator.pop(ref.context);
   }
 }
