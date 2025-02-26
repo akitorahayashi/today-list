@@ -60,7 +60,7 @@ class CreateWKSettingsCard extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 16.0),
+                padding: const EdgeInsets.only(top: 16.0, bottom: 12.0),
                 child: Focus(
                   onFocusChange: (hasFocus) =>
                       showBottomNavBar.value = !hasFocus,
@@ -81,6 +81,9 @@ class CreateWKSettingsCard extends HookConsumerWidget {
                         color: Colors.black45,
                       ),
                       enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black45),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black45),
                       ),
                     ),
@@ -112,7 +115,7 @@ class CreateWKSettingsCard extends HookConsumerWidget {
                   const DropdownMenuItem<int?>(
                     value: null,
                     child: Text(
-                      "Not selected",
+                      "なし",
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
@@ -138,7 +141,7 @@ class CreateWKSettingsCard extends HookConsumerWidget {
                     const DropdownMenuItem<int?>(
                       value: null,
                       child: Text(
-                        "Not selected",
+                        "なし",
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -191,6 +194,8 @@ class _DropdownWidget<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tlThemeConfig = TLTheme.of(context);
+
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Column(
@@ -198,14 +203,29 @@ class _DropdownWidget<T> extends StatelessWidget {
         children: [
           TCWHeader(text: label),
           DropdownButton<T>(
+            dropdownColor: tlThemeConfig.whiteBasedColor,
             isExpanded: true,
-            iconEnabledColor: TLTheme.of(context).accentColor,
+            iconEnabledColor: tlThemeConfig.accentColor,
             value: value,
-            items: items,
+            items: items.map((item) {
+              final isSelected = item.value == value;
+              return DropdownMenuItem<T>(
+                value: item.value,
+                child: Text(
+                  (item.child as Text).data ?? '',
+                  style: TextStyle(
+                    color:
+                        isSelected ? tlThemeConfig.accentColor : Colors.black45,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              );
+            }).toList(),
             style: const TextStyle(
-                fontSize: 14,
-                color: Colors.black45,
-                fontWeight: FontWeight.bold),
+              fontSize: 14,
+              color: Colors.black45,
+              fontWeight: FontWeight.bold,
+            ),
             onChanged: onChanged,
           ),
         ],

@@ -15,20 +15,31 @@ class SelectTodayOrWheneverButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
+
     return Padding(
       padding: const EdgeInsets.only(top: 12.0),
       child: ToggleButtons(
+        // レイアウト
         constraints: const BoxConstraints(
           minHeight: 35,
           minWidth: 140,
         ),
-        fillColor: tlThemeData.accentColor.withOpacity(0.1),
-        selectedColor: tlThemeData.accentColor,
-        color: Colors.black54,
+
+        // スタイル
+        fillColor: tlThemeData.accentColor.withValues(alpha: 0.1), // 透明度を調整
+        selectedColor: tlThemeData.accentColor, // 選択時の文字色
+        color: Colors.black54, // 未選択時の文字色
+        splashColor:
+            tlThemeData.accentColor.withValues(alpha: 0.1), // タップ時のスプラッシュを無効化
+        hoverColor: Colors.transparent, // ホバー時のエフェクトを無効化
+
+        // 動作
         isSelected: [ifInToday, !ifInToday],
         onPressed: (int index) {
-          onChanged(index == 0); // true なら今日, falseならいつでも
+          onChanged(index == 0); // true なら「今日」、false なら「いつでも」
         },
+
+        // ボタンの内容
         children: const [
           Text("今日"),
           Text(" いつでも "),

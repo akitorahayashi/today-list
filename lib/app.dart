@@ -20,10 +20,13 @@ class TodayListApp extends ConsumerWidget {
       data:
           // isDarkMode ? selectedThemeType.darkConfig :
           selectedThemeType.config,
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Today List",
-        home: HomePage(),
+        theme: ThemeData(
+          primarySwatch: selectedThemeType.config.accentColor,
+        ),
+        home: const HomePage(),
       ),
     );
   }

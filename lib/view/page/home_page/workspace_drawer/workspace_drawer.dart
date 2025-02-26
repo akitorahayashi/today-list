@@ -17,9 +17,8 @@ class TLWorkspaceDrawer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
 
-    final workspaces = ref.watch(
-      tlAppStateProvider.select((state) => state.tlWorkspaces),
-    );
+    final workspaces =
+        ref.watch(tlAppStateProvider.select((state) => state.tlWorkspaces));
     return Drawer(
       child: Stack(
         children: [

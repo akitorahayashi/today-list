@@ -102,9 +102,8 @@ class _AddToDoCategoryButton extends ConsumerWidget {
         onPressed: () {
           showAddCategoryBottomSheet(
             context: context,
-            corrWorkspace: corrWorkspace, // TLWorkspace インスタンス
-            parentBigCategoryID: null, // 選択中の親カテゴリーID（null可）
-            ref: ref, // Riverpodのref
+            corrWorkspace: corrWorkspace,
+            parentBigCategoryID: null,
           );
         },
       ),

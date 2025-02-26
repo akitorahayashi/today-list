@@ -21,64 +21,75 @@ class SelectBigCategoryDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
 
-    final bigCategories = corrWorkspace.bigCategories;
-
     return Padding(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
       child: DropdownButton<TLToDoCategory>(
-        iconEnabledColor: tlThemeData.accentColor,
         isExpanded: true,
+        iconEnabledColor: tlThemeData.accentColor,
         hint: Text(
-          bigCategoryID == corrWorkspace.id
-              ? "大カテゴリー"
-              : (() {
-                  final matchingCategories =
-                      bigCategories.where((c) => c.id == bigCategoryID);
-                  return matchingCategories.isNotEmpty
-                      ? matchingCategories.first.name
-                      : "不明なカテゴリー";
-                })(),
+          getSelectedCategoryName(),
           style: const TextStyle(
-              color: Colors.black45, fontWeight: FontWeight.bold),
+            color: Colors.black45,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        style:
-            const TextStyle(color: Colors.black45, fontWeight: FontWeight.bold),
-        items: [
-          TLToDoCategory(
-              id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
-          ...bigCategories,
-          const TLToDoCategory(
-              id: "---createBigCategory",
-              parentBigCategoryID: null,
-              name: "新しく作る"),
-        ].map((item) {
-          return DropdownMenuItem(
-            value: item,
-            child: Text(
-              item.name,
-              style: item.id == bigCategoryID
-                  ? TextStyle(
-                      color: tlThemeData.accentColor,
-                      fontWeight: FontWeight.bold)
-                  : TextStyle(
-                      color: Colors.black.withOpacity(0.5),
-                      fontWeight: FontWeight.bold),
-            ),
-          );
-        }).toList(),
-        onChanged: (TLToDoCategory? selected) {
+        style: const TextStyle(
+          color: Colors.black45,
+          fontWeight: FontWeight.bold,
+        ),
+        items: buildDropdownItems(tlThemeData),
+        onChanged: (selected) {
           if (selected == null) return;
           if (selected.id == "---createBigCategory") {
             AddCategoryDialog(
               corrWorkspace: corrWorkspace,
               parentBigCategoryID: null,
             ).show(context: context);
-            return;
           } else {
             onSelected(selected.id);
           }
         },
       ),
     );
+  }
+
+  // MARK: - 選択中のカテゴリ名を取得
+  String getSelectedCategoryName() {
+    if (bigCategoryID == corrWorkspace.id) return "大カテゴリー";
+
+    final matchingCategory = corrWorkspace.bigCategories.firstWhere(
+      (c) => c.id == bigCategoryID,
+      orElse: () =>
+          TLToDoCategory(id: "", parentBigCategoryID: null, name: "不明なカテゴリー"),
+    );
+
+    return matchingCategory.name;
+  }
+
+  // MARK: - ドロップダウンリストを生成
+  List<DropdownMenuItem<TLToDoCategory>> buildDropdownItems(
+      TLThemeConfig theme) {
+    final items = [
+      TLToDoCategory(
+          id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
+      ...corrWorkspace.bigCategories,
+      TLToDoCategory(
+          id: "---createBigCategory", parentBigCategoryID: null, name: "新しく作る"),
+    ];
+
+    return items.map((item) {
+      final isSelected = item.id == bigCategoryID;
+      return DropdownMenuItem(
+        value: item,
+        child: Text(
+          item.name,
+          style: TextStyle(
+            color:
+                isSelected ? theme.accentColor : Colors.black.withOpacity(0.5),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
+    }).toList();
   }
 }

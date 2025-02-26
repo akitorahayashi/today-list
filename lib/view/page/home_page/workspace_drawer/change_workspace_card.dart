@@ -81,12 +81,6 @@ class ChangeWorkspaceCard extends ConsumerWidget {
     ref.read(tlAppStateProvider.notifier).updateState(
         TLAppStateAction.changeCurrentWorkspaceID(corrWorkspace.id));
 
-    if (ref.context.mounted) {
-      Navigator.pop(ref.context);
-      TLSingleOptionDialog(
-        title: corrWorkspace.name,
-        message: "switched!",
-      ).show(context: ref.context);
-    }
+    Navigator.pop(ref.context);
   }
 }
