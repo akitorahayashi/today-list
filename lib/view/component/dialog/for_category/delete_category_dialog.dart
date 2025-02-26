@@ -9,6 +9,7 @@ import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/styles.dart';
+import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
 
 class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
   final TLWorkspace corrWorkspace;
@@ -23,21 +24,21 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
   // MARK: - UI (Build)
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig theme = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
 
-    return Dialog(
-      backgroundColor: theme.alertBackgroundColor,
+    return TLDialog(
+      corrThemeConfig: tlThemeConfig,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _DialogTitle(theme: theme),
+            _DialogTitle(theme: tlThemeConfig),
             const _WarningText(),
             _ActionButtons(
               context: context,
               ref: ref,
-              theme: theme,
+              theme: tlThemeConfig,
               corrWorkspace: corrWorkspace,
               categoryToDelete: categoryToDelete,
             ),
@@ -56,9 +57,9 @@ class _DialogTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 16),
+      padding: const EdgeInsets.only(top: 16.0, bottom: 32),
       child: Text(
-        "Are you sure you want to\ndelete this category?",
+        "Delete This Category?",
         style: TextStyle(
           color: theme.accentColor,
           fontWeight: FontWeight.bold,
@@ -77,7 +78,7 @@ class _WarningText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Text(
-        "* Related ToDos and categories will be deleted together.",
+        "Related ToDos and categories will be deleted together",
         style: TextStyle(
           color: Colors.black.withOpacity(0.6),
           fontWeight: FontWeight.w600,

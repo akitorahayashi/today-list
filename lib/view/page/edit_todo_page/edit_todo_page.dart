@@ -115,7 +115,7 @@ class EditToDoPage extends HookConsumerWidget {
     return Scaffold(
       appBar: TLAppBar(
         context: context,
-        pageTitle: "ToDo",
+        pageTitle: corrWorkspace.name,
         leadingIconData: Icons.arrow_back_ios,
         leadingButtonOnPressed: () {
           if (toDoTitleController.text.isEmpty) {

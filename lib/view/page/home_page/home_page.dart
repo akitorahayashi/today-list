@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
+import 'package:popover/popover.dart';
 import 'package:today_list/view/page/home_page/tab_content/todo_list_in_workspace_in_today_and_whenever.dart';
 import 'package:today_list/view/page/home_page/tab_content/todo_list_of_all_workspaces_in_today.dart';
 import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/center_button_of_home_bottom_navbar.dart';
@@ -33,7 +33,6 @@ class HomePage extends ConsumerStatefulWidget {
 // MARK: - HomePage State
 class _HomePageState extends ConsumerState<HomePage>
     with TickerProviderStateMixin {
-  bool _accentColorIsNotChanged = true;
   late TabController _tabController;
   final GlobalKey<ScaffoldState> _homePageScaffoldKey =
       GlobalKey<ScaffoldState>();
@@ -52,13 +51,7 @@ class _HomePageState extends ConsumerState<HomePage>
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_accentColorIsNotChanged) {
-        _accentColorIsNotChanged = false;
-        setState(() {});
-        FlutterNativeSplash.remove();
-      }
-    });
+    FlutterNativeSplash.remove();
 
     final tlAppState = ref.read(tlAppStateProvider);
 
@@ -233,9 +226,23 @@ class _HomePageState extends ConsumerState<HomePage>
               },
             ).show(context: context);
           } else {
-            // workspaceを追加するボタン
-            const AddOrEditWorkspaceDialog(oldWorkspaceId: null)
-                .show(context: context);
+            TLYesNoDialog(
+              title: "Do you want to delete\nchecked ToDos?",
+              message: null,
+              yesAction: () async {
+                Navigator.pop(context);
+                // Delete checked ToDos (Today) in the workspace List
+                ref.read(tlAppStateProvider.notifier).updateState(
+                      TLAppStateAction
+                          .deleteAllCheckedToDosInTodayInWorkspaceList(
+                              tlAppState.tlWorkspaces),
+                    );
+                if (context.mounted) {
+                  const TLSingleOptionDialog(title: "Deletion completed")
+                      .show(context: context);
+                }
+              },
+            ).show(context: context);
           }
         },
 

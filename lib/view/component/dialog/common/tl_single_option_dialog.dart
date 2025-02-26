@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
 import '../../../../model/design/tl_theme/tl_theme.dart';
 import '../tl_base_dialog_mixin.dart';
 import '../../../../styles.dart';
@@ -18,9 +19,9 @@ class TLSingleOptionDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig corrThemeData = TLTheme.of(context);
-    return Dialog(
-      backgroundColor: corrThemeData.alertBackgroundColor,
+    final TLThemeConfig corrThemeConfig = TLTheme.of(context);
+    return TLDialog(
+      corrThemeConfig: corrThemeConfig,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
         child: Padding(
@@ -34,7 +35,7 @@ class TLSingleOptionDialog extends ConsumerWidget with TLBaseDialogMixin {
                 child: Text(
                   title,
                   style: TextStyle(
-                      color: corrThemeData.accentColor,
+                      color: corrThemeConfig.accentColor,
                       fontWeight: FontWeight.bold,
                       fontSize: 20),
                 ),
@@ -56,8 +57,8 @@ class TLSingleOptionDialog extends ConsumerWidget with TLBaseDialogMixin {
                 ),
               TextButton(
                   onPressed: () => Navigator.pop(context),
-                  style:
-                      alertButtonStyle(accentColor: corrThemeData.accentColor),
+                  style: alertButtonStyle(
+                      accentColor: corrThemeConfig.accentColor),
                   child: const Text("OK"))
             ],
           ),

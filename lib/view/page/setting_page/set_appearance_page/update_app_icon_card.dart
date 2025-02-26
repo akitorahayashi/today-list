@@ -34,10 +34,13 @@ class UpdateAppIconCard extends ConsumerWidget {
                     title: "Change App Icon",
                     message: "Change the app icon to match the theme?",
                     yesAction: () {
-                      Navigator.pop(context);
-                      TLVibrationService.vibrate();
-                      settingDataNotifier.changeIcon(
-                          themeName: tlThemeConfig.themeName);
+                      if (context.mounted) {
+                        print(context);
+                        Navigator.pop(context);
+                        TLVibrationService.vibrate();
+                        settingDataNotifier.changeIcon(
+                            themeName: tlThemeConfig.themeName);
+                      }
                     },
                   ).show(context: context);
                 },

@@ -8,6 +8,7 @@ import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/styles.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
+import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
 
 class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
   final TLThemeType corrThemeType;
@@ -19,8 +20,8 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
     final TLThemeConfig corrThemeConfig = corrThemeType.config;
     final tlAppStateNotifier = ref.read(tlAppStateProvider.notifier);
 
-    return Dialog(
-      backgroundColor: corrThemeConfig.alertBackgroundColor,
+    return TLDialog(
+      corrThemeConfig: corrThemeConfig,
       child: DefaultTextStyle(
         style: const TextStyle(
             fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black45),

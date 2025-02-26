@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
+import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
@@ -60,19 +61,25 @@ class _AddOrEditWorkspaceDialogState
   // MARK: - UI (Build)
   @override
   Widget build(BuildContext context) {
-    final TLThemeConfig theme = TLTheme.of(context);
+    final TLThemeConfig themeConfig = TLTheme.of(context);
     final List<TLWorkspace> workspaces = ref.watch(
       tlAppStateProvider.select((state) => state.tlWorkspaces),
     );
 
-    return Dialog(
-      backgroundColor: theme.alertBackgroundColor,
+    return TLDialog(
+      corrThemeConfig: themeConfig,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildDialogTitle(),
-          _buildWorkspaceTextField(theme),
-          _buildActionButtons(context, theme, workspaces),
+          Padding(
+            padding: const EdgeInsets.only(top: 28.0, bottom: 32),
+            child: _buildDialogTitle(),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 28.0),
+            child: _buildWorkspaceTextField(themeConfig),
+          ),
+          _buildActionButtons(context, themeConfig, workspaces),
           const SizedBox(height: 16),
         ],
       ),
@@ -81,38 +88,32 @@ class _AddOrEditWorkspaceDialogState
 
   // MARK: - UI Components
   Widget _buildDialogTitle() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 28.0),
-      child: Text(
-        "Workspace",
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: Colors.black.withOpacity(0.4),
-        ),
+    return Text(
+      "Workspace",
+      style: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: Colors.black.withOpacity(0.4),
       ),
     );
   }
 
   Widget _buildWorkspaceTextField(TLThemeConfig theme) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 30.0),
-      child: SizedBox(
-        width: 230,
-        child: TextField(
-          autofocus: true,
-          cursorColor: theme.accentColor,
-          controller: _workspaceNameInputController,
-          style: TextStyle(
-            color: Colors.black.withOpacity(0.5),
-            fontWeight: FontWeight.w600,
-          ),
-          decoration: tlInputDecoration(
-            context: context,
-            labelText: "New Workspace Name",
-            icon: null,
-            suffixIcon: null,
-          ),
+    return SizedBox(
+      width: 230,
+      child: TextField(
+        autofocus: true,
+        cursorColor: theme.accentColor,
+        controller: _workspaceNameInputController,
+        style: TextStyle(
+          color: Colors.black.withOpacity(0.5),
+          fontWeight: FontWeight.w600,
+        ),
+        decoration: tlInputDecoration(
+          context: context,
+          labelText: "New Workspace Name",
+          icon: null,
+          suffixIcon: null,
         ),
       ),
     );

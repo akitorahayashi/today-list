@@ -11,6 +11,7 @@ import 'package:today_list/styles.dart';
 import 'package:today_list/util/tl_uuid_generator.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
+import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
 
 class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
   final TLWorkspace corrWorkspace;
@@ -24,55 +25,59 @@ class AddCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig theme = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final selectedBigCategoryID = useState<String?>(parentBigCategoryID);
     final enteredCategoryTitle = useState<String>("");
 
-    print(parentBigCategoryID);
-
-    return AlertDialog(
-      backgroundColor: theme.alertBackgroundColor,
-      content: Column(
+    return TLDialog(
+      corrThemeConfig: tlThemeConfig,
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _BigCategoryDropdown(
-            theme: theme,
-            corrWorkspace: corrWorkspace,
-            selectedBigCategoryID: selectedBigCategoryID.value,
-            onChanged: (String? newBigCategoryId) {
-              if (newBigCategoryId != corrWorkspace.id) {
-                selectedBigCategoryID.value = newBigCategoryId;
-              } else {
-                selectedBigCategoryID.value = null;
-              }
-            },
+          Padding(
+            padding: const EdgeInsets.only(top: 32, bottom: 18.0),
+            child: _BigCategoryDropdown(
+              theme: tlThemeConfig,
+              corrWorkspace: corrWorkspace,
+              selectedBigCategoryID: selectedBigCategoryID.value,
+              onChanged: (String? newBigCategoryId) {
+                if (newBigCategoryId != corrWorkspace.id) {
+                  selectedBigCategoryID.value = newBigCategoryId;
+                } else {
+                  selectedBigCategoryID.value = null;
+                }
+              },
+            ),
           ),
           _NewCategoryNameInputField(
-            theme: theme,
+            theme: tlThemeConfig,
             enteredCategoryTitle: enteredCategoryTitle,
           ),
-          _ActionButtons(
-            theme: theme,
-            enteredCategoryTitle: enteredCategoryTitle,
-            onClose: () => Navigator.pop(context),
-            onSubmit: () {
-              final categoryToAdd = TLToDoCategory(
-                id: TLUUIDGenerator.generate(),
-                parentBigCategoryID: selectedBigCategoryID.value,
-                name: enteredCategoryTitle.value,
-              );
-              ref.read(tlAppStateProvider.notifier).updateState(
-                    TLToDoCategoryAction.addCategory(
-                      corrWorkspace: corrWorkspace,
-                      newCategory: categoryToAdd,
-                    ),
-                  );
-              Navigator.pop(context, categoryToAdd);
-              TLSingleOptionDialog(
-                title: categoryToAdd.name,
-                message: "Category has been added!",
-              ).show(context: context);
-            },
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: _ActionButtons(
+              theme: tlThemeConfig,
+              enteredCategoryTitle: enteredCategoryTitle,
+              onClose: () => Navigator.pop(context),
+              onSubmit: () {
+                final categoryToAdd = TLToDoCategory(
+                  id: TLUUIDGenerator.generate(),
+                  parentBigCategoryID: selectedBigCategoryID.value,
+                  name: enteredCategoryTitle.value,
+                );
+                ref.read(tlAppStateProvider.notifier).updateState(
+                      TLToDoCategoryAction.addCategory(
+                        corrWorkspace: corrWorkspace,
+                        newCategory: categoryToAdd,
+                      ),
+                    );
+                Navigator.pop(context, categoryToAdd);
+                TLSingleOptionDialog(
+                  title: categoryToAdd.name,
+                  message: "Category has been added!",
+                ).show(context: context);
+              },
+            ),
           ),
         ],
       ),
@@ -95,35 +100,32 @@ class _BigCategoryDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 40, bottom: 18.0),
-      child: SizedBox(
-        width: 230,
-        child: DropdownButton<String>(
-          isExpanded: true,
-          hint: _buildDropdownHint(selectedBigCategoryID, corrWorkspace),
-          items: [
-            TLToDoCategory(
-                id: corrWorkspace.id,
-                parentBigCategoryID: null,
-                name: "UnSelect"),
-            ...corrWorkspace.bigCategories,
-          ].map((TLToDoCategory bigCategory) {
-            return DropdownMenuItem(
-              value: bigCategory.id,
-              child: Text(
-                bigCategory.name,
-                style: TextStyle(
-                  color: bigCategory.id == selectedBigCategoryID
-                      ? theme.accentColor
-                      : Colors.black.withOpacity(0.5),
-                  fontWeight: FontWeight.bold,
-                ),
+    return SizedBox(
+      width: 230,
+      child: DropdownButton<String>(
+        isExpanded: true,
+        hint: _buildDropdownHint(selectedBigCategoryID, corrWorkspace),
+        items: [
+          TLToDoCategory(
+              id: corrWorkspace.id,
+              parentBigCategoryID: null,
+              name: "UnSelect"),
+          ...corrWorkspace.bigCategories,
+        ].map((TLToDoCategory bigCategory) {
+          return DropdownMenuItem(
+            value: bigCategory.id,
+            child: Text(
+              bigCategory.name,
+              style: TextStyle(
+                color: bigCategory.id == selectedBigCategoryID
+                    ? theme.accentColor
+                    : Colors.black.withOpacity(0.5),
+                fontWeight: FontWeight.bold,
               ),
-            );
-          }).toList(),
-          onChanged: onChanged,
-        ),
+            ),
+          );
+        }).toList(),
+        onChanged: onChanged,
       ),
     );
   }

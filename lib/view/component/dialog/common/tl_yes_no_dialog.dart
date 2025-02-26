@@ -5,6 +5,7 @@ import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/styles.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
+import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
 
 class TLYesNoDialog extends ConsumerWidget with TLBaseDialogMixin {
   final String title;
@@ -20,9 +21,9 @@ class TLYesNoDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
-    return Dialog(
-      backgroundColor: tlThemeData.alertBackgroundColor,
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
+    return TLDialog(
+      corrThemeConfig: tlThemeConfig,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
         child: Column(
@@ -34,7 +35,7 @@ class TLYesNoDialog extends ConsumerWidget with TLBaseDialogMixin {
               child: Text(
                 title,
                 style: TextStyle(
-                    color: tlThemeData.accentColor,
+                    color: tlThemeConfig.accentColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
@@ -61,12 +62,13 @@ class TLYesNoDialog extends ConsumerWidget with TLBaseDialogMixin {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    style:
-                        alertButtonStyle(accentColor: tlThemeData.accentColor),
+                    style: alertButtonStyle(
+                        accentColor: tlThemeConfig.accentColor),
                     child: const Text("Close")),
                 TextButton(
                   onPressed: yesAction,
-                  style: alertButtonStyle(accentColor: tlThemeData.accentColor),
+                  style:
+                      alertButtonStyle(accentColor: tlThemeConfig.accentColor),
                   child: const Text("Yes"),
                 ),
               ],

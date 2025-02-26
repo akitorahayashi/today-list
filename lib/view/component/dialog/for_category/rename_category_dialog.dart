@@ -11,6 +11,7 @@ import 'package:today_list/styles.dart';
 import 'package:today_list/util/tl_validation.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
+import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
 
 class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
   final TLWorkspace corrWorkspace;
@@ -25,12 +26,13 @@ class RenameCategoryDialog extends HookConsumerWidget with TLBaseDialogMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final enteredCategoryTitle = useState<String>(categoryToRename.name);
+    final tlThemeConfig = TLTheme.of(context);
 
     final navigator = Navigator.of(context);
 
-    return AlertDialog(
-      backgroundColor: TLTheme.of(context).alertBackgroundColor,
-      content: Column(
+    return TLDialog(
+      corrThemeConfig: tlThemeConfig,
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
