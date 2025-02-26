@@ -93,6 +93,14 @@ class CreateWKSettingsCard extends HookConsumerWidget {
               _DropdownWidget(
                 label: "Workspace",
                 value: selectedWorkspaceIndex.value,
+                displayWidget: Text(
+                  workspaces[selectedWorkspaceIndex.value].name,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black45, // 未選択時の色
+                  ),
+                ),
                 items: workspaces
                     .asMap()
                     .entries
@@ -111,9 +119,15 @@ class CreateWKSettingsCard extends HookConsumerWidget {
               _DropdownWidget(
                 label: "Big Category",
                 value: selectedBCIdx.value,
+                displayWidget: Text(
+                  selectedBCIdx.value == null
+                      ? "なし"
+                      : currentWorkspace
+                          .bigCategories[selectedBCIdx.value!].name,
+                ),
                 items: [
                   const DropdownMenuItem<int?>(
-                    value: null,
+                    value: -1,
                     child: Text(
                       "なし",
                       style: TextStyle(
@@ -129,7 +143,11 @@ class CreateWKSettingsCard extends HookConsumerWidget {
                       )
                 ],
                 onChanged: (newBCIdx) {
-                  selectedBCIdx.value = newBCIdx;
+                  if (newBCIdx == -1) {
+                    selectedBCIdx.value = null;
+                  } else {
+                    selectedBCIdx.value = newBCIdx;
+                  }
                   selectedSCIdx.value = null;
                 },
               ),
@@ -137,9 +155,18 @@ class CreateWKSettingsCard extends HookConsumerWidget {
                 _DropdownWidget(
                   label: "Small Category",
                   value: selectedSCIdx.value,
+                  displayWidget: Text(
+                    selectedSCIdx.value == null
+                        ? "なし"
+                        : currentWorkspace
+                            .smallCategories[currentWorkspace
+                                .bigCategories[selectedBCIdx.value!]
+                                .id]![selectedSCIdx.value!]
+                            .name,
+                  ),
                   items: [
                     const DropdownMenuItem<int?>(
-                      value: null,
+                      value: -1,
                       child: Text(
                         "なし",
                         style: TextStyle(
@@ -159,7 +186,11 @@ class CreateWKSettingsCard extends HookConsumerWidget {
                         )
                   ],
                   onChanged: (newSCIdx) {
-                    selectedSCIdx.value = newSCIdx;
+                    if (newSCIdx == -1) {
+                      selectedSCIdx.value = null;
+                    } else {
+                      selectedSCIdx.value = newSCIdx;
+                    }
                   },
                 ),
               _ControlButtons(
@@ -182,12 +213,14 @@ class CreateWKSettingsCard extends HookConsumerWidget {
 class _DropdownWidget<T> extends StatelessWidget {
   final String label;
   final T value;
+  final Widget displayWidget;
   final List<DropdownMenuItem<T>> items;
   final ValueChanged<T?> onChanged;
 
   const _DropdownWidget({
     required this.label,
     required this.value,
+    required this.displayWidget,
     required this.items,
     required this.onChanged,
   });
@@ -206,7 +239,7 @@ class _DropdownWidget<T> extends StatelessWidget {
             dropdownColor: tlThemeConfig.whiteBasedColor,
             isExpanded: true,
             iconEnabledColor: tlThemeConfig.accentColor,
-            value: value,
+            hint: displayWidget,
             items: items.map((item) {
               final isSelected = item.value == value;
               return DropdownMenuItem<T>(
