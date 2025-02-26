@@ -255,39 +255,7 @@ class _HomePageState extends ConsumerState<HomePage>
       // MARK: - on FAB Pressed
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: CenterButtonOfHomeBottomNavBar(
-          doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
-          onPressed: () {
-            if (doesCurrentWorkspaceExist) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return EditToDoPage(
-                      corrWorkspaceID: currentWorkspaceNullAble.id,
-                    );
-                  },
-                ),
-              );
-            } else {
-              TLYesNoDialog(
-                title: "Do you want to delete\nchecked ToDos?",
-                message: null,
-                yesAction: () async {
-                  Navigator.pop(context);
-                  // Delete checked ToDos (Today) in the workspace List
-                  ref.read(tlAppStateProvider.notifier).updateState(
-                        TLAppStateAction
-                            .deleteAllCheckedToDosInTodayInWorkspaceList(
-                                tlAppState.tlWorkspaces),
-                      );
-                  if (context.mounted) {
-                    const TLSingleOptionDialog(title: "Deletion completed")
-                        .show(context: context);
-                  }
-                },
-              ).show(context: context);
-            }
-          }),
+          doesCurrentWorkspaceExist: doesCurrentWorkspaceExist),
     );
   }
 }
