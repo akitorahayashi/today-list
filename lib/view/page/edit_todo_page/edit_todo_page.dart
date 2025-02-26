@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/main.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/service/tl_ads.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
@@ -33,7 +34,7 @@ class EditToDoPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
-    final corrWorkspace = () {
+    final TLWorkspace corrWorkspace = () {
       final matches = tlAppState.tlWorkspaces
           .where((workspace) => workspace.id == corrWorkspaceID);
       return matches.isNotEmpty ? matches.first : null;
@@ -86,14 +87,15 @@ class EditToDoPage extends HookConsumerWidget {
     }
 
     Future<void> completeEditing() async {
-      if (toDoTitleController.text.trim().isEmpty) return;
+      // ToDoTitleInputControllerで実施済み
+      // if (toDoTitleController.text.trim().isEmpty) return;
 
       final appStateReducer = ref.read(tlAppStateProvider.notifier);
       final categoryID = smallCategoryID.value ?? bigCategoryID.value;
 
       final TLToDo newToDo = TLToDo(
         id: TLUUIDGenerator.generate(),
-        workspaceID: corrWorkspaceID,
+        workspaceID: corrWorkspace.id,
         categoryID: categoryID,
         isInToday: isToday.value,
         content: toDoTitleController.text,
@@ -101,7 +103,7 @@ class EditToDoPage extends HookConsumerWidget {
       );
 
       // MARK: - Add New ToDo
-      appStateReducer.updateState(TLToDoAction.addToDo(
+      await appStateReducer.updateState(TLToDoAction.addToDo(
         corrWorkspace: corrWorkspace,
         newToDo: newToDo,
       ));

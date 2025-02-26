@@ -24,6 +24,10 @@ class TLWorkspace with _$TLWorkspace {
 
   int getNumOfToDoInWorkspace({required bool ifInToday}) {
     int todoCount = 0;
+
+    final corrToDosOfWorkspaceID = categoryIDToToDos[id]!;
+    todoCount += corrToDosOfWorkspaceID.getToDos(true).length +
+        corrToDosOfWorkspaceID.getToDos(false).length;
     for (TLToDoCategory bigCategory in bigCategories) {
       todoCount += bigCategory.getNumberOfToDosInThisCategory(
           ifInToday: ifInToday, corrToDos: categoryIDToToDos[bigCategory.id]!);

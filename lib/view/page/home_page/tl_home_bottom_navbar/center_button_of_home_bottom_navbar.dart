@@ -20,10 +20,7 @@ class CenterButtonOfHomeBottomNavBar extends ConsumerWidget {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
 
-    final GlobalKey buttonKey = GlobalKey(); // ボタンの位置を特定するためのキー
-
     return TLCircularActionButton(
-      key: buttonKey,
       icon: Icons.add,
       backgroundColor: Colors.white,
       borderColor: Colors.black26,
@@ -43,14 +40,14 @@ class CenterButtonOfHomeBottomNavBar extends ConsumerWidget {
         } else {
           showPopover(
             context: context,
-            backgroundColor: tlThemeData.backgroundColor,
+            backgroundColor: tlThemeData.whiteBasedColor,
             direction: PopoverDirection.top,
             width: 250,
             height: 300,
             shadow: [
               BoxShadow(
                 color: tlThemeData.accentColor,
-                blurRadius: 5,
+                blurRadius: 8,
               ),
             ],
             bodyBuilder: (context) {
