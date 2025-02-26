@@ -63,7 +63,9 @@ class NotifyTodoOrStepIsEditedSnackBar {
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    quickChangeToToday ? "to Today" : "to Whenever",
+                    quickChangeToToday
+                        ? "Switch to Today"
+                        : "Switch to Whenever",
                     style: TextStyle(
                       color: accentColor,
                       fontWeight: FontWeight.w600,

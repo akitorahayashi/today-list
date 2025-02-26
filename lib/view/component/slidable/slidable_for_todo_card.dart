@@ -24,47 +24,27 @@ class SlidableForToDoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
 
     // MARK: - Colors
-    final backgroundColor = tlThemeData.canTapCardColor;
-    final foregroundColor = tlThemeData.accentColor;
+    final cardColor = tlThemeConfig.canTapCardColor;
+    final iconColor = tlThemeConfig.accentColor;
 
     return Slidable(
       enabled: !corrToDo.isChecked,
 
-      // MARK: - Delete ToDo
-      startActionPane: ActionPane(
-        motion: const ScrollMotion(),
-        extentRatio: 0.15,
-        children: [
-          SlidableAction(
-            autoClose: true,
-            backgroundColor: backgroundColor,
-            foregroundColor: foregroundColor,
-            onPressed: (context) => ref
-                .read(tlAppStateProvider.notifier)
-                .updateState(TLToDoAction.deleteToDo(
-                  corrWorkspace: corrWorkspace,
-                  corrToDo: corrToDo,
-                )),
-            icon: Icons.remove,
-          ),
-        ],
-      ),
-
       // MARK: - Edit / Move ToDo
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
-        extentRatio: 0.4,
+        extentRatio: 0.17,
         children: [
           // MARK: - Toggle Between Today and Whenever
           SlidableAction(
             autoClose: true,
             flex: 11,
             spacing: 8,
-            backgroundColor: backgroundColor,
-            foregroundColor: foregroundColor,
+            backgroundColor: cardColor,
+            foregroundColor: iconColor,
             onPressed: (context) {
               ref
                   .read(tlAppStateProvider.notifier)

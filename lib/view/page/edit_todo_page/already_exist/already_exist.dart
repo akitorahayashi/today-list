@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'model_of_todo_card.dart';
@@ -19,7 +20,7 @@ class AlreadyExist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // others
+    final tlThemeConfig = TLTheme.of(context);
     final String categoryOfThisToDo = smallCategoryID ?? bigCategoryID;
     final List<TLToDo> toDoArrayOfThisBlock = corrWorkspace
             .categoryIDToToDos[categoryOfThisToDo]
@@ -34,6 +35,7 @@ class AlreadyExist extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Card(
+        color: tlThemeConfig.whiteBasedColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

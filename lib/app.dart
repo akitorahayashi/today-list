@@ -24,9 +24,10 @@ class TodayListApp extends ConsumerWidget {
         debugShowCheckedModeBanner: false,
         title: "Today List",
         theme: ThemeData(
-          primarySwatch: selectedThemeType.config.accentColor,
+          useMaterial3: true,
+          splashFactory: NoSplash.splashFactory,
         ),
-        home: const HomePage(),
+        home: HomePage(),
       ),
     );
   }

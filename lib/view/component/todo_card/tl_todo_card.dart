@@ -55,25 +55,22 @@ class TLToDoCard extends ConsumerWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-            child: SlidableForToDoCard(
-              corrWorkspace: corrWorkspace,
-              corrToDo: corrToDo,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _BuildToDoContent(
-                    textColor: textColor,
+          child: SlidableForToDoCard(
+            corrWorkspace: corrWorkspace,
+            corrToDo: corrToDo,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _BuildToDoContent(
+                  textColor: textColor,
+                  corrToDo: corrToDo,
+                ),
+                if (corrToDo.steps.isNotEmpty)
+                  _BuildStepsList(
                     corrToDo: corrToDo,
+                    corrWorkspace: corrWorkspace,
                   ),
-                  if (corrToDo.steps.isNotEmpty)
-                    _BuildStepsList(
-                      corrToDo: corrToDo,
-                      corrWorkspace: corrWorkspace,
-                    ),
-                ],
-              ),
+              ],
             ),
           ),
         ),

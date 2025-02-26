@@ -32,7 +32,7 @@ class EditToDoPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
     final TLWorkspace corrWorkspace = () {
       final matches = tlAppState.tlWorkspaces
@@ -139,7 +139,7 @@ class EditToDoPage extends HookConsumerWidget {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(color: tlThemeData.backgroundColor),
+            decoration: BoxDecoration(color: tlThemeConfig.backgroundColor),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
           ),
@@ -147,6 +147,7 @@ class EditToDoPage extends HookConsumerWidget {
             children: [
               const SizedBox(height: 16),
               Card(
+                color: tlThemeConfig.whiteBasedColor,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)),
                 child: Column(
