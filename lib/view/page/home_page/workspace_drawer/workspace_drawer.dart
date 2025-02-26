@@ -60,7 +60,6 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                                     in workspaces) // 最初のワークスペースは固定
                                   ChangeWorkspaceCard(
                                     key: ValueKey(workspace.id),
-                                    isDefaultWorkspace: false,
                                     corrWorkspace: workspace,
                                   ),
                               ],

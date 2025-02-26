@@ -29,12 +29,25 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
     return TLDialog(
       corrThemeConfig: tlThemeConfig,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 8),
+        padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _DialogTitle(theme: tlThemeConfig),
-            const _WarningText(),
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0, bottom: 32),
+              child: Text(
+                "Delete This Category?",
+                style: TextStyle(
+                  color: tlThemeConfig.accentColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 16),
+              child: _WarningText(),
+            ),
             _ActionButtons(
               context: context,
               ref: ref,
@@ -49,40 +62,16 @@ class DeleteCategoryDialog extends ConsumerWidget with TLBaseDialogMixin {
   }
 }
 
-class _DialogTitle extends StatelessWidget {
-  final TLThemeConfig theme;
-
-  const _DialogTitle({required this.theme});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 32),
-      child: Text(
-        "Delete This Category?",
-        style: TextStyle(
-          color: theme.accentColor,
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-        ),
-      ),
-    );
-  }
-}
-
 class _WarningText extends StatelessWidget {
   const _WarningText();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Text(
-        "Related ToDos and categories will be deleted together",
-        style: TextStyle(
-          color: Colors.black.withOpacity(0.6),
-          fontWeight: FontWeight.w600,
-        ),
+    return Text(
+      "Related ToDos and categories will be deleted together",
+      style: TextStyle(
+        color: Colors.black.withOpacity(0.6),
+        fontWeight: FontWeight.w600,
       ),
     );
   }

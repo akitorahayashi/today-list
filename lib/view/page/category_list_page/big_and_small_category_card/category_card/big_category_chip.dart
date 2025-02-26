@@ -3,7 +3,7 @@ import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/view/component/dialog/for_category/select_edit_method_dialog.dart';
+import 'package:today_list/view/component/dialog/for_category/select_edit_category_method_dialog.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -47,7 +47,7 @@ class BigCategoryCard extends StatelessWidget {
       height: cardHeight,
       child: GestureDetector(
         onTap: () async {
-          await SelectEditMethodDialog(
+          await SelectEditCategoryMethodDialog(
             corrWorkspace: corrWorkspace,
             categoryOfThisPage: corrBigCategory,
           ).show(context: context);

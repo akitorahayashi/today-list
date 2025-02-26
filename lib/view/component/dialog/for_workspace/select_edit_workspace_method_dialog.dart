@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
-import 'package:today_list/view/component/dialog/for_category/delete_category_dialog.dart';
-import 'package:today_list/view/component/dialog/for_category/rename_category_dialog.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
+import 'package:today_list/view/component/dialog/for_workspace/delete_workspace_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
+import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/todo/tl_todo_category.dart';
 
-class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
+class SelectEditWorkspaceMethodDialog extends ConsumerWidget
+    with TLBaseDialogMixin {
+  final bool isCurrentWorkspace;
   final TLWorkspace corrWorkspace;
-  final TLToDoCategory categoryOfThisPage;
-  const SelectEditMethodDialog({
+  const SelectEditWorkspaceMethodDialog({
     super.key,
+    required this.isCurrentWorkspace,
     required this.corrWorkspace,
-    required this.categoryOfThisPage,
   });
 
   @override
@@ -34,7 +35,7 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
                 const Padding(
                   padding: EdgeInsets.only(bottom: 5.0),
                   child: Text(
-                    "Category Name",
+                    "Workspace Name",
                     style: TextStyle(
                         color: Color.fromRGBO(120, 120, 120, 1), fontSize: 10),
                   ),
@@ -42,7 +43,7 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    categoryOfThisPage.name,
+                    corrWorkspace.name,
                     style: TextStyle(
                         color: tlThemeData.accentColor,
                         fontSize: 20,
@@ -60,10 +61,8 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
                 child: SimpleDialogOption(
                   onPressed: () async {
                     Navigator.pop(context);
-                    RenameCategoryDialog(
-                      corrWorkspace: corrWorkspace,
-                      categoryToRename: categoryOfThisPage,
-                    ).show(context: context);
+                    AddOrEditWorkspaceDialog(oldWorkspaceId: corrWorkspace.id)
+                        .show(context: context);
                   },
                   child: Text(
                     "Rename",
@@ -77,29 +76,30 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
             ],
           ),
           // MARK: - Delete
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                child: SimpleDialogOption(
-                  onPressed: () async {
-                    Navigator.pop(context);
-                    DeleteCategoryDialog(
-                      corrWorkspace: corrWorkspace,
-                      categoryToDelete: categoryOfThisPage,
-                    ).show(context: context);
-                  },
-                  child: Text(
-                    "Delete",
-                    style: TextStyle(
-                        color: tlThemeData.accentColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+          if (!isCurrentWorkspace ||
+              ref.read(tlAppStateProvider).tlWorkspaces.length > 1)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: SimpleDialogOption(
+                    onPressed: () async {
+                      Navigator.pop(context);
+                      DeleteWorkspaceDialog(
+                        willDeletedWorkspace: corrWorkspace,
+                      ).show(context: context);
+                    },
+                    child: Text(
+                      "Delete",
+                      style: TextStyle(
+                          color: tlThemeData.accentColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
           // 閉じるボタン
           Padding(
             padding: const EdgeInsets.only(top: 10, right: 20),
@@ -109,7 +109,7 @@ class SelectEditMethodDialog extends ConsumerWidget with TLBaseDialogMixin {
                 onPressed: () => Navigator.pop(context),
                 style: ButtonStyle(
                   overlayColor: WidgetStateProperty.resolveWith(
-                      (states) => Colors.lightGreen.withOpacity(0.1)),
+                      (states) => Colors.lightGreen.withValues(alpha: 0.1)),
                 ),
                 child: const Text(
                   "close",
