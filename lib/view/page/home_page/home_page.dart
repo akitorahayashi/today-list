@@ -5,16 +5,12 @@ import 'package:today_list/view/page/home_page/tab_content/todo_list_in_workspac
 import 'package:today_list/view/page/home_page/tab_content/todo_list_of_all_workspaces_in_today.dart';
 import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/center_button_of_home_bottom_navbar.dart';
 import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/tl_home_bottom_navbar.dart';
-import 'package:today_list/view/page/category_list_page/category_list_page.dart';
 import 'package:today_list/view/page/setting_page/settings_page.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
-import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
-import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_app_state_action.dart';
-import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'workspace_drawer/workspace_drawer.dart';
 
@@ -52,9 +48,7 @@ class _HomePageState extends ConsumerState<HomePage>
     super.dispose();
   }
 
-  // -----------------------------
-  // Tab Index Handling
-  // -----------------------------
+  // MARK: Tab Index Handling
 
   /// スワイプ・タップなどで TabController の index が変わったときに呼ばれる
   void _onTabControllerIndexChanged() {
@@ -97,9 +91,7 @@ class _HomePageState extends ConsumerState<HomePage>
         .updateState(TLAppStateAction.changeCurrentWorkspaceID(newWorkspaceID));
   }
 
-  // -----------------------------
-  // Helpers
-  // -----------------------------
+  // MARK: Helpers
 
   /// 現在の Workspace (null の可能性あり)
   TLWorkspace? _getCurrentWorkspace(TLAppState tlAppState) {
@@ -121,72 +113,7 @@ class _HomePageState extends ConsumerState<HomePage>
     return currentWorkspace?.name ?? "Error";
   }
 
-  // -----------------------------
-  // Leading/Trailing ボタン
-  // -----------------------------
-
-  /// 「削除」ボタン押下時の処理 (Yes/Noダイアログ → 削除実行)
-  void _onLeadingButtonPressed({
-    required BuildContext context,
-    required bool doesCurrentWorkspaceExist,
-    required TLWorkspace? currentWorkspace,
-    required TLAppState tlAppState,
-  }) {
-    if (doesCurrentWorkspaceExist) {
-      TLYesNoDialog(
-        title: "Do you want to delete\nchecked ToDos?",
-        message: null,
-        yesAction: () async {
-          Navigator.pop(context);
-          ref.read(tlAppStateProvider.notifier).updateState(
-                TLWorkspaceAction.deleteAllCheckedToDosInWorkspace(
-                    currentWorkspace!),
-              );
-          if (context.mounted) {
-            const TLSingleOptionDialog(title: "Deletion completed")
-                .show(context: context);
-          }
-        },
-      ).show(context: context);
-    } else {
-      TLYesNoDialog(
-        title: "Do you want to delete\nchecked ToDos?",
-        message: null,
-        yesAction: () async {
-          Navigator.pop(context);
-          ref.read(tlAppStateProvider.notifier).updateState(
-                  TLAppStateAction.deleteAllCheckedToDosInTodayInWorkspaceList(
-                tlAppState.tlWorkspaces,
-              ));
-          if (context.mounted) {
-            const TLSingleOptionDialog(title: "Deletion completed")
-                .show(context: context);
-          }
-        },
-      ).show(context: context);
-    }
-  }
-
-  /// 「カテゴリ一覧 or ドロワー」ボタン押下時の処理
-  void _onTrailingButtonPressed({
-    required BuildContext context,
-    required bool doesCurrentWorkspaceExist,
-    required TLAppState tlAppState,
-  }) {
-    if (doesCurrentWorkspaceExist) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return CategoryListPage(
-          corrWorkspaceID: tlAppState.currentWorkspaceID!,
-        );
-      }));
-    } else {
-      _homePageScaffoldKey.currentState?.openDrawer();
-    }
-  }
-
-  // -----------------------------
-  // Build
-  // -----------------------------
+  // MARK: Buildメソッド
   @override
   Widget build(BuildContext context) {
     final tlAppState = ref.watch(tlAppStateProvider);
@@ -239,6 +166,8 @@ class _HomePageState extends ConsumerState<HomePage>
             key: _homePageScaffoldKey,
             backgroundColor: tlThemeConfig.backgroundColor,
             drawer: const TLWorkspaceDrawer(),
+
+            // MARK: App Bar
             appBar: TLAppBar(
               context: context,
               height: 100,
@@ -290,6 +219,8 @@ class _HomePageState extends ConsumerState<HomePage>
                 ],
               ),
             ),
+
+            // MARK: TabBar View
             body: TabBarView(
               children: [
                 // 0番目 (Today)
@@ -311,20 +242,8 @@ class _HomePageState extends ConsumerState<HomePage>
                 ),
               ],
             ),
-            bottomNavigationBar: TLHomeBottomNavBar(
-              doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
-              leadingButtonOnPressed: () => _onLeadingButtonPressed(
-                context: context,
-                doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
-                currentWorkspace: currentWorkspace,
-                tlAppState: tlAppState,
-              ),
-              trailingButtonOnPressed: () => _onTrailingButtonPressed(
-                context: context,
-                doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
-                tlAppState: tlAppState,
-              ),
-            ),
+            // MARK: Bottom Nav Bar
+            bottomNavigationBar: const TLHomeBottomNavBar(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             floatingActionButton: CenterButtonOfHomeBottomNavBar(
