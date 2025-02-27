@@ -10,7 +10,6 @@ import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
 import 'tl_checkbox.dart';
 import 'tl_step_card.dart';
-import 'dart:ui';
 
 import 'package:reorderables/reorderables.dart';
 
@@ -32,7 +31,8 @@ class TLToDoCard extends ConsumerWidget {
 
     // MARK: - Colors
     final panelColor = tlThemeData.canTapCardColor;
-    final textColor = Colors.black.withOpacity(corrToDo.isChecked ? 0.3 : 0.6);
+    final textColor =
+        Colors.black.withValues(alpha: corrToDo.isChecked ? 0.3 : 0.6);
 
     return GestureDetector(
       onTap: () {

@@ -7,7 +7,6 @@ import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/styles.dart';
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
 
 class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
@@ -52,22 +51,20 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
             gradient: themeConfig.gradientOfNavBar,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: GlassContainer(
-            child: Align(
-              alignment: Alignment.center,
-              child: Card(
-                elevation: 5,
-                color: themeConfig.canTapCardColor,
-                child: Container(
-                  width: 150,
-                  height: 50,
-                  alignment: Alignment.center,
-                  child: Text(
-                    themeConfig.themeName,
-                    style: TextStyle(
-                        color: themeConfig.checkmarkColor,
-                        fontWeight: FontWeight.bold),
-                  ),
+          child: Align(
+            alignment: Alignment.center,
+            child: Card(
+              elevation: 5,
+              color: themeConfig.canTapCardColor,
+              child: Container(
+                width: 150,
+                height: 50,
+                alignment: Alignment.center,
+                child: Text(
+                  themeConfig.themeName,
+                  style: TextStyle(
+                      color: themeConfig.checkmarkColor,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),

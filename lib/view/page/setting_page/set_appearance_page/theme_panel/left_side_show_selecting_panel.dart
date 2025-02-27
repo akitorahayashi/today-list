@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import '../../../../../model/design/tl_theme/tl_theme.dart';
 
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LeftSideShowingSelectingPanel extends StatelessWidget {
@@ -22,39 +21,36 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
           gradient: tlThemeConfig.gradientOfNavBar,
           borderRadius: BorderRadius.circular(10)),
       // ガラス
-      child: GlassContainer(
-        // カードを中央に配置
-        child: Align(
-          alignment: Alignment.center,
-          // toDoカードを表示
-          child: Card(
-            elevation: 5,
-            color: tlThemeConfig.canTapCardColor,
-            child: SizedBox(
-              width: deviceWidth / 2 - 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Icon(
-                        FontAwesomeIcons.solidSquareCheck,
+      child: Align(
+        alignment: Alignment.center,
+        // toDoカードを表示
+        child: Card(
+          elevation: 5,
+          color: tlThemeConfig.canTapCardColor,
+          child: SizedBox(
+            width: deviceWidth / 2 - 50,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: Icon(
+                      FontAwesomeIcons.solidSquareCheck,
+                      color: tlThemeConfig.checkmarkColor,
+                    ),
+                  ),
+                  Text(
+                    tlThemeConfig.themeTitleInSettings,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
                         color: tlThemeConfig.checkmarkColor,
-                      ),
-                    ),
-                    Text(
-                      tlThemeConfig.themeTitleInSettings,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: tlThemeConfig.checkmarkColor,
-                          fontSize: 17,
-                          letterSpacing: 2,
-                          fontWeight: FontWeight.w800),
-                    ),
-                  ],
-                ),
+                        fontSize: 17,
+                        letterSpacing: 2,
+                        fontWeight: FontWeight.w800),
+                  ),
+                ],
               ),
             ),
           ),

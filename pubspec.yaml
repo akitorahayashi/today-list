@@ -15,7 +15,6 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_progress_hud: ^2.0.2
   font_awesome_flutter: ^10.7.0
-  glassmorphism_ui: ^0.3.0
   flutter_slidable: ^4.0.0
   reorderables: ^0.6.0
   popover: ^0.3.1

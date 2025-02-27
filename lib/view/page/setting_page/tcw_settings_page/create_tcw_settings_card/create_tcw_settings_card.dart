@@ -34,9 +34,9 @@ class CreateWKSettingsCard extends HookConsumerWidget {
         ref.watch(tlAppStateProvider).tlWorkspaces;
     final TLWorkspace currentWorkspace =
         workspaces[selectedWorkspaceIndex.value];
-    final TLToDoCategory? currentBigCategory = selectedBCIdx.value != null
-        ? currentWorkspace.bigCategories[selectedBCIdx.value!]
-        : null;
+    final TLToDoCategory? currentBigCategory = selectedBCIdx.value == null
+        ? null
+        : currentWorkspace.bigCategories[selectedBCIdx.value!];
     final TLToDoCategory? currentSmallCategory = selectedSCIdx.value == null
         ? null
         : currentWorkspace
@@ -46,7 +46,7 @@ class CreateWKSettingsCard extends HookConsumerWidget {
       wksInputController.clear();
       ifUserHasEntered.value = false;
       selectedWorkspaceIndex.value = 0;
-      selectedBCIdx.value = 0;
+      selectedBCIdx.value = null;
       selectedSCIdx.value = null;
     }
 

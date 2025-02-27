@@ -23,7 +23,7 @@ class TLDialog extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: corrThemeConfig.accentColor.withValues(alpha: 0.5),
+              color: corrThemeConfig.accentColor.withValues(alpha: 0.35),
               blurRadius: 5,
               spreadRadius: 3,
             ),

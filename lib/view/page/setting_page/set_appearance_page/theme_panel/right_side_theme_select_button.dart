@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:today_list/view/component/dialog/change_theme_dialog.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RightSideThemeSelectButton extends StatefulWidget {
@@ -36,39 +35,36 @@ class _RightSideThemeSelectButtonState
               gradient: corrThemeType.config.gradientOfNavBar,
               borderRadius: BorderRadius.circular(10)),
           // ガラス
-          child: GlassContainer(
-            // カードを中央に配置
-            child: Align(
-              alignment: Alignment.center,
-              // todoのカードを表示
-              child: Card(
-                elevation: 5,
-                color: corrThemeType.config.canTapCardColor,
-                child: SizedBox(
-                  width: deviceWidth / 2 - 70,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: FaIcon(
-                            FontAwesomeIcons.square,
+          child: Align(
+            alignment: Alignment.center,
+            // todoのカードを表示
+            child: Card(
+              elevation: 5,
+              color: corrThemeType.config.canTapCardColor,
+              child: SizedBox(
+                width: deviceWidth / 2 - 70,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: FaIcon(
+                          FontAwesomeIcons.square,
+                          color: corrThemeType.config.checkmarkColor,
+                        ),
+                      ),
+                      Text(
+                        corrThemeType.config.themeTitleInSettings,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
                             color: corrThemeType.config.checkmarkColor,
-                          ),
-                        ),
-                        Text(
-                          corrThemeType.config.themeTitleInSettings,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: corrThemeType.config.checkmarkColor,
-                              fontSize: 12,
-                              letterSpacing: 2,
-                              fontWeight: FontWeight.w800),
-                        ),
-                      ],
-                    ),
+                            fontSize: 12,
+                            letterSpacing: 2,
+                            fontWeight: FontWeight.w800),
+                      ),
+                    ],
                   ),
                 ),
               ),
