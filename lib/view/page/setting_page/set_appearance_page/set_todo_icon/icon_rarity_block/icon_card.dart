@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
+import 'package:today_list/redux/action/tl_checkbox_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
-import 'package:today_list/view_model/design/tl_icon_data_provider.dart';
-import 'package:today_list/model/design/tl_icon_data.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
@@ -12,13 +13,11 @@ import 'package:today_list/service/tl_vibration.dart';
 class IconCard extends ConsumerStatefulWidget {
   final bool isEarned;
   final TLIconCategory tlIconCategory;
-  final TLIconRarity tlIconRarity;
   final TLIconName tlIconName;
   const IconCard({
     super.key,
     required this.isEarned,
     required this.tlIconCategory,
-    required this.tlIconRarity,
     required this.tlIconName,
   });
 
@@ -30,12 +29,13 @@ class _IconCardState extends ConsumerState<IconCard> {
   @override
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
-    final TLIconData tlIconData = ref.watch(tlIconDataProvider);
-    final TLIconDataNotifier tlIconDataNotifier =
-        ref.read(tlIconDataProvider.notifier);
-    final bool isCurrentIcon = widget.tlIconCategory == tlIconData.category &&
-        widget.tlIconRarity == tlIconData.rarity &&
-        widget.tlIconName == tlIconData.name;
+    final SelectedCheckBoxIconData selectedCheckBoxIconData = ref.watch(
+        tlAppStateProvider.select((state) => state.selectedCheckBoxIconData));
+    final TLAppStateController tlAppStateController =
+        ref.read(tlAppStateProvider.notifier);
+    final bool isCurrentIcon =
+        widget.tlIconCategory.name == selectedCheckBoxIconData.iconCategory &&
+            widget.tlIconName.name == selectedCheckBoxIconData.iconName;
     return Expanded(
       flex: 1,
       child: GestureDetector(
@@ -46,11 +46,11 @@ class _IconCardState extends ConsumerState<IconCard> {
                 message: "Do you want to change\nthe checkmark icon?",
                 yesAction: () async {
                   Navigator.pop(context);
-                  tlIconDataNotifier.updateSelectedIcon(TLIconData(
-                      category: widget.tlIconCategory,
-                      rarity: widget.tlIconRarity,
-                      name: widget.tlIconName));
-                  TLVibrationService.vibrate();
+                  tlAppStateController.updateState(
+                      TLCheckBoxAction.updateSelectedIcon(
+                          newCheckBox: SelectedCheckBoxIconData(
+                              iconCategory: widget.tlIconCategory.name,
+                              iconName: widget.tlIconName.name)));
                   const TLSingleOptionDialog(title: "Change completed!")
                       .show(context: context);
                   TLVibrationService.vibrate();
@@ -78,11 +78,11 @@ class _IconCardState extends ConsumerState<IconCard> {
                     !widget.isEarned
                         ? Icons.help_outline
                         : isCurrentIcon
-                            ? tlIconResource[widget.tlIconCategory]![
-                                    widget.tlIconRarity]![widget.tlIconName]!
+                            ? tlIconResource[widget.tlIconCategory.name]![
+                                    widget.tlIconName.name]!
                                 .checkedIcon
-                            : tlIconResource[widget.tlIconCategory]![
-                                    widget.tlIconRarity]![widget.tlIconName]!
+                            : tlIconResource[widget.tlIconCategory.name]![
+                                    widget.tlIconName.name]!
                                 .notCheckedIcon,
                     color: !widget.isEarned
                         ? Colors.black26
@@ -93,7 +93,7 @@ class _IconCardState extends ConsumerState<IconCard> {
                   ),
                 ),
                 Text(
-                  !widget.isEarned ? "???" : widget.tlIconName.rawValue,
+                  !widget.isEarned ? "???" : widget.tlIconName.name,
                   style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,

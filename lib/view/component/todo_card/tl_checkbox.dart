@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/design/tl_icon_data.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
-import 'package:today_list/resource/tl_icon_resource.dart';
-import 'package:today_list/view_model/design/tl_icon_data_provider.dart';
+import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/resource/tl_icon_resource.dart';
 
 class TLCheckBox extends ConsumerWidget {
   final bool isChecked;
@@ -21,33 +21,36 @@ class TLCheckBox extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final TLIconData tlIconData = ref.watch(tlIconDataProvider);
+    final SelectedCheckBoxIconData selectedCheckBoxIconData = ref.watch(
+        tlAppStateProvider.select((state) => state.selectedCheckBoxIconData));
 
     // このカテゴリーで指定されたアイコンがない場合、デフォルトのものを使う
     final thisIconData = (() {
-      if (tlIconResource[tlIconData.category] != null &&
-          tlIconResource[tlIconData.category]![tlIconData.rarity] != null &&
-          tlIconResource[tlIconData.category]![tlIconData.rarity]![
-                  tlIconData.name] !=
+      if (tlIconResource[selectedCheckBoxIconData.iconCategory] != null &&
+          tlIconResource[selectedCheckBoxIconData.iconCategory]![
+                  selectedCheckBoxIconData.iconName] !=
               null) {
-        return tlIconResource[tlIconData.category]![tlIconData.rarity]![
-            tlIconData.name]!;
+        return tlIconResource[selectedCheckBoxIconData.iconCategory]![
+            selectedCheckBoxIconData.iconName]!;
       } else {
-        return tlIconResource[TLIconCategory.defaultCategory]![
-            TLIconRarity.common]![TLIconName.box]!;
+        return tlIconResource[TLIconCategory.defaultCategory.name]![
+            TLIconName.box.name]!;
       }
     }());
 
     // TLIconCategory.defaultCategoryかどうかでサイズを調整
     final double effectiveIconSize = iconSize ??
-        (tlIconData.category == TLIconCategory.defaultCategory ? 17 : 19);
+        (selectedCheckBoxIconData.iconCategory ==
+                TLIconCategory.defaultCategory.name
+            ? 17
+            : 19);
 
     return Icon(
       isChecked ? thisIconData.checkedIcon : thisIconData.notCheckedIcon,
       color: iconColor ??
           (isChecked
               ? tlThemeData.checkmarkColor
-              : Colors.black.withOpacity(0.56)),
+              : Colors.black.withValues(alpha: 0.56)),
       size: effectiveIconSize,
     );
   }

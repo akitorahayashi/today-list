@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/design/tl_icon_data.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
@@ -20,7 +19,7 @@ class IconCategoryPanel extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 3.0),
             child: Text(
-              tlIconCategory.rawValue,
+              tlIconCategory.name,
               style: TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w800,
@@ -28,36 +27,28 @@ class IconCategoryPanel extends StatelessWidget {
             ),
           ),
           // Super Rare, Rare
-          if (tlIconResource[tlIconCategory]!
-              .keys
-              .toSet()
-              .containsAll([TLIconRarity.superRare, TLIconRarity.rare]))
-            Row(
-              children: [
-                if (tlIconResource[tlIconCategory]![TLIconRarity.superRare]
-                        ?.isNotEmpty ??
-                    true)
-                  Expanded(
-                      flex: 2,
-                      child: IconCategoryBlock(
-                        tlIconCategory: tlIconCategory,
-                        tlIconRarity: TLIconRarity.superRare,
-                      )),
-                if (tlIconResource[tlIconCategory]![TLIconRarity.rare]
-                        ?.isNotEmpty ??
-                    true)
-                  Expanded(
-                      flex: 3,
-                      child: IconCategoryBlock(
-                        tlIconCategory: tlIconCategory,
-                        tlIconRarity: TLIconRarity.rare,
-                      )),
-              ],
-            ),
+          Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: TLIconBlock(
+                  tlIconCategory: tlIconCategory,
+                  icons: tlIconCategory.icons.sublist(0, 1),
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: TLIconBlock(
+                  tlIconCategory: tlIconCategory,
+                  icons: tlIconCategory.icons.sublist(2, 4),
+                ),
+              ),
+            ],
+          ),
           // Common
-          IconCategoryBlock(
+          TLIconBlock(
             tlIconCategory: tlIconCategory,
-            tlIconRarity: TLIconRarity.common,
+            icons: tlIconCategory.icons.sublist(5, 9),
           ),
         ],
       ),

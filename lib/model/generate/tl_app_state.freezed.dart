@@ -24,6 +24,8 @@ mixin _$TLAppState {
   String? get currentWorkspaceID => throw _privateConstructorUsedError;
   TLThemeType get selectedThemeType => throw _privateConstructorUsedError;
   List<TCWSettings> get tcwSettings => throw _privateConstructorUsedError;
+  SelectedCheckBoxIconData get selectedCheckBoxIconData =>
+      throw _privateConstructorUsedError;
 
   /// Serializes this TLAppState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,7 +47,10 @@ abstract class $TLAppStateCopyWith<$Res> {
       {List<TLWorkspace> tlWorkspaces,
       String? currentWorkspaceID,
       TLThemeType selectedThemeType,
-      List<TCWSettings> tcwSettings});
+      List<TCWSettings> tcwSettings,
+      SelectedCheckBoxIconData selectedCheckBoxIconData});
+
+  $SelectedCheckBoxIconDataCopyWith<$Res> get selectedCheckBoxIconData;
 }
 
 /// @nodoc
@@ -67,6 +72,7 @@ class _$TLAppStateCopyWithImpl<$Res, $Val extends TLAppState>
     Object? currentWorkspaceID = freezed,
     Object? selectedThemeType = null,
     Object? tcwSettings = null,
+    Object? selectedCheckBoxIconData = null,
   }) {
     return _then(_value.copyWith(
       tlWorkspaces: null == tlWorkspaces
@@ -85,7 +91,22 @@ class _$TLAppStateCopyWithImpl<$Res, $Val extends TLAppState>
           ? _value.tcwSettings
           : tcwSettings // ignore: cast_nullable_to_non_nullable
               as List<TCWSettings>,
+      selectedCheckBoxIconData: null == selectedCheckBoxIconData
+          ? _value.selectedCheckBoxIconData
+          : selectedCheckBoxIconData // ignore: cast_nullable_to_non_nullable
+              as SelectedCheckBoxIconData,
     ) as $Val);
+  }
+
+  /// Create a copy of TLAppState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SelectedCheckBoxIconDataCopyWith<$Res> get selectedCheckBoxIconData {
+    return $SelectedCheckBoxIconDataCopyWith<$Res>(
+        _value.selectedCheckBoxIconData, (value) {
+      return _then(_value.copyWith(selectedCheckBoxIconData: value) as $Val);
+    });
   }
 }
 
@@ -101,7 +122,11 @@ abstract class _$$TLAppStateImplCopyWith<$Res>
       {List<TLWorkspace> tlWorkspaces,
       String? currentWorkspaceID,
       TLThemeType selectedThemeType,
-      List<TCWSettings> tcwSettings});
+      List<TCWSettings> tcwSettings,
+      SelectedCheckBoxIconData selectedCheckBoxIconData});
+
+  @override
+  $SelectedCheckBoxIconDataCopyWith<$Res> get selectedCheckBoxIconData;
 }
 
 /// @nodoc
@@ -121,6 +146,7 @@ class __$$TLAppStateImplCopyWithImpl<$Res>
     Object? currentWorkspaceID = freezed,
     Object? selectedThemeType = null,
     Object? tcwSettings = null,
+    Object? selectedCheckBoxIconData = null,
   }) {
     return _then(_$TLAppStateImpl(
       tlWorkspaces: null == tlWorkspaces
@@ -139,6 +165,10 @@ class __$$TLAppStateImplCopyWithImpl<$Res>
           ? _value._tcwSettings
           : tcwSettings // ignore: cast_nullable_to_non_nullable
               as List<TCWSettings>,
+      selectedCheckBoxIconData: null == selectedCheckBoxIconData
+          ? _value.selectedCheckBoxIconData
+          : selectedCheckBoxIconData // ignore: cast_nullable_to_non_nullable
+              as SelectedCheckBoxIconData,
     ));
   }
 }
@@ -150,7 +180,9 @@ class _$TLAppStateImpl extends _TLAppState {
       {final List<TLWorkspace> tlWorkspaces = const [],
       this.currentWorkspaceID = null,
       this.selectedThemeType = TLThemeType.sunOrange,
-      final List<TCWSettings> tcwSettings = const []})
+      final List<TCWSettings> tcwSettings = const [],
+      this.selectedCheckBoxIconData = const SelectedCheckBoxIconData(
+          iconCategory: "Default", iconName: "Box")})
       : _tlWorkspaces = tlWorkspaces,
         _tcwSettings = tcwSettings,
         super._();
@@ -183,8 +215,12 @@ class _$TLAppStateImpl extends _TLAppState {
   }
 
   @override
+  @JsonKey()
+  final SelectedCheckBoxIconData selectedCheckBoxIconData;
+
+  @override
   String toString() {
-    return 'TLAppState(tlWorkspaces: $tlWorkspaces, currentWorkspaceID: $currentWorkspaceID, selectedThemeType: $selectedThemeType, tcwSettings: $tcwSettings)';
+    return 'TLAppState(tlWorkspaces: $tlWorkspaces, currentWorkspaceID: $currentWorkspaceID, selectedThemeType: $selectedThemeType, tcwSettings: $tcwSettings, selectedCheckBoxIconData: $selectedCheckBoxIconData)';
   }
 
   @override
@@ -199,7 +235,10 @@ class _$TLAppStateImpl extends _TLAppState {
             (identical(other.selectedThemeType, selectedThemeType) ||
                 other.selectedThemeType == selectedThemeType) &&
             const DeepCollectionEquality()
-                .equals(other._tcwSettings, _tcwSettings));
+                .equals(other._tcwSettings, _tcwSettings) &&
+            (identical(
+                    other.selectedCheckBoxIconData, selectedCheckBoxIconData) ||
+                other.selectedCheckBoxIconData == selectedCheckBoxIconData));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -209,7 +248,8 @@ class _$TLAppStateImpl extends _TLAppState {
       const DeepCollectionEquality().hash(_tlWorkspaces),
       currentWorkspaceID,
       selectedThemeType,
-      const DeepCollectionEquality().hash(_tcwSettings));
+      const DeepCollectionEquality().hash(_tcwSettings),
+      selectedCheckBoxIconData);
 
   /// Create a copy of TLAppState
   /// with the given fields replaced by the non-null parameter values.
@@ -229,10 +269,12 @@ class _$TLAppStateImpl extends _TLAppState {
 
 abstract class _TLAppState extends TLAppState {
   const factory _TLAppState(
-      {final List<TLWorkspace> tlWorkspaces,
-      final String? currentWorkspaceID,
-      final TLThemeType selectedThemeType,
-      final List<TCWSettings> tcwSettings}) = _$TLAppStateImpl;
+          {final List<TLWorkspace> tlWorkspaces,
+          final String? currentWorkspaceID,
+          final TLThemeType selectedThemeType,
+          final List<TCWSettings> tcwSettings,
+          final SelectedCheckBoxIconData selectedCheckBoxIconData}) =
+      _$TLAppStateImpl;
   const _TLAppState._() : super._();
 
   factory _TLAppState.fromJson(Map<String, dynamic> json) =
@@ -246,6 +288,8 @@ abstract class _TLAppState extends TLAppState {
   TLThemeType get selectedThemeType;
   @override
   List<TCWSettings> get tcwSettings;
+  @override
+  SelectedCheckBoxIconData get selectedCheckBoxIconData;
 
   /// Create a copy of TLAppState
   /// with the given fields replaced by the non-null parameter values.

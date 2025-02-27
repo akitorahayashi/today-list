@@ -1,9 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 import 'package:today_list/model/settings_data/tcw_settings.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tcw_action.dart';
 import 'package:today_list/redux/action/tl_app_state_action.dart';
+import 'package:today_list/redux/action/tl_checkbox_action.dart';
 import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
@@ -78,6 +80,16 @@ class TLAppStateController extends Notifier<TLAppState> {
       await _saveWorkspaces(newState.tlWorkspaces);
     }
 
+    // 選択チェックボックスの変更時に保存処理を実行
+    if (action is TLCheckBoxAction) {
+      final jsonString = jsonEncode(newState.selectedCheckBoxIconData.toJson());
+
+      // SharedPreferences に保存
+      final pref = await TLPrefService().getPref;
+      pref.setString('selectedCheckBoxData', jsonString);
+    }
+
+    // save theme
     if (action is TLThemeAction) {
       await _saveTheme(newState.selectedThemeType);
     }
@@ -115,11 +127,21 @@ class TLAppStateController extends Notifier<TLAppState> {
       orElse: () => TLThemeType.sunOrange,
     );
 
+    // 選択したチェックボックスのデータをロード
+    SelectedCheckBoxIconData loadedCheckBoxData =
+        state.selectedCheckBoxIconData;
+    final jsonString = pref.getString('selectedCheckBoxData');
+    if (jsonString != null) {
+      final jsonData = jsonDecode(jsonString);
+      loadedCheckBoxData = SelectedCheckBoxIconData.fromJson(jsonData);
+    }
+
     state = state.copyWith(
       selectedThemeType: savedTheme,
       currentWorkspaceID: stringWorkspaceID,
       tlWorkspaces: loadedWorkspaces,
       tcwSettings: loadedTCWSettings,
+      selectedCheckBoxIconData: loadedCheckBoxData,
     );
   }
 

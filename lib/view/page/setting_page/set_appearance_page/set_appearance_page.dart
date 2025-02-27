@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:today_list/main.dart';
-import 'package:today_list/model/design/tl_icon_data.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
@@ -108,7 +106,11 @@ class SetAppearancePage extends HookConsumerWidget {
       PanelWithTitle(
         title: "ICONS",
         contents: [
-          for (TLIconCategory tlIconCategory in tlIconResource.keys)
+          for (TLIconCategory tlIconCategory in [
+            TLIconCategory.defaultCategory,
+            TLIconCategory.unit1,
+            TLIconCategory.unit2,
+          ])
             IconCategoryPanel(tlIconCategory: tlIconCategory),
         ],
       ),

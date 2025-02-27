@@ -54,7 +54,7 @@ class _StepTitleInputFieldState extends State<StepTitleInputField> {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: Colors.black.withOpacity(0.6),
+            color: Colors.black.withValues(alpha: 0.6),
           ),
           cursorColor: tlThemeData.accentColor,
           decoration: tlInputDecoration(
@@ -62,7 +62,7 @@ class _StepTitleInputFieldState extends State<StepTitleInputField> {
             labelText: "Step",
             icon: Icon(
               FontAwesomeIcons.square,
-              color: Colors.black.withOpacity(0.35),
+              color: Colors.black.withValues(alpha: 0.35),
             ),
             suffixIcon: AnimatedOpacity(
               duration: const Duration(milliseconds: 300),
