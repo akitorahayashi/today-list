@@ -16,7 +16,7 @@ class CardListOfToDosInCategoryWidgetSettings extends ConsumerWidget {
         for (int i = 0; i < wksList.length; i++)
           CardOfTCWSettings(
             key: ValueKey(wksList[i].id),
-            corrToDosInCategoryWidgetSettings: wksList[i],
+            corrTCWSettings: wksList[i],
           ),
       ],
     );

@@ -10,10 +10,9 @@ import 'package:today_list/view/page/setting_page/tcw_settings_page/tcw_card_lis
 import 'package:today_list/model/settings_data/tcw_settings.dart';
 
 class CardOfTCWSettings extends ConsumerWidget {
-  final TCWSettings corrToDosInCategoryWidgetSettings;
+  final TCWSettings corrTCWSettings;
 
-  const CardOfTCWSettings(
-      {super.key, required this.corrToDosInCategoryWidgetSettings});
+  const CardOfTCWSettings({super.key, required this.corrTCWSettings});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,13 +20,13 @@ class CardOfTCWSettings extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () => TLYesNoDialog(
-          title: corrToDosInCategoryWidgetSettings.title,
+          title: corrTCWSettings.title,
           message: "Do you want to delete this setting?",
           yesAction: () {
+            // MARK: 削除するか聞く
             Navigator.pop(context);
             ref.read(tlAppStateProvider.notifier).updateState(
-                TCWSettingsAction.removeTCWSetting(
-                    id: corrToDosInCategoryWidgetSettings.id));
+                TCWSettingsAction.removeTCWSetting(id: corrTCWSettings.id));
             const TLSingleOptionDialog(
               title: "Successfully deleted!",
             ).show(context: context);
@@ -40,84 +39,50 @@ class CardOfTCWSettings extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _Title(
-                    corrToDosInCategoryWidgetSettings:
-                        corrToDosInCategoryWidgetSettings),
-                _CategoryInfo(
-                    corrToDosInCategoryWidgetSettings:
-                        corrToDosInCategoryWidgetSettings),
-                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  // MARK: Settings Name
+                  child: Center(
+                    child: Text(
+                      corrTCWSettings.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                        color: Colors.black45,
+                      ),
+                    ),
+                  ),
+                ),
+                // MARK: Workspace
+                const Padding(
+                  padding: EdgeInsets.only(top: 12.0, bottom: .5),
+                  child: TCWHeader(text: "Workspace"),
+                ),
+                TCWBodyText(text: corrTCWSettings.workspace.name),
+
+                // MARK: Big Category
+                if (corrTCWSettings.bigCategory != null) ...[
+                  const Padding(
+                    padding: EdgeInsets.only(top: 8.0, bottom: .5),
+                    child: TCWHeader(text: "Big Category"),
+                  ),
+                  TCWBodyText(text: corrTCWSettings.bigCategory!.name),
+                ],
+
+                // MARK: Small Category
+                if (corrTCWSettings.smallCategory != null) ...[
+                  const Padding(
+                    padding: EdgeInsets.only(top: 8.0, bottom: .5),
+                    child: TCWHeader(text: "Small Category"),
+                  ),
+                  TCWBodyText(text: corrTCWSettings.smallCategory!.name),
+                ],
+                const SizedBox(height: 20),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-// MARK: - タイトル
-class _Title extends StatelessWidget {
-  final TCWSettings corrToDosInCategoryWidgetSettings;
-
-  const _Title({required this.corrToDosInCategoryWidgetSettings});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 16.0),
-        child: Text(
-          corrToDosInCategoryWidgetSettings.title,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-            color: Colors.black45,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// MARK: - カテゴリ情報
-class _CategoryInfo extends StatelessWidget {
-  final TCWSettings corrToDosInCategoryWidgetSettings;
-
-  const _CategoryInfo({required this.corrToDosInCategoryWidgetSettings});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Workspace
-        const Padding(
-          padding: EdgeInsets.only(top: 4.0),
-          child: TCWHeader(text: "Workspace"),
-        ),
-        TCWBodyText(text: corrToDosInCategoryWidgetSettings.workspace.name),
-
-        // Big Category
-        if (corrToDosInCategoryWidgetSettings.bigCategory != null) ...[
-          const Padding(
-            padding: EdgeInsets.only(top: 4.0),
-            child: TCWHeader(text: "Big Category"),
-          ),
-          TCWBodyText(
-              text: corrToDosInCategoryWidgetSettings.bigCategory!.name),
-        ],
-
-        // Small Category（存在する場合のみ）
-        if (corrToDosInCategoryWidgetSettings.smallCategory != null) ...[
-          const Padding(
-            padding: EdgeInsets.only(top: 4.0),
-            child: TCWHeader(text: "Small Category"),
-          ),
-          TCWBodyText(
-              text: corrToDosInCategoryWidgetSettings.smallCategory!.name),
-        ],
-      ],
     );
   }
 }
