@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:today_list/main.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/resource/tl_icon_resource.dart';
+import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/service/tl_ads.dart';
 import 'package:today_list/view/page/setting_page/set_appearance_page/panel_with_title.dart';

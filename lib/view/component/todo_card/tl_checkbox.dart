@@ -4,7 +4,7 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/resource/tl_icon_resource.dart';
+import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 
 class TLCheckBox extends ConsumerWidget {
   final bool isChecked;
@@ -27,14 +27,15 @@ class TLCheckBox extends ConsumerWidget {
 
     // このカテゴリーで指定されたアイコンがない場合、デフォルトのものを使う
     final thisIconData = (() {
-      if (tlIconResource[selectedCheckBoxIconData.iconCategory] != null &&
-          tlIconResource[selectedCheckBoxIconData.iconCategory]![
+      if (iconResourceOfCheckBox[selectedCheckBoxIconData.iconCategory] !=
+              null &&
+          iconResourceOfCheckBox[selectedCheckBoxIconData.iconCategory]![
                   selectedCheckBoxIconData.iconName] !=
               null) {
-        return tlIconResource[selectedCheckBoxIconData.iconCategory]![
+        return iconResourceOfCheckBox[selectedCheckBoxIconData.iconCategory]![
             selectedCheckBoxIconData.iconName]!;
       } else {
-        return tlIconResource[TLIconCategory.defaultCategory.name]![
+        return iconResourceOfCheckBox[TLIconCategory.defaultCategory.name]![
             TLIconName.box.name]!;
       }
     }());

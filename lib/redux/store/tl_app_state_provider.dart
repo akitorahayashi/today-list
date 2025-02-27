@@ -153,6 +153,8 @@ class TLAppStateController extends Notifier<TLAppState> {
       loadedTCWSettings = jsonTCWSettings
           .map((json) => TCWSettings.fromJson(json as Map<String, dynamic>))
           .toList();
+    } else {
+      loadedTCWSettings = [];
     }
 
     // search theme
@@ -168,6 +170,14 @@ class TLAppStateController extends Notifier<TLAppState> {
     if (jsonString != null) {
       final jsonData = jsonDecode(jsonString);
       loadedUserData = TLUserData.fromJson(jsonData);
+    } else {
+      loadedUserData = state.tlUserData.copyWith(
+          currentAppIconName: "Sun Orange",
+          selectedCheckBoxIconData: const SelectedCheckBoxIconData(
+              iconCategory: "Default", iconName: "Box"),
+          earnedCheckBoxIcons: {
+            "Default": ["Box", "Circle"]
+          });
     }
 
     state = state.copyWith(

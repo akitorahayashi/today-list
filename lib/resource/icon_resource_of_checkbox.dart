@@ -66,7 +66,7 @@ enum TLIconName {
 }
 
 /// `TLIconModel` で使用されるデータとして、全てのアイコンの情報を管理する
-Map<String, Map<String, TLIconDataSource>> tlIconResource = {
+Map<String, Map<String, TLIconDataSource>> iconResourceOfCheckBox = {
   TLIconCategory.defaultCategory.name: {
     TLIconName.box.name: const TLIconDataSource(
       checkedIcon: FontAwesomeIcons.solidSquareCheck,

@@ -19,11 +19,17 @@ class TLAppState with _$TLAppState {
     @Default(null) String? currentWorkspaceID,
     @Default(TLThemeType.sunOrange) TLThemeType selectedThemeType,
     @Default([]) List<TCWSettings> tcwSettings,
-    // 追加: アプリの設定データ
-    @Default(TLUserData(
+    // アプリの設定データ
+    @Default(
+      TLUserData(
         currentAppIconName: "Sun Orange",
         selectedCheckBoxIconData:
-            SelectedCheckBoxIconData(iconCategory: "Default", iconName: "Box")))
+            SelectedCheckBoxIconData(iconCategory: "Default", iconName: "Box"),
+        earnedCheckBoxIcons: {
+          "Default": ["Box", "Circle"]
+        },
+      ),
+    )
     TLUserData tlUserData,
   }) = _TLAppState;
 

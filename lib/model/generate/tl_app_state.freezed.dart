@@ -24,7 +24,7 @@ mixin _$TLAppState {
   String? get currentWorkspaceID => throw _privateConstructorUsedError;
   TLThemeType get selectedThemeType => throw _privateConstructorUsedError;
   List<TCWSettings> get tcwSettings =>
-      throw _privateConstructorUsedError; // 追加: アプリの設定データ
+      throw _privateConstructorUsedError; // アプリの設定データ
   TLUserData get tlUserData => throw _privateConstructorUsedError;
 
   /// Serializes this TLAppState to a JSON map.
@@ -183,7 +183,8 @@ class _$TLAppStateImpl extends _TLAppState {
       this.tlUserData = const TLUserData(
           currentAppIconName: "Sun Orange",
           selectedCheckBoxIconData: SelectedCheckBoxIconData(
-              iconCategory: "Default", iconName: "Box"))})
+              iconCategory: "Default", iconName: "Box"),
+          earnedCheckBoxIcons: {})})
       : _tlWorkspaces = tlWorkspaces,
         _tcwSettings = tcwSettings,
         super._();
@@ -215,7 +216,7 @@ class _$TLAppStateImpl extends _TLAppState {
     return EqualUnmodifiableListView(_tcwSettings);
   }
 
-// 追加: アプリの設定データ
+// アプリの設定データ
   @override
   @JsonKey()
   final TLUserData tlUserData;
@@ -287,7 +288,7 @@ abstract class _TLAppState extends TLAppState {
   @override
   TLThemeType get selectedThemeType;
   @override
-  List<TCWSettings> get tcwSettings; // 追加: アプリの設定データ
+  List<TCWSettings> get tcwSettings; // アプリの設定データ
   @override
   TLUserData get tlUserData;
 

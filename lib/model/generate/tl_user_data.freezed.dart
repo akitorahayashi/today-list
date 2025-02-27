@@ -20,8 +20,12 @@ TLUserData _$TLUserDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TLUserData {
-  String get currentAppIconName => throw _privateConstructorUsedError;
+// 現在のアプリアイコンの名前
+  String get currentAppIconName =>
+      throw _privateConstructorUsedError; // 選択されたチェックボックスのアイコン
   SelectedCheckBoxIconData get selectedCheckBoxIconData =>
+      throw _privateConstructorUsedError; // 獲得したチェックボックスのアイコン
+  Map<String, List<String>> get earnedCheckBoxIcons =>
       throw _privateConstructorUsedError;
 
   /// Serializes this TLUserData to a JSON map.
@@ -42,7 +46,8 @@ abstract class $TLUserDataCopyWith<$Res> {
   @useResult
   $Res call(
       {String currentAppIconName,
-      SelectedCheckBoxIconData selectedCheckBoxIconData});
+      SelectedCheckBoxIconData selectedCheckBoxIconData,
+      Map<String, List<String>> earnedCheckBoxIcons});
 
   $SelectedCheckBoxIconDataCopyWith<$Res> get selectedCheckBoxIconData;
 }
@@ -64,6 +69,7 @@ class _$TLUserDataCopyWithImpl<$Res, $Val extends TLUserData>
   $Res call({
     Object? currentAppIconName = null,
     Object? selectedCheckBoxIconData = null,
+    Object? earnedCheckBoxIcons = null,
   }) {
     return _then(_value.copyWith(
       currentAppIconName: null == currentAppIconName
@@ -74,6 +80,10 @@ class _$TLUserDataCopyWithImpl<$Res, $Val extends TLUserData>
           ? _value.selectedCheckBoxIconData
           : selectedCheckBoxIconData // ignore: cast_nullable_to_non_nullable
               as SelectedCheckBoxIconData,
+      earnedCheckBoxIcons: null == earnedCheckBoxIcons
+          ? _value.earnedCheckBoxIcons
+          : earnedCheckBoxIcons // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<String>>,
     ) as $Val);
   }
 
@@ -99,7 +109,8 @@ abstract class _$$TLUserDataImplCopyWith<$Res>
   @useResult
   $Res call(
       {String currentAppIconName,
-      SelectedCheckBoxIconData selectedCheckBoxIconData});
+      SelectedCheckBoxIconData selectedCheckBoxIconData,
+      Map<String, List<String>> earnedCheckBoxIcons});
 
   @override
   $SelectedCheckBoxIconDataCopyWith<$Res> get selectedCheckBoxIconData;
@@ -120,6 +131,7 @@ class __$$TLUserDataImplCopyWithImpl<$Res>
   $Res call({
     Object? currentAppIconName = null,
     Object? selectedCheckBoxIconData = null,
+    Object? earnedCheckBoxIcons = null,
   }) {
     return _then(_$TLUserDataImpl(
       currentAppIconName: null == currentAppIconName
@@ -130,6 +142,10 @@ class __$$TLUserDataImplCopyWithImpl<$Res>
           ? _value.selectedCheckBoxIconData
           : selectedCheckBoxIconData // ignore: cast_nullable_to_non_nullable
               as SelectedCheckBoxIconData,
+      earnedCheckBoxIcons: null == earnedCheckBoxIcons
+          ? _value._earnedCheckBoxIcons
+          : earnedCheckBoxIcons // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<String>>,
     ));
   }
 }
@@ -140,21 +156,36 @@ class _$TLUserDataImpl implements _TLUserData {
   const _$TLUserDataImpl(
       {this.currentAppIconName = "Sun Orange",
       this.selectedCheckBoxIconData = const SelectedCheckBoxIconData(
-          iconCategory: "Default", iconName: "Box")});
+          iconCategory: "Default", iconName: "Box"),
+      final Map<String, List<String>> earnedCheckBoxIcons = const {}})
+      : _earnedCheckBoxIcons = earnedCheckBoxIcons;
 
   factory _$TLUserDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLUserDataImplFromJson(json);
 
+// 現在のアプリアイコンの名前
   @override
   @JsonKey()
   final String currentAppIconName;
+// 選択されたチェックボックスのアイコン
   @override
   @JsonKey()
   final SelectedCheckBoxIconData selectedCheckBoxIconData;
+// 獲得したチェックボックスのアイコン
+  final Map<String, List<String>> _earnedCheckBoxIcons;
+// 獲得したチェックボックスのアイコン
+  @override
+  @JsonKey()
+  Map<String, List<String>> get earnedCheckBoxIcons {
+    if (_earnedCheckBoxIcons is EqualUnmodifiableMapView)
+      return _earnedCheckBoxIcons;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_earnedCheckBoxIcons);
+  }
 
   @override
   String toString() {
-    return 'TLUserData(currentAppIconName: $currentAppIconName, selectedCheckBoxIconData: $selectedCheckBoxIconData)';
+    return 'TLUserData(currentAppIconName: $currentAppIconName, selectedCheckBoxIconData: $selectedCheckBoxIconData, earnedCheckBoxIcons: $earnedCheckBoxIcons)';
   }
 
   @override
@@ -166,13 +197,18 @@ class _$TLUserDataImpl implements _TLUserData {
                 other.currentAppIconName == currentAppIconName) &&
             (identical(
                     other.selectedCheckBoxIconData, selectedCheckBoxIconData) ||
-                other.selectedCheckBoxIconData == selectedCheckBoxIconData));
+                other.selectedCheckBoxIconData == selectedCheckBoxIconData) &&
+            const DeepCollectionEquality()
+                .equals(other._earnedCheckBoxIcons, _earnedCheckBoxIcons));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, currentAppIconName, selectedCheckBoxIconData);
+  int get hashCode => Object.hash(
+      runtimeType,
+      currentAppIconName,
+      selectedCheckBoxIconData,
+      const DeepCollectionEquality().hash(_earnedCheckBoxIcons));
 
   /// Create a copy of TLUserData
   /// with the given fields replaced by the non-null parameter values.
@@ -192,17 +228,20 @@ class _$TLUserDataImpl implements _TLUserData {
 
 abstract class _TLUserData implements TLUserData {
   const factory _TLUserData(
-          {final String currentAppIconName,
-          final SelectedCheckBoxIconData selectedCheckBoxIconData}) =
-      _$TLUserDataImpl;
+      {final String currentAppIconName,
+      final SelectedCheckBoxIconData selectedCheckBoxIconData,
+      final Map<String, List<String>> earnedCheckBoxIcons}) = _$TLUserDataImpl;
 
   factory _TLUserData.fromJson(Map<String, dynamic> json) =
       _$TLUserDataImpl.fromJson;
 
+// 現在のアプリアイコンの名前
   @override
-  String get currentAppIconName;
+  String get currentAppIconName; // 選択されたチェックボックスのアイコン
   @override
-  SelectedCheckBoxIconData get selectedCheckBoxIconData;
+  SelectedCheckBoxIconData get selectedCheckBoxIconData; // 獲得したチェックボックスのアイコン
+  @override
+  Map<String, List<String>> get earnedCheckBoxIcons;
 
   /// Create a copy of TLUserData
   /// with the given fields replaced by the non-null parameter values.
