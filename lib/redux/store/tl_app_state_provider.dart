@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/model/settings_data/tcw_settings.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/tcw_action.dart';
 import 'package:today_list/redux/action/tl_app_state_action.dart';
 import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
@@ -13,6 +15,8 @@ import 'package:today_list/service/tl_method_channel.dart';
 import 'package:today_list/service/tl_pref.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'dart:convert';
+
+import 'package:today_list/util/tl_uuid_generator.dart';
 
 // MARK: - Provider
 final tlAppStateProvider = NotifierProvider<TLAppStateController, TLAppState>(
@@ -27,11 +31,21 @@ class TLAppStateController extends Notifier<TLAppState> {
       tlWorkspaces: initialTLWorkspaces,
       currentWorkspaceID: null,
       selectedThemeType: TLThemeType.sunOrange,
+      tcwSettings: [
+        TCWSettings(
+          id: TLUUIDGenerator.generate(),
+          title: "ProjectA",
+          workspace: initialTLWorkspaces.first,
+          bigCategory: initialTLWorkspaces.first.bigCategories.first,
+          smallCategory: null,
+        )
+      ],
     );
   }
 
   // MARK: - Action Handling
   Future<void> updateState(dynamic action) async {
+    TLVibrationService.vibrate();
     final newState = TLAppStateReducer.reduce(state, action);
     if (newState != state) {
       await _handleSideEffects(action, newState);
@@ -41,12 +55,17 @@ class TLAppStateController extends Notifier<TLAppState> {
 
   // MARK: - Side Effects
   Future<void> _handleSideEffects(dynamic action, TLAppState newState) async {
-    TLVibrationService.vibrate();
+    // save TCWSettings
+    if (action is TCWSettingsAction) {
+      _saveTCWSettings(newState.tcwSettings);
+    }
 
+    // save currentWorkspaceID
     if (action is ChangeCurrentWorkspaceID) {
       await _saveCurrentWorkspaceID(action.newID);
     }
 
+    // save workspaces
     if (action is TLWorkspaceAction ||
         action is TLToDoCategoryAction ||
         action is TLToDoAction ||
@@ -67,17 +86,29 @@ class TLAppStateController extends Notifier<TLAppState> {
   // MARK: - Initial Load
   Future<void> _loadSavedAppState() async {
     final pref = await TLPrefService().getPref;
-    final savedWorkspaceID = pref.getString('currentWorkspaceID');
-    final encodedWorkspaces = pref.getString("tlWorkspaces");
+    final stringWorkspaceID = pref.getString('currentWorkspaceID');
+    final stringWorkspaces = pref.getString("tlWorkspaces");
+    final stringTCWSettings = pref.getString("tcwSettings");
     List<TLWorkspace> loadedWorkspaces = state.tlWorkspaces;
+    List<TCWSettings> loadedTCWSettings = state.tcwSettings;
 
-    if (encodedWorkspaces != null) {
-      final List<dynamic> jsonWorkspaces = jsonDecode(encodedWorkspaces);
+    // decode workspaces
+    if (stringWorkspaces != null) {
+      final List<dynamic> jsonWorkspaces = jsonDecode(stringWorkspaces);
       loadedWorkspaces = jsonWorkspaces
           .map((json) => TLWorkspace.fromJson(json as Map<String, dynamic>))
           .toList();
     }
 
+    // decode TCWSettings
+    if (stringTCWSettings != null) {
+      final List<dynamic> jsonTCWSettings = jsonDecode(stringTCWSettings);
+      loadedTCWSettings = jsonTCWSettings
+          .map((json) => TCWSettings.fromJson(json as Map<String, dynamic>))
+          .toList();
+    }
+
+    // search theme
     final themeName = pref.getString('themeType');
     final savedTheme = TLThemeType.values.firstWhere(
       (t) => t.name == themeName,
@@ -85,9 +116,10 @@ class TLAppStateController extends Notifier<TLAppState> {
     );
 
     state = state.copyWith(
-      tlWorkspaces: loadedWorkspaces,
-      currentWorkspaceID: savedWorkspaceID,
       selectedThemeType: savedTheme,
+      currentWorkspaceID: stringWorkspaceID,
+      tlWorkspaces: loadedWorkspaces,
+      tcwSettings: loadedTCWSettings,
     );
   }
 
@@ -108,6 +140,15 @@ class TLAppStateController extends Notifier<TLAppState> {
     TCWiOSMethodChannelService.updateTLWorkspaces(
         encodedWorkspaces: encodedWorkspaces);
     await pref.setString("tlWorkspaces", encodedWorkspaces);
+  }
+
+  Future<void> _saveTCWSettings(List<TCWSettings> tcwSettings) async {
+    final pref = await TLPrefService().getPref;
+    final encodedTCWSettings =
+        jsonEncode(tcwSettings.map((s) => s.toJson()).toList());
+    TCWiOSMethodChannelService.updateListOfToDosInCategoryWidgetSettings(
+        encodedListOfToDosInCategoryWidgetSettings: encodedTCWSettings);
+    await pref.setString("tcwSettings", encodedTCWSettings);
   }
 
   Future<void> _saveTheme(TLThemeType themeType) async {

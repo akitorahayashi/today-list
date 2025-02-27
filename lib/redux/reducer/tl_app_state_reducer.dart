@@ -1,10 +1,12 @@
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/tcw_action.dart';
 import 'package:today_list/redux/action/tl_app_state_action.dart';
 import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
+import 'package:today_list/redux/reducer/property/tcw_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_theme_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_todo_category_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_todo_reducer.dart';
@@ -41,6 +43,14 @@ class TLAppStateReducer {
       return state.copyWith(
           selectedThemeType:
               TLThemeReducer.reduce(state.selectedThemeType, action));
+    }
+    // TCWSettingsAction
+    if (action is TCWSettingsAction) {
+      return state.copyWith(
+          tcwSettings: TCWSettingsReducer.reduce(
+        state.tcwSettings,
+        action,
+      ));
     }
 
     return state;

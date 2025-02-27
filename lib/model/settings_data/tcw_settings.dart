@@ -7,16 +7,17 @@ part '../generate/todos_in_category_widget_settings.g.dart';
 
 // $ dart run build_runner build
 
+// todos_in_category_widget_settings
 @freezed
-class ToDosInCategoryWidgetSettings with _$ToDosInCategoryWidgetSettings {
-  const factory ToDosInCategoryWidgetSettings({
+class TCWSettings with _$TCWSettings {
+  const factory TCWSettings({
     required String id,
     required String title,
     required TLWorkspace workspace,
     required TLToDoCategory? bigCategory,
     required TLToDoCategory? smallCategory,
-  }) = _ToDosInCategoryWidgetSettings;
+  }) = _TCWSettings;
 
-  factory ToDosInCategoryWidgetSettings.fromJson(Map<String, dynamic> json) =>
-      _$ToDosInCategoryWidgetSettingsFromJson(json);
+  factory TCWSettings.fromJson(Map<String, dynamic> json) =>
+      _$TCWSettingsFromJson(json);
 }

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/redux/action/tcw_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view/page/setting_page/tcw_settings_page/tcw_card_list/component/wks_body_text.dart';
 import 'package:today_list/view/page/setting_page/tcw_settings_page/tcw_card_list/component/wks_header.dart';
-import 'package:today_list/model/settings_data/todos_in_category_widget_settings.dart';
-import 'package:today_list/view_model/settings/tcw_provider.dart';
+import 'package:today_list/model/settings_data/tcw_settings.dart';
 
 class CardOfTCWSettings extends ConsumerWidget {
-  final ToDosInCategoryWidgetSettings corrToDosInCategoryWidgetSettings;
+  final TCWSettings corrToDosInCategoryWidgetSettings;
 
   const CardOfTCWSettings(
       {super.key, required this.corrToDosInCategoryWidgetSettings});
@@ -24,10 +25,9 @@ class CardOfTCWSettings extends ConsumerWidget {
           message: "Do you want to delete this setting?",
           yesAction: () {
             Navigator.pop(context);
-            ref
-                .read(toDosInCategoryWidgetSettingsProvider.notifier)
-                .removeToDosInCategoryWidgetSettings(
-                    id: corrToDosInCategoryWidgetSettings.id);
+            ref.read(tlAppStateProvider.notifier).updateState(
+                TCWSettingsAction.removeTCWSetting(
+                    id: corrToDosInCategoryWidgetSettings.id));
             const TLSingleOptionDialog(
               title: "Successfully deleted!",
             ).show(context: context);
@@ -58,7 +58,7 @@ class CardOfTCWSettings extends ConsumerWidget {
 
 // MARK: - タイトル
 class _Title extends StatelessWidget {
-  final ToDosInCategoryWidgetSettings corrToDosInCategoryWidgetSettings;
+  final TCWSettings corrToDosInCategoryWidgetSettings;
 
   const _Title({required this.corrToDosInCategoryWidgetSettings});
 
@@ -82,7 +82,7 @@ class _Title extends StatelessWidget {
 
 // MARK: - カテゴリ情報
 class _CategoryInfo extends StatelessWidget {
-  final ToDosInCategoryWidgetSettings corrToDosInCategoryWidgetSettings;
+  final TCWSettings corrToDosInCategoryWidgetSettings;
 
   const _CategoryInfo({required this.corrToDosInCategoryWidgetSettings});
 

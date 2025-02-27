@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:today_list/model/settings_data/tcw_settings.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 
@@ -15,6 +16,7 @@ class TLAppState with _$TLAppState {
     @Default([]) List<TLWorkspace> tlWorkspaces,
     @Default(null) String? currentWorkspaceID,
     @Default(TLThemeType.sunOrange) TLThemeType selectedThemeType,
+    @Default([]) List<TCWSettings> tcwSettings,
   }) = _TLAppState;
 
   factory TLAppState.fromJson(Map<String, dynamic> json) =>

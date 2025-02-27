@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/settings_data/todos_in_category_widget_settings.dart';
+import 'package:today_list/model/settings_data/tcw_settings.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
+import 'package:today_list/redux/action/tcw_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/util/tl_uuid_generator.dart';
 import 'package:today_list/util/tl_validation.dart';
-import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
-import 'package:today_list/view_model/settings/tcw_provider.dart';
 import '../tcw_card_list/component/wks_header.dart';
 
 class CreateWKSettingsCard extends HookConsumerWidget {
@@ -307,8 +306,8 @@ class _ControlButtons extends ConsumerWidget {
               showAddWKSButtonAction();
             },
             style: controllButtonStyle,
-            child:
-                const Text("戻る", style: TextStyle(fontWeight: FontWeight.bold)),
+            child: const Text("Back",
+                style: TextStyle(fontWeight: FontWeight.bold)),
           ),
           TextButton(
             onPressed: () async {
@@ -318,25 +317,23 @@ class _ControlButtons extends ConsumerWidget {
                 validator: TLValidation.validateWKSName,
                 onSuccess: () async {
                   ref
-                      .read(toDosInCategoryWidgetSettingsProvider.notifier)
-                      .addToDosInCategoryWidgetSettings(
-                        newToDosInCategoryWidgetSettings:
-                            ToDosInCategoryWidgetSettings(
-                          id: TLUUIDGenerator.generate(),
-                          title: wksInputController.text,
-                          workspace: currentWorkspace,
-                          bigCategory: currentBigCategory,
-                          smallCategory: currentSmallCategory,
-                        ),
-                      );
+                      .read(tlAppStateProvider.notifier)
+                      .updateState(TCWSettingsAction.addTCWSetting(
+                          newSettings: TCWSettings(
+                        id: TLUUIDGenerator.generate(),
+                        title: wksInputController.text,
+                        workspace: currentWorkspace,
+                        bigCategory: currentBigCategory,
+                        smallCategory: currentSmallCategory,
+                      )));
                   resetState();
                   showAddWKSButtonAction();
                 },
               );
             },
             style: controllButtonStyle,
-            child:
-                const Text("追加", style: TextStyle(fontWeight: FontWeight.bold)),
+            child: const Text("Add",
+                style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),
