@@ -195,9 +195,9 @@ class _HomePageState extends ConsumerState<HomePage>
                 indicatorSize: TabBarIndicatorSize.label,
                 indicatorPadding: const EdgeInsets.symmetric(horizontal: -16),
                 splashFactory: NoSplash.splashFactory,
-                overlayColor: MaterialStateProperty.resolveWith((states) {
-                  if (states.contains(MaterialState.pressed) ||
-                      states.contains(MaterialState.focused)) {
+                overlayColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.pressed) ||
+                      states.contains(WidgetState.focused)) {
                     return Colors.transparent;
                   }
                   return null;
@@ -232,7 +232,7 @@ class _HomePageState extends ConsumerState<HomePage>
 
                 // 最後の +タブ -> ダミーコンテンツ
                 Container(
-                  color: Colors.grey.withOpacity(0.2),
+                  color: Colors.grey.withValues(alpha: 0.2),
                   child: const Center(
                     child: Text(
                       "＋タブに対応する画面\n(必要に応じて自由に拡張)",
@@ -246,9 +246,11 @@ class _HomePageState extends ConsumerState<HomePage>
             bottomNavigationBar: const TLHomeBottomNavBar(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: CenterButtonOfHomeBottomNavBar(
-              doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
-            ),
+            floatingActionButton: MediaQuery.of(context).viewInsets.bottom == 0
+                ? CenterButtonOfHomeBottomNavBar(
+                    doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
+                  )
+                : null,
           );
         },
       ),
