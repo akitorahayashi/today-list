@@ -23,9 +23,9 @@ mixin _$TLAppState {
   List<TLWorkspace> get tlWorkspaces => throw _privateConstructorUsedError;
   String? get currentWorkspaceID => throw _privateConstructorUsedError;
   TLThemeType get selectedThemeType => throw _privateConstructorUsedError;
-  List<TCWSettings> get tcwSettings => throw _privateConstructorUsedError;
-  SelectedCheckBoxIconData get selectedCheckBoxIconData =>
-      throw _privateConstructorUsedError;
+  List<TCWSettings> get tcwSettings =>
+      throw _privateConstructorUsedError; // 追加: アプリの設定データ
+  TLUserData get tlUserData => throw _privateConstructorUsedError;
 
   /// Serializes this TLAppState to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,9 +48,9 @@ abstract class $TLAppStateCopyWith<$Res> {
       String? currentWorkspaceID,
       TLThemeType selectedThemeType,
       List<TCWSettings> tcwSettings,
-      SelectedCheckBoxIconData selectedCheckBoxIconData});
+      TLUserData tlUserData});
 
-  $SelectedCheckBoxIconDataCopyWith<$Res> get selectedCheckBoxIconData;
+  $TLUserDataCopyWith<$Res> get tlUserData;
 }
 
 /// @nodoc
@@ -72,7 +72,7 @@ class _$TLAppStateCopyWithImpl<$Res, $Val extends TLAppState>
     Object? currentWorkspaceID = freezed,
     Object? selectedThemeType = null,
     Object? tcwSettings = null,
-    Object? selectedCheckBoxIconData = null,
+    Object? tlUserData = null,
   }) {
     return _then(_value.copyWith(
       tlWorkspaces: null == tlWorkspaces
@@ -91,10 +91,10 @@ class _$TLAppStateCopyWithImpl<$Res, $Val extends TLAppState>
           ? _value.tcwSettings
           : tcwSettings // ignore: cast_nullable_to_non_nullable
               as List<TCWSettings>,
-      selectedCheckBoxIconData: null == selectedCheckBoxIconData
-          ? _value.selectedCheckBoxIconData
-          : selectedCheckBoxIconData // ignore: cast_nullable_to_non_nullable
-              as SelectedCheckBoxIconData,
+      tlUserData: null == tlUserData
+          ? _value.tlUserData
+          : tlUserData // ignore: cast_nullable_to_non_nullable
+              as TLUserData,
     ) as $Val);
   }
 
@@ -102,10 +102,9 @@ class _$TLAppStateCopyWithImpl<$Res, $Val extends TLAppState>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $SelectedCheckBoxIconDataCopyWith<$Res> get selectedCheckBoxIconData {
-    return $SelectedCheckBoxIconDataCopyWith<$Res>(
-        _value.selectedCheckBoxIconData, (value) {
-      return _then(_value.copyWith(selectedCheckBoxIconData: value) as $Val);
+  $TLUserDataCopyWith<$Res> get tlUserData {
+    return $TLUserDataCopyWith<$Res>(_value.tlUserData, (value) {
+      return _then(_value.copyWith(tlUserData: value) as $Val);
     });
   }
 }
@@ -123,10 +122,10 @@ abstract class _$$TLAppStateImplCopyWith<$Res>
       String? currentWorkspaceID,
       TLThemeType selectedThemeType,
       List<TCWSettings> tcwSettings,
-      SelectedCheckBoxIconData selectedCheckBoxIconData});
+      TLUserData tlUserData});
 
   @override
-  $SelectedCheckBoxIconDataCopyWith<$Res> get selectedCheckBoxIconData;
+  $TLUserDataCopyWith<$Res> get tlUserData;
 }
 
 /// @nodoc
@@ -146,7 +145,7 @@ class __$$TLAppStateImplCopyWithImpl<$Res>
     Object? currentWorkspaceID = freezed,
     Object? selectedThemeType = null,
     Object? tcwSettings = null,
-    Object? selectedCheckBoxIconData = null,
+    Object? tlUserData = null,
   }) {
     return _then(_$TLAppStateImpl(
       tlWorkspaces: null == tlWorkspaces
@@ -165,10 +164,10 @@ class __$$TLAppStateImplCopyWithImpl<$Res>
           ? _value._tcwSettings
           : tcwSettings // ignore: cast_nullable_to_non_nullable
               as List<TCWSettings>,
-      selectedCheckBoxIconData: null == selectedCheckBoxIconData
-          ? _value.selectedCheckBoxIconData
-          : selectedCheckBoxIconData // ignore: cast_nullable_to_non_nullable
-              as SelectedCheckBoxIconData,
+      tlUserData: null == tlUserData
+          ? _value.tlUserData
+          : tlUserData // ignore: cast_nullable_to_non_nullable
+              as TLUserData,
     ));
   }
 }
@@ -181,8 +180,10 @@ class _$TLAppStateImpl extends _TLAppState {
       this.currentWorkspaceID = null,
       this.selectedThemeType = TLThemeType.sunOrange,
       final List<TCWSettings> tcwSettings = const [],
-      this.selectedCheckBoxIconData = const SelectedCheckBoxIconData(
-          iconCategory: "Default", iconName: "Box")})
+      this.tlUserData = const TLUserData(
+          currentAppIconName: "Sun Orange",
+          selectedCheckBoxIconData: SelectedCheckBoxIconData(
+              iconCategory: "Default", iconName: "Box"))})
       : _tlWorkspaces = tlWorkspaces,
         _tcwSettings = tcwSettings,
         super._();
@@ -214,13 +215,14 @@ class _$TLAppStateImpl extends _TLAppState {
     return EqualUnmodifiableListView(_tcwSettings);
   }
 
+// 追加: アプリの設定データ
   @override
   @JsonKey()
-  final SelectedCheckBoxIconData selectedCheckBoxIconData;
+  final TLUserData tlUserData;
 
   @override
   String toString() {
-    return 'TLAppState(tlWorkspaces: $tlWorkspaces, currentWorkspaceID: $currentWorkspaceID, selectedThemeType: $selectedThemeType, tcwSettings: $tcwSettings, selectedCheckBoxIconData: $selectedCheckBoxIconData)';
+    return 'TLAppState(tlWorkspaces: $tlWorkspaces, currentWorkspaceID: $currentWorkspaceID, selectedThemeType: $selectedThemeType, tcwSettings: $tcwSettings, tlUserData: $tlUserData)';
   }
 
   @override
@@ -236,9 +238,8 @@ class _$TLAppStateImpl extends _TLAppState {
                 other.selectedThemeType == selectedThemeType) &&
             const DeepCollectionEquality()
                 .equals(other._tcwSettings, _tcwSettings) &&
-            (identical(
-                    other.selectedCheckBoxIconData, selectedCheckBoxIconData) ||
-                other.selectedCheckBoxIconData == selectedCheckBoxIconData));
+            (identical(other.tlUserData, tlUserData) ||
+                other.tlUserData == tlUserData));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -249,7 +250,7 @@ class _$TLAppStateImpl extends _TLAppState {
       currentWorkspaceID,
       selectedThemeType,
       const DeepCollectionEquality().hash(_tcwSettings),
-      selectedCheckBoxIconData);
+      tlUserData);
 
   /// Create a copy of TLAppState
   /// with the given fields replaced by the non-null parameter values.
@@ -269,12 +270,11 @@ class _$TLAppStateImpl extends _TLAppState {
 
 abstract class _TLAppState extends TLAppState {
   const factory _TLAppState(
-          {final List<TLWorkspace> tlWorkspaces,
-          final String? currentWorkspaceID,
-          final TLThemeType selectedThemeType,
-          final List<TCWSettings> tcwSettings,
-          final SelectedCheckBoxIconData selectedCheckBoxIconData}) =
-      _$TLAppStateImpl;
+      {final List<TLWorkspace> tlWorkspaces,
+      final String? currentWorkspaceID,
+      final TLThemeType selectedThemeType,
+      final List<TCWSettings> tcwSettings,
+      final TLUserData tlUserData}) = _$TLAppStateImpl;
   const _TLAppState._() : super._();
 
   factory _TLAppState.fromJson(Map<String, dynamic> json) =
@@ -287,9 +287,9 @@ abstract class _TLAppState extends TLAppState {
   @override
   TLThemeType get selectedThemeType;
   @override
-  List<TCWSettings> get tcwSettings;
+  List<TCWSettings> get tcwSettings; // 追加: アプリの設定データ
   @override
-  SelectedCheckBoxIconData get selectedCheckBoxIconData;
+  TLUserData get tlUserData;
 
   /// Create a copy of TLAppState
   /// with the given fields replaced by the non-null parameter values.

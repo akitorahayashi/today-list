@@ -7,7 +7,7 @@ import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/center_butt
 import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/tl_home_bottom_navbar.dart';
 import 'package:today_list/view/page/setting_page/settings_page.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tl_app_state_action.dart';

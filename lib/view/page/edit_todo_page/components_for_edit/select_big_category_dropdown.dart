@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo_category.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/view/component/dialog/for_category/add_category_dialog.dart';

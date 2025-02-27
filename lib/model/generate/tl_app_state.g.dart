@@ -20,11 +20,12 @@ _$TLAppStateImpl _$$TLAppStateImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => TCWSettings.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      selectedCheckBoxIconData: json['selectedCheckBoxIconData'] == null
-          ? const SelectedCheckBoxIconData(
-              iconCategory: "Default", iconName: "Box")
-          : SelectedCheckBoxIconData.fromJson(
-              json['selectedCheckBoxIconData'] as Map<String, dynamic>),
+      tlUserData: json['tlUserData'] == null
+          ? const TLUserData(
+              currentAppIconName: "Sun Orange",
+              selectedCheckBoxIconData: SelectedCheckBoxIconData(
+                  iconCategory: "Default", iconName: "Box"))
+          : TLUserData.fromJson(json['tlUserData'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$TLAppStateImplToJson(_$TLAppStateImpl instance) =>
@@ -33,7 +34,7 @@ Map<String, dynamic> _$$TLAppStateImplToJson(_$TLAppStateImpl instance) =>
       'currentWorkspaceID': instance.currentWorkspaceID,
       'selectedThemeType': instance.selectedThemeType,
       'tcwSettings': instance.tcwSettings,
-      'selectedCheckBoxIconData': instance.selectedCheckBoxIconData,
+      'tlUserData': instance.tlUserData,
     };
 
 const _$TLThemeTypeEnumMap = {

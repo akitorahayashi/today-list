@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme_config.dart';
 
 class SelectTodayOrWheneverButton extends StatelessWidget {
   final bool ifInToday;

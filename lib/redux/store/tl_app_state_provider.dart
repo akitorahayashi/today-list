@@ -1,14 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 import 'package:today_list/model/settings_data/tcw_settings.dart';
+import 'package:today_list/model/settings_data/tl_user_data.dart';
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/redux/action/tcw_action.dart';
 import 'package:today_list/redux/action/tl_app_state_action.dart';
-import 'package:today_list/redux/action/tl_checkbox_action.dart';
 import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
 import 'package:today_list/redux/action/tl_todo_category_action.dart';
+import 'package:today_list/redux/action/tl_user_data_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
 import 'package:today_list/redux/reducer/tl_app_state_reducer.dart';
 import 'package:today_list/resource/initial_tl_workspaces.dart';
@@ -49,9 +50,9 @@ class TLAppStateController extends Notifier<TLAppState> {
   Future<void> updateState(dynamic action) async {
     TLVibrationService.vibrate();
     final newState = TLAppStateReducer.reduce(state, action);
-    if (newState != state) {
-      await _handleSideEffects(action, newState);
-      state = newState;
+    if (await newState != state) {
+      await _handleSideEffects(action, await newState);
+      state = await newState;
     }
   }
 
@@ -80,19 +81,53 @@ class TLAppStateController extends Notifier<TLAppState> {
       await _saveWorkspaces(newState.tlWorkspaces);
     }
 
-    // 選択チェックボックスの変更時に保存処理を実行
-    if (action is TLCheckBoxAction) {
-      final jsonString = jsonEncode(newState.selectedCheckBoxIconData.toJson());
-
-      // SharedPreferences に保存
-      final pref = await TLPrefService().getPref;
-      pref.setString('selectedCheckBoxData', jsonString);
-    }
-
-    // save theme
     if (action is TLThemeAction) {
       await _saveTheme(newState.selectedThemeType);
     }
+
+    // save user data
+    if (action is TLUserDataAction) {
+      await _saveUserData(newState.tlUserData);
+    }
+  }
+
+  // MARK: - Save State
+  Future<void> _saveUserData(TLUserData newTLUserData) async {
+    final pref = await TLPrefService().getPref;
+    final jsonString = jsonEncode(newTLUserData.toJson());
+    await pref.setString('tlUserData', jsonString);
+  }
+
+  Future<void> _saveCurrentWorkspaceID(String? id) async {
+    final pref = await TLPrefService().getPref;
+    if (id == null) {
+      await pref.remove("currentWorkspaceID");
+    } else {
+      await pref.setString('currentWorkspaceID', id);
+    }
+  }
+
+  Future<void> _saveWorkspaces(List<TLWorkspace> workspaces) async {
+    final pref = await TLPrefService().getPref;
+    final encodedWorkspaces =
+        jsonEncode(workspaces.map((w) => w.toJson()).toList());
+    TCWiOSMethodChannelService.updateTLWorkspaces(
+        encodedWorkspaces: encodedWorkspaces);
+    await pref.setString("tlWorkspaces", encodedWorkspaces);
+  }
+
+  Future<void> _saveTCWSettings(List<TCWSettings> tcwSettings) async {
+    final pref = await TLPrefService().getPref;
+    final encodedTCWSettings =
+        jsonEncode(tcwSettings.map((s) => s.toJson()).toList());
+    TCWiOSMethodChannelService.updateListOfToDosInCategoryWidgetSettings(
+        encodedListOfToDosInCategoryWidgetSettings: encodedTCWSettings);
+    await pref.setString("tcwSettings", encodedTCWSettings);
+  }
+
+  Future<void> _saveTheme(TLThemeType themeType) async {
+    final pref = await TLPrefService().getPref;
+    await pref.setString('themeType', themeType.name);
   }
 
   // MARK: - Initial Load
@@ -127,13 +162,12 @@ class TLAppStateController extends Notifier<TLAppState> {
       orElse: () => TLThemeType.sunOrange,
     );
 
-    // 選択したチェックボックスのデータをロード
-    SelectedCheckBoxIconData loadedCheckBoxData =
-        state.selectedCheckBoxIconData;
-    final jsonString = pref.getString('selectedCheckBoxData');
+    // ユーザのデータをロード
+    TLUserData loadedUserData = state.tlUserData;
+    final jsonString = pref.getString('tlUserData');
     if (jsonString != null) {
       final jsonData = jsonDecode(jsonString);
-      loadedCheckBoxData = SelectedCheckBoxIconData.fromJson(jsonData);
+      loadedUserData = TLUserData.fromJson(jsonData);
     }
 
     state = state.copyWith(
@@ -141,40 +175,7 @@ class TLAppStateController extends Notifier<TLAppState> {
       currentWorkspaceID: stringWorkspaceID,
       tlWorkspaces: loadedWorkspaces,
       tcwSettings: loadedTCWSettings,
-      selectedCheckBoxIconData: loadedCheckBoxData,
+      tlUserData: loadedUserData,
     );
-  }
-
-  // MARK: - Save State
-  Future<void> _saveCurrentWorkspaceID(String? id) async {
-    final pref = await TLPrefService().getPref;
-    if (id == null) {
-      await pref.remove("currentWorkspaceID");
-    } else {
-      await pref.setString('currentWorkspaceID', id);
-    }
-  }
-
-  Future<void> _saveWorkspaces(List<TLWorkspace> workspaces) async {
-    final pref = await TLPrefService().getPref;
-    final encodedWorkspaces =
-        jsonEncode(workspaces.map((w) => w.toJson()).toList());
-    TCWiOSMethodChannelService.updateTLWorkspaces(
-        encodedWorkspaces: encodedWorkspaces);
-    await pref.setString("tlWorkspaces", encodedWorkspaces);
-  }
-
-  Future<void> _saveTCWSettings(List<TCWSettings> tcwSettings) async {
-    final pref = await TLPrefService().getPref;
-    final encodedTCWSettings =
-        jsonEncode(tcwSettings.map((s) => s.toJson()).toList());
-    TCWiOSMethodChannelService.updateListOfToDosInCategoryWidgetSettings(
-        encodedListOfToDosInCategoryWidgetSettings: encodedTCWSettings);
-    await pref.setString("tcwSettings", encodedTCWSettings);
-  }
-
-  Future<void> _saveTheme(TLThemeType themeType) async {
-    final pref = await TLPrefService().getPref;
-    await pref.setString('themeType', themeType.name);
   }
 }

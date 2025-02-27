@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/design/tl_theme_config.dart';
+import 'package:today_list/redux/action/tl_user_data_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/view/component/todo_card/tl_checkbox.dart';
 import 'package:today_list/service/tl_vibration.dart';
-import 'package:today_list/view_model/settings/setting_data_provider.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/settings_data/settings_data.dart';
+import 'package:today_list/model/design/tl_theme.dart';
 
 class UpdateAppIconCard extends ConsumerWidget {
   const UpdateAppIconCard({super.key});
@@ -16,12 +16,12 @@ class UpdateAppIconCard extends ConsumerWidget {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final deviceWidth = MediaQuery.of(context).size.width;
     // provider
-    final SettingsData settingData = ref.watch(settingDataProvider);
+    final String currentAppIconName = ref.watch(tlAppStateProvider
+        .select((state) => state.tlUserData.currentAppIconName));
     // notifier
-    final SettingDataNotifier settingDataNotifier =
-        ref.read(settingDataProvider.notifier);
-    final bool isMatched =
-        settingData.currentAppIconName == tlThemeConfig.themeName;
+    final TLAppStateController tlAppStateController =
+        ref.read(tlAppStateProvider.notifier);
+    final bool isMatched = currentAppIconName == tlThemeConfig.themeName;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
@@ -35,11 +35,11 @@ class UpdateAppIconCard extends ConsumerWidget {
                     message: "Change the app icon to match the theme?",
                     yesAction: () {
                       if (context.mounted) {
-                        print(context);
                         Navigator.pop(context);
                         TLVibrationService.vibrate();
-                        settingDataNotifier.changeIcon(
-                            themeName: tlThemeConfig.themeName);
+                        tlAppStateController.updateState(
+                            TLUserDataAction.updateCurrentAppIconName(
+                                newThemeName: tlThemeConfig.themeName));
                       }
                     },
                   ).show(context: context);
@@ -84,7 +84,7 @@ class UpdateAppIconCard extends ConsumerWidget {
                                 fontWeight: FontWeight.bold,
                                 color: isMatched
                                     ? tlThemeConfig.checkmarkColor
-                                    : Colors.black.withOpacity(0.6),
+                                    : Colors.black.withValues(alpha: 0.6),
                               ),
                             ),
                           ),

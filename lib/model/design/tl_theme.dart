@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/design/tl_theme_config.dart';
 
 class TLTheme extends InheritedWidget {
   final TLThemeConfig data;

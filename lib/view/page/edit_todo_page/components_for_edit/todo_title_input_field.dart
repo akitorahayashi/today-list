@@ -3,8 +3,8 @@ import 'package:today_list/view/component/snack_bar/snack_bar_to_notify_todo_or_
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/styles.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme_config.dart';
 
 class ToDoTitleInputField extends StatefulWidget {
   final TextEditingController toDoTitleController;

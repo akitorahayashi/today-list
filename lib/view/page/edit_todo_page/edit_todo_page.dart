@@ -13,8 +13,8 @@ import 'package:today_list/view/page/edit_todo_page/components_for_edit/todo_tit
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/added_steps_column.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/step_title_input_field.dart';
 import 'package:today_list/view/page/edit_todo_page/already_exist/already_exist.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';

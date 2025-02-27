@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
-import 'package:today_list/redux/action/tl_checkbox_action.dart';
+import 'package:today_list/redux/action/tl_user_data_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme.dart';
-import 'package:today_list/model/design/tl_theme/tl_theme_config.dart';
+import 'package:today_list/model/design/tl_theme.dart';
+import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/resource/tl_icon_resource.dart';
 import 'package:today_list/service/tl_vibration.dart';
 
@@ -30,7 +30,8 @@ class _IconCardState extends ConsumerState<IconCard> {
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final SelectedCheckBoxIconData selectedCheckBoxIconData = ref.watch(
-        tlAppStateProvider.select((state) => state.selectedCheckBoxIconData));
+        tlAppStateProvider
+            .select((state) => state.tlUserData.selectedCheckBoxIconData));
     final TLAppStateController tlAppStateController =
         ref.read(tlAppStateProvider.notifier);
     final bool isCurrentIcon =
@@ -46,8 +47,8 @@ class _IconCardState extends ConsumerState<IconCard> {
                 message: "Do you want to change\nthe checkmark icon?",
                 yesAction: () async {
                   Navigator.pop(context);
-                  tlAppStateController.updateState(
-                      TLCheckBoxAction.updateSelectedIcon(
+                  await tlAppStateController.updateState(
+                      TLUserDataAction.updateSelectedCheckBoxIcon(
                           newCheckBox: SelectedCheckBoxIconData(
                               iconCategory: widget.tlIconCategory.name,
                               iconName: widget.tlIconName.name)));

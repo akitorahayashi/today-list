@@ -1,0 +1,23 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of '../settings_data/tl_user_data.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$TLUserDataImpl _$$TLUserDataImplFromJson(Map<String, dynamic> json) =>
+    _$TLUserDataImpl(
+      currentAppIconName: json['currentAppIconName'] as String? ?? "Sun Orange",
+      selectedCheckBoxIconData: json['selectedCheckBoxIconData'] == null
+          ? const SelectedCheckBoxIconData(
+              iconCategory: "Default", iconName: "Box")
+          : SelectedCheckBoxIconData.fromJson(
+              json['selectedCheckBoxIconData'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$TLUserDataImplToJson(_$TLUserDataImpl instance) =>
+    <String, dynamic>{
+      'currentAppIconName': instance.currentAppIconName,
+      'selectedCheckBoxIconData': instance.selectedCheckBoxIconData,
+    };

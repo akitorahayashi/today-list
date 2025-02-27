@@ -111,7 +111,7 @@ class SetAppearancePage extends HookConsumerWidget {
             TLIconCategory.unit1,
             TLIconCategory.unit2,
           ])
-            IconCategoryPanel(tlIconCategory: tlIconCategory),
+            IconCategoryPanel(corrIconCategory: tlIconCategory),
         ],
       ),
       const SizedBox(height: 250),
