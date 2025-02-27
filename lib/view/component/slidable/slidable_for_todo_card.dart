@@ -36,7 +36,7 @@ class SlidableForToDoCard extends ConsumerWidget {
       // MARK: - Edit / Move ToDo
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
-        extentRatio: 0.17,
+        extentRatio: 0.20,
         children: [
           // MARK: - Toggle Between Today and Whenever
           SlidableAction(
