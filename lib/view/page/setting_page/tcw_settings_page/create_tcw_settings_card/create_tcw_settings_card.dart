@@ -312,7 +312,6 @@ class _ControlButtons extends ConsumerWidget {
           ),
           TextButton(
             onPressed: () async {
-              TLVibrationService.vibrate();
               await TLValidation.validateNameAndExecute(
                 context: context,
                 name: wksInputController.text,
