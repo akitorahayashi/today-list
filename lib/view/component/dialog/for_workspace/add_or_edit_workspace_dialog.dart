@@ -89,11 +89,11 @@ class _AddOrEditWorkspaceDialogState
   // MARK: - UI Components
   Widget _buildDialogTitle() {
     return Text(
-      "Workspace",
+      "${(widget.oldWorkspaceId == null ? "Add" : "Edit")} Workspace",
       style: TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.bold,
-        color: Colors.black.withOpacity(0.4),
+        color: Colors.black.withValues(alpha: 0.4),
       ),
     );
   }
@@ -106,7 +106,7 @@ class _AddOrEditWorkspaceDialogState
         cursorColor: theme.accentColor,
         controller: _workspaceNameInputController,
         style: TextStyle(
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.black.withValues(alpha: 0.5),
           fontWeight: FontWeight.w600,
         ),
         decoration: tlInputDecoration(
