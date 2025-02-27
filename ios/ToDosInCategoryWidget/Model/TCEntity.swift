@@ -13,9 +13,9 @@ struct TCEntity: AppEntity {
     // snapshotなどで使う
     static let defaultEntity = TCEntity(
         id: TLUUIDGenerator.generate(),
-        title: WorkspaceID.work.name,
-        workspaceID:  WorkspaceID.work.rawValue,
-        categoryID: BigCategoryID.projectA.rawValue
+        title: TCWExampleState.BigCategoryID.projectA.name,
+        workspaceID:  TCWExampleState.WorkspaceID.work.rawValue,
+        categoryID: TCWExampleState.BigCategoryID.projectA.rawValue
     )
     
     static var defaultQuery = TCQuery()
@@ -50,7 +50,7 @@ struct TCQuery: EntityQuery {
     private func loadSettingsList() -> [TCEntity] {
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         
-        guard let jsonString = userDefaults?.string(forKey: "listOfToDosInCategoryWidgetSettings") else {
+        guard let jsonString = userDefaults?.string(forKey: "tcwSettings") else {
             print("UserDefaults does not contain listOfToDosInCategoryWidgetSettings key")
             return []
         }
@@ -63,7 +63,7 @@ struct TCQuery: EntityQuery {
         
         // JSONデコード処理
         do {
-            let decodedSettings = try JSONDecoder().decode([ToDosInCategoryWidgetSettings].self, from: data)
+            let decodedSettings = try JSONDecoder().decode([TCWSettings].self, from: data)
             
             let entities = decodedSettings.map {
                 TCEntity(

@@ -8,7 +8,7 @@
 import Foundation
 import WidgetKit
 
-class TLUserDefaultsManager {
+final class TLUserDefaultsManager {
     static let shared = TLUserDefaultsManager()
     
     let userDefaults: UserDefaults?

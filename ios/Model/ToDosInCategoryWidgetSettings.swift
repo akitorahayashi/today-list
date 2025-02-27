@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ToDosInCategoryWidgetSettings: Codable, Identifiable {
+struct TCWSettings: Codable, Identifiable {
     
     var id: String
     var title: String
@@ -16,7 +16,7 @@ struct ToDosInCategoryWidgetSettings: Codable, Identifiable {
     var bigCategory: TLToDoCategory?
     var smallCategory: TLToDoCategory?
     
-    static func decodeListOfToDosInCategoryWidgetSettings(from jsonStringList: String?) -> [ToDosInCategoryWidgetSettings]? {
+    static func decodeListOfToDosInCategoryWidgetSettings(from jsonStringList: String?) -> [TCWSettings]? {
         
         // JSON文字列がnilまたは空の場合、エラーを出力して終了
         guard let jsonStringList = jsonStringList, !jsonStringList.isEmpty else {
@@ -32,7 +32,7 @@ struct ToDosInCategoryWidgetSettings: Codable, Identifiable {
         
         // JSONデコード処理
         do {
-            return try JSONDecoder().decode([ToDosInCategoryWidgetSettings].self, from: data)
+            return try JSONDecoder().decode([TCWSettings].self, from: data)
         } catch {
             print("decodeCustomListError: JSON decoding failed -> \(error.localizedDescription)")
             return nil

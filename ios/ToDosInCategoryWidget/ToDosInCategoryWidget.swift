@@ -39,7 +39,7 @@ struct ToDosInCategoryWidget: Widget {
                 }
         }
         .configurationDisplayName("ToDos In Category Widget")
-        .description("Select a settings to display on this widget from the widget settings list in this app.")
+        .description("By setting up the widget in the app's settings, a list of ToDos from your selected category will be shown.")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }

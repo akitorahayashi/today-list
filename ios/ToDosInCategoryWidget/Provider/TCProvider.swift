@@ -13,9 +13,9 @@ struct TCProvider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> TCWidgetEntry {
         return TCWidgetEntry(
             date: Date(),
-            entity: TCEntity.defaultEntity,
+            entity: nil,
             selectedThemeType: TLThemeType.sunOrange,
-            tlWorkspaces: kTLWorkspacesExample
+            tlWorkspaces: TCWExampleState.kTLWorkspacesExample
         )
     }
     
@@ -24,9 +24,9 @@ struct TCProvider: AppIntentTimelineProvider {
         let corrThemeType = TLThemeType.from(themeName)
         return TCWidgetEntry(
             date: Date(),
-            entity: TCEntity.defaultEntity,
+            entity: nil,
             selectedThemeType: corrThemeType,
-            tlWorkspaces: kTLWorkspacesExample
+            tlWorkspaces: TCWExampleState.kTLWorkspacesExample
         )
     }
     
@@ -41,7 +41,7 @@ struct TCProvider: AppIntentTimelineProvider {
         let corrThemeType = TLThemeType.from(themeName)
         
         // workspaceのデコード
-        let tlWorkspaces: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? kTLWorkspacesExample
+        let tlWorkspaces: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? TCWExampleState.kTLWorkspacesExample
         
         
         let loadedEntry = TCWidgetEntry(
