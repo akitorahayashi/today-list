@@ -1,44 +1,84 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:today_list/main.dart';
 import 'package:today_list/model/external/tl_ad_unit_type.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
-
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class TLAds {
   static RewardedAd? rewardedAd;
+  // **広告ロード中の状態を管理**
+  static bool isLoadingRewardedAd = false;
 
   static Future<void> initializeTLAds() async {
     await MobileAds.instance.initialize();
   }
 
-  static Future<void> showIconRewardedAd(
-      {required BuildContext context, required Function rewardAction}) async {
+  static Future<void> showIconRewardedAd({
+    required BuildContext context,
+    required Function rewardAction,
+  }) async {
+    // まず ProgressHUD を表示
+    ProgressHUD.of(context)?.show();
+
+    // すでにロード済みの広告があればすぐに表示
     if (rewardedAd != null) {
-      await rewardedAd!.show(onUserEarnedReward: (_, reward) {
-        rewardAction();
-      });
-    } else {
-      // 広告がロードされていない場合は再ロード
-      await loadIconRewardedAd();
-      if (rewardedAd != null) {
-        await rewardedAd!.show(onUserEarnedReward: (_, reward) {
+      await rewardedAd!.show(
+        onUserEarnedReward: (_, reward) {
           rewardAction();
-        });
-      } else {
-        // 広告がロードできなかった場合のエラーダイアログ
-        if (context.mounted) {
-          const TLSingleOptionDialog(
-                  title: "Error",
-                  message: "The internet connection seems to be unstable...")
-              .show(context: context);
-        }
+        },
+      );
+      // ユーザーが広告を閉じた直後に HUD を消す
+      if (context.mounted) {
+        ProgressHUD.of(context)?.dismiss();
       }
+      return;
+    }
+
+    // ② まだロード中・ロードしていない場合は広告ロード
+    if (isLoadingRewardedAd) {
+      // すでにロードリクエストが走っている場合は待つ
+      // ここでは簡略化してリターン例
+      return;
+    }
+    final success = await loadIconRewardedAd();
+
+    if (!success || rewardedAd == null) {
+      // ロード失敗
+      if (context.mounted) {
+        const TLSingleOptionDialog(
+          title: "Error",
+          message: "The internet connection seems to be unstable...",
+        ).show(context: context);
+      }
+      // ③ ロード失敗時に HUD を消す
+      if (context.mounted) {
+        ProgressHUD.of(context)?.dismiss();
+      }
+      return;
+    }
+
+    // ④ ロード成功したので広告を表示
+    await rewardedAd!.show(
+      onUserEarnedReward: (_, reward) {
+        rewardAction();
+      },
+    );
+
+    // 広告を閉じたら HUD を消す
+    if (context.mounted) {
+      ProgressHUD.of(context)?.dismiss();
     }
   }
 
-  static Future<void> loadIconRewardedAd() async {
-    return RewardedAd.load(
+  static Future<bool> loadIconRewardedAd() async {
+    if (isLoadingRewardedAd) return false;
+    isLoadingRewardedAd = true;
+
+    final completer = Completer<bool>();
+
+    RewardedAd.load(
       adUnitId: TLAdUnitType.iconRewarded.getAdUnitId(isTestMode: kAdTestMode),
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
@@ -47,16 +87,19 @@ class TLAds {
             onAdDismissedFullScreenContent: (ad) {
               ad.dispose();
               rewardedAd = null;
-              loadIconRewardedAd();
             },
           );
-
           rewardedAd = ad;
+          isLoadingRewardedAd = false;
+          completer.complete(true);
         },
         onAdFailedToLoad: (err) {
-          print('Failed to load a rewarded ad: ${err.message}');
+          isLoadingRewardedAd = false;
+          completer.complete(false);
         },
       ),
     );
+
+    return completer.future;
   }
 }

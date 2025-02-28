@@ -64,13 +64,17 @@ class EditToDoPage extends HookConsumerWidget {
           },
           onAdFailedToLoad: (ad, err) {
             print('Failed to load a banner ad: ${err.message}');
-            ad.dispose(); // Dispose failed ad immediately
+            ad.dispose(); // 失敗した広告はすぐに破棄
           },
         ),
       );
 
       ad.load();
-      return null;
+
+      // **ページが破棄されるときに dispose を実行**
+      return () {
+        bannerAd.value?.dispose();
+      };
     }, []);
 
     // MARK: - ToDo Operations

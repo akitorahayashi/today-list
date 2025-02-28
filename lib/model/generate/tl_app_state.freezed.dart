@@ -184,7 +184,9 @@ class _$TLAppStateImpl extends _TLAppState {
           currentAppIconName: "Sun Orange",
           selectedCheckBoxIconData: SelectedCheckBoxIconData(
               iconCategory: "Default", iconName: "Box"),
-          earnedCheckBoxIcons: {})})
+          earnedCheckBoxIcons: {
+            "Default": ["Box", "Circle"]
+          })})
       : _tlWorkspaces = tlWorkspaces,
         _tcwSettings = tcwSettings,
         super._();

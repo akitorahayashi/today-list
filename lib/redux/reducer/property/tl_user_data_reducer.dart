@@ -11,6 +11,8 @@ class TLUserDataReducer {
           _updateCurrentAppIconName(state, a.newThemeName),
       updateSelectedCheckBoxIcon: (a) =>
           _updateSelectedCheckBoxIcon(state, a.newCheckBox),
+      updateEarnedIcons: (a) =>
+          _updateEarnedIcons(state, a.iconCategory.name, a.iconName.name),
     );
   }
 
@@ -34,5 +36,20 @@ class TLUserDataReducer {
   static TLUserData _updateSelectedCheckBoxIcon(
       TLUserData state, SelectedCheckBoxIconData newCheckBox) {
     return state.copyWith(selectedCheckBoxIconData: newCheckBox);
+  }
+
+  // 獲得したアイコンを更新
+  static TLUserData _updateEarnedIcons(
+      TLUserData state, String iconCategory, String iconName) {
+    final newEarnedIcons =
+        Map<String, List<String>>.from(state.earnedCheckBoxIcons);
+
+    if (newEarnedIcons[iconCategory] == null) {
+      newEarnedIcons[iconCategory] = [iconName];
+    } else {
+      newEarnedIcons[iconCategory]!.add(iconName);
+    }
+
+    return state.copyWith(earnedCheckBoxIcons: newEarnedIcons);
   }
 }

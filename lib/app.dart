@@ -25,6 +25,11 @@ class TodayListApp extends ConsumerWidget {
         title: "Today List",
         theme: ThemeData(
           useMaterial3: true,
+          primaryColor: selectedThemeType.config.accentColor,
+          colorScheme: ColorScheme.fromSeed(
+            primary: selectedThemeType.config.accentColor,
+            seedColor: selectedThemeType.config.accentColor,
+          ),
           splashFactory: NoSplash.splashFactory,
         ),
         home: HomePage(),

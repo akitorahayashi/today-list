@@ -19,7 +19,9 @@ _$TLUserDataImpl _$$TLUserDataImplFromJson(Map<String, dynamic> json) =>
                 (k, e) => MapEntry(
                     k, (e as List<dynamic>).map((e) => e as String).toList()),
               ) ??
-              const {},
+              const {
+                "Default": ["Box", "Circle"]
+              },
     );
 
 Map<String, dynamic> _$$TLUserDataImplToJson(_$TLUserDataImpl instance) =>

@@ -25,7 +25,9 @@ _$TLAppStateImpl _$$TLAppStateImplFromJson(Map<String, dynamic> json) =>
               currentAppIconName: "Sun Orange",
               selectedCheckBoxIconData: SelectedCheckBoxIconData(
                   iconCategory: "Default", iconName: "Box"),
-              earnedCheckBoxIcons: {})
+              earnedCheckBoxIcons: {
+                  "Default": ["Box", "Circle"]
+                })
           : TLUserData.fromJson(json['tlUserData'] as Map<String, dynamic>),
     );
 

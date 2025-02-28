@@ -157,7 +157,9 @@ class _$TLUserDataImpl implements _TLUserData {
       {this.currentAppIconName = "Sun Orange",
       this.selectedCheckBoxIconData = const SelectedCheckBoxIconData(
           iconCategory: "Default", iconName: "Box"),
-      final Map<String, List<String>> earnedCheckBoxIcons = const {}})
+      final Map<String, List<String>> earnedCheckBoxIcons = const {
+        "Default": ["Box", "Circle"]
+      }})
       : _earnedCheckBoxIcons = earnedCheckBoxIcons;
 
   factory _$TLUserDataImpl.fromJson(Map<String, dynamic> json) =>

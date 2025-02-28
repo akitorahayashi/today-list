@@ -21,6 +21,8 @@ mixin _$TLUserDataAction {
     required TResult Function(String newThemeName) updateCurrentAppIconName,
     required TResult Function(SelectedCheckBoxIconData newCheckBox)
         updateSelectedCheckBoxIcon,
+    required TResult Function(TLIconCategory iconCategory, TLIconName iconName)
+        updateEarnedIcons,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +30,8 @@ mixin _$TLUserDataAction {
     TResult? Function(String newThemeName)? updateCurrentAppIconName,
     TResult? Function(SelectedCheckBoxIconData newCheckBox)?
         updateSelectedCheckBoxIcon,
+    TResult? Function(TLIconCategory iconCategory, TLIconName iconName)?
+        updateEarnedIcons,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +39,8 @@ mixin _$TLUserDataAction {
     TResult Function(String newThemeName)? updateCurrentAppIconName,
     TResult Function(SelectedCheckBoxIconData newCheckBox)?
         updateSelectedCheckBoxIcon,
+    TResult Function(TLIconCategory iconCategory, TLIconName iconName)?
+        updateEarnedIcons,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -44,6 +50,7 @@ mixin _$TLUserDataAction {
         updateCurrentAppIconName,
     required TResult Function(_UpdateSelectedCheckBoxIcon value)
         updateSelectedCheckBoxIcon,
+    required TResult Function(_UpdateEarnedIcons value) updateEarnedIcons,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,6 +59,7 @@ mixin _$TLUserDataAction {
         updateCurrentAppIconName,
     TResult? Function(_UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
+    TResult? Function(_UpdateEarnedIcons value)? updateEarnedIcons,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,6 +67,7 @@ mixin _$TLUserDataAction {
     TResult Function(_UpdateCurrentAppIconType value)? updateCurrentAppIconName,
     TResult Function(_UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
+    TResult Function(_UpdateEarnedIcons value)? updateEarnedIcons,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -160,6 +169,8 @@ class _$UpdateCurrentAppIconTypeImpl implements _UpdateCurrentAppIconType {
     required TResult Function(String newThemeName) updateCurrentAppIconName,
     required TResult Function(SelectedCheckBoxIconData newCheckBox)
         updateSelectedCheckBoxIcon,
+    required TResult Function(TLIconCategory iconCategory, TLIconName iconName)
+        updateEarnedIcons,
   }) {
     return updateCurrentAppIconName(newThemeName);
   }
@@ -170,6 +181,8 @@ class _$UpdateCurrentAppIconTypeImpl implements _UpdateCurrentAppIconType {
     TResult? Function(String newThemeName)? updateCurrentAppIconName,
     TResult? Function(SelectedCheckBoxIconData newCheckBox)?
         updateSelectedCheckBoxIcon,
+    TResult? Function(TLIconCategory iconCategory, TLIconName iconName)?
+        updateEarnedIcons,
   }) {
     return updateCurrentAppIconName?.call(newThemeName);
   }
@@ -180,6 +193,8 @@ class _$UpdateCurrentAppIconTypeImpl implements _UpdateCurrentAppIconType {
     TResult Function(String newThemeName)? updateCurrentAppIconName,
     TResult Function(SelectedCheckBoxIconData newCheckBox)?
         updateSelectedCheckBoxIcon,
+    TResult Function(TLIconCategory iconCategory, TLIconName iconName)?
+        updateEarnedIcons,
     required TResult orElse(),
   }) {
     if (updateCurrentAppIconName != null) {
@@ -195,6 +210,7 @@ class _$UpdateCurrentAppIconTypeImpl implements _UpdateCurrentAppIconType {
         updateCurrentAppIconName,
     required TResult Function(_UpdateSelectedCheckBoxIcon value)
         updateSelectedCheckBoxIcon,
+    required TResult Function(_UpdateEarnedIcons value) updateEarnedIcons,
   }) {
     return updateCurrentAppIconName(this);
   }
@@ -206,6 +222,7 @@ class _$UpdateCurrentAppIconTypeImpl implements _UpdateCurrentAppIconType {
         updateCurrentAppIconName,
     TResult? Function(_UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
+    TResult? Function(_UpdateEarnedIcons value)? updateEarnedIcons,
   }) {
     return updateCurrentAppIconName?.call(this);
   }
@@ -216,6 +233,7 @@ class _$UpdateCurrentAppIconTypeImpl implements _UpdateCurrentAppIconType {
     TResult Function(_UpdateCurrentAppIconType value)? updateCurrentAppIconName,
     TResult Function(_UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
+    TResult Function(_UpdateEarnedIcons value)? updateEarnedIcons,
     required TResult orElse(),
   }) {
     if (updateCurrentAppIconName != null) {
@@ -326,6 +344,8 @@ class _$UpdateSelectedCheckBoxIconImpl implements _UpdateSelectedCheckBoxIcon {
     required TResult Function(String newThemeName) updateCurrentAppIconName,
     required TResult Function(SelectedCheckBoxIconData newCheckBox)
         updateSelectedCheckBoxIcon,
+    required TResult Function(TLIconCategory iconCategory, TLIconName iconName)
+        updateEarnedIcons,
   }) {
     return updateSelectedCheckBoxIcon(newCheckBox);
   }
@@ -336,6 +356,8 @@ class _$UpdateSelectedCheckBoxIconImpl implements _UpdateSelectedCheckBoxIcon {
     TResult? Function(String newThemeName)? updateCurrentAppIconName,
     TResult? Function(SelectedCheckBoxIconData newCheckBox)?
         updateSelectedCheckBoxIcon,
+    TResult? Function(TLIconCategory iconCategory, TLIconName iconName)?
+        updateEarnedIcons,
   }) {
     return updateSelectedCheckBoxIcon?.call(newCheckBox);
   }
@@ -346,6 +368,8 @@ class _$UpdateSelectedCheckBoxIconImpl implements _UpdateSelectedCheckBoxIcon {
     TResult Function(String newThemeName)? updateCurrentAppIconName,
     TResult Function(SelectedCheckBoxIconData newCheckBox)?
         updateSelectedCheckBoxIcon,
+    TResult Function(TLIconCategory iconCategory, TLIconName iconName)?
+        updateEarnedIcons,
     required TResult orElse(),
   }) {
     if (updateSelectedCheckBoxIcon != null) {
@@ -361,6 +385,7 @@ class _$UpdateSelectedCheckBoxIconImpl implements _UpdateSelectedCheckBoxIcon {
         updateCurrentAppIconName,
     required TResult Function(_UpdateSelectedCheckBoxIcon value)
         updateSelectedCheckBoxIcon,
+    required TResult Function(_UpdateEarnedIcons value) updateEarnedIcons,
   }) {
     return updateSelectedCheckBoxIcon(this);
   }
@@ -372,6 +397,7 @@ class _$UpdateSelectedCheckBoxIconImpl implements _UpdateSelectedCheckBoxIcon {
         updateCurrentAppIconName,
     TResult? Function(_UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
+    TResult? Function(_UpdateEarnedIcons value)? updateEarnedIcons,
   }) {
     return updateSelectedCheckBoxIcon?.call(this);
   }
@@ -382,6 +408,7 @@ class _$UpdateSelectedCheckBoxIconImpl implements _UpdateSelectedCheckBoxIcon {
     TResult Function(_UpdateCurrentAppIconType value)? updateCurrentAppIconName,
     TResult Function(_UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
+    TResult Function(_UpdateEarnedIcons value)? updateEarnedIcons,
     required TResult orElse(),
   }) {
     if (updateSelectedCheckBoxIcon != null) {
@@ -403,4 +430,178 @@ abstract class _UpdateSelectedCheckBoxIcon implements TLUserDataAction {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdateSelectedCheckBoxIconImplCopyWith<_$UpdateSelectedCheckBoxIconImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateEarnedIconsImplCopyWith<$Res> {
+  factory _$$UpdateEarnedIconsImplCopyWith(_$UpdateEarnedIconsImpl value,
+          $Res Function(_$UpdateEarnedIconsImpl) then) =
+      __$$UpdateEarnedIconsImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({TLIconCategory iconCategory, TLIconName iconName});
+}
+
+/// @nodoc
+class __$$UpdateEarnedIconsImplCopyWithImpl<$Res>
+    extends _$TLUserDataActionCopyWithImpl<$Res, _$UpdateEarnedIconsImpl>
+    implements _$$UpdateEarnedIconsImplCopyWith<$Res> {
+  __$$UpdateEarnedIconsImplCopyWithImpl(_$UpdateEarnedIconsImpl _value,
+      $Res Function(_$UpdateEarnedIconsImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TLUserDataAction
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? iconCategory = freezed,
+    Object? iconName = freezed,
+  }) {
+    return _then(_$UpdateEarnedIconsImpl(
+      iconCategory: freezed == iconCategory
+          ? _value.iconCategory
+          : iconCategory // ignore: cast_nullable_to_non_nullable
+              as TLIconCategory,
+      iconName: freezed == iconName
+          ? _value.iconName
+          : iconName // ignore: cast_nullable_to_non_nullable
+              as TLIconName,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateEarnedIconsImpl implements _UpdateEarnedIcons {
+  const _$UpdateEarnedIconsImpl(
+      {required this.iconCategory, required this.iconName});
+
+  @override
+  final TLIconCategory iconCategory;
+  @override
+  final TLIconName iconName;
+
+  @override
+  String toString() {
+    return 'TLUserDataAction.updateEarnedIcons(iconCategory: $iconCategory, iconName: $iconName)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateEarnedIconsImpl &&
+            const DeepCollectionEquality()
+                .equals(other.iconCategory, iconCategory) &&
+            const DeepCollectionEquality().equals(other.iconName, iconName));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(iconCategory),
+      const DeepCollectionEquality().hash(iconName));
+
+  /// Create a copy of TLUserDataAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateEarnedIconsImplCopyWith<_$UpdateEarnedIconsImpl> get copyWith =>
+      __$$UpdateEarnedIconsImplCopyWithImpl<_$UpdateEarnedIconsImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String newThemeName) updateCurrentAppIconName,
+    required TResult Function(SelectedCheckBoxIconData newCheckBox)
+        updateSelectedCheckBoxIcon,
+    required TResult Function(TLIconCategory iconCategory, TLIconName iconName)
+        updateEarnedIcons,
+  }) {
+    return updateEarnedIcons(iconCategory, iconName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String newThemeName)? updateCurrentAppIconName,
+    TResult? Function(SelectedCheckBoxIconData newCheckBox)?
+        updateSelectedCheckBoxIcon,
+    TResult? Function(TLIconCategory iconCategory, TLIconName iconName)?
+        updateEarnedIcons,
+  }) {
+    return updateEarnedIcons?.call(iconCategory, iconName);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String newThemeName)? updateCurrentAppIconName,
+    TResult Function(SelectedCheckBoxIconData newCheckBox)?
+        updateSelectedCheckBoxIcon,
+    TResult Function(TLIconCategory iconCategory, TLIconName iconName)?
+        updateEarnedIcons,
+    required TResult orElse(),
+  }) {
+    if (updateEarnedIcons != null) {
+      return updateEarnedIcons(iconCategory, iconName);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateCurrentAppIconType value)
+        updateCurrentAppIconName,
+    required TResult Function(_UpdateSelectedCheckBoxIcon value)
+        updateSelectedCheckBoxIcon,
+    required TResult Function(_UpdateEarnedIcons value) updateEarnedIcons,
+  }) {
+    return updateEarnedIcons(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_UpdateCurrentAppIconType value)?
+        updateCurrentAppIconName,
+    TResult? Function(_UpdateSelectedCheckBoxIcon value)?
+        updateSelectedCheckBoxIcon,
+    TResult? Function(_UpdateEarnedIcons value)? updateEarnedIcons,
+  }) {
+    return updateEarnedIcons?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateCurrentAppIconType value)? updateCurrentAppIconName,
+    TResult Function(_UpdateSelectedCheckBoxIcon value)?
+        updateSelectedCheckBoxIcon,
+    TResult Function(_UpdateEarnedIcons value)? updateEarnedIcons,
+    required TResult orElse(),
+  }) {
+    if (updateEarnedIcons != null) {
+      return updateEarnedIcons(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateEarnedIcons implements TLUserDataAction {
+  const factory _UpdateEarnedIcons(
+      {required final TLIconCategory iconCategory,
+      required final TLIconName iconName}) = _$UpdateEarnedIconsImpl;
+
+  TLIconCategory get iconCategory;
+  TLIconName get iconName;
+
+  /// Create a copy of TLUserDataAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateEarnedIconsImplCopyWith<_$UpdateEarnedIconsImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

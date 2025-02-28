@@ -4,7 +4,7 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/view/page/setting_page/tcw_settings_page/tcw_settings_page.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme.dart';
-import 'set_appearance_page/set_appearance_page.dart';
+import 'set_features_page/set_features_page.dart';
 import 'dart:io';
 
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
@@ -15,7 +15,7 @@ class SettingsPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
 
     // MARK: - Hooks for state management
     final selectedPageIndex = useState<int>(Platform.isIOS ? 1 : 0);
@@ -25,7 +25,7 @@ class SettingsPage extends HookWidget {
 
     final List<Widget> contentsInSettingPage = [
       if (Platform.isIOS) TCWSettingsPage(showBottomNavBar: showBottomNavBar),
-      const SetAppearancePage(),
+      const SetFeaturesPage(),
     ];
 
     final List<dynamic> iconDataOfSettingPageContents = [
@@ -33,42 +33,33 @@ class SettingsPage extends HookWidget {
       [Icons.phone_android, "Features"],
     ];
 
-    return ProgressHUD(
-      barrierEnabled: true,
-      indicatorColor: Colors.white,
-      textStyle: const TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-        decoration: TextDecoration.none,
-      ),
-      child: Scaffold(
-        appBar: _AppBar(),
-        body: Stack(
-          children: [
-            Container(color: tlThemeData.backgroundColor),
-            PageView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => contentsInSettingPage[index],
-              itemCount: contentsInSettingPage.length,
-              controller: pageController,
-            ),
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: showBottomNavBar.value
-                  ? Align(
-                      alignment: Alignment.bottomCenter,
-                      child: _BottomNavBar(
-                        tlThemeConfig: tlThemeData,
-                        selectedPageIndex: selectedPageIndex,
-                        pageController: pageController,
-                        iconDataOfSettingPageContents:
-                            iconDataOfSettingPageContents,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-            ),
-          ],
-        ),
+    return Scaffold(
+      appBar: _AppBar(),
+      body: Stack(
+        children: [
+          Container(color: tlThemeConfig.backgroundColor),
+          PageView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) => contentsInSettingPage[index],
+            itemCount: contentsInSettingPage.length,
+            controller: pageController,
+          ),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: showBottomNavBar.value
+                ? Align(
+                    alignment: Alignment.bottomCenter,
+                    child: _BottomNavBar(
+                      tlThemeConfig: tlThemeConfig,
+                      selectedPageIndex: selectedPageIndex,
+                      pageController: pageController,
+                      iconDataOfSettingPageContents:
+                          iconDataOfSettingPageContents,
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          ),
+        ],
       ),
     );
   }

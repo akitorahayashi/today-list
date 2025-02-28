@@ -46,6 +46,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                         color: tlThemeConfig.tlDoubleCardBorderColor,
                       ),
                       child: Card(
+                        color: tlThemeConfig.whiteBasedColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
                         child: Padding(
