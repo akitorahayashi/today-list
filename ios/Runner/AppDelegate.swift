@@ -12,7 +12,7 @@ import WidgetKit
         
         // MARK: - ToDos In Category Widgetの処理
         let tcwMethodChannel = FlutterMethodChannel(
-            name: "com.akitora0703.todaylist/todos_in_category_widget",
+            name: "com.akitora0703.todaylist.methodChannel",
             binaryMessenger: controller.binaryMessenger
         )
         
@@ -24,45 +24,48 @@ import WidgetKit
                 return
             }
             
-            let widgetKind = "ToDosInCategoryWidget"
+            let tcwKind: String = "ToDosInCategoryWidget"
+            let uctKind: String = "UnCategorizedToDosInWorkspaceWidget"
             
             switch call.method {
-                case "updateTLWorkspaces":
-                    self.updateTLWorkspaces(arguments, widgetKind)
-                    result("workspaces saved successfully")
-
-                case "updateListOfToDosInCategoryWidgetSettings":
-                    self.updateListOfToDosInCategoryWidgetSettings(arguments, widgetKind)
-                    result("ListOfToDosInCategoryWidgetSettings saved successfully")
-
-                case "updateSelectedTheme":
-                    self.updateSelectedTheme(arguments, widgetKind)
-                    result("selectedTheme saved successfully")
-
-                default:
-                    result(FlutterMethodNotImplemented)
+            case "updateTLWorkspaces":
+                self.updateTLWorkspaces(arguments)
+                self.reloadWidget(tcwKind)
+                self.reloadWidget(uctKind)
+                result("workspaces saved successfully")
+                
+            case "updateListOfToDosInCategoryWidgetSettings":
+                self.updateListOfToDosInCategoryWidgetSettings(arguments)
+                self.reloadWidget(tcwKind)
+                result("ListOfToDosInCategoryWidgetSettings saved successfully")
+                
+            case "updateSelectedTheme":
+                self.updateSelectedTheme(arguments)
+                self.reloadWidget(tcwKind)
+                self.reloadWidget(uctKind)
+                result("selectedTheme saved successfully")
+                
+            default:
+                result(FlutterMethodNotImplemented)
             }
         }
-
+        
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
-
-    private func updateTLWorkspaces(_ value: String, _ widgetKind: String) {
+    
+    private func updateTLWorkspaces(_ value: String) {
         TLUserDefaultsManager.shared.userDefaults?.set(value, forKey: "tlWorkspaces")
-        reloadWidget(widgetKind)
     }
-
-    private func updateListOfToDosInCategoryWidgetSettings(_ value: String, _ widgetKind: String) {
-        TLUserDefaultsManager.shared.userDefaults?.set(value, forKey: "listOfToDosInCategoryWidgetSettings")
-        reloadWidget(widgetKind)
+    
+    private func updateListOfToDosInCategoryWidgetSettings(_ value: String) {
+        TLUserDefaultsManager.shared.userDefaults?.set(value, forKey: "tcwSettings")
     }
-
-    private func updateSelectedTheme(_ value: String, _ widgetKind: String) {
+    
+    private func updateSelectedTheme(_ value: String) {
         TLUserDefaultsManager.shared.userDefaults?.set(value, forKey: "selectedThemeName")
-        reloadWidget(widgetKind)
     }
-
+    
     /// ウィジェットの更新
     private func reloadWidget(_ widgetKind: String) {
         DispatchQueue.main.async {

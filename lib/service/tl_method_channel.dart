@@ -5,7 +5,7 @@ import 'package:today_list/resource/tl_theme_type.dart';
 
 class TCWiOSMethodChannelService {
   static const methodChannel =
-      MethodChannel('com.akitora0703.todaylist/todos_in_category_widget');
+      MethodChannel('com.akitora0703.todaylist.methodChannel');
 
   static Future<void> updateTLWorkspaces(
       {required String encodedWorkspaces}) async {
