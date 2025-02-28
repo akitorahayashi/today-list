@@ -1,17 +1,17 @@
 //
-//  TLProvider.swift
+//  UCTProvider.swift
 //  Runner
 //
-//  Created by 林 明虎 on 2025/02/09.
+//  Created by 林明虎 on 2025/02/28.
 //
 
 import SwiftUI
 import WidgetKit
 import AppIntents
 
-struct TCProvider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> TCWidgetEntry {
-        return TCWidgetEntry(
+struct UCTProvider: AppIntentTimelineProvider {
+    func placeholder(in context: Context) -> UCTWidgetEntry {
+        return UCTWidgetEntry(
             date: Date(),
             entity: nil,
             selectedThemeType: TLThemeType.sunOrange,
@@ -19,10 +19,10 @@ struct TCProvider: AppIntentTimelineProvider {
         )
     }
     
-    func snapshot(for configuration: TCWSelectionIntent, in context: Context) async -> TCWidgetEntry {
+    func snapshot(for configuration: WorkspaceSelectionAppIntent, in context: Context) async -> UCTWidgetEntry {
         let themeName = TLThemeType.sunOrange.rawValue
         let corrThemeType = TLThemeType.from(themeName)
-        return TCWidgetEntry(
+        return UCTWidgetEntry(
             date: Date(),
             entity: nil,
             selectedThemeType: corrThemeType,
@@ -30,7 +30,7 @@ struct TCProvider: AppIntentTimelineProvider {
         )
     }
     
-    func timeline(for configuration: TCWSelectionIntent, in context: Context) async -> Timeline<TCWidgetEntry> {
+    func timeline(for configuration: WorkspaceSelectionAppIntent, in context: Context) async -> Timeline<UCTWidgetEntry> {
         
         // 保存してあるデータの読み取り
         let userDefaults = TLUserDefaultsManager.shared.userDefaults
@@ -44,10 +44,10 @@ struct TCProvider: AppIntentTimelineProvider {
         let tlWorkspaces: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? TCWExampleState.kTLWorkspacesExample
         
         
-        let loadedEntry = TCWidgetEntry(
+        let loadedEntry = UCTWidgetEntry(
             date: Date(),
             // selectedWKS は オプショナル
-            entity: configuration.selectedWKS,
+            entity: configuration.selectedWorkspace,
             selectedThemeType: corrThemeType,
             tlWorkspaces: tlWorkspaces
         )

@@ -25,9 +25,7 @@
 		1B94F34B2D58253200915981 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B94F3462D58253200915981 /* Assets.xcassets */; };
 		1B94F34D2D58253200915981 /* ToDosInCategoryWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B94F3482D58253200915981 /* ToDosInCategoryWidget.swift */; };
 		1B94F34E2D58253200915981 /* ToDosInCategoryWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B94F3492D58253200915981 /* ToDosInCategoryWidgetBundle.swift */; };
-		1BF526B02D5844E50039CDE3 /* TCIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526AF2D5844E40039CDE3 /* TCIntent.swift */; };
 		1BF526B22D5845040039CDE3 /* TCEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526B12D5845030039CDE3 /* TCEntity.swift */; };
-		1BF526B42D5845180039CDE3 /* TCQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526B32D5845170039CDE3 /* TCQuery.swift */; };
 		1BF526B52D5845B70039CDE3 /* ToDosInCategoryWidgetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC297262CF1DECE00AAE33A /* ToDosInCategoryWidgetSettings.swift */; };
 		1BF526B92D58468D0039CDE3 /* TLThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */; };
 		1BF526C92D584FEE0039CDE3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526BD2D584B440039CDE3 /* Model.swift */; };
@@ -36,6 +34,25 @@
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		78319ECF2D6C516E004884A7 /* TLUUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78319ECE2D6C5169004884A7 /* TLUUIDGenerator.swift */; };
 		78319ED02D6C516E004884A7 /* TLUUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78319ECE2D6C5169004884A7 /* TLUUIDGenerator.swift */; };
+		78A873C42D71B1AB00ABDC87 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7C3172CC688BC00DCF511 /* WidgetKit.framework */; };
+		78A873C52D71B1AB00ABDC87 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7C3192CC688C100DCF511 /* SwiftUI.framework */; };
+		78A873D22D71B1AD00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 78A873C32D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		78A873DF2D71B1D200ABDC87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78A873DA2D71B1D200ABDC87 /* Assets.xcassets */; };
+		78A873E22D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A873DC2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget.swift */; };
+		78A873E32D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A873DD2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidgetBundle.swift */; };
+		78A873E62D71B20900ABDC87 /* UCTProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A873E52D71B20400ABDC87 /* UCTProvider.swift */; };
+		78A873E92D71B25300ABDC87 /* UCTWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A873E82D71B23F00ABDC87 /* UCTWidgetEntry.swift */; };
+		78A873EA2D71B26A00ABDC87 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526BD2D584B440039CDE3 /* Model.swift */; };
+		78A873EB2D71B27A00ABDC87 /* TLThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */; };
+		78A873EC2D71B28100ABDC87 /* TCWExampleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C0520A2D7011CC00071563 /* TCWExampleState.swift */; };
+		78A873ED2D71B28800ABDC87 /* TLUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B41EE682D5DAF2800207D88 /* TLUserDefaultsManager.swift */; };
+		78A873F02D71B2E200ABDC87 /* TLUUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78319ECE2D6C5169004884A7 /* TLUUIDGenerator.swift */; };
+		78A874402D71B66A00ABDC87 /* TCWSelectionIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8743F2D71B66200ABDC87 /* TCWSelectionIntent.swift */; };
+		78A874422D71B6F100ABDC87 /* WorkspaceSelectionAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874412D71B6F000ABDC87 /* WorkspaceSelectionAppIntent.swift */; };
+		78A874442D71B9B200ABDC87 /* UCTAppEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874432D71B9B100ABDC87 /* UCTAppEntity.swift */; };
+		78A8744F2D71BD1600ABDC87 /* UCTEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8744E2D71BD1500ABDC87 /* UCTEntryView.swift */; };
+		78A874512D71BD9300ABDC87 /* UCTToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874502D71BD9200ABDC87 /* UCTToDoListView.swift */; };
+		78A874532D71BDA300ABDC87 /* UCTToDoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874522D71BDA300ABDC87 /* UCTToDoRow.swift */; };
 		78C0520B2D7011DE00071563 /* TCWExampleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C0520A2D7011CC00071563 /* TCWExampleState.swift */; };
 		78C0520C2D7011DE00071563 /* TCWExampleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C0520A2D7011CC00071563 /* TCWExampleState.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
@@ -59,6 +76,13 @@
 			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
 			remoteInfo = Runner;
 		};
+		78A873D02D71B1AD00ABDC87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 78A873C22D71B1AB00ABDC87;
+			remoteInfo = UnCategorizedToDosInWorkspaceWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,6 +102,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				78A873D22D71B1AD00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex in Embed Foundation Extensions */,
 				1B94F3402D58252900915981 /* ToDosInCategoryWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -114,9 +139,7 @@
 		1BA7C3192CC688C100DCF511 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		1BC297262CF1DECE00AAE33A /* ToDosInCategoryWidgetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInCategoryWidgetSettings.swift; sourceTree = "<group>"; };
 		1BC297292CF1E8E400AAE33A /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
-		1BF526AF2D5844E40039CDE3 /* TCIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCIntent.swift; sourceTree = "<group>"; };
 		1BF526B12D5845030039CDE3 /* TCEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCEntity.swift; sourceTree = "<group>"; };
-		1BF526B32D5845170039CDE3 /* TCQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCQuery.swift; sourceTree = "<group>"; };
 		1BF526BA2D5849410039CDE3 /* ToDosInCategoryWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToDosInCategoryWidgetExtension.entitlements; sourceTree = "<group>"; };
 		1BF526BD2D584B440039CDE3 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
@@ -127,6 +150,20 @@
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78319ECE2D6C5169004884A7 /* TLUUIDGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLUUIDGenerator.swift; sourceTree = "<group>"; };
+		78A873C32D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = UnCategorizedToDosInWorkspaceWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		78A873DA2D71B1D200ABDC87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		78A873DB2D71B1D200ABDC87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		78A873DC2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnCategorizedToDosInWorkspaceWidget.swift; sourceTree = "<group>"; };
+		78A873DD2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnCategorizedToDosInWorkspaceWidgetBundle.swift; sourceTree = "<group>"; };
+		78A873E52D71B20400ABDC87 /* UCTProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTProvider.swift; sourceTree = "<group>"; };
+		78A873E82D71B23F00ABDC87 /* UCTWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTWidgetEntry.swift; sourceTree = "<group>"; };
+		78A8743F2D71B66200ABDC87 /* TCWSelectionIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCWSelectionIntent.swift; sourceTree = "<group>"; };
+		78A874412D71B6F000ABDC87 /* WorkspaceSelectionAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceSelectionAppIntent.swift; sourceTree = "<group>"; };
+		78A874432D71B9B100ABDC87 /* UCTAppEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTAppEntity.swift; sourceTree = "<group>"; };
+		78A8744E2D71BD1500ABDC87 /* UCTEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTEntryView.swift; sourceTree = "<group>"; };
+		78A874502D71BD9200ABDC87 /* UCTToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTToDoListView.swift; sourceTree = "<group>"; };
+		78A874522D71BDA300ABDC87 /* UCTToDoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTToDoRow.swift; sourceTree = "<group>"; };
+		78A874542D71C50F00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnCategorizedToDosInWorkspaceWidgetExtension.entitlements; sourceTree = "<group>"; };
 		78C0520A2D7011CC00071563 /* TCWExampleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCWExampleState.swift; sourceTree = "<group>"; };
 		78D6CA5A33B6DA05E6F1B099 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
@@ -151,6 +188,15 @@
 			files = (
 				1B94F3352D58252600915981 /* SwiftUI.framework in Frameworks */,
 				1B94F3342D58252600915981 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78A873C02D71B1AB00ABDC87 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78A873C52D71B1AB00ABDC87 /* SwiftUI.framework in Frameworks */,
+				78A873C42D71B1AB00ABDC87 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +262,8 @@
 		1B94F34A2D58253200915981 /* ToDosInCategoryWidget */ = {
 			isa = PBXGroup;
 			children = (
+				78A8743E2D71B65400ABDC87 /* Intent */,
+				78A8743A2D71B3AD00ABDC87 /* AppEntity */,
 				1B43F7C22D5864DA000D4044 /* Provider */,
 				1B94F3542D58271C00915981 /* Resource */,
 				1B94F3512D58255500915981 /* View */,
@@ -230,11 +278,7 @@
 		1B94F3502D58254700915981 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				785038B62D6D5E5E00DF73BA /* WidgetConfigurationIntent */,
 				1B43F7C52D58682D000D4044 /* TCWidgetEntry.swift */,
-				1BF526B32D5845170039CDE3 /* TCQuery.swift */,
-				1BF526B12D5845030039CDE3 /* TCEntity.swift */,
-				1BF526AF2D5844E40039CDE3 /* TCIntent.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -283,11 +327,78 @@
 			path = RunnerTests;
 			sourceTree = "<group>";
 		};
-		785038B62D6D5E5E00DF73BA /* WidgetConfigurationIntent */ = {
+		78A873DE2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget */ = {
 			isa = PBXGroup;
 			children = (
+				78A874452D71BB3C00ABDC87 /* View */,
+				78A8743B2D71B62500ABDC87 /* Intent */,
+				78A874392D71B39C00ABDC87 /* AppEntity */,
+				78A873E72D71B23300ABDC87 /* Model */,
+				78A873E42D71B1F700ABDC87 /* Provider */,
+				78A873DA2D71B1D200ABDC87 /* Assets.xcassets */,
+				78A873DB2D71B1D200ABDC87 /* Info.plist */,
+				78A873DC2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget.swift */,
+				78A873DD2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidgetBundle.swift */,
 			);
-			path = WidgetConfigurationIntent;
+			path = UnCategorizedToDosInWorkspaceWidget;
+			sourceTree = "<group>";
+		};
+		78A873E42D71B1F700ABDC87 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				78A873E52D71B20400ABDC87 /* UCTProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		78A873E72D71B23300ABDC87 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				78A873E82D71B23F00ABDC87 /* UCTWidgetEntry.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		78A874392D71B39C00ABDC87 /* AppEntity */ = {
+			isa = PBXGroup;
+			children = (
+				78A874432D71B9B100ABDC87 /* UCTAppEntity.swift */,
+			);
+			path = AppEntity;
+			sourceTree = "<group>";
+		};
+		78A8743A2D71B3AD00ABDC87 /* AppEntity */ = {
+			isa = PBXGroup;
+			children = (
+				1BF526B12D5845030039CDE3 /* TCEntity.swift */,
+			);
+			path = AppEntity;
+			sourceTree = "<group>";
+		};
+		78A8743B2D71B62500ABDC87 /* Intent */ = {
+			isa = PBXGroup;
+			children = (
+				78A874412D71B6F000ABDC87 /* WorkspaceSelectionAppIntent.swift */,
+			);
+			path = Intent;
+			sourceTree = "<group>";
+		};
+		78A8743E2D71B65400ABDC87 /* Intent */ = {
+			isa = PBXGroup;
+			children = (
+				78A8743F2D71B66200ABDC87 /* TCWSelectionIntent.swift */,
+			);
+			path = Intent;
+			sourceTree = "<group>";
+		};
+		78A874452D71BB3C00ABDC87 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				78A874522D71BDA300ABDC87 /* UCTToDoRow.swift */,
+				78A874502D71BD9200ABDC87 /* UCTToDoListView.swift */,
+				78A8744E2D71BD1500ABDC87 /* UCTEntryView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -304,12 +415,14 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
+				78A874542D71C50F00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.entitlements */,
 				1BF526BA2D5849410039CDE3 /* ToDosInCategoryWidgetExtension.entitlements */,
 				1B43F7D32D58EA16000D4044 /* Resource */,
 				1BA7C2FA2CC6861C00DCF511 /* Model */,
 				1BF526C82D584FB90039CDE3 /* Util */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
+				78A873DE2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget */,
 				1B94F34A2D58253200915981 /* ToDosInCategoryWidget */,
 				97C146EF1CF9000F007C117D /* Products */,
 				331C8082294A63A400263BE5 /* RunnerTests */,
@@ -324,6 +437,7 @@
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
 				1B94F3332D58252600915981 /* ToDosInCategoryWidgetExtension.appex */,
+				78A873C32D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -394,6 +508,25 @@
 			productReference = 331C8081294A63A400263BE5 /* RunnerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		78A873C22D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 78A873D72D71B1AD00ABDC87 /* Build configuration list for PBXNativeTarget "UnCategorizedToDosInWorkspaceWidgetExtension" */;
+			buildPhases = (
+				78A873BF2D71B1AB00ABDC87 /* Sources */,
+				78A873C02D71B1AB00ABDC87 /* Frameworks */,
+				78A873C12D71B1AB00ABDC87 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = UnCategorizedToDosInWorkspaceWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = UnCategorizedToDosInWorkspaceWidgetExtension;
+			productReference = 78A873C32D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		97C146ED1CF9000F007C117D /* Runner */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
@@ -414,6 +547,7 @@
 			);
 			dependencies = (
 				1B94F33F2D58252900915981 /* PBXTargetDependency */,
+				78A873D12D71B1AD00ABDC87 /* PBXTargetDependency */,
 			);
 			name = Runner;
 			productName = Runner;
@@ -427,7 +561,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1600;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
@@ -437,6 +571,9 @@
 					331C8080294A63A400263BE5 = {
 						CreatedOnToolsVersion = 14.0;
 						TestTargetID = 97C146ED1CF9000F007C117D;
+					};
+					78A873C22D71B1AB00ABDC87 = {
+						CreatedOnToolsVersion = 16.2;
 					};
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -460,6 +597,7 @@
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
 				1B94F3322D58252600915981 /* ToDosInCategoryWidgetExtension */,
+				78A873C22D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -477,6 +615,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78A873C12D71B1AB00ABDC87 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78A873DF2D71B1D200ABDC87 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,12 +764,11 @@
 				1B94F34D2D58253200915981 /* ToDosInCategoryWidget.swift in Sources */,
 				1BF526B92D58468D0039CDE3 /* TLThemeConfig.swift in Sources */,
 				1B41EE6A2D5DAF3900207D88 /* TLUserDefaultsManager.swift in Sources */,
-				1BF526B42D5845180039CDE3 /* TCQuery.swift in Sources */,
 				1BF526B52D5845B70039CDE3 /* ToDosInCategoryWidgetSettings.swift in Sources */,
+				78A874402D71B66A00ABDC87 /* TCWSelectionIntent.swift in Sources */,
 				1B43F7C42D5866FC000D4044 /* TCProvider.swift in Sources */,
 				78319ECF2D6C516E004884A7 /* TLUUIDGenerator.swift in Sources */,
 				1B94F34E2D58253200915981 /* ToDosInCategoryWidgetBundle.swift in Sources */,
-				1BF526B02D5844E50039CDE3 /* TCIntent.swift in Sources */,
 				1B43F7C82D5869BB000D4044 /* TCToDoRow.swift in Sources */,
 				78C0520C2D7011DE00071563 /* TCWExampleState.swift in Sources */,
 			);
@@ -634,6 +779,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		78A873BF2D71B1AB00ABDC87 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78A874422D71B6F100ABDC87 /* WorkspaceSelectionAppIntent.swift in Sources */,
+				78A873EB2D71B27A00ABDC87 /* TLThemeConfig.swift in Sources */,
+				78A873E92D71B25300ABDC87 /* UCTWidgetEntry.swift in Sources */,
+				78A873EC2D71B28100ABDC87 /* TCWExampleState.swift in Sources */,
+				78A873E22D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget.swift in Sources */,
+				78A874532D71BDA300ABDC87 /* UCTToDoRow.swift in Sources */,
+				78A874512D71BD9300ABDC87 /* UCTToDoListView.swift in Sources */,
+				78A8744F2D71BD1600ABDC87 /* UCTEntryView.swift in Sources */,
+				78A874442D71B9B200ABDC87 /* UCTAppEntity.swift in Sources */,
+				78A873ED2D71B28800ABDC87 /* TLUserDefaultsManager.swift in Sources */,
+				78A873EA2D71B26A00ABDC87 /* Model.swift in Sources */,
+				78A873E32D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidgetBundle.swift in Sources */,
+				78A873E62D71B20900ABDC87 /* UCTProvider.swift in Sources */,
+				78A873F02D71B2E200ABDC87 /* TLUUIDGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -664,6 +830,11 @@
 			isa = PBXTargetDependency;
 			target = 97C146ED1CF9000F007C117D /* Runner */;
 			targetProxy = 331C8085294A63A400263BE5 /* PBXContainerItemProxy */;
+		};
+		78A873D12D71B1AD00ABDC87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 78A873C22D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension */;
+			targetProxy = 78A873D02D71B1AD00ABDC87 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -945,6 +1116,129 @@
 			};
 			name = Profile;
 		};
+		78A873D32D71B1AD00ABDC87 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = UnCategorizedToDosInWorkspaceWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = UnCategorizedToDosInWorkspaceWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = UnCategorizedToDosInWorkspaceWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.akitorahayashi.today-list.UnCategorizedToDosInWorkspaceWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		78A873D42D71B1AD00ABDC87 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = UnCategorizedToDosInWorkspaceWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = UnCategorizedToDosInWorkspaceWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = UnCategorizedToDosInWorkspaceWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.akitorahayashi.today-list.UnCategorizedToDosInWorkspaceWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		78A873D52D71B1AD00ABDC87 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = UnCategorizedToDosInWorkspaceWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = UnCategorizedToDosInWorkspaceWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = UnCategorizedToDosInWorkspaceWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.akitorahayashi.today-list.UnCategorizedToDosInWorkspaceWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Profile;
+		};
 		97C147031CF9000F007C117D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1142,6 +1436,16 @@
 				331C8088294A63A400263BE5 /* Debug */,
 				331C8089294A63A400263BE5 /* Release */,
 				331C808A294A63A400263BE5 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		78A873D72D71B1AD00ABDC87 /* Build configuration list for PBXNativeTarget "UnCategorizedToDosInWorkspaceWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				78A873D32D71B1AD00ABDC87 /* Debug */,
+				78A873D42D71B1AD00ABDC87 /* Release */,
+				78A873D52D71B1AD00ABDC87 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

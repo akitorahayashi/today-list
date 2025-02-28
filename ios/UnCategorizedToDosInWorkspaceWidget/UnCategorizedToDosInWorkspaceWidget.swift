@@ -1,27 +1,24 @@
 //
-//  ToDosInCategoryWidget.swift
-//  ToDosInCategoryWidget
+//  UnCategorizedToDosInWorkspaceWidget.swift
+//  UnCategorizedToDosInWorkspaceWidget
 //
-//  Created by 林 明虎 on 2025/02/09.
+//  Created by 林明虎 on 2025/02/28.
 //
 
 import WidgetKit
 import SwiftUI
-import AppIntents
 
-struct ToDosInCategoryWidget: Widget {
-    let kind: String = "ToDosInCategoryWidget"
-    
+struct UnCategorizedToDosInWorkspaceWidget: Widget {
+    static let kind: String = "UnCategorizedToDosInWorkspaceWidget"
+
     var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind,
-                               intent: TCWSelectionIntent.self,
-                               provider: TCProvider()) { entry in
-            TCEntryView(entry: entry)
+        AppIntentConfiguration(kind: UnCategorizedToDosInWorkspaceWidget.kind, intent: WorkspaceSelectionAppIntent.self, provider: UCTProvider()) { entry in
+            UCTEntryView(entry: entry)
                 .containerBackground(for: .widget) {
                     VStack(spacing: 0) {
                         ZStack {
                             entry.selectedThemeType.config.gradientOfTopBar
-                            Text(entry.entity?.title ?? "ToDo")
+                            Text(entry.entity?.name ?? entry.tlWorkspaces.first!.name)
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.white)
                         }
@@ -38,8 +35,9 @@ struct ToDosInCategoryWidget: Widget {
                     }
                 }
         }
-        .configurationDisplayName("ToDos In Category Widget")
-        .description("By setting up the widget in the app's settings, a list of ToDos from your selected category will be shown.")
+        .configurationDisplayName("Show Uncategorized ToDos Widget")
+        .description("Show an uncategorized ToDo list in a workspace. After placing the widget, long press to edit and select the workspace you want to display.")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }
+

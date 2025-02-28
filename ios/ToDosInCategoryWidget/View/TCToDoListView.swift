@@ -33,7 +33,7 @@ struct TCToDoListView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .padding(.top, 27)
+        .padding(.top, 25.5)
     }
 }
 

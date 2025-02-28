@@ -1,5 +1,5 @@
 //
-//  TCIntent.swift
+//  TCWSelectionIntent.swift
 //  Runner
 //
 //  Created by 林 明虎 on 2025/02/09.
@@ -8,7 +8,7 @@
 import WidgetKit
 import AppIntents
 
-struct TCIntent: WidgetConfigurationIntent {
+struct TCWSelectionIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "iOS Widget Settings"
     static var description = IntentDescription("Select your widget settings")
     

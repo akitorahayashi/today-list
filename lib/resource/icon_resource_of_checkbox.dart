@@ -6,9 +6,9 @@ enum TLIconCategory {
   defaultCategory('Default', [TLIconName.box, TLIconName.circle]),
   unit1('Unit 1', [
     TLIconName.water,
+    TLIconName.fire,
     TLIconName.sun,
     TLIconName.star,
-    TLIconName.fire,
     TLIconName.flower,
     TLIconName.tree,
     TLIconName.hill,
@@ -18,15 +18,15 @@ enum TLIconCategory {
   ]),
   unit2('Unit 2', [
     TLIconName.rocket,
-    TLIconName.core,
+    TLIconName.music,
     TLIconName.bell,
     TLIconName.ar,
+    TLIconName.core,
     TLIconName.flare,
     TLIconName.code,
     TLIconName.limit,
     TLIconName.robot,
     TLIconName.game,
-    TLIconName.music,
   ]);
 
   final String name;
