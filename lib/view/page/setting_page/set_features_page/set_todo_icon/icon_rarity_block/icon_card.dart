@@ -26,7 +26,7 @@ class IconCard extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // selectedIcon を監視
-    final selectedIcon = ref.watch(
+    final SelectedCheckBoxIconData selectedIcon = ref.watch(
       tlAppStateProvider
           .select((state) => state.tlUserData.selectedCheckBoxIconData),
     );
@@ -80,21 +80,20 @@ class IconCard extends HookConsumerWidget {
             if (!context.mounted) return; // Check if context is still valid
 
             // Step 4: Update the icon state
-            ref.read(tlAppStateProvider.notifier)
-              ..updateState(
-                TLUserDataAction.updateEarnedIcons(
-                  iconCategory: tlIconCategory,
-                  iconName: tlIconName,
-                ),
-              )
-              ..updateState(
-                TLUserDataAction.updateSelectedCheckBoxIcon(
-                  newCheckBox: SelectedCheckBoxIconData(
-                    iconCategory: tlIconCategory.name,
-                    iconName: tlIconName.name,
+            await ref.read(tlAppStateProvider.notifier).updateState(
+                  TLUserDataAction.updateEarnedIcons(
+                    iconCategory: tlIconCategory,
+                    iconName: tlIconName,
                   ),
-                ),
-              );
+                );
+            await ref.read(tlAppStateProvider.notifier).updateState(
+                  TLUserDataAction.updateSelectedCheckBoxIcon(
+                    newCheckBox: SelectedCheckBoxIconData(
+                      iconCategory: tlIconCategory.name,
+                      iconName: tlIconName.name,
+                    ),
+                  ),
+                );
 
             // Step 5: Show success dialog
             if (context.mounted) {
@@ -181,7 +180,7 @@ class IconCard extends HookConsumerWidget {
                   ),
                 ),
                 Text(
-                  (!isEarned && !showIfNotEarned) ? "???" : tlIconName.name,
+                  !isEarned ? "???" : tlIconName.name,
                   style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,

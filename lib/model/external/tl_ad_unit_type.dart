@@ -8,10 +8,6 @@ enum TLAdUnitType {
     iosAdUnitId: 'IOS_EDIT_PAGE_BANNER_AD_UNIT_ID',
     androidAdUnitId: 'ANDROID_EDIT_PAGE_BANNER_AD_UNIT_ID',
   ),
-  setFeaturesBanner(
-    iosAdUnitId: 'IOS_SET_FEATURES_BANNER_AD_UNIT_ID',
-    androidAdUnitId: 'ANDROID_SET_FEATURES_BANNER_AD_UNIT_ID',
-  ),
   iconRewarded(
     iosAdUnitId: 'IOS_CHECKBOX_ICON_REWARDED_AD_UNIT_ID',
     androidAdUnitId: 'ANDROID_CHECKBOX_ICON_REWARDED_AD_UNIT_ID',

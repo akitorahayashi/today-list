@@ -7,8 +7,6 @@ import 'package:today_list/model/design/tl_theme.dart';
 import 'set_features_page/set_features_page.dart';
 import 'dart:io';
 
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
-
 // MARK: - SettingsPage
 class SettingsPage extends HookWidget {
   const SettingsPage({super.key});
