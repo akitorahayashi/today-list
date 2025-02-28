@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:today_list/main.dart';
+import 'package:today_list/model/external/tl_ad_unit_type.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
-import 'package:today_list/service/tl_ads.dart';
 import 'package:today_list/view/page/setting_page/set_appearance_page/panel_with_title.dart';
 import 'package:today_list/view/page/setting_page/set_appearance_page/update_app_icon_card.dart';
 import 'theme_panel/left_side_show_selecting_panel.dart';
@@ -19,16 +19,13 @@ class SetAppearancePage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // 広告の状態を useState で管理
     final bannerAd = useState<BannerAd?>(null);
 
     useEffect(() {
-      TLAdsService.loadRewardedAd();
-
       // 広告を読み込む
       final ad = BannerAd(
         adUnitId:
-            TLAdsService.setFeaturesBannerAdUnitId(isTestMode: kAdTestMode),
+            TLAdUnitType.setFeaturesBanner.getAdUnitId(isTestMode: kAdTestMode),
         request: const AdRequest(),
         size: AdSize.banner,
         listener: BannerAdListener(
@@ -43,10 +40,7 @@ class SetAppearancePage extends HookConsumerWidget {
       );
       ad.load();
 
-      return () {
-        TLAdsService.rewardedAd?.dispose();
-        bannerAd.value?.dispose();
-      };
+      return null;
     }, []);
 
     final TLThemeType selectedThemeType = ref

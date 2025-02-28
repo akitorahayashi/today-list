@@ -128,10 +128,17 @@ class _HomePageState extends ConsumerState<HomePage>
         tlAppState.tlWorkspaces.indexWhere((ws) => ws.id == currentID);
     final initialIndex = (currentWsIndex == -1) ? 0 : currentWsIndex + 1;
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // 初回描画時に初期インデックスを設定
+      if (_tabController?.index != initialIndex) {
+        _tabController?.index = initialIndex;
+      }
+    });
+
     // ここで DefaultTabController を用いてタブを管理
     return DefaultTabController(
       // length が変わるたびに新しいコントローラが生成されるよう Key を付与
-      key: ValueKey(tabLength),
+      key: ValueKey(tabLength.hashCode),
       length: tabLength,
       initialIndex: initialIndex,
       child: Builder(

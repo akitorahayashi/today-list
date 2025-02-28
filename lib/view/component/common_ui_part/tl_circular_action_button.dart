@@ -54,19 +54,10 @@ class TLCircularActionButton extends HookWidget {
               border: Border.all(color: borderColor, width: 2),
               shape: BoxShape.circle,
             ),
-            child: ClipOval(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  return FadeTransition(opacity: animation, child: child);
-                },
-                child: Icon(
-                  icon,
-                  key: ValueKey<IconData>(icon), // アイコン変更時にリビルド
-                  size: size * 0.5,
-                  color: iconColor,
-                ),
-              ),
+            child: Icon(
+              icon,
+              size: size * 0.5,
+              color: iconColor,
             ),
           ),
         ),

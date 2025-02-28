@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:today_list/main.dart';
-import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/service/tl_ads.dart';
-import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
-import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/select_big_category_dropdown.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/select_small_category_dropdown.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/select_today_or_whenever_button.dart';
@@ -13,6 +9,10 @@ import 'package:today_list/view/page/edit_todo_page/components_for_edit/todo_tit
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/added_steps_column.dart';
 import 'package:today_list/view/page/edit_todo_page/components_for_edit/step_title_input_field.dart';
 import 'package:today_list/view/page/edit_todo_page/already_exist/already_exist.dart';
+import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
+import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
+import 'package:today_list/model/external/tl_ad_unit_type.dart';
+import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_step.dart';
@@ -53,10 +53,9 @@ class EditToDoPage extends HookConsumerWidget {
 
     // MARK: - Ad Loading
     useEffect(() {
-      TLAdsService.loadRewardedAd();
-
       final ad = BannerAd(
-        adUnitId: TLAdsService.editPageBannerAdUnitId(isTestMode: kAdTestMode),
+        adUnitId:
+            TLAdUnitType.editPageBanner.getAdUnitId(isTestMode: kAdTestMode),
         request: const AdRequest(),
         size: AdSize.banner,
         listener: BannerAdListener(
@@ -71,11 +70,7 @@ class EditToDoPage extends HookConsumerWidget {
       );
 
       ad.load();
-
-      return () {
-        TLAdsService.rewardedAd?.dispose();
-        bannerAd.value?.dispose();
-      };
+      return null;
     }, []);
 
     // MARK: - ToDo Operations
