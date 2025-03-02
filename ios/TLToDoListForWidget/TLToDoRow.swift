@@ -1,8 +1,8 @@
 //
-//  UCTToDoRow.swift
+//  TLToDoRow.swift
 //  Runner
 //
-//  Created by 林明虎 on 2025/02/28.
+//  Created by 林明虎 on 2025/03/02.
 //
 
 import SwiftUI
@@ -28,12 +28,12 @@ extension View {
     }
 }
 
-struct UCTToDoRow: View {
+struct TLToDoRowForWidget: View {
     let spacing: Double
     let tlToDoData: TLToDo
     
     var body: some View {
-        VStack(alignment: .leading, spacing: spacing) {
+        VStack(alignment: .leading) {
             // メインカード（ToDoのタイトル）
             HStack {
                 // チェックマークアイコン
@@ -43,6 +43,7 @@ struct UCTToDoRow: View {
                 Text(tlToDoData.content)
                     .toDoTextStyle(isToDo: true)
             }
+            .padding(.bottom, spacing)
             // ステップカード（ToDoに含まれるStep）
             ForEach(tlToDoData.steps) { step in
                 HStack {
@@ -55,6 +56,7 @@ struct UCTToDoRow: View {
                 }
             }
             .padding(.leading, 10)
+            .padding(.bottom, spacing)
             
         }
     }

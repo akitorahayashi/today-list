@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:today_list/main.dart';
 import 'package:today_list/model/external/tl_ads.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 import 'package:today_list/redux/action/tl_user_data_action.dart';
@@ -51,7 +52,7 @@ class IconCard extends HookConsumerWidget {
     Future<void> onIconTap(BuildContext context) async {
       if (isCurrentIcon) return; // Already selected, do nothing
 
-      if (!isEarned) {
+      if (!kNotToShowAd && !isEarned) {
         // Step 1: Show dialog and get the user's response
         final bool? confirmed = await showDialog<bool>(
           context: context,

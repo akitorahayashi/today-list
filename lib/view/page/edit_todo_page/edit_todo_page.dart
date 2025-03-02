@@ -195,7 +195,7 @@ class EditToDoPage extends HookConsumerWidget {
                   ],
                 ),
               ),
-              if (bannerAd.value != null)
+              if (!kNotToShowAd && bannerAd.value != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Align(

@@ -22,30 +22,30 @@ final List<TLWorkspace> initialTLWorkspaces = [
       _BigCategoryID.projectA.rawValue: [],
     },
     categoryIDToToDos: {
-      _WorkspaceID.work.rawValue:
-          TLToDosInTodayAndWhenever(categoryID: _WorkspaceID.work.rawValue),
+      _WorkspaceID.work.rawValue: TLToDosInTodayAndWhenever(
+          categoryID: _WorkspaceID.work.rawValue,
+          toDosInToday: [
+            TLToDo(
+              id: TLUUIDGenerator.generate(),
+              workspaceID: _WorkspaceID.work.rawValue,
+              categoryID: _WorkspaceID.work.rawValue,
+              isInToday: true,
+              content: "Aさんとのスケジュールを調整",
+            ),
+            TLToDo(
+              id: TLUUIDGenerator.generate(),
+              workspaceID: _WorkspaceID.work.rawValue,
+              categoryID: _WorkspaceID.work.rawValue,
+              isInToday: true,
+              content: "書類の作成",
+              steps: [
+                TLStep(id: TLUUIDGenerator.generate(), content: "資料を用意する"),
+                TLStep(id: TLUUIDGenerator.generate(), content: "送り先に送信する"),
+              ],
+            ),
+          ]),
       _BigCategoryID.projectA.rawValue: TLToDosInTodayAndWhenever(
         categoryID: _BigCategoryID.projectA.rawValue,
-        toDosInToday: [
-          TLToDo(
-            id: TLUUIDGenerator.generate(),
-            workspaceID: _WorkspaceID.work.rawValue,
-            categoryID: _BigCategoryID.projectA.rawValue,
-            isInToday: true,
-            content: "Aさんとのスケジュールを調整",
-          ),
-          TLToDo(
-            id: TLUUIDGenerator.generate(),
-            workspaceID: _WorkspaceID.work.rawValue,
-            categoryID: _BigCategoryID.projectA.rawValue,
-            isInToday: true,
-            content: "書類の作成",
-            steps: [
-              TLStep(id: TLUUIDGenerator.generate(), content: "資料を用意する"),
-              TLStep(id: TLUUIDGenerator.generate(), content: "送り先に送信する"),
-            ],
-          ),
-        ],
         toDosInWhenever: [
           TLToDo(
             id: TLUUIDGenerator.generate(),

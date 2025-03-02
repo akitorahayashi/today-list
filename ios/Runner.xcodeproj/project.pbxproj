@@ -13,8 +13,6 @@
 		1B41EE6A2D5DAF3900207D88 /* TLUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B41EE682D5DAF2800207D88 /* TLUserDefaultsManager.swift */; };
 		1B43F7C42D5866FC000D4044 /* TCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43F7C32D5866F6000D4044 /* TCProvider.swift */; };
 		1B43F7C62D58682E000D4044 /* TCWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43F7C52D58682D000D4044 /* TCWidgetEntry.swift */; };
-		1B43F7C82D5869BB000D4044 /* TCToDoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43F7C72D5869B7000D4044 /* TCToDoRow.swift */; };
-		1B43F7CA2D5869CE000D4044 /* TCToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43F7C92D5869CC000D4044 /* TCToDoListView.swift */; };
 		1B43F7CC2D5869EF000D4044 /* TCEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B43F7CB2D5869EE000D4044 /* TCEntryView.swift */; };
 		1B43F7CD2D586A73000D4044 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526BD2D584B440039CDE3 /* Model.swift */; };
 		1B43F7D02D586AC4000D4044 /* TLThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */; };
@@ -52,7 +50,11 @@
 		78A874442D71B9B200ABDC87 /* UCTAppEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874432D71B9B100ABDC87 /* UCTAppEntity.swift */; };
 		78A8744F2D71BD1600ABDC87 /* UCTEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8744E2D71BD1500ABDC87 /* UCTEntryView.swift */; };
 		78A874512D71BD9300ABDC87 /* UCTToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874502D71BD9200ABDC87 /* UCTToDoListView.swift */; };
-		78A874532D71BDA300ABDC87 /* UCTToDoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874522D71BDA300ABDC87 /* UCTToDoRow.swift */; };
+		78A874592D74647B00ABDC87 /* TLToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874582D74640600ABDC87 /* TLToDoListView.swift */; };
+		78A8745A2D74647B00ABDC87 /* TLToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874582D74640600ABDC87 /* TLToDoListView.swift */; };
+		78A8745C2D74649800ABDC87 /* TLToDoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8745B2D74649300ABDC87 /* TLToDoRow.swift */; };
+		78A8745D2D74649800ABDC87 /* TLToDoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8745B2D74649300ABDC87 /* TLToDoRow.swift */; };
+		78A8745F2D74657200ABDC87 /* TCToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8745E2D74657200ABDC87 /* TCToDoListView.swift */; };
 		78C0520B2D7011DE00071563 /* TCWExampleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C0520A2D7011CC00071563 /* TCWExampleState.swift */; };
 		78C0520C2D7011DE00071563 /* TCWExampleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C0520A2D7011CC00071563 /* TCWExampleState.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
@@ -126,8 +128,6 @@
 		1B41EE682D5DAF2800207D88 /* TLUserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLUserDefaultsManager.swift; sourceTree = "<group>"; };
 		1B43F7C32D5866F6000D4044 /* TCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCProvider.swift; sourceTree = "<group>"; };
 		1B43F7C52D58682D000D4044 /* TCWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCWidgetEntry.swift; sourceTree = "<group>"; };
-		1B43F7C72D5869B7000D4044 /* TCToDoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCToDoRow.swift; sourceTree = "<group>"; };
-		1B43F7C92D5869CC000D4044 /* TCToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCToDoListView.swift; sourceTree = "<group>"; };
 		1B43F7CB2D5869EE000D4044 /* TCEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCEntryView.swift; sourceTree = "<group>"; };
 		1B94F3332D58252600915981 /* ToDosInCategoryWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ToDosInCategoryWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B94F3462D58253200915981 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -162,8 +162,10 @@
 		78A874432D71B9B100ABDC87 /* UCTAppEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTAppEntity.swift; sourceTree = "<group>"; };
 		78A8744E2D71BD1500ABDC87 /* UCTEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTEntryView.swift; sourceTree = "<group>"; };
 		78A874502D71BD9200ABDC87 /* UCTToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTToDoListView.swift; sourceTree = "<group>"; };
-		78A874522D71BDA300ABDC87 /* UCTToDoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTToDoRow.swift; sourceTree = "<group>"; };
 		78A874542D71C50F00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnCategorizedToDosInWorkspaceWidgetExtension.entitlements; sourceTree = "<group>"; };
+		78A874582D74640600ABDC87 /* TLToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLToDoListView.swift; sourceTree = "<group>"; };
+		78A8745B2D74649300ABDC87 /* TLToDoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLToDoRow.swift; sourceTree = "<group>"; };
+		78A8745E2D74657200ABDC87 /* TCToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCToDoListView.swift; sourceTree = "<group>"; };
 		78C0520A2D7011CC00071563 /* TCWExampleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCWExampleState.swift; sourceTree = "<group>"; };
 		78D6CA5A33B6DA05E6F1B099 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
@@ -287,8 +289,7 @@
 			isa = PBXGroup;
 			children = (
 				1B43F7CB2D5869EE000D4044 /* TCEntryView.swift */,
-				1B43F7C92D5869CC000D4044 /* TCToDoListView.swift */,
-				1B43F7C72D5869B7000D4044 /* TCToDoRow.swift */,
+				78A8745E2D74657200ABDC87 /* TCToDoListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -394,11 +395,19 @@
 		78A874452D71BB3C00ABDC87 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				78A874522D71BDA300ABDC87 /* UCTToDoRow.swift */,
 				78A874502D71BD9200ABDC87 /* UCTToDoListView.swift */,
 				78A8744E2D71BD1500ABDC87 /* UCTEntryView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		78A874562D7463EB00ABDC87 /* TLToDoListForWidget */ = {
+			isa = PBXGroup;
+			children = (
+				78A8745B2D74649300ABDC87 /* TLToDoRow.swift */,
+				78A874582D74640600ABDC87 /* TLToDoListView.swift */,
+			);
+			path = TLToDoListForWidget;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -422,6 +431,7 @@
 				1BF526C82D584FB90039CDE3 /* Util */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
+				78A874562D7463EB00ABDC87 /* TLToDoListForWidget */,
 				78A873DE2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget */,
 				1B94F34A2D58253200915981 /* ToDosInCategoryWidget */,
 				97C146EF1CF9000F007C117D /* Products */,
@@ -759,17 +769,18 @@
 				1B43F7CC2D5869EF000D4044 /* TCEntryView.swift in Sources */,
 				1BF526C92D584FEE0039CDE3 /* Model.swift in Sources */,
 				1BF526B22D5845040039CDE3 /* TCEntity.swift in Sources */,
+				78A8745F2D74657200ABDC87 /* TCToDoListView.swift in Sources */,
 				1B43F7C62D58682E000D4044 /* TCWidgetEntry.swift in Sources */,
-				1B43F7CA2D5869CE000D4044 /* TCToDoListView.swift in Sources */,
 				1B94F34D2D58253200915981 /* ToDosInCategoryWidget.swift in Sources */,
 				1BF526B92D58468D0039CDE3 /* TLThemeConfig.swift in Sources */,
 				1B41EE6A2D5DAF3900207D88 /* TLUserDefaultsManager.swift in Sources */,
 				1BF526B52D5845B70039CDE3 /* ToDosInCategoryWidgetSettings.swift in Sources */,
+				78A8745C2D74649800ABDC87 /* TLToDoRow.swift in Sources */,
 				78A874402D71B66A00ABDC87 /* TCWSelectionIntent.swift in Sources */,
 				1B43F7C42D5866FC000D4044 /* TCProvider.swift in Sources */,
 				78319ECF2D6C516E004884A7 /* TLUUIDGenerator.swift in Sources */,
+				78A874592D74647B00ABDC87 /* TLToDoListView.swift in Sources */,
 				1B94F34E2D58253200915981 /* ToDosInCategoryWidgetBundle.swift in Sources */,
-				1B43F7C82D5869BB000D4044 /* TCToDoRow.swift in Sources */,
 				78C0520C2D7011DE00071563 /* TCWExampleState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -789,10 +800,11 @@
 				78A874422D71B6F100ABDC87 /* WorkspaceSelectionAppIntent.swift in Sources */,
 				78A873EB2D71B27A00ABDC87 /* TLThemeConfig.swift in Sources */,
 				78A873E92D71B25300ABDC87 /* UCTWidgetEntry.swift in Sources */,
+				78A8745A2D74647B00ABDC87 /* TLToDoListView.swift in Sources */,
 				78A873EC2D71B28100ABDC87 /* TCWExampleState.swift in Sources */,
 				78A873E22D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget.swift in Sources */,
-				78A874532D71BDA300ABDC87 /* UCTToDoRow.swift in Sources */,
 				78A874512D71BD9300ABDC87 /* UCTToDoListView.swift in Sources */,
+				78A8745D2D74649800ABDC87 /* TLToDoRow.swift in Sources */,
 				78A8744F2D71BD1600ABDC87 /* UCTEntryView.swift in Sources */,
 				78A874442D71B9B200ABDC87 /* UCTAppEntity.swift in Sources */,
 				78A873ED2D71B28800ABDC87 /* TLUserDefaultsManager.swift in Sources */,
