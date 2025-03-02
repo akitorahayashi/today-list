@@ -70,6 +70,7 @@ class ModelOfToDoCard extends StatelessWidget {
                       key: Key(UniqueKey().toString()),
                       padding: const EdgeInsets.fromLTRB(8, 0, 2, 0),
                       child: Card(
+                        color: tlThemeData.whiteBasedColor,
                         elevation: 2,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),

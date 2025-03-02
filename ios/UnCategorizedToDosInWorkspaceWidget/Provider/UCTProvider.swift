@@ -46,7 +46,7 @@ struct UCTProvider: AppIntentTimelineProvider {
         
         let loadedEntry = UCTWidgetEntry(
             date: Date(),
-            // selectedWKS は オプショナル
+            // selectedWorkspace は オプショナル
             entity: configuration.selectedWorkspace,
             selectedThemeType: corrThemeType,
             tlWorkspaces: tlWorkspaces
