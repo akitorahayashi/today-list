@@ -110,7 +110,7 @@ class _HomePageState extends ConsumerState<HomePage>
     if (index == 0) return "Today List";
 
     final currentWorkspace = _getCurrentWorkspace(tlAppState);
-    return currentWorkspace?.name ?? "Error";
+    return currentWorkspace?.name ?? "Today List";
   }
 
   // MARK: Buildメソッド

@@ -52,67 +52,62 @@ class NotifyTodoOrStepIsEditedSnackBar {
       duration: const Duration(milliseconds: 900),
       behavior: SnackBarBehavior.floating,
       backgroundColor: backgroundColor,
-      content: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // MARK: - Quick Change Message
-            if (quickChangeToToday != null)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    quickChangeToToday
-                        ? "Switch to Today"
-                        : "Switch to Whenever",
-                    style: TextStyle(
-                      color: accentColor,
-                      fontWeight: FontWeight.w600,
-                    ),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // MARK: - Quick Change Message
+          if (quickChangeToToday != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  quickChangeToToday ? "Switch to Today" : "Switch to Whenever",
+                  style: TextStyle(
+                    color: accentColor,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-
-            // MARK: - ToDo Info Row
-            Padding(
-              padding: EdgeInsets.only(
-                  bottom: (quickChangeToToday != null ? 3.0 : 0)),
-              child: Row(
-                children: [
-                  // MARK: - Checkbox
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
-                    child: SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: Transform.scale(
-                        scale: 1.2,
-                        child: TLCheckBox(isChecked: newCheckedState),
-                      ),
-                    ),
-                  ),
-
-                  // MARK: - ToDo Title
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        newTitle,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: titleColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ),
-          ],
-        ),
+
+          // MARK: - ToDo Info Row
+          Padding(
+            padding:
+                EdgeInsets.only(bottom: (quickChangeToToday != null ? 3.0 : 0)),
+            child: Row(
+              children: [
+                // MARK: - Checkbox
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
+                  child: SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: Transform.scale(
+                      scale: 1.2,
+                      child: TLCheckBox(isChecked: newCheckedState),
+                    ),
+                  ),
+                ),
+
+                // MARK: - ToDo Title
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      newTitle,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: titleColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

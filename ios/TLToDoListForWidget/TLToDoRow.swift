@@ -18,6 +18,7 @@ struct ToDoTextStyle: ViewModifier {
             .truncationMode(.tail)
             .fontWeight(.bold)
             .opacity(0.6)
+            .foregroundColor(.black)
     }
 }
 
