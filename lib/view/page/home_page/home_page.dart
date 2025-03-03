@@ -199,6 +199,7 @@ class _HomePageState extends ConsumerState<HomePage>
                   color: tlThemeConfig.whiteBasedColor,
                   borderRadius: BorderRadius.circular(8),
                 ),
+                dividerColor: Colors.transparent,
                 indicatorSize: TabBarIndicatorSize.label,
                 indicatorPadding: const EdgeInsets.symmetric(horizontal: -16),
                 splashFactory: NoSplash.splashFactory,

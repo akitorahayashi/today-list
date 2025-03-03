@@ -32,7 +32,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Text("Change to ${corrThemeConfig.themeName}?"),
             ),
-            _buildActionButtons(context, tlAppStateNotifier, corrThemeConfig),
+            _buildActionButtons(context, corrThemeConfig, corrThemeConfig),
           ],
         ),
       ),
@@ -75,27 +75,22 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
   }
 
   // MARK - Build Action Buttons
-  Widget _buildActionButtons(BuildContext context,
-      TLAppStateController tlAppStateNotifier, themeConfig) {
+  Widget _buildActionButtons(BuildContext context, TLThemeConfig themeConfig,
+      TLThemeConfig corrThemeConfig) {
     return OverflowBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
         // Cancel Button
         TextButton(
           style: alertButtonStyle(accentColor: themeConfig.accentColor),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context, false),
           child: const Text("Close"),
         ),
-// Confirm Button
+        // Confirm Button
         TextButton(
           style: alertButtonStyle(accentColor: themeConfig.accentColor),
           onPressed: () {
-            Navigator.pop(context); // Close current dialog
-            tlAppStateNotifier.updateState(
-                TLThemeAction.changeTheme(newThemeType: corrThemeType));
-            // Show completion alert
-            const TLSingleOptionDialog(title: "Change completed")
-                .show(context: context);
+            Navigator.pop(context, true);
           },
           child: const Text("Change"),
         ),

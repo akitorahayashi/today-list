@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:today_list/view/page/setting_page/set_features_page/panel_with_title.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
-import 'package:today_list/view/page/setting_page/set_features_page/panel_with_title.dart';
-import 'package:today_list/view/page/setting_page/set_features_page/update_app_icon_card.dart';
 import 'theme_panel/left_side_show_selecting_panel.dart';
 import 'theme_panel/right_side_theme_select_button.dart';
 import 'set_todo_icon/icon_category_panel.dart';
 import 'set_vibration_card.dart';
+
+import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
 class SetFeaturesPage extends HookConsumerWidget {
   const SetFeaturesPage({super.key});
@@ -74,7 +74,6 @@ class SetFeaturesPage extends HookConsumerWidget {
                           ),
                         ),
                       ]),
-                  const UpdateAppIconCard()
                 ],
               ),
             ),

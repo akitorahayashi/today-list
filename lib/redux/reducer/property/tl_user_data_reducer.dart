@@ -21,7 +21,8 @@ class TLUserDataReducer {
       TLUserData state, String newThemeName) async {
     try {
       if (await FlutterDynamicIcon.supportsAlternateIcons) {
-        await FlutterDynamicIcon.setAlternateIconName(newThemeName);
+        await FlutterDynamicIcon.setAlternateIconName(newThemeName,
+            showAlert: false);
         print('Icon changed to: $newThemeName');
       } else {
         print("Dynamic icon change is not supported on this device.");

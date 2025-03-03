@@ -44,7 +44,7 @@ class IconCard extends HookConsumerWidget {
             false;
 
     /// ユーザーが現在選択しているチェックアイコンかどうか判定
-    bool isCurrentIcon = isEarned &&
+    bool isCurrentIcon = (isEarned || kNotToShowAd) &&
         tlIconCategory.name == selectedIcon.iconCategory &&
         tlIconName.name == selectedIcon.iconName;
 
@@ -52,8 +52,8 @@ class IconCard extends HookConsumerWidget {
     Future<void> onIconTap(BuildContext context) async {
       if (isCurrentIcon) return; // Already selected, do nothing
 
-      if (!kNotToShowAd && !isEarned) {
-        // Step 1: Show dialog and get the user's response
+      if (!isEarned && !kNotToShowAd) {
+        // 通常の広告視聴フロー
         final bool? confirmed = await showDialog<bool>(
           context: context,
           builder: (dialogContext) {
@@ -74,42 +74,46 @@ class IconCard extends HookConsumerWidget {
         // Step 2: Show ProgressHUD
         ProgressHUD.of(context)?.show();
 
-        // Step 3: Show the rewarded ad
-        await TLAds.showIconRewardedAd(
-          context: context,
-          rewardAction: () async {
-            if (!context.mounted) return; // Check if context is still valid
+        try {
+          // Step 3: Show the rewarded ad
+          await TLAds.showIconRewardedAd(
+            context: context,
+            rewardAction: () async {
+              if (!context.mounted) return; // Check if context is still valid
 
-            // Step 4: Update the icon state
-            await ref.read(tlAppStateProvider.notifier).updateState(
-                  TLUserDataAction.updateEarnedIcons(
-                    iconCategory: tlIconCategory,
-                    iconName: tlIconName,
-                  ),
-                );
-            await ref.read(tlAppStateProvider.notifier).updateState(
-                  TLUserDataAction.updateSelectedCheckBoxIcon(
-                    newCheckBox: SelectedCheckBoxIconData(
-                      iconCategory: tlIconCategory.name,
-                      iconName: tlIconName.name,
+              // Step 4: Update the icon state
+              await ref.read(tlAppStateProvider.notifier).updateState(
+                    TLUserDataAction.updateEarnedIcons(
+                      iconCategory: tlIconCategory,
+                      iconName: tlIconName,
                     ),
-                  ),
-                );
+                  );
+              if (!context.mounted) return;
 
-            // Step 5: Show success dialog
-            if (context.mounted) {
-              await const TLSingleOptionDialog(title: "Icon earned!")
-                  .show(context: context);
-            }
-          },
-        );
+              await ref.read(tlAppStateProvider.notifier).updateState(
+                    TLUserDataAction.updateSelectedCheckBoxIcon(
+                      newCheckBox: SelectedCheckBoxIconData(
+                        iconCategory: tlIconCategory.name,
+                        iconName: tlIconName.name,
+                      ),
+                    ),
+                  );
 
-        // Step 6: Hide ProgressHUD
-        if (context.mounted) {
-          ProgressHUD.of(context)?.dismiss();
+              // Step 5: Show success dialog
+              if (context.mounted) {
+                await const TLSingleOptionDialog(title: "Icon earned!")
+                    .show(context: context);
+              }
+            },
+          );
+        } finally {
+          // Step 6: Hide ProgressHUD
+          if (context.mounted) {
+            ProgressHUD.of(context)?.dismiss();
+          }
         }
       } else {
-        // Icon is already earned, allow changing
+        // Icon is already earned or kNotToShowAd is true, allow changing
         final bool? confirmed = await showDialog<bool>(
           context: context,
           builder: (dialogContext) {
@@ -125,20 +129,27 @@ class IconCard extends HookConsumerWidget {
 
         if (confirmed != true || !context.mounted) return;
 
-        // Update icon selection
-        ref.read(tlAppStateProvider.notifier).updateState(
-              TLUserDataAction.updateSelectedCheckBoxIcon(
-                newCheckBox: SelectedCheckBoxIconData(
-                  iconCategory: tlIconCategory.name,
-                  iconName: tlIconName.name,
+        try {
+          // Update icon selection
+          await ref.read(tlAppStateProvider.notifier).updateState(
+                TLUserDataAction.updateSelectedCheckBoxIcon(
+                  newCheckBox: SelectedCheckBoxIconData(
+                    iconCategory: tlIconCategory.name,
+                    iconName: tlIconName.name,
+                  ),
                 ),
-              ),
-            );
+              );
 
-        // Show success dialog
-        if (context.mounted) {
-          const TLSingleOptionDialog(title: "Change completed!")
-              .show(context: context);
+          // Show success dialog
+          if (context.mounted) {
+            await const TLSingleOptionDialog(title: "Change completed!")
+                .show(context: context);
+          }
+        } catch (e) {
+          if (context.mounted) {
+            await const TLSingleOptionDialog(title: "Failed to change icon")
+                .show(context: context);
+          }
         }
       }
     }
@@ -149,8 +160,8 @@ class IconCard extends HookConsumerWidget {
 
     // 選択された場合は枠なし、未選択なら影をつける
     final double elevation = isCurrentIcon ? 0 : 3;
-    final Color textColor = !isEarned
-        ? Colors.black26
+    final Color textColor = (!isEarned && !kNotToShowAd)
+        ? Colors.black54
         : isCurrentIcon
             ? themeConfig.checkmarkColor
             : Colors.black45;
@@ -171,7 +182,7 @@ class IconCard extends HookConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 3, bottom: 4),
                   child: Icon(
-                    (!isEarned && !showIfNotEarned)
+                    (!isEarned && !showIfNotEarned && !kNotToShowAd)
                         ? Icons.help_outline
                         : isCurrentIcon
                             ? iconResource?.checkedIcon
@@ -181,7 +192,7 @@ class IconCard extends HookConsumerWidget {
                   ),
                 ),
                 Text(
-                  !isEarned ? "???" : tlIconName.name,
+                  (!isEarned && !kNotToShowAd) ? "???" : tlIconName.name,
                   style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,

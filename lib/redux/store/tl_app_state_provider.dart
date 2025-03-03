@@ -48,9 +48,9 @@ class TLAppStateController extends Notifier<TLAppState> {
 
   // MARK: - Action Handling
   Future<void> updateState(dynamic action) async {
-    TLVibrationService.vibrate();
     final newState = TLAppStateReducer.reduce(state, action);
     if (await newState != state) {
+      TLVibrationService.vibrate();
       await _handleSideEffects(action, await newState);
       state = await newState;
     }
