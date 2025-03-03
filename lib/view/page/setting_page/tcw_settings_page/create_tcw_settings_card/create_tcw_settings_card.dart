@@ -291,8 +291,7 @@ class _ControlButtons extends ConsumerWidget {
       shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
       overlayColor: WidgetStateProperty.resolveWith(
-          // ignore: deprecated_member_use
-          (states) => TLTheme.of(context).accentColor.withOpacity(0.1)),
+          (states) => TLTheme.of(context).accentColor.withAlpha(26)),
     );
 
     return Padding(

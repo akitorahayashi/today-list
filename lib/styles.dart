@@ -9,8 +9,7 @@ ButtonStyle alertButtonStyle({required Color accentColor}) {
       accentColor,
     ),
     overlayColor: WidgetStateProperty.all<Color>(
-      // ignore: deprecated_member_use
-      accentColor.withOpacity(0.1),
+      accentColor.withValues(alpha: 0.1),
     ),
   );
 }
@@ -26,7 +25,7 @@ InputDecoration tlInputDecoration({
   return InputDecoration(
       icon: icon,
       label: Text(labelText),
-      labelStyle: TextStyle(color: Colors.black.withOpacity(0.45)),
+      labelStyle: TextStyle(color: Colors.black.withValues(alpha: 0.45)),
       enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(color: tlThemeConfig.accentColor),
       ),
@@ -45,6 +44,6 @@ InputDecoration tlInputDecoration({
 //       overlayColor: WidgetStateProperty.all<Color>(
 //         tlThemeDataList[SettingData.shared.selectedThemeIndex]!
 //             .accentColor
-//             .withOpacity(0.1),
+//             .withValues(alpha: 0.1),
 //       ),
 //     );

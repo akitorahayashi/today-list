@@ -70,7 +70,7 @@ class _WarningText extends StatelessWidget {
     return Text(
       "Related ToDos and categories will be deleted together",
       style: TextStyle(
-        color: Colors.black.withOpacity(0.6),
+        color: Colors.black.withValues(alpha: 0.6),
         fontWeight: FontWeight.w600,
       ),
     );

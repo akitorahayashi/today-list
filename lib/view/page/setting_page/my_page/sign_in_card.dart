@@ -32,7 +32,7 @@ class _SignInCardState extends State<SignInCard> {
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w800,
-                      color: tlThemeConfig.accentColor.withOpacity(0.8)),
+                      color: tlThemeConfig.accentColor.withValues(alpha: 0.8)),
                 ),
               ),
             ),
@@ -90,15 +90,15 @@ class _SignInCardState extends State<SignInCard> {
                             padding: const EdgeInsets.only(right: 12.0),
                             child: Icon(
                               FontAwesomeIcons.square,
-                              color:
-                                  tlThemeConfig.accentColor.withOpacity(0.84),
+                              color: tlThemeConfig.accentColor
+                                  .withValues(alpha: 0.84),
                             ),
                           ),
                           Text(
                             "Sign in with Google",
                             style: TextStyle(
-                                color:
-                                    tlThemeConfig.accentColor.withOpacity(0.84),
+                                color: tlThemeConfig.accentColor
+                                    .withValues(alpha: 0.84),
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -114,7 +114,7 @@ class _SignInCardState extends State<SignInCard> {
               alignment: Alignment.center,
               child: DefaultTextStyle(
                 style: TextStyle(
-                    fontSize: 13, color: Colors.black.withOpacity(0.8)),
+                    fontSize: 13, color: Colors.black.withValues(alpha: 0.8)),
                 child: Text.rich(
                   TextSpan(children: [
                     const TextSpan(text: "Googleアカウントをお持ちでないですか?  "),

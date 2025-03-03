@@ -53,7 +53,7 @@ class ModelOfToDoCard extends StatelessWidget {
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
                             color: Colors.black
-                                .withOpacity(corrTLToDo.isChecked ? 0.3 : 0.6)),
+                                .withAlpha(corrTLToDo.isChecked ? 77 : 153)),
                       ),
                     ),
                   ),
@@ -67,7 +67,7 @@ class ModelOfToDoCard extends StatelessWidget {
                 child: Column(
                   children: corrTLToDo.steps.map((stepData) {
                     return Padding(
-                      key: Key(UniqueKey().toString()),
+                      key: Key(stepData.id),
                       padding: const EdgeInsets.fromLTRB(8, 0, 2, 0),
                       child: Card(
                         color: tlThemeData.whiteBasedColor,
@@ -93,8 +93,8 @@ class ModelOfToDoCard extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
-                                        color: Colors.black.withOpacity(
-                                            stepData.isChecked ? 0.3 : 0.6))),
+                                        color: Colors.black.withAlpha(
+                                            stepData.isChecked ? 77 : 153))),
                               ),
                             ],
                           ),

@@ -45,7 +45,8 @@ class NotifyTodoOrStepIsEditedSnackBar {
     final backgroundColor =
         isToDoCard ? tlThemeData.canTapCardColor : tlThemeData.whiteBasedColor;
     final accentColor = tlThemeData.accentColor;
-    final titleColor = Colors.black.withOpacity(newCheckedState ? 0.3 : 0.6);
+    final titleColor =
+        Colors.black.withValues(alpha: newCheckedState ? 0.3 : 0.6);
 
     return SnackBar(
       duration: const Duration(milliseconds: 900),

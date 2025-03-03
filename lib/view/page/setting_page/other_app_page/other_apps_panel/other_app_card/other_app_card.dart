@@ -59,7 +59,7 @@ class NiceAppCard extends StatelessWidget {
                                 border: Border.all(
                                     width: 10,
                                     color: tlThemeConfig.tlDoubleCardBorderColor
-                                        .withOpacity(0.2))),
+                                        .withValues(alpha: 0.2))),
                             child: Card(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),

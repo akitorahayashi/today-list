@@ -125,10 +125,10 @@ class _BigCategoryDropdown extends StatelessWidget {
       child: DropdownButton<String>(
         style: TextStyle(
           // フォーカスしていないときのテキストスタイル
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.black.withValues(alpha: 0.5),
           fontWeight: FontWeight.bold,
         ),
-        focusColor: Colors.black.withOpacity(0.5),
+        focusColor: Colors.black.withValues(alpha: 0.5),
         isExpanded: true,
         hint: _buildDropdownHint(selectedBigCategoryID, corrWorkspace),
         items: [
@@ -145,7 +145,7 @@ class _BigCategoryDropdown extends StatelessWidget {
               style: TextStyle(
                 color: bigCategory.id == selectedBigCategoryID
                     ? theme.accentColor
-                    : Colors.black.withOpacity(0.5),
+                    : Colors.black.withValues(alpha: 0.5),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -184,7 +184,7 @@ class _NewCategoryNameInputField extends StatelessWidget {
         onChanged: (text) => enteredCategoryTitle.value = text,
         cursorColor: theme.accentColor,
         style: TextStyle(
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.black.withValues(alpha: 0.5),
           fontWeight: FontWeight.w600,
         ),
         decoration: tlInputDecoration(

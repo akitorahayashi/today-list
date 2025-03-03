@@ -32,7 +32,7 @@ class AddedStepsColumn extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 16.0),
                   child: TLCheckBox(
                     isChecked: false,
-                    iconColor: Colors.black.withOpacity(0.35),
+                    iconColor: Colors.black.withAlpha(89),
                     iconSize: 23,
                   ),
                 ),
@@ -45,7 +45,7 @@ class AddedStepsColumn extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black.withOpacity(0.55),
+                        color: Colors.black.withAlpha(140),
                       ),
                     ),
                   ),
@@ -59,7 +59,7 @@ class AddedStepsColumn extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 9.0),
                       child: Icon(
                         Icons.remove,
-                        color: Colors.black.withOpacity(0.35),
+                        color: Colors.black.withAlpha(89),
                       ),
                     ),
                   ),

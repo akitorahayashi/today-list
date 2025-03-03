@@ -103,7 +103,7 @@ class _NewCategoryNameInputField extends HookWidget {
         onChanged: (text) => enteredCategoryTitle.value = text,
         cursorColor: theme.accentColor,
         style: TextStyle(
-          color: Colors.black.withOpacity(0.5),
+          color: Colors.black.withValues(alpha: 0.5),
           fontWeight: FontWeight.w600,
         ),
         decoration: tlInputDecoration(

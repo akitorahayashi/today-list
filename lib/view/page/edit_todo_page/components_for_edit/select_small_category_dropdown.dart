@@ -94,8 +94,7 @@ class SelectSmallCategoryDropdown extends ConsumerWidget {
         child: Text(
           item.name,
           style: TextStyle(
-            color:
-                isSelected ? theme.accentColor : Colors.black.withOpacity(0.5),
+            color: isSelected ? theme.accentColor : Colors.black.withAlpha(128),
             fontWeight: FontWeight.bold,
           ),
         ),

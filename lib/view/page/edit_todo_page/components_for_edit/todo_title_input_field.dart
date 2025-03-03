@@ -54,7 +54,7 @@ class _ToDoTitleInputFieldState extends State<ToDoTitleInputField> {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: Colors.black.withOpacity(0.6),
+          color: Colors.black.withValues(alpha: 0.6),
         ),
         cursorColor: tlThemeData.accentColor,
         decoration: tlInputDecoration(
@@ -62,7 +62,7 @@ class _ToDoTitleInputFieldState extends State<ToDoTitleInputField> {
           labelText: "ToDo",
           icon: Icon(
             FontAwesomeIcons.square,
-            color: Colors.black.withOpacity(0.35),
+            color: Colors.black.withValues(alpha: 0.35),
           ),
           suffixIcon: AnimatedOpacity(
             duration: const Duration(milliseconds: 300),
@@ -88,7 +88,7 @@ class _ToDoTitleInputFieldState extends State<ToDoTitleInputField> {
                 Icons.add,
                 color: _enteredToDoTitle.trim().isNotEmpty
                     ? tlThemeData.accentColor
-                    : Colors.black,
+                    : Colors.black.withValues(alpha: 0.35),
                 size: 25,
               ),
             ),

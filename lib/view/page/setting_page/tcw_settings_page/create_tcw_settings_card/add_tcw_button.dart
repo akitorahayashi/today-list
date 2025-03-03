@@ -15,10 +15,10 @@ class AddToDosInCategoryWidgetSettingsButton extends StatelessWidget {
     return TLDoubleCard(
       child: InkWell(
         onTap: onPressed,
-        splashColor: tlThemeConfig.accentColor.withOpacity(0.05),
-        hoverColor: tlThemeConfig.accentColor.withOpacity(0.05),
-        overlayColor: WidgetStateProperty.all(
-            tlThemeConfig.accentColor.withOpacity(0.05)),
+        splashColor: tlThemeConfig.accentColor.withAlpha(13),
+        hoverColor: tlThemeConfig.accentColor.withAlpha(13),
+        overlayColor:
+            WidgetStateProperty.all(tlThemeConfig.accentColor.withAlpha(13)),
         child: SizedBox(
             height: 50,
             width: deviceWidth - 50,

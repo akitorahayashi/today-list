@@ -60,8 +60,8 @@ class SelectBigCategoryDropdown extends StatelessWidget {
 
     final matchingCategory = corrWorkspace.bigCategories.firstWhere(
       (c) => c.id == bigCategoryID,
-      orElse: () =>
-          TLToDoCategory(id: "", parentBigCategoryID: null, name: "不明なカテゴリー"),
+      orElse: () => const TLToDoCategory(
+          id: "", parentBigCategoryID: null, name: "不明なカテゴリー"),
     );
 
     return matchingCategory.name;
@@ -74,7 +74,7 @@ class SelectBigCategoryDropdown extends StatelessWidget {
       TLToDoCategory(
           id: corrWorkspace.id, parentBigCategoryID: null, name: "なし"),
       ...corrWorkspace.bigCategories,
-      TLToDoCategory(
+      const TLToDoCategory(
           id: "---createBigCategory", parentBigCategoryID: null, name: "新しく作る"),
     ];
 
@@ -85,8 +85,7 @@ class SelectBigCategoryDropdown extends StatelessWidget {
         child: Text(
           item.name,
           style: TextStyle(
-            color:
-                isSelected ? theme.accentColor : Colors.black.withOpacity(0.5),
+            color: isSelected ? theme.accentColor : Colors.black.withAlpha(128),
             fontWeight: FontWeight.bold,
           ),
         ),

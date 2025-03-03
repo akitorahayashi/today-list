@@ -110,7 +110,7 @@ class SelectEditCategoryMethodDialog extends ConsumerWidget
                 onPressed: () => Navigator.pop(context),
                 style: ButtonStyle(
                   overlayColor: WidgetStateProperty.resolveWith(
-                      (states) => Colors.lightGreen.withOpacity(0.1)),
+                      (states) => Colors.lightGreen.withValues(alpha: 0.1)),
                 ),
                 child: const Text(
                   "close",
