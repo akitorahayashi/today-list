@@ -37,7 +37,7 @@ class SelectEditCategoryMethodDialog extends ConsumerWidget
                   child: Text(
                     "Category Name",
                     style: TextStyle(
-                        color: Color.fromRGBO(120, 120, 120, 1), fontSize: 10),
+                        color: Color.fromRGBO(120, 120, 120, 1), fontSize: 13),
                   ),
                 ),
                 Align(
@@ -47,7 +47,7 @@ class SelectEditCategoryMethodDialog extends ConsumerWidget
                     style: TextStyle(
                         color: tlThemeData.accentColor,
                         fontSize: 20,
-                        fontWeight: FontWeight.w600),
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
