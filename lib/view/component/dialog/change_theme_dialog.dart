@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
-import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/styles.dart';
@@ -17,7 +15,6 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig corrThemeConfig = corrThemeType.config;
-    final tlAppStateNotifier = ref.read(tlAppStateProvider.notifier);
 
     return TLDialog(
       corrThemeConfig: corrThemeConfig,

@@ -56,13 +56,6 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                             child: Column(
                               children: [
                                 ReorderableColumn(
-                                  buildDraggableFeedback:
-                                      (context, constraints, child) {
-                                    return Material(
-                                      elevation: 6.0,
-                                      child: child,
-                                    );
-                                  },
                                   children: [
                                     for (var workspace in workspaces)
                                       ChangeWorkspaceCard(

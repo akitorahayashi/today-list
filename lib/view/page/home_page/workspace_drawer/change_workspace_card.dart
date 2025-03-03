@@ -22,18 +22,20 @@ class ChangeWorkspaceCard extends ConsumerWidget {
         .watch(tlAppStateProvider.select((state) => state.currentWorkspaceID));
     final bool isCurrentWorkspace = corrWorkspace.id == currentWorkspaceId;
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(5, 1, 5, 0),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: 70),
-        child: GestureDetector(
-          onTap: () => _handleWorkspaceSelection(ref, isCurrentWorkspace),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(5, 1, 5, 0),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            minHeight: 70,
+          ),
           child: Card(
             color: theme.canTapCardColor,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
+            child: GestureDetector(
+              onTap: () => _handleWorkspaceSelection(ref, isCurrentWorkspace),
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
