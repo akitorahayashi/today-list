@@ -118,6 +118,8 @@ class _HomePageState extends ConsumerState<HomePage>
   Widget build(BuildContext context) {
     final tlAppState = ref.watch(tlAppStateProvider);
     final tlThemeConfig = TLTheme.of(context);
+    // ボトムシートの表示状態を監視
+    final isBottomSheetVisible = ref.watch(bottomSheetVisibilityProvider);
 
     // タブ数: Today(1) + ワークスペース数 + Plusタブ(1)
     final tabLength = tlAppState.tlWorkspaces.length + 2;
@@ -250,15 +252,18 @@ class _HomePageState extends ConsumerState<HomePage>
                 ),
               ],
             ),
-            // MARK: Bottom Nav Bar
-            bottomNavigationBar: const TLHomeBottomNavBar(),
+            // MARK: Bottom Nav Bar - キーボードが表示されているときのみ非表示
+            bottomNavigationBar: MediaQuery.of(context).viewInsets.bottom > 0
+                ? null
+                : const TLHomeBottomNavBar(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: MediaQuery.of(context).viewInsets.bottom == 0
-                ? CenterButtonOfHomeBottomNavBar(
+            // キーボードが表示されているときのみ非表示
+            floatingActionButton: MediaQuery.of(context).viewInsets.bottom > 0
+                ? null
+                : CenterButtonOfHomeBottomNavBar(
                     doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
-                  )
-                : null,
+                  ),
           );
         },
       ),

@@ -24,12 +24,11 @@ class ToDoListInWorkspaceInTodayAndWhenever extends StatelessWidget {
           child: NumToDosCard(title: null, numTodos: numOfToDosInToday),
         ),
         ListOfCategoryToToDos(ifInToday: true, corrWorkspace: corrWorkspace),
-        if (numOfToDosInWhenever != 0)
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: NumToDosCard(
-                title: "In Whenever", numTodos: numOfToDosInWhenever),
-          ),
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: NumToDosCard(
+              title: "In Whenever", numTodos: numOfToDosInWhenever),
+        ),
         ListOfCategoryToToDos(ifInToday: false, corrWorkspace: corrWorkspace),
         const SizedBox(height: 250),
       ],

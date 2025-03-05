@@ -24,7 +24,6 @@ class SettingsPage extends HookWidget {
     ];
 
     final List<dynamic> iconDataOfSettingPageContents = [
-      [Icons.widgets, "Widgets"],
       [Icons.phone_android, "Features"],
     ];
 

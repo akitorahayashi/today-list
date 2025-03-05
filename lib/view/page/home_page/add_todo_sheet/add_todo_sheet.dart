@@ -16,10 +16,14 @@ import 'package:today_list/view/component/for_edit/todo_title_input_field.dart';
 
 class AddToDoSheet extends HookConsumerWidget {
   final String workspaceID;
+  final VoidCallback? onComplete;
+  final TLToDo? todoToEdit; // 編集対象のToDo（新規作成時はnull）
 
   const AddToDoSheet({
     super.key,
     required this.workspaceID,
+    this.onComplete,
+    this.todoToEdit,
   });
 
   @override
@@ -32,11 +36,20 @@ class AddToDoSheet extends HookConsumerWidget {
       return matches.isNotEmpty ? matches.first : tlAppState.tlWorkspaces.first;
     }();
 
+    // 編集モードかどうか
+    final isEditMode = todoToEdit != null;
+
     // MARK: - State Management
-    final toDoTitleController = useTextEditingController(text: "");
+    final toDoTitleController = useTextEditingController(
+      text: isEditMode ? todoToEdit!.content : "",
+    );
     final stepTitleController = useTextEditingController();
-    final steps = useState<List<TLStep>>([]);
-    final isToday = useState<bool>(true);
+    final steps = useState<List<TLStep>>(
+      isEditMode ? List<TLStep>.from(todoToEdit!.steps) : [],
+    );
+    final isToday = useState<bool>(
+      isEditMode ? todoToEdit!.isInToday : true,
+    );
 
     // MARK: - ToDo Operations
     void addToStepList(String stepTitle) {
@@ -51,30 +64,53 @@ class AddToDoSheet extends HookConsumerWidget {
 
       final appStateReducer = ref.read(tlAppStateProvider.notifier);
 
-      final TLToDo newToDo = TLToDo(
-        id: TLUUIDGenerator.generate(),
-        workspaceID: corrWorkspace.id,
-        isInToday: isToday.value,
-        content: toDoTitleController.text,
-        steps: steps.value,
-      );
+      if (isEditMode) {
+        // 既存のToDoを更新
+        final updatedToDo = TLToDo(
+          id: todoToEdit!.id,
+          workspaceID: corrWorkspace.id,
+          isInToday: isToday.value,
+          isChecked: todoToEdit!.isChecked, // チェック状態は維持
+          content: toDoTitleController.text,
+          steps: steps.value,
+        );
 
-      // MARK: - Add New ToDo
-      await appStateReducer.updateState(TLToDoAction.addToDo(
-        corrWorkspace: corrWorkspace,
-        newToDo: newToDo,
-      ));
+        // MARK: - Update Existing ToDo
+        await appStateReducer.updateState(TLToDoAction.updateToDo(
+          corrWorkspace: corrWorkspace,
+          newToDo: updatedToDo,
+        ));
+      } else {
+        // 新規ToDoを作成
+        final TLToDo newToDo = TLToDo(
+          id: TLUUIDGenerator.generate(),
+          workspaceID: corrWorkspace.id,
+          isInToday: isToday.value,
+          content: toDoTitleController.text,
+          steps: steps.value,
+        );
+
+        // MARK: - Add New ToDo
+        await appStateReducer.updateState(TLToDoAction.addToDo(
+          corrWorkspace: corrWorkspace,
+          newToDo: newToDo,
+        ));
+      }
 
       // Reset fields
       steps.value = [];
       toDoTitleController.clear();
       stepTitleController.clear();
 
-      // Close sheet
-      Navigator.pop(context);
+      // タスク追加/編集完了時にコールバックを呼び出す
+      onComplete?.call();
     }
 
+    // 画面幅を取得
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
+      width: screenWidth, // 画面幅いっぱいに設定
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
@@ -84,6 +120,14 @@ class AddToDoSheet extends HookConsumerWidget {
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 10,
+            spreadRadius: 2,
+            offset: const Offset(0, 0),
+          ),
+        ],
       ),
       child: SingleChildScrollView(
         child: Padding(
@@ -102,14 +146,38 @@ class AddToDoSheet extends HookConsumerWidget {
               ),
               const SizedBox(height: 20),
 
-              // Workspace name
-              Text(
-                corrWorkspace.name,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: tlThemeConfig.accentColor,
-                ),
+              // Workspace name and mode indicator
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    corrWorkspace.name,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: tlThemeConfig.accentColor,
+                    ),
+                  ),
+                  if (isEditMode) ...[
+                    const SizedBox(width: 8),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: tlThemeConfig.accentColor.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        "編集モード",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: tlThemeConfig.accentColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
               ),
               const SizedBox(height: 16),
 
@@ -142,7 +210,7 @@ class AddToDoSheet extends HookConsumerWidget {
                 stepTitleController: stepTitleController,
                 onAddOrEditStep: (title) => addToStepList(title),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
             ],
           ),
         ),
