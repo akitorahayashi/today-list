@@ -18,7 +18,6 @@ class TLAppState with _$TLAppState {
     @Default([]) List<TLWorkspace> tlWorkspaces,
     @Default(null) String? currentWorkspaceID,
     @Default(TLThemeType.sunOrange) TLThemeType selectedThemeType,
-    @Default([]) List<TCWSettings> tcwSettings,
     // アプリの設定データ
     @Default(
       TLUserData(

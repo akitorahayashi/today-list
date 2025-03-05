@@ -22,10 +22,7 @@ TLWorkspace _$TLWorkspaceFromJson(Map<String, dynamic> json) {
 mixin _$TLWorkspace {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  List<TLToDoCategory> get bigCategories => throw _privateConstructorUsedError;
-  Map<String, List<TLToDoCategory>> get smallCategories =>
-      throw _privateConstructorUsedError;
-  Map<String, TLToDosInTodayAndWhenever> get categoryIDToToDos =>
+  Map<String, TLToDosInTodayAndWhenever> get workspaceIDToToDos =>
       throw _privateConstructorUsedError;
 
   /// Serializes this TLWorkspace to a JSON map.
@@ -47,9 +44,7 @@ abstract class $TLWorkspaceCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
-      List<TLToDoCategory> bigCategories,
-      Map<String, List<TLToDoCategory>> smallCategories,
-      Map<String, TLToDosInTodayAndWhenever> categoryIDToToDos});
+      Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos});
 }
 
 /// @nodoc
@@ -69,9 +64,7 @@ class _$TLWorkspaceCopyWithImpl<$Res, $Val extends TLWorkspace>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? bigCategories = null,
-    Object? smallCategories = null,
-    Object? categoryIDToToDos = null,
+    Object? workspaceIDToToDos = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -82,17 +75,9 @@ class _$TLWorkspaceCopyWithImpl<$Res, $Val extends TLWorkspace>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      bigCategories: null == bigCategories
-          ? _value.bigCategories
-          : bigCategories // ignore: cast_nullable_to_non_nullable
-              as List<TLToDoCategory>,
-      smallCategories: null == smallCategories
-          ? _value.smallCategories
-          : smallCategories // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<TLToDoCategory>>,
-      categoryIDToToDos: null == categoryIDToToDos
-          ? _value.categoryIDToToDos
-          : categoryIDToToDos // ignore: cast_nullable_to_non_nullable
+      workspaceIDToToDos: null == workspaceIDToToDos
+          ? _value.workspaceIDToToDos
+          : workspaceIDToToDos // ignore: cast_nullable_to_non_nullable
               as Map<String, TLToDosInTodayAndWhenever>,
     ) as $Val);
   }
@@ -109,9 +94,7 @@ abstract class _$$TLWorkspaceImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
-      List<TLToDoCategory> bigCategories,
-      Map<String, List<TLToDoCategory>> smallCategories,
-      Map<String, TLToDosInTodayAndWhenever> categoryIDToToDos});
+      Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos});
 }
 
 /// @nodoc
@@ -129,9 +112,7 @@ class __$$TLWorkspaceImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? bigCategories = null,
-    Object? smallCategories = null,
-    Object? categoryIDToToDos = null,
+    Object? workspaceIDToToDos = null,
   }) {
     return _then(_$TLWorkspaceImpl(
       id: null == id
@@ -142,17 +123,9 @@ class __$$TLWorkspaceImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      bigCategories: null == bigCategories
-          ? _value._bigCategories
-          : bigCategories // ignore: cast_nullable_to_non_nullable
-              as List<TLToDoCategory>,
-      smallCategories: null == smallCategories
-          ? _value._smallCategories
-          : smallCategories // ignore: cast_nullable_to_non_nullable
-              as Map<String, List<TLToDoCategory>>,
-      categoryIDToToDos: null == categoryIDToToDos
-          ? _value._categoryIDToToDos
-          : categoryIDToToDos // ignore: cast_nullable_to_non_nullable
+      workspaceIDToToDos: null == workspaceIDToToDos
+          ? _value._workspaceIDToToDos
+          : workspaceIDToToDos // ignore: cast_nullable_to_non_nullable
               as Map<String, TLToDosInTodayAndWhenever>,
     ));
   }
@@ -164,12 +137,8 @@ class _$TLWorkspaceImpl extends _TLWorkspace {
   _$TLWorkspaceImpl(
       {required this.id,
       required this.name,
-      required final List<TLToDoCategory> bigCategories,
-      required final Map<String, List<TLToDoCategory>> smallCategories,
-      required final Map<String, TLToDosInTodayAndWhenever> categoryIDToToDos})
-      : _bigCategories = bigCategories,
-        _smallCategories = smallCategories,
-        _categoryIDToToDos = categoryIDToToDos,
+      required final Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos})
+      : _workspaceIDToToDos = workspaceIDToToDos,
         super._();
 
   factory _$TLWorkspaceImpl.fromJson(Map<String, dynamic> json) =>
@@ -179,34 +148,18 @@ class _$TLWorkspaceImpl extends _TLWorkspace {
   final String id;
   @override
   final String name;
-  final List<TLToDoCategory> _bigCategories;
+  final Map<String, TLToDosInTodayAndWhenever> _workspaceIDToToDos;
   @override
-  List<TLToDoCategory> get bigCategories {
-    if (_bigCategories is EqualUnmodifiableListView) return _bigCategories;
+  Map<String, TLToDosInTodayAndWhenever> get workspaceIDToToDos {
+    if (_workspaceIDToToDos is EqualUnmodifiableMapView)
+      return _workspaceIDToToDos;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_bigCategories);
-  }
-
-  final Map<String, List<TLToDoCategory>> _smallCategories;
-  @override
-  Map<String, List<TLToDoCategory>> get smallCategories {
-    if (_smallCategories is EqualUnmodifiableMapView) return _smallCategories;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_smallCategories);
-  }
-
-  final Map<String, TLToDosInTodayAndWhenever> _categoryIDToToDos;
-  @override
-  Map<String, TLToDosInTodayAndWhenever> get categoryIDToToDos {
-    if (_categoryIDToToDos is EqualUnmodifiableMapView)
-      return _categoryIDToToDos;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_categoryIDToToDos);
+    return EqualUnmodifiableMapView(_workspaceIDToToDos);
   }
 
   @override
   String toString() {
-    return 'TLWorkspace(id: $id, name: $name, bigCategories: $bigCategories, smallCategories: $smallCategories, categoryIDToToDos: $categoryIDToToDos)';
+    return 'TLWorkspace(id: $id, name: $name, workspaceIDToToDos: $workspaceIDToToDos)';
   }
 
   @override
@@ -217,22 +170,13 @@ class _$TLWorkspaceImpl extends _TLWorkspace {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
-                .equals(other._bigCategories, _bigCategories) &&
-            const DeepCollectionEquality()
-                .equals(other._smallCategories, _smallCategories) &&
-            const DeepCollectionEquality()
-                .equals(other._categoryIDToToDos, _categoryIDToToDos));
+                .equals(other._workspaceIDToToDos, _workspaceIDToToDos));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      const DeepCollectionEquality().hash(_bigCategories),
-      const DeepCollectionEquality().hash(_smallCategories),
-      const DeepCollectionEquality().hash(_categoryIDToToDos));
+  int get hashCode => Object.hash(runtimeType, id, name,
+      const DeepCollectionEquality().hash(_workspaceIDToToDos));
 
   /// Create a copy of TLWorkspace
   /// with the given fields replaced by the non-null parameter values.
@@ -254,10 +198,8 @@ abstract class _TLWorkspace extends TLWorkspace {
   factory _TLWorkspace(
       {required final String id,
       required final String name,
-      required final List<TLToDoCategory> bigCategories,
-      required final Map<String, List<TLToDoCategory>> smallCategories,
       required final Map<String, TLToDosInTodayAndWhenever>
-          categoryIDToToDos}) = _$TLWorkspaceImpl;
+          workspaceIDToToDos}) = _$TLWorkspaceImpl;
   _TLWorkspace._() : super._();
 
   factory _TLWorkspace.fromJson(Map<String, dynamic> json) =
@@ -268,11 +210,7 @@ abstract class _TLWorkspace extends TLWorkspace {
   @override
   String get name;
   @override
-  List<TLToDoCategory> get bigCategories;
-  @override
-  Map<String, List<TLToDoCategory>> get smallCategories;
-  @override
-  Map<String, TLToDosInTodayAndWhenever> get categoryIDToToDos;
+  Map<String, TLToDosInTodayAndWhenever> get workspaceIDToToDos;
 
   /// Create a copy of TLWorkspace
   /// with the given fields replaced by the non-null parameter values.

@@ -1,15 +1,11 @@
 import 'package:today_list/model/tl_app_state.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/tcw_action.dart';
 import 'package:today_list/redux/action/tl_app_state_action.dart';
 import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
-import 'package:today_list/redux/action/tl_todo_category_action.dart';
 import 'package:today_list/redux/action/tl_user_data_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
-import 'package:today_list/redux/reducer/property/tcw_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_theme_reducer.dart';
-import 'package:today_list/redux/reducer/property/tl_todo_category_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_todo_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_user_data_reducer.dart';
 import 'package:today_list/redux/reducer/property/tl_workspace_reducer.dart';
@@ -27,13 +23,6 @@ class TLAppStateReducer {
           tlWorkspaces: TLWorkspaceReducer.reduce(state.tlWorkspaces, action));
     }
 
-    // TLToDoCategoryAction
-    if (action is TLToDoCategoryAction) {
-      return state.copyWith(
-          tlWorkspaces:
-              TLToDoCategoryReducer.reduce(state.tlWorkspaces, action));
-    }
-
     // TLToDoAction
     if (action is TLToDoAction) {
       return state.copyWith(
@@ -45,14 +34,6 @@ class TLAppStateReducer {
       return state.copyWith(
           selectedThemeType:
               TLThemeReducer.reduce(state.selectedThemeType, action));
-    }
-    // TCWSettingsAction
-    if (action is TCWSettingsAction) {
-      return state.copyWith(
-          tcwSettings: TCWSettingsReducer.reduce(
-        state.tcwSettings,
-        action,
-      ));
     }
 
     // TLUserDataAction
@@ -93,11 +74,11 @@ class TLAppStateReducer {
       TLAppState state, List<TLWorkspace> corrWorkspaceList) {
     List<TLWorkspace> updatedWorkspaceList = [];
     for (TLWorkspace workspace in corrWorkspaceList) {
-      final updatedWorkspace = workspace.copyWith(categoryIDToToDos: workspace
-          .categoryIDToToDos
-          .map((categoryID, tlToDosInTodayAndWhenever) {
+      final updatedWorkspace = workspace.copyWith(workspaceIDToToDos: workspace
+          .workspaceIDToToDos
+          .map((workspaceID, tlToDosInTodayAndWhenever) {
         return MapEntry(
-            categoryID,
+            workspaceID,
             tlToDosInTodayAndWhenever.deleteAllCheckedToDosInAToDosList(
                 isInToday: true));
       }));

@@ -33,15 +33,16 @@ class TLWorkspaceReducer {
 
   static List<TLWorkspace> _deleteAllCheckedToDosInWorkspace(
       List<TLWorkspace> workspaces, TLWorkspace corrWorkspace) {
-    // `categoryIDToToDos` をコピーする
-    final copiedCategoryIDToToDos = Map<String, TLToDosInTodayAndWhenever>.from(
-        corrWorkspace.categoryIDToToDos);
+    // `workspaceIDToToDos` をコピーする
+    final copiedWorkspaceIDToToDos =
+        Map<String, TLToDosInTodayAndWhenever>.from(
+            corrWorkspace.workspaceIDToToDos);
 
-    // カテゴリーIDに対応するTLToDosInTodayAndWheneverの中のチェック済みToDoを削除
-    for (String categoryID in copiedCategoryIDToToDos.keys) {
-      final corrToDosInTodayAndWhenever = copiedCategoryIDToToDos[categoryID];
+    // ワークスペースIDに対応するTLToDosInTodayAndWheneverの中のチェック済みToDoを削除
+    for (String workspaceID in copiedWorkspaceIDToToDos.keys) {
+      final corrToDosInTodayAndWhenever = copiedWorkspaceIDToToDos[workspaceID];
       if (corrToDosInTodayAndWhenever == null) continue;
-      copiedCategoryIDToToDos[categoryID] = corrToDosInTodayAndWhenever
+      copiedWorkspaceIDToToDos[workspaceID] = corrToDosInTodayAndWhenever
           .deleteAllCheckedToDosInAToDosList(isInToday: null);
     }
 
@@ -51,7 +52,7 @@ class TLWorkspaceReducer {
 
     final updatedWorkspaces = List<TLWorkspace>.from(workspaces);
     updatedWorkspaces[corrWorkspaceIdx] = corrWorkspace.copyWith(
-      categoryIDToToDos: copiedCategoryIDToToDos,
+      workspaceIDToToDos: copiedWorkspaceIDToToDos,
     );
 
     return updatedWorkspaces;

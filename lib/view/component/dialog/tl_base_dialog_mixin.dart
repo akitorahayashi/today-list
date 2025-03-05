@@ -10,7 +10,7 @@ mixin TLBaseDialogMixin {
       barrierDismissible: false,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
       barrierColor: Colors.black54,
-      transitionDuration: const Duration(milliseconds: 200),
+      transitionDuration: const Duration(milliseconds: 150),
       pageBuilder: (BuildContext buildContext, Animation animation,
           Animation secondaryAnimation) {
         return this as Widget;

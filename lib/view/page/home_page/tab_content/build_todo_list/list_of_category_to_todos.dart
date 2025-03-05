@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/component/todo_card/tl_todo_card.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
+import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/tl_todo_action.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
 
 import 'package:reorderables/reorderables.dart';
+import 'package:today_list/redux/action/tl_todo_action.dart';
+import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/view/component/todo_card/tl_todo_card.dart';
 
-class ToDosInCategory extends ConsumerWidget {
+class ListOfCategoryToToDos extends ConsumerWidget {
   final bool ifInToday;
   final TLWorkspace corrWorkspace;
-  final String categoryID;
-  final bool isBigCategory;
 
-  const ToDosInCategory({
+  const ListOfCategoryToToDos({
     super.key,
-    required this.corrWorkspace,
-    required this.categoryID,
     required this.ifInToday,
-    required this.isBigCategory,
+    required this.corrWorkspace,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final TLToDosInTodayAndWhenever? corrToDos =
+        corrWorkspace.workspaceIDToToDos[corrWorkspace.id];
+    // カテゴリーへ分類されていない ToDo がある場合のみ表示
+    if (corrToDos!.getToDos(ifInToday).isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(left: isBigCategory ? 5 : 18),
+          padding: const EdgeInsets.only(top: 8.0, left: 5),
           child: ReorderableColumn(
             children: [
               for (TLToDo corrToDo in corrWorkspace
-                  .categoryIDToToDos[categoryID]!
+                  .workspaceIDToToDos[corrWorkspace.id]!
                   .getToDos(ifInToday))
                 TLToDoCard(
                   key: ValueKey(corrToDo.id),
@@ -44,7 +48,7 @@ class ToDosInCategory extends ConsumerWidget {
               ref.read(tlAppStateProvider.notifier).updateState(
                     TLToDoAction.reorderToDo(
                       corrWorkspace: corrWorkspace,
-                      categoryID: categoryID,
+                      workspaceID: corrWorkspace.id,
                       ifInToday: ifInToday,
                       oldIndex: oldIndex,
                       newIndex: newIndex,

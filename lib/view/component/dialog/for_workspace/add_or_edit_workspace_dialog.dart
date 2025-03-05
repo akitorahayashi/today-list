@@ -157,11 +157,9 @@ class _AddOrEditWorkspaceDialogState
               TLWorkspace(
                 id: newWorkspaceID,
                 name: workspaceName,
-                bigCategories: [],
-                smallCategories: {},
-                categoryIDToToDos: {
+                workspaceIDToToDos: {
                   newWorkspaceID: TLToDosInTodayAndWhenever(
-                      categoryID: newWorkspaceID,
+                      workspaceID: newWorkspaceID,
                       toDosInToday: [],
                       toDosInWhenever: [])
                 },

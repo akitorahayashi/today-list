@@ -29,7 +29,7 @@ mixin _$TLToDoAction {
         toggleToDoCheckStatus,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoTodayWhenever,
-    required TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    required TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)
         reorderToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
@@ -49,7 +49,7 @@ mixin _$TLToDoAction {
         toggleToDoCheckStatus,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult? Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult? Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -69,7 +69,7 @@ mixin _$TLToDoAction {
         toggleToDoCheckStatus,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -279,7 +279,7 @@ class _$AddToDoImpl implements _AddToDo {
         toggleToDoCheckStatus,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoTodayWhenever,
-    required TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    required TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)
         reorderToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
@@ -302,7 +302,7 @@ class _$AddToDoImpl implements _AddToDo {
         toggleToDoCheckStatus,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult? Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult? Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -325,7 +325,7 @@ class _$AddToDoImpl implements _AddToDo {
         toggleToDoCheckStatus,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -515,7 +515,7 @@ class _$UpdateToDoImpl implements _UpdateToDo {
         toggleToDoCheckStatus,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoTodayWhenever,
-    required TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    required TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)
         reorderToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
@@ -538,7 +538,7 @@ class _$UpdateToDoImpl implements _UpdateToDo {
         toggleToDoCheckStatus,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult? Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult? Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -561,7 +561,7 @@ class _$UpdateToDoImpl implements _UpdateToDo {
         toggleToDoCheckStatus,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -752,7 +752,7 @@ class _$RemoveToDoImpl implements _RemoveToDo {
         toggleToDoCheckStatus,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoTodayWhenever,
-    required TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    required TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)
         reorderToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
@@ -775,7 +775,7 @@ class _$RemoveToDoImpl implements _RemoveToDo {
         toggleToDoCheckStatus,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult? Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult? Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -798,7 +798,7 @@ class _$RemoveToDoImpl implements _RemoveToDo {
         toggleToDoCheckStatus,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -992,7 +992,7 @@ class _$ToggleToDoCheckStatusImpl implements _ToggleToDoCheckStatus {
         toggleToDoCheckStatus,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoTodayWhenever,
-    required TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    required TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)
         reorderToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
@@ -1015,7 +1015,7 @@ class _$ToggleToDoCheckStatusImpl implements _ToggleToDoCheckStatus {
         toggleToDoCheckStatus,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult? Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult? Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -1038,7 +1038,7 @@ class _$ToggleToDoCheckStatusImpl implements _ToggleToDoCheckStatus {
         toggleToDoCheckStatus,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -1233,7 +1233,7 @@ class _$ToggleToDoTodayWheneverImpl implements _ToggleToDoTodayWhenever {
         toggleToDoCheckStatus,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoTodayWhenever,
-    required TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    required TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)
         reorderToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
@@ -1256,7 +1256,7 @@ class _$ToggleToDoTodayWheneverImpl implements _ToggleToDoTodayWhenever {
         toggleToDoCheckStatus,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult? Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult? Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -1279,7 +1279,7 @@ class _$ToggleToDoTodayWheneverImpl implements _ToggleToDoTodayWhenever {
         toggleToDoCheckStatus,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -1376,7 +1376,7 @@ abstract class _$$ReorderToDoImplCopyWith<$Res>
   @useResult
   $Res call(
       {TLWorkspace corrWorkspace,
-      String categoryID,
+      String workspaceID,
       bool ifInToday,
       int oldIndex,
       int newIndex});
@@ -1399,7 +1399,7 @@ class __$$ReorderToDoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? corrWorkspace = null,
-    Object? categoryID = null,
+    Object? workspaceID = null,
     Object? ifInToday = null,
     Object? oldIndex = null,
     Object? newIndex = null,
@@ -1409,9 +1409,9 @@ class __$$ReorderToDoImplCopyWithImpl<$Res>
           ? _value.corrWorkspace
           : corrWorkspace // ignore: cast_nullable_to_non_nullable
               as TLWorkspace,
-      categoryID: null == categoryID
-          ? _value.categoryID
-          : categoryID // ignore: cast_nullable_to_non_nullable
+      workspaceID: null == workspaceID
+          ? _value.workspaceID
+          : workspaceID // ignore: cast_nullable_to_non_nullable
               as String,
       ifInToday: null == ifInToday
           ? _value.ifInToday
@@ -1434,7 +1434,7 @@ class __$$ReorderToDoImplCopyWithImpl<$Res>
 class _$ReorderToDoImpl implements _ReorderToDo {
   const _$ReorderToDoImpl(
       {required this.corrWorkspace,
-      required this.categoryID,
+      required this.workspaceID,
       required this.ifInToday,
       required this.oldIndex,
       required this.newIndex});
@@ -1442,7 +1442,7 @@ class _$ReorderToDoImpl implements _ReorderToDo {
   @override
   final TLWorkspace corrWorkspace;
   @override
-  final String categoryID;
+  final String workspaceID;
   @override
   final bool ifInToday;
   @override
@@ -1452,7 +1452,7 @@ class _$ReorderToDoImpl implements _ReorderToDo {
 
   @override
   String toString() {
-    return 'TLToDoAction.reorderToDo(corrWorkspace: $corrWorkspace, categoryID: $categoryID, ifInToday: $ifInToday, oldIndex: $oldIndex, newIndex: $newIndex)';
+    return 'TLToDoAction.reorderToDo(corrWorkspace: $corrWorkspace, workspaceID: $workspaceID, ifInToday: $ifInToday, oldIndex: $oldIndex, newIndex: $newIndex)';
   }
 
   @override
@@ -1462,8 +1462,8 @@ class _$ReorderToDoImpl implements _ReorderToDo {
             other is _$ReorderToDoImpl &&
             (identical(other.corrWorkspace, corrWorkspace) ||
                 other.corrWorkspace == corrWorkspace) &&
-            (identical(other.categoryID, categoryID) ||
-                other.categoryID == categoryID) &&
+            (identical(other.workspaceID, workspaceID) ||
+                other.workspaceID == workspaceID) &&
             (identical(other.ifInToday, ifInToday) ||
                 other.ifInToday == ifInToday) &&
             (identical(other.oldIndex, oldIndex) ||
@@ -1474,7 +1474,7 @@ class _$ReorderToDoImpl implements _ReorderToDo {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, corrWorkspace, categoryID, ifInToday, oldIndex, newIndex);
+      runtimeType, corrWorkspace, workspaceID, ifInToday, oldIndex, newIndex);
 
   /// Create a copy of TLToDoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -1497,7 +1497,7 @@ class _$ReorderToDoImpl implements _ReorderToDo {
         toggleToDoCheckStatus,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoTodayWhenever,
-    required TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    required TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)
         reorderToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
@@ -1508,7 +1508,7 @@ class _$ReorderToDoImpl implements _ReorderToDo {
         toggleStepCheckStatus,
   }) {
     return reorderToDo(
-        corrWorkspace, categoryID, ifInToday, oldIndex, newIndex);
+        corrWorkspace, workspaceID, ifInToday, oldIndex, newIndex);
   }
 
   @override
@@ -1521,7 +1521,7 @@ class _$ReorderToDoImpl implements _ReorderToDo {
         toggleToDoCheckStatus,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult? Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult? Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -1532,7 +1532,7 @@ class _$ReorderToDoImpl implements _ReorderToDo {
         toggleStepCheckStatus,
   }) {
     return reorderToDo?.call(
-        corrWorkspace, categoryID, ifInToday, oldIndex, newIndex);
+        corrWorkspace, workspaceID, ifInToday, oldIndex, newIndex);
   }
 
   @override
@@ -1545,7 +1545,7 @@ class _$ReorderToDoImpl implements _ReorderToDo {
         toggleToDoCheckStatus,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -1558,7 +1558,7 @@ class _$ReorderToDoImpl implements _ReorderToDo {
   }) {
     if (reorderToDo != null) {
       return reorderToDo(
-          corrWorkspace, categoryID, ifInToday, oldIndex, newIndex);
+          corrWorkspace, workspaceID, ifInToday, oldIndex, newIndex);
     }
     return orElse();
   }
@@ -1619,14 +1619,14 @@ class _$ReorderToDoImpl implements _ReorderToDo {
 abstract class _ReorderToDo implements TLToDoAction {
   const factory _ReorderToDo(
       {required final TLWorkspace corrWorkspace,
-      required final String categoryID,
+      required final String workspaceID,
       required final bool ifInToday,
       required final int oldIndex,
       required final int newIndex}) = _$ReorderToDoImpl;
 
   @override
   TLWorkspace get corrWorkspace;
-  String get categoryID;
+  String get workspaceID;
   bool get ifInToday;
   int get oldIndex;
   int get newIndex;
@@ -1767,7 +1767,7 @@ class _$ReorderStepsImpl implements _ReorderSteps {
         toggleToDoCheckStatus,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoTodayWhenever,
-    required TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    required TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)
         reorderToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
@@ -1790,7 +1790,7 @@ class _$ReorderStepsImpl implements _ReorderSteps {
         toggleToDoCheckStatus,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult? Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult? Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -1813,7 +1813,7 @@ class _$ReorderStepsImpl implements _ReorderSteps {
         toggleToDoCheckStatus,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -2034,7 +2034,7 @@ class _$ToggleStepCheckStatusImpl implements _ToggleStepCheckStatus {
         toggleToDoCheckStatus,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)
         toggleToDoTodayWhenever,
-    required TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    required TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)
         reorderToDo,
     required TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo,
@@ -2057,7 +2057,7 @@ class _$ToggleStepCheckStatusImpl implements _ToggleStepCheckStatus {
         toggleToDoCheckStatus,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult? Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult? Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult? Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,
@@ -2080,7 +2080,7 @@ class _$ToggleStepCheckStatusImpl implements _ToggleStepCheckStatus {
         toggleToDoCheckStatus,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo)?
         toggleToDoTodayWhenever,
-    TResult Function(TLWorkspace corrWorkspace, String categoryID,
+    TResult Function(TLWorkspace corrWorkspace, String workspaceID,
             bool ifInToday, int oldIndex, int newIndex)?
         reorderToDo,
     TResult Function(TLWorkspace corrWorkspace, TLToDo corrToDo, int oldIndex,

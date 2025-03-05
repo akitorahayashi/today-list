@@ -11,7 +11,6 @@ class TLToDo with _$TLToDo {
   const factory TLToDo({
     required String id,
     required String workspaceID,
-    required String categoryID,
     required bool isInToday,
     @Default(false) bool isChecked,
     required String content,

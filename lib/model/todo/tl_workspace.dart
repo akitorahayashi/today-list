@@ -14,9 +14,7 @@ class TLWorkspace with _$TLWorkspace {
   factory TLWorkspace({
     required String id,
     required String name,
-    required List<TLToDoCategory> bigCategories,
-    required Map<String, List<TLToDoCategory>> smallCategories,
-    required Map<String, TLToDosInTodayAndWhenever> categoryIDToToDos,
+    required Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos,
   }) = _TLWorkspace;
 
   factory TLWorkspace.fromJson(Map<String, dynamic> json) =>
@@ -25,17 +23,9 @@ class TLWorkspace with _$TLWorkspace {
   int getNumOfToDoInWorkspace({required bool ifInToday}) {
     int todoCount = 0;
 
-    final corrToDosOfWorkspaceID = categoryIDToToDos[id]!;
+    final corrToDosOfWorkspaceID = workspaceIDToToDos[id]!;
     todoCount += corrToDosOfWorkspaceID.getToDos(ifInToday).length;
-    for (TLToDoCategory bigCategory in bigCategories) {
-      todoCount += bigCategory.getNumberOfToDosInThisCategory(
-          ifInToday: ifInToday, corrToDos: categoryIDToToDos[bigCategory.id]!);
-      for (TLToDoCategory smallCategory in smallCategories[bigCategory.id]!) {
-        todoCount += smallCategory.getNumberOfToDosInThisCategory(
-            ifInToday: ifInToday,
-            corrToDos: categoryIDToToDos[smallCategory.id]!);
-      }
-    }
+
     return todoCount;
   }
 }

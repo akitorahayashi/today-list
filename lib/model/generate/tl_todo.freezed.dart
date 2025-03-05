@@ -22,7 +22,6 @@ TLToDo _$TLToDoFromJson(Map<String, dynamic> json) {
 mixin _$TLToDo {
   String get id => throw _privateConstructorUsedError;
   String get workspaceID => throw _privateConstructorUsedError;
-  String get categoryID => throw _privateConstructorUsedError;
   bool get isInToday => throw _privateConstructorUsedError;
   bool get isChecked => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
@@ -45,7 +44,6 @@ abstract class $TLToDoCopyWith<$Res> {
   $Res call(
       {String id,
       String workspaceID,
-      String categoryID,
       bool isInToday,
       bool isChecked,
       String content,
@@ -69,7 +67,6 @@ class _$TLToDoCopyWithImpl<$Res, $Val extends TLToDo>
   $Res call({
     Object? id = null,
     Object? workspaceID = null,
-    Object? categoryID = null,
     Object? isInToday = null,
     Object? isChecked = null,
     Object? content = null,
@@ -83,10 +80,6 @@ class _$TLToDoCopyWithImpl<$Res, $Val extends TLToDo>
       workspaceID: null == workspaceID
           ? _value.workspaceID
           : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryID: null == categoryID
-          ? _value.categoryID
-          : categoryID // ignore: cast_nullable_to_non_nullable
               as String,
       isInToday: null == isInToday
           ? _value.isInToday
@@ -118,7 +111,6 @@ abstract class _$$TLToDoImplCopyWith<$Res> implements $TLToDoCopyWith<$Res> {
   $Res call(
       {String id,
       String workspaceID,
-      String categoryID,
       bool isInToday,
       bool isChecked,
       String content,
@@ -140,7 +132,6 @@ class __$$TLToDoImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? workspaceID = null,
-    Object? categoryID = null,
     Object? isInToday = null,
     Object? isChecked = null,
     Object? content = null,
@@ -154,10 +145,6 @@ class __$$TLToDoImplCopyWithImpl<$Res>
       workspaceID: null == workspaceID
           ? _value.workspaceID
           : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
-      categoryID: null == categoryID
-          ? _value.categoryID
-          : categoryID // ignore: cast_nullable_to_non_nullable
               as String,
       isInToday: null == isInToday
           ? _value.isInToday
@@ -185,7 +172,6 @@ class _$TLToDoImpl implements _TLToDo {
   const _$TLToDoImpl(
       {required this.id,
       required this.workspaceID,
-      required this.categoryID,
       required this.isInToday,
       this.isChecked = false,
       required this.content,
@@ -199,8 +185,6 @@ class _$TLToDoImpl implements _TLToDo {
   final String id;
   @override
   final String workspaceID;
-  @override
-  final String categoryID;
   @override
   final bool isInToday;
   @override
@@ -219,7 +203,7 @@ class _$TLToDoImpl implements _TLToDo {
 
   @override
   String toString() {
-    return 'TLToDo(id: $id, workspaceID: $workspaceID, categoryID: $categoryID, isInToday: $isInToday, isChecked: $isChecked, content: $content, steps: $steps)';
+    return 'TLToDo(id: $id, workspaceID: $workspaceID, isInToday: $isInToday, isChecked: $isChecked, content: $content, steps: $steps)';
   }
 
   @override
@@ -230,8 +214,6 @@ class _$TLToDoImpl implements _TLToDo {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.workspaceID, workspaceID) ||
                 other.workspaceID == workspaceID) &&
-            (identical(other.categoryID, categoryID) ||
-                other.categoryID == categoryID) &&
             (identical(other.isInToday, isInToday) ||
                 other.isInToday == isInToday) &&
             (identical(other.isChecked, isChecked) ||
@@ -242,15 +224,8 @@ class _$TLToDoImpl implements _TLToDo {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      workspaceID,
-      categoryID,
-      isInToday,
-      isChecked,
-      content,
-      const DeepCollectionEquality().hash(_steps));
+  int get hashCode => Object.hash(runtimeType, id, workspaceID, isInToday,
+      isChecked, content, const DeepCollectionEquality().hash(_steps));
 
   /// Create a copy of TLToDo
   /// with the given fields replaced by the non-null parameter values.
@@ -272,7 +247,6 @@ abstract class _TLToDo implements TLToDo {
   const factory _TLToDo(
       {required final String id,
       required final String workspaceID,
-      required final String categoryID,
       required final bool isInToday,
       final bool isChecked,
       required final String content,
@@ -284,8 +258,6 @@ abstract class _TLToDo implements TLToDo {
   String get id;
   @override
   String get workspaceID;
-  @override
-  String get categoryID;
   @override
   bool get isInToday;
   @override

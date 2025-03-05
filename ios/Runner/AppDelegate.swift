@@ -24,24 +24,16 @@ import WidgetKit
                 return
             }
             
-            let tcwKind: String = "ToDosInCategoryWidget"
             let uctKind: String = "UnCategorizedToDosInWorkspaceWidget"
             
             switch call.method {
             case "updateTLWorkspaces":
                 self.updateTLWorkspaces(arguments)
-                self.reloadWidget(tcwKind)
                 self.reloadWidget(uctKind)
                 result("workspaces saved successfully")
                 
-            case "updateListOfToDosInCategoryWidgetSettings":
-                self.updateListOfToDosInCategoryWidgetSettings(arguments)
-                self.reloadWidget(tcwKind)
-                result("ListOfToDosInCategoryWidgetSettings saved successfully")
-                
             case "updateSelectedTheme":
                 self.updateSelectedTheme(arguments)
-                self.reloadWidget(tcwKind)
                 self.reloadWidget(uctKind)
                 result("selectedTheme saved successfully")
                 
@@ -56,10 +48,6 @@ import WidgetKit
     
     private func updateTLWorkspaces(_ value: String) {
         TLUserDefaultsManager.shared.userDefaults?.set(value, forKey: "tlWorkspaces")
-    }
-    
-    private func updateListOfToDosInCategoryWidgetSettings(_ value: String) {
-        TLUserDefaultsManager.shared.userDefaults?.set(value, forKey: "tcwSettings")
     }
     
     private func updateSelectedTheme(_ value: String) {

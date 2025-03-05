@@ -19,7 +19,7 @@ struct UCTToDoListView: View {
             
             let corrWorkspace: TLWorkspace = TLWorkspace.getWorkspace(from: entry.tlWorkspaces, by: utcEntity?.workspaceID ?? entry.tlWorkspaces.first!.id)!
             
-            let toDosInToday = (corrWorkspace.categoryIDToToDos[corrWorkspace.id]!.toDosInToday.filter { !$0.isChecked })
+            let toDosInToday = (corrWorkspace.workspaceIDToToDos[corrWorkspace.id]!.toDosInToday.filter { !$0.isChecked })
             
             TLToDoListForWidgetView(toDosInToday: toDosInToday, widgetFamily: widgetFamily)
                 

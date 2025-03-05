@@ -32,7 +32,7 @@ class TLToDoReducer {
       reorderToDo: (a) => _reorderToDo(
         workspaces,
         a.corrWorkspace,
-        a.categoryID,
+        a.workspaceID,
         a.ifInToday,
         a.oldIndex,
         a.newIndex,
@@ -63,7 +63,7 @@ class TLToDoReducer {
     return _updateWorkspaceList(
       workspaces: workspaces,
       corrWorkspace: corrWorkspace,
-      categoryID: newToDo.categoryID,
+      workspaceID: newToDo.workspaceID,
       updateFn: (oldListOfToDo) => [newToDo, ...oldListOfToDo],
       isInToday: newToDo.isInToday,
     );
@@ -78,7 +78,7 @@ class TLToDoReducer {
     return _updateWorkspaceList(
       workspaces: workspaces,
       corrWorkspace: corrWorkspace,
-      categoryID: newToDo.categoryID,
+      workspaceID: newToDo.workspaceID,
       updateFn: (oldListOfToDo) =>
           oldListOfToDo.map((t) => t.id == newToDo.id ? newToDo : t).toList(),
       isInToday: newToDo.isInToday,
@@ -94,7 +94,7 @@ class TLToDoReducer {
     return _updateWorkspaceList(
       workspaces: workspaces,
       corrWorkspace: corrWorkspace,
-      categoryID: corrToDo.categoryID,
+      workspaceID: corrToDo.workspaceID,
       updateFn: (oldListOfToDo) =>
           oldListOfToDo.where((t) => t.id != corrToDo.id).toList(),
       isInToday: corrToDo.isInToday,
@@ -119,7 +119,7 @@ class TLToDoReducer {
     );
 
     final List<TLToDo> toDoArrayOfThisToDo = corrWorkspace
-        .categoryIDToToDos[corrToDo.categoryID]!
+        .workspaceIDToToDos[corrToDo.workspaceID]!
         .getToDos(corrToDo.isInToday);
 
     // チェック済みと未チェックのToDoを分類（状態を変更したToDoを除外）
@@ -133,7 +133,7 @@ class TLToDoReducer {
     return _updateWorkspaceList(
       workspaces: workspaces,
       corrWorkspace: corrWorkspace,
-      categoryID: corrToDo.categoryID,
+      workspaceID: corrToDo.workspaceID,
       updateFn: (oldList) => [...uncheckedToDos, copiedToDo, ...checkedToDos],
       isInToday: corrToDo.isInToday,
     );
@@ -147,20 +147,20 @@ class TLToDoReducer {
   ) {
     final bool isMovingToToday = !corrToDo.isInToday; // Determine target list
     final updatedToDo = corrToDo.copyWith(isInToday: isMovingToToday);
-    final toDosInCategory =
-        corrWorkspace.categoryIDToToDos[corrToDo.categoryID]!;
+    final toDosInWorkspace =
+        corrWorkspace.workspaceIDToToDos[corrToDo.workspaceID]!;
 
     // Extract current lists
-    final List<TLToDo> fromList = toDosInCategory.getToDos(!isMovingToToday);
-    final List<TLToDo> toList = toDosInCategory.getToDos(isMovingToToday);
+    final List<TLToDo> fromList = toDosInWorkspace.getToDos(!isMovingToToday);
+    final List<TLToDo> toList = toDosInWorkspace.getToDos(isMovingToToday);
 
     // Remove from current list & add to the new list
     final List<TLToDo> updatedFromList =
         fromList.where((todo) => todo.id != updatedToDo.id).toList();
     final List<TLToDo> updatedToList = [updatedToDo, ...toList];
 
-    // Update category's ToDo lists
-    final updatedToDosInCategory = toDosInCategory.copyWith(
+    // Update workspace's ToDo lists
+    final updatedToDosInWorkspace = toDosInWorkspace.copyWith(
       toDosInToday: isMovingToToday ? updatedToList : updatedFromList,
       toDosInWhenever: isMovingToToday ? updatedFromList : updatedToList,
     );
@@ -168,9 +168,9 @@ class TLToDoReducer {
     // Update workspaces
     return workspaces.map((ws) {
       return ws.id == corrWorkspace.id
-          ? ws.copyWith(categoryIDToToDos: {
-              ...corrWorkspace.categoryIDToToDos,
-              corrToDo.categoryID: updatedToDosInCategory,
+          ? ws.copyWith(workspaceIDToToDos: {
+              ...corrWorkspace.workspaceIDToToDos,
+              corrToDo.workspaceID: updatedToDosInWorkspace,
             })
           : ws;
     }).toList();
@@ -180,15 +180,15 @@ class TLToDoReducer {
   static List<TLWorkspace> _reorderToDo(
     List<TLWorkspace> workspaces,
     TLWorkspace corrWorkspace,
-    String categoryID,
+    String workspaceID,
     bool ifInToday,
     int oldIndex,
     int newIndex,
   ) {
     if (oldIndex == newIndex) return workspaces;
 
-    final toDosInCategory = corrWorkspace.categoryIDToToDos[categoryID]!;
-    final toDoList = List<TLToDo>.from(toDosInCategory.getToDos(ifInToday));
+    final toDosInWorkspace = corrWorkspace.workspaceIDToToDos[workspaceID]!;
+    final toDoList = List<TLToDo>.from(toDosInWorkspace.getToDos(ifInToday));
 
     final int indexOfCheckedToDo =
         toDoList.indexWhere((todo) => todo.isChecked);
@@ -197,16 +197,17 @@ class TLToDoReducer {
       final movedToDo = toDoList.removeAt(oldIndex);
       toDoList.insert(newIndex, movedToDo);
 
-      final updatedToDosInCategory = toDosInCategory.copyWith(
-        toDosInToday: ifInToday ? toDoList : toDosInCategory.toDosInToday,
-        toDosInWhenever: ifInToday ? toDosInCategory.toDosInWhenever : toDoList,
+      final updatedToDosInWorkspace = toDosInWorkspace.copyWith(
+        toDosInToday: ifInToday ? toDoList : toDosInWorkspace.toDosInToday,
+        toDosInWhenever:
+            ifInToday ? toDosInWorkspace.toDosInWhenever : toDoList,
       );
 
       return workspaces.map((ws) {
         return ws.id == corrWorkspace.id
-            ? ws.copyWith(categoryIDToToDos: {
-                ...corrWorkspace.categoryIDToToDos,
-                categoryID: updatedToDosInCategory,
+            ? ws.copyWith(workspaceIDToToDos: {
+                ...corrWorkspace.workspaceIDToToDos,
+                workspaceID: updatedToDosInWorkspace,
               })
             : ws;
       }).toList();
@@ -237,7 +238,7 @@ class TLToDoReducer {
     return _updateWorkspaceList(
       workspaces: workspaces,
       corrWorkspace: corrWorkspace,
-      categoryID: corrToDo.categoryID,
+      workspaceID: corrToDo.workspaceID,
       updateFn: (oldListOfToDo) => oldListOfToDo
           .map((t) => t.id == updatedToDo.id ? updatedToDo : t)
           .toList(),
@@ -263,7 +264,7 @@ class TLToDoReducer {
     return _updateWorkspaceList(
       workspaces: workspaces,
       corrWorkspace: corrWorkspace,
-      categoryID: corrToDo.categoryID,
+      workspaceID: corrToDo.workspaceID,
       updateFn: (oldListOfToDo) => oldListOfToDo
           .map((t) => t.id == updatedToDo.id ? updatedToDo : t)
           .toList(),
@@ -275,11 +276,11 @@ class TLToDoReducer {
   static List<TLWorkspace> _updateWorkspaceList({
     required List<TLWorkspace> workspaces,
     required TLWorkspace corrWorkspace,
-    required String categoryID,
+    required String workspaceID,
     required List<TLToDo> Function(List<TLToDo>) updateFn,
     required bool isInToday,
   }) {
-    final targetTodos = corrWorkspace.categoryIDToToDos[categoryID];
+    final targetTodos = corrWorkspace.workspaceIDToToDos[workspaceID];
     if (targetTodos == null) return workspaces;
 
     final updatedToDos = updateFn(targetTodos.getToDos(isInToday));
@@ -289,9 +290,9 @@ class TLToDoReducer {
       return workspaces;
     }
 
-    final updatedCategoryIDToToDos = {
-      ...corrWorkspace.categoryIDToToDos,
-      categoryID: targetTodos.updateListOfToDoInTodayOrWhenever(
+    final updatedWorkspaceIDToToDos = {
+      ...corrWorkspace.workspaceIDToToDos,
+      workspaceID: targetTodos.updateListOfToDoInTodayOrWhenever(
         isInToday: isInToday,
         updatedToDos: updatedToDos,
       ),
@@ -299,7 +300,7 @@ class TLToDoReducer {
 
     return workspaces.map((ws) {
       return ws == corrWorkspace
-          ? ws.copyWith(categoryIDToToDos: updatedCategoryIDToToDos)
+          ? ws.copyWith(workspaceIDToToDos: updatedWorkspaceIDToToDos)
           : ws;
     }).toList();
   }

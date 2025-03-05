@@ -5,7 +5,7 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/view/component/common_ui_part/tl_circular_action_button.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/view/page/edit_todo_page/edit_todo_page.dart';
+import 'package:today_list/view/page/home_page/add_todo_sheet/add_todo_sheet.dart';
 
 /// 中央の追加ボタン（Home画面のBottom Navigation Barに配置）
 class CenterButtonOfHomeBottomNavBar extends ConsumerWidget {
@@ -35,21 +35,21 @@ class CenterButtonOfHomeBottomNavBar extends ConsumerWidget {
   void _handleOnPressed(BuildContext context, WidgetRef ref, var tlAppState,
       TLThemeConfig tlThemeData) {
     if (doesCurrentWorkspaceExist) {
-      // 既存のワークスペースがある場合、タスク編集画面へ遷移
-      _navigateToEditToDoPage(context, tlAppState.currentWorkspaceID!);
+      // 既存のワークスペースがある場合、タスク追加シートを表示
+      _showAddToDoSheet(context, tlAppState.currentWorkspaceID!);
     } else {
       // ワークスペースがない場合、ポップオーバーを表示
       _showWorkspaceSelectionPopover(context, tlAppState, tlThemeData);
     }
   }
 
-  // MARK: - タスク編集画面への遷移
-  void _navigateToEditToDoPage(BuildContext context, String workspaceID) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => EditToDoPage(corrWorkspaceID: workspaceID),
-      ),
+  // MARK: - タスク追加シートの表示
+  void _showAddToDoSheet(BuildContext context, String workspaceID) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => AddToDoSheet(workspaceID: workspaceID),
     );
   }
 
@@ -76,7 +76,7 @@ class CenterButtonOfHomeBottomNavBar extends ConsumerWidget {
               GestureDetector(
                 onTap: () {
                   Navigator.pop(context); // ポップオーバーを閉じる
-                  _navigateToEditToDoPage(context, workspace.id);
+                  _showAddToDoSheet(context, workspace.id);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),

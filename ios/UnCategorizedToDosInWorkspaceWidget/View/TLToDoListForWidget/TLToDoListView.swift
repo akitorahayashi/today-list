@@ -32,7 +32,7 @@ struct TLToDoListForWidgetView: View {
         for tlToDo in toDosInToday {
             guard contentCounter < maxItems else { break }
             
-            var createdToDo = TLToDo(id: tlToDo.id, workspaceID: tlToDo.workspaceID, categoryID: tlToDo.categoryID, isInToday: true, isChecked: false, content: tlToDo.content, steps: [])
+            var createdToDo = TLToDo(id: tlToDo.id, workspaceID: tlToDo.workspaceID, isInToday: true, isChecked: false, content: tlToDo.content, steps: [])
             contentCounter += 1
             
             for tlStep in tlToDo.steps {

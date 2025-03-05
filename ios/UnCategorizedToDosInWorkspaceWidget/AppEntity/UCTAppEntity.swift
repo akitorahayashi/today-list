@@ -55,7 +55,7 @@ struct UCTAppEntity: AppEntity {
     // snapshotなどで使う
     static let defaultEntity = UCTAppEntity(
         id: TLUUIDGenerator.generate(),
-        name: TCWExampleState.BigCategoryID.projectA.name,
+        name: "Work",
         workspaceID:  TCWExampleState.WorkspaceID.work.rawValue
     )
     

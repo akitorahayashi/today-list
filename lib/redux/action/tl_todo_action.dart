@@ -42,7 +42,7 @@ sealed class TLToDoAction with _$TLToDoAction {
   // ToDo の並び替え
   const factory TLToDoAction.reorderToDo({
     required TLWorkspace corrWorkspace,
-    required String categoryID,
+    required String workspaceID,
     required bool ifInToday,
     required int oldIndex,
     required int newIndex,

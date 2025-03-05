@@ -6,7 +6,6 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/view/component/common_ui_part/tl_animated_icon_button.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
-import 'package:today_list/view/page/category_list_page/category_list_page.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/redux/action/tl_app_state_action.dart';
 import 'package:today_list/redux/action/tl_workspace_action.dart';
@@ -66,11 +65,9 @@ class TLHomeBottomNavBar extends ConsumerWidget {
 
                 // MARK: - カテゴリ一覧 or ドロワーボタン
                 TLAnimatedIconButton(
-                  size: 33,
-                  icon: trailingIconData,
-                  onPressed: () => _onTrailingButtonPressed(
-                      context, ref, doesCurrentWorkspaceExist),
-                ),
+                    size: 33,
+                    icon: trailingIconData,
+                    onPressed: () => Scaffold.of(context).openDrawer()),
               ],
             ),
           ),
@@ -110,24 +107,5 @@ class TLHomeBottomNavBar extends ConsumerWidget {
         }
       },
     ).show(context: context);
-  }
-
-  // MARK: - カテゴリ一覧 or ドロワーを開く処理
-  void _onTrailingButtonPressed(
-      BuildContext context, WidgetRef ref, bool doesCurrentWorkspaceExist) {
-    final tlAppState = ref.read(tlAppStateProvider);
-    final currentWorkspaceID = tlAppState.currentWorkspaceID;
-
-    if (doesCurrentWorkspaceExist && currentWorkspaceID != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              CategoryListPage(corrWorkspaceID: currentWorkspaceID),
-        ),
-      );
-    } else {
-      Scaffold.of(context).openDrawer();
-    }
   }
 }

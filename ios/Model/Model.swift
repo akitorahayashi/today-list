@@ -26,7 +26,6 @@ struct TLToDoCategory: Identifiable, Codable {
 struct TLToDo: Identifiable, Codable {
     let id: String
     let workspaceID: String
-    let categoryID: String
     let isInToday: Bool
     var isChecked: Bool
     let content: String
@@ -35,7 +34,6 @@ struct TLToDo: Identifiable, Codable {
     init(
         id: String = TLUUIDGenerator.generate(),
         workspaceID: String,
-        categoryID: String,
         isInToday: Bool,
         isChecked: Bool = false,
         content: String,
@@ -43,7 +41,6 @@ struct TLToDo: Identifiable, Codable {
     ) {
         self.id = id
         self.workspaceID = workspaceID
-        self.categoryID = categoryID
         self.isInToday = isInToday
         self.isChecked = isChecked
         self.content = content
@@ -68,22 +65,22 @@ struct TLStep: Identifiable, Codable {
 }
 
 struct TLToDosInTodayAndWhenever: Codable {
-    let categoryID: String
+    let workspaceID: String
     let toDosInToday: [TLToDo]
     let toDosInWhenever: [TLToDo]
     
     init(
-        categoryID: String,
+        workspaceID: String,
         toDosInToday: [TLToDo] = [],
         toDosInWhenever: [TLToDo] = []
     ) {
-        self.categoryID = categoryID
+        self.workspaceID = workspaceID
         self.toDosInToday = toDosInToday
         self.toDosInWhenever = toDosInWhenever
     }
     
     // JSONからToDosをデコードする関数
-    static func extractToDos(from jsonWorkspaces: String?, indexInWorkspaces: Int, toDosCategoryId: String) -> TLToDosInTodayAndWhenever? {
+    static func extractToDos(from jsonWorkspaces: String?, indexInWorkspaces: Int, workspaceID: String) -> TLToDosInTodayAndWhenever? {
         
         // JSON文字列がnilまたは空の場合、エラーを出力して終了
         guard let jsonWorkspaces = jsonWorkspaces else {
@@ -112,9 +109,9 @@ struct TLToDosInTodayAndWhenever: Codable {
         // 指定インデックスのワークスペースを取得
         let selectedWorkspace = tlWorkspaces[indexInWorkspaces]
         
-        // 指定カテゴリIDのToDosを取得
-        guard let toDos = selectedWorkspace.categoryIDToToDos[toDosCategoryId] else {
-            print("指定されたカテゴリIDのToDosが見つかりません")
+        // 指定ワークスペースIDのToDosを取得
+        guard let toDos = selectedWorkspace.workspaceIDToToDos[workspaceID] else {
+            print("指定されたワークスペースIDのToDosが見つかりません")
             return nil
         }
         
@@ -125,22 +122,16 @@ struct TLToDosInTodayAndWhenever: Codable {
 struct TLWorkspace: Codable, Identifiable {
     var id: String
     var name: String
-    var bigCategories: [TLToDoCategory]
-    var smallCategories: [String: [TLToDoCategory]]
-    var categoryIDToToDos: [String: TLToDosInTodayAndWhenever]
+    var workspaceIDToToDos: [String: TLToDosInTodayAndWhenever]
     
     init(
         id: String?,
         name: String,
-        bigCategories: [TLToDoCategory],
-        smallCategories: [String: [TLToDoCategory]],
-        categoryIDToToDos: [String: TLToDosInTodayAndWhenever]
+        workspaceIDToToDos: [String: TLToDosInTodayAndWhenever]
     ) {
         self.id = id ?? TLUUIDGenerator.generate()
         self.name = name
-        self.bigCategories = bigCategories
-        self.smallCategories = smallCategories
-        self.categoryIDToToDos = categoryIDToToDos
+        self.workspaceIDToToDos = workspaceIDToToDos
     }
     
     // JSONからワークスペースをデコードする関数
