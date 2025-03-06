@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/cupertino.dart'; // SF Symbols 用
-import 'package:today_list/view/page/home_page/add_todo_sheet/add_todo_sheet.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:today_list/view/page/add_todo_page/add_todo_page.dart';
 
 import 'package:today_list/view/page/home_page/tab_content/build_todo_list/list_of_category_to_todos.dart';
 import 'package:today_list/view/page/home_page/tab_content/build_todo_list/num_todos_card.dart';
@@ -65,12 +65,10 @@ class _ToDoListOfWorkspaceCard extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: GestureDetector(
-              onTap: () => showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                builder: (context) => AddToDoSheet(
-                  workspaceID: workspace.id,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddToDoPage(workspaceID: workspace.id),
                 ),
               ),
               child: NumToDosCard(

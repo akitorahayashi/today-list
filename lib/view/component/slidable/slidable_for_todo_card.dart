@@ -9,8 +9,7 @@ import 'package:today_list/redux/store/tl_app_state_provider.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:today_list/view/component/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
-import 'package:today_list/view/page/home_page/add_todo_sheet/add_todo_sheet.dart';
-import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/center_button_of_home_bottom_navbar.dart';
+import 'package:today_list/view/page/home_page/edit_todo_sheet/edit_todo_sheet.dart';
 
 class SlidableForToDoCard extends ConsumerWidget {
   final TLWorkspace corrWorkspace;
@@ -85,16 +84,15 @@ class SlidableForToDoCard extends ConsumerWidget {
 
   // MARK: - ToDoの編集シートを表示
   void _showEditToDoSheet(BuildContext context, WidgetRef ref) {
-    // モーダルボトムシートを表示
+    // モーダルボトムシートを表示（編集用）
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => AddToDoSheet(
+      builder: (context) => EditToDoSheet(
         workspaceID: corrWorkspace.id,
         todoToEdit: corrToDo, // 編集対象のToDoを渡す
         onComplete: () {
-          // シートを閉じる
           Navigator.pop(context);
         },
       ),

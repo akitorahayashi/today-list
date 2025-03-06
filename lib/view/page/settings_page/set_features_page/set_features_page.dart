@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:today_list/view/page/setting_page/set_features_page/panel_with_title.dart';
+import 'package:today_list/view/page/settings_page/set_features_page/panel_with_title.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 import 'package:today_list/resource/tl_theme_type.dart';

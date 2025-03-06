@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
@@ -15,6 +17,7 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double? titleSpacing;
   final List<Widget>? trailingIcons;
   final PreferredSizeWidget? bottom;
+  final double opacity;
 
   const TLAppBar({
     super.key,
@@ -29,69 +32,99 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.trailingIconData,
     this.trailingIcons,
     this.bottom,
+    this.opacity = 1.0,
   });
 
   @override
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
-    return Container(
-      decoration: BoxDecoration(
-        gradient: tlThemeConfig.gradientOfNavBar,
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 4,
-            spreadRadius: 2,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: AppBar(
-        forceMaterialTransparency: true,
-        toolbarOpacity: 1.0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        leading: leadingIconData == null
-            ? const SizedBox.shrink()
-            : TLAnimatedIconButton(
-                icon: leadingIconData!,
-                onPressed: leadingButtonOnPressed,
-              ),
-        actions: trailingIcons ??
-            [
-              trailingIconData == null
-                  ? Container()
-                  : Padding(
-                      padding: const EdgeInsets.only(right: 14),
-                      child: GestureDetector(
-                        onTap: trailingButtonOnPressed,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 5.0),
-                          child: TLAnimatedIconButton(
-                              icon: trailingIconData!,
-                              onPressed: trailingButtonOnPressed),
-                        ),
-                      ),
-                    ),
+
+    // 透明度に応じてグラデーションの色を調整
+    final Gradient backgroundGradient = opacity < 1.0
+        ? LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              tlThemeConfig.gradientOfNavBar.colors[0].withOpacity(0.7),
+              tlThemeConfig.gradientOfNavBar.colors[1].withOpacity(0.7),
             ],
-        title: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 200),
-          transitionBuilder: (Widget child, Animation<double> animation) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-          child: Text(
-            pageTitle,
-            key: ValueKey<String>(pageTitle),
-            style: TextStyle(
-              color: tlThemeConfig.whiteBasedColor,
-              fontWeight: FontWeight.w900,
-              fontSize: titleFontSize ?? 30,
-              letterSpacing: titleSpacing ?? 1,
-              overflow: TextOverflow.ellipsis,
+          )
+        : tlThemeConfig.gradientOfNavBar;
+
+    return AnimatedOpacity(
+      opacity: opacity,
+      duration: const Duration(milliseconds: 200),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: backgroundGradient,
+          boxShadow: opacity < 1.0
+              ? [] // 透明度が低い場合は影を表示しない
+              : const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 4,
+                    spreadRadius: 2,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+        ),
+        child: ClipRect(
+          // 背景をクリップして透過効果を高める
+          child: BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaX: opacity < 1.0 ? 10.0 : 0.0,
+              sigmaY: opacity < 1.0 ? 10.0 : 0.0,
+            ),
+            child: AppBar(
+              forceMaterialTransparency: true,
+              toolbarOpacity: 1.0,
+              backgroundColor: Colors.transparent,
+              centerTitle: true,
+              elevation: 0,
+              leading: leadingIconData == null
+                  ? const SizedBox.shrink()
+                  : TLAnimatedIconButton(
+                      icon: leadingIconData!,
+                      onPressed: leadingButtonOnPressed,
+                    ),
+              actions: trailingIcons ??
+                  [
+                    trailingIconData == null
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.only(right: 14),
+                            child: GestureDetector(
+                              onTap: trailingButtonOnPressed,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: TLAnimatedIconButton(
+                                    icon: trailingIconData!,
+                                    onPressed: trailingButtonOnPressed),
+                              ),
+                            ),
+                          ),
+                  ],
+              title: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 200),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+                child: Text(
+                  pageTitle,
+                  key: ValueKey<String>(pageTitle),
+                  style: TextStyle(
+                    color: tlThemeConfig.whiteBasedColor,
+                    fontWeight: FontWeight.w900,
+                    fontSize: titleFontSize ?? 30,
+                    letterSpacing: titleSpacing ?? 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+              bottom: bottom,
             ),
           ),
         ),
-        bottom: bottom,
       ),
     );
   }

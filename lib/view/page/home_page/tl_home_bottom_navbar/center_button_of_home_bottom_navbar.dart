@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:popover/popover.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/view/component/common_ui_part/tl_circular_action_button.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/view/page/home_page/add_todo_sheet/add_todo_sheet.dart';
-
-// ボトムシートの表示状態を管理するプロバイダー
-final bottomSheetVisibilityProvider = StateProvider<bool>((ref) => false);
+import 'package:today_list/view/page/add_todo_page/add_todo_page.dart';
 
 /// 中央の追加ボタン（Home画面のBottom Navigation Barに配置）
-class CenterButtonOfHomeBottomNavBar extends ConsumerWidget {
+class CenterButtonOfHomeBottomNavBar extends HookConsumerWidget {
   final bool doesCurrentWorkspaceExist;
 
   const CenterButtonOfHomeBottomNavBar({
@@ -21,17 +19,52 @@ class CenterButtonOfHomeBottomNavBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // アニメーションコントローラーの初期化
+    final animationController = useAnimationController(
+      duration: const Duration(milliseconds: 300),
+      initialValue: 1.0, // 初期状態では表示
+    );
+
+    // フェードアニメーションの設定
+    final fadeAnimation = useAnimation(
+      Tween<double>(
+        begin: 0.0,
+        end: 1.0,
+      ).animate(CurvedAnimation(
+        parent: animationController,
+        curve: Curves.easeInOut,
+      )),
+    );
+
+    // キーボードの表示状態を取得
+    final isKeyboardVisible = MediaQuery.of(context).viewInsets.bottom > 0;
+
+    // キーボードの表示状態が変わったときのエフェクト
+    useEffect(() {
+      if (isKeyboardVisible) {
+        // キーボードが表示されたらアニメーションを逆再生（非表示に）
+        animationController.reverse();
+      } else {
+        // キーボードが非表示になったらアニメーションを再生（表示に）
+        animationController.forward();
+      }
+      return null;
+    }, [isKeyboardVisible]);
+
     final TLThemeConfig tlThemeData = TLTheme.of(context);
     final tlAppState = ref.watch(tlAppStateProvider);
 
-    return Builder(
-      builder: (context) => TLCircularActionButton(
-        icon: Icons.add,
-        backgroundColor: tlThemeData.whiteBasedColor,
-        borderColor: Colors.black26,
-        iconColor: tlThemeData.accentColor,
-        onPressed: () =>
-            _handleOnPressed(context, ref, tlAppState, tlThemeData),
+    return Opacity(
+      opacity: fadeAnimation,
+      child: Builder(
+        builder: (context) => TLCircularActionButton(
+          icon: Icons.add,
+          backgroundColor: tlThemeData.whiteBasedColor,
+          borderColor: Colors.black26,
+          iconColor: tlThemeData.accentColor,
+          onPressed: () =>
+              _handleOnPressed(context, ref, tlAppState, tlThemeData),
+        ),
       ),
     );
   }
@@ -41,28 +74,24 @@ class CenterButtonOfHomeBottomNavBar extends ConsumerWidget {
   void _handleOnPressed(BuildContext context, WidgetRef ref, var tlAppState,
       TLThemeConfig tlThemeData) {
     if (doesCurrentWorkspaceExist) {
-      // 既存のワークスペースがある場合、タスク追加シートを表示
-      _showAddToDoSheet(context, ref, tlAppState.currentWorkspaceID!);
+      // 既存のワークスペースがある場合、タスク追加ページを表示
+      _showAddToDoPage(context, ref, tlAppState.currentWorkspaceID!);
     } else {
       // ワークスペースがない場合、ポップオーバーを表示
       _showWorkspaceSelectionPopover(context, ref, tlAppState, tlThemeData);
     }
   }
 
-  // MARK: - タスク追加シートの表示
-  void _showAddToDoSheet(
+  // MARK: - タスク追加ページの表示
+  void _showAddToDoPage(
       BuildContext context, WidgetRef ref, String workspaceID) {
-    // モーダルボトムシートを表示
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => AddToDoSheet(
-        workspaceID: workspaceID,
-        onComplete: () {
-          // シートを閉じる
-          Navigator.pop(context);
-        },
+    // 追加画面に遷移
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddToDoPage(
+          workspaceID: workspaceID,
+        ),
       ),
     );
   }
@@ -94,7 +123,7 @@ class CenterButtonOfHomeBottomNavBar extends ConsumerWidget {
                   // ポップオーバーが閉じた後にボトムシートを表示するために遅延実行
                   Future.delayed(const Duration(milliseconds: 100), () {
                     if (context.mounted) {
-                      _showAddToDoSheet(context, ref, workspace.id);
+                      _showAddToDoPage(context, ref, workspace.id);
                     }
                   });
                 },
@@ -125,15 +154,5 @@ class CenterButtonOfHomeBottomNavBar extends ConsumerWidget {
         );
       },
     );
-  }
-
-  // ボトムシートを閉じるメソッド（静的メソッド）
-  static void closeBottomSheet(WidgetRef ref) {
-    // 状態を更新
-    try {
-      ref.read(bottomSheetVisibilityProvider.notifier).state = false;
-    } catch (e) {
-      // refが既に破棄されている場合のエラーを防止
-    }
   }
 }

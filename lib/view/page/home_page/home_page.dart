@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
 import 'package:today_list/view/page/home_page/tab_content/todo_list_in_workspace_in_today_and_whenever.dart';
 import 'package:today_list/view/page/home_page/tab_content/todo_list_of_all_workspaces_in_today.dart';
 import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/center_button_of_home_bottom_navbar.dart';
 import 'package:today_list/view/page/home_page/tl_home_bottom_navbar/tl_home_bottom_navbar.dart';
-import 'package:today_list/view/page/setting_page/settings_page.dart';
+import 'package:today_list/view/page/settings_page/settings_page.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme.dart';
-import 'package:today_list/model/tl_app_state.dart';
-import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/tl_app_state_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/view/page/home_page/helper/tl_home_page_helper.dart';
 import 'workspace_drawer/workspace_drawer.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -58,59 +55,20 @@ class _HomePageState extends ConsumerState<HomePage>
     if (controller == null) return;
 
     if (!controller.indexIsChanging) {
-      _handleTabIndexChange(controller.index, context);
+      _handleTabIndexChange(controller.index);
     }
   }
 
   /// タブインデックスが変更されたときの共通処理（+タブ含む）
-  void _handleTabIndexChange(int index, BuildContext context) {
-    final tlAppState = ref.read(tlAppStateProvider);
-    final plusTabIndex = tlAppState.tlWorkspaces.length + 1;
-
-    // +タブが押された場合
-    if (index == plusTabIndex) {
-      const AddOrEditWorkspaceDialog(oldWorkspaceId: null)
-          .show(context: context);
-
-      // 「+」タブを押したらダイアログ後、前のタブに戻す
-      _tabController?.index = _previousIndex;
-      return;
-    }
-
-    // 前回のインデックスを更新
-    _previousIndex = index;
-
-    // 0 番目タブ -> Today
-    // 1 番目以降 -> Workspace
-    final newWorkspaceID = (index == 0)
-        ? null
-        : tlAppState.tlWorkspaces.elementAtOrNull(index - 1)?.id;
-
-    ref
-        .read(tlAppStateProvider.notifier)
-        .updateState(TLAppStateAction.changeCurrentWorkspaceID(newWorkspaceID));
-  }
-
-  // MARK: Helpers
-
-  /// 現在の Workspace (null の可能性あり)
-  TLWorkspace? _getCurrentWorkspace(TLAppState tlAppState) {
-    final currentID = tlAppState.currentWorkspaceID;
-    if (currentID == null) return null;
-
-    final filteredList =
-        tlAppState.tlWorkspaces.where((ws) => ws.id == currentID);
-    return filteredList.isNotEmpty ? filteredList.first : null;
-  }
-
-  /// ページタイトルを取得
-  String _getPageTitle(TLAppState tlAppState, int currentTabIndex) {
-    // TabController が無い場合のために fallback: 0 (Today)
-    final index = currentTabIndex;
-    if (index == 0) return "Today List";
-
-    final currentWorkspace = _getCurrentWorkspace(tlAppState);
-    return currentWorkspace?.name ?? "Today List";
+  void _handleTabIndexChange(int index) {
+    TLHomePageHelper.handleTabIndexChange(
+      index: index,
+      context: context,
+      ref: ref,
+      tabController: _tabController,
+      previousIndex: _previousIndex,
+      updatePreviousIndex: (value) => _previousIndex = value,
+    );
   }
 
   // MARK: Buildメソッド
@@ -118,17 +76,14 @@ class _HomePageState extends ConsumerState<HomePage>
   Widget build(BuildContext context) {
     final tlAppState = ref.watch(tlAppStateProvider);
     final tlThemeConfig = TLTheme.of(context);
-    // ボトムシートの表示状態を監視
-    final isBottomSheetVisible = ref.watch(bottomSheetVisibilityProvider);
 
     // タブ数: Today(1) + ワークスペース数 + Plusタブ(1)
     final tabLength = tlAppState.tlWorkspaces.length + 2;
+    // +タブのインデックス
+    final plusTabIndex = tlAppState.tlWorkspaces.length + 1;
 
     // 現在のタブインデックスの初期値を計算
-    final currentID = tlAppState.currentWorkspaceID;
-    final currentWsIndex =
-        tlAppState.tlWorkspaces.indexWhere((ws) => ws.id == currentID);
-    final initialIndex = (currentWsIndex == -1) ? 0 : currentWsIndex + 1;
+    final initialIndex = TLHomePageHelper.calculateInitialIndex(tlAppState);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // 初回描画時に初期インデックスを設定
@@ -159,11 +114,13 @@ class _HomePageState extends ConsumerState<HomePage>
           final currentIndex = _tabController?.index ?? initialIndex;
 
           // Workspace (nullの可能性あり)
-          final currentWorkspace = _getCurrentWorkspace(tlAppState);
+          final currentWorkspace =
+              TLHomePageHelper.getCurrentWorkspace(tlAppState);
           final doesCurrentWorkspaceExist = (currentWorkspace != null);
 
           // タイトル
-          final pageTitle = _getPageTitle(tlAppState, currentIndex);
+          final pageTitle =
+              TLHomePageHelper.getPageTitle(tlAppState, currentIndex);
 
           final tabTextStyle = TextStyle(
             color: tlThemeConfig.whiteBasedColor,
@@ -215,7 +172,7 @@ class _HomePageState extends ConsumerState<HomePage>
                 // タップ時にも対応するため
                 onTap: (index) {
                   // タップ直後に同期的に呼び出す
-                  _handleTabIndexChange(index, context);
+                  _handleTabIndexChange(index);
                 },
                 tabs: [
                   // 0番目 -> Today
@@ -232,6 +189,10 @@ class _HomePageState extends ConsumerState<HomePage>
 
             // MARK: TabBar View
             body: TabBarView(
+              // +タブへのスクロールを制限するカスタムスクロールフィジックス
+              physics: TLHomePageHelper.createCustomTabBarScrollPhysics(
+                plusTabIndex: plusTabIndex,
+              ),
               children: [
                 // 0番目 (Today)
                 const ToDoListOfAllWorkspacesInToday(),
@@ -252,18 +213,14 @@ class _HomePageState extends ConsumerState<HomePage>
                 ),
               ],
             ),
-            // MARK: Bottom Nav Bar - キーボードが表示されているときのみ非表示
-            bottomNavigationBar: MediaQuery.of(context).viewInsets.bottom > 0
-                ? null
-                : const TLHomeBottomNavBar(),
+            // MARK: Bottom Nav Bar
+            bottomNavigationBar: const TLHomeBottomNavBar(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            // キーボードが表示されているときのみ非表示
-            floatingActionButton: MediaQuery.of(context).viewInsets.bottom > 0
-                ? null
-                : CenterButtonOfHomeBottomNavBar(
-                    doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
-                  ),
+            // MARK: Center Button
+            floatingActionButton: CenterButtonOfHomeBottomNavBar(
+              doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
+            ),
           );
         },
       ),
