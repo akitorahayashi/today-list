@@ -1,4 +1,4 @@
-# Unit Tests for Today List App
+# Unit Test
 
 This directory contains unit tests for the business logic of the Today List app. The tests focus on the Redux implementation, which is the core of the app's state management.
 

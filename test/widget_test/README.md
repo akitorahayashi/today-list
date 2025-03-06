@@ -1,86 +1,92 @@
-# Widget Test Directory
+# Widget Test
 
-このディレクトリには、Today Listアプリケーションの各UIコンポーネントに対するウィジェットテストが含まれています。テストは、アプリケーションの構造に合わせて整理されています。
+This directory contains widget tests for the UI components of the Today List application. Tests are organized according to the application's structure.
 
-## ディレクトリ構造
+## Directory Structure
 
 ```
 widget_test/
-├── component/                  # 共通コンポーネントのテスト
-│   ├── common_ui_part/         # 基本的なUI部品のテスト
-│   │   └── tl_double_card_test.dart
-│   └── todo_card/              # ToDoカード関連コンポーネントのテスト
+├── component/                  # Tests for common components
+│   ├── common_ui_part/         # Tests for basic UI elements
+│   │   ├── tl_double_card_test.dart
+│   │   ├── tl_animated_icon_button_test.dart
+│   │   ├── tl_appbar_test.dart
+│   │   └── tl_circular_action_button_test.dart
+│   └── todo_card/              # Tests for ToDo card related components
 │       ├── tl_checkbox_test.dart
 │       ├── tl_todo_card_test.dart
 │       ├── tl_step_card_test.dart
 │       └── slidable_for_todo_card_test.dart
-├── home_page/                  # ホームページのテスト
+├── home_page/                  # Tests for home page
 │   └── home_page_test.dart
-├── page/                       # 各ページコンポーネントのテスト
-│   ├── add_todo_page/          # ToDo追加ページのテスト
+├── page/                       # Tests for various page components
+│   ├── add_todo_page/          # Tests for ToDo addition page
 │   │   ├── already_exist_test.dart
 │   │   └── model_of_todo_card_test.dart
-│   └── home_page/              # ホームページの部品テスト
+│   └── home_page/              # Tests for home page components
 │       └── num_todos_card_test.dart
-└── settings_page/              # 設定ページのテスト
+└── settings_page/              # Tests for settings pages
     └── set_features_page_test.dart
 ```
 
-## テスト概要
+## Test Overview
 
-### コンポーネントテスト
+### Component Tests
 
-#### 共通UI部品
-- **TLDoubleCard**: 二重カードコンポーネントの表示テスト
+#### Common UI Elements
+- **TLDoubleCard**: Tests for the double card component display
+- **TLAnimatedIconButton**: Tests for the animated icon button's display and behavior
+- **TLAppBar**: Tests for the custom app bar component
+- **TLCircularActionButton**: Tests for the circular action button's display and behavior
 
-#### ToDoカード関連
-- **TLCheckbox**: チェックボックスの表示と状態変化のテスト
-- **TLToDoCard**: ToDoカードの表示（ステップあり/なし）と状態変化のテスト
-- **TLStepCard**: ステップカードの表示と状態変化のテスト
-- **SlidableForToDoCard**: スライド可能なToDoカードの表示と機能テスト
+#### ToDo Card Related
+- **TLCheckbox**: Tests for checkbox display and state changes
+- **TLToDoCard**: Tests for ToDo card display (with/without steps) and state changes
+- **TLStepCard**: Tests for step card display and state changes
+- **SlidableForToDoCard**: Tests for slidable ToDo card display and functionality
 
-### ページテスト
+### Page Tests
 
-#### ホームページ
-- **HomePage**: ホームページの基本構造と各コンポーネントの表示テスト
-- **NumToDosCard**: ToDo数表示カードのテスト
+#### Home Page
+- **HomePage**: Tests for the basic structure and component display of the home page
+- **NumToDosCard**: Tests for the ToDo count display card
 
-#### ToDo追加ページ
-- **AlreadyExist**: 既存のToDoリスト表示コンポーネントのテスト
-- **ModelOfToDoCard**: ToDo追加ページでのToDoカードモデルのテスト
+#### ToDo Addition Page
+- **AlreadyExist**: Tests for the existing ToDo list display component
+- **ModelOfToDoCard**: Tests for the ToDo card model in the ToDo addition page
 
-#### 設定ページ
-- **SetFeaturesPage**: 機能設定ページの表示と各パネルのテスト
+#### Settings Page
+- **SetFeaturesPage**: Tests for the feature settings page display and its panels
 
-## テスト実行方法
+## How to Run Tests
 
-特定のテストファイルを実行するには：
+To run a specific test file:
 
 ```bash
-flutter test test/widget_test/[ディレクトリ]/[テストファイル]
+flutter test test/widget_test/[directory]/[test_file]
 ```
 
-例：
+Example:
 ```bash
 flutter test test/widget_test/component/todo_card/tl_todo_card_test.dart
 ```
 
-すべてのウィジェットテストを実行するには：
+To run all widget tests:
 
 ```bash
 flutter test test/widget_test/
 ```
 
-## テスト作成のガイドライン
+## Guidelines for Creating Tests
 
-1. **テスト構造**: 各テストファイルは、テスト対象のウィジェットに対応する名前を持ち、`_test.dart`で終わります。
-2. **モックデータ**: テストに必要なモックデータは各テストファイル内で定義します。
-3. **ProviderScope**: Riverpodを使用するコンポーネントのテストでは、`ProviderScope`と`UncontrolledProviderScope`を使用してプロバイダーをモック化します。
-4. **TLTheme**: テーマに依存するコンポーネントのテストでは、`TLTheme`ウィジェットでラップします。
-5. **constの使用**: 可能な限り`const`キーワードを使用して、パフォーマンスとコード品質を向上させます。
+1. **Test Structure**: Each test file should have a name corresponding to the widget being tested and end with `_test.dart`.
+2. **Mock Data**: Define any necessary mock data within each test file.
+3. **ProviderScope**: For components using Riverpod, use `ProviderScope` and `UncontrolledProviderScope` to mock providers.
+4. **TLTheme**: For components dependent on themes, wrap them with the `TLTheme` widget.
+5. **Use of const**: Use the `const` keyword whenever possible to improve performance and code quality.
 
-## 注意事項
+## Important Notes
 
-- テストは、コンポーネントの視覚的な表示だけでなく、機能的な振る舞いも検証します。
-- 複雑なアニメーションや非同期処理を含むテストでは、`tester.pumpAndSettle()`を使用して、すべてのアニメーションが完了するのを待ちます。
-- テスト環境では、実際のデータベースやネットワーク接続は使用せず、すべてモック化します。 
+- Tests should verify not only the visual display of components but also their functional behavior.
+- For tests involving complex animations or asynchronous processes, use `tester.pumpAndSettle()` to wait for all animations to complete.
+- In the test environment, do not use actual databases or network connections; mock everything instead. 

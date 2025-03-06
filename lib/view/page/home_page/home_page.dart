@@ -9,6 +9,7 @@ import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/view/page/home_page/helper/tl_home_page_helper.dart';
+import 'package:today_list/util/device_util.dart';
 import 'workspace_drawer/workspace_drawer.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -77,6 +78,9 @@ class _HomePageState extends ConsumerState<HomePage>
     final tlAppState = ref.watch(tlAppStateProvider);
     final tlThemeConfig = TLTheme.of(context);
 
+    // iPadかどうかを判定
+    final bool isIpad = DeviceUtil.isIpad(context);
+
     // タブ数: Today(1) + ワークスペース数 + Plusタブ(1)
     final tabLength = tlAppState.tlWorkspaces.length + 2;
     // +タブのインデックス
@@ -128,6 +132,117 @@ class _HomePageState extends ConsumerState<HomePage>
             fontWeight: FontWeight.bold,
           );
 
+          // iPadの場合はドロワーを常に表示するレイアウト
+          if (isIpad) {
+            return Row(
+              children: [
+                // 常に表示されるドロワー部分
+                const SizedBox(
+                  width: 280, // ドロワーの幅
+                  child: TLWorkspaceDrawer(),
+                ),
+                // メインコンテンツ部分
+                Expanded(
+                  child: Scaffold(
+                    key: _homePageScaffoldKey,
+                    backgroundColor: tlThemeConfig.backgroundColor,
+                    // MARK: App Bar (iPadの場合は左側のボタンなし)
+                    appBar: TLAppBar(
+                      context: context,
+                      height: 100,
+                      pageTitle: pageTitle,
+                      leadingButtonOnPressed: null,
+                      leadingIconData: null, // iPadの場合は左側のボタンなし
+                      trailingButtonOnPressed: () async {
+                        await Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const SettingsPage();
+                        }));
+                      },
+                      trailingIconData: Icons.settings,
+                      bottom: TabBar(
+                        isScrollable: true,
+                        labelColor: tlThemeConfig.accentColor,
+                        unselectedLabelColor: Colors.white,
+                        labelStyle: tabTextStyle,
+                        unselectedLabelStyle: tabTextStyle,
+                        indicator: BoxDecoration(
+                          color: tlThemeConfig.whiteBasedColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        dividerColor: Colors.transparent,
+                        indicatorSize: TabBarIndicatorSize.label,
+                        indicatorPadding:
+                            const EdgeInsets.symmetric(horizontal: -16),
+                        splashFactory: NoSplash.splashFactory,
+                        overlayColor: WidgetStateProperty.resolveWith((states) {
+                          if (states.contains(WidgetState.pressed) ||
+                              states.contains(WidgetState.focused)) {
+                            return Colors.transparent;
+                          }
+                          return null;
+                        }),
+                        // タップ時にも対応するため
+                        onTap: (index) {
+                          // タップ直後に同期的に呼び出す
+                          _handleTabIndexChange(index);
+                        },
+                        tabs: [
+                          // 0番目 -> Today
+                          const Tab(text: "Today"),
+
+                          // Workspace分のタブ
+                          for (final ws in tlAppState.tlWorkspaces)
+                            Tab(text: ws.name),
+
+                          // +タブ
+                          const Tab(icon: Icon(Icons.add)),
+                        ],
+                      ),
+                    ),
+
+                    // MARK: TabBar View
+                    body: TabBarView(
+                      // +タブへのスクロールを制限するカスタムスクロールフィジックス
+                      physics: TLHomePageHelper.createCustomTabBarScrollPhysics(
+                        plusTabIndex: plusTabIndex,
+                      ),
+                      children: [
+                        // 0番目 (Today)
+                        const ToDoListOfAllWorkspacesInToday(),
+
+                        // Workspace分
+                        for (final ws in tlAppState.tlWorkspaces)
+                          ToDoListInWorkspaceInTodayAndWhenever(
+                              corrWorkspace: ws),
+
+                        // 最後の +タブ -> ダミーコンテンツ
+                        Container(
+                          color: Colors.grey.withValues(alpha: 0.2),
+                          child: const Center(
+                            child: Text(
+                              "＋タブに対応する画面\n(必要に応じて自由に拡張)",
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // MARK: Bottom Nav Bar
+                    bottomNavigationBar: const TLHomeBottomNavBar(),
+                    floatingActionButtonLocation:
+                        FloatingActionButtonLocation.centerDocked,
+                    // MARK: Center Button
+                    floatingActionButton: CenterButtonOfHomeBottomNavBar(
+                      doesCurrentWorkspaceExist: doesCurrentWorkspaceExist,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+
+          // スマートフォン向けの通常レイアウト
           return Scaffold(
             key: _homePageScaffoldKey,
             backgroundColor: tlThemeConfig.backgroundColor,

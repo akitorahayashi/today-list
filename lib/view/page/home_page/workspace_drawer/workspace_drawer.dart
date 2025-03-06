@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:today_list/util/device_util.dart';
 import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme.dart';
@@ -25,14 +26,15 @@ class TLWorkspaceDrawer extends ConsumerWidget {
           Container(color: tlThemeConfig.backgroundColor),
           Column(
             children: [
-              TLAppBar(
-                context: context,
-                pageTitle: "Workspace",
-                leadingButtonOnPressed: null,
-                leadingIconData: null,
-                trailingButtonOnPressed: null,
-                trailingIconData: null,
-              ),
+              if (!DeviceUtil.isIpad(context))
+                TLAppBar(
+                  context: context,
+                  pageTitle: "Workspace",
+                  leadingButtonOnPressed: null,
+                  leadingIconData: null,
+                  trailingButtonOnPressed: null,
+                  trailingIconData: null,
+                ),
               Expanded(
                   child: ListView(
                 padding: const EdgeInsets.only(bottom: 200),
