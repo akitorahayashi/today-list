@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/styles.dart';
 import 'package:today_list/view/component/dialog/design/tl_dialog.dart';

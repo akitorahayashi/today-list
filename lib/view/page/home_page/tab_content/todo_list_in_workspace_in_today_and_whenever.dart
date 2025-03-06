@@ -20,16 +20,24 @@ class ToDoListInWorkspaceInTodayAndWhenever extends StatelessWidget {
       key: PageStorageKey(corrWorkspace.id), // スクロール位置を保持
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 16.0),
+          padding: const EdgeInsets.only(top: 12.0),
           child: NumToDosCard(title: null, numTodos: numOfToDosInToday),
         ),
-        ListOfCategoryToToDos(ifInToday: true, corrWorkspace: corrWorkspace),
         Padding(
-          padding: const EdgeInsets.only(top: 16.0),
+          padding: const EdgeInsets.only(top: 4.0),
+          child: ListOfCategoryToToDos(
+              ifInToday: true, corrWorkspace: corrWorkspace),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 12.0),
           child: NumToDosCard(
               title: "In Whenever", numTodos: numOfToDosInWhenever),
         ),
-        ListOfCategoryToToDos(ifInToday: false, corrWorkspace: corrWorkspace),
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: ListOfCategoryToToDos(
+              ifInToday: false, corrWorkspace: corrWorkspace),
+        ),
         const SizedBox(height: 250),
       ],
     );

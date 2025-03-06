@@ -7,7 +7,7 @@ import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:reorderables/reorderables.dart';
 import 'package:today_list/redux/action/tl_todo_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/view/component/todo_card/tl_todo_card.dart';
+import 'package:today_list/view/component/todo_card/tl_todo_card/tl_todo_card.dart';
 
 class ListOfCategoryToToDos extends ConsumerWidget {
   final bool ifInToday;
@@ -30,32 +30,29 @@ class ListOfCategoryToToDos extends ConsumerWidget {
 
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0, left: 5),
-          child: ReorderableColumn(
-            children: [
-              for (TLToDo corrToDo in corrWorkspace
-                  .workspaceIDToToDos[corrWorkspace.id]!
-                  .getToDos(ifInToday))
-                TLToDoCard(
-                  key: ValueKey(corrToDo.id),
-                  corrWorkspace: corrWorkspace,
-                  corrToDo: corrToDo,
-                  ifInToday: ifInToday,
-                ),
-            ],
-            onReorder: (oldIndex, newIndex) {
-              ref.read(tlAppStateProvider.notifier).updateState(
-                    TLToDoAction.reorderToDo(
-                      corrWorkspace: corrWorkspace,
-                      workspaceID: corrWorkspace.id,
-                      ifInToday: ifInToday,
-                      oldIndex: oldIndex,
-                      newIndex: newIndex,
-                    ),
-                  );
-            },
-          ),
+        ReorderableColumn(
+          children: [
+            for (TLToDo corrToDo in corrWorkspace
+                .workspaceIDToToDos[corrWorkspace.id]!
+                .getToDos(ifInToday))
+              TLToDoCard(
+                key: ValueKey(corrToDo.id),
+                corrWorkspace: corrWorkspace,
+                corrToDo: corrToDo,
+                ifInToday: ifInToday,
+              ),
+          ],
+          onReorder: (oldIndex, newIndex) {
+            ref.read(tlAppStateProvider.notifier).updateState(
+                  TLToDoAction.reorderToDo(
+                    corrWorkspace: corrWorkspace,
+                    workspaceID: corrWorkspace.id,
+                    ifInToday: ifInToday,
+                    oldIndex: oldIndex,
+                    newIndex: newIndex,
+                  ),
+                );
+          },
         ),
       ],
     );

@@ -119,7 +119,7 @@ class AddToDoPage extends HookConsumerWidget {
       extendBodyBehindAppBar: true, // AppBarの背後にコンテンツを表示
       appBar: TLAppBar(
         context: context,
-        pageTitle: 'Add ToDo',
+        pageTitle: corrWorkspace.name,
         leadingButtonOnPressed: () => Navigator.pop(context),
         leadingIconData: Icons.arrow_back_ios_new,
         trailingButtonOnPressed: null,

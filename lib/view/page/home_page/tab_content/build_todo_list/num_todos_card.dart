@@ -23,7 +23,7 @@ class NumToDosCard extends StatelessWidget {
         child: TLDoubleCard(
           borderRadius: 20,
           child: Padding(
-            padding: const EdgeInsets.only(top: 9.0, bottom: 10.0),
+            padding: const EdgeInsets.only(top: 7.0, bottom: 8.0),
             child: Column(
               children: [
                 // wheneverの場合のラベル
