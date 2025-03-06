@@ -37,21 +37,8 @@ class SlidableForToDoCard extends ConsumerWidget {
       // MARK: - Edit / Move ToDo
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
-        extentRatio: 0.40, // 幅を広げる
+        extentRatio: 0.40,
         children: [
-          // MARK: - Edit ToDo
-          SlidableAction(
-            autoClose: true,
-            flex: 11,
-            spacing: 8,
-            backgroundColor: cardColor,
-            foregroundColor: iconColor,
-            onPressed: (context) {
-              _showEditToDoSheet(context, ref);
-            },
-            icon: Icons.edit,
-          ),
-
           // MARK: - Toggle Between Today and Whenever
           SlidableAction(
             autoClose: true,
@@ -75,6 +62,18 @@ class SlidableForToDoCard extends ConsumerWidget {
               );
             },
             icon: corrToDo.isInToday ? Icons.schedule : Icons.light_mode,
+          ),
+          // MARK: - Edit ToDo
+          SlidableAction(
+            autoClose: true,
+            flex: 11,
+            spacing: 8,
+            backgroundColor: cardColor,
+            foregroundColor: iconColor,
+            onPressed: (context) {
+              _showEditToDoSheet(context, ref);
+            },
+            icon: Icons.edit,
           ),
         ],
       ),

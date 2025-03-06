@@ -48,7 +48,11 @@ class TLUserDataReducer {
     if (newEarnedIcons[iconCategory] == null) {
       newEarnedIcons[iconCategory] = [iconName];
     } else {
-      newEarnedIcons[iconCategory]!.add(iconName);
+      final existingIcons = List<String>.from(newEarnedIcons[iconCategory]!);
+      if (!existingIcons.contains(iconName)) {
+        existingIcons.add(iconName);
+      }
+      newEarnedIcons[iconCategory] = existingIcons;
     }
 
     return state.copyWith(earnedCheckBoxIcons: newEarnedIcons);
