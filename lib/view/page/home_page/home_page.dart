@@ -204,9 +204,7 @@ class _HomePageState extends ConsumerState<HomePage>
                     // MARK: TabBar View
                     body: TabBarView(
                       // +タブへのスクロールを制限するカスタムスクロールフィジックス
-                      physics: TLHomePageHelper.createCustomTabBarScrollPhysics(
-                        plusTabIndex: plusTabIndex,
-                      ),
+                      physics: const NeverScrollableScrollPhysics(),
                       children: [
                         // 0番目 (Today)
                         const ToDoListOfAllWorkspacesInToday(),
@@ -305,9 +303,7 @@ class _HomePageState extends ConsumerState<HomePage>
             // MARK: TabBar View
             body: TabBarView(
               // +タブへのスクロールを制限するカスタムスクロールフィジックス
-              physics: TLHomePageHelper.createCustomTabBarScrollPhysics(
-                plusTabIndex: plusTabIndex,
-              ),
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 // 0番目 (Today)
                 const ToDoListOfAllWorkspacesInToday(),
