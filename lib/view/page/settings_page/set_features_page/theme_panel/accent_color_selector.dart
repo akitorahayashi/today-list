@@ -5,9 +5,10 @@ import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/redux/action/tl_user_data_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
-// Reduxの状態更新から分離するためのプロバイダー
-final _accentColorSelectorStateProvider = StateProvider<bool>((ref) => false);
+// 現在の色を保持するプロバイダー
+final _currentColorProvider = StateProvider<Color>((ref) => Colors.blue);
 
 class AccentColorSelector extends HookConsumerWidget {
   const AccentColorSelector({super.key});
@@ -16,224 +17,141 @@ class AccentColorSelector extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tlThemeConfig = TLTheme.of(context);
 
-    // このプロバイダーを監視することで、このウィジェットの再構築を制御
-    ref.watch(_accentColorSelectorStateProvider);
+    // 現在の色を監視
+    final currentColor = ref.watch(_currentColorProvider);
 
-    return _AccentColorSelectorContent(
-      initialColor: tlThemeConfig.accentColor,
-      defaultAccentColor: tlThemeConfig.defaultAccentColor,
-      whiteBasedColor: tlThemeConfig.whiteBasedColor,
-      onColorChanged: (Color newColor) {
-        // Reduxの状態を更新するが、このウィジェットは再構築されない
-        ref.read(tlAppStateProvider.notifier).updateState(
-              TLUserDataAction.saveCustomAccentColor(
-                newAccentColor: newColor,
+    // 初期化時に現在の色をセット (useEffectの外でプロバイダーを更新しないようにする)
+    useEffect(() {
+      // 非同期で実行することで、ビルド中にプロバイダーを更新しないようにする
+      Future.microtask(() {
+        ref.read(_currentColorProvider.notifier).state =
+            tlThemeConfig.accentColor;
+      });
+      return null;
+    }, const []);
+
+    // 色を変更する関数
+    void onColorChanged(Color newColor) {
+      ref.read(_currentColorProvider.notifier).state = newColor;
+      ref.read(tlAppStateProvider.notifier).updateState(
+            TLUserDataAction.saveCustomAccentColor(
+              newAccentColor: newColor,
+            ),
+          );
+    }
+
+    // デフォルトの色に戻す関数
+    void resetToDefaultColor() {
+      onColorChanged(tlThemeConfig.defaultAccentColor);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // 現在の色を表示 (タップでカラーピッカーを表示)
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: TappableColorPreview(
+            currentColor: currentColor,
+            whiteBasedColor: tlThemeConfig.whiteBasedColor,
+            onTap: () =>
+                _showColorPicker(context, currentColor, onColorChanged),
+          ),
+        ),
+
+        // デフォルトに戻すボタン
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
+          child: ResetButton(
+            defaultAccentColor: tlThemeConfig.defaultAccentColor,
+            onReset: resetToDefaultColor,
+          ),
+        ),
+      ],
+    );
+  }
+
+  // カラーピッカーダイアログを表示
+  void _showColorPicker(BuildContext context, Color currentColor,
+      Function(Color) onColorChanged) {
+    Color pickerColor = currentColor;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('アクセントカラーを選択'),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: pickerColor,
+              onColorChanged: (Color color) {
+                pickerColor = color;
+              },
+              pickerAreaHeightPercent: 0.8,
+              enableAlpha: false,
+              displayThumbColor: true,
+              paletteType: PaletteType.hsl,
+              portraitOnly: true,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('キャンセル'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: pickerColor,
+                foregroundColor: Colors.white,
               ),
-            );
+              child: const Text('決定'),
+              onPressed: () {
+                onColorChanged(pickerColor);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
       },
     );
   }
 }
 
-// 内部状態を持つStatefulWidgetとして実装
-class _AccentColorSelectorContent extends StatefulWidget {
-  final Color initialColor;
-  final Color defaultAccentColor;
+// タップ可能なアニメーション付き色のプレビュー表示
+class TappableColorPreview extends HookWidget {
+  final Color currentColor;
   final Color whiteBasedColor;
-  final Function(Color) onColorChanged;
+  final VoidCallback onTap;
 
-  const _AccentColorSelectorContent({
-    required this.initialColor,
-    required this.defaultAccentColor,
+  const TappableColorPreview({
+    super.key,
+    required this.currentColor,
     required this.whiteBasedColor,
-    required this.onColorChanged,
+    required this.onTap,
   });
 
   @override
-  State<_AccentColorSelectorContent> createState() =>
-      _AccentColorSelectorContentState();
-}
-
-class _AccentColorSelectorContentState
-    extends State<_AccentColorSelectorContent>
-    with SingleTickerProviderStateMixin {
-  late Color _currentColor;
-  late double _hue;
-  late double _saturation;
-  late double _value;
-  Timer? _debounceTimer;
-  bool _colorUpdateScheduled = false;
-  bool _isDragging = false;
-
-  // アニメーション用のコントローラー
-  late AnimationController _animationController;
-  late Animation<double> _animation;
-
-  // 最後に保存した色
-  late Color _lastSavedColor;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentColor = widget.initialColor;
-    _lastSavedColor = widget.initialColor;
-
-    final hsvColor = HSVColor.fromColor(_currentColor);
-    _hue = hsvColor.hue;
-    _saturation = hsvColor.saturation;
-    _value = hsvColor.value;
-
-    // アニメーションコントローラーの初期化
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-
-    _animation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    );
-
-    _animationController.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
-  void didUpdateWidget(_AccentColorSelectorContent oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // 外部からの色の変更を検知した場合のみ更新（ドラッグ中は更新しない）
-    if (!_isDragging &&
-        widget.initialColor.value != oldWidget.initialColor.value) {
-      _currentColor = widget.initialColor;
-      _lastSavedColor = widget.initialColor;
-
-      final hsvColor = HSVColor.fromColor(_currentColor);
-      setState(() {
-        _hue = hsvColor.hue;
-        _saturation = hsvColor.saturation;
-        _value = hsvColor.value;
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    _debounceTimer?.cancel();
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  // HSL値から色を更新する関数（ローカルステートのみ更新）
-  void _updateColorLocally() {
-    final newColor =
-        HSVColor.fromAHSV(1.0, _hue, _saturation, _value).toColor();
-    setState(() {
-      _currentColor = newColor;
-    });
-  }
-
-  // ドラッグ開始時の処理
-  void _onDragStart() {
-    setState(() {
-      _isDragging = true;
-    });
-    // 既存のタイマーをキャンセル
-    _debounceTimer?.cancel();
-  }
-
-  // ドラッグ終了時の処理
-  void _onDragEnd() {
-    setState(() {
-      _isDragging = false;
-    });
-    _notifyColorChange();
-  }
-
-  // 親ウィジェットに色の変更を通知する関数（ドラッグ終了時に呼び出す）
-  void _notifyColorChange() {
-    // 色が変わっていない場合は何もしない
-    if (_lastSavedColor.value == _currentColor.value) return;
-
-    // 既存のタイマーをキャンセル
-    _debounceTimer?.cancel();
-
-    // アニメーションを開始
-    _animationController.reset();
-    _animationController.forward();
-
-    // 新しいタイマーを設定（500ms後に実行）- アニメーションが完了した後に更新
-    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
-      if (!_colorUpdateScheduled) {
-        _colorUpdateScheduled = true;
-
-        // 親ウィジェットに通知
-        widget.onColorChanged(_currentColor);
-
-        // 最後に保存した色を更新
-        _lastSavedColor = _currentColor;
-        _colorUpdateScheduled = false;
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    // アニメーション中のスケール値
-    final scale = 1.0 + (_animation.value * 0.05);
+    // タップアニメーション用
+    final isPressed = useState(false);
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // 現在の色を大きく表示
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 100),
-          height: 80,
+    return GestureDetector(
+      onTapDown: (_) => isPressed.value = true,
+      onTapUp: (_) {
+        isPressed.value = false;
+        onTap();
+      },
+      onTapCancel: () => isPressed.value = false,
+      child: AnimatedScale(
+        scale: isPressed.value ? 0.9 : 1.0,
+        duration: const Duration(milliseconds: 150),
+        child: Container(
+          height: 100,
           margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           decoration: BoxDecoration(
-            color: widget.whiteBasedColor,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 4,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Center(
-            child: Transform.scale(
-              scale: scale,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 100),
-                width: double.infinity,
-                height: 60,
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                decoration: BoxDecoration(
-                  color: _currentColor,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 2,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: _currentColor.withOpacity(0.5),
-                      blurRadius: 8,
-                      spreadRadius: 2,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-        // HSLスライダー
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            color: widget.whiteBasedColor,
+            color: whiteBasedColor,
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
@@ -244,247 +162,136 @@ class _AccentColorSelectorContentState
             ],
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // 色相スライダー
-              Row(
-                children: [
-                  const SizedBox(
-                      width: 30,
-                      child: Text('H',
-                          style: TextStyle(fontWeight: FontWeight.bold))),
-                  Expanded(
-                    child: SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        activeTrackColor: Colors.transparent,
-                        inactiveTrackColor: Colors.transparent,
-                        thumbColor: _currentColor,
-                        overlayColor: _currentColor.withOpacity(0.2),
-                        thumbShape:
-                            const RoundSliderThumbShape(enabledThumbRadius: 10),
-                        overlayShape:
-                            const RoundSliderOverlayShape(overlayRadius: 20),
-                      ),
-                      child: Container(
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: const LinearGradient(
-                            colors: [
-                              Colors.red,
-                              Colors.yellow,
-                              Colors.green,
-                              Colors.cyan,
-                              Colors.blue,
-                              Colors.purple,
-                              Colors.red,
-                            ],
-                          ),
-                        ),
-                        child: GestureDetector(
-                          onHorizontalDragStart: (_) => _onDragStart(),
-                          onHorizontalDragEnd: (_) => _onDragEnd(),
-                          child: Slider(
-                            min: 0,
-                            max: 360,
-                            value: _hue,
-                            onChanged: (value) {
-                              setState(() {
-                                _hue = value;
-                                _updateColorLocally();
-                              });
-                            },
-                            onChangeStart: (_) => _onDragStart(),
-                            onChangeEnd: (_) => _onDragEnd(),
-                          ),
-                        ),
-                      ),
+              // 色のプレビュー
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                width: double.infinity,
+                height: 60,
+                margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                decoration: BoxDecoration(
+                  color: currentColor,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: currentColor.withOpacity(0.5),
+                      blurRadius: 8,
+                      spreadRadius: 2,
                     ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                    child: Text('${_hue.round()}°', textAlign: TextAlign.right),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              const SizedBox(height: 16),
-              // 彩度スライダー
-              Row(
-                children: [
-                  const SizedBox(
-                      width: 30,
-                      child: Text('S',
-                          style: TextStyle(fontWeight: FontWeight.bold))),
-                  Expanded(
-                    child: SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        activeTrackColor: Colors.transparent,
-                        inactiveTrackColor: Colors.transparent,
-                        thumbColor: _currentColor,
-                        overlayColor: _currentColor.withOpacity(0.2),
-                        thumbShape:
-                            const RoundSliderThumbShape(enabledThumbRadius: 10),
-                        overlayShape:
-                            const RoundSliderOverlayShape(overlayRadius: 20),
-                      ),
-                      child: Container(
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                            colors: [
-                              HSVColor.fromAHSV(1.0, _hue, 0, _value).toColor(),
-                              HSVColor.fromAHSV(1.0, _hue, 1, _value).toColor(),
-                            ],
-                          ),
-                        ),
-                        child: GestureDetector(
-                          onHorizontalDragStart: (_) => _onDragStart(),
-                          onHorizontalDragEnd: (_) => _onDragEnd(),
-                          child: Slider(
-                            min: 0,
-                            max: 1,
-                            value: _saturation,
-                            onChanged: (value) {
-                              setState(() {
-                                _saturation = value;
-                                _updateColorLocally();
-                              });
-                            },
-                            onChangeStart: (_) => _onDragStart(),
-                            onChangeEnd: (_) => _onDragEnd(),
-                          ),
-                        ),
+
+              // タップして色を選択するテキスト
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.touch_app,
+                      size: 16,
+                      color: Colors.grey[600],
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      'タップして色を選択',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                    child: Text('${(_saturation * 100).round()}%',
-                        textAlign: TextAlign.right),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              // 明度スライダー
-              Row(
-                children: [
-                  const SizedBox(
-                      width: 30,
-                      child: Text('V',
-                          style: TextStyle(fontWeight: FontWeight.bold))),
-                  Expanded(
-                    child: SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        activeTrackColor: Colors.transparent,
-                        inactiveTrackColor: Colors.transparent,
-                        thumbColor: _currentColor,
-                        overlayColor: _currentColor.withOpacity(0.2),
-                        thumbShape:
-                            const RoundSliderThumbShape(enabledThumbRadius: 10),
-                        overlayShape:
-                            const RoundSliderOverlayShape(overlayRadius: 20),
-                      ),
-                      child: Container(
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          gradient: LinearGradient(
-                            colors: [
-                              HSVColor.fromAHSV(1.0, _hue, _saturation, 0)
-                                  .toColor(),
-                              HSVColor.fromAHSV(1.0, _hue, _saturation, 1)
-                                  .toColor(),
-                            ],
-                          ),
-                        ),
-                        child: GestureDetector(
-                          onHorizontalDragStart: (_) => _onDragStart(),
-                          onHorizontalDragEnd: (_) => _onDragEnd(),
-                          child: Slider(
-                            min: 0,
-                            max: 1,
-                            value: _value,
-                            onChanged: (newValue) {
-                              setState(() {
-                                _value = newValue;
-                                _updateColorLocally();
-                              });
-                            },
-                            onChangeStart: (_) => _onDragStart(),
-                            onChangeEnd: (_) => _onDragEnd(),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                    child: Text('${(_value * 100).round()}%',
-                        textAlign: TextAlign.right),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
         ),
-        // デフォルトに戻すボタン（リッチなデザイン）
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Center(
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                height: 50,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      widget.defaultAccentColor.withOpacity(0.6),
-                      widget.defaultAccentColor,
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+      ),
+    );
+  }
+}
+
+// リセットボタン
+class ResetButton extends HookWidget {
+  final Color defaultAccentColor;
+  final VoidCallback onReset;
+
+  const ResetButton({
+    super.key,
+    required this.defaultAccentColor,
+    required this.onReset,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // リセットボタンのアニメーション用
+    final isPressed = useState(false);
+
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: GestureDetector(
+          onTapDown: (_) => isPressed.value = true,
+          onTapUp: (_) {
+            isPressed.value = false;
+            onReset();
+          },
+          onTapCancel: () => isPressed.value = false,
+          child: AnimatedScale(
+            scale: isPressed.value ? 0.9 : 1.0,
+            duration: const Duration(milliseconds: 150),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: 50,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    defaultAccentColor.withOpacity(0.6),
+                    defaultAccentColor,
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: defaultAccentColor.withOpacity(0.4),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
                   ),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: widget.defaultAccentColor.withOpacity(0.4),
-                      blurRadius: 8,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.refresh_rounded,
+                ],
+              ),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.refresh_rounded,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  SizedBox(width: 8),
+                  Text(
+                    'デフォルトに戻す',
+                    style: TextStyle(
                       color: Colors.white,
-                      size: 20,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
                     ),
-                    SizedBox(width: 8),
-                    Text(
-                      'デフォルトに戻す',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
         ),
-      ],
+      ),
     );
-  }
-
-  // 色の明るさに応じてテキスト色を白か黒か判定
-  bool _useWhiteForeground(Color color) {
-    return (color.computeLuminance() < 0.5);
   }
 }

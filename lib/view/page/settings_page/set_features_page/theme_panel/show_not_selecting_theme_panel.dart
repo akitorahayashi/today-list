@@ -63,32 +63,35 @@ class _RightSideThemeSelectButtonState
           child: Align(
             alignment: Alignment.center,
             // todoのカードを表示
-            child: Card(
-              elevation: 5,
-              color: corrThemeType.config.canTapCardColor,
-              child: SizedBox(
-                width: 100, // カードの幅を調整
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FaIcon(
-                        FontAwesomeIcons.square,
-                        color: corrThemeType.config.accentColor,
-                        size: 20, // アイコンサイズを調整
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        corrThemeType.config.themeTitleInSettings,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: corrThemeType.config.accentColor,
-                            fontSize: 14, // フォントサイズを調整
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.w800),
-                      ),
-                    ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Card(
+                elevation: 5,
+                color: corrThemeType.config.canTapCardColor,
+                child: SizedBox(
+                  width: 100, // カードの幅を調整
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          corrThemeType.config.themeTitleInSettings,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: corrThemeType.config.accentColor,
+                              fontSize: 14, // フォントサイズを調整
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.w800),
+                        ),
+                        const SizedBox(height: 6),
+                        FaIcon(
+                          FontAwesomeIcons.square,
+                          color: corrThemeType.config.accentColor,
+                          size: 20, // アイコンサイズを調整
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
