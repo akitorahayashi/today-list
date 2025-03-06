@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 import 'package:today_list/model/settings_data/tl_user_data.dart';
@@ -13,6 +14,8 @@ class TLUserDataReducer {
           _updateSelectedCheckBoxIcon(state, a.newCheckBox),
       updateEarnedIcons: (a) =>
           _updateEarnedIcons(state, a.iconCategory.name, a.iconName.name),
+      saveCustomAccentColor: (a) =>
+          _saveCustomAccentColor(state, a.newAccentColor),
     );
   }
 
@@ -56,5 +59,12 @@ class TLUserDataReducer {
     }
 
     return state.copyWith(earnedCheckBoxIcons: newEarnedIcons);
+  }
+
+  // カスタムアクセントカラーを保存
+  static TLUserData _saveCustomAccentColor(
+      TLUserData state, Color accentColor) {
+    // カラーの値を保存
+    return state.copyWith(customAccentColorValue: accentColor.value);
   }
 }

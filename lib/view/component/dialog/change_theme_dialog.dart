@@ -59,7 +59,7 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
                 child: Text(
                   themeConfig.themeName,
                   style: TextStyle(
-                      color: themeConfig.checkmarkColor,
+                      color: themeConfig.accentColor,
                       fontWeight: FontWeight.bold),
                 ),
               ),

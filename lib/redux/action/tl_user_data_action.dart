@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 import 'package:today_list/resource/icon_resource_of_checkbox.dart';
@@ -23,4 +24,9 @@ sealed class TLUserDataAction with _$TLUserDataAction {
     required TLIconCategory iconCategory,
     required TLIconName iconName,
   }) = _UpdateEarnedIcons;
+
+  // カスタムアクセントカラーを保存
+  const factory TLUserDataAction.saveCustomAccentColor({
+    required Color newAccentColor,
+  }) = _SaveCustomAccentColor;
 }

@@ -4,18 +4,18 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class LeftSideShowingSelectingPanel extends StatelessWidget {
-  const LeftSideShowingSelectingPanel({
+class ShowSelectingThemePanel extends StatelessWidget {
+  const ShowSelectingThemePanel({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
-    final deviceWidth = MediaQuery.of(context).size.width;
+
     return Container(
-      width: deviceWidth / 2 - 20,
-      height: 320,
+      width: double.infinity,
+      height: double.infinity,
       // グラデーションと丸角
       decoration: BoxDecoration(
           gradient: tlThemeConfig.gradientOfNavBar,
@@ -28,27 +28,35 @@ class LeftSideShowingSelectingPanel extends StatelessWidget {
           elevation: 5,
           color: tlThemeConfig.canTapCardColor,
           child: SizedBox(
-            width: deviceWidth / 2 - 50,
+            width: 200, // 固定幅で中央に表示
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Row(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Icon(
-                      FontAwesomeIcons.solidSquareCheck,
-                      color: tlThemeConfig.checkmarkColor,
-                    ),
+                  Icon(
+                    FontAwesomeIcons.solidSquareCheck,
+                    color: tlThemeConfig.accentColor,
+                    size: 32, // アイコンサイズを大きく
                   ),
+                  const SizedBox(height: 12),
                   Text(
                     tlThemeConfig.themeTitleInSettings,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: tlThemeConfig.checkmarkColor,
-                        fontSize: 17,
+                        color: tlThemeConfig.accentColor,
+                        fontSize: 24, // フォントサイズを大きく
                         letterSpacing: 2,
                         fontWeight: FontWeight.w800),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Current Theme",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: tlThemeConfig.accentColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500),
                   ),
                 ],
               ),

@@ -20,7 +20,7 @@ class TLCheckBox extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     final SelectedCheckBoxIconData selectedCheckBoxIconData = ref.watch(
         tlAppStateProvider
             .select((state) => state.tlUserData.selectedCheckBoxIconData));
@@ -51,7 +51,7 @@ class TLCheckBox extends ConsumerWidget {
       isChecked ? thisIconData.checkedIcon : thisIconData.notCheckedIcon,
       color: iconColor ??
           (isChecked
-              ? tlThemeData.checkmarkColor
+              ? tlThemeConfig.accentColor
               : Colors.black.withValues(alpha: 0.56)),
       size: effectiveIconSize,
     );

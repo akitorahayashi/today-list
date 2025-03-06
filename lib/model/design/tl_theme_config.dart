@@ -21,11 +21,11 @@ class TLThemeConfig {
   final Gradient gradientOfNavBar;
 
   // Basics
-  final MaterialColor accentColor;
+  final MaterialColor defaultAccentColor; // デフォルトのアクセントカラー
+  final Color? _customAccentColor; // カスタムアクセントカラー（オプション）
   final Color canTapCardColor;
   final Color whiteBasedColor;
   final Color tlDoubleCardBorderColor;
-  final Color checkmarkColor;
 
   // Alert
   final Color alertBackgroundColor;
@@ -36,6 +36,9 @@ class TLThemeConfig {
   // Edit Page
   final Color toggleButtonsBackgroundColor;
   final Color toggleButtonsBackgroundSplashColor;
+
+  // 現在のアクセントカラーを取得するゲッター
+  Color get accentColor => _customAccentColor ?? defaultAccentColor;
 
   const TLThemeConfig({
     // Theme Name
@@ -57,11 +60,11 @@ class TLThemeConfig {
     required this.otherAppsPressedElevatedButtonColor,
 
     // Basics
-    required this.accentColor,
+    required this.defaultAccentColor,
+    Color? customAccentColor,
     required this.canTapCardColor,
     required this.whiteBasedColor,
     required this.tlDoubleCardBorderColor,
-    required this.checkmarkColor,
 
     // Alert
     required this.alertBackgroundColor,
@@ -72,5 +75,28 @@ class TLThemeConfig {
     // Edit Page
     required this.toggleButtonsBackgroundColor,
     required this.toggleButtonsBackgroundSplashColor,
-  });
+  }) : _customAccentColor = customAccentColor;
+
+  // カスタムアクセントカラーを設定した新しいインスタンスを作成
+  TLThemeConfig copyWithCustomAccentColor(Color customAccentColor) {
+    return TLThemeConfig(
+      themeName: themeName,
+      themeTitleInSettings: themeTitleInSettings,
+      titleColorOfSettingPage: titleColorOfSettingPage,
+      settingPanelColor: settingPanelColor,
+      backgroundColor: backgroundColor,
+      gradientOfNavBar: gradientOfNavBar,
+      otherAppsElevatedButtonColor: otherAppsElevatedButtonColor,
+      otherAppsPressedElevatedButtonColor: otherAppsPressedElevatedButtonColor,
+      defaultAccentColor: defaultAccentColor,
+      customAccentColor: customAccentColor,
+      canTapCardColor: canTapCardColor,
+      whiteBasedColor: whiteBasedColor,
+      tlDoubleCardBorderColor: tlDoubleCardBorderColor,
+      alertBackgroundColor: alertBackgroundColor,
+      bigCategoryChipColor: bigCategoryChipColor,
+      toggleButtonsBackgroundColor: toggleButtonsBackgroundColor,
+      toggleButtonsBackgroundSplashColor: toggleButtonsBackgroundSplashColor,
+    );
+  }
 }

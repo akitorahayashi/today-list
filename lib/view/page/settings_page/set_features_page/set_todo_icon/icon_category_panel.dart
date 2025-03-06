@@ -23,7 +23,7 @@ class IconCategoryPanel extends StatelessWidget {
               style: TextStyle(
                   fontSize: 19,
                   fontWeight: FontWeight.w800,
-                  color: tlThemeConfig.checkmarkColor),
+                  color: tlThemeConfig.accentColor),
             ),
           ),
           // Default

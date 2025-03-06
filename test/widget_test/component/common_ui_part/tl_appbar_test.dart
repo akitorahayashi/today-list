@@ -7,29 +7,6 @@ import 'package:today_list/view/component/common_ui_part/tl_animated_icon_button
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 
 void main() {
-  // モックのTLThemeConfigを作成
-  final mockThemeConfig = TLThemeConfig(
-    themeName: 'Mock Theme',
-    themeTitleInSettings: 'Mock Theme',
-    titleColorOfSettingPage: Colors.blue,
-    settingPanelColor: Colors.white,
-    backgroundColor: Colors.white,
-    gradientOfNavBar: const LinearGradient(
-      colors: [Colors.blue, Colors.lightBlue],
-    ),
-    otherAppsElevatedButtonColor: Colors.blue,
-    otherAppsPressedElevatedButtonColor: Colors.lightBlue,
-    accentColor: Colors.blue,
-    canTapCardColor: Colors.blue,
-    whiteBasedColor: Colors.white,
-    tlDoubleCardBorderColor: Colors.grey,
-    checkmarkColor: Colors.green,
-    alertBackgroundColor: Colors.red,
-    bigCategoryChipColor: Colors.amber,
-    toggleButtonsBackgroundColor: Colors.grey,
-    toggleButtonsBackgroundSplashColor: Colors.grey.shade300,
-  );
-
   testWidgets('TLAppBar renders with title', (WidgetTester tester) async {
     int leadingTapCount = 0;
     int trailingTapCount = 0;
@@ -37,7 +14,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: TLTheme(
-          data: mockThemeConfig,
+          data: TLThemeType.sunOrange.config,
           child: Builder(
             builder: (context) => Scaffold(
               appBar: TLAppBar(
@@ -86,7 +63,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: TLTheme(
-          data: mockThemeConfig,
+          data: TLThemeType.sunOrange.config,
           child: Builder(
             builder: (context) => Scaffold(
               appBar: TLAppBar(
@@ -118,7 +95,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: TLTheme(
-          data: mockThemeConfig,
+          data: TLThemeType.sunOrange.config,
           child: Builder(
             builder: (context) => Scaffold(
               appBar: TLAppBar(
@@ -156,7 +133,7 @@ void main() {
         home: DefaultTabController(
           length: 3,
           child: TLTheme(
-            data: mockThemeConfig,
+            data: TLThemeType.sunOrange.config,
             child: Builder(
               builder: (context) => Scaffold(
                 appBar: TLAppBar(

@@ -9,8 +9,8 @@ import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 import 'package:today_list/view/page/settings_page/set_features_page/panel_with_title.dart';
 import 'package:today_list/view/page/settings_page/set_features_page/set_features_page.dart';
 import 'package:today_list/view/page/settings_page/set_features_page/set_vibration_card.dart';
-import 'package:today_list/view/page/settings_page/set_features_page/theme_panel/left_side_show_selecting_panel.dart';
-import 'package:today_list/view/page/settings_page/set_features_page/theme_panel/right_side_theme_select_button.dart';
+import 'package:today_list/view/page/settings_page/set_features_page/theme_panel/show_selecting_theme_panel.dart';
+import 'package:today_list/view/page/settings_page/set_features_page/theme_panel/show_not_selecting_theme_panel.dart';
 import 'package:today_list/view/page/settings_page/set_features_page/set_todo_icon/icon_category_panel.dart';
 
 void main() {
@@ -81,8 +81,8 @@ void main() {
 
     testWidgets('LeftSideShowingSelectingPanel has correct structure',
         (WidgetTester tester) async {
-      await tester.pumpWidget(
-          buildTestableWidget(const LeftSideShowingSelectingPanel()));
+      await tester
+          .pumpWidget(buildTestableWidget(const ShowSelectingThemePanel()));
 
       expect(find.byType(Card), findsOneWidget);
       expect(find.byType(Container), findsOneWidget);
@@ -91,7 +91,7 @@ void main() {
     testWidgets('RightSideThemeSelectButton displays theme title',
         (WidgetTester tester) async {
       await tester.pumpWidget(buildTestableWidget(
-        const RightSideThemeSelectButton(
+        const ShowNotSelectingThemePanel(
           corrThemeType: TLThemeType.limeGreen,
         ),
       ));

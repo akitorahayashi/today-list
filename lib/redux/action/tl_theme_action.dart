@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 
@@ -11,4 +12,9 @@ class TLThemeAction with _$TLThemeAction {
   const factory TLThemeAction.changeTheme({
     required TLThemeType newThemeType,
   }) = ChangeThemeAction;
+
+  // テーマのアクセントカラーを変更する
+  const factory TLThemeAction.changeAccentColor({
+    required Color newAccentColor,
+  }) = ChangeAccentColorAction;
 }

@@ -4,8 +4,10 @@ import 'package:today_list/view/page/settings_page/set_features_page/panel_with_
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
 import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
-import 'theme_panel/left_side_show_selecting_panel.dart';
-import 'theme_panel/right_side_theme_select_button.dart';
+import 'theme_panel/show_selecting_theme_panel.dart'
+    show ShowSelectingThemePanel;
+import 'theme_panel/show_not_selecting_theme_panel.dart';
+import 'theme_panel/accent_color_selector.dart';
 import 'set_todo_icon/icon_category_panel.dart';
 import 'set_vibration_card.dart';
 
@@ -48,37 +50,48 @@ class SetFeaturesPage extends HookConsumerWidget {
         ),
       ),
       child: ListView(padding: EdgeInsets.zero, children: [
-        // THEME選択カード
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: PanelWithTitle(title: "THEME", contents: [
+        // テーマ選択パネル
+        PanelWithTitle(
+          title: "THEME",
+          contents: [
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Column(
                 children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const LeftSideShowingSelectingPanel(),
-                        SizedBox(
-                          height: 320,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              RightSideThemeSelectButton(
-                                  corrThemeType: unUsingThemes[0]),
-                              RightSideThemeSelectButton(
-                                  corrThemeType: unUsingThemes[1]),
-                            ],
+                  // 現在選択中のテーマを表示
+                  Container(
+                    height: 180,
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: const ShowSelectingThemePanel(),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // 他のテーマを選択するボタン - スクロール可能なリスト
+                  Container(
+                    height: 120,
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: unUsingThemes.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ShowNotSelectingThemePanel(
+                            corrThemeType: unUsingThemes[index],
                           ),
-                        ),
-                      ]),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
-          ]),
+          ],
         ),
+        const PanelWithTitle(title: "Accent Color", contents: [
+          AccentColorSelector(),
+        ]),
         const PanelWithTitle(
             title: "VIBRATION", contents: [SetVibrationCard()]),
         PanelWithTitle(

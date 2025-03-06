@@ -34,11 +34,10 @@ enum TLThemeType {
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(255, 222, 173, 1),
 
       // Basics
-      accentColor: Colors.orange,
+      defaultAccentColor: Colors.orange,
       canTapCardColor: Color.fromRGBO(235, 255, 179, 1),
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(255, 192, 97, 1),
-      checkmarkColor: Color.fromRGBO(255, 190, 86, 1),
 
       // Alert
       alertBackgroundColor: Color.fromRGBO(255, 251, 224, 1),
@@ -98,11 +97,10 @@ enum TLThemeType {
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(195, 243, 176, 1),
 
       // Basics
-      accentColor: Colors.lightGreen,
+      defaultAccentColor: Colors.lightGreen,
       canTapCardColor: Color.fromRGBO(255, 253, 184, 1),
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(225, 163, 102, 1),
-      checkmarkColor: Color.fromRGBO(123, 212, 28, 1),
 
       // Alert
       alertBackgroundColor: Color.fromRGBO(255, 255, 209, 1),
@@ -141,11 +139,10 @@ enum TLThemeType {
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(163, 231, 239, 1),
 
       // Basics
-      accentColor: Colors.cyan,
+      defaultAccentColor: Colors.cyan,
       canTapCardColor: Color.fromRGBO(214, 252, 255, 1),
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(129, 221, 234, 1),
-      checkmarkColor: Color.fromRGBO(66, 183, 255, 1),
 
       // Alert
       alertBackgroundColor: Color.fromRGBO(240, 248, 255, 1),
@@ -156,6 +153,177 @@ enum TLThemeType {
       // Edit Page
       toggleButtonsBackgroundColor: Colors.lightBlue,
       toggleButtonsBackgroundSplashColor: Colors.lightBlue,
+    ),
+  ),
+
+  @JsonValue("monochrome")
+  monochrome(
+    TLThemeConfig(
+      // Theme Name
+      themeName: "Monochrome",
+      themeTitleInSettings: "Mono\nchrome",
+
+      // Settings Page
+      titleColorOfSettingPage: Color.fromRGBO(50, 50, 50, 1),
+      settingPanelColor: Color.fromRGBO(240, 240, 240, 1),
+
+      // Home Page
+      backgroundColor: Color.fromRGBO(248, 248, 248, 1),
+
+      // Navigation Bar
+      gradientOfNavBar: LinearGradient(colors: [
+        Color.fromRGBO(70, 70, 70, 1),
+        Color.fromRGBO(40, 40, 40, 1),
+      ]),
+
+      // Other Apps
+      otherAppsElevatedButtonColor: Color.fromRGBO(80, 80, 80, 1),
+      otherAppsPressedElevatedButtonColor: Color.fromRGBO(120, 120, 120, 1),
+
+      // Basics
+      defaultAccentColor: Colors.grey,
+      canTapCardColor: Color.fromRGBO(245, 245, 245, 1),
+      whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
+      tlDoubleCardBorderColor: Color.fromRGBO(200, 200, 200, 1),
+
+      // Alert
+      alertBackgroundColor: Color.fromRGBO(240, 240, 240, 1),
+
+      // Category List
+      bigCategoryChipColor: Color.fromRGBO(80, 80, 80, 1),
+
+      // Edit Page
+      toggleButtonsBackgroundColor: Color.fromRGBO(220, 220, 220, 0.5),
+      toggleButtonsBackgroundSplashColor: Color.fromRGBO(180, 180, 180, 0.5),
+    ),
+  ),
+
+  @JsonValue("cherryBlossom")
+  cherryBlossom(
+    TLThemeConfig(
+      // Theme Name
+      themeName: "Cherry Blossom",
+      themeTitleInSettings: "Cherry\nBlossom",
+
+      // Settings Page
+      titleColorOfSettingPage: Color.fromRGBO(219, 112, 147, 1),
+      settingPanelColor: Color.fromRGBO(255, 240, 245, 1),
+
+      // Home Page
+      backgroundColor: Color.fromRGBO(253, 245, 247, 1),
+
+      // Navigation Bar
+      gradientOfNavBar: LinearGradient(colors: [
+        Color.fromRGBO(255, 182, 193, 1),
+        Color.fromRGBO(255, 192, 203, 1),
+      ]),
+
+      // Other Apps
+      otherAppsElevatedButtonColor: Color.fromRGBO(255, 182, 193, 1),
+      otherAppsPressedElevatedButtonColor: Color.fromRGBO(255, 218, 224, 1),
+
+      // Basics
+      defaultAccentColor: Colors.pink,
+      canTapCardColor: Color.fromRGBO(255, 245, 250, 1),
+      whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
+      tlDoubleCardBorderColor: Color.fromRGBO(255, 192, 203, 1),
+
+      // Alert
+      alertBackgroundColor: Color.fromRGBO(255, 240, 245, 1),
+
+      // Category List
+      bigCategoryChipColor: Color.fromRGBO(255, 182, 193, 1),
+
+      // Edit Page
+      toggleButtonsBackgroundColor: Color.fromRGBO(255, 228, 225, 0.5),
+      toggleButtonsBackgroundSplashColor: Color.fromRGBO(255, 218, 224, 0.5),
+    ),
+  ),
+
+  @JsonValue("urbanNight")
+  urbanNight(
+    TLThemeConfig(
+      // Theme Name
+      themeName: "Urban Night",
+      themeTitleInSettings: "Urban\nNight",
+
+      // Settings Page
+      titleColorOfSettingPage: Color.fromRGBO(156, 220, 254, 1), // VSCode blue
+      settingPanelColor:
+          Color.fromRGBO(37, 37, 38, 1), // VSCode Dark+ background
+
+      // Home Page
+      backgroundColor: Color.fromRGBO(30, 30, 30, 1), // VSCode Dark+ background
+
+      // Navigation Bar
+      gradientOfNavBar: LinearGradient(colors: [
+        Color.fromRGBO(33, 33, 33, 1), // Dark gray
+        Color.fromRGBO(15, 15, 15, 1), // Darker gray
+      ]),
+
+      // Other Apps
+      otherAppsElevatedButtonColor: Color.fromRGBO(68, 68, 68, 1),
+      otherAppsPressedElevatedButtonColor: Color.fromRGBO(51, 51, 51, 1),
+
+      // Basics
+      defaultAccentColor: Colors.blue,
+      canTapCardColor: Color.fromRGBO(45, 45, 45, 1),
+      whiteBasedColor: Color.fromRGBO(204, 204, 204, 1), // VSCode text color
+      tlDoubleCardBorderColor: Color.fromRGBO(85, 85, 85, 1),
+
+      // Alert
+      alertBackgroundColor: Color.fromRGBO(37, 37, 38, 1),
+
+      // Category List
+      bigCategoryChipColor: Color.fromRGBO(78, 120, 160, 1), // Muted blue
+
+      // Edit Page
+      toggleButtonsBackgroundColor: Color.fromRGBO(78, 120, 160, 0.3),
+      toggleButtonsBackgroundSplashColor: Color.fromRGBO(78, 120, 160, 0.5),
+    ),
+  ),
+
+  @JsonValue("patisserie")
+  patisserie(
+    TLThemeConfig(
+      // Theme Name
+      themeName: "Patisserie",
+      themeTitleInSettings: "Patis\nserie",
+
+      // Settings Page
+      titleColorOfSettingPage:
+          Color.fromRGBO(165, 117, 98, 1), // Chocolate brown
+      settingPanelColor: Color.fromRGBO(252, 250, 242, 1), // Cream color
+
+      // Home Page
+      backgroundColor: Color.fromRGBO(255, 252, 245, 1), // Light cream
+
+      // Navigation Bar
+      gradientOfNavBar: LinearGradient(colors: [
+        Color.fromRGBO(255, 223, 186, 1), // Light peach
+        Color.fromRGBO(255, 236, 210, 1), // Lighter peach
+      ]),
+
+      // Other Apps
+      otherAppsElevatedButtonColor:
+          Color.fromRGBO(255, 213, 158, 1), // Soft orange
+      otherAppsPressedElevatedButtonColor: Color.fromRGBO(255, 228, 196, 1),
+
+      // Basics
+      defaultAccentColor: Colors.amber,
+      canTapCardColor: Color.fromRGBO(255, 248, 225, 1), // Very light yellow
+      whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
+      tlDoubleCardBorderColor: Color.fromRGBO(255, 213, 158, 1), // Soft orange
+
+      // Alert
+      alertBackgroundColor: Color.fromRGBO(255, 248, 225, 1),
+
+      // Category List
+      bigCategoryChipColor: Color.fromRGBO(255, 213, 158, 1), // Soft orange
+
+      // Edit Page
+      toggleButtonsBackgroundColor: Color.fromRGBO(255, 228, 196, 0.5),
+      toggleButtonsBackgroundSplashColor: Color.fromRGBO(255, 213, 158, 0.5),
     ),
   );
 

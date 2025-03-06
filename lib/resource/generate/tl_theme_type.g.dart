@@ -10,4 +10,8 @@ const _$TLThemeTypeEnumMap = {
   TLThemeType.sunOrange: 'sunOrange',
   TLThemeType.limeGreen: 'limeGreen',
   TLThemeType.marineBlue: 'marineBlue',
+  TLThemeType.monochrome: 'monochrome',
+  TLThemeType.cherryBlossom: 'cherryBlossom',
+  TLThemeType.urbanNight: 'urbanNight',
+  TLThemeType.patisserie: 'patisserie',
 };

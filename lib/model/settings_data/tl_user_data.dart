@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/material.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 
@@ -20,6 +21,8 @@ class TLUserData with _$TLUserData {
       "Default": ["Box", "Circle"]
     })
     Map<String, List<String>> earnedCheckBoxIcons,
+    // カスタムアクセントカラー (null の場合はデフォルトのアクセントカラーを使用)
+    int? customAccentColorValue,
   }) = _TLUserData;
 
   factory TLUserData.fromJson(Map<String, dynamic> json) =>

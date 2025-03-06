@@ -163,7 +163,7 @@ class IconCard extends HookConsumerWidget {
     final Color textColor = (!isEarned && !kNotToShowAd)
         ? Colors.black54
         : isCurrentIcon
-            ? themeConfig.checkmarkColor
+            ? themeConfig.accentColor
             : Colors.black45;
 
     return Expanded(

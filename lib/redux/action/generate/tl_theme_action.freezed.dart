@@ -16,44 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TLThemeAction {
-  TLThemeType get newThemeType => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(TLThemeType newThemeType) changeTheme,
+    required TResult Function(Color newAccentColor) changeAccentColor,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(TLThemeType newThemeType)? changeTheme,
+    TResult? Function(Color newAccentColor)? changeAccentColor,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(TLThemeType newThemeType)? changeTheme,
+    TResult Function(Color newAccentColor)? changeAccentColor,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ChangeThemeAction value) changeTheme,
+    required TResult Function(ChangeAccentColorAction value) changeAccentColor,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeThemeAction value)? changeTheme,
+    TResult? Function(ChangeAccentColorAction value)? changeAccentColor,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeThemeAction value)? changeTheme,
+    TResult Function(ChangeAccentColorAction value)? changeAccentColor,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  /// Create a copy of TLThemeAction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $TLThemeActionCopyWith<TLThemeAction> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -62,8 +61,6 @@ abstract class $TLThemeActionCopyWith<$Res> {
   factory $TLThemeActionCopyWith(
           TLThemeAction value, $Res Function(TLThemeAction) then) =
       _$TLThemeActionCopyWithImpl<$Res, TLThemeAction>;
-  @useResult
-  $Res call({TLThemeType newThemeType});
 }
 
 /// @nodoc
@@ -78,27 +75,13 @@ class _$TLThemeActionCopyWithImpl<$Res, $Val extends TLThemeAction>
 
   /// Create a copy of TLThemeAction
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? newThemeType = null,
-  }) {
-    return _then(_value.copyWith(
-      newThemeType: null == newThemeType
-          ? _value.newThemeType
-          : newThemeType // ignore: cast_nullable_to_non_nullable
-              as TLThemeType,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$ChangeThemeActionImplCopyWith<$Res>
-    implements $TLThemeActionCopyWith<$Res> {
+abstract class _$$ChangeThemeActionImplCopyWith<$Res> {
   factory _$$ChangeThemeActionImplCopyWith(_$ChangeThemeActionImpl value,
           $Res Function(_$ChangeThemeActionImpl) then) =
       __$$ChangeThemeActionImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({TLThemeType newThemeType});
 }
@@ -165,6 +148,7 @@ class _$ChangeThemeActionImpl implements ChangeThemeAction {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(TLThemeType newThemeType) changeTheme,
+    required TResult Function(Color newAccentColor) changeAccentColor,
   }) {
     return changeTheme(newThemeType);
   }
@@ -173,6 +157,7 @@ class _$ChangeThemeActionImpl implements ChangeThemeAction {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(TLThemeType newThemeType)? changeTheme,
+    TResult? Function(Color newAccentColor)? changeAccentColor,
   }) {
     return changeTheme?.call(newThemeType);
   }
@@ -181,6 +166,7 @@ class _$ChangeThemeActionImpl implements ChangeThemeAction {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(TLThemeType newThemeType)? changeTheme,
+    TResult Function(Color newAccentColor)? changeAccentColor,
     required TResult orElse(),
   }) {
     if (changeTheme != null) {
@@ -193,6 +179,7 @@ class _$ChangeThemeActionImpl implements ChangeThemeAction {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ChangeThemeAction value) changeTheme,
+    required TResult Function(ChangeAccentColorAction value) changeAccentColor,
   }) {
     return changeTheme(this);
   }
@@ -201,6 +188,7 @@ class _$ChangeThemeActionImpl implements ChangeThemeAction {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeThemeAction value)? changeTheme,
+    TResult? Function(ChangeAccentColorAction value)? changeAccentColor,
   }) {
     return changeTheme?.call(this);
   }
@@ -209,6 +197,7 @@ class _$ChangeThemeActionImpl implements ChangeThemeAction {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeThemeAction value)? changeTheme,
+    TResult Function(ChangeAccentColorAction value)? changeAccentColor,
     required TResult orElse(),
   }) {
     if (changeTheme != null) {
@@ -222,13 +211,156 @@ abstract class ChangeThemeAction implements TLThemeAction {
   const factory ChangeThemeAction({required final TLThemeType newThemeType}) =
       _$ChangeThemeActionImpl;
 
-  @override
   TLThemeType get newThemeType;
 
   /// Create a copy of TLThemeAction
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChangeThemeActionImplCopyWith<_$ChangeThemeActionImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ChangeAccentColorActionImplCopyWith<$Res> {
+  factory _$$ChangeAccentColorActionImplCopyWith(
+          _$ChangeAccentColorActionImpl value,
+          $Res Function(_$ChangeAccentColorActionImpl) then) =
+      __$$ChangeAccentColorActionImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Color newAccentColor});
+}
+
+/// @nodoc
+class __$$ChangeAccentColorActionImplCopyWithImpl<$Res>
+    extends _$TLThemeActionCopyWithImpl<$Res, _$ChangeAccentColorActionImpl>
+    implements _$$ChangeAccentColorActionImplCopyWith<$Res> {
+  __$$ChangeAccentColorActionImplCopyWithImpl(
+      _$ChangeAccentColorActionImpl _value,
+      $Res Function(_$ChangeAccentColorActionImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TLThemeAction
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? newAccentColor = null,
+  }) {
+    return _then(_$ChangeAccentColorActionImpl(
+      newAccentColor: null == newAccentColor
+          ? _value.newAccentColor
+          : newAccentColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ChangeAccentColorActionImpl implements ChangeAccentColorAction {
+  const _$ChangeAccentColorActionImpl({required this.newAccentColor});
+
+  @override
+  final Color newAccentColor;
+
+  @override
+  String toString() {
+    return 'TLThemeAction.changeAccentColor(newAccentColor: $newAccentColor)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ChangeAccentColorActionImpl &&
+            (identical(other.newAccentColor, newAccentColor) ||
+                other.newAccentColor == newAccentColor));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, newAccentColor);
+
+  /// Create a copy of TLThemeAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ChangeAccentColorActionImplCopyWith<_$ChangeAccentColorActionImpl>
+      get copyWith => __$$ChangeAccentColorActionImplCopyWithImpl<
+          _$ChangeAccentColorActionImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(TLThemeType newThemeType) changeTheme,
+    required TResult Function(Color newAccentColor) changeAccentColor,
+  }) {
+    return changeAccentColor(newAccentColor);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(TLThemeType newThemeType)? changeTheme,
+    TResult? Function(Color newAccentColor)? changeAccentColor,
+  }) {
+    return changeAccentColor?.call(newAccentColor);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(TLThemeType newThemeType)? changeTheme,
+    TResult Function(Color newAccentColor)? changeAccentColor,
+    required TResult orElse(),
+  }) {
+    if (changeAccentColor != null) {
+      return changeAccentColor(newAccentColor);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ChangeThemeAction value) changeTheme,
+    required TResult Function(ChangeAccentColorAction value) changeAccentColor,
+  }) {
+    return changeAccentColor(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ChangeThemeAction value)? changeTheme,
+    TResult? Function(ChangeAccentColorAction value)? changeAccentColor,
+  }) {
+    return changeAccentColor?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ChangeThemeAction value)? changeTheme,
+    TResult Function(ChangeAccentColorAction value)? changeAccentColor,
+    required TResult orElse(),
+  }) {
+    if (changeAccentColor != null) {
+      return changeAccentColor(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ChangeAccentColorAction implements TLThemeAction {
+  const factory ChangeAccentColorAction({required final Color newAccentColor}) =
+      _$ChangeAccentColorActionImpl;
+
+  Color get newAccentColor;
+
+  /// Create a copy of TLThemeAction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ChangeAccentColorActionImplCopyWith<_$ChangeAccentColorActionImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
