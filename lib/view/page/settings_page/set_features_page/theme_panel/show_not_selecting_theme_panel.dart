@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:today_list/redux/action/tl_theme_action.dart';
 import 'package:today_list/redux/action/tl_user_data_action.dart';
 import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/view/component/dialog/app_icon/tl_theme_changed_dialog.dart';
 import 'package:today_list/view/component/dialog/change_theme_dialog.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 
 class ShowNotSelectingThemePanel extends ConsumerStatefulWidget {
   final TLThemeType corrThemeType;
@@ -48,12 +48,9 @@ class _RightSideThemeSelectButtonState
           await ref.read(tlAppStateProvider.notifier).updateState(
               TLUserDataAction.updateCurrentAppIconName(
                   newThemeName: corrThemeType.config.themeName));
-
-          // 変更完了ダイアログを表示
           if (context.mounted) {
-            await TLThemeChangedDialog(
-              themeConfig: corrThemeType.config,
-              iconName: corrThemeType.config.themeName,
+            const TLSingleOptionDialog(
+              title: "Theme Changed",
             ).show(context: context);
           }
         }
