@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/tl_workspace_action.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/flux/action/workspace_action.dart';
+import 'package:today_list/flux/dispatcher/workspace_dispatcher.dart';
+import 'package:today_list/flux/store/workspace_store.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/styles.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
@@ -22,8 +23,6 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
-    final tlAppState = ref.watch(tlAppStateProvider);
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
 
     return TLDialog(
       corrThemeConfig: tlThemeConfig,
@@ -66,8 +65,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
-              child: _buildActionButtons(
-                  context, ref, tlAppState, tlAppStateReducer, tlThemeConfig),
+              child: _buildActionButtons(context, ref, tlThemeConfig),
             ),
           ],
         ),
@@ -76,8 +74,8 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   }
 
   // MARK - Build Action Buttons
-  Widget _buildActionButtons(BuildContext context, WidgetRef ref,
-      var tlAppState, var tlAppStateReducer, TLThemeConfig tlThemeData) {
+  Widget _buildActionButtons(
+      BuildContext context, WidgetRef ref, TLThemeConfig tlThemeData) {
     // willDeletedWorkspace を削除
     return OverflowBar(
       alignment: MainAxisAlignment.spaceEvenly,
@@ -92,7 +90,7 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
         TextButton(
           style: alertButtonStyle(accentColor: tlThemeData.accentColor),
           onPressed: () async {
-            _handleDeleteWorkspace(context, ref, tlAppStateReducer);
+            _handleDeleteWorkspace(context, ref);
           },
           child: const Text("Delete"),
         ),
@@ -101,11 +99,12 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   }
 
   // MARK - Handle Workspace Deletion
-  void _handleDeleteWorkspace(BuildContext context, WidgetRef ref,
-      TLAppStateController tlAppStateController) {
+  void _handleDeleteWorkspace(BuildContext context, WidgetRef ref) async {
     // Remove workspace
-    tlAppStateController
-        .updateState(TLWorkspaceAction.deleteWorkspace(willDeletedWorkspace));
+    await WorkspaceDispatcher.dispatch(
+      ref,
+      WorkspaceAction.deleteWorkspace(willDeletedWorkspace.id),
+    );
 
     // Close this dialog and show success notification
     Navigator.pop(context);

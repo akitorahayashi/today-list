@@ -6,9 +6,18 @@ import './app.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:uni_links/uni_links.dart';
+import 'dart:async';
 
 bool kAdTestMode = true;
 bool kNotToShowAd = true;
+
+// URLスキームからのパラメータを保持するグローバル変数
+// 後方互換性のために残しておく
+String? initialWorkspaceId;
+
+// 実行中のURLスキームリンクを処理するためのストリームサブスクリプション
+StreamSubscription? _linkSubscription;
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +25,41 @@ void main() async {
   await dotenv.load(fileName: ".env");
   await TLAds.initializeTLAds();
   await TLVibrationService.initVibrate();
-  // await TLConnectivityService.initializeConnectivity();
+
+  // URLスキームからの起動を処理
+  try {
+    // 初期リンクの取得（GoRouterが処理するため、ここでは値の保存のみ）
+    final initialLink = await getInitialLink();
+    if (initialLink != null) {
+      final uri = Uri.parse(initialLink);
+      if (uri.scheme == 'todaylist' &&
+          uri.host == 'workspace' &&
+          uri.queryParameters.containsKey('id')) {
+        initialWorkspaceId = uri.queryParameters['id'];
+      }
+    }
+
+    // アプリ実行中のリンク処理のためのリスナーを設定
+    // GoRouterがリダイレクトを処理するため、ここでは値の保存のみ
+    _linkSubscription = linkStream.listen((String? link) {
+      if (link != null) {
+        final uri = Uri.parse(link);
+        if (uri.scheme == 'todaylist' &&
+            uri.host == 'workspace' &&
+            uri.queryParameters.containsKey('id')) {
+          initialWorkspaceId = uri.queryParameters['id'];
+        }
+      }
+    }, onError: (err) {
+      // エラー処理
+      print('Error handling link stream: $err');
+    });
+  } catch (e) {
+    // エラー処理
+    print('Error handling initial link: $e');
+  }
+
+  // アプリの起動
   runApp(const ProviderScope(
     child: TodayListApp(),
   ));

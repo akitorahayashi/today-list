@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/settings_data/tl_user_data.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/resource/tl_theme_type.dart';
-import 'view/page/home_page/home_page.dart';
+import 'package:today_list/flux/store/theme_store.dart';
+import 'package:today_list/flux/store/user_data_store.dart';
+import 'package:today_list/router/app_router.dart';
+import 'package:today_list/view/component/common_ui_part/tl_loading_indicator.dart';
 import 'model/design/tl_theme.dart';
 import 'model/design/tl_theme_config.dart';
 
@@ -12,39 +12,67 @@ class TodayListApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLThemeType selectedThemeType = ref
-        .watch(tlAppStateProvider.select((state) => state.selectedThemeType));
+    final themeAsync = ref.watch(themeProvider);
+    final userDataAsync = ref.watch(userDataProvider);
+    final router = ref.watch(routerProvider);
 
-    // ユーザーデータからカスタムアクセントカラーを取得
-    final TLUserData userData =
-        ref.watch(tlAppStateProvider.select((state) => state.tlUserData));
+    return themeAsync.when(
+      data: (selectedThemeType) {
+        return userDataAsync.when(
+          data: (userData) {
+            // カスタムアクセントカラーがある場合は適用
+            TLThemeConfig themeConfig = selectedThemeType.config;
+            if (userData.customAccentColorValue != null) {
+              final customAccentColor = Color(userData.customAccentColorValue!);
+              themeConfig =
+                  themeConfig.copyWithCustomAccentColor(customAccentColor);
+            }
 
-    // カスタムアクセントカラーがある場合は適用
-    TLThemeConfig themeConfig = selectedThemeType.config;
-    if (userData.customAccentColorValue != null) {
-      final customAccentColor = Color(userData.customAccentColorValue!);
-      themeConfig = themeConfig.copyWithCustomAccentColor(customAccentColor);
-    }
-
-    // final Brightness brightness = MediaQuery.of(context).platformBrightness;
-    // final bool isDarkMode = brightness == Brightness.dark;
-
-    return AnimatedTLTheme(
-      data: themeConfig,
-      duration: const Duration(milliseconds: 300),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "Today List",
-        theme: ThemeData(
-          useMaterial3: true,
-          primaryColor: themeConfig.accentColor,
-          colorScheme: ColorScheme.fromSeed(
-            primary: themeConfig.accentColor,
-            seedColor: themeConfig.accentColor,
+            return AnimatedTLTheme(
+              data: themeConfig,
+              duration: const Duration(milliseconds: 300),
+              child: MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                title: "Today List",
+                theme: ThemeData(
+                  useMaterial3: true,
+                  primaryColor: themeConfig.accentColor,
+                  colorScheme: ColorScheme.fromSeed(
+                    primary: themeConfig.accentColor,
+                    seedColor: themeConfig.accentColor,
+                  ),
+                  splashFactory: NoSplash.splashFactory,
+                ),
+                routerConfig: router,
+              ),
+            );
+          },
+          loading: () => const Scaffold(
+            body: TLLoadingIndicator(),
           ),
-          splashFactory: NoSplash.splashFactory,
+          error: (error, stackTrace) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              body: Center(
+                child: Text('ユーザーデータの読み込みに失敗しました: $error'),
+              ),
+            ),
+          ),
+        );
+      },
+      loading: () => const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: TLLoadingIndicator(),
         ),
-        home: HomePage(),
+      ),
+      error: (error, stackTrace) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          body: Center(
+            child: Text('テーマの読み込みに失敗しました: $error'),
+          ),
+        ),
       ),
     );
   }

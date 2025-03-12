@@ -6,8 +6,9 @@ import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_works
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
-import 'package:today_list/redux/action/tl_workspace_action.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/flux/store/workspace_store.dart';
+import 'package:today_list/flux/action/workspace_action.dart';
+import 'package:today_list/flux/dispatcher/workspace_dispatcher.dart';
 import 'change_workspace_card.dart';
 
 class TLWorkspaceDrawer extends ConsumerWidget {
@@ -16,9 +17,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
-
-    final workspaces =
-        ref.watch(tlAppStateProvider.select((state) => state.tlWorkspaces));
+    final workspacesAsync = ref.watch(workspacesProvider);
 
     return Drawer(
       child: Stack(
@@ -36,56 +35,64 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                   trailingIconData: null,
                 ),
               Expanded(
-                  child: ListView(
-                padding: const EdgeInsets.only(bottom: 200),
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 12.0, left: 3.0, right: 3.0),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: tlThemeConfig.tlDoubleCardBorderColor,
-                      ),
-                      child: Card(
-                        color: tlThemeConfig.whiteBasedColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 5.0, bottom: 3.0),
-                          child: SingleChildScrollView(
-                            // スクロール可能にする
-                            child: Column(
-                              children: [
-                                ReorderableColumn(
+                child: workspacesAsync.when(
+                  data: (workspaces) => ListView(
+                    padding: const EdgeInsets.only(bottom: 200),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 12.0, left: 3.0, right: 3.0),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: tlThemeConfig.tlDoubleCardBorderColor,
+                          ),
+                          child: Card(
+                            color: tlThemeConfig.whiteBasedColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 5.0, bottom: 3.0),
+                              child: SingleChildScrollView(
+                                // スクロール可能にする
+                                child: Column(
                                   children: [
-                                    for (var workspace in workspaces)
-                                      ChangeWorkspaceCard(
-                                        key: ValueKey(workspace.id),
-                                        corrWorkspace: workspace,
-                                      ),
-                                  ],
-                                  onReorder: (oldIndex, newIndex) {
-                                    ref
-                                        .read(tlAppStateProvider.notifier)
-                                        .updateState(
-                                          TLWorkspaceAction.reorderWorkspace(
+                                    ReorderableColumn(
+                                      children: [
+                                        for (var workspace in workspaces)
+                                          WorkspaceCard(
+                                            key: ValueKey(workspace.id),
+                                            corrWorkspace: workspace,
+                                          ),
+                                      ],
+                                      onReorder: (oldIndex, newIndex) {
+                                        WorkspaceDispatcher.dispatch(
+                                          ref,
+                                          WorkspaceAction.reorderWorkspace(
                                             oldIndex: oldIndex,
                                             newIndex: newIndex,
                                           ),
                                         );
-                                  },
+                                      },
+                                    ),
+                                    const _AddWorkspaceButton(),
+                                  ],
                                 ),
-                                const _AddWorkspaceButton(),
-                              ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              )),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (error, stackTrace) => Center(
+                    child: Text('エラーが発生しました: $error'),
+                  ),
+                ),
+              ),
             ],
           ),
         ],

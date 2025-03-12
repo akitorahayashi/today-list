@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,9 +8,10 @@ import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/view/component/common_ui_part/tl_animated_icon_button.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/redux/action/tl_app_state_action.dart';
-import 'package:today_list/redux/action/tl_workspace_action.dart';
+import 'package:today_list/flux/store/workspace_store.dart';
+import 'package:today_list/flux/store/current_workspace_store.dart';
+import 'package:today_list/flux/action/todo_action.dart';
+import 'package:today_list/flux/dispatcher/todo_dispatcher.dart';
 
 /// ホーム画面のボトムナビゲーションバー
 class TLHomeBottomNavBar extends HookConsumerWidget {
@@ -49,10 +52,13 @@ class TLHomeBottomNavBar extends HookConsumerWidget {
     }, [isKeyboardVisible]);
 
     final tlThemeConfig = TLTheme.of(context);
-    final tlAppState = ref.watch(tlAppStateProvider);
+    final workspacesAsync = ref.watch(workspacesProvider);
+    final currentWorkspaceIdAsync = ref.watch(currentWorkspaceIdProvider);
 
-    final bool doesCurrentWorkspaceExist =
-        tlAppState.currentWorkspaceID != null;
+    final bool doesCurrentWorkspaceExist = currentWorkspaceIdAsync.maybeWhen(
+      data: (id) => id != null,
+      orElse: () => false,
+    );
     const double centerButtonSize = 48;
     const double bottomNavBarHeight = 65;
 
@@ -114,8 +120,8 @@ class TLHomeBottomNavBar extends HookConsumerWidget {
   // MARK: - 削除ボタン押下時の処理
   void _onLeadingButtonPressed(
       BuildContext context, WidgetRef ref, bool doesCurrentWorkspaceExist) {
-    final tlAppState = ref.read(tlAppStateProvider);
-    final currentWorkspaceID = tlAppState.currentWorkspaceID;
+    final workspacesAsync = ref.read(workspacesProvider);
+    final currentWorkspaceIdAsync = ref.read(currentWorkspaceIdProvider);
 
     TLYesNoDialog(
       title: "Do you want to delete\nchecked ToDos?",
@@ -123,17 +129,37 @@ class TLHomeBottomNavBar extends HookConsumerWidget {
       yesAction: () async {
         Navigator.pop(context);
 
-        if (doesCurrentWorkspaceExist && currentWorkspaceID != null) {
-          ref.read(tlAppStateProvider.notifier).updateState(
-                TLWorkspaceAction.deleteAllCheckedToDosInWorkspace(tlAppState
-                    .tlWorkspaces
-                    .firstWhere((ws) => ws.id == currentWorkspaceID)),
-              );
+        if (doesCurrentWorkspaceExist) {
+          currentWorkspaceIdAsync.whenData((currentWorkspaceId) {
+            if (currentWorkspaceId != null) {
+              workspacesAsync.whenData((workspaces) {
+                final currentWorkspace = workspaces.firstWhere(
+                  (workspace) => workspace.id == currentWorkspaceId,
+                  orElse: () => workspaces.first,
+                );
+
+                TodoDispatcher.dispatch(
+                  ref,
+                  TodoAction.deleteAllCheckedTodos(
+                    workspace: currentWorkspace,
+                    ifInToday: true,
+                  ),
+                );
+              });
+            }
+          });
         } else {
-          ref.read(tlAppStateProvider.notifier).updateState(
-                TLAppStateAction.deleteAllCheckedToDosInTodayInWorkspaceList(
-                    tlAppState.tlWorkspaces),
+          workspacesAsync.whenData((workspaces) {
+            for (final workspace in workspaces) {
+              TodoDispatcher.dispatch(
+                ref,
+                TodoAction.deleteAllCheckedTodos(
+                  workspace: workspace,
+                  ifInToday: true,
+                ),
               );
+            }
+          });
         }
 
         if (context.mounted) {

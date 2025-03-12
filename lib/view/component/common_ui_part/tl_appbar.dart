@@ -45,8 +45,8 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              tlThemeConfig.gradientOfNavBar.colors[0].withOpacity(0.7),
-              tlThemeConfig.gradientOfNavBar.colors[1].withOpacity(0.7),
+              tlThemeConfig.gradientOfNavBar.colors[0].withValues(alpha: 0.7),
+              tlThemeConfig.gradientOfNavBar.colors[1].withValues(alpha: 0.7),
             ],
           )
         : tlThemeConfig.gradientOfNavBar;

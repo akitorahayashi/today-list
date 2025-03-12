@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/flux/store/workspace_store.dart';
 import 'package:today_list/view/component/dialog/for_workspace/add_or_edit_workspace_dialog.dart';
 import 'package:today_list/view/component/dialog/for_workspace/delete_workspace_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
@@ -22,6 +22,8 @@ class SelectEditWorkspaceMethodDialog extends ConsumerWidget
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig tlThemeData = TLTheme.of(context);
+    final workspacesAsync = ref.watch(workspacesProvider);
+
     // notifier
     return TLDialog(
       corrThemeConfig: tlThemeData,
@@ -62,7 +64,8 @@ class SelectEditWorkspaceMethodDialog extends ConsumerWidget
                 child: SimpleDialogOption(
                   onPressed: () async {
                     Navigator.pop(context);
-                    AddOrEditWorkspaceDialog(oldWorkspaceId: corrWorkspace.id)
+                    await AddOrEditWorkspaceDialog(
+                            oldWorkspaceId: corrWorkspace.id)
                         .show(context: context);
                   },
                   child: Text(
@@ -77,30 +80,38 @@ class SelectEditWorkspaceMethodDialog extends ConsumerWidget
             ],
           ),
           // MARK: - Delete
-          if (!isCurrentWorkspace ||
-              ref.read(tlAppStateProvider).tlWorkspaces.length > 1)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: SimpleDialogOption(
-                    onPressed: () async {
-                      Navigator.pop(context);
-                      DeleteWorkspaceDialog(
-                        willDeletedWorkspace: corrWorkspace,
-                      ).show(context: context);
-                    },
-                    child: Text(
-                      "Delete",
-                      style: TextStyle(
-                          color: tlThemeData.accentColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+          workspacesAsync.when(
+            data: (workspaces) {
+              if (!isCurrentWorkspace || workspaces.length > 1) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: SimpleDialogOption(
+                        onPressed: () async {
+                          Navigator.pop(context);
+                          await DeleteWorkspaceDialog(
+                            willDeletedWorkspace: corrWorkspace,
+                          ).show(context: context);
+                        },
+                        child: Text(
+                          "Delete",
+                          style: TextStyle(
+                              color: tlThemeData.accentColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            ),
+                  ],
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+            loading: () => const CircularProgressIndicator(),
+            error: (_, __) => const Text('Error loading workspaces'),
+          ),
           // 閉じるボタン
           Padding(
             padding: const EdgeInsets.only(top: 10, right: 20),

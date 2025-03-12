@@ -4,8 +4,8 @@ import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/tl_todo_action.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/flux/action/todo_action.dart';
+import 'package:today_list/flux/dispatcher/todo_dispatcher.dart';
 
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:today_list/view/component/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
@@ -47,12 +47,15 @@ class SlidableForToDoCard extends ConsumerWidget {
             backgroundColor: cardColor,
             foregroundColor: iconColor,
             onPressed: (context) {
-              ref
-                  .read(tlAppStateProvider.notifier)
-                  .updateState(TLToDoAction.toggleToDoTodayWhenever(
-                    corrWorkspace: corrWorkspace,
-                    corrToDo: corrToDo,
-                  ));
+              // Fluxパターンを使用してToDoの今日/いつかを切り替える
+              TodoDispatcher.dispatch(
+                ref,
+                TodoAction.toggleTodoTodayWhenever(
+                  workspace: corrWorkspace,
+                  todo: corrToDo,
+                ),
+              );
+
               NotifyTodoOrStepIsEditedSnackBar.show(
                 context: context,
                 newTitle: corrToDo.content,

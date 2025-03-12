@@ -7,9 +7,9 @@ import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/tl_app_state_action.dart';
-import 'package:today_list/redux/action/tl_workspace_action.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/flux/action/workspace_action.dart';
+import 'package:today_list/flux/dispatcher/workspace_dispatcher.dart';
+import 'package:today_list/flux/store/workspace_store.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/styles.dart';
 import 'package:today_list/util/tl_uuid_generator.dart';
@@ -46,10 +46,9 @@ class _AddOrEditWorkspaceDialogState
   // MARK: - Initialization
   void _initializeWorkspaceName() {
     if (widget.oldWorkspaceId == null) return;
-    Future.microtask(() {
-      final List<TLWorkspace> workspaces =
-          ref.read(tlAppStateProvider).tlWorkspaces;
-      final workspace = workspaces.firstWhere(
+    Future.microtask(() async {
+      final workspacesAsync = await ref.read(workspacesProvider.future);
+      final workspace = workspacesAsync.firstWhere(
         (ws) => ws.id == widget.oldWorkspaceId,
         orElse: () => throw Exception(
             "Workspace ID: ${widget.oldWorkspaceId} not found."),
@@ -62,9 +61,7 @@ class _AddOrEditWorkspaceDialogState
   @override
   Widget build(BuildContext context) {
     final TLThemeConfig themeConfig = TLTheme.of(context);
-    final List<TLWorkspace> workspaces = ref.watch(
-      tlAppStateProvider.select((state) => state.tlWorkspaces),
-    );
+    final workspacesAsync = ref.watch(workspacesProvider);
 
     return TLDialog(
       corrThemeConfig: themeConfig,
@@ -79,7 +76,12 @@ class _AddOrEditWorkspaceDialogState
             padding: const EdgeInsets.only(bottom: 28.0),
             child: _buildWorkspaceTextField(themeConfig),
           ),
-          _buildActionButtons(context, themeConfig, workspaces),
+          workspacesAsync.when(
+            data: (workspaces) =>
+                _buildActionButtons(context, themeConfig, workspaces),
+            loading: () => const CircularProgressIndicator(),
+            error: (_, __) => Text('Error loading workspaces'),
+          ),
           const SizedBox(height: 16),
         ],
       ),
@@ -173,8 +175,6 @@ class _AddOrEditWorkspaceDialogState
 
   Future<void> _onEditSuccess(BuildContext context,
       List<TLWorkspace> workspaces, String newName) async {
-    final tlAppStateReducer = ref.read(tlAppStateProvider.notifier);
-
     final workspaceIndex =
         workspaces.indexWhere((ws) => ws.id == widget.oldWorkspaceId);
     if (workspaceIndex == -1) {
@@ -183,21 +183,23 @@ class _AddOrEditWorkspaceDialogState
 
     final TLWorkspace editedWorkspace =
         workspaces[workspaceIndex].copyWith(name: newName);
-    final updatedWorkspaces = List<TLWorkspace>.from(workspaces);
-    updatedWorkspaces[workspaceIndex] = editedWorkspace;
 
-    tlAppStateReducer.updateState(
-      TLAppStateAction.saveWorkspaceList(updatedWorkspaces),
+    await WorkspaceDispatcher.dispatch(
+      ref,
+      WorkspaceAction.updateWorkspace(editedWorkspace),
     );
+
     const TLSingleOptionDialog(title: "Successfully changed!")
         .show(context: context);
   }
 
   Future<void> _onAddSuccess(
       BuildContext context, TLWorkspace newWorkspace) async {
-    ref
-        .read(tlAppStateProvider.notifier)
-        .updateState(TLWorkspaceAction.addWorkspace(newWorkspace));
+    await WorkspaceDispatcher.dispatch(
+      ref,
+      WorkspaceAction.addWorkspace(newWorkspace),
+    );
+
     TLSingleOptionDialog(
             title: newWorkspace.name, message: "was successfully added!")
         .show(context: context);

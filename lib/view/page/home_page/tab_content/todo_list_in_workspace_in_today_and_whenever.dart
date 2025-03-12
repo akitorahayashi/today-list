@@ -6,8 +6,10 @@ import 'package:today_list/view/page/home_page/tab_content/build_todo_list/num_t
 class ToDoListInWorkspaceInTodayAndWhenever extends StatelessWidget {
   final TLWorkspace corrWorkspace;
 
-  const ToDoListInWorkspaceInTodayAndWhenever(
-      {super.key, required this.corrWorkspace});
+  const ToDoListInWorkspaceInTodayAndWhenever({
+    super.key,
+    required this.corrWorkspace,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,6 @@ class ToDoListInWorkspaceInTodayAndWhenever extends StatelessWidget {
         corrWorkspace.getNumOfToDoInWorkspace(ifInToday: false);
 
     return ListView(
-      key: PageStorageKey(corrWorkspace.id), // スクロール位置を保持
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 12.0),

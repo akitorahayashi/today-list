@@ -34,6 +34,7 @@ struct UnCategorizedToDosInWorkspaceWidget: Widget {
                         }
                     }
                 }
+                .widgetURL(URL(string: "todaylist://workspace?id=\(entry.entity?.workspaceID ?? entry.tlWorkspaces.first!.id)"))
         }
         .configurationDisplayName("Show Uncategorized ToDos Widget")
         .description("Show an uncategorized ToDo list in a workspace. After placing the widget, long press to edit and select the workspace you want to display.")

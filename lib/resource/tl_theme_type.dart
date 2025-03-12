@@ -146,7 +146,7 @@ enum TLThemeType {
 
       // Settings Page
       navigationTitleColor: Colors.white,
-      titleColorOfSettingPage: Color.fromRGBO(130, 81, 43, 1),
+      titleColorOfSettingPage: Colors.cyan,
       settingPanelColor: Color.fromRGBO(219, 248, 255, 1),
 
       // Home Page

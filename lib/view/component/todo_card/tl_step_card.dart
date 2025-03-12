@@ -6,8 +6,8 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/tl_todo_action.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/flux/action/todo_action.dart';
+import 'package:today_list/flux/dispatcher/todo_dispatcher.dart';
 import 'tl_checkbox.dart';
 
 class TLStepCard extends ConsumerWidget {
@@ -30,18 +30,18 @@ class TLStepCard extends ConsumerWidget {
 
     // MARK: - Common Colors
     final cardColor = tlThemeConfig.whiteBasedColor;
-    final titleColor =
-        Colors.black.withValues(alpha: corrStep.isChecked ? 0.3 : 0.6);
+    final titleColor = Colors.black.withOpacity(corrStep.isChecked ? 0.3 : 0.6);
 
     return GestureDetector(
       onTap: () {
-        ref.read(tlAppStateProvider.notifier).updateState(
-              TLToDoAction.toggleStepCheckStatus(
-                corrWorkspace: corrWorkspace,
-                corrToDo: corrToDo,
-                corrStep: corrStep,
-              ),
-            );
+        TodoDispatcher.dispatch(
+          ref,
+          TodoAction.toggleStepCheck(
+            workspace: corrWorkspace,
+            todo: corrToDo,
+            step: corrStep,
+          ),
+        );
 
         NotifyTodoOrStepIsEditedSnackBar.show(
           context: context,

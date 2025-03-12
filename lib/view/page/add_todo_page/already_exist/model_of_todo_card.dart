@@ -52,8 +52,8 @@ class ModelOfToDoCard extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black
-                                .withAlpha(corrTLToDo.isChecked ? 77 : 153)),
+                            color: Colors.black.withValues(
+                                alpha: corrTLToDo.isChecked ? 0.3 : 0.6)),
                       ),
                     ),
                   ),
@@ -93,8 +93,10 @@ class ModelOfToDoCard extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
-                                        color: Colors.black.withAlpha(
-                                            stepData.isChecked ? 77 : 153))),
+                                        color: Colors.black.withValues(
+                                            alpha: stepData.isChecked
+                                                ? 0.3
+                                                : 0.6))),
                               ),
                             ],
                           ),

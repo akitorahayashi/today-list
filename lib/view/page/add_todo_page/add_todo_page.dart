@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
-import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/action/tl_todo_action.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/flux/action/todo_action.dart';
+import 'package:today_list/flux/dispatcher/todo_dispatcher.dart';
+import 'package:today_list/flux/store/workspace_store.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/util/tl_uuid_generator.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
@@ -28,12 +28,28 @@ class AddToDoPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tlThemeConfig = TLTheme.of(context);
-    final tlAppState = ref.watch(tlAppStateProvider);
-    final TLWorkspace corrWorkspace = () {
-      final matches = tlAppState.tlWorkspaces
-          .where((workspace) => workspace.id == workspaceID);
-      return matches.isNotEmpty ? matches.first : tlAppState.tlWorkspaces.first;
-    }();
+    final workspacesAsync = ref.watch(workspacesProvider);
+
+    // ワークスペースの取得
+    final corrWorkspace = workspacesAsync.when(
+      data: (workspaces) {
+        final matches =
+            workspaces.where((workspace) => workspace.id == workspaceID);
+        return matches.isNotEmpty ? matches.first : workspaces.first;
+      },
+      loading: () => null,
+      error: (_, __) => null,
+    );
+
+    // ワークスペースが読み込まれていない場合はローディング表示
+    if (corrWorkspace == null) {
+      return Scaffold(
+        backgroundColor: tlThemeConfig.backgroundColor,
+        body: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
 
     // スクロール位置を監視するためのコントローラー
     final scrollController = useScrollController();
@@ -78,8 +94,6 @@ class AddToDoPage extends HookConsumerWidget {
     Future<void> completeEditing() async {
       if (toDoTitleController.text.trim().isEmpty) return;
 
-      final appStateReducer = ref.read(tlAppStateProvider.notifier);
-
       // 新規ToDoを作成
       final TLToDo newToDo = TLToDo(
         id: TLUUIDGenerator.generate(),
@@ -89,11 +103,14 @@ class AddToDoPage extends HookConsumerWidget {
         steps: steps.value,
       );
 
-      // MARK: - Add New ToDo
-      await appStateReducer.updateState(TLToDoAction.addToDo(
-        corrWorkspace: corrWorkspace,
-        newToDo: newToDo,
-      ));
+      // MARK: - Add New ToDo using Flux
+      TodoDispatcher.dispatch(
+        ref,
+        TodoAction.addTodo(
+          workspace: corrWorkspace,
+          todo: newToDo,
+        ),
+      );
 
       // スナックバー表示
       if (context.mounted) {

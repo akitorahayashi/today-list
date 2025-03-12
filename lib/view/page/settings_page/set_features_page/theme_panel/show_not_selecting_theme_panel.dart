@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:today_list/redux/action/tl_theme_action.dart';
-import 'package:today_list/redux/action/tl_user_data_action.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/flux/action/theme_action.dart';
+import 'package:today_list/flux/action/user_data_action.dart';
+import 'package:today_list/flux/dispatcher/theme_dispatcher.dart';
+import 'package:today_list/flux/dispatcher/user_data_dispatcher.dart';
 import 'package:today_list/view/component/dialog/change_theme_dialog.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,18 +37,27 @@ class _RightSideThemeSelectButtonState
         // ユーザーがテーマ変更を確認した場合のみ処理を実行
         if (result == true && context.mounted) {
           // テーマを変更
-          await ref.read(tlAppStateProvider.notifier).updateState(
-              TLThemeAction.changeTheme(newThemeType: corrThemeType));
+          await ThemeDispatcher.dispatch(
+            ref,
+            ThemeAction.changeTheme(newThemeType: corrThemeType),
+          );
 
           // アクセントカラーをテーマ固有のデフォルト値にリセット
-          await ref.read(tlAppStateProvider.notifier).updateState(
-              TLUserDataAction.saveCustomAccentColor(
-                  newAccentColor: corrThemeType.config.defaultAccentColor));
+          await UserDataDispatcher.dispatch(
+            ref,
+            UserDataAction.saveCustomAccentColor(
+              newAccentColor: corrThemeType.config.defaultAccentColor,
+            ),
+          );
 
           // アプリアイコンも変更
-          await ref.read(tlAppStateProvider.notifier).updateState(
-              TLUserDataAction.updateCurrentAppIconName(
-                  newThemeName: corrThemeType.config.themeName));
+          await UserDataDispatcher.dispatch(
+            ref,
+            UserDataAction.updateCurrentAppIconName(
+              newThemeName: corrThemeType.config.themeName,
+            ),
+          );
+
           if (context.mounted) {
             const TLSingleOptionDialog(
               title: "Theme Changed",

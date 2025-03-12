@@ -4,12 +4,14 @@ import 'package:today_list/view/component/dialog/for_workspace/select_edit_works
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/flux/store/current_workspace_store.dart';
+import 'package:today_list/flux/action/current_workspace_action.dart';
+import 'package:today_list/flux/dispatcher/current_workspace_dispatcher.dart';
 
-class ChangeWorkspaceCard extends ConsumerWidget {
+class WorkspaceCard extends ConsumerWidget {
   final TLWorkspace corrWorkspace;
 
-  const ChangeWorkspaceCard({
+  const WorkspaceCard({
     super.key,
     required this.corrWorkspace,
   });
@@ -18,9 +20,11 @@ class ChangeWorkspaceCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TLThemeConfig theme = TLTheme.of(context);
-    final String? currentWorkspaceId = ref
-        .watch(tlAppStateProvider.select((state) => state.currentWorkspaceID));
-    final bool isCurrentWorkspace = corrWorkspace.id == currentWorkspaceId;
+    final currentWorkspaceIdAsync = ref.watch(currentWorkspaceIdProvider);
+    final bool isCurrentWorkspace = currentWorkspaceIdAsync.maybeWhen(
+      data: (id) => corrWorkspace.id == id,
+      orElse: () => false,
+    );
 
     return SizedBox(
       width: MediaQuery.of(context).size.width,
@@ -69,14 +73,7 @@ class ChangeWorkspaceCard extends ConsumerWidget {
         .show(
       context: ref.context,
     );
-    // if (isCurrentWorkspace) {
-    //   Navigator.pop(ref.context);
-    //   return;
-    // }
 
-    // ref.read(tlAppStateProvider.notifier).updateState(
-    //     TLAppStateAction.changeCurrentWorkspaceID(corrWorkspace.id));
-
-    // Navigator.pop(ref.context);
+    Navigator.pop(ref.context);
   }
 }

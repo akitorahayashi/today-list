@@ -5,7 +5,8 @@ import 'package:popover/popover.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/view/component/common_ui_part/tl_circular_action_button.dart';
 import 'package:today_list/model/design/tl_theme.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
+import 'package:today_list/flux/store/workspace_store.dart';
+import 'package:today_list/flux/store/current_workspace_store.dart';
 import 'package:today_list/view/page/add_todo_page/add_todo_page.dart';
 
 /// 中央の追加ボタン（Home画面のBottom Navigation Barに配置）
@@ -52,7 +53,8 @@ class CenterButtonOfHomeBottomNavBar extends HookConsumerWidget {
     }, [isKeyboardVisible]);
 
     final TLThemeConfig tlThemeData = TLTheme.of(context);
-    final tlAppState = ref.watch(tlAppStateProvider);
+    final workspacesAsync = ref.watch(workspacesProvider);
+    final currentWorkspaceIdAsync = ref.watch(currentWorkspaceIdProvider);
 
     return Opacity(
       opacity: fadeAnimation,
@@ -62,8 +64,8 @@ class CenterButtonOfHomeBottomNavBar extends HookConsumerWidget {
           backgroundColor: tlThemeData.whiteBasedColor,
           borderColor: Colors.black26,
           iconColor: tlThemeData.accentColor,
-          onPressed: () =>
-              _handleOnPressed(context, ref, tlAppState, tlThemeData),
+          onPressed: () => _handleOnPressed(context, ref, workspacesAsync,
+              currentWorkspaceIdAsync, tlThemeData),
         ),
       ),
     );
@@ -71,14 +73,24 @@ class CenterButtonOfHomeBottomNavBar extends HookConsumerWidget {
 
   // MARK: - ボタン押下時の処理
   /// ボタン押下時の動作を制御
-  void _handleOnPressed(BuildContext context, WidgetRef ref, var tlAppState,
+  void _handleOnPressed(
+      BuildContext context,
+      WidgetRef ref,
+      AsyncValue<List<dynamic>> workspacesAsync,
+      AsyncValue<String?> currentWorkspaceIdAsync,
       TLThemeConfig tlThemeData) {
     if (doesCurrentWorkspaceExist) {
       // 既存のワークスペースがある場合、タスク追加ページを表示
-      _showAddToDoPage(context, ref, tlAppState.currentWorkspaceID!);
+      currentWorkspaceIdAsync.whenData((currentWorkspaceId) {
+        if (currentWorkspaceId != null) {
+          _showAddToDoPage(context, ref, currentWorkspaceId);
+        }
+      });
     } else {
       // ワークスペースがない場合、ポップオーバーを表示
-      _showWorkspaceSelectionPopover(context, ref, tlAppState, tlThemeData);
+      workspacesAsync.whenData((workspaces) {
+        _showWorkspaceSelectionPopover(context, ref, workspaces, tlThemeData);
+      });
     }
   }
 
@@ -98,7 +110,7 @@ class CenterButtonOfHomeBottomNavBar extends HookConsumerWidget {
 
   // MARK: - ポップオーバーの表示
   void _showWorkspaceSelectionPopover(BuildContext context, WidgetRef ref,
-      var tlAppState, TLThemeConfig tlThemeData) {
+      List<dynamic> workspaces, TLThemeConfig tlThemeData) {
     showPopover(
       context: context,
       backgroundColor: tlThemeData.whiteBasedColor,
@@ -115,7 +127,7 @@ class CenterButtonOfHomeBottomNavBar extends HookConsumerWidget {
         return ListView(
           padding: const EdgeInsets.only(top: 6, bottom: 36),
           children: [
-            for (final workspace in tlAppState.tlWorkspaces)
+            for (final workspace in workspaces)
               GestureDetector(
                 onTap: () {
                   Navigator.pop(popoverContext); // ポップオーバーを閉じる

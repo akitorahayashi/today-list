@@ -4,6 +4,7 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'set_features_page/set_features_page.dart';
+import 'package:go_router/go_router.dart';
 
 // MARK: - SettingsPage
 class SettingsPage extends HookWidget {
@@ -63,11 +64,15 @@ class SettingsPage extends HookWidget {
 class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
+    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
     return TLAppBar(
       context: context,
       pageTitle: "Settings",
-      leadingButtonOnPressed: () => Navigator.pop(context),
-      leadingIconData: Icons.arrow_back_ios,
+      leadingButtonOnPressed: () {
+        // GoRouterを使用してホーム画面に戻る
+        context.go('/');
+      },
+      leadingIconData: Icons.arrow_back_ios_new,
       trailingButtonOnPressed: null,
       trailingIconData: null,
     );

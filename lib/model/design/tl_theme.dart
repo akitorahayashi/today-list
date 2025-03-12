@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
+import 'package:today_list/resource/tl_theme_type.dart';
 
 class TLTheme extends InheritedWidget {
   final TLThemeConfig data;
@@ -9,7 +10,13 @@ class TLTheme extends InheritedWidget {
   static TLThemeConfig of(BuildContext context) {
     final TLTheme? customTheme =
         context.dependOnInheritedWidgetOfExactType<TLTheme>();
-    return customTheme!.data;
+    if (customTheme == null) {
+      // デフォルトのTLThemeConfigを返す
+      debugPrint('Warning: TLTheme not found in context. Using default theme.');
+      // TLThemeTypeのデフォルトテーマを取得
+      return TLThemeType.notebook.config;
+    }
+    return customTheme.data;
   }
 
   @override

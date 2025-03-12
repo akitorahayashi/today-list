@@ -6,8 +6,8 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/redux/store/tl_app_state_provider.dart';
-import 'package:today_list/redux/action/tl_todo_action.dart';
+import 'package:today_list/flux/dispatcher/todo_dispatcher.dart';
+import 'package:today_list/flux/action/todo_action.dart';
 import '../tl_checkbox.dart';
 import '../tl_step_card.dart';
 
@@ -43,9 +43,14 @@ class TLToDoCard extends ConsumerWidget {
           isToDoCard: true,
           quickChangeToToday: null,
         );
-        ref.read(tlAppStateProvider.notifier).updateState(
-            TLToDoAction.toggleToDoCheckStatus(
-                corrWorkspace: corrWorkspace, corrToDo: corrToDo));
+        TodoDispatcher.dispatch(
+          ref,
+          TodoAction.toggleTodoCheck(
+            workspace: corrWorkspace,
+            todo: corrToDo,
+            ifInToday: ifInToday,
+          ),
+        );
       },
       onLongPress: corrToDo.isChecked ? () {} : null,
       child: Card(
@@ -68,6 +73,7 @@ class TLToDoCard extends ConsumerWidget {
                   _BuildStepsList(
                     corrToDo: corrToDo,
                     corrWorkspace: corrWorkspace,
+                    ifInToday: ifInToday,
                   ),
               ],
             ),
@@ -123,36 +129,41 @@ class _BuildToDoContent extends StatelessWidget {
 class _BuildStepsList extends ConsumerWidget {
   final TLToDo corrToDo;
   final TLWorkspace corrWorkspace;
+  final bool ifInToday;
 
   const _BuildStepsList({
     required this.corrToDo,
     required this.corrWorkspace,
+    required this.ifInToday,
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: ReorderableColumn(
-          children: List.generate(
-            corrToDo.steps.length,
-            (int index) => Padding(
-              key: ValueKey(corrToDo.steps[index].id),
-              padding: const EdgeInsets.fromLTRB(8, 0, 2, 0),
-              child: TLStepCard(
-                ifInToday: corrToDo.isInToday,
-                corrWorkspace: corrWorkspace,
-                corrToDo: corrToDo,
-                corrStep: corrToDo.steps[index],
-              ),
+        children: List.generate(
+          corrToDo.steps.length,
+          (int index) => Padding(
+            key: ValueKey(corrToDo.steps[index].id),
+            padding: const EdgeInsets.fromLTRB(8, 0, 2, 0),
+            child: TLStepCard(
+              ifInToday: ifInToday,
+              corrWorkspace: corrWorkspace,
+              corrToDo: corrToDo,
+              corrStep: corrToDo.steps[index],
             ),
           ),
-          onReorder: (oldIndex, newIndex) => ref
-              .read(tlAppStateProvider.notifier)
-              .updateState(TLToDoAction.reorderSteps(
-                  corrWorkspace: corrWorkspace,
-                  corrToDo: corrToDo,
-                  oldIndex: oldIndex,
-                  newIndex: newIndex))),
+        ),
+        onReorder: (oldIndex, newIndex) => TodoDispatcher.dispatch(
+          ref,
+          TodoAction.reorderSteps(
+            workspace: corrWorkspace,
+            todo: corrToDo,
+            oldIndex: oldIndex,
+            newIndex: newIndex,
+          ),
+        ),
+      ),
     );
   }
 }
