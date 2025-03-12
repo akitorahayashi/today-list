@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
+import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/styles.dart';
 import 'package:today_list/view/component/dialog/design/tl_dialog.dart';
 import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
@@ -14,23 +15,24 @@ class TLThemeChangedDialog extends StatelessWidget with TLBaseDialogMixin {
     required this.iconName,
   });
 
+  // テーマ名とアイコンパスのマッピング
+  static const Map<String, String> _themeIconMap = {
+    'Sun Orange': 'assets/tl_sun.png',
+    'Marine Blue': 'assets/tl_marine.png',
+    'Lime Green': 'assets/tl_lime.png',
+    'Cherry Blossom': 'assets/tl_cherry.png',
+    'Pastry Bloom': 'assets/tl_pastry.png',
+    'Notebook': 'assets/tl_notebook.png',
+  };
+
   // アイコン名からアセットパスを取得
   String _getIconAssetPath(String? name) {
     if (name == null) {
-      return 'assets/tl_sun.png'; // デフォルトアイコン
+      return 'assets/tl_notebook.png'; // デフォルトアイコン
     }
 
     // テーマ名に基づいてアイコンを選択
-    switch (name) {
-      case 'Sun Orange':
-        return 'assets/tl_sun.png';
-      case 'Marine Blue':
-        return 'assets/tl_marine.png';
-      case 'Lime Green':
-        return 'assets/tl_lime.png';
-      default:
-        return 'assets/tl_sun.png';
-    }
+    return _themeIconMap[name] ?? 'assets/tl_notebook.png';
   }
 
   @override

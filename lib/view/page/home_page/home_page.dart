@@ -127,7 +127,7 @@ class _HomePageState extends ConsumerState<HomePage>
               TLHomePageHelper.getPageTitle(tlAppState, currentIndex);
 
           final tabTextStyle = TextStyle(
-            color: tlThemeConfig.whiteBasedColor,
+            color: tlThemeConfig.navigationTitleColor,
             fontSize: 13.6,
             fontWeight: FontWeight.bold,
           );
@@ -163,7 +163,8 @@ class _HomePageState extends ConsumerState<HomePage>
                       bottom: TabBar(
                         isScrollable: true,
                         labelColor: tlThemeConfig.accentColor,
-                        unselectedLabelColor: Colors.white,
+                        unselectedLabelColor:
+                            tlThemeConfig.navigationTitleColor,
                         labelStyle: tabTextStyle,
                         unselectedLabelStyle: tabTextStyle,
                         indicator: BoxDecoration(
@@ -264,7 +265,7 @@ class _HomePageState extends ConsumerState<HomePage>
               bottom: TabBar(
                 isScrollable: true,
                 labelColor: tlThemeConfig.accentColor,
-                unselectedLabelColor: Colors.white,
+                unselectedLabelColor: tlThemeConfig.navigationTitleColor,
                 labelStyle: tabTextStyle,
                 unselectedLabelStyle: tabTextStyle,
                 indicator: BoxDecoration(

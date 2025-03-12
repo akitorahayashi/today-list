@@ -20,7 +20,7 @@ struct UnCategorizedToDosInWorkspaceWidget: Widget {
                             entry.selectedThemeType.config.gradientOfTopBar
                             Text(entry.entity?.name ?? entry.tlWorkspaces.first!.name)
                                 .font(.system(size: 18, weight: .bold))
-                                .foregroundColor(.white)
+                                .foregroundColor(entry.selectedThemeType.config.navigationTitleColor)
                         }
                         .frame(height: 28)
                         

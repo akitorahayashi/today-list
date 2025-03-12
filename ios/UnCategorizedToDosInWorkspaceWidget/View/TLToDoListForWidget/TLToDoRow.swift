@@ -10,6 +10,7 @@ import SwiftUI
 // RowのTextStyle
 struct ToDoTextStyle: ViewModifier {
     let isToDo: Bool
+    let textColor: Color
     
     func body(content: Content) -> some View {
         content
@@ -18,20 +19,27 @@ struct ToDoTextStyle: ViewModifier {
             .truncationMode(.tail)
             .fontWeight(.bold)
             .opacity(0.6)
-            .foregroundColor(.black)
+            .foregroundColor(textColor)
     }
 }
 
 // Viewにモディファイアを追加
 extension View {
-    func toDoTextStyle(isToDo: Bool) -> some View {
-        self.modifier(ToDoTextStyle(isToDo: isToDo))
+    func toDoTextStyle(isToDo: Bool, textColor: Color = .black) -> some View {
+        self.modifier(ToDoTextStyle(isToDo: isToDo, textColor: textColor))
     }
 }
 
 struct TLToDoRowForWidget: View {
     let spacing: Double
     let tlToDoData: TLToDo
+    let textColor: Color
+    
+    init(spacing: Double, tlToDoData: TLToDo, textColor: Color = .black) {
+        self.spacing = spacing
+        self.tlToDoData = tlToDoData
+        self.textColor = textColor
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -39,20 +47,20 @@ struct TLToDoRowForWidget: View {
             HStack {
                 // チェックマークアイコン
                 Image(systemName: "square")
-                    .toDoTextStyle(isToDo: true)
+                    .toDoTextStyle(isToDo: true, textColor: textColor)
                 // タイトル
                 Text(tlToDoData.content)
-                    .toDoTextStyle(isToDo: true)
+                    .toDoTextStyle(isToDo: true, textColor: textColor)
             }
             .padding(.bottom, spacing)
             // ステップカード（ToDoに含まれるStep）
             ForEach(tlToDoData.steps) { step in
                 HStack {
                     Image(systemName: "square")
-                        .toDoTextStyle(isToDo: false)
+                        .toDoTextStyle(isToDo: false, textColor: textColor)
                     
                     Text(step.content)
-                        .toDoTextStyle(isToDo: false)
+                        .toDoTextStyle(isToDo: false, textColor: textColor)
                     
                 }
             }

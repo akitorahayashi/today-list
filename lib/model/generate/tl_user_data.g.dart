@@ -8,7 +8,7 @@ part of '../settings_data/tl_user_data.dart';
 
 _$TLUserDataImpl _$$TLUserDataImplFromJson(Map<String, dynamic> json) =>
     _$TLUserDataImpl(
-      currentAppIconName: json['currentAppIconName'] as String? ?? "Sun Orange",
+      currentAppIconName: json['currentAppIconName'] as String? ?? "Notebook",
       selectedCheckBoxIconData: json['selectedCheckBoxIconData'] == null
           ? const SelectedCheckBoxIconData(
               iconCategory: "Default", iconName: "Box")

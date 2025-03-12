@@ -8,7 +8,7 @@ import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 import 'package:today_list/view/page/settings_page/set_features_page/panel_with_title.dart';
 import 'package:today_list/view/page/settings_page/set_features_page/set_features_page.dart';
-import 'package:today_list/view/page/settings_page/set_features_page/set_vibration_card.dart';
+import 'package:today_list/view/page/settings_page/set_features_page/set_vibration_card/set_vibration_card.dart';
 import 'package:today_list/view/page/settings_page/set_features_page/theme_panel/show_selecting_theme_panel.dart';
 import 'package:today_list/view/page/settings_page/set_features_page/theme_panel/show_not_selecting_theme_panel.dart';
 import 'package:today_list/view/page/settings_page/set_features_page/set_todo_icon/icon_category_panel.dart';

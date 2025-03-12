@@ -113,7 +113,7 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
                   pageTitle,
                   key: ValueKey<String>(pageTitle),
                   style: TextStyle(
-                    color: tlThemeConfig.whiteBasedColor,
+                    color: tlThemeConfig.navigationTitleColor,
                     fontWeight: FontWeight.w900,
                     fontSize: titleFontSize ?? 30,
                     letterSpacing: titleSpacing ?? 1,

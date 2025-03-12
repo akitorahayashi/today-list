@@ -7,9 +7,9 @@ class TLThemeConfig {
   final String themeTitleInSettings;
 
   // Settings Page
-  final Color titleColorOfSettingPage;
+  final Color navigationTitleColor;
   final Color settingPanelColor;
-
+  final Color titleColorOfSettingPage;
   // other apps
   final Color otherAppsElevatedButtonColor;
   final Color otherAppsPressedElevatedButtonColor;
@@ -21,7 +21,7 @@ class TLThemeConfig {
   final Gradient gradientOfNavBar;
 
   // Basics
-  final MaterialColor defaultAccentColor; // デフォルトのアクセントカラー
+  final Color defaultAccentColor; // デフォルトのアクセントカラー
   final Color? _customAccentColor; // カスタムアクセントカラー（オプション）
   final Color canTapCardColor;
   final Color whiteBasedColor;
@@ -46,9 +46,9 @@ class TLThemeConfig {
     required this.themeTitleInSettings,
 
     // Settings Page
-    required this.titleColorOfSettingPage,
+    required this.navigationTitleColor,
     required this.settingPanelColor,
-
+    required this.titleColorOfSettingPage,
     // Home Page
     required this.backgroundColor,
 
@@ -82,8 +82,9 @@ class TLThemeConfig {
     return TLThemeConfig(
       themeName: themeName,
       themeTitleInSettings: themeTitleInSettings,
-      titleColorOfSettingPage: titleColorOfSettingPage,
+      navigationTitleColor: navigationTitleColor,
       settingPanelColor: settingPanelColor,
+      titleColorOfSettingPage: titleColorOfSettingPage,
       backgroundColor: backgroundColor,
       gradientOfNavBar: gradientOfNavBar,
       otherAppsElevatedButtonColor: otherAppsElevatedButtonColor,

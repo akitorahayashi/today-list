@@ -13,6 +13,8 @@ struct TLThemeConfig {
     let gradientOfTopBar: LinearGradient
     let backgroundColorOfToDoList: Color
     let toDoCardColor: Color
+    let navigationTitleColor: Color
+    let textColor: Color
 }
 
 // MARK: - Enum: TLThemeType
@@ -20,24 +22,25 @@ enum TLThemeType: String {
     case sunOrange
     case limeGreen
     case marineBlue
-    case monochrome
     case cherryBlossom
-    case urbanNight
-    case patisserie
+    case pastryBloom
+    case notebook
 
     // Convert String to TLThemeType safely
     static func from(_ value: String) -> TLThemeType {
         if let matchedCase = TLThemeType(rawValue: value) {
             return matchedCase
         } else {
-            print("Warning: \(value) does not match any TLThemeType case. Returning .sunOrange as default.")
-            return .sunOrange
+            print("Warning: \(value) does not match any TLThemeType case. Returning .notebook as default.")
+            return .notebook
         }
     }
 
     // MARK: - Theme Configuration (Safe Accessor)
     var config: TLThemeConfig {
         switch self {
+            
+        // MARK: - sunOrange
         case .sunOrange:
             return TLThemeConfig(
                 gradientOfTopBar: LinearGradient(
@@ -49,9 +52,12 @@ enum TLThemeType: String {
                     endPoint: .trailing
                 ),
                 backgroundColorOfToDoList: Color(red: 255 / 255, green: 229 / 255, blue: 214 / 255),
-                toDoCardColor: Color(red: 235 / 255, green: 255 / 255, blue: 179 / 255)
+                toDoCardColor: Color(red: 235 / 255, green: 255 / 255, blue: 179 / 255),
+                navigationTitleColor: Color.white,
+                textColor: Color.black
             )
-
+            
+        // MARK: - limeGreen
         case .limeGreen:
             return TLThemeConfig(
                 gradientOfTopBar: LinearGradient(
@@ -63,9 +69,12 @@ enum TLThemeType: String {
                     endPoint: .trailing
                 ),
                 backgroundColorOfToDoList: Color(red: 239 / 255, green: 255 / 255, blue: 214 / 255),
-                toDoCardColor: Color(red: 255 / 255, green: 253 / 255, blue: 184 / 255)
+                toDoCardColor: Color(red: 255 / 255, green: 253 / 255, blue: 184 / 255),
+                navigationTitleColor: Color.white,
+                textColor: Color.black
             )
-
+            
+        // MARK: - marineBlue
         case .marineBlue:
             return TLThemeConfig(
                 gradientOfTopBar: LinearGradient(
@@ -77,23 +86,12 @@ enum TLThemeType: String {
                     endPoint: .trailing
                 ),
                 backgroundColorOfToDoList: Color(red: 241 / 255, green: 251 / 255, blue: 253 / 255),
-                toDoCardColor: Color(red: 214 / 255, green: 252 / 255, blue: 255 / 255)
+                toDoCardColor: Color(red: 214 / 255, green: 252 / 255, blue: 255 / 255),
+                navigationTitleColor: Color.white,
+                textColor: Color.black
             )
             
-        case .monochrome:
-            return TLThemeConfig(
-                gradientOfTopBar: LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color(red: 70 / 255, green: 70 / 255, blue: 70 / 255),
-                        Color(red: 40 / 255, green: 40 / 255, blue: 40 / 255)
-                    ]),
-                    startPoint: .leading,
-                    endPoint: .trailing
-                ),
-                backgroundColorOfToDoList: Color(red: 248 / 255, green: 248 / 255, blue: 248 / 255),
-                toDoCardColor: Color(red: 245 / 255, green: 245 / 255, blue: 245 / 255)
-            )
-            
+        // MARK: - cherryBlossom
         case .cherryBlossom:
             return TLThemeConfig(
                 gradientOfTopBar: LinearGradient(
@@ -105,24 +103,13 @@ enum TLThemeType: String {
                     endPoint: .trailing
                 ),
                 backgroundColorOfToDoList: Color(red: 253 / 255, green: 245 / 255, blue: 247 / 255),
-                toDoCardColor: Color(red: 255 / 255, green: 245 / 255, blue: 250 / 255)
+                toDoCardColor: Color(red: 255 / 255, green: 245 / 255, blue: 250 / 255),
+                navigationTitleColor: Color.white,
+                textColor: Color.black
             )
             
-        case .urbanNight:
-            return TLThemeConfig(
-                gradientOfTopBar: LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color(red: 33 / 255, green: 33 / 255, blue: 33 / 255),
-                        Color(red: 15 / 255, green: 15 / 255, blue: 15 / 255)
-                    ]),
-                    startPoint: .leading,
-                    endPoint: .trailing
-                ),
-                backgroundColorOfToDoList: Color(red: 30 / 255, green: 30 / 255, blue: 30 / 255),
-                toDoCardColor: Color(red: 45 / 255, green: 45 / 255, blue: 45 / 255)
-            )
-            
-        case .patisserie:
+        // MARK: - pastryBloom
+        case .pastryBloom:
             return TLThemeConfig(
                 gradientOfTopBar: LinearGradient(
                     gradient: Gradient(colors: [
@@ -133,7 +120,26 @@ enum TLThemeType: String {
                     endPoint: .trailing
                 ),
                 backgroundColorOfToDoList: Color(red: 255 / 255, green: 252 / 255, blue: 245 / 255),
-                toDoCardColor: Color(red: 255 / 255, green: 248 / 255, blue: 225 / 255)
+                toDoCardColor: Color(red: 255 / 255, green: 248 / 255, blue: 225 / 255),
+                navigationTitleColor: Color.white,
+                textColor: Color.black
+            )
+            
+        // MARK: - notebook
+        case .notebook:
+            return TLThemeConfig(
+                gradientOfTopBar: LinearGradient(
+                    gradient: Gradient(colors: [
+                        Color(red: 240 / 255, green: 240 / 255, blue: 240 / 255),
+                        Color(red: 250 / 255, green: 250 / 255, blue: 250 / 255)
+                    ]),
+                    startPoint: .leading,
+                    endPoint: .trailing
+                ),
+                backgroundColorOfToDoList: Color(red: 255 / 255, green: 255 / 255, blue: 255 / 255),
+                toDoCardColor: Color(red: 240 / 255, green: 240 / 255, blue: 240 / 255),
+                navigationTitleColor: Color(red: 94 / 255, green: 158 / 255, blue: 214 / 255),
+                textColor: Color.black
             )
         }
     }

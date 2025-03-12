@@ -7,9 +7,8 @@ import 'package:today_list/resource/tl_theme_type.dart';
 import 'theme_panel/show_selecting_theme_panel.dart'
     show ShowSelectingThemePanel;
 import 'theme_panel/show_not_selecting_theme_panel.dart';
-import 'theme_panel/accent_color_selector.dart';
 import 'set_todo_icon/icon_category_panel.dart';
-import 'set_vibration_card.dart';
+import 'set_vibration_card/set_vibration_card.dart';
 
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 
@@ -89,9 +88,6 @@ class SetFeaturesPage extends HookConsumerWidget {
             ),
           ],
         ),
-        const PanelWithTitle(title: "Accent Color", contents: [
-          AccentColorSelector(),
-        ]),
         const PanelWithTitle(
             title: "VIBRATION", contents: [SetVibrationCard()]),
         PanelWithTitle(

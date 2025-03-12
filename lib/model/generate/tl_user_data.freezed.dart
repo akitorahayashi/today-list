@@ -167,7 +167,7 @@ class __$$TLUserDataImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TLUserDataImpl implements _TLUserData {
   const _$TLUserDataImpl(
-      {this.currentAppIconName = "Sun Orange",
+      {this.currentAppIconName = "Notebook",
       this.selectedCheckBoxIconData = const SelectedCheckBoxIconData(
           iconCategory: "Default", iconName: "Box"),
       final Map<String, List<String>> earnedCheckBoxIcons = const {

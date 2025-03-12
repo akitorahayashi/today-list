@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:today_list/model/design/tl_theme.dart';
 
 class TLAnimatedIconButton extends HookWidget {
   final IconData icon;
   final double size;
-  final Color iconColor;
+  final Color? iconColor;
   final VoidCallback? onPressed;
 
   const TLAnimatedIconButton({
     super.key,
     required this.icon,
     this.size = 26,
-    this.iconColor = Colors.white,
+    this.iconColor,
     this.onPressed,
   });
 
@@ -19,6 +20,8 @@ class TLAnimatedIconButton extends HookWidget {
   Widget build(BuildContext context) {
     final isPressed = useState(false);
     final previousIcon = useState<IconData>(icon);
+    final tlThemeConfig = TLTheme.of(context);
+    final effectiveIconColor = iconColor ?? tlThemeConfig.navigationTitleColor;
 
     // アイコンが変わったらフェードアニメーションで更新
     useEffect(() {
@@ -46,7 +49,7 @@ class TLAnimatedIconButton extends HookWidget {
           child: Icon(
             icon,
             key: ValueKey<IconData>(icon), // アイコン変更を検知
-            color: iconColor,
+            color: effectiveIconColor,
             size: size,
           ),
         ),

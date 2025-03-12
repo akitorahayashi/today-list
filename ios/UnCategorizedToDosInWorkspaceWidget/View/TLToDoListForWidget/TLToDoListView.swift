@@ -11,6 +11,13 @@ import WidgetKit
 struct TLToDoListForWidgetView: View {
     let toDosInToday: [TLToDo]
     let widgetFamily: WidgetFamily
+    let textColor: Color
+    
+    init(toDosInToday: [TLToDo], widgetFamily: WidgetFamily, textColor: Color = .black) {
+        self.toDosInToday = toDosInToday
+        self.widgetFamily = widgetFamily
+        self.textColor = textColor
+    }
     
     var body: some View {
         let maxItems = widgetFamily == .systemLarge ? 13 : 5
@@ -19,7 +26,7 @@ struct TLToDoListForWidgetView: View {
         let contentsToShow = getContentsToShow(toDosInToday: toDosInToday, maxItems: maxItems)
         
         ForEach(contentsToShow) { tlToDoData in
-            TLToDoRowForWidget(spacing: spacing, tlToDoData: tlToDoData)
+            TLToDoRowForWidget(spacing: spacing, tlToDoData: tlToDoData, textColor: textColor)
                 .padding(.bottom, spacing)
         }
         Spacer()

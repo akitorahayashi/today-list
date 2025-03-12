@@ -21,7 +21,11 @@ struct UCTToDoListView: View {
             
             let toDosInToday = (corrWorkspace.workspaceIDToToDos[corrWorkspace.id]!.toDosInToday.filter { !$0.isChecked })
             
-            TLToDoListForWidgetView(toDosInToday: toDosInToday, widgetFamily: widgetFamily)
+            TLToDoListForWidgetView(
+                toDosInToday: toDosInToday, 
+                widgetFamily: widgetFamily,
+                textColor: entry.selectedThemeType.config.textColor
+            )
                 
         }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding(.top, 25.5)

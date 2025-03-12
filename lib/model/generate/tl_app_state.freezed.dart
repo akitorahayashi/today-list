@@ -165,9 +165,9 @@ class _$TLAppStateImpl extends _TLAppState {
   const _$TLAppStateImpl(
       {final List<TLWorkspace> tlWorkspaces = const [],
       this.currentWorkspaceID = null,
-      this.selectedThemeType = TLThemeType.sunOrange,
+      this.selectedThemeType = TLThemeType.notebook,
       this.tlUserData = const TLUserData(
-          currentAppIconName: "Sun Orange",
+          currentAppIconName: "Notebook",
           selectedCheckBoxIconData: SelectedCheckBoxIconData(
               iconCategory: "Default", iconName: "Box"),
           earnedCheckBoxIcons: {

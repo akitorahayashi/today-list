@@ -17,11 +17,11 @@ class TLAppState with _$TLAppState {
   const factory TLAppState({
     @Default([]) List<TLWorkspace> tlWorkspaces,
     @Default(null) String? currentWorkspaceID,
-    @Default(TLThemeType.sunOrange) TLThemeType selectedThemeType,
+    @Default(TLThemeType.notebook) TLThemeType selectedThemeType,
     // アプリの設定データ
     @Default(
       TLUserData(
-        currentAppIconName: "Sun Orange",
+        currentAppIconName: "Notebook",
         selectedCheckBoxIconData:
             SelectedCheckBoxIconData(iconCategory: "Default", iconName: "Box"),
         earnedCheckBoxIcons: {

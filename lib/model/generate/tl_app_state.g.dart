@@ -15,10 +15,10 @@ _$TLAppStateImpl _$$TLAppStateImplFromJson(Map<String, dynamic> json) =>
       currentWorkspaceID: json['currentWorkspaceID'] as String? ?? null,
       selectedThemeType: $enumDecodeNullable(
               _$TLThemeTypeEnumMap, json['selectedThemeType']) ??
-          TLThemeType.sunOrange,
+          TLThemeType.notebook,
       tlUserData: json['tlUserData'] == null
           ? const TLUserData(
-              currentAppIconName: "Sun Orange",
+              currentAppIconName: "Notebook",
               selectedCheckBoxIconData: SelectedCheckBoxIconData(
                   iconCategory: "Default", iconName: "Box"),
               earnedCheckBoxIcons: {
@@ -39,8 +39,7 @@ const _$TLThemeTypeEnumMap = {
   TLThemeType.sunOrange: 'sunOrange',
   TLThemeType.limeGreen: 'limeGreen',
   TLThemeType.marineBlue: 'marineBlue',
-  TLThemeType.monochrome: 'monochrome',
   TLThemeType.cherryBlossom: 'cherryBlossom',
-  TLThemeType.urbanNight: 'urbanNight',
-  TLThemeType.patisserie: 'patisserie',
+  TLThemeType.pastryBloom: 'pastryBloom',
+  TLThemeType.notebook: 'notebook',
 };

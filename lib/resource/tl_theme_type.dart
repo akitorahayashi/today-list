@@ -8,6 +8,49 @@ part 'generate/tl_theme_type.g.dart';
 
 @JsonEnum(alwaysCreate: true)
 enum TLThemeType {
+  @JsonValue("notebook")
+  notebook(
+    TLThemeConfig(
+      // Theme Name
+      themeName: "Notebook",
+      themeTitleInSettings: "Notebook",
+      navigationTitleColor: Color.fromRGBO(130, 130, 130, 1),
+
+      // Settings Page
+      titleColorOfSettingPage: Color.fromRGBO(130, 130, 130, 1),
+      settingPanelColor: Color.fromRGBO(250, 250, 250, 1),
+
+      // Home Page
+      backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+
+      // Navigation Bar
+      gradientOfNavBar: LinearGradient(colors: [
+        Color.fromRGBO(240, 240, 240, 1),
+        Color.fromRGBO(250, 250, 250, 1),
+      ]),
+
+      // Other Apps
+      otherAppsElevatedButtonColor: Color.fromRGBO(20, 240, 240, 1),
+      otherAppsPressedElevatedButtonColor: Color.fromRGBO(210, 210, 210, 1),
+
+      // Basics
+      defaultAccentColor: Color.fromRGBO(94, 158, 214, 1),
+      canTapCardColor: Color.fromRGBO(240, 240, 240, 1),
+      whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
+      tlDoubleCardBorderColor: Color.fromRGBO(230, 230, 230, 1),
+
+      // Alert
+      alertBackgroundColor: Color.fromRGBO(248, 248, 248, 1),
+
+      // Category List
+      bigCategoryChipColor: Color.fromRGBO(240, 240, 240, 1),
+
+      // Edit Page
+      toggleButtonsBackgroundColor: Color.fromRGBO(240, 240, 240, 0.5),
+      toggleButtonsBackgroundSplashColor: Color.fromRGBO(220, 220, 220, 0.5),
+    ),
+  ),
+
   @JsonValue("sunOrange")
   sunOrange(
     // config:
@@ -17,9 +60,9 @@ enum TLThemeType {
       themeTitleInSettings: "Sun\nOrange",
 
       // Settings Page
-      titleColorOfSettingPage: Color.fromRGBO(170, 119, 80, 1),
+      navigationTitleColor: Colors.white,
       settingPanelColor: Color.fromRGBO(255, 243, 184, 1),
-
+      titleColorOfSettingPage: Color.fromRGBO(170, 119, 80, 1),
       // Home Page
       backgroundColor: Color.fromRGBO(255, 229, 214, 1),
 
@@ -50,27 +93,6 @@ enum TLThemeType {
       toggleButtonsBackgroundSplashColor: Color.fromRGBO(176, 255, 107, 0.5),
     ),
   ),
-  // darkConfig: TLThemeConfig(
-  //   themeName: "Sun Orange (Dark)",
-  //   themeTitleInSettings: "Sun\nOrange",
-  //   titleColorOfSettingPage: Color.fromRGBO(0, 0, 0, 1),
-  //   settingPanelColor: Color.fromRGBO(0, 0, 0, 1),
-  //   backgroundColor: Color.fromRGBO(0, 0, 0, 1),
-  //   gradientOfNavBar: LinearGradient(colors: [
-  //     Color.fromRGBO(0, 0, 0, 1),
-  //     Color.fromRGBO(0, 0, 0, 1),
-  //   ]),
-  //   otherAppsElevatedButtonColor: Color.fromRGBO(0, 0, 0, 1),
-  //   otherAppsPressedElevatedButtonColor: Color.fromRGBO(0, 0, 0, 1),
-  //   accentColor: Colors.deepOrange,
-  //   canTapCardColor: Color.fromRGBO(0, 0, 0, 1),
-  //   tlDoubleCardBorderColor: Color.fromRGBO(0, 0, 0, 1),
-  //   checkmarkColor: Color.fromRGBO(0, 0, 0, 1),
-  //   alertBackgroundColor: Color.fromRGBO(0, 0, 0, 1),
-  //   bigCategoryChipColor: Color.fromRGBO(0, 0, 0, 1),
-  //   toggleButtonsBackgroundColor: Color.fromRGBO(0, 0, 0, 1),
-  //   toggleButtonsBackgroundSplashColor: Color.fromRGBO(0, 0, 0, 1),
-  // ),
 
   @JsonValue("limeGreen")
   limeGreen(
@@ -80,6 +102,7 @@ enum TLThemeType {
       themeTitleInSettings: "Lime\nGreen",
 
       // Settings Page
+      navigationTitleColor: Colors.white,
       titleColorOfSettingPage: Color.fromRGBO(130, 81, 43, 1),
       settingPanelColor: Color.fromRGBO(223, 168, 139, 1),
 
@@ -122,7 +145,8 @@ enum TLThemeType {
       themeTitleInSettings: "Marine\nBlue",
 
       // Settings Page
-      titleColorOfSettingPage: Colors.cyan,
+      navigationTitleColor: Colors.white,
+      titleColorOfSettingPage: Color.fromRGBO(130, 81, 43, 1),
       settingPanelColor: Color.fromRGBO(219, 248, 255, 1),
 
       // Home Page
@@ -156,47 +180,48 @@ enum TLThemeType {
     ),
   ),
 
-  @JsonValue("monochrome")
-  monochrome(
-    TLThemeConfig(
-      // Theme Name
-      themeName: "Monochrome",
-      themeTitleInSettings: "Mono\nchrome",
+  // @JsonValue("goldenEbony")
+  // goldenEbony(
+  //   TLThemeConfig(
+  //     // Theme Name
+  //     themeName: "Golden Ebony",
+  //     themeTitleInSettings: "Golden\nEbony",
 
-      // Settings Page
-      titleColorOfSettingPage: Color.fromRGBO(50, 50, 50, 1),
-      settingPanelColor: Color.fromRGBO(240, 240, 240, 1),
+  //     // Settings Page
+  //     navigationTitleColor: Colors.white,
+  //     titleColorOfSettingPage: Color.fromRGBO(50, 50, 50, 1),
+  //     settingPanelColor: Color.fromRGBO(240, 240, 240, 1),
 
-      // Home Page
-      backgroundColor: Color.fromRGBO(248, 248, 248, 1),
+  //     // Home Page
+  //     backgroundColor: Color.fromRGBO(248, 248, 248, 1),
 
-      // Navigation Bar
-      gradientOfNavBar: LinearGradient(colors: [
-        Color.fromRGBO(70, 70, 70, 1),
-        Color.fromRGBO(40, 40, 40, 1),
-      ]),
+  //     // Navigation Bar
+  //     gradientOfNavBar: LinearGradient(colors: [
+  //       Color.fromRGBO(70, 70, 70, 1),
+  //       Color.fromRGBO(50, 50, 50, 1),
+  //     ]),
 
-      // Other Apps
-      otherAppsElevatedButtonColor: Color.fromRGBO(80, 80, 80, 1),
-      otherAppsPressedElevatedButtonColor: Color.fromRGBO(120, 120, 120, 1),
+  //     // Other Apps
+  //     otherAppsElevatedButtonColor: Color.fromRGBO(80, 80, 80, 1),
+  //     otherAppsPressedElevatedButtonColor: Color.fromRGBO(120, 120, 120, 1),
 
-      // Basics
-      defaultAccentColor: Colors.grey,
-      canTapCardColor: Color.fromRGBO(245, 245, 245, 1),
-      whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
-      tlDoubleCardBorderColor: Color.fromRGBO(200, 200, 200, 1),
+  //     // Basics
+  //     defaultAccentColor: Color.fromRGBO(204, 152, 8, 1),
+  //     canTapCardColor: Color.fromRGBO(235, 235, 235, 1),
+  //     whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
+  //     tlDoubleCardBorderColor: Color.fromRGBO(200, 200, 200, 1),
 
-      // Alert
-      alertBackgroundColor: Color.fromRGBO(240, 240, 240, 1),
+  //     // Alert
+  //     alertBackgroundColor: Color.fromRGBO(240, 240, 240, 1),
 
-      // Category List
-      bigCategoryChipColor: Color.fromRGBO(80, 80, 80, 1),
+  //     // Category List
+  //     bigCategoryChipColor: Color.fromRGBO(80, 80, 80, 1),
 
-      // Edit Page
-      toggleButtonsBackgroundColor: Color.fromRGBO(220, 220, 220, 0.5),
-      toggleButtonsBackgroundSplashColor: Color.fromRGBO(180, 180, 180, 0.5),
-    ),
-  ),
+  //     // Edit Page
+  //     toggleButtonsBackgroundColor: Color.fromRGBO(220, 220, 220, 0.5),
+  //     toggleButtonsBackgroundSplashColor: Color.fromRGBO(180, 180, 180, 0.5),
+  //   ),
+  // ),
 
   @JsonValue("cherryBlossom")
   cherryBlossom(
@@ -206,6 +231,7 @@ enum TLThemeType {
       themeTitleInSettings: "Cherry\nBlossom",
 
       // Settings Page
+      navigationTitleColor: Colors.white,
       titleColorOfSettingPage: Color.fromRGBO(219, 112, 147, 1),
       settingPanelColor: Color.fromRGBO(255, 240, 245, 1),
 
@@ -223,7 +249,7 @@ enum TLThemeType {
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(255, 218, 224, 1),
 
       // Basics
-      defaultAccentColor: Colors.pink,
+      defaultAccentColor: Color.fromRGBO(240, 152, 147, 1),
       canTapCardColor: Color.fromRGBO(255, 245, 250, 1),
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(255, 192, 203, 1),
@@ -240,59 +266,16 @@ enum TLThemeType {
     ),
   ),
 
-  @JsonValue("urbanNight")
-  urbanNight(
+  @JsonValue("pastryBloom")
+  pastryBloom(
     TLThemeConfig(
       // Theme Name
-      themeName: "Urban Night",
-      themeTitleInSettings: "Urban\nNight",
+      themeName: "Pastry Bloom",
+      themeTitleInSettings: "Pastry\nBloom",
 
       // Settings Page
-      titleColorOfSettingPage: Color.fromRGBO(156, 220, 254, 1), // VSCode blue
-      settingPanelColor:
-          Color.fromRGBO(37, 37, 38, 1), // VSCode Dark+ background
-
-      // Home Page
-      backgroundColor: Color.fromRGBO(30, 30, 30, 1), // VSCode Dark+ background
-
-      // Navigation Bar
-      gradientOfNavBar: LinearGradient(colors: [
-        Color.fromRGBO(33, 33, 33, 1), // Dark gray
-        Color.fromRGBO(15, 15, 15, 1), // Darker gray
-      ]),
-
-      // Other Apps
-      otherAppsElevatedButtonColor: Color.fromRGBO(68, 68, 68, 1),
-      otherAppsPressedElevatedButtonColor: Color.fromRGBO(51, 51, 51, 1),
-
-      // Basics
-      defaultAccentColor: Colors.blue,
-      canTapCardColor: Color.fromRGBO(45, 45, 45, 1),
-      whiteBasedColor: Color.fromRGBO(204, 204, 204, 1), // VSCode text color
-      tlDoubleCardBorderColor: Color.fromRGBO(85, 85, 85, 1),
-
-      // Alert
-      alertBackgroundColor: Color.fromRGBO(37, 37, 38, 1),
-
-      // Category List
-      bigCategoryChipColor: Color.fromRGBO(78, 120, 160, 1), // Muted blue
-
-      // Edit Page
-      toggleButtonsBackgroundColor: Color.fromRGBO(78, 120, 160, 0.3),
-      toggleButtonsBackgroundSplashColor: Color.fromRGBO(78, 120, 160, 0.5),
-    ),
-  ),
-
-  @JsonValue("patisserie")
-  patisserie(
-    TLThemeConfig(
-      // Theme Name
-      themeName: "Patisserie",
-      themeTitleInSettings: "Patis\nserie",
-
-      // Settings Page
-      titleColorOfSettingPage:
-          Color.fromRGBO(165, 117, 98, 1), // Chocolate brown
+      navigationTitleColor: Colors.white,
+      titleColorOfSettingPage: Color.fromRGBO(165, 117, 98, 1),
       settingPanelColor: Color.fromRGBO(252, 250, 242, 1), // Cream color
 
       // Home Page
@@ -338,12 +321,12 @@ enum TLThemeType {
       .firstWhere(
         (e) => e.value == json,
         orElse: () => _$TLThemeTypeEnumMap.entries.firstWhere(
-          (e) => e.key == TLThemeType.sunOrange, // デフォルトを指定
+          (e) => e.key == TLThemeType.notebook, // デフォルトを指定
         ),
       )
       .key;
 
-  String toJson() => _$TLThemeTypeEnumMap[this] ?? 'sunOrange';
+  String toJson() => _$TLThemeTypeEnumMap[this] ?? 'notebook';
 }
 
 // TLThemeConfig(

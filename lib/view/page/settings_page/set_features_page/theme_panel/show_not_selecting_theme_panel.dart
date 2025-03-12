@@ -39,6 +39,11 @@ class _RightSideThemeSelectButtonState
           await ref.read(tlAppStateProvider.notifier).updateState(
               TLThemeAction.changeTheme(newThemeType: corrThemeType));
 
+          // アクセントカラーをテーマ固有のデフォルト値にリセット
+          await ref.read(tlAppStateProvider.notifier).updateState(
+              TLUserDataAction.saveCustomAccentColor(
+                  newAccentColor: corrThemeType.config.defaultAccentColor));
+
           // アプリアイコンも変更
           await ref.read(tlAppStateProvider.notifier).updateState(
               TLUserDataAction.updateCurrentAppIconName(

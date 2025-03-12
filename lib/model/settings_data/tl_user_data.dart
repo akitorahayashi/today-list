@@ -12,7 +12,7 @@ part '../generate/tl_user_data.g.dart';
 class TLUserData with _$TLUserData {
   const factory TLUserData({
     // 現在のアプリアイコンの名前
-    @Default("Sun Orange") String currentAppIconName,
+    @Default("Notebook") String currentAppIconName,
     // 選択されたチェックボックスのアイコン
     @Default(SelectedCheckBoxIconData(iconCategory: "Default", iconName: "Box"))
     SelectedCheckBoxIconData selectedCheckBoxIconData,
