@@ -55,7 +55,7 @@ dev_dependencies:
   json_serializable: ^6.7.1
   build_runner: ^2.4.7
   freezed: ^2.4.5
-
+  
 # flutter pub run flutter_launcher_icons:main
 flutter_icons:
   android: true

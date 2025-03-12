@@ -26,7 +26,7 @@ class WorkspaceCard extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(5, 1, 5, 0),
         child: GestureDetector(
-          onTap: () => _handleWorkspaceSelection(ref, isCurrentWorkspace),
+          onTap: () => _handleWorkspaceSelection(context, isCurrentWorkspace),
           child: ConstrainedBox(
             constraints: const BoxConstraints(minHeight: 70),
             child: Card(
@@ -60,14 +60,13 @@ class WorkspaceCard extends ConsumerWidget {
   }
 
   // MARK: - Handle Workspace Selection
-  void _handleWorkspaceSelection(WidgetRef ref, bool isCurrentWorkspace) async {
-    await SelectEditWorkspaceMethodDialog(
+  void _handleWorkspaceSelection(
+    BuildContext context,
+    bool isCurrentWorkspace,
+  ) {
+    SelectEditWorkspaceMethodDialog(
       isCurrentWorkspace: isCurrentWorkspace,
       corrWorkspace: corrWorkspace,
-    ).show(context: ref.context);
-
-    if (ref.context.mounted) {
-      Navigator.pop(ref.context);
-    }
+    ).show(context: context);
   }
 }

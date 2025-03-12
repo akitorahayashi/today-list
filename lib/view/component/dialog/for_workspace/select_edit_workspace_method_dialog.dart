@@ -64,11 +64,16 @@ class SelectEditWorkspaceMethodDialog extends ConsumerWidget
             children: [
               Expanded(
                 child: SimpleDialogOption(
-                  onPressed: () async {
+                  onPressed: () {
                     Navigator.pop(context);
-                    await AddOrEditWorkspaceDialog(
-                      oldWorkspaceId: corrWorkspace.id,
-                    ).show(context: context);
+
+                    Future.microtask(() {
+                      if (context.mounted) {
+                        AddOrEditWorkspaceDialog(
+                          oldWorkspaceId: corrWorkspace.id,
+                        ).show(context: context);
+                      }
+                    });
                   },
                   child: Text(
                     "Rename",
@@ -91,11 +96,15 @@ class SelectEditWorkspaceMethodDialog extends ConsumerWidget
                   children: [
                     Expanded(
                       child: SimpleDialogOption(
-                        onPressed: () async {
+                        onPressed: () {
                           Navigator.pop(context);
-                          await DeleteWorkspaceDialog(
-                            willDeletedWorkspace: corrWorkspace,
-                          ).show(context: context);
+                          Future.microtask(() {
+                            if (context.mounted) {
+                              DeleteWorkspaceDialog(
+                                willDeletedWorkspace: corrWorkspace,
+                              ).show(context: context);
+                            }
+                          });
                         },
                         child: Text(
                           "Delete",
