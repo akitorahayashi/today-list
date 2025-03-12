@@ -1,0 +1,2 @@
+json_key_file(ENV["SUPPLY_JSON_KEY"] || "path/to/your/play-store-key.json") # Google Play Console APIのJSONキーファイルへのパス
+package_name("com.yourcompany.todaylist") # アプリのパッケージ名 

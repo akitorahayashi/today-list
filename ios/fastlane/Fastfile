@@ -1,0 +1,191 @@
+default_platform(:ios)
+
+platform :ios do
+  # 共通の前処理
+  before_all do
+    setup_ci if ENV['CI']
+  end
+
+  # 証明書とプロビジョニングプロファイルの同期
+  desc "証明書とプロビジョニングプロファイルを同期"
+  lane :sync_certificates do
+    app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"] || "YOUR_KEY_ID",
+      issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"] || "YOUR_ISSUER_ID",
+      key_filepath: "app_store_connect_api_key.json",
+      in_house: false
+    )
+
+    match(
+      type: "development",
+      readonly: is_ci,
+      app_identifier: ["com.yourcompany.todaylist", "com.yourcompany.todaylist.UnCategorizedToDosInWorkspaceWidgetExtension"],
+      git_basic_authorization: ENV["MATCH_GIT_BASIC_AUTHORIZATION"]
+    )
+    
+    match(
+      type: "appstore",
+      readonly: is_ci,
+      app_identifier: ["com.yourcompany.todaylist", "com.yourcompany.todaylist.UnCategorizedToDosInWorkspaceWidgetExtension"],
+      git_basic_authorization: ENV["MATCH_GIT_BASIC_AUTHORIZATION"]
+    )
+  end
+
+  # Firebase App Distributionへのデプロイ
+  desc "Firebase App Distributionにデプロイ"
+  lane :firebase do
+    # バージョン番号を自動的に増加
+    increment_build_number(
+      build_number: ENV["BUILD_NUMBER"] || 1
+    )
+    
+    # Flutterビルド
+    sh("cd .. && flutter build ios --release --no-codesign")
+    
+    # 証明書とプロビジョニングプロファイルの更新
+    sync_certificates
+    
+    # アプリのビルドとアーカイブ
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      export_method: "development",
+      export_options: {
+        provisioningProfiles: {
+          "com.yourcompany.todaylist" => "match Development com.yourcompany.todaylist",
+          "com.yourcompany.todaylist.UnCategorizedToDosInWorkspaceWidgetExtension" => "match Development com.yourcompany.todaylist.UnCategorizedToDosInWorkspaceWidgetExtension"
+        }
+      }
+    )
+    
+    # Firebase App Distributionにアップロード
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_IOS"],
+      groups: "testers",
+      release_notes: "テスト版ビルド #{lane_context[SharedValues::BUILD_NUMBER]}"
+    )
+    
+    # Slackに通知
+    slack(
+      message: "iOS版がFirebase App Distributionにアップロードされました！",
+      success: true,
+      slack_url: ENV["SLACK_URL"]
+    ) if ENV["SLACK_URL"]
+  end
+
+  # ベータ版のビルドとTestFlightへのアップロード
+  desc "ベータ版をビルドしてTestFlightにアップロード"
+  lane :beta do
+    # バージョン番号を自動的に増加
+    increment_build_number(
+      build_number: ENV["BUILD_NUMBER"] || 1
+      # アプリストアに公開後は以下を使用
+      # build_number: latest_testflight_build_number + 1
+    )
+    
+    # Flutterビルド
+    sh("cd .. && flutter build ios --release --no-codesign")
+    
+    # 証明書とプロビジョニングプロファイルの更新
+    sync_certificates
+    
+    # アプリのビルドとアーカイブ
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+          "com.yourcompany.todaylist" => "match AppStore com.yourcompany.todaylist",
+          "com.yourcompany.todaylist.UnCategorizedToDosInWorkspaceWidgetExtension" => "match AppStore com.yourcompany.todaylist.UnCategorizedToDosInWorkspaceWidgetExtension"
+        }
+      }
+    )
+    
+    # TestFlightにアップロード（アプリストアに公開後にコメントを外す）
+    # upload_to_testflight(
+    #   skip_waiting_for_build_processing: true,
+    #   apple_id: ENV["APPLE_ID"] || "YOUR_APPLE_ID"
+    # )
+    
+    # 代わりにFirebase App Distributionを使用
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_IOS"],
+      groups: "testers",
+      release_notes: "ベータ版ビルド #{lane_context[SharedValues::BUILD_NUMBER]}"
+    )
+    
+    # Slackに通知
+    slack(
+      message: "iOS Beta版がFirebase App Distributionにアップロードされました！",
+      success: true,
+      slack_url: ENV["SLACK_URL"]
+    ) if ENV["SLACK_URL"]
+  end
+
+  # 本番リリース
+  desc "App Storeにリリース"
+  lane :release do
+    # バージョン番号を自動的に増加
+    increment_build_number(
+      build_number: ENV["BUILD_NUMBER"] || 1
+      # アプリストアに公開後は以下を使用
+      # build_number: latest_testflight_build_number + 1
+    )
+    
+    # Flutterビルド
+    sh("cd .. && flutter build ios --release --no-codesign")
+    
+    # 証明書とプロビジョニングプロファイルの更新
+    sync_certificates
+    
+    # アプリのビルドとアーカイブ
+    build_app(
+      workspace: "Runner.xcworkspace",
+      scheme: "Runner",
+      export_method: "app-store",
+      export_options: {
+        provisioningProfiles: {
+          "com.yourcompany.todaylist" => "match AppStore com.yourcompany.todaylist",
+          "com.yourcompany.todaylist.UnCategorizedToDosInWorkspaceWidgetExtension" => "match AppStore com.yourcompany.todaylist.UnCategorizedToDosInWorkspaceWidgetExtension"
+        }
+      }
+    )
+    
+    # App Storeにアップロード（アプリストアに公開後にコメントを外す）
+    # upload_to_app_store(
+    #   skip_metadata: false,
+    #   skip_screenshots: false,
+    #   submit_for_review: true,
+    #   automatic_release: true,
+    #   force: true,
+    #   precheck_include_in_app_purchases: false,
+    #   submission_information: {
+    #     add_id_info_uses_idfa: false
+    #   }
+    # )
+    
+    # 代わりにFirebase App Distributionを使用
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_IOS"],
+      groups: "testers,stakeholders",
+      release_notes: "リリース版ビルド #{lane_context[SharedValues::BUILD_NUMBER]}"
+    )
+    
+    # Slackに通知
+    slack(
+      message: "iOS版がFirebase App Distributionにアップロードされました！",
+      success: true,
+      slack_url: ENV["SLACK_URL"]
+    ) if ENV["SLACK_URL"]
+  end
+
+  # エラー処理
+  error do |lane, exception|
+    slack(
+      message: "iOS #{lane}レーンでエラーが発生しました: #{exception}",
+      success: false,
+      slack_url: ENV["SLACK_URL"]
+    ) if ENV["SLACK_URL"]
+  end
+end 

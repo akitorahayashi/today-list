@@ -1,0 +1,161 @@
+default_platform(:android)
+
+platform :android do
+  # 共通の前処理
+  before_all do
+    setup_ci if ENV['CI']
+  end
+
+  # Firebase App Distributionへのデプロイ
+  desc "Firebase App Distributionにデプロイ"
+  lane :firebase do
+    # バージョンコードを自動的に増加
+    increment_version_code(
+      gradle_file_path: "app/build.gradle"
+    )
+    
+    # Flutterビルド
+    sh("cd .. && flutter build apk --release")
+    
+    # Firebase App Distributionにアップロード
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_ANDROID"],
+      groups: "testers",
+      apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      release_notes: "テスト版ビルド"
+    )
+    
+    # Slackに通知
+    slack(
+      message: "Android版がFirebase App Distributionにアップロードされました！",
+      success: true,
+      slack_url: ENV["SLACK_URL"]
+    ) if ENV["SLACK_URL"]
+  end
+
+  # 内部テスト用ビルド
+  desc "内部テスト用のビルドを作成"
+  lane :internal do
+    # バージョンコードを自動的に増加
+    increment_version_code(
+      gradle_file_path: "app/build.gradle"
+    )
+    
+    # Flutterビルド
+    sh("cd .. && flutter build appbundle --release")
+    
+    # Google Playに内部テスト版としてアップロード（アプリストアに公開後にコメントを外す）
+    # upload_to_play_store(
+    #   track: 'internal',
+    #   aab: '../build/app/outputs/bundle/release/app-release.aab',
+    #   skip_upload_metadata: true,
+    #   skip_upload_images: true,
+    #   skip_upload_screenshots: true,
+    #   release_status: "completed",
+    #   json_key: ENV["SUPPLY_JSON_KEY"] || "path/to/your/play-store-key.json"
+    # )
+    
+    # 代わりにFirebase App Distributionを使用
+    sh("cd .. && flutter build apk --release")
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_ANDROID"],
+      groups: "testers",
+      apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      release_notes: "内部テスト版ビルド"
+    )
+    
+    # Slackに通知
+    slack(
+      message: "Android内部テスト版がFirebase App Distributionにアップロードされました！",
+      success: true,
+      slack_url: ENV["SLACK_URL"]
+    ) if ENV["SLACK_URL"]
+  end
+
+  # ベータ版のビルドとアップロード
+  desc "ベータ版をビルドしてGoogle Playにアップロード"
+  lane :beta do
+    # バージョンコードを自動的に増加
+    increment_version_code(
+      gradle_file_path: "app/build.gradle"
+    )
+    
+    # Flutterビルド
+    sh("cd .. && flutter build appbundle --release")
+    
+    # Google Playにベータ版としてアップロード（アプリストアに公開後にコメントを外す）
+    # upload_to_play_store(
+    #   track: 'beta',
+    #   aab: '../build/app/outputs/bundle/release/app-release.aab',
+    #   skip_upload_metadata: false,
+    #   skip_upload_images: false,
+    #   skip_upload_screenshots: false,
+    #   release_status: "completed",
+    #   json_key: ENV["SUPPLY_JSON_KEY"] || "path/to/your/play-store-key.json"
+    # )
+    
+    # 代わりにFirebase App Distributionを使用
+    sh("cd .. && flutter build apk --release")
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_ANDROID"],
+      groups: "testers",
+      apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      release_notes: "ベータ版ビルド"
+    )
+    
+    # Slackに通知
+    slack(
+      message: "Androidベータ版がFirebase App Distributionにアップロードされました！",
+      success: true,
+      slack_url: ENV["SLACK_URL"]
+    ) if ENV["SLACK_URL"]
+  end
+
+  # 本番リリース
+  desc "Google Playに本番リリース"
+  lane :release do
+    # バージョンコードを自動的に増加
+    increment_version_code(
+      gradle_file_path: "app/build.gradle"
+    )
+    
+    # Flutterビルド
+    sh("cd .. && flutter build appbundle --release")
+    
+    # Google Playに本番版としてアップロード（アプリストアに公開後にコメントを外す）
+    # upload_to_play_store(
+    #   track: 'production',
+    #   aab: '../build/app/outputs/bundle/release/app-release.aab',
+    #   skip_upload_metadata: false,
+    #   skip_upload_images: false,
+    #   skip_upload_screenshots: false,
+    #   release_status: "completed",
+    #   json_key: ENV["SUPPLY_JSON_KEY"] || "path/to/your/play-store-key.json"
+    # )
+    
+    # 代わりにFirebase App Distributionを使用
+    sh("cd .. && flutter build apk --release")
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_ANDROID"],
+      groups: "testers,stakeholders",
+      apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      release_notes: "リリース版ビルド"
+    )
+    
+    # Slackに通知
+    slack(
+      message: "Android版がFirebase App Distributionにアップロードされました！",
+      success: true,
+      slack_url: ENV["SLACK_URL"]
+    ) if ENV["SLACK_URL"]
+  end
+
+  # エラー処理
+  error do |lane, exception|
+    slack(
+      message: "Android #{lane}レーンでエラーが発生しました: #{exception}",
+      success: false,
+      slack_url: ENV["SLACK_URL"]
+    ) if ENV["SLACK_URL"]
+  end
+end 

@@ -2,16 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<!-- Flutter関連の設定 -->
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	
+	<!-- アプリの基本情報 -->
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Today List</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+	
+	<!-- アプリアイコン設定 -->
 	<key>CFBundleIcons</key>
 	<dict>
+		<!-- 代替アイコン設定 -->
 		<key>CFBundleAlternateIcons</key>
 		<dict>
 			<key>Lime Green</key>
@@ -36,6 +42,7 @@
 				</array>
 			</dict>
 		</dict>
+		<!-- メインアイコン設定 -->
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
 			<key>CFBundleIconFiles</key>
@@ -44,6 +51,8 @@
 			</array>
 		</dict>
 	</dict>
+	
+	<!-- アプリ識別情報 -->
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -56,6 +65,8 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	
+	<!-- URLスキーム設定 -->
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -69,12 +80,20 @@
 			</array>
 		</dict>
 	</array>
+	
+	<!-- ビルド番号 -->
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	
+	<!-- Google AdMob設定 -->
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-6440188572707366~3835115873</string>
+	
+	<!-- システム要件 -->
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	
+	<!-- SKAdNetwork設定（広告トラッキング用） -->
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -246,18 +265,26 @@
 			<string>3qcr597p9d.skadnetwork</string>
 		</dict>
 	</array>
+	
+	<!-- 入力イベント設定 -->
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	
+	<!-- UI設定 -->
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	
+	<!-- サポートする画面向き -->
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	
+	<!-- ステータスバー表示設定 -->
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

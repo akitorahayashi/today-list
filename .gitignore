@@ -54,3 +54,47 @@ doc/api/
 # プラグイン関連ファイル
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# テスト関連ファイル
+/coverage/
+/test/coverage/
+/test/reports/
+/testResults/
+/test-results/
+/test-results.xml
+/junit-*.xml
+/coverage.xml
+/lcov.info
+/test-results.json
+
+# Fastlane関連ファイル
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
+
+# Firebase関連
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# IDE関連
+.idea/
+.vscode/
+*.iml
+*.iws
+.DS_Store
+.classpath
+.project
+.settings/
+
+# その他の一時ファイル
+*.log
+*.pyc
+*.swp
+.atom/
+.buildlog/
+.history/
+.svn/
+migrate_working_dir/
