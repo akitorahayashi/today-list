@@ -5,9 +5,7 @@ import 'model/design/tl_theme.dart';
 // alert
 ButtonStyle alertButtonStyle({required Color accentColor}) {
   return ButtonStyle(
-    foregroundColor: WidgetStateProperty.all<Color>(
-      accentColor,
-    ),
+    foregroundColor: WidgetStateProperty.all<Color>(accentColor),
     overlayColor: WidgetStateProperty.all<Color>(
       accentColor.withValues(alpha: 0.1),
     ),
@@ -23,17 +21,18 @@ InputDecoration tlInputDecoration({
 }) {
   final TLThemeConfig tlThemeConfig = TLTheme.of(context);
   return InputDecoration(
-      icon: icon,
-      label: Text(labelText),
-      labelStyle: TextStyle(color: Colors.black.withValues(alpha: 0.45)),
-      enabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: tlThemeConfig.accentColor),
-      ),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: tlThemeConfig.accentColor),
-      ),
-      // 完了ボタン
-      suffixIcon: suffixIcon);
+    icon: icon,
+    label: Text(labelText),
+    labelStyle: TextStyle(color: Colors.black.withValues(alpha: 0.45)),
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: tlThemeConfig.accentColor),
+    ),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(color: tlThemeConfig.accentColor),
+    ),
+    // 完了ボタン
+    suffixIcon: suffixIcon,
+  );
 }
 
 // ButtonStyle(
@@ -44,6 +43,6 @@ InputDecoration tlInputDecoration({
 //       overlayColor: WidgetStateProperty.all<Color>(
 //         tlThemeDataList[SettingData.shared.selectedThemeIndex]!
 //             .accentColor
-//             .withValues(alpha: 0.1),
+//             .withOpacity(0.1),
 //       ),
 //     );
