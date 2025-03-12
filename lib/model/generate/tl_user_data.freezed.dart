@@ -27,8 +27,7 @@ mixin _$TLUserData {
   SelectedCheckBoxIconData get selectedCheckBoxIconData =>
       throw _privateConstructorUsedError; // 獲得したチェックボックスのアイコン
   Map<String, List<String>> get earnedCheckBoxIcons =>
-      throw _privateConstructorUsedError; // カスタムアクセントカラー (null の場合はデフォルトのアクセントカラーを使用)
-  int? get customAccentColorValue => throw _privateConstructorUsedError;
+      throw _privateConstructorUsedError;
 
   /// Serializes this TLUserData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,7 +50,6 @@ abstract class $TLUserDataCopyWith<$Res> {
     String currentAppIconName,
     SelectedCheckBoxIconData selectedCheckBoxIconData,
     Map<String, List<String>> earnedCheckBoxIcons,
-    int? customAccentColorValue,
   });
 
   $SelectedCheckBoxIconDataCopyWith<$Res> get selectedCheckBoxIconData;
@@ -75,7 +73,6 @@ class _$TLUserDataCopyWithImpl<$Res, $Val extends TLUserData>
     Object? currentAppIconName = null,
     Object? selectedCheckBoxIconData = null,
     Object? earnedCheckBoxIcons = null,
-    Object? customAccentColorValue = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -94,11 +91,6 @@ class _$TLUserDataCopyWithImpl<$Res, $Val extends TLUserData>
                     ? _value.earnedCheckBoxIcons
                     : earnedCheckBoxIcons // ignore: cast_nullable_to_non_nullable
                         as Map<String, List<String>>,
-            customAccentColorValue:
-                freezed == customAccentColorValue
-                    ? _value.customAccentColorValue
-                    : customAccentColorValue // ignore: cast_nullable_to_non_nullable
-                        as int?,
           )
           as $Val,
     );
@@ -131,7 +123,6 @@ abstract class _$$TLUserDataImplCopyWith<$Res>
     String currentAppIconName,
     SelectedCheckBoxIconData selectedCheckBoxIconData,
     Map<String, List<String>> earnedCheckBoxIcons,
-    int? customAccentColorValue,
   });
 
   @override
@@ -155,7 +146,6 @@ class __$$TLUserDataImplCopyWithImpl<$Res>
     Object? currentAppIconName = null,
     Object? selectedCheckBoxIconData = null,
     Object? earnedCheckBoxIcons = null,
-    Object? customAccentColorValue = freezed,
   }) {
     return _then(
       _$TLUserDataImpl(
@@ -174,11 +164,6 @@ class __$$TLUserDataImplCopyWithImpl<$Res>
                 ? _value._earnedCheckBoxIcons
                 : earnedCheckBoxIcons // ignore: cast_nullable_to_non_nullable
                     as Map<String, List<String>>,
-        customAccentColorValue:
-            freezed == customAccentColorValue
-                ? _value.customAccentColorValue
-                : customAccentColorValue // ignore: cast_nullable_to_non_nullable
-                    as int?,
       ),
     );
   }
@@ -196,7 +181,6 @@ class _$TLUserDataImpl implements _TLUserData {
     final Map<String, List<String>> earnedCheckBoxIcons = const {
       "Default": ["Box", "Circle"],
     },
-    this.customAccentColorValue,
   }) : _earnedCheckBoxIcons = earnedCheckBoxIcons;
 
   factory _$TLUserDataImpl.fromJson(Map<String, dynamic> json) =>
@@ -222,13 +206,9 @@ class _$TLUserDataImpl implements _TLUserData {
     return EqualUnmodifiableMapView(_earnedCheckBoxIcons);
   }
 
-  // カスタムアクセントカラー (null の場合はデフォルトのアクセントカラーを使用)
-  @override
-  final int? customAccentColorValue;
-
   @override
   String toString() {
-    return 'TLUserData(currentAppIconName: $currentAppIconName, selectedCheckBoxIconData: $selectedCheckBoxIconData, earnedCheckBoxIcons: $earnedCheckBoxIcons, customAccentColorValue: $customAccentColorValue)';
+    return 'TLUserData(currentAppIconName: $currentAppIconName, selectedCheckBoxIconData: $selectedCheckBoxIconData, earnedCheckBoxIcons: $earnedCheckBoxIcons)';
   }
 
   @override
@@ -246,9 +226,7 @@ class _$TLUserDataImpl implements _TLUserData {
             const DeepCollectionEquality().equals(
               other._earnedCheckBoxIcons,
               _earnedCheckBoxIcons,
-            ) &&
-            (identical(other.customAccentColorValue, customAccentColorValue) ||
-                other.customAccentColorValue == customAccentColorValue));
+            ));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -258,7 +236,6 @@ class _$TLUserDataImpl implements _TLUserData {
     currentAppIconName,
     selectedCheckBoxIconData,
     const DeepCollectionEquality().hash(_earnedCheckBoxIcons),
-    customAccentColorValue,
   );
 
   /// Create a copy of TLUserData
@@ -280,7 +257,6 @@ abstract class _TLUserData implements TLUserData {
     final String currentAppIconName,
     final SelectedCheckBoxIconData selectedCheckBoxIconData,
     final Map<String, List<String>> earnedCheckBoxIcons,
-    final int? customAccentColorValue,
   }) = _$TLUserDataImpl;
 
   factory _TLUserData.fromJson(Map<String, dynamic> json) =
@@ -292,9 +268,7 @@ abstract class _TLUserData implements TLUserData {
   @override
   SelectedCheckBoxIconData get selectedCheckBoxIconData; // 獲得したチェックボックスのアイコン
   @override
-  Map<String, List<String>> get earnedCheckBoxIcons; // カスタムアクセントカラー (null の場合はデフォルトのアクセントカラーを使用)
-  @override
-  int? get customAccentColorValue;
+  Map<String, List<String>> get earnedCheckBoxIcons;
 
   /// Create a copy of TLUserData
   /// with the given fields replaced by the non-null parameter values.

@@ -19,8 +19,6 @@ class TLUserData with _$TLUserData {
       "Default": ["Box", "Circle"],
     })
     Map<String, List<String>> earnedCheckBoxIcons,
-    // カスタムアクセントカラー (null の場合はデフォルトのアクセントカラーを使用)
-    int? customAccentColorValue,
   }) = _TLUserData;
 
   factory TLUserData.fromJson(Map<String, dynamic> json) =>

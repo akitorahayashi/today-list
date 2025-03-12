@@ -28,7 +28,6 @@ _$TLUserDataImpl _$$TLUserDataImplFromJson(Map<String, dynamic> json) =>
           const {
             "Default": ["Box", "Circle"],
           },
-      customAccentColorValue: (json['customAccentColorValue'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$$TLUserDataImplToJson(_$TLUserDataImpl instance) =>
@@ -36,5 +35,4 @@ Map<String, dynamic> _$$TLUserDataImplToJson(_$TLUserDataImpl instance) =>
       'currentAppIconName': instance.currentAppIconName,
       'selectedCheckBoxIconData': instance.selectedCheckBoxIconData,
       'earnedCheckBoxIcons': instance.earnedCheckBoxIcons,
-      'customAccentColorValue': instance.customAccentColorValue,
     };

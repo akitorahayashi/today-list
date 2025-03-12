@@ -31,7 +31,6 @@ void main() {
       expect(userData.earnedCheckBoxIcons, isNotEmpty);
       expect(userData.earnedCheckBoxIcons['Default'], contains('Box'));
       expect(userData.earnedCheckBoxIcons['Default'], contains('Circle'));
-      expect(userData.customAccentColorValue, isNull);
     });
 
     test('選択されたチェックボックスアイコンプロバイダーが正しく動作する', () async {

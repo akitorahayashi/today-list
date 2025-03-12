@@ -36,7 +36,7 @@ enum TLThemeType {
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(210, 210, 210, 1),
 
       // Basics
-      defaultAccentColor: Color.fromRGBO(94, 158, 214, 1),
+      accentColor: Color.fromRGBO(94, 158, 214, 1),
       canTapCardColor: Color.fromRGBO(240, 240, 240, 1),
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(230, 230, 230, 1),
@@ -81,7 +81,7 @@ enum TLThemeType {
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(255, 222, 173, 1),
 
       // Basics
-      defaultAccentColor: Colors.orange,
+      accentColor: Colors.orange,
       canTapCardColor: Color.fromRGBO(235, 255, 179, 1),
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(255, 192, 97, 1),
@@ -126,7 +126,7 @@ enum TLThemeType {
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(195, 243, 176, 1),
 
       // Basics
-      defaultAccentColor: Colors.lightGreen,
+      accentColor: Colors.lightGreen,
       canTapCardColor: Color.fromRGBO(255, 253, 184, 1),
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(225, 163, 102, 1),
@@ -171,7 +171,7 @@ enum TLThemeType {
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(163, 231, 239, 1),
 
       // Basics
-      defaultAccentColor: Colors.cyan,
+      accentColor: Colors.cyan,
       canTapCardColor: Color.fromRGBO(214, 252, 255, 1),
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(129, 221, 234, 1),
@@ -259,7 +259,7 @@ enum TLThemeType {
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(255, 218, 224, 1),
 
       // Basics
-      defaultAccentColor: Color.fromRGBO(240, 152, 147, 1),
+      accentColor: Color.fromRGBO(240, 152, 147, 1),
       canTapCardColor: Color.fromRGBO(255, 245, 250, 1),
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(255, 192, 203, 1),
@@ -307,7 +307,7 @@ enum TLThemeType {
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(255, 228, 196, 1),
 
       // Basics
-      defaultAccentColor: Colors.amber,
+      accentColor: Colors.amber,
       canTapCardColor: Color.fromRGBO(255, 248, 225, 1), // Very light yellow
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(255, 213, 158, 1), // Soft orange

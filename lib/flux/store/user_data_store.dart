@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
@@ -11,15 +10,6 @@ import 'package:today_list/service/tl_vibration.dart';
 final userDataProvider = AsyncNotifierProvider<UserDataNotifier, TLUserData>(
   UserDataNotifier.new,
 );
-
-// カスタムアクセントカラーのプロバイダー
-final customAccentColorProvider = Provider<Color?>((ref) {
-  final userDataAsync = ref.watch(userDataProvider);
-  return userDataAsync.whenData((userData) {
-    final colorValue = userData.customAccentColorValue;
-    return colorValue != null ? Color(colorValue) : null;
-  }).valueOrNull;
-});
 
 // 選択されたチェックボックスアイコンのプロバイダー
 final selectedCheckBoxIconProvider = Provider<SelectedCheckBoxIconData>((ref) {

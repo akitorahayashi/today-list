@@ -21,8 +21,7 @@ class TLThemeConfig {
   final Gradient gradientOfNavBar;
 
   // Basics
-  final Color defaultAccentColor; // デフォルトのアクセントカラー
-  final Color? _customAccentColor; // カスタムアクセントカラー（オプション）
+  final Color accentColor; // デフォルトのアクセントカラー
   final Color canTapCardColor;
   final Color whiteBasedColor;
   final Color tlDoubleCardBorderColor;
@@ -36,9 +35,6 @@ class TLThemeConfig {
   // Edit Page
   final Color toggleButtonsBackgroundColor;
   final Color toggleButtonsBackgroundSplashColor;
-
-  // 現在のアクセントカラーを取得するゲッター
-  Color get accentColor => _customAccentColor ?? defaultAccentColor;
 
   const TLThemeConfig({
     // Theme Name
@@ -60,8 +56,7 @@ class TLThemeConfig {
     required this.otherAppsPressedElevatedButtonColor,
 
     // Basics
-    required this.defaultAccentColor,
-    Color? customAccentColor,
+    required this.accentColor,
     required this.canTapCardColor,
     required this.whiteBasedColor,
     required this.tlDoubleCardBorderColor,
@@ -75,7 +70,7 @@ class TLThemeConfig {
     // Edit Page
     required this.toggleButtonsBackgroundColor,
     required this.toggleButtonsBackgroundSplashColor,
-  }) : _customAccentColor = customAccentColor;
+  });
 
   // カスタムアクセントカラーを設定した新しいインスタンスを作成
   TLThemeConfig copyWithCustomAccentColor(Color customAccentColor) {
@@ -89,8 +84,7 @@ class TLThemeConfig {
       gradientOfNavBar: gradientOfNavBar,
       otherAppsElevatedButtonColor: otherAppsElevatedButtonColor,
       otherAppsPressedElevatedButtonColor: otherAppsPressedElevatedButtonColor,
-      defaultAccentColor: defaultAccentColor,
-      customAccentColor: customAccentColor,
+      accentColor: accentColor,
       canTapCardColor: canTapCardColor,
       whiteBasedColor: whiteBasedColor,
       tlDoubleCardBorderColor: tlDoubleCardBorderColor,

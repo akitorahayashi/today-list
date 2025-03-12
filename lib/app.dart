@@ -22,12 +22,6 @@ class TodayListApp extends ConsumerWidget {
           data: (userData) {
             // カスタムアクセントカラーがある場合は適用
             TLThemeConfig themeConfig = selectedThemeType.config;
-            if (userData.customAccentColorValue != null) {
-              final customAccentColor = Color(userData.customAccentColorValue!);
-              themeConfig = themeConfig.copyWithCustomAccentColor(
-                customAccentColor,
-              );
-            }
 
             return AnimatedTLTheme(
               data: themeConfig,
