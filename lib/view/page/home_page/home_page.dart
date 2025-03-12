@@ -123,8 +123,10 @@ class _HomePageState extends ConsumerState<HomePage>
 
   /// ページタイトルを更新
   Future<void> _updatePageTitle() async {
-    final title =
-        await TLHomePageHelper.getPageTitle(ref, _tabController.index);
+    final title = await TLHomePageHelper.getPageTitle(
+      ref,
+      _tabController.index,
+    );
     setState(() {
       _pageTitle = title;
     });
@@ -144,8 +146,9 @@ class _HomePageState extends ConsumerState<HomePage>
       // ワークスペースタブに切り替える
       final workspacesAsync = ref.read(workspacesProvider);
       workspacesAsync.whenData((workspaces) {
-        final workspaceIndex =
-            workspaces.indexWhere((ws) => ws.id == workspaceId);
+        final workspaceIndex = workspaces.indexWhere(
+          (ws) => ws.id == workspaceId,
+        );
         if (workspaceIndex >= 0) {
           // ワークスペースのインデックス + 1 (Todayタブがあるため)
           final tabIndex = workspaceIndex + 1;
@@ -211,8 +214,8 @@ class _HomePageState extends ConsumerState<HomePage>
             final plusTabIndex = workspaces.length + 1;
             final customScrollPhysics =
                 TLHomePageHelper.createCustomTabBarScrollPhysics(
-              plusTabIndex: plusTabIndex,
-            );
+                  plusTabIndex: plusTabIndex,
+                );
 
             // タブバーの共通設定
             final tabBar = TabBar(
@@ -265,9 +268,7 @@ class _HomePageState extends ConsumerState<HomePage>
 
                 // Workspace分
                 for (final ws in workspaces)
-                  ToDoListInWorkspaceInTodayAndWhenever(
-                    corrWorkspace: ws,
-                  ),
+                  ToDoListInWorkspaceInTodayAndWhenever(corrWorkspace: ws),
 
                 // 最後の +タブ -> ダミーコンテンツ
                 const SizedBox.shrink(),
@@ -308,28 +309,28 @@ class _HomePageState extends ConsumerState<HomePage>
               showDrawerButton: true, // スマホの場合はドロワーボタンを表示
             );
           },
-          loading: () => Scaffold(
-            backgroundColor: TLTheme.of(context).backgroundColor,
-            body: const TLLoadingIndicator(),
-          ),
-          error: (error, stackTrace) => Scaffold(
-            backgroundColor: TLTheme.of(context).backgroundColor,
-            body: Center(
-              child: Text('ワークスペースIDの読み込みに失敗しました: $error'),
-            ),
-          ),
+          loading:
+              () => Scaffold(
+                backgroundColor: TLTheme.of(context).backgroundColor,
+                body: const TLLoadingIndicator(),
+              ),
+          error:
+              (error, stackTrace) => Scaffold(
+                backgroundColor: TLTheme.of(context).backgroundColor,
+                body: Center(child: Text('ワークスペースIDの読み込みに失敗しました: $error')),
+              ),
         );
       },
-      loading: () => const Scaffold(
-        backgroundColor: Colors.white,
-        body: TLLoadingIndicator(),
-      ),
-      error: (error, stackTrace) => Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: Text('ワークスペースの読み込みに失敗しました: $error'),
-        ),
-      ),
+      loading:
+          () => const Scaffold(
+            backgroundColor: Colors.white,
+            body: TLLoadingIndicator(),
+          ),
+      error:
+          (error, stackTrace) => Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(child: Text('ワークスペースの読み込みに失敗しました: $error')),
+          ),
     );
   }
 
@@ -352,9 +353,10 @@ class _HomePageState extends ConsumerState<HomePage>
         context: context,
         height: 100,
         pageTitle: _pageTitle,
-        leadingButtonOnPressed: showDrawerButton
-            ? () => _homePageScaffoldKey.currentState!.openDrawer()
-            : null,
+        leadingButtonOnPressed:
+            showDrawerButton
+                ? () => _homePageScaffoldKey.currentState!.openDrawer()
+                : null,
         leadingIconData: showDrawerButton ? Icons.menu : null,
         trailingButtonOnPressed: () {
           // GoRouterを使用して設定画面に遷移

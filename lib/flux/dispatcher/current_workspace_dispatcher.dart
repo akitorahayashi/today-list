@@ -6,7 +6,9 @@ import 'package:today_list/flux/store/current_workspace_store.dart';
 class CurrentWorkspaceDispatcher {
   /// 現在のワークスペースID関連のアクションをディスパッチします
   static Future<void> dispatch(
-      WidgetRef ref, CurrentWorkspaceAction action) async {
+    WidgetRef ref,
+    CurrentWorkspaceAction action,
+  ) async {
     await action.map(
       setCurrentWorkspaceId: (action) async {
         await ref

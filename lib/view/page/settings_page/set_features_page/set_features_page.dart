@@ -21,9 +21,10 @@ class SetFeaturesPage extends HookConsumerWidget {
 
     return selectedThemeTypeAsync.when(
       data: (selectedThemeType) {
-        List<TLThemeType> unUsingThemes = TLThemeType.values
-            .where((theme) => theme != selectedThemeType)
-            .toList();
+        List<TLThemeType> unUsingThemes =
+            TLThemeType.values
+                .where((theme) => theme != selectedThemeType)
+                .toList();
 
         return ProgressHUD(
           barrierEnabled: true,
@@ -33,9 +34,7 @@ class SetFeaturesPage extends HookConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircularProgressIndicator(
-                  color: Colors.white,
-                ),
+                CircularProgressIndicator(color: Colors.white),
                 SizedBox(height: 24),
                 Text(
                   "Loading...",
@@ -49,62 +48,68 @@ class SetFeaturesPage extends HookConsumerWidget {
               ],
             ),
           ),
-          child: ListView(padding: EdgeInsets.zero, children: [
-            // テーマ選択パネル
-            PanelWithTitle(
-              title: "THEME",
-              contents: [
-                const SizedBox(height: 8),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Column(
-                    children: [
-                      // 現在選択中のテーマを表示
-                      Container(
-                        height: 180,
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: const ShowSelectingThemePanel(),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // 他のテーマを選択するボタン - スクロール可能なリスト
-                      Container(
-                        height: 120,
-                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: unUsingThemes.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: ShowNotSelectingThemePanel(
-                                corrThemeType: unUsingThemes[index],
-                              ),
-                            );
-                          },
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              // テーマ選択パネル
+              PanelWithTitle(
+                title: "THEME",
+                contents: [
+                  const SizedBox(height: 8),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Column(
+                      children: [
+                        // 現在選択中のテーマを表示
+                        Container(
+                          height: 180,
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: const ShowSelectingThemePanel(),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 16),
+
+                        // 他のテーマを選択するボタン - スクロール可能なリスト
+                        Container(
+                          height: 120,
+                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: unUsingThemes.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0,
+                                ),
+                                child: ShowNotSelectingThemePanel(
+                                  corrThemeType: unUsingThemes[index],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-            const PanelWithTitle(
-                title: "VIBRATION", contents: [SetVibrationCard()]),
-            PanelWithTitle(
-              title: "ICONS",
-              contents: [
-                for (TLIconCategory tlIconCategory in [
-                  TLIconCategory.defaultCategory,
-                  TLIconCategory.unit1,
-                  TLIconCategory.unit2,
-                ])
-                  IconCategoryPanel(corrIconCategory: tlIconCategory),
-              ],
-            ),
-            const SizedBox(height: 250),
-          ]),
+                ],
+              ),
+              const PanelWithTitle(
+                title: "VIBRATION",
+                contents: [SetVibrationCard()],
+              ),
+              PanelWithTitle(
+                title: "ICONS",
+                contents: [
+                  for (TLIconCategory tlIconCategory in [
+                    TLIconCategory.defaultCategory,
+                    TLIconCategory.unit1,
+                    TLIconCategory.unit2,
+                  ])
+                    IconCategoryPanel(corrIconCategory: tlIconCategory),
+                ],
+              ),
+              const SizedBox(height: 250),
+            ],
+          ),
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),

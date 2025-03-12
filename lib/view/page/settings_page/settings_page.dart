@@ -16,13 +16,12 @@ class SettingsPage extends HookWidget {
 
     // MARK: - Hooks for state management
     final selectedPageIndex = useState<int>(0);
-    final pageController =
-        usePageController(initialPage: selectedPageIndex.value);
+    final pageController = usePageController(
+      initialPage: selectedPageIndex.value,
+    );
     final showBottomNavBar = useState<bool>(true);
 
-    final List<Widget> contentsInSettingPage = [
-      const SetFeaturesPage(),
-    ];
+    final List<Widget> contentsInSettingPage = [const SetFeaturesPage()];
 
     final List<dynamic> iconDataOfSettingPageContents = [
       [Icons.phone_android, "Features"],
@@ -51,18 +50,19 @@ class SettingsPage extends HookWidget {
           ),
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
-            child: showBottomNavBar.value
-                ? Align(
-                    alignment: Alignment.bottomCenter,
-                    child: _BottomNavBar(
-                      tlThemeConfig: tlThemeConfig,
-                      selectedPageIndex: selectedPageIndex,
-                      pageController: pageController,
-                      iconDataOfSettingPageContents:
-                          iconDataOfSettingPageContents,
-                    ),
-                  )
-                : const SizedBox.shrink(),
+            child:
+                showBottomNavBar.value
+                    ? Align(
+                      alignment: Alignment.bottomCenter,
+                      child: _BottomNavBar(
+                        tlThemeConfig: tlThemeConfig,
+                        selectedPageIndex: selectedPageIndex,
+                        pageController: pageController,
+                        iconDataOfSettingPageContents:
+                            iconDataOfSettingPageContents,
+                      ),
+                    )
+                    : const SizedBox.shrink(),
           ),
         ],
       ),
@@ -141,8 +141,9 @@ class _BottomNavItem extends HookWidget {
       onTapDown: (_) => isPressed.value = true,
       onTapUp: (_) => isPressed.value = false,
       onTapCancel: () => isPressed.value = false,
-      onTap: () =>
-          _onBottomNavItemTapped(index, selectedPageIndex, pageController),
+      onTap:
+          () =>
+              _onBottomNavItemTapped(index, selectedPageIndex, pageController),
       child: AnimatedScale(
         scale: isPressed.value ? 0.9 : 1.0, // タップ時に 90% に縮小
         duration: const Duration(milliseconds: 100),
@@ -151,18 +152,20 @@ class _BottomNavItem extends HookWidget {
           children: [
             Icon(
               iconDataOfSettingPageContents[index][0],
-              color: index == selectedPageIndex.value
-                  ? tlThemeData.accentColor
-                  : Colors.black45,
+              color:
+                  index == selectedPageIndex.value
+                      ? tlThemeData.accentColor
+                      : Colors.black45,
             ),
             Padding(
               padding: const EdgeInsets.only(top: 11.0),
               child: Text(
                 iconDataOfSettingPageContents[index][1],
                 style: TextStyle(
-                  color: index == selectedPageIndex.value
-                      ? tlThemeData.accentColor
-                      : Colors.black45,
+                  color:
+                      index == selectedPageIndex.value
+                          ? tlThemeData.accentColor
+                          : Colors.black45,
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
                 ),
@@ -174,8 +177,11 @@ class _BottomNavItem extends HookWidget {
     );
   }
 
-  void _onBottomNavItemTapped(int index, ValueNotifier<int> selectedPageIndex,
-      PageController pageController) {
+  void _onBottomNavItemTapped(
+    int index,
+    ValueNotifier<int> selectedPageIndex,
+    PageController pageController,
+  ) {
     if (selectedPageIndex.value != index) {
       selectedPageIndex.value = index;
       pageController.animateToPage(

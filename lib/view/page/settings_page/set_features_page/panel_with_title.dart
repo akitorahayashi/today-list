@@ -26,12 +26,15 @@ class PanelWithTitle extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(12, 3, 0, 3),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text(title,
-                    style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 3,
-                        color: tlThemeData.titleColorOfSettingPage)),
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 3,
+                    color: tlThemeData.titleColorOfSettingPage,
+                  ),
+                ),
               ),
             ),
             Card(
@@ -39,9 +42,7 @@ class PanelWithTitle extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Column(
-                children: contents,
-              ),
+              child: Column(children: contents),
             ),
           ],
         ),

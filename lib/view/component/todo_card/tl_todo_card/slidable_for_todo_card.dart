@@ -91,13 +91,14 @@ class SlidableForToDoCard extends ConsumerWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => EditToDoSheet(
-        workspaceID: corrWorkspace.id,
-        todoToEdit: corrToDo, // 編集対象のToDoを渡す
-        onComplete: () {
-          Navigator.pop(context);
-        },
-      ),
+      builder:
+          (context) => EditToDoSheet(
+            workspaceID: corrWorkspace.id,
+            todoToEdit: corrToDo, // 編集対象のToDoを渡す
+            onComplete: () {
+              Navigator.pop(context);
+            },
+          ),
     );
   }
 }

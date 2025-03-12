@@ -20,10 +20,7 @@ import 'package:today_list/view/page/add_todo_page/components_for_edit/todo_titl
 class AddToDoPage extends HookConsumerWidget {
   final String workspaceID;
 
-  const AddToDoPage({
-    super.key,
-    required this.workspaceID,
-  });
+  const AddToDoPage({super.key, required this.workspaceID});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,8 +30,9 @@ class AddToDoPage extends HookConsumerWidget {
     // ワークスペースの取得
     final corrWorkspace = workspacesAsync.when(
       data: (workspaces) {
-        final matches =
-            workspaces.where((workspace) => workspace.id == workspaceID);
+        final matches = workspaces.where(
+          (workspace) => workspace.id == workspaceID,
+        );
         return matches.isNotEmpty ? matches.first : workspaces.first;
       },
       loading: () => null,
@@ -45,9 +43,7 @@ class AddToDoPage extends HookConsumerWidget {
     if (corrWorkspace == null) {
       return Scaffold(
         backgroundColor: tlThemeConfig.backgroundColor,
-        body: const Center(
-          child: CircularProgressIndicator(),
-        ),
+        body: const Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -85,8 +81,10 @@ class AddToDoPage extends HookConsumerWidget {
 
     // MARK: - ToDo Operations
     void addToStepList(String stepTitle) {
-      final newStep =
-          TLStep(id: TLUUIDGenerator.generate(), content: stepTitle);
+      final newStep = TLStep(
+        id: TLUUIDGenerator.generate(),
+        content: stepTitle,
+      );
       steps.value = [...steps.value, newStep];
       stepTitleController.clear();
     }
@@ -106,10 +104,7 @@ class AddToDoPage extends HookConsumerWidget {
       // MARK: - Add New ToDo using Flux
       TodoDispatcher.dispatch(
         ref,
-        TodoAction.addTodo(
-          workspace: corrWorkspace,
-          todo: newToDo,
-        ),
+        TodoAction.addTodo(workspace: corrWorkspace, todo: newToDo),
       );
 
       // スナックバー表示
@@ -150,17 +145,13 @@ class AddToDoPage extends HookConsumerWidget {
             child: ListView(
               controller: scrollController, // スクロールコントローラーを設定
               padding: EdgeInsets.only(
-                  top: kToolbarHeight +
-                      MediaQuery.of(context)
-                          .padding
-                          .top), // AppBarの高さ分のパディングを追加
+                top: kToolbarHeight + MediaQuery.of(context).padding.top,
+              ), // AppBarの高さ分のパディングを追加
               children: [
                 // 既存のToDoリスト表示
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: AlreadyExist(
-                    corrWorkspace: corrWorkspace,
-                  ),
+                  child: AlreadyExist(corrWorkspace: corrWorkspace),
                 ),
 
                 const SizedBox(height: 200),

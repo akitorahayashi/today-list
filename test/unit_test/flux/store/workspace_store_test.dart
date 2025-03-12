@@ -119,8 +119,9 @@ void main() {
       final targetWorkspace = initialWorkspaces[0];
 
       // ワークスペースを更新
-      final updatedWorkspace =
-          targetWorkspace.copyWith(name: 'Persistent Work');
+      final updatedWorkspace = targetWorkspace.copyWith(
+        name: 'Persistent Work',
+      );
       await container
           .read(workspacesProvider.notifier)
           .updateWorkspace(updatedWorkspace);
@@ -129,8 +130,9 @@ void main() {
       final newContainer = ProviderContainer();
 
       // 保存されたワークスペースを確認
-      final savedWorkspaces =
-          await newContainer.read(workspacesProvider.future);
+      final savedWorkspaces = await newContainer.read(
+        workspacesProvider.future,
+      );
       expect(savedWorkspaces[0].id, equals(targetWorkspace.id));
       expect(savedWorkspaces[0].name, equals('Persistent Work'));
 

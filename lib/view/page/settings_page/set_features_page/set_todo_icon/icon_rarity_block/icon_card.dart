@@ -36,12 +36,15 @@ class IconCard extends HookConsumerWidget {
         final earnedCheckBoxIcons = userData.earnedCheckBoxIcons;
 
         // **現在のアイコンが獲得済みか判定**
-        final bool isEarned = earnedCheckBoxIcons[tlIconCategory.name]
-                ?.contains(tlIconName.name) ??
+        final bool isEarned =
+            earnedCheckBoxIcons[tlIconCategory.name]?.contains(
+              tlIconName.name,
+            ) ??
             false;
 
         /// ユーザーが現在選択しているチェックアイコンかどうか判定
-        bool isCurrentIcon = (isEarned || kNotToShowAd) &&
+        bool isCurrentIcon =
+            (isEarned || kNotToShowAd) &&
             tlIconCategory.name == selectedIconAsync.iconCategory &&
             tlIconName.name == selectedIconAsync.iconName;
 
@@ -51,9 +54,10 @@ class IconCard extends HookConsumerWidget {
 
         // 選択された場合は枠なし、未選択なら影をつける
         final double elevation = isCurrentIcon ? 0 : 3;
-        final Color textColor = (!isEarned && !kNotToShowAd)
-            ? Colors.black54
-            : isCurrentIcon
+        final Color textColor =
+            (!isEarned && !kNotToShowAd)
+                ? Colors.black54
+                : isCurrentIcon
                 ? themeConfig.accentColor
                 : Colors.black45;
 
@@ -63,7 +67,8 @@ class IconCard extends HookConsumerWidget {
             onTap: () => onIconTap(context, ref, isEarned, isCurrentIcon),
             child: Card(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(10),
+              ),
               elevation: elevation,
               color: themeConfig.canTapCardColor,
               child: Padding(
@@ -76,8 +81,8 @@ class IconCard extends HookConsumerWidget {
                         (!isEarned && !showIfNotEarned && !kNotToShowAd)
                             ? Icons.help_outline
                             : isCurrentIcon
-                                ? iconResource?.checkedIcon
-                                : iconResource?.notCheckedIcon,
+                            ? iconResource?.checkedIcon
+                            : iconResource?.notCheckedIcon,
                         color: textColor,
                         size: 20,
                       ),
@@ -85,9 +90,10 @@ class IconCard extends HookConsumerWidget {
                     Text(
                       (!isEarned && !kNotToShowAd) ? "???" : tlIconName.name,
                       style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: textColor),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: textColor,
+                      ),
                     ),
                   ],
                 ),
@@ -96,20 +102,26 @@ class IconCard extends HookConsumerWidget {
           ),
         );
       },
-      loading: () => const Expanded(
-        flex: 1,
-        child: Center(child: CircularProgressIndicator()),
-      ),
-      error: (_, __) => const Expanded(
-        flex: 1,
-        child: Center(child: Text('Error loading icons')),
-      ),
+      loading:
+          () => const Expanded(
+            flex: 1,
+            child: Center(child: CircularProgressIndicator()),
+          ),
+      error:
+          (_, __) => const Expanded(
+            flex: 1,
+            child: Center(child: Text('Error loading icons')),
+          ),
     );
   }
 
   /// アイコン選択時の挙動
-  Future<void> onIconTap(BuildContext context, WidgetRef ref, bool isEarned,
-      bool isCurrentIcon) async {
+  Future<void> onIconTap(
+    BuildContext context,
+    WidgetRef ref,
+    bool isEarned,
+    bool isCurrentIcon,
+  ) async {
     if (isCurrentIcon) return; // Already selected, do nothing
 
     if (!isEarned && !kNotToShowAd) {
@@ -164,8 +176,9 @@ class IconCard extends HookConsumerWidget {
 
             // Step 5: Show success dialog
             if (context.mounted) {
-              await const TLSingleOptionDialog(title: "Icon earned!")
-                  .show(context: context);
+              await const TLSingleOptionDialog(
+                title: "Icon earned!",
+              ).show(context: context);
             }
           },
         );
@@ -206,13 +219,15 @@ class IconCard extends HookConsumerWidget {
 
         // Show success dialog
         if (context.mounted) {
-          await const TLSingleOptionDialog(title: "Change completed!")
-              .show(context: context);
+          await const TLSingleOptionDialog(
+            title: "Change completed!",
+          ).show(context: context);
         }
       } catch (e) {
         if (context.mounted) {
-          await const TLSingleOptionDialog(title: "Failed to change icon")
-              .show(context: context);
+          await const TLSingleOptionDialog(
+            title: "Failed to change icon",
+          ).show(context: context);
         }
       }
     }

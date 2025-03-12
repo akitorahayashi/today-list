@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 
-enum TLValidationResult {
-  valid,
-  empty,
-  tooLong,
-}
+enum TLValidationResult { valid, empty, tooLong }
 
 class TLValidation {
   static TLValidationResult validateCategoryName(String name) {
@@ -54,7 +50,9 @@ class TLValidation {
   }
 
   static void showValidationErrorDialog(
-      BuildContext context, TLValidationResult validationResult) {
+    BuildContext context,
+    TLValidationResult validationResult,
+  ) {
     const errorTitle = "エラー";
     if (validationResult == TLValidationResult.empty) {
       // 空白しかない場合

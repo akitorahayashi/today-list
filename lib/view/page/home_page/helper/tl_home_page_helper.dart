@@ -25,8 +25,9 @@ class TLHomePageHelper {
     // +タブが押された場合
     if (index == plusTabIndex) {
       if (context.mounted) {
-        const AddOrEditWorkspaceDialog(oldWorkspaceId: null)
-            .show(context: context);
+        const AddOrEditWorkspaceDialog(
+          oldWorkspaceId: null,
+        ).show(context: context);
       }
 
       // 「+」タブを押したらダイアログ後、前のタブに戻す
@@ -73,8 +74,9 @@ class TLHomePageHelper {
     final currentIDAsync = await ref.read(currentWorkspaceIdProvider.future);
     final workspacesAsync = await ref.read(workspacesProvider.future);
 
-    final currentWsIndex =
-        workspacesAsync.indexWhere((ws) => ws.id == currentIDAsync);
+    final currentWsIndex = workspacesAsync.indexWhere(
+      (ws) => ws.id == currentIDAsync,
+    );
     return (currentWsIndex == -1) ? 0 : currentWsIndex + 1;
   }
 
@@ -95,10 +97,7 @@ class TLHomePageHelper {
 class _CustomTabBarScrollPhysics extends ScrollPhysics {
   final int plusTabIndex;
 
-  const _CustomTabBarScrollPhysics({
-    required this.plusTabIndex,
-    super.parent,
-  });
+  const _CustomTabBarScrollPhysics({required this.plusTabIndex, super.parent});
 
   @override
   _CustomTabBarScrollPhysics applyTo(ScrollPhysics? ancestor) {

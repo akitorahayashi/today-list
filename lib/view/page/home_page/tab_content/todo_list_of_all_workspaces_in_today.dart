@@ -36,30 +36,29 @@ class ToDoListOfAllWorkspacesInToday extends ConsumerWidget {
               transitionBuilder: (child, animation) {
                 return FadeTransition(opacity: animation, child: child);
               },
-              child: totalNumTodos == 0
-                  ? Center(
-                      child: _NoTasksMessage(),
-                    ) // タスクがない場合はメッセージのみ中央に表示
-                  : ListView(
-                      children: [
-                        const SizedBox(height: 12),
-                        for (TLWorkspace workspace in workspaces)
-                          _ToDoListOfWorkspaceCard(workspace: workspace),
-                        const SizedBox(height: 200),
-                      ],
-                    ),
+              child:
+                  totalNumTodos == 0
+                      ? Center(
+                        child: _NoTasksMessage(),
+                      ) // タスクがない場合はメッセージのみ中央に表示
+                      : ListView(
+                        children: [
+                          const SizedBox(height: 12),
+                          for (TLWorkspace workspace in workspaces)
+                            _ToDoListOfWorkspaceCard(workspace: workspace),
+                          const SizedBox(height: 200),
+                        ],
+                      ),
             );
           },
           loading: () => const Center(child: TLLoadingIndicator()),
-          error: (error, stackTrace) => Center(
-            child: Text('ワークスペースIDの読み込みに失敗しました: $error'),
-          ),
+          error:
+              (error, stackTrace) =>
+                  Center(child: Text('ワークスペースIDの読み込みに失敗しました: $error')),
         );
       },
       loading: () => const Center(child: TLLoadingIndicator()),
-      error: (error, stackTrace) => Center(
-        child: Text('エラーが発生しました: $error'),
-      ),
+      error: (error, stackTrace) => Center(child: Text('エラーが発生しました: $error')),
     );
   }
 }
@@ -83,16 +82,15 @@ class _ToDoListOfWorkspaceCard extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(top: 16.0),
             child: GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddToDoPage(workspaceID: workspace.id),
-                ),
-              ),
-              child: NumToDosCard(
-                title: workspace.name,
-                numTodos: numTodos,
-              ),
+              onTap:
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) => AddToDoPage(workspaceID: workspace.id),
+                    ),
+                  ),
+              child: NumToDosCard(title: workspace.name, numTodos: numTodos),
             ),
           ),
           Padding(

@@ -42,12 +42,14 @@ class TLToDosInTodayAndWhenever with _$TLToDosInTodayAndWhenever {
   }) {
     if (isInToday != null) {
       return copyWith(
-        toDosInToday: isInToday
-            ? toDosInToday.where((toDo) => !toDo.isChecked).toList()
-            : toDosInToday,
-        toDosInWhenever: !isInToday
-            ? toDosInWhenever.where((toDo) => !toDo.isChecked).toList()
-            : toDosInWhenever,
+        toDosInToday:
+            isInToday
+                ? toDosInToday.where((toDo) => !toDo.isChecked).toList()
+                : toDosInToday,
+        toDosInWhenever:
+            !isInToday
+                ? toDosInWhenever.where((toDo) => !toDo.isChecked).toList()
+                : toDosInWhenever,
       );
     }
 

@@ -8,5 +8,6 @@ part 'generate/current_workspace_action.freezed.dart';
 sealed class CurrentWorkspaceAction with _$CurrentWorkspaceAction {
   // 現在のWorkspaceIDを変更する
   const factory CurrentWorkspaceAction.setCurrentWorkspaceId(
-      String? workspaceId) = SetCurrentWorkspaceId;
+    String? workspaceId,
+  ) = SetCurrentWorkspaceId;
 }

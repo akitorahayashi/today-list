@@ -12,7 +12,8 @@ part of '../todo/tl_todo_category.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 TLToDoCategory _$TLToDoCategoryFromJson(Map<String, dynamic> json) {
   return _TLToDoCategory.fromJson(json);
@@ -37,8 +38,9 @@ mixin _$TLToDoCategory {
 /// @nodoc
 abstract class $TLToDoCategoryCopyWith<$Res> {
   factory $TLToDoCategoryCopyWith(
-          TLToDoCategory value, $Res Function(TLToDoCategory) then) =
-      _$TLToDoCategoryCopyWithImpl<$Res, TLToDoCategory>;
+    TLToDoCategory value,
+    $Res Function(TLToDoCategory) then,
+  ) = _$TLToDoCategoryCopyWithImpl<$Res, TLToDoCategory>;
   @useResult
   $Res call({String id, String? parentBigCategoryID, String name});
 }
@@ -62,29 +64,36 @@ class _$TLToDoCategoryCopyWithImpl<$Res, $Val extends TLToDoCategory>
     Object? parentBigCategoryID = freezed,
     Object? name = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      parentBigCategoryID: freezed == parentBigCategoryID
-          ? _value.parentBigCategoryID
-          : parentBigCategoryID // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            parentBigCategoryID:
+                freezed == parentBigCategoryID
+                    ? _value.parentBigCategoryID
+                    : parentBigCategoryID // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$TLToDoCategoryImplCopyWith<$Res>
     implements $TLToDoCategoryCopyWith<$Res> {
-  factory _$$TLToDoCategoryImplCopyWith(_$TLToDoCategoryImpl value,
-          $Res Function(_$TLToDoCategoryImpl) then) =
-      __$$TLToDoCategoryImplCopyWithImpl<$Res>;
+  factory _$$TLToDoCategoryImplCopyWith(
+    _$TLToDoCategoryImpl value,
+    $Res Function(_$TLToDoCategoryImpl) then,
+  ) = __$$TLToDoCategoryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String? parentBigCategoryID, String name});
@@ -95,8 +104,9 @@ class __$$TLToDoCategoryImplCopyWithImpl<$Res>
     extends _$TLToDoCategoryCopyWithImpl<$Res, _$TLToDoCategoryImpl>
     implements _$$TLToDoCategoryImplCopyWith<$Res> {
   __$$TLToDoCategoryImplCopyWithImpl(
-      _$TLToDoCategoryImpl _value, $Res Function(_$TLToDoCategoryImpl) _then)
-      : super(_value, _then);
+    _$TLToDoCategoryImpl _value,
+    $Res Function(_$TLToDoCategoryImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TLToDoCategory
   /// with the given fields replaced by the non-null parameter values.
@@ -107,29 +117,36 @@ class __$$TLToDoCategoryImplCopyWithImpl<$Res>
     Object? parentBigCategoryID = freezed,
     Object? name = null,
   }) {
-    return _then(_$TLToDoCategoryImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      parentBigCategoryID: freezed == parentBigCategoryID
-          ? _value.parentBigCategoryID
-          : parentBigCategoryID // ignore: cast_nullable_to_non_nullable
-              as String?,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+    return _then(
+      _$TLToDoCategoryImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        parentBigCategoryID:
+            freezed == parentBigCategoryID
+                ? _value.parentBigCategoryID
+                : parentBigCategoryID // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        name:
+            null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$TLToDoCategoryImpl extends _TLToDoCategory {
-  const _$TLToDoCategoryImpl(
-      {required this.id, required this.parentBigCategoryID, required this.name})
-      : super._();
+  const _$TLToDoCategoryImpl({
+    required this.id,
+    required this.parentBigCategoryID,
+    required this.name,
+  }) : super._();
 
   factory _$TLToDoCategoryImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLToDoCategoryImplFromJson(json);
@@ -168,21 +185,22 @@ class _$TLToDoCategoryImpl extends _TLToDoCategory {
   @pragma('vm:prefer-inline')
   _$$TLToDoCategoryImplCopyWith<_$TLToDoCategoryImpl> get copyWith =>
       __$$TLToDoCategoryImplCopyWithImpl<_$TLToDoCategoryImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TLToDoCategoryImplToJson(
-      this,
-    );
+    return _$$TLToDoCategoryImplToJson(this);
   }
 }
 
 abstract class _TLToDoCategory extends TLToDoCategory {
-  const factory _TLToDoCategory(
-      {required final String id,
-      required final String? parentBigCategoryID,
-      required final String name}) = _$TLToDoCategoryImpl;
+  const factory _TLToDoCategory({
+    required final String id,
+    required final String? parentBigCategoryID,
+    required final String name,
+  }) = _$TLToDoCategoryImpl;
   const _TLToDoCategory._() : super._();
 
   factory _TLToDoCategory.fromJson(Map<String, dynamic> json) =

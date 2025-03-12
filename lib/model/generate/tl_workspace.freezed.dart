@@ -12,7 +12,8 @@ part of '../todo/tl_workspace.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 TLWorkspace _$TLWorkspaceFromJson(Map<String, dynamic> json) {
   return _TLWorkspace.fromJson(json);
@@ -38,13 +39,15 @@ mixin _$TLWorkspace {
 /// @nodoc
 abstract class $TLWorkspaceCopyWith<$Res> {
   factory $TLWorkspaceCopyWith(
-          TLWorkspace value, $Res Function(TLWorkspace) then) =
-      _$TLWorkspaceCopyWithImpl<$Res, TLWorkspace>;
+    TLWorkspace value,
+    $Res Function(TLWorkspace) then,
+  ) = _$TLWorkspaceCopyWithImpl<$Res, TLWorkspace>;
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos});
+  $Res call({
+    String id,
+    String name,
+    Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos,
+  });
 }
 
 /// @nodoc
@@ -66,20 +69,26 @@ class _$TLWorkspaceCopyWithImpl<$Res, $Val extends TLWorkspace>
     Object? name = null,
     Object? workspaceIDToToDos = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      workspaceIDToToDos: null == workspaceIDToToDos
-          ? _value.workspaceIDToToDos
-          : workspaceIDToToDos // ignore: cast_nullable_to_non_nullable
-              as Map<String, TLToDosInTodayAndWhenever>,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            name:
+                null == name
+                    ? _value.name
+                    : name // ignore: cast_nullable_to_non_nullable
+                        as String,
+            workspaceIDToToDos:
+                null == workspaceIDToToDos
+                    ? _value.workspaceIDToToDos
+                    : workspaceIDToToDos // ignore: cast_nullable_to_non_nullable
+                        as Map<String, TLToDosInTodayAndWhenever>,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -87,14 +96,16 @@ class _$TLWorkspaceCopyWithImpl<$Res, $Val extends TLWorkspace>
 abstract class _$$TLWorkspaceImplCopyWith<$Res>
     implements $TLWorkspaceCopyWith<$Res> {
   factory _$$TLWorkspaceImplCopyWith(
-          _$TLWorkspaceImpl value, $Res Function(_$TLWorkspaceImpl) then) =
-      __$$TLWorkspaceImplCopyWithImpl<$Res>;
+    _$TLWorkspaceImpl value,
+    $Res Function(_$TLWorkspaceImpl) then,
+  ) = __$$TLWorkspaceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos});
+  $Res call({
+    String id,
+    String name,
+    Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos,
+  });
 }
 
 /// @nodoc
@@ -102,8 +113,9 @@ class __$$TLWorkspaceImplCopyWithImpl<$Res>
     extends _$TLWorkspaceCopyWithImpl<$Res, _$TLWorkspaceImpl>
     implements _$$TLWorkspaceImplCopyWith<$Res> {
   __$$TLWorkspaceImplCopyWithImpl(
-      _$TLWorkspaceImpl _value, $Res Function(_$TLWorkspaceImpl) _then)
-      : super(_value, _then);
+    _$TLWorkspaceImpl _value,
+    $Res Function(_$TLWorkspaceImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TLWorkspace
   /// with the given fields replaced by the non-null parameter values.
@@ -114,32 +126,37 @@ class __$$TLWorkspaceImplCopyWithImpl<$Res>
     Object? name = null,
     Object? workspaceIDToToDos = null,
   }) {
-    return _then(_$TLWorkspaceImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      workspaceIDToToDos: null == workspaceIDToToDos
-          ? _value._workspaceIDToToDos
-          : workspaceIDToToDos // ignore: cast_nullable_to_non_nullable
-              as Map<String, TLToDosInTodayAndWhenever>,
-    ));
+    return _then(
+      _$TLWorkspaceImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        name:
+            null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                    as String,
+        workspaceIDToToDos:
+            null == workspaceIDToToDos
+                ? _value._workspaceIDToToDos
+                : workspaceIDToToDos // ignore: cast_nullable_to_non_nullable
+                    as Map<String, TLToDosInTodayAndWhenever>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$TLWorkspaceImpl extends _TLWorkspace {
-  _$TLWorkspaceImpl(
-      {required this.id,
-      required this.name,
-      required final Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos})
-      : _workspaceIDToToDos = workspaceIDToToDos,
-        super._();
+  _$TLWorkspaceImpl({
+    required this.id,
+    required this.name,
+    required final Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos,
+  }) : _workspaceIDToToDos = workspaceIDToToDos,
+       super._();
 
   factory _$TLWorkspaceImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLWorkspaceImplFromJson(json);
@@ -169,14 +186,20 @@ class _$TLWorkspaceImpl extends _TLWorkspace {
             other is _$TLWorkspaceImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality()
-                .equals(other._workspaceIDToToDos, _workspaceIDToToDos));
+            const DeepCollectionEquality().equals(
+              other._workspaceIDToToDos,
+              _workspaceIDToToDos,
+            ));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name,
-      const DeepCollectionEquality().hash(_workspaceIDToToDos));
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    name,
+    const DeepCollectionEquality().hash(_workspaceIDToToDos),
+  );
 
   /// Create a copy of TLWorkspace
   /// with the given fields replaced by the non-null parameter values.
@@ -188,18 +211,16 @@ class _$TLWorkspaceImpl extends _TLWorkspace {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TLWorkspaceImplToJson(
-      this,
-    );
+    return _$$TLWorkspaceImplToJson(this);
   }
 }
 
 abstract class _TLWorkspace extends TLWorkspace {
-  factory _TLWorkspace(
-      {required final String id,
-      required final String name,
-      required final Map<String, TLToDosInTodayAndWhenever>
-          workspaceIDToToDos}) = _$TLWorkspaceImpl;
+  factory _TLWorkspace({
+    required final String id,
+    required final String name,
+    required final Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos,
+  }) = _$TLWorkspaceImpl;
   _TLWorkspace._() : super._();
 
   factory _TLWorkspace.fromJson(Map<String, dynamic> json) =

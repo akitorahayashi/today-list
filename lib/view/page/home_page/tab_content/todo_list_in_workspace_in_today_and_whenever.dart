@@ -13,10 +13,12 @@ class ToDoListInWorkspaceInTodayAndWhenever extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final numOfToDosInToday =
-        corrWorkspace.getNumOfToDoInWorkspace(ifInToday: true);
-    final numOfToDosInWhenever =
-        corrWorkspace.getNumOfToDoInWorkspace(ifInToday: false);
+    final numOfToDosInToday = corrWorkspace.getNumOfToDoInWorkspace(
+      ifInToday: true,
+    );
+    final numOfToDosInWhenever = corrWorkspace.getNumOfToDoInWorkspace(
+      ifInToday: false,
+    );
 
     return ListView(
       children: [
@@ -27,17 +29,23 @@ class ToDoListInWorkspaceInTodayAndWhenever extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: ListOfCategoryToToDos(
-              ifInToday: true, corrWorkspace: corrWorkspace),
+            ifInToday: true,
+            corrWorkspace: corrWorkspace,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 12.0),
           child: NumToDosCard(
-              title: "In Whenever", numTodos: numOfToDosInWhenever),
+            title: "In Whenever",
+            numTodos: numOfToDosInWhenever,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: ListOfCategoryToToDos(
-              ifInToday: false, corrWorkspace: corrWorkspace),
+            ifInToday: false,
+            corrWorkspace: corrWorkspace,
+          ),
         ),
         const SizedBox(height: 250),
       ],

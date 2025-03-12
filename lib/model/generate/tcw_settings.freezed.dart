@@ -12,7 +12,8 @@ part of '../settings_data/tcw_settings.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 TCWSettings _$TCWSettingsFromJson(Map<String, dynamic> json) {
   return _TCWSettings.fromJson(json);
@@ -39,15 +40,17 @@ mixin _$TCWSettings {
 /// @nodoc
 abstract class $TCWSettingsCopyWith<$Res> {
   factory $TCWSettingsCopyWith(
-          TCWSettings value, $Res Function(TCWSettings) then) =
-      _$TCWSettingsCopyWithImpl<$Res, TCWSettings>;
+    TCWSettings value,
+    $Res Function(TCWSettings) then,
+  ) = _$TCWSettingsCopyWithImpl<$Res, TCWSettings>;
   @useResult
-  $Res call(
-      {String id,
-      String title,
-      TLWorkspace workspace,
-      TLToDoCategory? bigCategory,
-      TLToDoCategory? smallCategory});
+  $Res call({
+    String id,
+    String title,
+    TLWorkspace workspace,
+    TLToDoCategory? bigCategory,
+    TLToDoCategory? smallCategory,
+  });
 
   $TLWorkspaceCopyWith<$Res> get workspace;
   $TLToDoCategoryCopyWith<$Res>? get bigCategory;
@@ -75,28 +78,36 @@ class _$TCWSettingsCopyWithImpl<$Res, $Val extends TCWSettings>
     Object? bigCategory = freezed,
     Object? smallCategory = freezed,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-      bigCategory: freezed == bigCategory
-          ? _value.bigCategory
-          : bigCategory // ignore: cast_nullable_to_non_nullable
-              as TLToDoCategory?,
-      smallCategory: freezed == smallCategory
-          ? _value.smallCategory
-          : smallCategory // ignore: cast_nullable_to_non_nullable
-              as TLToDoCategory?,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            title:
+                null == title
+                    ? _value.title
+                    : title // ignore: cast_nullable_to_non_nullable
+                        as String,
+            workspace:
+                null == workspace
+                    ? _value.workspace
+                    : workspace // ignore: cast_nullable_to_non_nullable
+                        as TLWorkspace,
+            bigCategory:
+                freezed == bigCategory
+                    ? _value.bigCategory
+                    : bigCategory // ignore: cast_nullable_to_non_nullable
+                        as TLToDoCategory?,
+            smallCategory:
+                freezed == smallCategory
+                    ? _value.smallCategory
+                    : smallCategory // ignore: cast_nullable_to_non_nullable
+                        as TLToDoCategory?,
+          )
+          as $Val,
+    );
   }
 
   /// Create a copy of TCWSettings
@@ -142,16 +153,18 @@ class _$TCWSettingsCopyWithImpl<$Res, $Val extends TCWSettings>
 abstract class _$$TCWSettingsImplCopyWith<$Res>
     implements $TCWSettingsCopyWith<$Res> {
   factory _$$TCWSettingsImplCopyWith(
-          _$TCWSettingsImpl value, $Res Function(_$TCWSettingsImpl) then) =
-      __$$TCWSettingsImplCopyWithImpl<$Res>;
+    _$TCWSettingsImpl value,
+    $Res Function(_$TCWSettingsImpl) then,
+  ) = __$$TCWSettingsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String title,
-      TLWorkspace workspace,
-      TLToDoCategory? bigCategory,
-      TLToDoCategory? smallCategory});
+  $Res call({
+    String id,
+    String title,
+    TLWorkspace workspace,
+    TLToDoCategory? bigCategory,
+    TLToDoCategory? smallCategory,
+  });
 
   @override
   $TLWorkspaceCopyWith<$Res> get workspace;
@@ -166,8 +179,9 @@ class __$$TCWSettingsImplCopyWithImpl<$Res>
     extends _$TCWSettingsCopyWithImpl<$Res, _$TCWSettingsImpl>
     implements _$$TCWSettingsImplCopyWith<$Res> {
   __$$TCWSettingsImplCopyWithImpl(
-      _$TCWSettingsImpl _value, $Res Function(_$TCWSettingsImpl) _then)
-      : super(_value, _then);
+    _$TCWSettingsImpl _value,
+    $Res Function(_$TCWSettingsImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TCWSettings
   /// with the given fields replaced by the non-null parameter values.
@@ -180,40 +194,48 @@ class __$$TCWSettingsImplCopyWithImpl<$Res>
     Object? bigCategory = freezed,
     Object? smallCategory = freezed,
   }) {
-    return _then(_$TCWSettingsImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-      bigCategory: freezed == bigCategory
-          ? _value.bigCategory
-          : bigCategory // ignore: cast_nullable_to_non_nullable
-              as TLToDoCategory?,
-      smallCategory: freezed == smallCategory
-          ? _value.smallCategory
-          : smallCategory // ignore: cast_nullable_to_non_nullable
-              as TLToDoCategory?,
-    ));
+    return _then(
+      _$TCWSettingsImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        title:
+            null == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                    as String,
+        workspace:
+            null == workspace
+                ? _value.workspace
+                : workspace // ignore: cast_nullable_to_non_nullable
+                    as TLWorkspace,
+        bigCategory:
+            freezed == bigCategory
+                ? _value.bigCategory
+                : bigCategory // ignore: cast_nullable_to_non_nullable
+                    as TLToDoCategory?,
+        smallCategory:
+            freezed == smallCategory
+                ? _value.smallCategory
+                : smallCategory // ignore: cast_nullable_to_non_nullable
+                    as TLToDoCategory?,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$TCWSettingsImpl implements _TCWSettings {
-  const _$TCWSettingsImpl(
-      {required this.id,
-      required this.title,
-      required this.workspace,
-      required this.bigCategory,
-      required this.smallCategory});
+  const _$TCWSettingsImpl({
+    required this.id,
+    required this.title,
+    required this.workspace,
+    required this.bigCategory,
+    required this.smallCategory,
+  });
 
   factory _$TCWSettingsImpl.fromJson(Map<String, dynamic> json) =>
       _$$TCWSettingsImplFromJson(json);
@@ -252,7 +274,13 @@ class _$TCWSettingsImpl implements _TCWSettings {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, title, workspace, bigCategory, smallCategory);
+    runtimeType,
+    id,
+    title,
+    workspace,
+    bigCategory,
+    smallCategory,
+  );
 
   /// Create a copy of TCWSettings
   /// with the given fields replaced by the non-null parameter values.
@@ -264,19 +292,18 @@ class _$TCWSettingsImpl implements _TCWSettings {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TCWSettingsImplToJson(
-      this,
-    );
+    return _$$TCWSettingsImplToJson(this);
   }
 }
 
 abstract class _TCWSettings implements TCWSettings {
-  const factory _TCWSettings(
-      {required final String id,
-      required final String title,
-      required final TLWorkspace workspace,
-      required final TLToDoCategory? bigCategory,
-      required final TLToDoCategory? smallCategory}) = _$TCWSettingsImpl;
+  const factory _TCWSettings({
+    required final String id,
+    required final String title,
+    required final TLWorkspace workspace,
+    required final TLToDoCategory? bigCategory,
+    required final TLToDoCategory? smallCategory,
+  }) = _$TCWSettingsImpl;
 
   factory _TCWSettings.fromJson(Map<String, dynamic> json) =
       _$TCWSettingsImpl.fromJson;

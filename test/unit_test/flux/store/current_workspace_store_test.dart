@@ -21,8 +21,9 @@ void main() {
 
     test('初期状態ではnullが返される', () async {
       // テスト実行
-      final workspaceId =
-          await container.read(currentWorkspaceIdProvider.future);
+      final workspaceId = await container.read(
+        currentWorkspaceIdProvider.future,
+      );
 
       // 検証
       expect(workspaceId, isNull);
@@ -76,8 +77,9 @@ void main() {
       final newContainer = ProviderContainer();
 
       // 保存されたIDを確認
-      final savedId =
-          await newContainer.read(currentWorkspaceIdProvider.future);
+      final savedId = await newContainer.read(
+        currentWorkspaceIdProvider.future,
+      );
       expect(savedId, equals(testId));
 
       // リソース解放

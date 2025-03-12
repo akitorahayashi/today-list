@@ -9,10 +9,7 @@ import 'package:today_list/flux/store/current_workspace_store.dart';
 class WorkspaceCard extends ConsumerWidget {
   final TLWorkspace corrWorkspace;
 
-  const WorkspaceCard({
-    super.key,
-    required this.corrWorkspace,
-  });
+  const WorkspaceCard({super.key, required this.corrWorkspace});
 
   // MARK: - UI (Build)
   @override
@@ -31,13 +28,12 @@ class WorkspaceCard extends ConsumerWidget {
         child: GestureDetector(
           onTap: () => _handleWorkspaceSelection(ref, isCurrentWorkspace),
           child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              minHeight: 70,
-            ),
+            constraints: const BoxConstraints(minHeight: 70),
             child: Card(
               color: theme.canTapCardColor,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -66,11 +62,9 @@ class WorkspaceCard extends ConsumerWidget {
   // MARK: - Handle Workspace Selection
   void _handleWorkspaceSelection(WidgetRef ref, bool isCurrentWorkspace) async {
     await SelectEditWorkspaceMethodDialog(
-            isCurrentWorkspace: isCurrentWorkspace,
-            corrWorkspace: corrWorkspace)
-        .show(
-      context: ref.context,
-    );
+      isCurrentWorkspace: isCurrentWorkspace,
+      corrWorkspace: corrWorkspace,
+    ).show(context: ref.context);
 
     if (ref.context.mounted) {
       Navigator.pop(ref.context);

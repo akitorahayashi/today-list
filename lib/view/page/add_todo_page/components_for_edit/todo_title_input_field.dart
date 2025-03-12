@@ -68,27 +68,29 @@ class _ToDoTitleInputFieldState extends State<ToDoTitleInputField> {
             duration: const Duration(milliseconds: 300),
             opacity: _enteredToDoTitle.trim().isNotEmpty ? 1 : 0.25,
             child: TextButton(
-              onPressed: _enteredToDoTitle.trim().isEmpty
-                  ? null
-                  : () async {
-                      // スナックバー
-                      NotifyTodoOrStepIsEditedSnackBar.show(
-                        context: context,
-                        newTitle: _enteredToDoTitle,
-                        newCheckedState: false,
-                        isToDoCard: true,
-                        quickChangeToToday: null,
-                      );
-                      TLVibrationService.vibrate();
+              onPressed:
+                  _enteredToDoTitle.trim().isEmpty
+                      ? null
+                      : () async {
+                        // スナックバー
+                        NotifyTodoOrStepIsEditedSnackBar.show(
+                          context: context,
+                          newTitle: _enteredToDoTitle,
+                          newCheckedState: false,
+                          isToDoCard: true,
+                          quickChangeToToday: null,
+                        );
+                        TLVibrationService.vibrate();
 
-                      // ToDo保存処理
-                      await widget.onCompleteEditing();
-                    },
+                        // ToDo保存処理
+                        await widget.onCompleteEditing();
+                      },
               child: Icon(
                 Icons.add,
-                color: _enteredToDoTitle.trim().isNotEmpty
-                    ? tlThemeData.accentColor
-                    : Colors.black.withValues(alpha: 0.35),
+                color:
+                    _enteredToDoTitle.trim().isNotEmpty
+                        ? tlThemeData.accentColor
+                        : Colors.black.withValues(alpha: 0.35),
                 size: 25,
               ),
             ),

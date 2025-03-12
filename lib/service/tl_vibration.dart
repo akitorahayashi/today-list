@@ -18,8 +18,12 @@ class TLVibrationService {
   }
 
   static Future<void> saveVibrationStrength() async {
-    await TLPrefService().getPref.then((pref) => pref.setDouble(
-        "vibrationStrength", TLVibrationService.vibrationStrength));
+    await TLPrefService().getPref.then(
+      (pref) => pref.setDouble(
+        "vibrationStrength",
+        TLVibrationService.vibrationStrength,
+      ),
+    );
   }
 
   static void vibrate() {

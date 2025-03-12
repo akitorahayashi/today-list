@@ -12,11 +12,7 @@ import 'package:today_list/app.dart';
 void main() {
   testWidgets('App renders without crashing', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(
-      const ProviderScope(
-        child: TodayListApp(),
-      ),
-    );
+    await tester.pumpWidget(const ProviderScope(child: TodayListApp()));
 
     // アプリが正常にレンダリングされることを確認
     expect(find.byType(TodayListApp), findsOneWidget);

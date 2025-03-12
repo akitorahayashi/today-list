@@ -30,19 +30,21 @@ class TLCheckBox extends ConsumerWidget {
         final thisIconData = (() {
           if (iconResourceOfCheckBox[selectedCheckBoxIconData.iconCategory] !=
                   null &&
-              iconResourceOfCheckBox[selectedCheckBoxIconData.iconCategory]![
-                      selectedCheckBoxIconData.iconName] !=
+              iconResourceOfCheckBox[selectedCheckBoxIconData
+                      .iconCategory]![selectedCheckBoxIconData.iconName] !=
                   null) {
             return iconResourceOfCheckBox[selectedCheckBoxIconData
                 .iconCategory]![selectedCheckBoxIconData.iconName]!;
           } else {
-            return iconResourceOfCheckBox[TLIconCategory.defaultCategory.name]![
-                TLIconName.box.name]!;
+            return iconResourceOfCheckBox[TLIconCategory
+                .defaultCategory
+                .name]![TLIconName.box.name]!;
           }
         }());
 
         // TLIconCategory.defaultCategoryかどうかでサイズを調整
-        final double effectiveIconSize = iconSize ??
+        final double effectiveIconSize =
+            iconSize ??
             (selectedCheckBoxIconData.iconCategory ==
                     TLIconCategory.defaultCategory.name
                 ? 17
@@ -50,26 +52,30 @@ class TLCheckBox extends ConsumerWidget {
 
         return Icon(
           isChecked ? thisIconData.checkedIcon : thisIconData.notCheckedIcon,
-          color: iconColor ??
+          color:
+              iconColor ??
               (isChecked
                   ? tlThemeConfig.accentColor
                   : Colors.black.withValues(alpha: 0.56)),
           size: effectiveIconSize,
         );
       },
-      loading: () => SizedBox(
-        width: iconSize ?? 19,
-        height: iconSize ?? 19,
-        child: const CircularProgressIndicator(strokeWidth: 2),
-      ),
-      error: (_, __) => Icon(
-        Icons.check_box_outline_blank,
-        color: iconColor ??
-            (isChecked
-                ? tlThemeConfig.accentColor
-                : Colors.black.withValues(alpha: 0.56)),
-        size: iconSize ?? 17,
-      ),
+      loading:
+          () => SizedBox(
+            width: iconSize ?? 19,
+            height: iconSize ?? 19,
+            child: const CircularProgressIndicator(strokeWidth: 2),
+          ),
+      error:
+          (_, __) => Icon(
+            Icons.check_box_outline_blank,
+            color:
+                iconColor ??
+                (isChecked
+                    ? tlThemeConfig.accentColor
+                    : Colors.black.withValues(alpha: 0.56)),
+            size: iconSize ?? 17,
+          ),
     );
   }
 }

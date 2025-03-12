@@ -19,9 +19,10 @@ class TLToDoCategory with _$TLToDoCategory {
   factory TLToDoCategory.fromJson(Map<String, dynamic> json) =>
       _$TLToDoCategoryFromJson(json);
 
-  int getNumberOfToDosInThisCategory(
-      {required bool? ifInToday,
-      required TLToDosInTodayAndWhenever corrToDos}) {
+  int getNumberOfToDosInThisCategory({
+    required bool? ifInToday,
+    required TLToDosInTodayAndWhenever corrToDos,
+  }) {
     if (ifInToday == null) {
       final int count =
           corrToDos.getToDos(true).length + corrToDos.getToDos(false).length;

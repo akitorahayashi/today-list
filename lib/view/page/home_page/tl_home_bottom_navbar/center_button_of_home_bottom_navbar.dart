@@ -28,13 +28,9 @@ class CenterButtonOfHomeBottomNavBar extends HookConsumerWidget {
 
     // フェードアニメーションの設定
     final fadeAnimation = useAnimation(
-      Tween<double>(
-        begin: 0.0,
-        end: 1.0,
-      ).animate(CurvedAnimation(
-        parent: animationController,
-        curve: Curves.easeInOut,
-      )),
+      Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.easeInOut),
+      ),
     );
 
     // キーボードの表示状態を取得
@@ -59,14 +55,21 @@ class CenterButtonOfHomeBottomNavBar extends HookConsumerWidget {
     return Opacity(
       opacity: fadeAnimation,
       child: Builder(
-        builder: (context) => TLCircularActionButton(
-          icon: Icons.add,
-          backgroundColor: tlThemeData.whiteBasedColor,
-          borderColor: Colors.black26,
-          iconColor: tlThemeData.accentColor,
-          onPressed: () => _handleOnPressed(context, ref, workspacesAsync,
-              currentWorkspaceIdAsync, tlThemeData),
-        ),
+        builder:
+            (context) => TLCircularActionButton(
+              icon: Icons.add,
+              backgroundColor: tlThemeData.whiteBasedColor,
+              borderColor: Colors.black26,
+              iconColor: tlThemeData.accentColor,
+              onPressed:
+                  () => _handleOnPressed(
+                    context,
+                    ref,
+                    workspacesAsync,
+                    currentWorkspaceIdAsync,
+                    tlThemeData,
+                  ),
+            ),
       ),
     );
   }
@@ -74,11 +77,12 @@ class CenterButtonOfHomeBottomNavBar extends HookConsumerWidget {
   // MARK: - ボタン押下時の処理
   /// ボタン押下時の動作を制御
   void _handleOnPressed(
-      BuildContext context,
-      WidgetRef ref,
-      AsyncValue<List<dynamic>> workspacesAsync,
-      AsyncValue<String?> currentWorkspaceIdAsync,
-      TLThemeConfig tlThemeData) {
+    BuildContext context,
+    WidgetRef ref,
+    AsyncValue<List<dynamic>> workspacesAsync,
+    AsyncValue<String?> currentWorkspaceIdAsync,
+    TLThemeConfig tlThemeData,
+  ) {
     if (doesCurrentWorkspaceExist) {
       // 既存のワークスペースがある場合、タスク追加ページを表示
       currentWorkspaceIdAsync.whenData((currentWorkspaceId) {
@@ -96,33 +100,33 @@ class CenterButtonOfHomeBottomNavBar extends HookConsumerWidget {
 
   // MARK: - タスク追加ページの表示
   void _showAddToDoPage(
-      BuildContext context, WidgetRef ref, String workspaceID) {
+    BuildContext context,
+    WidgetRef ref,
+    String workspaceID,
+  ) {
     // 追加画面に遷移
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AddToDoPage(
-          workspaceID: workspaceID,
-        ),
+        builder: (context) => AddToDoPage(workspaceID: workspaceID),
       ),
     );
   }
 
   // MARK: - ポップオーバーの表示
-  void _showWorkspaceSelectionPopover(BuildContext context, WidgetRef ref,
-      List<dynamic> workspaces, TLThemeConfig tlThemeData) {
+  void _showWorkspaceSelectionPopover(
+    BuildContext context,
+    WidgetRef ref,
+    List<dynamic> workspaces,
+    TLThemeConfig tlThemeData,
+  ) {
     showPopover(
       context: context,
       backgroundColor: tlThemeData.whiteBasedColor,
       direction: PopoverDirection.top,
       width: 250,
       height: 300,
-      shadow: [
-        BoxShadow(
-          color: tlThemeData.accentColor,
-          blurRadius: 8,
-        ),
-      ],
+      shadow: [BoxShadow(color: tlThemeData.accentColor, blurRadius: 8)],
       bodyBuilder: (popoverContext) {
         return ListView(
           padding: const EdgeInsets.only(top: 6, bottom: 36),
@@ -146,7 +150,8 @@ class CenterButtonOfHomeBottomNavBar extends HookConsumerWidget {
                     child: Card(
                       color: tlThemeData.canTapCardColor,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Center(
                         child: Text(
                           workspace.name,

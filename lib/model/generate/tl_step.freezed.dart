@@ -12,7 +12,8 @@ part of '../todo/tl_step.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 TLStep _$TLStepFromJson(Map<String, dynamic> json) {
   return _TLStep.fromJson(json);
@@ -60,28 +61,35 @@ class _$TLStepCopyWithImpl<$Res, $Val extends TLStep>
     Object? content = null,
     Object? isChecked = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
-      isChecked: null == isChecked
-          ? _value.isChecked
-          : isChecked // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            content:
+                null == content
+                    ? _value.content
+                    : content // ignore: cast_nullable_to_non_nullable
+                        as String,
+            isChecked:
+                null == isChecked
+                    ? _value.isChecked
+                    : isChecked // ignore: cast_nullable_to_non_nullable
+                        as bool,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$TLStepImplCopyWith<$Res> implements $TLStepCopyWith<$Res> {
   factory _$$TLStepImplCopyWith(
-          _$TLStepImpl value, $Res Function(_$TLStepImpl) then) =
-      __$$TLStepImplCopyWithImpl<$Res>;
+    _$TLStepImpl value,
+    $Res Function(_$TLStepImpl) then,
+  ) = __$$TLStepImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String content, bool isChecked});
@@ -92,8 +100,9 @@ class __$$TLStepImplCopyWithImpl<$Res>
     extends _$TLStepCopyWithImpl<$Res, _$TLStepImpl>
     implements _$$TLStepImplCopyWith<$Res> {
   __$$TLStepImplCopyWithImpl(
-      _$TLStepImpl _value, $Res Function(_$TLStepImpl) _then)
-      : super(_value, _then);
+    _$TLStepImpl _value,
+    $Res Function(_$TLStepImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TLStep
   /// with the given fields replaced by the non-null parameter values.
@@ -104,28 +113,36 @@ class __$$TLStepImplCopyWithImpl<$Res>
     Object? content = null,
     Object? isChecked = null,
   }) {
-    return _then(_$TLStepImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
-      isChecked: null == isChecked
-          ? _value.isChecked
-          : isChecked // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+    return _then(
+      _$TLStepImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        content:
+            null == content
+                ? _value.content
+                : content // ignore: cast_nullable_to_non_nullable
+                    as String,
+        isChecked:
+            null == isChecked
+                ? _value.isChecked
+                : isChecked // ignore: cast_nullable_to_non_nullable
+                    as bool,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$TLStepImpl implements _TLStep {
-  const _$TLStepImpl(
-      {required this.id, required this.content, this.isChecked = false});
+  const _$TLStepImpl({
+    required this.id,
+    required this.content,
+    this.isChecked = false,
+  });
 
   factory _$TLStepImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLStepImplFromJson(json);
@@ -168,17 +185,16 @@ class _$TLStepImpl implements _TLStep {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TLStepImplToJson(
-      this,
-    );
+    return _$$TLStepImplToJson(this);
   }
 }
 
 abstract class _TLStep implements TLStep {
-  const factory _TLStep(
-      {required final String id,
-      required final String content,
-      final bool isChecked}) = _$TLStepImpl;
+  const factory _TLStep({
+    required final String id,
+    required final String content,
+    final bool isChecked,
+  }) = _$TLStepImpl;
 
   factory _TLStep.fromJson(Map<String, dynamic> json) = _$TLStepImpl.fromJson;
 

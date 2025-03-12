@@ -68,18 +68,20 @@ class _StepTitleInputFieldState extends State<StepTitleInputField> {
               duration: const Duration(milliseconds: 300),
               opacity: _enteredStepTitle.trim().isNotEmpty ? 1 : 0.25,
               child: TextButton(
-                onPressed: _enteredStepTitle.trim().isEmpty
-                    ? null
-                    : () {
-                        widget.onAddOrEditStep(_enteredStepTitle.trim());
-                        // ここで TextField をクリアするかどうかは親の処理次第
-                        // → 今回は親から clear される前提でもOK
-                      },
+                onPressed:
+                    _enteredStepTitle.trim().isEmpty
+                        ? null
+                        : () {
+                          widget.onAddOrEditStep(_enteredStepTitle.trim());
+                          // ここで TextField をクリアするかどうかは親の処理次第
+                          // → 今回は親から clear される前提でもOK
+                        },
                 child: Icon(
                   Icons.add,
-                  color: _enteredStepTitle.trim().isNotEmpty
-                      ? tlThemeData.accentColor
-                      : Colors.black,
+                  color:
+                      _enteredStepTitle.trim().isNotEmpty
+                          ? tlThemeData.accentColor
+                          : Colors.black,
                   size: 25,
                 ),
               ),

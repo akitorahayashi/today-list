@@ -12,7 +12,8 @@ part of '../todo/tl_todo.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 TLToDo _$TLToDoFromJson(Map<String, dynamic> json) {
   return _TLToDo.fromJson(json);
@@ -41,13 +42,14 @@ abstract class $TLToDoCopyWith<$Res> {
   factory $TLToDoCopyWith(TLToDo value, $Res Function(TLToDo) then) =
       _$TLToDoCopyWithImpl<$Res, TLToDo>;
   @useResult
-  $Res call(
-      {String id,
-      String workspaceID,
-      bool isInToday,
-      bool isChecked,
-      String content,
-      List<TLStep> steps});
+  $Res call({
+    String id,
+    String workspaceID,
+    bool isInToday,
+    bool isChecked,
+    String content,
+    List<TLStep> steps,
+  });
 }
 
 /// @nodoc
@@ -72,49 +74,60 @@ class _$TLToDoCopyWithImpl<$Res, $Val extends TLToDo>
     Object? content = null,
     Object? steps = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      workspaceID: null == workspaceID
-          ? _value.workspaceID
-          : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
-      isInToday: null == isInToday
-          ? _value.isInToday
-          : isInToday // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isChecked: null == isChecked
-          ? _value.isChecked
-          : isChecked // ignore: cast_nullable_to_non_nullable
-              as bool,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
-      steps: null == steps
-          ? _value.steps
-          : steps // ignore: cast_nullable_to_non_nullable
-              as List<TLStep>,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            workspaceID:
+                null == workspaceID
+                    ? _value.workspaceID
+                    : workspaceID // ignore: cast_nullable_to_non_nullable
+                        as String,
+            isInToday:
+                null == isInToday
+                    ? _value.isInToday
+                    : isInToday // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            isChecked:
+                null == isChecked
+                    ? _value.isChecked
+                    : isChecked // ignore: cast_nullable_to_non_nullable
+                        as bool,
+            content:
+                null == content
+                    ? _value.content
+                    : content // ignore: cast_nullable_to_non_nullable
+                        as String,
+            steps:
+                null == steps
+                    ? _value.steps
+                    : steps // ignore: cast_nullable_to_non_nullable
+                        as List<TLStep>,
+          )
+          as $Val,
+    );
   }
 }
 
 /// @nodoc
 abstract class _$$TLToDoImplCopyWith<$Res> implements $TLToDoCopyWith<$Res> {
   factory _$$TLToDoImplCopyWith(
-          _$TLToDoImpl value, $Res Function(_$TLToDoImpl) then) =
-      __$$TLToDoImplCopyWithImpl<$Res>;
+    _$TLToDoImpl value,
+    $Res Function(_$TLToDoImpl) then,
+  ) = __$$TLToDoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String workspaceID,
-      bool isInToday,
-      bool isChecked,
-      String content,
-      List<TLStep> steps});
+  $Res call({
+    String id,
+    String workspaceID,
+    bool isInToday,
+    bool isChecked,
+    String content,
+    List<TLStep> steps,
+  });
 }
 
 /// @nodoc
@@ -122,8 +135,9 @@ class __$$TLToDoImplCopyWithImpl<$Res>
     extends _$TLToDoCopyWithImpl<$Res, _$TLToDoImpl>
     implements _$$TLToDoImplCopyWith<$Res> {
   __$$TLToDoImplCopyWithImpl(
-      _$TLToDoImpl _value, $Res Function(_$TLToDoImpl) _then)
-      : super(_value, _then);
+    _$TLToDoImpl _value,
+    $Res Function(_$TLToDoImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TLToDo
   /// with the given fields replaced by the non-null parameter values.
@@ -137,46 +151,54 @@ class __$$TLToDoImplCopyWithImpl<$Res>
     Object? content = null,
     Object? steps = null,
   }) {
-    return _then(_$TLToDoImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      workspaceID: null == workspaceID
-          ? _value.workspaceID
-          : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
-      isInToday: null == isInToday
-          ? _value.isInToday
-          : isInToday // ignore: cast_nullable_to_non_nullable
-              as bool,
-      isChecked: null == isChecked
-          ? _value.isChecked
-          : isChecked // ignore: cast_nullable_to_non_nullable
-              as bool,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
-              as String,
-      steps: null == steps
-          ? _value._steps
-          : steps // ignore: cast_nullable_to_non_nullable
-              as List<TLStep>,
-    ));
+    return _then(
+      _$TLToDoImpl(
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        workspaceID:
+            null == workspaceID
+                ? _value.workspaceID
+                : workspaceID // ignore: cast_nullable_to_non_nullable
+                    as String,
+        isInToday:
+            null == isInToday
+                ? _value.isInToday
+                : isInToday // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        isChecked:
+            null == isChecked
+                ? _value.isChecked
+                : isChecked // ignore: cast_nullable_to_non_nullable
+                    as bool,
+        content:
+            null == content
+                ? _value.content
+                : content // ignore: cast_nullable_to_non_nullable
+                    as String,
+        steps:
+            null == steps
+                ? _value._steps
+                : steps // ignore: cast_nullable_to_non_nullable
+                    as List<TLStep>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$TLToDoImpl implements _TLToDo {
-  const _$TLToDoImpl(
-      {required this.id,
-      required this.workspaceID,
-      required this.isInToday,
-      this.isChecked = false,
-      required this.content,
-      final List<TLStep> steps = const []})
-      : _steps = steps;
+  const _$TLToDoImpl({
+    required this.id,
+    required this.workspaceID,
+    required this.isInToday,
+    this.isChecked = false,
+    required this.content,
+    final List<TLStep> steps = const [],
+  }) : _steps = steps;
 
   factory _$TLToDoImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLToDoImplFromJson(json);
@@ -224,8 +246,15 @@ class _$TLToDoImpl implements _TLToDo {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, workspaceID, isInToday,
-      isChecked, content, const DeepCollectionEquality().hash(_steps));
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    workspaceID,
+    isInToday,
+    isChecked,
+    content,
+    const DeepCollectionEquality().hash(_steps),
+  );
 
   /// Create a copy of TLToDo
   /// with the given fields replaced by the non-null parameter values.
@@ -237,20 +266,19 @@ class _$TLToDoImpl implements _TLToDo {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TLToDoImplToJson(
-      this,
-    );
+    return _$$TLToDoImplToJson(this);
   }
 }
 
 abstract class _TLToDo implements TLToDo {
-  const factory _TLToDo(
-      {required final String id,
-      required final String workspaceID,
-      required final bool isInToday,
-      final bool isChecked,
-      required final String content,
-      final List<TLStep> steps}) = _$TLToDoImpl;
+  const factory _TLToDo({
+    required final String id,
+    required final String workspaceID,
+    required final bool isInToday,
+    final bool isChecked,
+    required final String content,
+    final List<TLStep> steps,
+  }) = _$TLToDoImpl;
 
   factory _TLToDo.fromJson(Map<String, dynamic> json) = _$TLToDoImpl.fromJson;
 

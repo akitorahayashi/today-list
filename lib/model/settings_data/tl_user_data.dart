@@ -16,7 +16,7 @@ class TLUserData with _$TLUserData {
     SelectedCheckBoxIconData selectedCheckBoxIconData,
     // 獲得したチェックボックスのアイコン
     @Default({
-      "Default": ["Box", "Circle"]
+      "Default": ["Box", "Circle"],
     })
     Map<String, List<String>> earnedCheckBoxIcons,
     // カスタムアクセントカラー (null の場合はデフォルトのアクセントカラーを使用)

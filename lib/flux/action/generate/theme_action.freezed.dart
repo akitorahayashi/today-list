@@ -12,7 +12,8 @@ part of '../theme_action.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$ThemeAction {
@@ -20,47 +21,42 @@ mixin _$ThemeAction {
   TResult when<TResult extends Object?>({
     required TResult Function(TLThemeType newThemeType) changeTheme,
     required TResult Function(Color newAccentColor) changeAccentColor,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(TLThemeType newThemeType)? changeTheme,
     TResult? Function(Color newAccentColor)? changeAccentColor,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(TLThemeType newThemeType)? changeTheme,
     TResult Function(Color newAccentColor)? changeAccentColor,
     required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ChangeThemeAction value) changeTheme,
     required TResult Function(ChangeAccentColorAction value) changeAccentColor,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ChangeThemeAction value)? changeTheme,
     TResult? Function(ChangeAccentColorAction value)? changeAccentColor,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChangeThemeAction value)? changeTheme,
     TResult Function(ChangeAccentColorAction value)? changeAccentColor,
     required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ThemeActionCopyWith<$Res> {
   factory $ThemeActionCopyWith(
-          ThemeAction value, $Res Function(ThemeAction) then) =
-      _$ThemeActionCopyWithImpl<$Res, ThemeAction>;
+    ThemeAction value,
+    $Res Function(ThemeAction) then,
+  ) = _$ThemeActionCopyWithImpl<$Res, ThemeAction>;
 }
 
 /// @nodoc
@@ -79,9 +75,10 @@ class _$ThemeActionCopyWithImpl<$Res, $Val extends ThemeAction>
 
 /// @nodoc
 abstract class _$$ChangeThemeActionImplCopyWith<$Res> {
-  factory _$$ChangeThemeActionImplCopyWith(_$ChangeThemeActionImpl value,
-          $Res Function(_$ChangeThemeActionImpl) then) =
-      __$$ChangeThemeActionImplCopyWithImpl<$Res>;
+  factory _$$ChangeThemeActionImplCopyWith(
+    _$ChangeThemeActionImpl value,
+    $Res Function(_$ChangeThemeActionImpl) then,
+  ) = __$$ChangeThemeActionImplCopyWithImpl<$Res>;
   @useResult
   $Res call({TLThemeType newThemeType});
 }
@@ -90,23 +87,25 @@ abstract class _$$ChangeThemeActionImplCopyWith<$Res> {
 class __$$ChangeThemeActionImplCopyWithImpl<$Res>
     extends _$ThemeActionCopyWithImpl<$Res, _$ChangeThemeActionImpl>
     implements _$$ChangeThemeActionImplCopyWith<$Res> {
-  __$$ChangeThemeActionImplCopyWithImpl(_$ChangeThemeActionImpl _value,
-      $Res Function(_$ChangeThemeActionImpl) _then)
-      : super(_value, _then);
+  __$$ChangeThemeActionImplCopyWithImpl(
+    _$ChangeThemeActionImpl _value,
+    $Res Function(_$ChangeThemeActionImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ThemeAction
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? newThemeType = null,
-  }) {
-    return _then(_$ChangeThemeActionImpl(
-      newThemeType: null == newThemeType
-          ? _value.newThemeType
-          : newThemeType // ignore: cast_nullable_to_non_nullable
-              as TLThemeType,
-    ));
+  $Res call({Object? newThemeType = null}) {
+    return _then(
+      _$ChangeThemeActionImpl(
+        newThemeType:
+            null == newThemeType
+                ? _value.newThemeType
+                : newThemeType // ignore: cast_nullable_to_non_nullable
+                    as TLThemeType,
+      ),
+    );
   }
 }
 
@@ -142,7 +141,9 @@ class _$ChangeThemeActionImpl implements ChangeThemeAction {
   @pragma('vm:prefer-inline')
   _$$ChangeThemeActionImplCopyWith<_$ChangeThemeActionImpl> get copyWith =>
       __$$ChangeThemeActionImplCopyWithImpl<_$ChangeThemeActionImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   @optionalTypeArgs
@@ -223,9 +224,9 @@ abstract class ChangeThemeAction implements ThemeAction {
 /// @nodoc
 abstract class _$$ChangeAccentColorActionImplCopyWith<$Res> {
   factory _$$ChangeAccentColorActionImplCopyWith(
-          _$ChangeAccentColorActionImpl value,
-          $Res Function(_$ChangeAccentColorActionImpl) then) =
-      __$$ChangeAccentColorActionImplCopyWithImpl<$Res>;
+    _$ChangeAccentColorActionImpl value,
+    $Res Function(_$ChangeAccentColorActionImpl) then,
+  ) = __$$ChangeAccentColorActionImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Color newAccentColor});
 }
@@ -235,23 +236,24 @@ class __$$ChangeAccentColorActionImplCopyWithImpl<$Res>
     extends _$ThemeActionCopyWithImpl<$Res, _$ChangeAccentColorActionImpl>
     implements _$$ChangeAccentColorActionImplCopyWith<$Res> {
   __$$ChangeAccentColorActionImplCopyWithImpl(
-      _$ChangeAccentColorActionImpl _value,
-      $Res Function(_$ChangeAccentColorActionImpl) _then)
-      : super(_value, _then);
+    _$ChangeAccentColorActionImpl _value,
+    $Res Function(_$ChangeAccentColorActionImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ThemeAction
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? newAccentColor = null,
-  }) {
-    return _then(_$ChangeAccentColorActionImpl(
-      newAccentColor: null == newAccentColor
-          ? _value.newAccentColor
-          : newAccentColor // ignore: cast_nullable_to_non_nullable
-              as Color,
-    ));
+  $Res call({Object? newAccentColor = null}) {
+    return _then(
+      _$ChangeAccentColorActionImpl(
+        newAccentColor:
+            null == newAccentColor
+                ? _value.newAccentColor
+                : newAccentColor // ignore: cast_nullable_to_non_nullable
+                    as Color,
+      ),
+    );
   }
 }
 
@@ -286,8 +288,9 @@ class _$ChangeAccentColorActionImpl implements ChangeAccentColorAction {
   @override
   @pragma('vm:prefer-inline')
   _$$ChangeAccentColorActionImplCopyWith<_$ChangeAccentColorActionImpl>
-      get copyWith => __$$ChangeAccentColorActionImplCopyWithImpl<
-          _$ChangeAccentColorActionImpl>(this, _$identity);
+  get copyWith => __$$ChangeAccentColorActionImplCopyWithImpl<
+    _$ChangeAccentColorActionImpl
+  >(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -362,5 +365,5 @@ abstract class ChangeAccentColorAction implements ThemeAction {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ChangeAccentColorActionImplCopyWith<_$ChangeAccentColorActionImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

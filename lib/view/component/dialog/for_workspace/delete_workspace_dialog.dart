@@ -14,10 +14,7 @@ import 'package:today_list/view/component/dialog/tl_base_dialog_mixin.dart';
 class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
   final TLWorkspace willDeletedWorkspace;
 
-  const DeleteWorkspaceDialog({
-    super.key,
-    required this.willDeletedWorkspace,
-  });
+  const DeleteWorkspaceDialog({super.key, required this.willDeletedWorkspace});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,7 +38,11 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  top: 5, bottom: 0.0, left: 10, right: 10),
+                top: 5,
+                bottom: 0.0,
+                left: 10,
+                right: 10,
+              ),
               child: Text(
                 willDeletedWorkspace.name,
                 style: TextStyle(
@@ -74,7 +75,10 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
 
   // MARK - Build Action Buttons
   Widget _buildActionButtons(
-      BuildContext context, WidgetRef ref, TLThemeConfig tlThemeData) {
+    BuildContext context,
+    WidgetRef ref,
+    TLThemeConfig tlThemeData,
+  ) {
     // willDeletedWorkspace を削除
     return OverflowBar(
       alignment: MainAxisAlignment.spaceEvenly,
@@ -109,8 +113,9 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
     if (context.mounted) {
       Navigator.pop(context);
       TLVibrationService.vibrate();
-      const TLSingleOptionDialog(title: "Successfully deleted!")
-          .show(context: context);
+      const TLSingleOptionDialog(
+        title: "Successfully deleted!",
+      ).show(context: context);
     }
   }
 }

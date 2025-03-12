@@ -12,10 +12,12 @@ part of '../todo/tl_todos_in_today_and_whenever.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 TLToDosInTodayAndWhenever _$TLToDosInTodayAndWheneverFromJson(
-    Map<String, dynamic> json) {
+  Map<String, dynamic> json,
+) {
   return _TLToDosInTodayAndWhenever.fromJson(json);
 }
 
@@ -37,19 +39,23 @@ mixin _$TLToDosInTodayAndWhenever {
 
 /// @nodoc
 abstract class $TLToDosInTodayAndWheneverCopyWith<$Res> {
-  factory $TLToDosInTodayAndWheneverCopyWith(TLToDosInTodayAndWhenever value,
-          $Res Function(TLToDosInTodayAndWhenever) then) =
-      _$TLToDosInTodayAndWheneverCopyWithImpl<$Res, TLToDosInTodayAndWhenever>;
+  factory $TLToDosInTodayAndWheneverCopyWith(
+    TLToDosInTodayAndWhenever value,
+    $Res Function(TLToDosInTodayAndWhenever) then,
+  ) = _$TLToDosInTodayAndWheneverCopyWithImpl<$Res, TLToDosInTodayAndWhenever>;
   @useResult
-  $Res call(
-      {String workspaceID,
-      List<TLToDo> toDosInToday,
-      List<TLToDo> toDosInWhenever});
+  $Res call({
+    String workspaceID,
+    List<TLToDo> toDosInToday,
+    List<TLToDo> toDosInWhenever,
+  });
 }
 
 /// @nodoc
-class _$TLToDosInTodayAndWheneverCopyWithImpl<$Res,
-        $Val extends TLToDosInTodayAndWhenever>
+class _$TLToDosInTodayAndWheneverCopyWithImpl<
+  $Res,
+  $Val extends TLToDosInTodayAndWhenever
+>
     implements $TLToDosInTodayAndWheneverCopyWith<$Res> {
   _$TLToDosInTodayAndWheneverCopyWithImpl(this._value, this._then);
 
@@ -67,20 +73,26 @@ class _$TLToDosInTodayAndWheneverCopyWithImpl<$Res,
     Object? toDosInToday = null,
     Object? toDosInWhenever = null,
   }) {
-    return _then(_value.copyWith(
-      workspaceID: null == workspaceID
-          ? _value.workspaceID
-          : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
-      toDosInToday: null == toDosInToday
-          ? _value.toDosInToday
-          : toDosInToday // ignore: cast_nullable_to_non_nullable
-              as List<TLToDo>,
-      toDosInWhenever: null == toDosInWhenever
-          ? _value.toDosInWhenever
-          : toDosInWhenever // ignore: cast_nullable_to_non_nullable
-              as List<TLToDo>,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            workspaceID:
+                null == workspaceID
+                    ? _value.workspaceID
+                    : workspaceID // ignore: cast_nullable_to_non_nullable
+                        as String,
+            toDosInToday:
+                null == toDosInToday
+                    ? _value.toDosInToday
+                    : toDosInToday // ignore: cast_nullable_to_non_nullable
+                        as List<TLToDo>,
+            toDosInWhenever:
+                null == toDosInWhenever
+                    ? _value.toDosInWhenever
+                    : toDosInWhenever // ignore: cast_nullable_to_non_nullable
+                        as List<TLToDo>,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -88,26 +100,30 @@ class _$TLToDosInTodayAndWheneverCopyWithImpl<$Res,
 abstract class _$$TLToDosInTodayAndWheneverImplCopyWith<$Res>
     implements $TLToDosInTodayAndWheneverCopyWith<$Res> {
   factory _$$TLToDosInTodayAndWheneverImplCopyWith(
-          _$TLToDosInTodayAndWheneverImpl value,
-          $Res Function(_$TLToDosInTodayAndWheneverImpl) then) =
-      __$$TLToDosInTodayAndWheneverImplCopyWithImpl<$Res>;
+    _$TLToDosInTodayAndWheneverImpl value,
+    $Res Function(_$TLToDosInTodayAndWheneverImpl) then,
+  ) = __$$TLToDosInTodayAndWheneverImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String workspaceID,
-      List<TLToDo> toDosInToday,
-      List<TLToDo> toDosInWhenever});
+  $Res call({
+    String workspaceID,
+    List<TLToDo> toDosInToday,
+    List<TLToDo> toDosInWhenever,
+  });
 }
 
 /// @nodoc
 class __$$TLToDosInTodayAndWheneverImplCopyWithImpl<$Res>
-    extends _$TLToDosInTodayAndWheneverCopyWithImpl<$Res,
-        _$TLToDosInTodayAndWheneverImpl>
+    extends
+        _$TLToDosInTodayAndWheneverCopyWithImpl<
+          $Res,
+          _$TLToDosInTodayAndWheneverImpl
+        >
     implements _$$TLToDosInTodayAndWheneverImplCopyWith<$Res> {
   __$$TLToDosInTodayAndWheneverImplCopyWithImpl(
-      _$TLToDosInTodayAndWheneverImpl _value,
-      $Res Function(_$TLToDosInTodayAndWheneverImpl) _then)
-      : super(_value, _then);
+    _$TLToDosInTodayAndWheneverImpl _value,
+    $Res Function(_$TLToDosInTodayAndWheneverImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TLToDosInTodayAndWhenever
   /// with the given fields replaced by the non-null parameter values.
@@ -118,33 +134,38 @@ class __$$TLToDosInTodayAndWheneverImplCopyWithImpl<$Res>
     Object? toDosInToday = null,
     Object? toDosInWhenever = null,
   }) {
-    return _then(_$TLToDosInTodayAndWheneverImpl(
-      workspaceID: null == workspaceID
-          ? _value.workspaceID
-          : workspaceID // ignore: cast_nullable_to_non_nullable
-              as String,
-      toDosInToday: null == toDosInToday
-          ? _value._toDosInToday
-          : toDosInToday // ignore: cast_nullable_to_non_nullable
-              as List<TLToDo>,
-      toDosInWhenever: null == toDosInWhenever
-          ? _value._toDosInWhenever
-          : toDosInWhenever // ignore: cast_nullable_to_non_nullable
-              as List<TLToDo>,
-    ));
+    return _then(
+      _$TLToDosInTodayAndWheneverImpl(
+        workspaceID:
+            null == workspaceID
+                ? _value.workspaceID
+                : workspaceID // ignore: cast_nullable_to_non_nullable
+                    as String,
+        toDosInToday:
+            null == toDosInToday
+                ? _value._toDosInToday
+                : toDosInToday // ignore: cast_nullable_to_non_nullable
+                    as List<TLToDo>,
+        toDosInWhenever:
+            null == toDosInWhenever
+                ? _value._toDosInWhenever
+                : toDosInWhenever // ignore: cast_nullable_to_non_nullable
+                    as List<TLToDo>,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$TLToDosInTodayAndWheneverImpl extends _TLToDosInTodayAndWhenever {
-  const _$TLToDosInTodayAndWheneverImpl(
-      {required this.workspaceID,
-      final List<TLToDo> toDosInToday = const [],
-      final List<TLToDo> toDosInWhenever = const []})
-      : _toDosInToday = toDosInToday,
-        _toDosInWhenever = toDosInWhenever,
-        super._();
+  const _$TLToDosInTodayAndWheneverImpl({
+    required this.workspaceID,
+    final List<TLToDo> toDosInToday = const [],
+    final List<TLToDo> toDosInWhenever = const [],
+  }) : _toDosInToday = toDosInToday,
+       _toDosInWhenever = toDosInWhenever,
+       super._();
 
   factory _$TLToDosInTodayAndWheneverImpl.fromJson(Map<String, dynamic> json) =>
       _$$TLToDosInTodayAndWheneverImplFromJson(json);
@@ -181,19 +202,24 @@ class _$TLToDosInTodayAndWheneverImpl extends _TLToDosInTodayAndWhenever {
             other is _$TLToDosInTodayAndWheneverImpl &&
             (identical(other.workspaceID, workspaceID) ||
                 other.workspaceID == workspaceID) &&
-            const DeepCollectionEquality()
-                .equals(other._toDosInToday, _toDosInToday) &&
-            const DeepCollectionEquality()
-                .equals(other._toDosInWhenever, _toDosInWhenever));
+            const DeepCollectionEquality().equals(
+              other._toDosInToday,
+              _toDosInToday,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._toDosInWhenever,
+              _toDosInWhenever,
+            ));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      workspaceID,
-      const DeepCollectionEquality().hash(_toDosInToday),
-      const DeepCollectionEquality().hash(_toDosInWhenever));
+    runtimeType,
+    workspaceID,
+    const DeepCollectionEquality().hash(_toDosInToday),
+    const DeepCollectionEquality().hash(_toDosInWhenever),
+  );
 
   /// Create a copy of TLToDosInTodayAndWhenever
   /// with the given fields replaced by the non-null parameter values.
@@ -201,22 +227,22 @@ class _$TLToDosInTodayAndWheneverImpl extends _TLToDosInTodayAndWhenever {
   @override
   @pragma('vm:prefer-inline')
   _$$TLToDosInTodayAndWheneverImplCopyWith<_$TLToDosInTodayAndWheneverImpl>
-      get copyWith => __$$TLToDosInTodayAndWheneverImplCopyWithImpl<
-          _$TLToDosInTodayAndWheneverImpl>(this, _$identity);
+  get copyWith => __$$TLToDosInTodayAndWheneverImplCopyWithImpl<
+    _$TLToDosInTodayAndWheneverImpl
+  >(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TLToDosInTodayAndWheneverImplToJson(
-      this,
-    );
+    return _$$TLToDosInTodayAndWheneverImplToJson(this);
   }
 }
 
 abstract class _TLToDosInTodayAndWhenever extends TLToDosInTodayAndWhenever {
-  const factory _TLToDosInTodayAndWhenever(
-      {required final String workspaceID,
-      final List<TLToDo> toDosInToday,
-      final List<TLToDo> toDosInWhenever}) = _$TLToDosInTodayAndWheneverImpl;
+  const factory _TLToDosInTodayAndWhenever({
+    required final String workspaceID,
+    final List<TLToDo> toDosInToday,
+    final List<TLToDo> toDosInWhenever,
+  }) = _$TLToDosInTodayAndWheneverImpl;
   const _TLToDosInTodayAndWhenever._() : super._();
 
   factory _TLToDosInTodayAndWhenever.fromJson(Map<String, dynamic> json) =
@@ -234,5 +260,5 @@ abstract class _TLToDosInTodayAndWhenever extends TLToDosInTodayAndWhenever {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TLToDosInTodayAndWheneverImplCopyWith<_$TLToDosInTodayAndWheneverImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

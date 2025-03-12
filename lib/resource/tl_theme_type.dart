@@ -24,10 +24,12 @@ enum TLThemeType {
       backgroundColor: Color.fromRGBO(255, 255, 255, 1),
 
       // Navigation Bar
-      gradientOfNavBar: LinearGradient(colors: [
-        Color.fromRGBO(240, 240, 240, 1),
-        Color.fromRGBO(250, 250, 250, 1),
-      ]),
+      gradientOfNavBar: LinearGradient(
+        colors: [
+          Color.fromRGBO(240, 240, 240, 1),
+          Color.fromRGBO(250, 250, 250, 1),
+        ],
+      ),
 
       // Other Apps
       otherAppsElevatedButtonColor: Color.fromRGBO(20, 240, 240, 1),
@@ -67,10 +69,12 @@ enum TLThemeType {
       backgroundColor: Color.fromRGBO(255, 229, 214, 1),
 
       // Navigation Bar
-      gradientOfNavBar: LinearGradient(colors: [
-        Color.fromRGBO(255, 163, 163, 1),
-        Color.fromRGBO(255, 230, 87, 1),
-      ]),
+      gradientOfNavBar: LinearGradient(
+        colors: [
+          Color.fromRGBO(255, 163, 163, 1),
+          Color.fromRGBO(255, 230, 87, 1),
+        ],
+      ),
 
       // Other Apps
       otherAppsElevatedButtonColor: Color.fromRGBO(255, 192, 97, 1),
@@ -110,10 +114,12 @@ enum TLThemeType {
       backgroundColor: Color.fromRGBO(239, 255, 214, 1),
 
       // Navigation Bar
-      gradientOfNavBar: LinearGradient(colors: [
-        Color.fromRGBO(73, 194, 70, 1),
-        Color.fromRGBO(143, 250, 56, 1),
-      ]),
+      gradientOfNavBar: LinearGradient(
+        colors: [
+          Color.fromRGBO(73, 194, 70, 1),
+          Color.fromRGBO(143, 250, 56, 1),
+        ],
+      ),
 
       // Other Apps
       otherAppsElevatedButtonColor: Color.fromRGBO(138, 231, 101, 1),
@@ -153,10 +159,12 @@ enum TLThemeType {
       backgroundColor: Color.fromRGBO(241, 251, 253, 1),
 
       // Navigation Bar
-      gradientOfNavBar: LinearGradient(colors: [
-        Color.fromRGBO(131, 169, 252, 1),
-        Color.fromRGBO(144, 242, 249, 1),
-      ]),
+      gradientOfNavBar: LinearGradient(
+        colors: [
+          Color.fromRGBO(131, 169, 252, 1),
+          Color.fromRGBO(144, 242, 249, 1),
+        ],
+      ),
 
       // Other Apps
       otherAppsElevatedButtonColor: Color.fromRGBO(89, 211, 227, 1),
@@ -239,10 +247,12 @@ enum TLThemeType {
       backgroundColor: Color.fromRGBO(253, 245, 247, 1),
 
       // Navigation Bar
-      gradientOfNavBar: LinearGradient(colors: [
-        Color.fromRGBO(255, 182, 193, 1),
-        Color.fromRGBO(255, 192, 203, 1),
-      ]),
+      gradientOfNavBar: LinearGradient(
+        colors: [
+          Color.fromRGBO(255, 182, 193, 1),
+          Color.fromRGBO(255, 192, 203, 1),
+        ],
+      ),
 
       // Other Apps
       otherAppsElevatedButtonColor: Color.fromRGBO(255, 182, 193, 1),
@@ -277,19 +287,23 @@ enum TLThemeType {
       navigationTitleColor: Colors.white,
       titleColorOfSettingPage: Color.fromRGBO(165, 117, 98, 1),
       settingPanelColor: Color.fromRGBO(252, 250, 242, 1), // Cream color
-
       // Home Page
       backgroundColor: Color.fromRGBO(255, 252, 245, 1), // Light cream
-
       // Navigation Bar
-      gradientOfNavBar: LinearGradient(colors: [
-        Color.fromRGBO(255, 223, 186, 1), // Light peach
-        Color.fromRGBO(255, 236, 210, 1), // Lighter peach
-      ]),
+      gradientOfNavBar: LinearGradient(
+        colors: [
+          Color.fromRGBO(255, 223, 186, 1), // Light peach
+          Color.fromRGBO(255, 236, 210, 1), // Lighter peach
+        ],
+      ),
 
       // Other Apps
-      otherAppsElevatedButtonColor:
-          Color.fromRGBO(255, 213, 158, 1), // Soft orange
+      otherAppsElevatedButtonColor: Color.fromRGBO(
+        255,
+        213,
+        158,
+        1,
+      ), // Soft orange
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(255, 228, 196, 1),
 
       // Basics
@@ -297,13 +311,11 @@ enum TLThemeType {
       canTapCardColor: Color.fromRGBO(255, 248, 225, 1), // Very light yellow
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(255, 213, 158, 1), // Soft orange
-
       // Alert
       alertBackgroundColor: Color.fromRGBO(255, 248, 225, 1),
 
       // Category List
       bigCategoryChipColor: Color.fromRGBO(255, 213, 158, 1), // Soft orange
-
       // Edit Page
       toggleButtonsBackgroundColor: Color.fromRGBO(255, 228, 196, 0.5),
       toggleButtonsBackgroundSplashColor: Color.fromRGBO(255, 213, 158, 0.5),
@@ -317,14 +329,16 @@ enum TLThemeType {
   const TLThemeType(this.config);
 
   /// JSON から TLThemeType を取得
-  static TLThemeType fromJson(String json) => _$TLThemeTypeEnumMap.entries
-      .firstWhere(
-        (e) => e.value == json,
-        orElse: () => _$TLThemeTypeEnumMap.entries.firstWhere(
-          (e) => e.key == TLThemeType.notebook, // デフォルトを指定
-        ),
-      )
-      .key;
+  static TLThemeType fromJson(String json) =>
+      _$TLThemeTypeEnumMap.entries
+          .firstWhere(
+            (e) => e.value == json,
+            orElse:
+                () => _$TLThemeTypeEnumMap.entries.firstWhere(
+                  (e) => e.key == TLThemeType.notebook, // デフォルトを指定
+                ),
+          )
+          .key;
 
   String toJson() => _$TLThemeTypeEnumMap[this] ?? 'notebook';
 }

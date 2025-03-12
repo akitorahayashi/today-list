@@ -18,12 +18,18 @@ class TodoDispatcher {
       deleteTodo: (action) async {
         final notifier = ref.read(todoProvider.notifier);
         await notifier.deleteTodo(
-            action.workspace, action.todo, action.ifInToday);
+          action.workspace,
+          action.todo,
+          action.ifInToday,
+        );
       },
       toggleTodoCheck: (action) async {
         final notifier = ref.read(todoProvider.notifier);
         await notifier.toggleTodoCheck(
-            action.workspace, action.todo, action.ifInToday);
+          action.workspace,
+          action.todo,
+          action.ifInToday,
+        );
       },
       reorderTodos: (action) async {
         final notifier = ref.read(todoProvider.notifier);
@@ -39,12 +45,17 @@ class TodoDispatcher {
       deleteAllCheckedTodos: (action) async {
         final notifier = ref.read(todoProvider.notifier);
         await notifier.deleteAllCheckedTodos(
-            action.workspace, action.ifInToday);
+          action.workspace,
+          action.ifInToday,
+        );
       },
       toggleStepCheck: (action) async {
         final notifier = ref.read(todoProvider.notifier);
         await notifier.toggleStepCheck(
-            action.workspace, action.todo, action.step);
+          action.workspace,
+          action.todo,
+          action.step,
+        );
       },
       toggleTodoTodayWhenever: (action) async {
         final notifier = ref.read(todoProvider.notifier);
@@ -53,7 +64,11 @@ class TodoDispatcher {
       reorderSteps: (action) async {
         final notifier = ref.read(todoProvider.notifier);
         await notifier.reorderSteps(
-            action.workspace, action.todo, action.oldIndex, action.newIndex);
+          action.workspace,
+          action.todo,
+          action.oldIndex,
+          action.newIndex,
+        );
       },
     );
   }

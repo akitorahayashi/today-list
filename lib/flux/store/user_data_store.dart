@@ -8,8 +8,9 @@ import 'package:today_list/service/tl_pref.dart';
 import 'package:today_list/service/tl_vibration.dart';
 
 // ユーザーデータのプロバイダー
-final userDataProvider =
-    AsyncNotifierProvider<UserDataNotifier, TLUserData>(UserDataNotifier.new);
+final userDataProvider = AsyncNotifierProvider<UserDataNotifier, TLUserData>(
+  UserDataNotifier.new,
+);
 
 // カスタムアクセントカラーのプロバイダー
 final customAccentColorProvider = Provider<Color?>((ref) {
@@ -26,10 +27,7 @@ final selectedCheckBoxIconProvider = Provider<SelectedCheckBoxIconData>((ref) {
   return userDataAsync.whenData((userData) {
         return userData.selectedCheckBoxIconData;
       }).valueOrNull ??
-      const SelectedCheckBoxIconData(
-        iconCategory: "Default",
-        iconName: "Box",
-      );
+      const SelectedCheckBoxIconData(iconCategory: "Default", iconName: "Box");
 });
 
 // ユーザーデータを管理するNotifier
@@ -67,7 +65,7 @@ class UserDataNotifier extends AsyncNotifier<TLUserData> {
         iconName: "Box",
       ),
       earnedCheckBoxIcons: {
-        "Default": ["Box", "Circle"]
+        "Default": ["Box", "Circle"],
       },
     );
   }
@@ -90,8 +88,10 @@ class UserDataNotifier extends AsyncNotifier<TLUserData> {
 
       try {
         if (await FlutterDynamicIcon.supportsAlternateIcons) {
-          await FlutterDynamicIcon.setAlternateIconName(newThemeName,
-              showAlert: false);
+          await FlutterDynamicIcon.setAlternateIconName(
+            newThemeName,
+            showAlert: false,
+          );
           print('Icon changed to: $newThemeName');
         } else {
           print("Dynamic icon change is not supported on this device.");
@@ -115,7 +115,8 @@ class UserDataNotifier extends AsyncNotifier<TLUserData> {
 
   // チェックボックスアイコンを変更
   Future<void> updateSelectedCheckBoxIcon(
-      SelectedCheckBoxIconData newCheckBox) async {
+    SelectedCheckBoxIconData newCheckBox,
+  ) async {
     TLVibrationService.vibrate();
 
     // 現在の状態を保持しながらローディング状態に
@@ -145,8 +146,9 @@ class UserDataNotifier extends AsyncNotifier<TLUserData> {
 
     try {
       final currentData = await future;
-      final newEarnedIcons =
-          Map<String, List<String>>.from(currentData.earnedCheckBoxIcons);
+      final newEarnedIcons = Map<String, List<String>>.from(
+        currentData.earnedCheckBoxIcons,
+      );
 
       if (newEarnedIcons[iconCategory] == null) {
         newEarnedIcons[iconCategory] = [iconName];

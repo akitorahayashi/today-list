@@ -22,25 +22,26 @@ final List<TLWorkspace> initialTLWorkspaces = [
     name: _TLWorkspaceID.work.name,
     workspaceIDToToDos: {
       _TLWorkspaceID.work.rawValue: TLToDosInTodayAndWhenever(
-          workspaceID: _TLWorkspaceID.work.rawValue,
-          toDosInToday: [
-            TLToDo(
-              id: TLUUIDGenerator.generate(),
-              workspaceID: _TLWorkspaceID.work.rawValue,
-              isInToday: true,
-              content: "Aさんとのスケジュールを調整",
-            ),
-            TLToDo(
-              id: TLUUIDGenerator.generate(),
-              workspaceID: _TLWorkspaceID.work.rawValue,
-              isInToday: true,
-              content: "書類の作成",
-              steps: [
-                TLStep(id: TLUUIDGenerator.generate(), content: "資料を用意する"),
-                TLStep(id: TLUUIDGenerator.generate(), content: "送り先に送信する"),
-              ],
-            ),
-          ]),
+        workspaceID: _TLWorkspaceID.work.rawValue,
+        toDosInToday: [
+          TLToDo(
+            id: TLUUIDGenerator.generate(),
+            workspaceID: _TLWorkspaceID.work.rawValue,
+            isInToday: true,
+            content: "Aさんとのスケジュールを調整",
+          ),
+          TLToDo(
+            id: TLUUIDGenerator.generate(),
+            workspaceID: _TLWorkspaceID.work.rawValue,
+            isInToday: true,
+            content: "書類の作成",
+            steps: [
+              TLStep(id: TLUUIDGenerator.generate(), content: "資料を用意する"),
+              TLStep(id: TLUUIDGenerator.generate(), content: "送り先に送信する"),
+            ],
+          ),
+        ],
+      ),
     },
   ),
 
@@ -114,9 +115,10 @@ TLWorkspace createDefaultWorkspace({
     name: workspaceID.name,
     workspaceIDToToDos: {
       workspaceID.rawValue: TLToDosInTodayAndWhenever(
-          workspaceID: workspaceID.rawValue,
-          toDosInToday: [],
-          toDosInWhenever: []),
+        workspaceID: workspaceID.rawValue,
+        toDosInToday: [],
+        toDosInWhenever: [],
+      ),
     },
   );
 }

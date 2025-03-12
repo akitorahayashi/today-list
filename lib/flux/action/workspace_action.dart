@@ -17,7 +17,8 @@ sealed class WorkspaceAction with _$WorkspaceAction {
 
   // Workspace内の全てのチェック済みToDoを削除する
   const factory WorkspaceAction.deleteAllCheckedToDosInWorkspace(
-      TLWorkspace workspace) = DeleteAllCheckedToDosInWorkspace;
+    TLWorkspace workspace,
+  ) = DeleteAllCheckedToDosInWorkspace;
 
   // 選択したWorkspaceを保存する
   const factory WorkspaceAction.updateWorkspace(TLWorkspace workspace) =
@@ -31,5 +32,6 @@ sealed class WorkspaceAction with _$WorkspaceAction {
 
   // 今日のチェック済みToDoをすべて削除（全ワークスペース対象）
   const factory WorkspaceAction.deleteAllCheckedToDosInToday(
-      List<TLWorkspace> workspaces) = DeleteAllCheckedToDosInToday;
+    List<TLWorkspace> workspaces,
+  ) = DeleteAllCheckedToDosInToday;
 }

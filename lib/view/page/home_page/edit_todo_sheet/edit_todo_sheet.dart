@@ -34,8 +34,9 @@ class EditToDoSheet extends HookConsumerWidget {
     // ワークスペースの取得
     final corrWorkspace = workspacesAsync.when(
       data: (workspaces) {
-        final matches =
-            workspaces.where((workspace) => workspace.id == workspaceID);
+        final matches = workspaces.where(
+          (workspace) => workspace.id == workspaceID,
+        );
         return matches.isNotEmpty ? matches.first : workspaces.first;
       },
       loading: () => null,
@@ -46,9 +47,7 @@ class EditToDoSheet extends HookConsumerWidget {
     if (corrWorkspace == null) {
       return Container(
         color: tlThemeConfig.whiteBasedColor,
-        child: const Center(
-          child: CircularProgressIndicator(),
-        ),
+        child: const Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -57,15 +56,15 @@ class EditToDoSheet extends HookConsumerWidget {
       text: todoToEdit.content,
     );
     final stepTitleController = useTextEditingController();
-    final steps = useState<List<TLStep>>(
-      List<TLStep>.from(todoToEdit.steps),
-    );
+    final steps = useState<List<TLStep>>(List<TLStep>.from(todoToEdit.steps));
     final isToday = useState<bool>(todoToEdit.isInToday);
 
     // MARK: - ToDo Operations
     void addToStepList(String stepTitle) {
-      final newStep =
-          TLStep(id: TLUUIDGenerator.generate(), content: stepTitle);
+      final newStep = TLStep(
+        id: TLUUIDGenerator.generate(),
+        content: stepTitle,
+      );
       steps.value = [...steps.value, newStep];
       stepTitleController.clear();
     }
@@ -86,10 +85,7 @@ class EditToDoSheet extends HookConsumerWidget {
       // MARK: - Update Existing ToDo using Flux
       TodoDispatcher.dispatch(
         ref,
-        TodoAction.updateTodo(
-          workspace: corrWorkspace,
-          todo: updatedToDo,
-        ),
+        TodoAction.updateTodo(workspace: corrWorkspace, todo: updatedToDo),
       );
 
       // タスク編集完了時にコールバックを呼び出す

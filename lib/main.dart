@@ -71,7 +71,5 @@ void main() async {
   }
 
   // アプリの起動
-  runApp(const ProviderScope(
-    child: TodayListApp(),
-  ));
+  runApp(const ProviderScope(child: TodayListApp()));
 }

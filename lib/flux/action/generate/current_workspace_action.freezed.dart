@@ -12,7 +12,8 @@ part of '../current_workspace_action.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$CurrentWorkspaceAction {
@@ -20,36 +21,30 @@ mixin _$CurrentWorkspaceAction {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? workspaceId) setCurrentWorkspaceId,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? workspaceId)? setCurrentWorkspaceId,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? workspaceId)? setCurrentWorkspaceId,
     required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SetCurrentWorkspaceId value)
-        setCurrentWorkspaceId,
-  }) =>
-      throw _privateConstructorUsedError;
+    setCurrentWorkspaceId,
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(SetCurrentWorkspaceId value)? setCurrentWorkspaceId,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SetCurrentWorkspaceId value)? setCurrentWorkspaceId,
     required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
 
   /// Create a copy of CurrentWorkspaceAction
   /// with the given fields replaced by the non-null parameter values.
@@ -60,16 +55,19 @@ mixin _$CurrentWorkspaceAction {
 
 /// @nodoc
 abstract class $CurrentWorkspaceActionCopyWith<$Res> {
-  factory $CurrentWorkspaceActionCopyWith(CurrentWorkspaceAction value,
-          $Res Function(CurrentWorkspaceAction) then) =
-      _$CurrentWorkspaceActionCopyWithImpl<$Res, CurrentWorkspaceAction>;
+  factory $CurrentWorkspaceActionCopyWith(
+    CurrentWorkspaceAction value,
+    $Res Function(CurrentWorkspaceAction) then,
+  ) = _$CurrentWorkspaceActionCopyWithImpl<$Res, CurrentWorkspaceAction>;
   @useResult
   $Res call({String? workspaceId});
 }
 
 /// @nodoc
-class _$CurrentWorkspaceActionCopyWithImpl<$Res,
-        $Val extends CurrentWorkspaceAction>
+class _$CurrentWorkspaceActionCopyWithImpl<
+  $Res,
+  $Val extends CurrentWorkspaceAction
+>
     implements $CurrentWorkspaceActionCopyWith<$Res> {
   _$CurrentWorkspaceActionCopyWithImpl(this._value, this._then);
 
@@ -82,15 +80,17 @@ class _$CurrentWorkspaceActionCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? workspaceId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      workspaceId: freezed == workspaceId
-          ? _value.workspaceId
-          : workspaceId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
+  $Res call({Object? workspaceId = freezed}) {
+    return _then(
+      _value.copyWith(
+            workspaceId:
+                freezed == workspaceId
+                    ? _value.workspaceId
+                    : workspaceId // ignore: cast_nullable_to_non_nullable
+                        as String?,
+          )
+          as $Val,
+    );
   }
 }
 
@@ -98,9 +98,9 @@ class _$CurrentWorkspaceActionCopyWithImpl<$Res,
 abstract class _$$SetCurrentWorkspaceIdImplCopyWith<$Res>
     implements $CurrentWorkspaceActionCopyWith<$Res> {
   factory _$$SetCurrentWorkspaceIdImplCopyWith(
-          _$SetCurrentWorkspaceIdImpl value,
-          $Res Function(_$SetCurrentWorkspaceIdImpl) then) =
-      __$$SetCurrentWorkspaceIdImplCopyWithImpl<$Res>;
+    _$SetCurrentWorkspaceIdImpl value,
+    $Res Function(_$SetCurrentWorkspaceIdImpl) then,
+  ) = __$$SetCurrentWorkspaceIdImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? workspaceId});
@@ -108,26 +108,27 @@ abstract class _$$SetCurrentWorkspaceIdImplCopyWith<$Res>
 
 /// @nodoc
 class __$$SetCurrentWorkspaceIdImplCopyWithImpl<$Res>
-    extends _$CurrentWorkspaceActionCopyWithImpl<$Res,
-        _$SetCurrentWorkspaceIdImpl>
+    extends
+        _$CurrentWorkspaceActionCopyWithImpl<$Res, _$SetCurrentWorkspaceIdImpl>
     implements _$$SetCurrentWorkspaceIdImplCopyWith<$Res> {
-  __$$SetCurrentWorkspaceIdImplCopyWithImpl(_$SetCurrentWorkspaceIdImpl _value,
-      $Res Function(_$SetCurrentWorkspaceIdImpl) _then)
-      : super(_value, _then);
+  __$$SetCurrentWorkspaceIdImplCopyWithImpl(
+    _$SetCurrentWorkspaceIdImpl _value,
+    $Res Function(_$SetCurrentWorkspaceIdImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of CurrentWorkspaceAction
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? workspaceId = freezed,
-  }) {
-    return _then(_$SetCurrentWorkspaceIdImpl(
-      freezed == workspaceId
-          ? _value.workspaceId
-          : workspaceId // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
+  $Res call({Object? workspaceId = freezed}) {
+    return _then(
+      _$SetCurrentWorkspaceIdImpl(
+        freezed == workspaceId
+            ? _value.workspaceId
+            : workspaceId // ignore: cast_nullable_to_non_nullable
+                as String?,
+      ),
+    );
   }
 }
 
@@ -162,8 +163,11 @@ class _$SetCurrentWorkspaceIdImpl implements SetCurrentWorkspaceId {
   @override
   @pragma('vm:prefer-inline')
   _$$SetCurrentWorkspaceIdImplCopyWith<_$SetCurrentWorkspaceIdImpl>
-      get copyWith => __$$SetCurrentWorkspaceIdImplCopyWithImpl<
-          _$SetCurrentWorkspaceIdImpl>(this, _$identity);
+  get copyWith =>
+      __$$SetCurrentWorkspaceIdImplCopyWithImpl<_$SetCurrentWorkspaceIdImpl>(
+        this,
+        _$identity,
+      );
 
   @override
   @optionalTypeArgs
@@ -197,7 +201,7 @@ class _$SetCurrentWorkspaceIdImpl implements SetCurrentWorkspaceId {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SetCurrentWorkspaceId value)
-        setCurrentWorkspaceId,
+    setCurrentWorkspaceId,
   }) {
     return setCurrentWorkspaceId(this);
   }
@@ -235,5 +239,5 @@ abstract class SetCurrentWorkspaceId implements CurrentWorkspaceAction {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SetCurrentWorkspaceIdImplCopyWith<_$SetCurrentWorkspaceIdImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }

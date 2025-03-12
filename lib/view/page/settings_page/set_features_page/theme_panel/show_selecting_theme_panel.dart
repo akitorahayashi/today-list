@@ -5,9 +5,7 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ShowSelectingThemePanel extends StatelessWidget {
-  const ShowSelectingThemePanel({
-    super.key,
-  });
+  const ShowSelectingThemePanel({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +16,9 @@ class ShowSelectingThemePanel extends StatelessWidget {
       height: double.infinity,
       // グラデーションと丸角
       decoration: BoxDecoration(
-          gradient: tlThemeConfig.gradientOfNavBar,
-          borderRadius: BorderRadius.circular(10)),
+        gradient: tlThemeConfig.gradientOfNavBar,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Align(
         alignment: Alignment.center,
         // toDoカードを表示
@@ -39,10 +38,11 @@ class ShowSelectingThemePanel extends StatelessWidget {
                       tlThemeConfig.themeTitleInSettings,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: tlThemeConfig.accentColor,
-                          fontSize: 24, // フォントサイズを大きく
-                          letterSpacing: 2,
-                          fontWeight: FontWeight.w800),
+                        color: tlThemeConfig.accentColor,
+                        fontSize: 24, // フォントサイズを大きく
+                        letterSpacing: 2,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Icon(

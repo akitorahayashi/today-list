@@ -4,11 +4,13 @@ import 'dart:io';
 import 'package:today_list/resource/tl_theme_type.dart';
 
 class TCWiOSMethodChannelService {
-  static const methodChannel =
-      MethodChannel('com.akitora0703.todaylist.methodChannel');
+  static const methodChannel = MethodChannel(
+    'com.akitora0703.todaylist.methodChannel',
+  );
 
-  static Future<void> updateTLWorkspaces(
-      {required String encodedWorkspaces}) async {
+  static Future<void> updateTLWorkspaces({
+    required String encodedWorkspaces,
+  }) async {
     if (Platform.isIOS) {
       try {
         final String result = await methodChannel.invokeMethod(
@@ -22,8 +24,9 @@ class TCWiOSMethodChannelService {
     }
   }
 
-  static Future<void> updateListOfToDosInCategoryWidgetSettings(
-      {required String encodedListOfToDosInCategoryWidgetSettings}) async {
+  static Future<void> updateListOfToDosInCategoryWidgetSettings({
+    required String encodedListOfToDosInCategoryWidgetSettings,
+  }) async {
     if (Platform.isIOS) {
       try {
         final String result = await methodChannel.invokeMethod(
@@ -37,8 +40,9 @@ class TCWiOSMethodChannelService {
     }
   }
 
-  static Future<void> updateSelectedTheme(
-      {required TLThemeType selectedThemeType}) async {
+  static Future<void> updateSelectedTheme({
+    required TLThemeType selectedThemeType,
+  }) async {
     if (Platform.isIOS) {
       print(selectedThemeType.name);
       try {

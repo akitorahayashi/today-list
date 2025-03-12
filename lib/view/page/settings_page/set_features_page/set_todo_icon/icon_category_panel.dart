@@ -21,17 +21,19 @@ class IconCategoryPanel extends StatelessWidget {
             child: Text(
               corrIconCategory.name,
               style: TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.w800,
-                  color: tlThemeConfig.accentColor),
+                fontSize: 19,
+                fontWeight: FontWeight.w800,
+                color: tlThemeConfig.accentColor,
+              ),
             ),
           ),
           // Default
           if (corrIconCategory.name == TLIconCategory.defaultCategory.name)
             TLIconSeparatedBlock(
-                showIfNotEarned: true,
-                tlIconCategory: corrIconCategory,
-                icons: corrIconCategory.icons),
+              showIfNotEarned: true,
+              tlIconCategory: corrIconCategory,
+              icons: corrIconCategory.icons,
+            ),
           // Others
           if (corrIconCategory.name != TLIconCategory.defaultCategory.name)
             Column(

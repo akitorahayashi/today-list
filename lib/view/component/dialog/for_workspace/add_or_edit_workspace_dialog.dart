@@ -50,8 +50,11 @@ class _AddOrEditWorkspaceDialogState
       final workspacesAsync = await ref.read(workspacesProvider.future);
       final workspace = workspacesAsync.firstWhere(
         (ws) => ws.id == widget.oldWorkspaceId,
-        orElse: () => throw Exception(
-            "Workspace ID: ${widget.oldWorkspaceId} not found."),
+        orElse:
+            () =>
+                throw Exception(
+                  "Workspace ID: ${widget.oldWorkspaceId} not found.",
+                ),
       );
       _workspaceNameInputController.text = workspace.name;
     });
@@ -77,8 +80,9 @@ class _AddOrEditWorkspaceDialogState
             child: _buildWorkspaceTextField(themeConfig),
           ),
           workspacesAsync.when(
-            data: (workspaces) =>
-                _buildActionButtons(context, themeConfig, workspaces),
+            data:
+                (workspaces) =>
+                    _buildActionButtons(context, themeConfig, workspaces),
             loading: () => const CircularProgressIndicator(),
             error: (_, __) => const Text('Error loading workspaces'),
           ),
@@ -122,7 +126,10 @@ class _AddOrEditWorkspaceDialogState
   }
 
   Widget _buildActionButtons(
-      BuildContext context, TLThemeConfig theme, List<TLWorkspace> workspaces) {
+    BuildContext context,
+    TLThemeConfig theme,
+    List<TLWorkspace> workspaces,
+  ) {
     return OverflowBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -142,7 +149,9 @@ class _AddOrEditWorkspaceDialogState
 
   // MARK: - Actions
   Future<void> _handleSave(
-      BuildContext context, List<TLWorkspace> workspaces) async {
+    BuildContext context,
+    List<TLWorkspace> workspaces,
+  ) async {
     TLVibrationService.vibrate();
     final workspaceName = _workspaceNameInputController.text;
 
@@ -155,17 +164,19 @@ class _AddOrEditWorkspaceDialogState
         if (widget.oldWorkspaceId == null) {
           final String newWorkspaceID = TLUUIDGenerator.generate();
           await _onAddSuccess(
-              context,
-              TLWorkspace(
-                id: newWorkspaceID,
-                name: workspaceName,
-                workspaceIDToToDos: {
-                  newWorkspaceID: TLToDosInTodayAndWhenever(
-                      workspaceID: newWorkspaceID,
-                      toDosInToday: [],
-                      toDosInWhenever: [])
-                },
-              ));
+            context,
+            TLWorkspace(
+              id: newWorkspaceID,
+              name: workspaceName,
+              workspaceIDToToDos: {
+                newWorkspaceID: TLToDosInTodayAndWhenever(
+                  workspaceID: newWorkspaceID,
+                  toDosInToday: [],
+                  toDosInWhenever: [],
+                ),
+              },
+            ),
+          );
         } else {
           await _onEditSuccess(context, workspaces, workspaceName);
         }
@@ -173,16 +184,21 @@ class _AddOrEditWorkspaceDialogState
     );
   }
 
-  Future<void> _onEditSuccess(BuildContext context,
-      List<TLWorkspace> workspaces, String newName) async {
-    final workspaceIndex =
-        workspaces.indexWhere((ws) => ws.id == widget.oldWorkspaceId);
+  Future<void> _onEditSuccess(
+    BuildContext context,
+    List<TLWorkspace> workspaces,
+    String newName,
+  ) async {
+    final workspaceIndex = workspaces.indexWhere(
+      (ws) => ws.id == widget.oldWorkspaceId,
+    );
     if (workspaceIndex == -1) {
       throw Exception("Workspace ID: ${widget.oldWorkspaceId} not found.");
     }
 
-    final TLWorkspace editedWorkspace =
-        workspaces[workspaceIndex].copyWith(name: newName);
+    final TLWorkspace editedWorkspace = workspaces[workspaceIndex].copyWith(
+      name: newName,
+    );
 
     await WorkspaceDispatcher.dispatch(
       ref,
@@ -190,13 +206,16 @@ class _AddOrEditWorkspaceDialogState
     );
 
     if (context.mounted) {
-      const TLSingleOptionDialog(title: "Successfully changed!")
-          .show(context: context);
+      const TLSingleOptionDialog(
+        title: "Successfully changed!",
+      ).show(context: context);
     }
   }
 
   Future<void> _onAddSuccess(
-      BuildContext context, TLWorkspace newWorkspace) async {
+    BuildContext context,
+    TLWorkspace newWorkspace,
+  ) async {
     await WorkspaceDispatcher.dispatch(
       ref,
       WorkspaceAction.addWorkspace(newWorkspace),
@@ -204,8 +223,9 @@ class _AddOrEditWorkspaceDialogState
 
     if (context.mounted) {
       TLSingleOptionDialog(
-              title: newWorkspace.name, message: "was successfully added!")
-          .show(context: context);
+        title: newWorkspace.name,
+        message: "was successfully added!",
+      ).show(context: context);
     }
   }
 }

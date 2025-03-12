@@ -31,18 +31,23 @@ class ModelOfToDoCard extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.fromLTRB(
-                  16, 18, 16, corrTLToDo.steps.isNotEmpty ? 15 : 18),
+                16,
+                18,
+                16,
+                corrTLToDo.steps.isNotEmpty ? 15 : 18,
+              ),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   // 左側のチェックボックス
                   Padding(
-                      padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
-                      // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                      child: Transform.scale(
-                        scale: 1.2,
-                        child: TLCheckBox(isChecked: corrTLToDo.isChecked),
-                      )),
+                    padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
+                    // const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                    child: Transform.scale(
+                      scale: 1.2,
+                      child: TLCheckBox(isChecked: corrTLToDo.isChecked),
+                    ),
+                  ),
                   // toDoのタイトル
                   Expanded(
                     child: Align(
@@ -50,10 +55,12 @@ class ModelOfToDoCard extends StatelessWidget {
                       child: Text(
                         corrTLToDo.content,
                         style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black.withValues(
-                                alpha: corrTLToDo.isChecked ? 0.3 : 0.6)),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black.withValues(
+                            alpha: corrTLToDo.isChecked ? 0.3 : 0.6,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -65,47 +72,62 @@ class ModelOfToDoCard extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Column(
-                  children: corrTLToDo.steps.map((stepData) {
-                    return Padding(
-                      key: Key(stepData.id),
-                      padding: const EdgeInsets.fromLTRB(8, 0, 2, 0),
-                      child: Card(
-                        color: tlThemeData.whiteBasedColor,
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-                          child: Row(
-                            children: [
-                              // 左側のチェックボックス
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(4, 0, 16, 0),
-                                child: Transform.scale(
-                                  scale: 1.2,
-                                  child:
-                                      TLCheckBox(isChecked: stepData.isChecked),
-                                ),
+                  children:
+                      corrTLToDo.steps.map((stepData) {
+                        return Padding(
+                          key: Key(stepData.id),
+                          padding: const EdgeInsets.fromLTRB(8, 0, 2, 0),
+                          child: Card(
+                            color: tlThemeData.whiteBasedColor,
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                16,
+                                16,
+                                16,
+                                16,
                               ),
-                              // stepのタイトル
-                              Expanded(
-                                child: Text(stepData.content,
-                                    style: TextStyle(
+                              child: Row(
+                                children: [
+                                  // 左側のチェックボックス
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                      4,
+                                      0,
+                                      16,
+                                      0,
+                                    ),
+                                    child: Transform.scale(
+                                      scale: 1.2,
+                                      child: TLCheckBox(
+                                        isChecked: stepData.isChecked,
+                                      ),
+                                    ),
+                                  ),
+                                  // stepのタイトル
+                                  Expanded(
+                                    child: Text(
+                                      stepData.content,
+                                      style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.black.withValues(
-                                            alpha: stepData.isChecked
-                                                ? 0.3
-                                                : 0.6))),
+                                          alpha: stepData.isChecked ? 0.3 : 0.6,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  }).toList(),
+                        );
+                      }).toList(),
                 ),
-              )
+              ),
           ],
         ),
       ),

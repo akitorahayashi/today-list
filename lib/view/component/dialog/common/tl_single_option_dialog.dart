@@ -11,11 +11,7 @@ class TLSingleOptionDialog extends ConsumerWidget with TLBaseDialogMixin {
   final String title;
   final String? message;
 
-  const TLSingleOptionDialog({
-    super.key,
-    required this.title,
-    this.message,
-  });
+  const TLSingleOptionDialog({super.key, required this.title, this.message});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,9 +31,10 @@ class TLSingleOptionDialog extends ConsumerWidget with TLBaseDialogMixin {
                 child: Text(
                   title,
                   style: TextStyle(
-                      color: corrThemeConfig.accentColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20),
+                    color: corrThemeConfig.accentColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
                 ),
               ),
               if (message != null)
@@ -51,15 +48,14 @@ class TLSingleOptionDialog extends ConsumerWidget with TLBaseDialogMixin {
                     ),
                   ),
                 ),
-              if (message == null)
-                const SizedBox(
-                  height: 30,
-                ),
+              if (message == null) const SizedBox(height: 30),
               TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  style: alertButtonStyle(
-                      accentColor: corrThemeConfig.accentColor),
-                  child: const Text("OK"))
+                onPressed: () => Navigator.pop(context),
+                style: alertButtonStyle(
+                  accentColor: corrThemeConfig.accentColor,
+                ),
+                child: const Text("OK"),
+              ),
             ],
           ),
         ),

@@ -24,8 +24,9 @@ class TodayListApp extends ConsumerWidget {
             TLThemeConfig themeConfig = selectedThemeType.config;
             if (userData.customAccentColorValue != null) {
               final customAccentColor = Color(userData.customAccentColorValue!);
-              themeConfig =
-                  themeConfig.copyWithCustomAccentColor(customAccentColor);
+              themeConfig = themeConfig.copyWithCustomAccentColor(
+                customAccentColor,
+              );
             }
 
             return AnimatedTLTheme(
@@ -47,33 +48,28 @@ class TodayListApp extends ConsumerWidget {
               ),
             );
           },
-          loading: () => const Scaffold(
-            body: TLLoadingIndicator(),
-          ),
-          error: (error, stackTrace) => MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: Scaffold(
-              body: Center(
-                child: Text('ユーザーデータの読み込みに失敗しました: $error'),
+          loading: () => const Scaffold(body: TLLoadingIndicator()),
+          error:
+              (error, stackTrace) => MaterialApp(
+                debugShowCheckedModeBanner: false,
+                home: Scaffold(
+                  body: Center(child: Text('ユーザーデータの読み込みに失敗しました: $error')),
+                ),
               ),
-            ),
-          ),
         );
       },
-      loading: () => const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          body: TLLoadingIndicator(),
-        ),
-      ),
-      error: (error, stackTrace) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          body: Center(
-            child: Text('テーマの読み込みに失敗しました: $error'),
+      loading:
+          () => const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(body: TLLoadingIndicator()),
           ),
-        ),
-      ),
+      error:
+          (error, stackTrace) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              body: Center(child: Text('テーマの読み込みに失敗しました: $error')),
+            ),
+          ),
     );
   }
 }

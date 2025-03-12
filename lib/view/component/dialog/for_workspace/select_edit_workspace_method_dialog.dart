@@ -39,7 +39,9 @@ class SelectEditWorkspaceMethodDialog extends ConsumerWidget
                   child: Text(
                     "Workspace Name",
                     style: TextStyle(
-                        color: Color.fromRGBO(120, 120, 120, 1), fontSize: 13),
+                      color: Color.fromRGBO(120, 120, 120, 1),
+                      fontSize: 13,
+                    ),
                   ),
                 ),
                 Align(
@@ -65,15 +67,16 @@ class SelectEditWorkspaceMethodDialog extends ConsumerWidget
                   onPressed: () async {
                     Navigator.pop(context);
                     await AddOrEditWorkspaceDialog(
-                            oldWorkspaceId: corrWorkspace.id)
-                        .show(context: context);
+                      oldWorkspaceId: corrWorkspace.id,
+                    ).show(context: context);
                   },
                   child: Text(
                     "Rename",
                     style: TextStyle(
-                        color: tlThemeData.accentColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                      color: tlThemeData.accentColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
@@ -97,9 +100,10 @@ class SelectEditWorkspaceMethodDialog extends ConsumerWidget
                         child: Text(
                           "Delete",
                           style: TextStyle(
-                              color: tlThemeData.accentColor,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                            color: tlThemeData.accentColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -121,7 +125,8 @@ class SelectEditWorkspaceMethodDialog extends ConsumerWidget
                 onPressed: () => Navigator.pop(context),
                 style: ButtonStyle(
                   overlayColor: WidgetStateProperty.resolveWith(
-                      (states) => Colors.lightGreen.withValues(alpha: 0.1)),
+                    (states) => Colors.lightGreen.withValues(alpha: 0.1),
+                  ),
                 ),
                 child: const Text(
                   "close",
@@ -129,7 +134,7 @@ class SelectEditWorkspaceMethodDialog extends ConsumerWidget
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

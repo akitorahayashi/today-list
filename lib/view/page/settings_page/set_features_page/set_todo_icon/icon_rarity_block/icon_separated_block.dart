@@ -27,13 +27,16 @@ class TLIconSeparatedBlock extends ConsumerWidget {
         child: Column(
           children: [
             Row(
-              children: icons
-                  .map((TLIconName iconName) => IconCard(
-                        showIfNotEarned: showIfNotEarned,
-                        tlIconCategory: tlIconCategory,
-                        tlIconName: iconName,
-                      ))
-                  .toList(),
+              children:
+                  icons
+                      .map(
+                        (TLIconName iconName) => IconCard(
+                          showIfNotEarned: showIfNotEarned,
+                          tlIconCategory: tlIconCategory,
+                          tlIconName: iconName,
+                        ),
+                      )
+                      .toList(),
             ),
           ],
         ),

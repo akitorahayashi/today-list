@@ -10,7 +10,8 @@ import 'package:today_list/service/tl_vibration.dart';
 // ワークスペースリストのプロバイダー
 final workspacesProvider =
     AsyncNotifierProvider<WorkspacesNotifier, List<TLWorkspace>>(
-        WorkspacesNotifier.new);
+      WorkspacesNotifier.new,
+    );
 
 // ワークスペースリストを管理するNotifier
 class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
@@ -40,12 +41,14 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
 
   Future<void> _saveWorkspaces(List<TLWorkspace> workspaces) async {
     final pref = await TLPrefService().getPref;
-    final encodedWorkspaces =
-        jsonEncode(workspaces.map((w) => w.toJson()).toList());
+    final encodedWorkspaces = jsonEncode(
+      workspaces.map((w) => w.toJson()).toList(),
+    );
 
     // iOSウィジェットの更新
     TCWiOSMethodChannelService.updateTLWorkspaces(
-        encodedWorkspaces: encodedWorkspaces);
+      encodedWorkspaces: encodedWorkspaces,
+    );
 
     await pref.setString(_prefKey, encodedWorkspaces);
   }
@@ -55,8 +58,9 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
     TLVibrationService.vibrate();
 
     // 現在の状態を保持しながらローディング状態に
-    state =
-        const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(state);
+    state = const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(
+      state,
+    );
 
     try {
       final currentWorkspaces = await future;
@@ -67,8 +71,10 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
       state = AsyncValue<List<TLWorkspace>>.data(updatedWorkspaces);
     } catch (e, stack) {
       // エラー時も前の状態を保持
-      state =
-          AsyncValue<List<TLWorkspace>>.error(e, stack).copyWithPrevious(state);
+      state = AsyncValue<List<TLWorkspace>>.error(
+        e,
+        stack,
+      ).copyWithPrevious(state);
     }
   }
 
@@ -77,24 +83,28 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
     TLVibrationService.vibrate();
 
     // 現在の状態を保持しながらローディング状態に
-    state =
-        const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(state);
+    state = const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(
+      state,
+    );
 
     try {
       final currentWorkspaces = await future;
-      final updatedWorkspaces = currentWorkspaces.map((workspace) {
-        return workspace.id == updatedWorkspace.id
-            ? updatedWorkspace
-            : workspace;
-      }).toList();
+      final updatedWorkspaces =
+          currentWorkspaces.map((workspace) {
+            return workspace.id == updatedWorkspace.id
+                ? updatedWorkspace
+                : workspace;
+          }).toList();
       await _saveWorkspaces(updatedWorkspaces);
 
       // 成功したら新しい状態を設定
       state = AsyncValue<List<TLWorkspace>>.data(updatedWorkspaces);
     } catch (e, stack) {
       // エラー時も前の状態を保持
-      state =
-          AsyncValue<List<TLWorkspace>>.error(e, stack).copyWithPrevious(state);
+      state = AsyncValue<List<TLWorkspace>>.error(
+        e,
+        stack,
+      ).copyWithPrevious(state);
     }
   }
 
@@ -103,22 +113,26 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
     TLVibrationService.vibrate();
 
     // 現在の状態を保持しながらローディング状態に
-    state =
-        const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(state);
+    state = const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(
+      state,
+    );
 
     try {
       final currentWorkspaces = await future;
-      final updatedWorkspaces = currentWorkspaces
-          .where((workspace) => workspace.id != workspaceId)
-          .toList();
+      final updatedWorkspaces =
+          currentWorkspaces
+              .where((workspace) => workspace.id != workspaceId)
+              .toList();
       await _saveWorkspaces(updatedWorkspaces);
 
       // 成功したら新しい状態を設定
       state = AsyncValue<List<TLWorkspace>>.data(updatedWorkspaces);
     } catch (e, stack) {
       // エラー時も前の状態を保持
-      state =
-          AsyncValue<List<TLWorkspace>>.error(e, stack).copyWithPrevious(state);
+      state = AsyncValue<List<TLWorkspace>>.error(
+        e,
+        stack,
+      ).copyWithPrevious(state);
     }
   }
 
@@ -127,8 +141,9 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
     TLVibrationService.vibrate();
 
     // 現在の状態を保持しながらローディング状態に
-    state =
-        const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(state);
+    state = const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(
+      state,
+    );
 
     try {
       final currentWorkspaces = await future;
@@ -136,7 +151,8 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
       // `workspaceIDToToDos` をコピーする
       final copiedWorkspaceIDToToDos =
           Map<String, TLToDosInTodayAndWhenever>.from(
-              workspace.workspaceIDToToDos);
+            workspace.workspaceIDToToDos,
+          );
 
       // ワークスペースIDに対応するTLToDosInTodayAndWheneverの中のチェック済みToDoを削除
       for (String workspaceID in copiedWorkspaceIDToToDos.keys) {
@@ -148,8 +164,9 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
       }
 
       // workspacesを更新
-      final corrWorkspaceIdx =
-          currentWorkspaces.indexWhere((ws) => ws.id == workspace.id);
+      final corrWorkspaceIdx = currentWorkspaces.indexWhere(
+        (ws) => ws.id == workspace.id,
+      );
       if (corrWorkspaceIdx < 0) {
         // 該当なし
         state = AsyncValue<List<TLWorkspace>>.data(currentWorkspaces);
@@ -167,8 +184,10 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
       state = AsyncValue<List<TLWorkspace>>.data(updatedWorkspaces);
     } catch (e, stack) {
       // エラー時も前の状態を保持
-      state =
-          AsyncValue<List<TLWorkspace>>.error(e, stack).copyWithPrevious(state);
+      state = AsyncValue<List<TLWorkspace>>.error(
+        e,
+        stack,
+      ).copyWithPrevious(state);
     }
   }
 
@@ -177,8 +196,9 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
     TLVibrationService.vibrate();
 
     // 現在の状態を保持しながらローディング状態に
-    state =
-        const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(state);
+    state = const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(
+      state,
+    );
 
     try {
       final currentWorkspaces = await future;
@@ -199,8 +219,10 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
       state = AsyncValue<List<TLWorkspace>>.data(copiedWorkspaces);
     } catch (e, stack) {
       // エラー時も前の状態を保持
-      state =
-          AsyncValue<List<TLWorkspace>>.error(e, stack).copyWithPrevious(state);
+      state = AsyncValue<List<TLWorkspace>>.error(
+        e,
+        stack,
+      ).copyWithPrevious(state);
     }
   }
 
@@ -209,8 +231,9 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
     TLVibrationService.vibrate();
 
     // 現在の状態を保持しながらローディング状態に
-    state =
-        const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(state);
+    state = const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(
+      state,
+    );
 
     try {
       await _saveWorkspaces(updatedWorkspaces);
@@ -219,31 +242,40 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
       state = AsyncValue<List<TLWorkspace>>.data(updatedWorkspaces);
     } catch (e, stack) {
       // エラー時も前の状態を保持
-      state =
-          AsyncValue<List<TLWorkspace>>.error(e, stack).copyWithPrevious(state);
+      state = AsyncValue<List<TLWorkspace>>.error(
+        e,
+        stack,
+      ).copyWithPrevious(state);
     }
   }
 
   // 今日のチェック済みToDoをすべて削除（全ワークスペース対象）
   Future<void> deleteAllCheckedToDosInTodayInWorkspaceList(
-      List<TLWorkspace> workspaces) async {
+    List<TLWorkspace> workspaces,
+  ) async {
     TLVibrationService.vibrate();
 
     // 現在の状態を保持しながらローディング状態に
-    state =
-        const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(state);
+    state = const AsyncValue<List<TLWorkspace>>.loading().copyWithPrevious(
+      state,
+    );
 
     try {
       List<TLWorkspace> updatedWorkspaceList = [];
       for (TLWorkspace workspace in workspaces) {
-        final updatedWorkspace = workspace.copyWith(workspaceIDToToDos:
-            workspace.workspaceIDToToDos
-                .map((workspaceID, tlToDosInTodayAndWhenever) {
-          return MapEntry(
+        final updatedWorkspace = workspace.copyWith(
+          workspaceIDToToDos: workspace.workspaceIDToToDos.map((
+            workspaceID,
+            tlToDosInTodayAndWhenever,
+          ) {
+            return MapEntry(
               workspaceID,
               tlToDosInTodayAndWhenever.deleteAllCheckedToDosInAToDosList(
-                  isInToday: true));
-        }));
+                isInToday: true,
+              ),
+            );
+          }),
+        );
         updatedWorkspaceList = [...updatedWorkspaceList, updatedWorkspace];
       }
 
@@ -253,8 +285,10 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
       state = AsyncValue<List<TLWorkspace>>.data(updatedWorkspaceList);
     } catch (e, stack) {
       // エラー時も前の状態を保持
-      state =
-          AsyncValue<List<TLWorkspace>>.error(e, stack).copyWithPrevious(state);
+      state = AsyncValue<List<TLWorkspace>>.error(
+        e,
+        stack,
+      ).copyWithPrevious(state);
     }
   }
 }

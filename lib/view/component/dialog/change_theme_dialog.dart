@@ -19,7 +19,10 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
       corrThemeConfig: corrThemeConfig,
       child: DefaultTextStyle(
         style: const TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black45),
+          fontWeight: FontWeight.bold,
+          fontSize: 13,
+          color: Colors.black45,
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -59,8 +62,9 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
                 child: Text(
                   themeConfig.themeName,
                   style: TextStyle(
-                      color: themeConfig.accentColor,
-                      fontWeight: FontWeight.bold),
+                    color: themeConfig.accentColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -71,8 +75,11 @@ class ChangeThemeDialog extends ConsumerWidget with TLBaseDialogMixin {
   }
 
   // MARK - Build Action Buttons
-  Widget _buildActionButtons(BuildContext context, TLThemeConfig themeConfig,
-      TLThemeConfig corrThemeConfig) {
+  Widget _buildActionButtons(
+    BuildContext context,
+    TLThemeConfig themeConfig,
+    TLThemeConfig corrThemeConfig,
+  ) {
     return OverflowBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [

@@ -6,11 +6,7 @@ import 'package:today_list/view/component/common_ui_part/tl_double_card.dart';
 class NumToDosCard extends StatelessWidget {
   final String? title;
   final int numTodos;
-  const NumToDosCard({
-    super.key,
-    required this.title,
-    required this.numTodos,
-  });
+  const NumToDosCard({super.key, required this.title, required this.numTodos});
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +24,24 @@ class NumToDosCard extends StatelessWidget {
               children: [
                 // wheneverの場合のラベル
                 if (title != null)
-                  Text(title!,
-                      style: const TextStyle(
-                        color: Colors.black45,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      )),
+                  Text(
+                    title!,
+                    style: const TextStyle(
+                      color: Colors.black45,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
                 // 数の表示
                 Text(
                   numTodos.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: tlThemeConfig.accentColor,
-                      fontSize: 20,
-                      letterSpacing: 2,
-                      fontWeight: FontWeight.w800),
+                    color: tlThemeConfig.accentColor,
+                    fontSize: 20,
+                    letterSpacing: 2,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ],
             ),

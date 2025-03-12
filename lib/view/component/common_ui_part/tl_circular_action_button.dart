@@ -54,11 +54,7 @@ class TLCircularActionButton extends HookWidget {
               border: Border.all(color: borderColor, width: 2),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              icon,
-              size: size * 0.5,
-              color: iconColor,
-            ),
+            child: Icon(icon, size: size * 0.5, color: iconColor),
           ),
         ),
       ),

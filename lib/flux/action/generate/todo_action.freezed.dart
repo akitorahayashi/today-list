@@ -12,7 +12,8 @@ part of '../todo_action.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$TodoAction {
@@ -22,70 +23,103 @@ mixin _$TodoAction {
     required TResult Function(TLWorkspace workspace, TLToDo todo) addTodo,
     required TResult Function(TLWorkspace workspace, TLToDo todo) updateTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        deleteTodo,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    deleteTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        toggleTodoCheck,
-    required TResult Function(TLWorkspace workspace, List<TLToDo> todos,
-            int oldIndex, int newIndex, String category, bool ifInToday)
-        reorderTodos,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    toggleTodoCheck,
+    required TResult Function(
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )
+    reorderTodos,
     required TResult Function(TLWorkspace workspace, bool ifInToday)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)
-        toggleStepCheck,
+    toggleStepCheck,
     required TResult Function(TLWorkspace workspace, TLToDo todo)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)
-        reorderSteps,
-  }) =>
-      throw _privateConstructorUsedError;
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )
+    reorderSteps,
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult? Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult? Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult? Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult? Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
-  }) =>
-      throw _privateConstructorUsedError;
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult? Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult? Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult? Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
     required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_AddTodo value) addTodo,
@@ -94,13 +128,12 @@ mixin _$TodoAction {
     required TResult Function(_ToggleTodoCheck value) toggleTodoCheck,
     required TResult Function(_ReorderTodos value) reorderTodos,
     required TResult Function(_DeleteAllCheckedTodos value)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(_ToggleStepCheck value) toggleStepCheck,
     required TResult Function(_ToggleTodoTodayWhenever value)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_AddTodo value)? addTodo,
@@ -112,8 +145,7 @@ mixin _$TodoAction {
     TResult? Function(_ToggleStepCheck value)? toggleStepCheck,
     TResult? Function(_ToggleTodoTodayWhenever value)? toggleTodoTodayWhenever,
     TResult? Function(_ReorderSteps value)? reorderSteps,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_AddTodo value)? addTodo,
@@ -126,8 +158,7 @@ mixin _$TodoAction {
     TResult Function(_ToggleTodoTodayWhenever value)? toggleTodoTodayWhenever,
     TResult Function(_ReorderSteps value)? reorderSteps,
     required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
 
   /// Create a copy of TodoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -139,8 +170,9 @@ mixin _$TodoAction {
 /// @nodoc
 abstract class $TodoActionCopyWith<$Res> {
   factory $TodoActionCopyWith(
-          TodoAction value, $Res Function(TodoAction) then) =
-      _$TodoActionCopyWithImpl<$Res, TodoAction>;
+    TodoAction value,
+    $Res Function(TodoAction) then,
+  ) = _$TodoActionCopyWithImpl<$Res, TodoAction>;
   @useResult
   $Res call({TLWorkspace workspace});
 
@@ -161,15 +193,17 @@ class _$TodoActionCopyWithImpl<$Res, $Val extends TodoAction>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? workspace = null,
-  }) {
-    return _then(_value.copyWith(
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-    ) as $Val);
+  $Res call({Object? workspace = null}) {
+    return _then(
+      _value.copyWith(
+            workspace:
+                null == workspace
+                    ? _value.workspace
+                    : workspace // ignore: cast_nullable_to_non_nullable
+                        as TLWorkspace,
+          )
+          as $Val,
+    );
   }
 
   /// Create a copy of TodoAction
@@ -187,8 +221,9 @@ class _$TodoActionCopyWithImpl<$Res, $Val extends TodoAction>
 abstract class _$$AddTodoImplCopyWith<$Res>
     implements $TodoActionCopyWith<$Res> {
   factory _$$AddTodoImplCopyWith(
-          _$AddTodoImpl value, $Res Function(_$AddTodoImpl) then) =
-      __$$AddTodoImplCopyWithImpl<$Res>;
+    _$AddTodoImpl value,
+    $Res Function(_$AddTodoImpl) then,
+  ) = __$$AddTodoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({TLWorkspace workspace, TLToDo todo});
@@ -203,27 +238,29 @@ class __$$AddTodoImplCopyWithImpl<$Res>
     extends _$TodoActionCopyWithImpl<$Res, _$AddTodoImpl>
     implements _$$AddTodoImplCopyWith<$Res> {
   __$$AddTodoImplCopyWithImpl(
-      _$AddTodoImpl _value, $Res Function(_$AddTodoImpl) _then)
-      : super(_value, _then);
+    _$AddTodoImpl _value,
+    $Res Function(_$AddTodoImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TodoAction
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? workspace = null,
-    Object? todo = null,
-  }) {
-    return _then(_$AddTodoImpl(
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-      todo: null == todo
-          ? _value.todo
-          : todo // ignore: cast_nullable_to_non_nullable
-              as TLToDo,
-    ));
+  $Res call({Object? workspace = null, Object? todo = null}) {
+    return _then(
+      _$AddTodoImpl(
+        workspace:
+            null == workspace
+                ? _value.workspace
+                : workspace // ignore: cast_nullable_to_non_nullable
+                    as TLWorkspace,
+        todo:
+            null == todo
+                ? _value.todo
+                : todo // ignore: cast_nullable_to_non_nullable
+                    as TLToDo,
+      ),
+    );
   }
 
   /// Create a copy of TodoAction
@@ -279,23 +316,39 @@ class _$AddTodoImpl implements _AddTodo {
     required TResult Function(TLWorkspace workspace, TLToDo todo) addTodo,
     required TResult Function(TLWorkspace workspace, TLToDo todo) updateTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        deleteTodo,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    deleteTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        toggleTodoCheck,
-    required TResult Function(TLWorkspace workspace, List<TLToDo> todos,
-            int oldIndex, int newIndex, String category, bool ifInToday)
-        reorderTodos,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    toggleTodoCheck,
+    required TResult Function(
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )
+    reorderTodos,
     required TResult Function(TLWorkspace workspace, bool ifInToday)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)
-        toggleStepCheck,
+    toggleStepCheck,
     required TResult Function(TLWorkspace workspace, TLToDo todo)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)
-        reorderSteps,
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )
+    reorderSteps,
   }) {
     return addTodo(workspace, todo);
   }
@@ -306,21 +359,31 @@ class _$AddTodoImpl implements _AddTodo {
     TResult? Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult? Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult? Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult? Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult? Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult? Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult? Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult? Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
   }) {
     return addTodo?.call(workspace, todo);
   }
@@ -331,21 +394,31 @@ class _$AddTodoImpl implements _AddTodo {
     TResult Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
     required TResult orElse(),
   }) {
     if (addTodo != null) {
@@ -363,10 +436,10 @@ class _$AddTodoImpl implements _AddTodo {
     required TResult Function(_ToggleTodoCheck value) toggleTodoCheck,
     required TResult Function(_ReorderTodos value) reorderTodos,
     required TResult Function(_DeleteAllCheckedTodos value)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(_ToggleStepCheck value) toggleStepCheck,
     required TResult Function(_ToggleTodoTodayWhenever value)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return addTodo(this);
@@ -410,9 +483,10 @@ class _$AddTodoImpl implements _AddTodo {
 }
 
 abstract class _AddTodo implements TodoAction {
-  const factory _AddTodo(
-      {required final TLWorkspace workspace,
-      required final TLToDo todo}) = _$AddTodoImpl;
+  const factory _AddTodo({
+    required final TLWorkspace workspace,
+    required final TLToDo todo,
+  }) = _$AddTodoImpl;
 
   @override
   TLWorkspace get workspace;
@@ -430,8 +504,9 @@ abstract class _AddTodo implements TodoAction {
 abstract class _$$UpdateTodoImplCopyWith<$Res>
     implements $TodoActionCopyWith<$Res> {
   factory _$$UpdateTodoImplCopyWith(
-          _$UpdateTodoImpl value, $Res Function(_$UpdateTodoImpl) then) =
-      __$$UpdateTodoImplCopyWithImpl<$Res>;
+    _$UpdateTodoImpl value,
+    $Res Function(_$UpdateTodoImpl) then,
+  ) = __$$UpdateTodoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({TLWorkspace workspace, TLToDo todo});
@@ -446,27 +521,29 @@ class __$$UpdateTodoImplCopyWithImpl<$Res>
     extends _$TodoActionCopyWithImpl<$Res, _$UpdateTodoImpl>
     implements _$$UpdateTodoImplCopyWith<$Res> {
   __$$UpdateTodoImplCopyWithImpl(
-      _$UpdateTodoImpl _value, $Res Function(_$UpdateTodoImpl) _then)
-      : super(_value, _then);
+    _$UpdateTodoImpl _value,
+    $Res Function(_$UpdateTodoImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TodoAction
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? workspace = null,
-    Object? todo = null,
-  }) {
-    return _then(_$UpdateTodoImpl(
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-      todo: null == todo
-          ? _value.todo
-          : todo // ignore: cast_nullable_to_non_nullable
-              as TLToDo,
-    ));
+  $Res call({Object? workspace = null, Object? todo = null}) {
+    return _then(
+      _$UpdateTodoImpl(
+        workspace:
+            null == workspace
+                ? _value.workspace
+                : workspace // ignore: cast_nullable_to_non_nullable
+                    as TLWorkspace,
+        todo:
+            null == todo
+                ? _value.todo
+                : todo // ignore: cast_nullable_to_non_nullable
+                    as TLToDo,
+      ),
+    );
   }
 
   /// Create a copy of TodoAction
@@ -522,23 +599,39 @@ class _$UpdateTodoImpl implements _UpdateTodo {
     required TResult Function(TLWorkspace workspace, TLToDo todo) addTodo,
     required TResult Function(TLWorkspace workspace, TLToDo todo) updateTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        deleteTodo,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    deleteTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        toggleTodoCheck,
-    required TResult Function(TLWorkspace workspace, List<TLToDo> todos,
-            int oldIndex, int newIndex, String category, bool ifInToday)
-        reorderTodos,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    toggleTodoCheck,
+    required TResult Function(
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )
+    reorderTodos,
     required TResult Function(TLWorkspace workspace, bool ifInToday)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)
-        toggleStepCheck,
+    toggleStepCheck,
     required TResult Function(TLWorkspace workspace, TLToDo todo)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)
-        reorderSteps,
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )
+    reorderSteps,
   }) {
     return updateTodo(workspace, todo);
   }
@@ -549,21 +642,31 @@ class _$UpdateTodoImpl implements _UpdateTodo {
     TResult? Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult? Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult? Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult? Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult? Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult? Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult? Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult? Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
   }) {
     return updateTodo?.call(workspace, todo);
   }
@@ -574,21 +677,31 @@ class _$UpdateTodoImpl implements _UpdateTodo {
     TResult Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
     required TResult orElse(),
   }) {
     if (updateTodo != null) {
@@ -606,10 +719,10 @@ class _$UpdateTodoImpl implements _UpdateTodo {
     required TResult Function(_ToggleTodoCheck value) toggleTodoCheck,
     required TResult Function(_ReorderTodos value) reorderTodos,
     required TResult Function(_DeleteAllCheckedTodos value)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(_ToggleStepCheck value) toggleStepCheck,
     required TResult Function(_ToggleTodoTodayWhenever value)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return updateTodo(this);
@@ -653,9 +766,10 @@ class _$UpdateTodoImpl implements _UpdateTodo {
 }
 
 abstract class _UpdateTodo implements TodoAction {
-  const factory _UpdateTodo(
-      {required final TLWorkspace workspace,
-      required final TLToDo todo}) = _$UpdateTodoImpl;
+  const factory _UpdateTodo({
+    required final TLWorkspace workspace,
+    required final TLToDo todo,
+  }) = _$UpdateTodoImpl;
 
   @override
   TLWorkspace get workspace;
@@ -673,8 +787,9 @@ abstract class _UpdateTodo implements TodoAction {
 abstract class _$$DeleteTodoImplCopyWith<$Res>
     implements $TodoActionCopyWith<$Res> {
   factory _$$DeleteTodoImplCopyWith(
-          _$DeleteTodoImpl value, $Res Function(_$DeleteTodoImpl) then) =
-      __$$DeleteTodoImplCopyWithImpl<$Res>;
+    _$DeleteTodoImpl value,
+    $Res Function(_$DeleteTodoImpl) then,
+  ) = __$$DeleteTodoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({TLWorkspace workspace, TLToDo todo, bool ifInToday});
@@ -689,8 +804,9 @@ class __$$DeleteTodoImplCopyWithImpl<$Res>
     extends _$TodoActionCopyWithImpl<$Res, _$DeleteTodoImpl>
     implements _$$DeleteTodoImplCopyWith<$Res> {
   __$$DeleteTodoImplCopyWithImpl(
-      _$DeleteTodoImpl _value, $Res Function(_$DeleteTodoImpl) _then)
-      : super(_value, _then);
+    _$DeleteTodoImpl _value,
+    $Res Function(_$DeleteTodoImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TodoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -701,20 +817,25 @@ class __$$DeleteTodoImplCopyWithImpl<$Res>
     Object? todo = null,
     Object? ifInToday = null,
   }) {
-    return _then(_$DeleteTodoImpl(
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-      todo: null == todo
-          ? _value.todo
-          : todo // ignore: cast_nullable_to_non_nullable
-              as TLToDo,
-      ifInToday: null == ifInToday
-          ? _value.ifInToday
-          : ifInToday // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+    return _then(
+      _$DeleteTodoImpl(
+        workspace:
+            null == workspace
+                ? _value.workspace
+                : workspace // ignore: cast_nullable_to_non_nullable
+                    as TLWorkspace,
+        todo:
+            null == todo
+                ? _value.todo
+                : todo // ignore: cast_nullable_to_non_nullable
+                    as TLToDo,
+        ifInToday:
+            null == ifInToday
+                ? _value.ifInToday
+                : ifInToday // ignore: cast_nullable_to_non_nullable
+                    as bool,
+      ),
+    );
   }
 
   /// Create a copy of TodoAction
@@ -731,8 +852,11 @@ class __$$DeleteTodoImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$DeleteTodoImpl implements _DeleteTodo {
-  const _$DeleteTodoImpl(
-      {required this.workspace, required this.todo, required this.ifInToday});
+  const _$DeleteTodoImpl({
+    required this.workspace,
+    required this.todo,
+    required this.ifInToday,
+  });
 
   @override
   final TLWorkspace workspace;
@@ -775,23 +899,39 @@ class _$DeleteTodoImpl implements _DeleteTodo {
     required TResult Function(TLWorkspace workspace, TLToDo todo) addTodo,
     required TResult Function(TLWorkspace workspace, TLToDo todo) updateTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        deleteTodo,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    deleteTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        toggleTodoCheck,
-    required TResult Function(TLWorkspace workspace, List<TLToDo> todos,
-            int oldIndex, int newIndex, String category, bool ifInToday)
-        reorderTodos,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    toggleTodoCheck,
+    required TResult Function(
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )
+    reorderTodos,
     required TResult Function(TLWorkspace workspace, bool ifInToday)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)
-        toggleStepCheck,
+    toggleStepCheck,
     required TResult Function(TLWorkspace workspace, TLToDo todo)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)
-        reorderSteps,
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )
+    reorderSteps,
   }) {
     return deleteTodo(workspace, todo, ifInToday);
   }
@@ -802,21 +942,31 @@ class _$DeleteTodoImpl implements _DeleteTodo {
     TResult? Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult? Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult? Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult? Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult? Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult? Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult? Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult? Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
   }) {
     return deleteTodo?.call(workspace, todo, ifInToday);
   }
@@ -827,21 +977,31 @@ class _$DeleteTodoImpl implements _DeleteTodo {
     TResult Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
     required TResult orElse(),
   }) {
     if (deleteTodo != null) {
@@ -859,10 +1019,10 @@ class _$DeleteTodoImpl implements _DeleteTodo {
     required TResult Function(_ToggleTodoCheck value) toggleTodoCheck,
     required TResult Function(_ReorderTodos value) reorderTodos,
     required TResult Function(_DeleteAllCheckedTodos value)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(_ToggleStepCheck value) toggleStepCheck,
     required TResult Function(_ToggleTodoTodayWhenever value)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return deleteTodo(this);
@@ -906,10 +1066,11 @@ class _$DeleteTodoImpl implements _DeleteTodo {
 }
 
 abstract class _DeleteTodo implements TodoAction {
-  const factory _DeleteTodo(
-      {required final TLWorkspace workspace,
-      required final TLToDo todo,
-      required final bool ifInToday}) = _$DeleteTodoImpl;
+  const factory _DeleteTodo({
+    required final TLWorkspace workspace,
+    required final TLToDo todo,
+    required final bool ifInToday,
+  }) = _$DeleteTodoImpl;
 
   @override
   TLWorkspace get workspace;
@@ -927,9 +1088,10 @@ abstract class _DeleteTodo implements TodoAction {
 /// @nodoc
 abstract class _$$ToggleTodoCheckImplCopyWith<$Res>
     implements $TodoActionCopyWith<$Res> {
-  factory _$$ToggleTodoCheckImplCopyWith(_$ToggleTodoCheckImpl value,
-          $Res Function(_$ToggleTodoCheckImpl) then) =
-      __$$ToggleTodoCheckImplCopyWithImpl<$Res>;
+  factory _$$ToggleTodoCheckImplCopyWith(
+    _$ToggleTodoCheckImpl value,
+    $Res Function(_$ToggleTodoCheckImpl) then,
+  ) = __$$ToggleTodoCheckImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({TLWorkspace workspace, TLToDo todo, bool ifInToday});
@@ -944,8 +1106,9 @@ class __$$ToggleTodoCheckImplCopyWithImpl<$Res>
     extends _$TodoActionCopyWithImpl<$Res, _$ToggleTodoCheckImpl>
     implements _$$ToggleTodoCheckImplCopyWith<$Res> {
   __$$ToggleTodoCheckImplCopyWithImpl(
-      _$ToggleTodoCheckImpl _value, $Res Function(_$ToggleTodoCheckImpl) _then)
-      : super(_value, _then);
+    _$ToggleTodoCheckImpl _value,
+    $Res Function(_$ToggleTodoCheckImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TodoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -956,20 +1119,25 @@ class __$$ToggleTodoCheckImplCopyWithImpl<$Res>
     Object? todo = null,
     Object? ifInToday = null,
   }) {
-    return _then(_$ToggleTodoCheckImpl(
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-      todo: null == todo
-          ? _value.todo
-          : todo // ignore: cast_nullable_to_non_nullable
-              as TLToDo,
-      ifInToday: null == ifInToday
-          ? _value.ifInToday
-          : ifInToday // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+    return _then(
+      _$ToggleTodoCheckImpl(
+        workspace:
+            null == workspace
+                ? _value.workspace
+                : workspace // ignore: cast_nullable_to_non_nullable
+                    as TLWorkspace,
+        todo:
+            null == todo
+                ? _value.todo
+                : todo // ignore: cast_nullable_to_non_nullable
+                    as TLToDo,
+        ifInToday:
+            null == ifInToday
+                ? _value.ifInToday
+                : ifInToday // ignore: cast_nullable_to_non_nullable
+                    as bool,
+      ),
+    );
   }
 
   /// Create a copy of TodoAction
@@ -986,8 +1154,11 @@ class __$$ToggleTodoCheckImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ToggleTodoCheckImpl implements _ToggleTodoCheck {
-  const _$ToggleTodoCheckImpl(
-      {required this.workspace, required this.todo, required this.ifInToday});
+  const _$ToggleTodoCheckImpl({
+    required this.workspace,
+    required this.todo,
+    required this.ifInToday,
+  });
 
   @override
   final TLWorkspace workspace;
@@ -1023,7 +1194,9 @@ class _$ToggleTodoCheckImpl implements _ToggleTodoCheck {
   @pragma('vm:prefer-inline')
   _$$ToggleTodoCheckImplCopyWith<_$ToggleTodoCheckImpl> get copyWith =>
       __$$ToggleTodoCheckImplCopyWithImpl<_$ToggleTodoCheckImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   @optionalTypeArgs
@@ -1031,23 +1204,39 @@ class _$ToggleTodoCheckImpl implements _ToggleTodoCheck {
     required TResult Function(TLWorkspace workspace, TLToDo todo) addTodo,
     required TResult Function(TLWorkspace workspace, TLToDo todo) updateTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        deleteTodo,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    deleteTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        toggleTodoCheck,
-    required TResult Function(TLWorkspace workspace, List<TLToDo> todos,
-            int oldIndex, int newIndex, String category, bool ifInToday)
-        reorderTodos,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    toggleTodoCheck,
+    required TResult Function(
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )
+    reorderTodos,
     required TResult Function(TLWorkspace workspace, bool ifInToday)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)
-        toggleStepCheck,
+    toggleStepCheck,
     required TResult Function(TLWorkspace workspace, TLToDo todo)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)
-        reorderSteps,
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )
+    reorderSteps,
   }) {
     return toggleTodoCheck(workspace, todo, ifInToday);
   }
@@ -1058,21 +1247,31 @@ class _$ToggleTodoCheckImpl implements _ToggleTodoCheck {
     TResult? Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult? Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult? Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult? Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult? Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult? Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult? Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult? Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
   }) {
     return toggleTodoCheck?.call(workspace, todo, ifInToday);
   }
@@ -1083,21 +1282,31 @@ class _$ToggleTodoCheckImpl implements _ToggleTodoCheck {
     TResult Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
     required TResult orElse(),
   }) {
     if (toggleTodoCheck != null) {
@@ -1115,10 +1324,10 @@ class _$ToggleTodoCheckImpl implements _ToggleTodoCheck {
     required TResult Function(_ToggleTodoCheck value) toggleTodoCheck,
     required TResult Function(_ReorderTodos value) reorderTodos,
     required TResult Function(_DeleteAllCheckedTodos value)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(_ToggleStepCheck value) toggleStepCheck,
     required TResult Function(_ToggleTodoTodayWhenever value)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return toggleTodoCheck(this);
@@ -1162,10 +1371,11 @@ class _$ToggleTodoCheckImpl implements _ToggleTodoCheck {
 }
 
 abstract class _ToggleTodoCheck implements TodoAction {
-  const factory _ToggleTodoCheck(
-      {required final TLWorkspace workspace,
-      required final TLToDo todo,
-      required final bool ifInToday}) = _$ToggleTodoCheckImpl;
+  const factory _ToggleTodoCheck({
+    required final TLWorkspace workspace,
+    required final TLToDo todo,
+    required final bool ifInToday,
+  }) = _$ToggleTodoCheckImpl;
 
   @override
   TLWorkspace get workspace;
@@ -1184,17 +1394,19 @@ abstract class _ToggleTodoCheck implements TodoAction {
 abstract class _$$ReorderTodosImplCopyWith<$Res>
     implements $TodoActionCopyWith<$Res> {
   factory _$$ReorderTodosImplCopyWith(
-          _$ReorderTodosImpl value, $Res Function(_$ReorderTodosImpl) then) =
-      __$$ReorderTodosImplCopyWithImpl<$Res>;
+    _$ReorderTodosImpl value,
+    $Res Function(_$ReorderTodosImpl) then,
+  ) = __$$ReorderTodosImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {TLWorkspace workspace,
-      List<TLToDo> todos,
-      int oldIndex,
-      int newIndex,
-      String category,
-      bool ifInToday});
+  $Res call({
+    TLWorkspace workspace,
+    List<TLToDo> todos,
+    int oldIndex,
+    int newIndex,
+    String category,
+    bool ifInToday,
+  });
 
   @override
   $TLWorkspaceCopyWith<$Res> get workspace;
@@ -1205,8 +1417,9 @@ class __$$ReorderTodosImplCopyWithImpl<$Res>
     extends _$TodoActionCopyWithImpl<$Res, _$ReorderTodosImpl>
     implements _$$ReorderTodosImplCopyWith<$Res> {
   __$$ReorderTodosImplCopyWithImpl(
-      _$ReorderTodosImpl _value, $Res Function(_$ReorderTodosImpl) _then)
-      : super(_value, _then);
+    _$ReorderTodosImpl _value,
+    $Res Function(_$ReorderTodosImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TodoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -1220,46 +1433,54 @@ class __$$ReorderTodosImplCopyWithImpl<$Res>
     Object? category = null,
     Object? ifInToday = null,
   }) {
-    return _then(_$ReorderTodosImpl(
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-      todos: null == todos
-          ? _value._todos
-          : todos // ignore: cast_nullable_to_non_nullable
-              as List<TLToDo>,
-      oldIndex: null == oldIndex
-          ? _value.oldIndex
-          : oldIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-      newIndex: null == newIndex
-          ? _value.newIndex
-          : newIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
-      ifInToday: null == ifInToday
-          ? _value.ifInToday
-          : ifInToday // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+    return _then(
+      _$ReorderTodosImpl(
+        workspace:
+            null == workspace
+                ? _value.workspace
+                : workspace // ignore: cast_nullable_to_non_nullable
+                    as TLWorkspace,
+        todos:
+            null == todos
+                ? _value._todos
+                : todos // ignore: cast_nullable_to_non_nullable
+                    as List<TLToDo>,
+        oldIndex:
+            null == oldIndex
+                ? _value.oldIndex
+                : oldIndex // ignore: cast_nullable_to_non_nullable
+                    as int,
+        newIndex:
+            null == newIndex
+                ? _value.newIndex
+                : newIndex // ignore: cast_nullable_to_non_nullable
+                    as int,
+        category:
+            null == category
+                ? _value.category
+                : category // ignore: cast_nullable_to_non_nullable
+                    as String,
+        ifInToday:
+            null == ifInToday
+                ? _value.ifInToday
+                : ifInToday // ignore: cast_nullable_to_non_nullable
+                    as bool,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$ReorderTodosImpl implements _ReorderTodos {
-  const _$ReorderTodosImpl(
-      {required this.workspace,
-      required final List<TLToDo> todos,
-      required this.oldIndex,
-      required this.newIndex,
-      required this.category,
-      required this.ifInToday})
-      : _todos = todos;
+  const _$ReorderTodosImpl({
+    required this.workspace,
+    required final List<TLToDo> todos,
+    required this.oldIndex,
+    required this.newIndex,
+    required this.category,
+    required this.ifInToday,
+  }) : _todos = todos;
 
   @override
   final TLWorkspace workspace;
@@ -1305,13 +1526,14 @@ class _$ReorderTodosImpl implements _ReorderTodos {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      workspace,
-      const DeepCollectionEquality().hash(_todos),
-      oldIndex,
-      newIndex,
-      category,
-      ifInToday);
+    runtimeType,
+    workspace,
+    const DeepCollectionEquality().hash(_todos),
+    oldIndex,
+    newIndex,
+    category,
+    ifInToday,
+  );
 
   /// Create a copy of TodoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -1327,26 +1549,48 @@ class _$ReorderTodosImpl implements _ReorderTodos {
     required TResult Function(TLWorkspace workspace, TLToDo todo) addTodo,
     required TResult Function(TLWorkspace workspace, TLToDo todo) updateTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        deleteTodo,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    deleteTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        toggleTodoCheck,
-    required TResult Function(TLWorkspace workspace, List<TLToDo> todos,
-            int oldIndex, int newIndex, String category, bool ifInToday)
-        reorderTodos,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    toggleTodoCheck,
+    required TResult Function(
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )
+    reorderTodos,
     required TResult Function(TLWorkspace workspace, bool ifInToday)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)
-        toggleStepCheck,
+    toggleStepCheck,
     required TResult Function(TLWorkspace workspace, TLToDo todo)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)
-        reorderSteps,
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )
+    reorderSteps,
   }) {
     return reorderTodos(
-        workspace, todos, oldIndex, newIndex, category, ifInToday);
+      workspace,
+      todos,
+      oldIndex,
+      newIndex,
+      category,
+      ifInToday,
+    );
   }
 
   @override
@@ -1355,24 +1599,40 @@ class _$ReorderTodosImpl implements _ReorderTodos {
     TResult? Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult? Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult? Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult? Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult? Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult? Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult? Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult? Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
   }) {
     return reorderTodos?.call(
-        workspace, todos, oldIndex, newIndex, category, ifInToday);
+      workspace,
+      todos,
+      oldIndex,
+      newIndex,
+      category,
+      ifInToday,
+    );
   }
 
   @override
@@ -1381,26 +1641,42 @@ class _$ReorderTodosImpl implements _ReorderTodos {
     TResult Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
     required TResult orElse(),
   }) {
     if (reorderTodos != null) {
       return reorderTodos(
-          workspace, todos, oldIndex, newIndex, category, ifInToday);
+        workspace,
+        todos,
+        oldIndex,
+        newIndex,
+        category,
+        ifInToday,
+      );
     }
     return orElse();
   }
@@ -1414,10 +1690,10 @@ class _$ReorderTodosImpl implements _ReorderTodos {
     required TResult Function(_ToggleTodoCheck value) toggleTodoCheck,
     required TResult Function(_ReorderTodos value) reorderTodos,
     required TResult Function(_DeleteAllCheckedTodos value)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(_ToggleStepCheck value) toggleStepCheck,
     required TResult Function(_ToggleTodoTodayWhenever value)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return reorderTodos(this);
@@ -1461,13 +1737,14 @@ class _$ReorderTodosImpl implements _ReorderTodos {
 }
 
 abstract class _ReorderTodos implements TodoAction {
-  const factory _ReorderTodos(
-      {required final TLWorkspace workspace,
-      required final List<TLToDo> todos,
-      required final int oldIndex,
-      required final int newIndex,
-      required final String category,
-      required final bool ifInToday}) = _$ReorderTodosImpl;
+  const factory _ReorderTodos({
+    required final TLWorkspace workspace,
+    required final List<TLToDo> todos,
+    required final int oldIndex,
+    required final int newIndex,
+    required final String category,
+    required final bool ifInToday,
+  }) = _$ReorderTodosImpl;
 
   @override
   TLWorkspace get workspace;
@@ -1489,9 +1766,9 @@ abstract class _ReorderTodos implements TodoAction {
 abstract class _$$DeleteAllCheckedTodosImplCopyWith<$Res>
     implements $TodoActionCopyWith<$Res> {
   factory _$$DeleteAllCheckedTodosImplCopyWith(
-          _$DeleteAllCheckedTodosImpl value,
-          $Res Function(_$DeleteAllCheckedTodosImpl) then) =
-      __$$DeleteAllCheckedTodosImplCopyWithImpl<$Res>;
+    _$DeleteAllCheckedTodosImpl value,
+    $Res Function(_$DeleteAllCheckedTodosImpl) then,
+  ) = __$$DeleteAllCheckedTodosImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({TLWorkspace workspace, bool ifInToday});
@@ -1504,36 +1781,40 @@ abstract class _$$DeleteAllCheckedTodosImplCopyWith<$Res>
 class __$$DeleteAllCheckedTodosImplCopyWithImpl<$Res>
     extends _$TodoActionCopyWithImpl<$Res, _$DeleteAllCheckedTodosImpl>
     implements _$$DeleteAllCheckedTodosImplCopyWith<$Res> {
-  __$$DeleteAllCheckedTodosImplCopyWithImpl(_$DeleteAllCheckedTodosImpl _value,
-      $Res Function(_$DeleteAllCheckedTodosImpl) _then)
-      : super(_value, _then);
+  __$$DeleteAllCheckedTodosImplCopyWithImpl(
+    _$DeleteAllCheckedTodosImpl _value,
+    $Res Function(_$DeleteAllCheckedTodosImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TodoAction
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? workspace = null,
-    Object? ifInToday = null,
-  }) {
-    return _then(_$DeleteAllCheckedTodosImpl(
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-      ifInToday: null == ifInToday
-          ? _value.ifInToday
-          : ifInToday // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
+  $Res call({Object? workspace = null, Object? ifInToday = null}) {
+    return _then(
+      _$DeleteAllCheckedTodosImpl(
+        workspace:
+            null == workspace
+                ? _value.workspace
+                : workspace // ignore: cast_nullable_to_non_nullable
+                    as TLWorkspace,
+        ifInToday:
+            null == ifInToday
+                ? _value.ifInToday
+                : ifInToday // ignore: cast_nullable_to_non_nullable
+                    as bool,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$DeleteAllCheckedTodosImpl implements _DeleteAllCheckedTodos {
-  const _$DeleteAllCheckedTodosImpl(
-      {required this.workspace, required this.ifInToday});
+  const _$DeleteAllCheckedTodosImpl({
+    required this.workspace,
+    required this.ifInToday,
+  });
 
   @override
   final TLWorkspace workspace;
@@ -1565,8 +1846,11 @@ class _$DeleteAllCheckedTodosImpl implements _DeleteAllCheckedTodos {
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteAllCheckedTodosImplCopyWith<_$DeleteAllCheckedTodosImpl>
-      get copyWith => __$$DeleteAllCheckedTodosImplCopyWithImpl<
-          _$DeleteAllCheckedTodosImpl>(this, _$identity);
+  get copyWith =>
+      __$$DeleteAllCheckedTodosImplCopyWithImpl<_$DeleteAllCheckedTodosImpl>(
+        this,
+        _$identity,
+      );
 
   @override
   @optionalTypeArgs
@@ -1574,23 +1858,39 @@ class _$DeleteAllCheckedTodosImpl implements _DeleteAllCheckedTodos {
     required TResult Function(TLWorkspace workspace, TLToDo todo) addTodo,
     required TResult Function(TLWorkspace workspace, TLToDo todo) updateTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        deleteTodo,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    deleteTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        toggleTodoCheck,
-    required TResult Function(TLWorkspace workspace, List<TLToDo> todos,
-            int oldIndex, int newIndex, String category, bool ifInToday)
-        reorderTodos,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    toggleTodoCheck,
+    required TResult Function(
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )
+    reorderTodos,
     required TResult Function(TLWorkspace workspace, bool ifInToday)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)
-        toggleStepCheck,
+    toggleStepCheck,
     required TResult Function(TLWorkspace workspace, TLToDo todo)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)
-        reorderSteps,
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )
+    reorderSteps,
   }) {
     return deleteAllCheckedTodos(workspace, ifInToday);
   }
@@ -1601,21 +1901,31 @@ class _$DeleteAllCheckedTodosImpl implements _DeleteAllCheckedTodos {
     TResult? Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult? Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult? Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult? Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult? Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult? Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult? Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult? Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
   }) {
     return deleteAllCheckedTodos?.call(workspace, ifInToday);
   }
@@ -1626,21 +1936,31 @@ class _$DeleteAllCheckedTodosImpl implements _DeleteAllCheckedTodos {
     TResult Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
     required TResult orElse(),
   }) {
     if (deleteAllCheckedTodos != null) {
@@ -1658,10 +1978,10 @@ class _$DeleteAllCheckedTodosImpl implements _DeleteAllCheckedTodos {
     required TResult Function(_ToggleTodoCheck value) toggleTodoCheck,
     required TResult Function(_ReorderTodos value) reorderTodos,
     required TResult Function(_DeleteAllCheckedTodos value)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(_ToggleStepCheck value) toggleStepCheck,
     required TResult Function(_ToggleTodoTodayWhenever value)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return deleteAllCheckedTodos(this);
@@ -1705,9 +2025,10 @@ class _$DeleteAllCheckedTodosImpl implements _DeleteAllCheckedTodos {
 }
 
 abstract class _DeleteAllCheckedTodos implements TodoAction {
-  const factory _DeleteAllCheckedTodos(
-      {required final TLWorkspace workspace,
-      required final bool ifInToday}) = _$DeleteAllCheckedTodosImpl;
+  const factory _DeleteAllCheckedTodos({
+    required final TLWorkspace workspace,
+    required final bool ifInToday,
+  }) = _$DeleteAllCheckedTodosImpl;
 
   @override
   TLWorkspace get workspace;
@@ -1718,15 +2039,16 @@ abstract class _DeleteAllCheckedTodos implements TodoAction {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteAllCheckedTodosImplCopyWith<_$DeleteAllCheckedTodosImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$ToggleStepCheckImplCopyWith<$Res>
     implements $TodoActionCopyWith<$Res> {
-  factory _$$ToggleStepCheckImplCopyWith(_$ToggleStepCheckImpl value,
-          $Res Function(_$ToggleStepCheckImpl) then) =
-      __$$ToggleStepCheckImplCopyWithImpl<$Res>;
+  factory _$$ToggleStepCheckImplCopyWith(
+    _$ToggleStepCheckImpl value,
+    $Res Function(_$ToggleStepCheckImpl) then,
+  ) = __$$ToggleStepCheckImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({TLWorkspace workspace, TLToDo todo, TLStep step});
@@ -1742,8 +2064,9 @@ class __$$ToggleStepCheckImplCopyWithImpl<$Res>
     extends _$TodoActionCopyWithImpl<$Res, _$ToggleStepCheckImpl>
     implements _$$ToggleStepCheckImplCopyWith<$Res> {
   __$$ToggleStepCheckImplCopyWithImpl(
-      _$ToggleStepCheckImpl _value, $Res Function(_$ToggleStepCheckImpl) _then)
-      : super(_value, _then);
+    _$ToggleStepCheckImpl _value,
+    $Res Function(_$ToggleStepCheckImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TodoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -1754,20 +2077,25 @@ class __$$ToggleStepCheckImplCopyWithImpl<$Res>
     Object? todo = null,
     Object? step = null,
   }) {
-    return _then(_$ToggleStepCheckImpl(
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-      todo: null == todo
-          ? _value.todo
-          : todo // ignore: cast_nullable_to_non_nullable
-              as TLToDo,
-      step: null == step
-          ? _value.step
-          : step // ignore: cast_nullable_to_non_nullable
-              as TLStep,
-    ));
+    return _then(
+      _$ToggleStepCheckImpl(
+        workspace:
+            null == workspace
+                ? _value.workspace
+                : workspace // ignore: cast_nullable_to_non_nullable
+                    as TLWorkspace,
+        todo:
+            null == todo
+                ? _value.todo
+                : todo // ignore: cast_nullable_to_non_nullable
+                    as TLToDo,
+        step:
+            null == step
+                ? _value.step
+                : step // ignore: cast_nullable_to_non_nullable
+                    as TLStep,
+      ),
+    );
   }
 
   /// Create a copy of TodoAction
@@ -1794,8 +2122,11 @@ class __$$ToggleStepCheckImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ToggleStepCheckImpl implements _ToggleStepCheck {
-  const _$ToggleStepCheckImpl(
-      {required this.workspace, required this.todo, required this.step});
+  const _$ToggleStepCheckImpl({
+    required this.workspace,
+    required this.todo,
+    required this.step,
+  });
 
   @override
   final TLWorkspace workspace;
@@ -1830,7 +2161,9 @@ class _$ToggleStepCheckImpl implements _ToggleStepCheck {
   @pragma('vm:prefer-inline')
   _$$ToggleStepCheckImplCopyWith<_$ToggleStepCheckImpl> get copyWith =>
       __$$ToggleStepCheckImplCopyWithImpl<_$ToggleStepCheckImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   @optionalTypeArgs
@@ -1838,23 +2171,39 @@ class _$ToggleStepCheckImpl implements _ToggleStepCheck {
     required TResult Function(TLWorkspace workspace, TLToDo todo) addTodo,
     required TResult Function(TLWorkspace workspace, TLToDo todo) updateTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        deleteTodo,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    deleteTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        toggleTodoCheck,
-    required TResult Function(TLWorkspace workspace, List<TLToDo> todos,
-            int oldIndex, int newIndex, String category, bool ifInToday)
-        reorderTodos,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    toggleTodoCheck,
+    required TResult Function(
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )
+    reorderTodos,
     required TResult Function(TLWorkspace workspace, bool ifInToday)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)
-        toggleStepCheck,
+    toggleStepCheck,
     required TResult Function(TLWorkspace workspace, TLToDo todo)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)
-        reorderSteps,
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )
+    reorderSteps,
   }) {
     return toggleStepCheck(workspace, todo, step);
   }
@@ -1865,21 +2214,31 @@ class _$ToggleStepCheckImpl implements _ToggleStepCheck {
     TResult? Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult? Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult? Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult? Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult? Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult? Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult? Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult? Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
   }) {
     return toggleStepCheck?.call(workspace, todo, step);
   }
@@ -1890,21 +2249,31 @@ class _$ToggleStepCheckImpl implements _ToggleStepCheck {
     TResult Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
     required TResult orElse(),
   }) {
     if (toggleStepCheck != null) {
@@ -1922,10 +2291,10 @@ class _$ToggleStepCheckImpl implements _ToggleStepCheck {
     required TResult Function(_ToggleTodoCheck value) toggleTodoCheck,
     required TResult Function(_ReorderTodos value) reorderTodos,
     required TResult Function(_DeleteAllCheckedTodos value)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(_ToggleStepCheck value) toggleStepCheck,
     required TResult Function(_ToggleTodoTodayWhenever value)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return toggleStepCheck(this);
@@ -1969,10 +2338,11 @@ class _$ToggleStepCheckImpl implements _ToggleStepCheck {
 }
 
 abstract class _ToggleStepCheck implements TodoAction {
-  const factory _ToggleStepCheck(
-      {required final TLWorkspace workspace,
-      required final TLToDo todo,
-      required final TLStep step}) = _$ToggleStepCheckImpl;
+  const factory _ToggleStepCheck({
+    required final TLWorkspace workspace,
+    required final TLToDo todo,
+    required final TLStep step,
+  }) = _$ToggleStepCheckImpl;
 
   @override
   TLWorkspace get workspace;
@@ -1991,9 +2361,9 @@ abstract class _ToggleStepCheck implements TodoAction {
 abstract class _$$ToggleTodoTodayWheneverImplCopyWith<$Res>
     implements $TodoActionCopyWith<$Res> {
   factory _$$ToggleTodoTodayWheneverImplCopyWith(
-          _$ToggleTodoTodayWheneverImpl value,
-          $Res Function(_$ToggleTodoTodayWheneverImpl) then) =
-      __$$ToggleTodoTodayWheneverImplCopyWithImpl<$Res>;
+    _$ToggleTodoTodayWheneverImpl value,
+    $Res Function(_$ToggleTodoTodayWheneverImpl) then,
+  ) = __$$ToggleTodoTodayWheneverImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({TLWorkspace workspace, TLToDo todo});
@@ -2008,28 +2378,29 @@ class __$$ToggleTodoTodayWheneverImplCopyWithImpl<$Res>
     extends _$TodoActionCopyWithImpl<$Res, _$ToggleTodoTodayWheneverImpl>
     implements _$$ToggleTodoTodayWheneverImplCopyWith<$Res> {
   __$$ToggleTodoTodayWheneverImplCopyWithImpl(
-      _$ToggleTodoTodayWheneverImpl _value,
-      $Res Function(_$ToggleTodoTodayWheneverImpl) _then)
-      : super(_value, _then);
+    _$ToggleTodoTodayWheneverImpl _value,
+    $Res Function(_$ToggleTodoTodayWheneverImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TodoAction
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? workspace = null,
-    Object? todo = null,
-  }) {
-    return _then(_$ToggleTodoTodayWheneverImpl(
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-      todo: null == todo
-          ? _value.todo
-          : todo // ignore: cast_nullable_to_non_nullable
-              as TLToDo,
-    ));
+  $Res call({Object? workspace = null, Object? todo = null}) {
+    return _then(
+      _$ToggleTodoTodayWheneverImpl(
+        workspace:
+            null == workspace
+                ? _value.workspace
+                : workspace // ignore: cast_nullable_to_non_nullable
+                    as TLWorkspace,
+        todo:
+            null == todo
+                ? _value.todo
+                : todo // ignore: cast_nullable_to_non_nullable
+                    as TLToDo,
+      ),
+    );
   }
 
   /// Create a copy of TodoAction
@@ -2046,8 +2417,10 @@ class __$$ToggleTodoTodayWheneverImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ToggleTodoTodayWheneverImpl implements _ToggleTodoTodayWhenever {
-  const _$ToggleTodoTodayWheneverImpl(
-      {required this.workspace, required this.todo});
+  const _$ToggleTodoTodayWheneverImpl({
+    required this.workspace,
+    required this.todo,
+  });
 
   @override
   final TLWorkspace workspace;
@@ -2078,8 +2451,9 @@ class _$ToggleTodoTodayWheneverImpl implements _ToggleTodoTodayWhenever {
   @override
   @pragma('vm:prefer-inline')
   _$$ToggleTodoTodayWheneverImplCopyWith<_$ToggleTodoTodayWheneverImpl>
-      get copyWith => __$$ToggleTodoTodayWheneverImplCopyWithImpl<
-          _$ToggleTodoTodayWheneverImpl>(this, _$identity);
+  get copyWith => __$$ToggleTodoTodayWheneverImplCopyWithImpl<
+    _$ToggleTodoTodayWheneverImpl
+  >(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -2087,23 +2461,39 @@ class _$ToggleTodoTodayWheneverImpl implements _ToggleTodoTodayWhenever {
     required TResult Function(TLWorkspace workspace, TLToDo todo) addTodo,
     required TResult Function(TLWorkspace workspace, TLToDo todo) updateTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        deleteTodo,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    deleteTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        toggleTodoCheck,
-    required TResult Function(TLWorkspace workspace, List<TLToDo> todos,
-            int oldIndex, int newIndex, String category, bool ifInToday)
-        reorderTodos,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    toggleTodoCheck,
+    required TResult Function(
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )
+    reorderTodos,
     required TResult Function(TLWorkspace workspace, bool ifInToday)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)
-        toggleStepCheck,
+    toggleStepCheck,
     required TResult Function(TLWorkspace workspace, TLToDo todo)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)
-        reorderSteps,
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )
+    reorderSteps,
   }) {
     return toggleTodoTodayWhenever(workspace, todo);
   }
@@ -2114,21 +2504,31 @@ class _$ToggleTodoTodayWheneverImpl implements _ToggleTodoTodayWhenever {
     TResult? Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult? Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult? Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult? Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult? Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult? Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult? Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult? Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
   }) {
     return toggleTodoTodayWhenever?.call(workspace, todo);
   }
@@ -2139,21 +2539,31 @@ class _$ToggleTodoTodayWheneverImpl implements _ToggleTodoTodayWhenever {
     TResult Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
     required TResult orElse(),
   }) {
     if (toggleTodoTodayWhenever != null) {
@@ -2171,10 +2581,10 @@ class _$ToggleTodoTodayWheneverImpl implements _ToggleTodoTodayWhenever {
     required TResult Function(_ToggleTodoCheck value) toggleTodoCheck,
     required TResult Function(_ReorderTodos value) reorderTodos,
     required TResult Function(_DeleteAllCheckedTodos value)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(_ToggleStepCheck value) toggleStepCheck,
     required TResult Function(_ToggleTodoTodayWhenever value)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return toggleTodoTodayWhenever(this);
@@ -2218,9 +2628,10 @@ class _$ToggleTodoTodayWheneverImpl implements _ToggleTodoTodayWhenever {
 }
 
 abstract class _ToggleTodoTodayWhenever implements TodoAction {
-  const factory _ToggleTodoTodayWhenever(
-      {required final TLWorkspace workspace,
-      required final TLToDo todo}) = _$ToggleTodoTodayWheneverImpl;
+  const factory _ToggleTodoTodayWhenever({
+    required final TLWorkspace workspace,
+    required final TLToDo todo,
+  }) = _$ToggleTodoTodayWheneverImpl;
 
   @override
   TLWorkspace get workspace;
@@ -2231,15 +2642,16 @@ abstract class _ToggleTodoTodayWhenever implements TodoAction {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ToggleTodoTodayWheneverImplCopyWith<_$ToggleTodoTodayWheneverImpl>
-      get copyWith => throw _privateConstructorUsedError;
+  get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class _$$ReorderStepsImplCopyWith<$Res>
     implements $TodoActionCopyWith<$Res> {
   factory _$$ReorderStepsImplCopyWith(
-          _$ReorderStepsImpl value, $Res Function(_$ReorderStepsImpl) then) =
-      __$$ReorderStepsImplCopyWithImpl<$Res>;
+    _$ReorderStepsImpl value,
+    $Res Function(_$ReorderStepsImpl) then,
+  ) = __$$ReorderStepsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex});
@@ -2254,8 +2666,9 @@ class __$$ReorderStepsImplCopyWithImpl<$Res>
     extends _$TodoActionCopyWithImpl<$Res, _$ReorderStepsImpl>
     implements _$$ReorderStepsImplCopyWith<$Res> {
   __$$ReorderStepsImplCopyWithImpl(
-      _$ReorderStepsImpl _value, $Res Function(_$ReorderStepsImpl) _then)
-      : super(_value, _then);
+    _$ReorderStepsImpl _value,
+    $Res Function(_$ReorderStepsImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of TodoAction
   /// with the given fields replaced by the non-null parameter values.
@@ -2267,24 +2680,30 @@ class __$$ReorderStepsImplCopyWithImpl<$Res>
     Object? oldIndex = null,
     Object? newIndex = null,
   }) {
-    return _then(_$ReorderStepsImpl(
-      workspace: null == workspace
-          ? _value.workspace
-          : workspace // ignore: cast_nullable_to_non_nullable
-              as TLWorkspace,
-      todo: null == todo
-          ? _value.todo
-          : todo // ignore: cast_nullable_to_non_nullable
-              as TLToDo,
-      oldIndex: null == oldIndex
-          ? _value.oldIndex
-          : oldIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-      newIndex: null == newIndex
-          ? _value.newIndex
-          : newIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
+    return _then(
+      _$ReorderStepsImpl(
+        workspace:
+            null == workspace
+                ? _value.workspace
+                : workspace // ignore: cast_nullable_to_non_nullable
+                    as TLWorkspace,
+        todo:
+            null == todo
+                ? _value.todo
+                : todo // ignore: cast_nullable_to_non_nullable
+                    as TLToDo,
+        oldIndex:
+            null == oldIndex
+                ? _value.oldIndex
+                : oldIndex // ignore: cast_nullable_to_non_nullable
+                    as int,
+        newIndex:
+            null == newIndex
+                ? _value.newIndex
+                : newIndex // ignore: cast_nullable_to_non_nullable
+                    as int,
+      ),
+    );
   }
 
   /// Create a copy of TodoAction
@@ -2301,11 +2720,12 @@ class __$$ReorderStepsImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ReorderStepsImpl implements _ReorderSteps {
-  const _$ReorderStepsImpl(
-      {required this.workspace,
-      required this.todo,
-      required this.oldIndex,
-      required this.newIndex});
+  const _$ReorderStepsImpl({
+    required this.workspace,
+    required this.todo,
+    required this.oldIndex,
+    required this.newIndex,
+  });
 
   @override
   final TLWorkspace workspace;
@@ -2353,23 +2773,39 @@ class _$ReorderStepsImpl implements _ReorderSteps {
     required TResult Function(TLWorkspace workspace, TLToDo todo) addTodo,
     required TResult Function(TLWorkspace workspace, TLToDo todo) updateTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        deleteTodo,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    deleteTodo,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, bool ifInToday)
-        toggleTodoCheck,
-    required TResult Function(TLWorkspace workspace, List<TLToDo> todos,
-            int oldIndex, int newIndex, String category, bool ifInToday)
-        reorderTodos,
+      TLWorkspace workspace,
+      TLToDo todo,
+      bool ifInToday,
+    )
+    toggleTodoCheck,
+    required TResult Function(
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )
+    reorderTodos,
     required TResult Function(TLWorkspace workspace, bool ifInToday)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)
-        toggleStepCheck,
+    toggleStepCheck,
     required TResult Function(TLWorkspace workspace, TLToDo todo)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)
-        reorderSteps,
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )
+    reorderSteps,
   }) {
     return reorderSteps(workspace, todo, oldIndex, newIndex);
   }
@@ -2380,21 +2816,31 @@ class _$ReorderStepsImpl implements _ReorderSteps {
     TResult? Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult? Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult? Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult? Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult? Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult? Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult? Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult? Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult? Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult? Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
   }) {
     return reorderSteps?.call(workspace, todo, oldIndex, newIndex);
   }
@@ -2405,21 +2851,31 @@ class _$ReorderStepsImpl implements _ReorderSteps {
     TResult Function(TLWorkspace workspace, TLToDo todo)? addTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo)? updateTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        deleteTodo,
+    deleteTodo,
     TResult Function(TLWorkspace workspace, TLToDo todo, bool ifInToday)?
-        toggleTodoCheck,
-    TResult Function(TLWorkspace workspace, List<TLToDo> todos, int oldIndex,
-            int newIndex, String category, bool ifInToday)?
-        reorderTodos,
-    TResult Function(TLWorkspace workspace, bool ifInToday)?
-        deleteAllCheckedTodos,
-    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
-        toggleStepCheck,
-    TResult Function(TLWorkspace workspace, TLToDo todo)?
-        toggleTodoTodayWhenever,
+    toggleTodoCheck,
     TResult Function(
-            TLWorkspace workspace, TLToDo todo, int oldIndex, int newIndex)?
-        reorderSteps,
+      TLWorkspace workspace,
+      List<TLToDo> todos,
+      int oldIndex,
+      int newIndex,
+      String category,
+      bool ifInToday,
+    )?
+    reorderTodos,
+    TResult Function(TLWorkspace workspace, bool ifInToday)?
+    deleteAllCheckedTodos,
+    TResult Function(TLWorkspace workspace, TLToDo todo, TLStep step)?
+    toggleStepCheck,
+    TResult Function(TLWorkspace workspace, TLToDo todo)?
+    toggleTodoTodayWhenever,
+    TResult Function(
+      TLWorkspace workspace,
+      TLToDo todo,
+      int oldIndex,
+      int newIndex,
+    )?
+    reorderSteps,
     required TResult orElse(),
   }) {
     if (reorderSteps != null) {
@@ -2437,10 +2893,10 @@ class _$ReorderStepsImpl implements _ReorderSteps {
     required TResult Function(_ToggleTodoCheck value) toggleTodoCheck,
     required TResult Function(_ReorderTodos value) reorderTodos,
     required TResult Function(_DeleteAllCheckedTodos value)
-        deleteAllCheckedTodos,
+    deleteAllCheckedTodos,
     required TResult Function(_ToggleStepCheck value) toggleStepCheck,
     required TResult Function(_ToggleTodoTodayWhenever value)
-        toggleTodoTodayWhenever,
+    toggleTodoTodayWhenever,
     required TResult Function(_ReorderSteps value) reorderSteps,
   }) {
     return reorderSteps(this);
@@ -2484,11 +2940,12 @@ class _$ReorderStepsImpl implements _ReorderSteps {
 }
 
 abstract class _ReorderSteps implements TodoAction {
-  const factory _ReorderSteps(
-      {required final TLWorkspace workspace,
-      required final TLToDo todo,
-      required final int oldIndex,
-      required final int newIndex}) = _$ReorderStepsImpl;
+  const factory _ReorderSteps({
+    required final TLWorkspace workspace,
+    required final TLToDo todo,
+    required final int oldIndex,
+    required final int newIndex,
+  }) = _$ReorderStepsImpl;
 
   @override
   TLWorkspace get workspace;

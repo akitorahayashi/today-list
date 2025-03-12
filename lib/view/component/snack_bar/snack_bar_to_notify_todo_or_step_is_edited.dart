@@ -43,8 +43,9 @@ class NotifyTodoOrStepIsEditedSnackBar {
     final backgroundColor =
         isToDoCard ? tlThemeData.canTapCardColor : tlThemeData.whiteBasedColor;
     final accentColor = tlThemeData.accentColor;
-    final titleColor =
-        Colors.black.withValues(alpha: newCheckedState ? 0.3 : 0.6);
+    final titleColor = Colors.black.withValues(
+      alpha: newCheckedState ? 0.3 : 0.6,
+    );
 
     return SnackBar(
       duration: const Duration(milliseconds: 900),
@@ -71,8 +72,9 @@ class NotifyTodoOrStepIsEditedSnackBar {
 
           // MARK: - ToDo Info Row
           Padding(
-            padding:
-                EdgeInsets.only(bottom: (quickChangeToToday != null ? 3.0 : 0)),
+            padding: EdgeInsets.only(
+              bottom: (quickChangeToToday != null ? 3.0 : 0),
+            ),
             child: Row(
               children: [
                 // MARK: - Checkbox

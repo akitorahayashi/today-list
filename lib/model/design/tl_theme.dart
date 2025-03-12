@@ -66,20 +66,15 @@ class _AnimatedTLThemeState extends State<AnimatedTLTheme> {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<Color?>(
-      tween: ColorTween(
-        begin: _data.accentColor,
-        end: widget.data.accentColor,
-      ),
+      tween: ColorTween(begin: _data.accentColor, end: widget.data.accentColor),
       duration: widget.duration,
       curve: widget.curve,
       builder: (context, color, child) {
         // アニメーション中のカスタムアクセントカラーを持つ一時的なTLThemeConfig
-        final animatedConfig =
-            _data.copyWithCustomAccentColor(color ?? widget.data.accentColor);
-        return TLTheme(
-          data: animatedConfig,
-          child: child!,
+        final animatedConfig = _data.copyWithCustomAccentColor(
+          color ?? widget.data.accentColor,
         );
+        return TLTheme(data: animatedConfig, child: child!);
       },
       child: widget.child,
     );

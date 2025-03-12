@@ -64,22 +64,29 @@ void main() {
 
       // ワークスペースの状態を取得
       final workspaces = await container.read(workspacesProvider.future);
-      final updatedWorkspace =
-          workspaces.firstWhere((w) => w.id == testWorkspace.id);
+      final updatedWorkspace = workspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
 
       // 検証
       expect(
-          updatedWorkspace
-              .workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday,
-          isNotEmpty);
+        updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday,
+        isNotEmpty,
+      );
       expect(
-          updatedWorkspace
-              .workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday.length,
-          equals(1));
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInToday
+            .length,
+        equals(1),
+      );
       expect(
-          updatedWorkspace
-              .workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday[0].content,
-          equals('Test Todo'));
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInToday[0]
+            .content,
+        equals('Test Todo'),
+      );
     });
 
     test('ToDoを更新すると正しくワークスペースに反映される', () async {
@@ -93,8 +100,9 @@ void main() {
 
       // 最新のワークスペースを取得
       final workspaces = await container.read(workspacesProvider.future);
-      final currentWorkspace =
-          workspaces.firstWhere((w) => w.id == testWorkspace.id);
+      final currentWorkspace = workspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
 
       // ToDoを更新
       await container
@@ -103,14 +111,18 @@ void main() {
 
       // 更新後のワークスペースを取得
       final updatedWorkspaces = await container.read(workspacesProvider.future);
-      final updatedWorkspace =
-          updatedWorkspaces.firstWhere((w) => w.id == testWorkspace.id);
+      final updatedWorkspace = updatedWorkspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
 
       // 検証
       expect(
-          updatedWorkspace
-              .workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday[0].content,
-          equals('Updated Todo'));
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInToday[0]
+            .content,
+        equals('Updated Todo'),
+      );
     });
 
     test('ToDoのチェック状態を切り替えると正しく反映される', () async {
@@ -121,10 +133,13 @@ void main() {
 
       // 最新のワークスペースを取得
       final workspaces = await container.read(workspacesProvider.future);
-      final currentWorkspace =
-          workspaces.firstWhere((w) => w.id == testWorkspace.id);
-      final currentTodo = currentWorkspace
-          .workspaceIDToToDos[currentWorkspace.id]!.toDosInToday[0];
+      final currentWorkspace = workspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
+      final currentTodo =
+          currentWorkspace
+              .workspaceIDToToDos[currentWorkspace.id]!
+              .toDosInToday[0];
 
       // ToDoのチェック状態を切り替え
       await container
@@ -133,14 +148,18 @@ void main() {
 
       // 更新後のワークスペースを取得
       final updatedWorkspaces = await container.read(workspacesProvider.future);
-      final updatedWorkspace =
-          updatedWorkspaces.firstWhere((w) => w.id == testWorkspace.id);
+      final updatedWorkspace = updatedWorkspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
 
       // 検証
       expect(
-          updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!
-              .toDosInToday[0].isChecked,
-          isTrue);
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInToday[0]
+            .isChecked,
+        isTrue,
+      );
     });
 
     test('ToDoを削除すると正しくワークスペースから削除される', () async {
@@ -151,10 +170,13 @@ void main() {
 
       // 最新のワークスペースを取得
       final workspaces = await container.read(workspacesProvider.future);
-      final currentWorkspace =
-          workspaces.firstWhere((w) => w.id == testWorkspace.id);
-      final currentTodo = currentWorkspace
-          .workspaceIDToToDos[currentWorkspace.id]!.toDosInToday[0];
+      final currentWorkspace = workspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
+      final currentTodo =
+          currentWorkspace
+              .workspaceIDToToDos[currentWorkspace.id]!
+              .toDosInToday[0];
 
       // ToDoを削除
       await container
@@ -163,14 +185,15 @@ void main() {
 
       // 更新後のワークスペースを取得
       final updatedWorkspaces = await container.read(workspacesProvider.future);
-      final updatedWorkspace =
-          updatedWorkspaces.firstWhere((w) => w.id == testWorkspace.id);
+      final updatedWorkspace = updatedWorkspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
 
       // 検証
       expect(
-          updatedWorkspace
-              .workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday,
-          isEmpty);
+        updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday,
+        isEmpty,
+      );
     });
 
     test('ToDoを今日といつかの間で切り替えると正しく反映される', () async {
@@ -181,10 +204,13 @@ void main() {
 
       // 最新のワークスペースを取得
       final workspaces = await container.read(workspacesProvider.future);
-      final currentWorkspace =
-          workspaces.firstWhere((w) => w.id == testWorkspace.id);
-      final currentTodo = currentWorkspace
-          .workspaceIDToToDos[currentWorkspace.id]!.toDosInToday[0];
+      final currentWorkspace = workspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
+      final currentTodo =
+          currentWorkspace
+              .workspaceIDToToDos[currentWorkspace.id]!
+              .toDosInToday[0];
 
       // ToDoを今日といつかの間で切り替え
       await container
@@ -193,26 +219,35 @@ void main() {
 
       // 更新後のワークスペースを取得
       final updatedWorkspaces = await container.read(workspacesProvider.future);
-      final updatedWorkspace =
-          updatedWorkspaces.firstWhere((w) => w.id == testWorkspace.id);
+      final updatedWorkspace = updatedWorkspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
 
       // 検証
       expect(
-          updatedWorkspace
-              .workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday,
-          isEmpty);
+        updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday,
+        isEmpty,
+      );
       expect(
-          updatedWorkspace
-              .workspaceIDToToDos[updatedWorkspace.id]!.toDosInWhenever,
-          isNotEmpty);
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInWhenever,
+        isNotEmpty,
+      );
       expect(
-          updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!
-              .toDosInWhenever[0].content,
-          equals('Test Todo'));
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInWhenever[0]
+            .content,
+        equals('Test Todo'),
+      );
       expect(
-          updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!
-              .toDosInWhenever[0].isInToday,
-          isFalse);
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInWhenever[0]
+            .isInToday,
+        isFalse,
+      );
     });
 
     test('ステップを追加したToDoを更新すると正しく反映される', () async {
@@ -223,10 +258,13 @@ void main() {
 
       // 最新のワークスペースを取得
       final workspaces = await container.read(workspacesProvider.future);
-      final currentWorkspace =
-          workspaces.firstWhere((w) => w.id == testWorkspace.id);
-      final currentTodo = currentWorkspace
-          .workspaceIDToToDos[currentWorkspace.id]!.toDosInToday[0];
+      final currentWorkspace = workspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
+      final currentTodo =
+          currentWorkspace
+              .workspaceIDToToDos[currentWorkspace.id]!
+              .toDosInToday[0];
 
       // ステップを追加したToDoを作成
       final step = TLStep(
@@ -243,18 +281,26 @@ void main() {
 
       // 更新後のワークスペースを取得
       final updatedWorkspaces = await container.read(workspacesProvider.future);
-      final updatedWorkspace =
-          updatedWorkspaces.firstWhere((w) => w.id == testWorkspace.id);
+      final updatedWorkspace = updatedWorkspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
 
       // 検証
       expect(
-          updatedWorkspace
-              .workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday[0].steps,
-          isNotEmpty);
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInToday[0]
+            .steps,
+        isNotEmpty,
+      );
       expect(
-          updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!
-              .toDosInToday[0].steps[0].content,
-          equals('Test Step'));
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInToday[0]
+            .steps[0]
+            .content,
+        equals('Test Step'),
+      );
     });
 
     test('ステップのチェック状態を切り替えると正しく反映される', () async {
@@ -273,10 +319,13 @@ void main() {
 
       // 最新のワークスペースを取得
       final workspaces = await container.read(workspacesProvider.future);
-      final currentWorkspace =
-          workspaces.firstWhere((w) => w.id == testWorkspace.id);
-      final currentTodo = currentWorkspace
-          .workspaceIDToToDos[currentWorkspace.id]!.toDosInToday[0];
+      final currentWorkspace = workspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
+      final currentTodo =
+          currentWorkspace
+              .workspaceIDToToDos[currentWorkspace.id]!
+              .toDosInToday[0];
       final currentStep = currentTodo.steps[0];
 
       // ステップのチェック状態を切り替え
@@ -286,14 +335,19 @@ void main() {
 
       // 更新後のワークスペースを取得
       final updatedWorkspaces = await container.read(workspacesProvider.future);
-      final updatedWorkspace =
-          updatedWorkspaces.firstWhere((w) => w.id == testWorkspace.id);
+      final updatedWorkspace = updatedWorkspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
 
       // 検証
       expect(
-          updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!
-              .toDosInToday[0].steps[0].isChecked,
-          isTrue);
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInToday[0]
+            .steps[0]
+            .isChecked,
+        isTrue,
+      );
     });
 
     test('チェック済みのToDoをすべて削除すると正しく反映される', () async {
@@ -320,8 +374,9 @@ void main() {
 
       // 最新のワークスペースを取得
       final workspaces = await container.read(workspacesProvider.future);
-      final currentWorkspace =
-          workspaces.firstWhere((w) => w.id == testWorkspace.id);
+      final currentWorkspace = workspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
 
       // チェック済みのToDoをすべて削除
       await container
@@ -330,22 +385,32 @@ void main() {
 
       // 更新後のワークスペースを取得
       final updatedWorkspaces = await container.read(workspacesProvider.future);
-      final updatedWorkspace =
-          updatedWorkspaces.firstWhere((w) => w.id == testWorkspace.id);
+      final updatedWorkspace = updatedWorkspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
 
       // 検証
       expect(
-          updatedWorkspace
-              .workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday.length,
-          equals(1));
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInToday
+            .length,
+        equals(1),
+      );
       expect(
-          updatedWorkspace
-              .workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday[0].content,
-          equals('Unchecked Todo'));
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInToday[0]
+            .content,
+        equals('Unchecked Todo'),
+      );
       expect(
-          updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!
-              .toDosInToday[0].isChecked,
-          isFalse);
+        updatedWorkspace
+            .workspaceIDToToDos[updatedWorkspace.id]!
+            .toDosInToday[0]
+            .isChecked,
+        isFalse,
+      );
     });
   });
 }

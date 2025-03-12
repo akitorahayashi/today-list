@@ -7,10 +7,10 @@ part of '../todo/tl_step.dart';
 // **************************************************************************
 
 _$TLStepImpl _$$TLStepImplFromJson(Map<String, dynamic> json) => _$TLStepImpl(
-      id: json['id'] as String,
-      content: json['content'] as String,
-      isChecked: json['isChecked'] as bool? ?? false,
-    );
+  id: json['id'] as String,
+  content: json['content'] as String,
+  isChecked: json['isChecked'] as bool? ?? false,
+);
 
 Map<String, dynamic> _$$TLStepImplToJson(_$TLStepImpl instance) =>
     <String, dynamic>{

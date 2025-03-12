@@ -7,22 +7,19 @@ import 'model_of_todo_card.dart';
 class AlreadyExist extends StatelessWidget {
   final TLWorkspace corrWorkspace;
 
-  const AlreadyExist({
-    super.key,
-    required this.corrWorkspace,
-  });
+  const AlreadyExist({super.key, required this.corrWorkspace});
 
   @override
   Widget build(BuildContext context) {
     // Todayのタスク一覧を取得
     final List<TLToDo> todayToDos =
         corrWorkspace.workspaceIDToToDos[corrWorkspace.id]?.getToDos(true) ??
-            [];
+        [];
 
     // Wheneverのタスク一覧を取得
     final List<TLToDo> wheneverToDos =
         corrWorkspace.workspaceIDToToDos[corrWorkspace.id]?.getToDos(false) ??
-            [];
+        [];
 
     // タスクの数を取得
     final numOfToDosInToday = todayToDos.length;
@@ -43,7 +40,9 @@ class AlreadyExist extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: NumToDosCard(
-                title: "In Whenever", numTodos: numOfToDosInWhenever),
+              title: "In Whenever",
+              numTodos: numOfToDosInWhenever,
+            ),
           ),
           _buildToDoList(context, wheneverToDos, false),
 
@@ -55,7 +54,10 @@ class AlreadyExist extends StatelessWidget {
 
   // ToDoリストを構築するヘルパーメソッド
   Widget _buildToDoList(
-      BuildContext context, List<TLToDo> todos, bool ifInToday) {
+    BuildContext context,
+    List<TLToDo> todos,
+    bool ifInToday,
+  ) {
     if (todos.isEmpty) {
       return const SizedBox.shrink();
     }

@@ -61,24 +61,29 @@ void main() {
 
       // 変更後の状態を確認
       final updatedUserData = await container.read(userDataProvider.future);
-      expect(updatedUserData.selectedCheckBoxIconData.iconCategory,
-          equals('Default'));
       expect(
-          updatedUserData.selectedCheckBoxIconData.iconName, equals('Circle'));
+        updatedUserData.selectedCheckBoxIconData.iconCategory,
+        equals('Default'),
+      );
+      expect(
+        updatedUserData.selectedCheckBoxIconData.iconName,
+        equals('Circle'),
+      );
     });
 
     test('獲得したアイコンを更新すると状態が更新される', () async {
       // 初期状態を確認
       final initialUserData = await container.read(userDataProvider.future);
       expect(initialUserData.earnedCheckBoxIcons['Default'], isNotNull);
-      expect(initialUserData.earnedCheckBoxIcons['Default']!.contains('Star'),
-          isFalse);
+      expect(
+        initialUserData.earnedCheckBoxIcons['Default']!.contains('Star'),
+        isFalse,
+      );
 
       // アイコンを獲得
-      await container.read(userDataProvider.notifier).updateEarnedIcons(
-            'Default',
-            'Star',
-          );
+      await container
+          .read(userDataProvider.notifier)
+          .updateEarnedIcons('Default', 'Star');
 
       // 変更後の状態を確認
       final updatedUserData = await container.read(userDataProvider.future);

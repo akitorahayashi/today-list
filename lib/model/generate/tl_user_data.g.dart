@@ -9,19 +9,25 @@ part of '../settings_data/tl_user_data.dart';
 _$TLUserDataImpl _$$TLUserDataImplFromJson(Map<String, dynamic> json) =>
     _$TLUserDataImpl(
       currentAppIconName: json['currentAppIconName'] as String? ?? "Notebook",
-      selectedCheckBoxIconData: json['selectedCheckBoxIconData'] == null
-          ? const SelectedCheckBoxIconData(
-              iconCategory: "Default", iconName: "Box")
-          : SelectedCheckBoxIconData.fromJson(
-              json['selectedCheckBoxIconData'] as Map<String, dynamic>),
+      selectedCheckBoxIconData:
+          json['selectedCheckBoxIconData'] == null
+              ? const SelectedCheckBoxIconData(
+                iconCategory: "Default",
+                iconName: "Box",
+              )
+              : SelectedCheckBoxIconData.fromJson(
+                json['selectedCheckBoxIconData'] as Map<String, dynamic>,
+              ),
       earnedCheckBoxIcons:
           (json['earnedCheckBoxIcons'] as Map<String, dynamic>?)?.map(
-                (k, e) => MapEntry(
-                    k, (e as List<dynamic>).map((e) => e as String).toList()),
-              ) ??
-              const {
-                "Default": ["Box", "Circle"]
-              },
+            (k, e) => MapEntry(
+              k,
+              (e as List<dynamic>).map((e) => e as String).toList(),
+            ),
+          ) ??
+          const {
+            "Default": ["Box", "Circle"],
+          },
       customAccentColorValue: (json['customAccentColorValue'] as num?)?.toInt(),
     );
 

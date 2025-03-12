@@ -4,7 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// 現在のワークスペースIDを管理するプロバイダー
 final currentWorkspaceIdProvider =
     AsyncNotifierProvider<CurrentWorkspaceIdNotifier, String?>(
-        CurrentWorkspaceIdNotifier.new);
+      CurrentWorkspaceIdNotifier.new,
+    );
 
 /// 現在のワークスペースIDを管理するNotifier
 class CurrentWorkspaceIdNotifier extends AsyncNotifier<String?> {

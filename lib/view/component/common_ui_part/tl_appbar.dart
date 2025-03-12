@@ -40,16 +40,17 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
     final TLThemeConfig tlThemeConfig = TLTheme.of(context);
 
     // 透明度に応じてグラデーションの色を調整
-    final Gradient backgroundGradient = opacity < 1.0
-        ? LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              tlThemeConfig.gradientOfNavBar.colors[0].withValues(alpha: 0.7),
-              tlThemeConfig.gradientOfNavBar.colors[1].withValues(alpha: 0.7),
-            ],
-          )
-        : tlThemeConfig.gradientOfNavBar;
+    final Gradient backgroundGradient =
+        opacity < 1.0
+            ? LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                tlThemeConfig.gradientOfNavBar.colors[0].withValues(alpha: 0.7),
+                tlThemeConfig.gradientOfNavBar.colors[1].withValues(alpha: 0.7),
+              ],
+            )
+            : tlThemeConfig.gradientOfNavBar;
 
     return AnimatedOpacity(
       opacity: opacity,
@@ -57,16 +58,17 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Container(
         decoration: BoxDecoration(
           gradient: backgroundGradient,
-          boxShadow: opacity < 1.0
-              ? [] // 透明度が低い場合は影を表示しない
-              : const [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 4,
-                    spreadRadius: 2,
-                    offset: Offset(0, 2),
-                  ),
-                ],
+          boxShadow:
+              opacity < 1.0
+                  ? [] // 透明度が低い場合は影を表示しない
+                  : const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 4,
+                      spreadRadius: 2,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
         ),
         child: ClipRect(
           // 背景をクリップして透過効果を高める
@@ -81,28 +83,31 @@ class TLAppBar extends StatelessWidget implements PreferredSizeWidget {
               backgroundColor: Colors.transparent,
               centerTitle: true,
               elevation: 0,
-              leading: leadingIconData == null
-                  ? const SizedBox.shrink()
-                  : TLAnimatedIconButton(
-                      icon: leadingIconData!,
-                      onPressed: leadingButtonOnPressed,
-                    ),
-              actions: trailingIcons ??
+              leading:
+                  leadingIconData == null
+                      ? const SizedBox.shrink()
+                      : TLAnimatedIconButton(
+                        icon: leadingIconData!,
+                        onPressed: leadingButtonOnPressed,
+                      ),
+              actions:
+                  trailingIcons ??
                   [
                     trailingIconData == null
                         ? Container()
                         : Padding(
-                            padding: const EdgeInsets.only(right: 14),
-                            child: GestureDetector(
-                              onTap: trailingButtonOnPressed,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 5.0),
-                                child: TLAnimatedIconButton(
-                                    icon: trailingIconData!,
-                                    onPressed: trailingButtonOnPressed),
+                          padding: const EdgeInsets.only(right: 14),
+                          child: GestureDetector(
+                            onTap: trailingButtonOnPressed,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 5.0),
+                              child: TLAnimatedIconButton(
+                                icon: trailingIconData!,
+                                onPressed: trailingButtonOnPressed,
                               ),
                             ),
                           ),
+                        ),
                   ],
               title: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),

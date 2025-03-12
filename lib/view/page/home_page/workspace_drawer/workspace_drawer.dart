@@ -36,61 +36,68 @@ class TLWorkspaceDrawer extends ConsumerWidget {
                 ),
               Expanded(
                 child: workspacesAsync.when(
-                  data: (workspaces) => ListView(
-                    padding: const EdgeInsets.only(bottom: 200),
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 12.0, left: 3.0, right: 3.0),
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: tlThemeConfig.tlDoubleCardBorderColor,
-                          ),
-                          child: Card(
-                            color: tlThemeConfig.whiteBasedColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 5.0, bottom: 3.0),
-                              child: SingleChildScrollView(
-                                // スクロール可能にする
-                                child: Column(
-                                  children: [
-                                    ReorderableColumn(
+                  data:
+                      (workspaces) => ListView(
+                        padding: const EdgeInsets.only(bottom: 200),
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 12.0,
+                              left: 3.0,
+                              right: 3.0,
+                            ),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: tlThemeConfig.tlDoubleCardBorderColor,
+                              ),
+                              child: Card(
+                                color: tlThemeConfig.whiteBasedColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 5.0,
+                                    bottom: 3.0,
+                                  ),
+                                  child: SingleChildScrollView(
+                                    // スクロール可能にする
+                                    child: Column(
                                       children: [
-                                        for (var workspace in workspaces)
-                                          WorkspaceCard(
-                                            key: ValueKey(workspace.id),
-                                            corrWorkspace: workspace,
-                                          ),
+                                        ReorderableColumn(
+                                          children: [
+                                            for (var workspace in workspaces)
+                                              WorkspaceCard(
+                                                key: ValueKey(workspace.id),
+                                                corrWorkspace: workspace,
+                                              ),
+                                          ],
+                                          onReorder: (oldIndex, newIndex) {
+                                            WorkspaceDispatcher.dispatch(
+                                              ref,
+                                              WorkspaceAction.reorderWorkspace(
+                                                oldIndex: oldIndex,
+                                                newIndex: newIndex,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                        const _AddWorkspaceButton(),
                                       ],
-                                      onReorder: (oldIndex, newIndex) {
-                                        WorkspaceDispatcher.dispatch(
-                                          ref,
-                                          WorkspaceAction.reorderWorkspace(
-                                            oldIndex: oldIndex,
-                                            newIndex: newIndex,
-                                          ),
-                                        );
-                                      },
                                     ),
-                                    const _AddWorkspaceButton(),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator()),
-                  error: (error, stackTrace) => Center(
-                    child: Text('エラーが発生しました: $error'),
-                  ),
+                  loading:
+                      () => const Center(child: CircularProgressIndicator()),
+                  error:
+                      (error, stackTrace) =>
+                          Center(child: Text('エラーが発生しました: $error')),
                 ),
               ),
             ],
@@ -112,12 +119,11 @@ class _AddWorkspaceButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
         child: GestureDetector(
-          onTap: () => const AddOrEditWorkspaceDialog(oldWorkspaceId: null)
-              .show(context: context),
-          child: Icon(
-            Icons.add,
-            color: tlThemeConfig.accentColor,
-          ),
+          onTap:
+              () => const AddOrEditWorkspaceDialog(
+                oldWorkspaceId: null,
+              ).show(context: context),
+          child: Icon(Icons.add, color: tlThemeConfig.accentColor),
         ),
       ),
     );

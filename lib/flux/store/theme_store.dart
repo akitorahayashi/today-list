@@ -6,8 +6,9 @@ import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/service/tl_method_channel.dart';
 
 // テーマタイプのプロバイダー
-final themeProvider =
-    AsyncNotifierProvider<ThemeNotifier, TLThemeType>(ThemeNotifier.new);
+final themeProvider = AsyncNotifierProvider<ThemeNotifier, TLThemeType>(
+  ThemeNotifier.new,
+);
 
 // テーマ設定を管理するNotifier
 class ThemeNotifier extends AsyncNotifier<TLThemeType> {
@@ -24,9 +25,7 @@ class ThemeNotifier extends AsyncNotifier<TLThemeType> {
 
     if (themeName != null) {
       try {
-        return TLThemeType.values.firstWhere(
-          (t) => t.name == themeName,
-        );
+        return TLThemeType.values.firstWhere((t) => t.name == themeName);
       } catch (_) {
         // デフォルトのテーマを返す
         return TLThemeType.notebook;
@@ -52,7 +51,8 @@ class ThemeNotifier extends AsyncNotifier<TLThemeType> {
     try {
       // iOSウィジェットの更新
       TCWiOSMethodChannelService.updateSelectedTheme(
-          selectedThemeType: newThemeType);
+        selectedThemeType: newThemeType,
+      );
 
       await _saveThemeType(newThemeType);
 

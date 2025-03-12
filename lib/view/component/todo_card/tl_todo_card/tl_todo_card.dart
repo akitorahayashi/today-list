@@ -31,8 +31,9 @@ class TLToDoCard extends ConsumerWidget {
 
     // MARK: - Colors
     final panelColor = tlThemeData.canTapCardColor;
-    final textColor =
-        Colors.black.withValues(alpha: corrToDo.isChecked ? 0.3 : 0.6);
+    final textColor = Colors.black.withValues(
+      alpha: corrToDo.isChecked ? 0.3 : 0.6,
+    );
 
     return GestureDetector(
       onTap: () {
@@ -66,10 +67,7 @@ class TLToDoCard extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _BuildToDoContent(
-                  textColor: textColor,
-                  corrToDo: corrToDo,
-                ),
+                _BuildToDoContent(textColor: textColor, corrToDo: corrToDo),
                 if (corrToDo.steps.isNotEmpty)
                   _BuildStepsList(
                     corrToDo: corrToDo,
@@ -88,16 +86,17 @@ class TLToDoCard extends ConsumerWidget {
 class _BuildToDoContent extends StatelessWidget {
   final Color textColor;
   final TLToDo corrToDo;
-  const _BuildToDoContent({
-    required this.textColor,
-    required this.corrToDo,
-  });
+  const _BuildToDoContent({required this.textColor, required this.corrToDo});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          EdgeInsets.fromLTRB(16, 18, 16, corrToDo.steps.isNotEmpty ? 15 : 18),
+      padding: EdgeInsets.fromLTRB(
+        16,
+        18,
+        16,
+        corrToDo.steps.isNotEmpty ? 15 : 18,
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -114,9 +113,10 @@ class _BuildToDoContent extends StatelessWidget {
               child: Text(
                 corrToDo.content,
                 style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: textColor),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: textColor,
+                ),
               ),
             ),
           ),
@@ -155,15 +155,16 @@ class _BuildStepsList extends ConsumerWidget {
             ),
           ),
         ),
-        onReorder: (oldIndex, newIndex) => TodoDispatcher.dispatch(
-          ref,
-          TodoAction.reorderSteps(
-            workspace: corrWorkspace,
-            todo: corrToDo,
-            oldIndex: oldIndex,
-            newIndex: newIndex,
-          ),
-        ),
+        onReorder:
+            (oldIndex, newIndex) => TodoDispatcher.dispatch(
+              ref,
+              TodoAction.reorderSteps(
+                workspace: corrWorkspace,
+                todo: corrToDo,
+                oldIndex: oldIndex,
+                newIndex: newIndex,
+              ),
+            ),
       ),
     );
   }

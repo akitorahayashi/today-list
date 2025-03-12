@@ -35,9 +35,10 @@ class TLYesNoDialog extends ConsumerWidget with TLBaseDialogMixin {
               child: Text(
                 title,
                 style: TextStyle(
-                    color: tlThemeConfig.accentColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20),
+                  color: tlThemeConfig.accentColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
             ),
             if (message != null)
@@ -51,28 +52,28 @@ class TLYesNoDialog extends ConsumerWidget with TLBaseDialogMixin {
                   ),
                 ),
               ),
-            if (message == null)
-              const SizedBox(
-                height: 30,
-              ),
+            if (message == null) const SizedBox(height: 30),
             OverflowBar(
               alignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: alertButtonStyle(
-                        accentColor: tlThemeConfig.accentColor),
-                    child: const Text("Close")),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: alertButtonStyle(
+                    accentColor: tlThemeConfig.accentColor,
+                  ),
+                  child: const Text("Close"),
+                ),
                 TextButton(
                   onPressed: yesAction,
-                  style:
-                      alertButtonStyle(accentColor: tlThemeConfig.accentColor),
+                  style: alertButtonStyle(
+                    accentColor: tlThemeConfig.accentColor,
+                  ),
                   child: const Text("Yes"),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

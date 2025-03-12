@@ -67,9 +67,10 @@ enum TLAdUnitType {
   }
 
   String _getTestPlatformAdUnitId() {
-    final key = isRewarded
-        ? TLAdUnitType.testReward._getPlatformAdUnitId()
-        : TLAdUnitType.testBanner._getPlatformAdUnitId();
+    final key =
+        isRewarded
+            ? TLAdUnitType.testReward._getPlatformAdUnitId()
+            : TLAdUnitType.testBanner._getPlatformAdUnitId();
     if (!kReleaseMode) {
       print('_getTestPlatformAdUnitId resolved key: $key');
     }

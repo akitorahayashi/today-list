@@ -28,10 +28,9 @@ class TLHomeBottomNavBar extends HookConsumerWidget {
       Tween<Offset>(
         begin: const Offset(0, 1), // 画面外から
         end: const Offset(0, 0), // 画面内へ
-      ).animate(CurvedAnimation(
-        parent: animationController,
-        curve: Curves.easeInOut,
-      )),
+      ).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.easeInOut),
+      ),
     );
 
     // キーボードの表示状態を取得
@@ -73,10 +72,7 @@ class TLHomeBottomNavBar extends HookConsumerWidget {
               decoration: BoxDecoration(
                 gradient: tlThemeConfig.gradientOfNavBar,
                 boxShadow: const [
-                  BoxShadow(
-                    blurRadius: 8,
-                    color: Colors.black45,
-                  ),
+                  BoxShadow(blurRadius: 8, color: Colors.black45),
                 ],
               ),
             ),
@@ -94,17 +90,21 @@ class TLHomeBottomNavBar extends HookConsumerWidget {
                   TLAnimatedIconButton(
                     size: 33,
                     icon: leadingIconData,
-                    onPressed: () => _onLeadingButtonPressed(
-                        context, ref, doesCurrentWorkspaceExist),
+                    onPressed:
+                        () => _onLeadingButtonPressed(
+                          context,
+                          ref,
+                          doesCurrentWorkspaceExist,
+                        ),
                   ),
 
                   const SizedBox(width: centerButtonSize), // 中央のボタン用のスペース
-
                   // MARK: - カテゴリ一覧 or ドロワーボタン
                   TLAnimatedIconButton(
-                      size: 33,
-                      icon: trailingIconData,
-                      onPressed: () => Scaffold.of(context).openDrawer()),
+                    size: 33,
+                    icon: trailingIconData,
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                  ),
                 ],
               ),
             ),
@@ -116,7 +116,10 @@ class TLHomeBottomNavBar extends HookConsumerWidget {
 
   // MARK: - 削除ボタン押下時の処理
   void _onLeadingButtonPressed(
-      BuildContext context, WidgetRef ref, bool doesCurrentWorkspaceExist) {
+    BuildContext context,
+    WidgetRef ref,
+    bool doesCurrentWorkspaceExist,
+  ) {
     final workspacesAsync = ref.read(workspacesProvider);
     final currentWorkspaceIdAsync = ref.read(currentWorkspaceIdProvider);
 
@@ -160,8 +163,9 @@ class TLHomeBottomNavBar extends HookConsumerWidget {
         }
 
         if (context.mounted) {
-          const TLSingleOptionDialog(title: "Deletion completed")
-              .show(context: context);
+          const TLSingleOptionDialog(
+            title: "Deletion completed",
+          ).show(context: context);
         }
       },
     ).show(context: context);

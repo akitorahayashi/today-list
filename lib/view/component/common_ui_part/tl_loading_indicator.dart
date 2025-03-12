@@ -9,11 +9,7 @@ class TLLoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = TLTheme.of(context);
 
-    return Center(
-      child: CircularProgressIndicator(
-        color: theme.accentColor,
-      ),
-    );
+    return Center(child: CircularProgressIndicator(color: theme.accentColor));
   }
 }
 
@@ -22,11 +18,7 @@ class TLErrorWidget extends StatelessWidget {
   final String message;
   final VoidCallback? onRetry;
 
-  const TLErrorWidget({
-    super.key,
-    this.message = 'エラーが発生しました',
-    this.onRetry,
-  });
+  const TLErrorWidget({super.key, this.message = 'エラーが発生しました', this.onRetry});
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +28,9 @@ class TLErrorWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.error_outline,
-            color: theme.accentColor,
-            size: 48,
-          ),
+          Icon(Icons.error_outline, color: theme.accentColor, size: 48),
           const SizedBox(height: 16),
-          Text(
-            message,
-            textAlign: TextAlign.center,
-          ),
+          Text(message, textAlign: TextAlign.center),
           if (onRetry != null) ...[
             const SizedBox(height: 16),
             ElevatedButton(
