@@ -27,6 +27,9 @@ jobs:
           flutter --version
           dart --version
       
+      - name: Create dummy .env file
+        run: touch .env
+      
       - name: Install dependencies
         run: flutter pub get
       
@@ -61,6 +64,9 @@ jobs:
         run: |
           flutter --version
           dart --version
+      
+      - name: Create dummy .env file
+        run: touch .env
       
       - name: Install dependencies
         run: flutter pub get
@@ -132,6 +138,9 @@ jobs:
         run: |
           flutter --version
           dart --version
+      
+      - name: Create dummy .env file
+        run: touch .env
       
       - name: Install dependencies
         run: flutter pub get
