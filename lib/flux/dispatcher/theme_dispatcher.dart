@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/flux/action/theme_action.dart';
 import 'package:today_list/flux/store/theme_store.dart';
-import 'package:today_list/resource/tl_theme_type.dart';
 
 /// テーマ関連のディスパッチャー
 class ThemeDispatcher {

@@ -23,7 +23,6 @@ mixin _$UserDataAction {
         updateSelectedCheckBoxIcon,
     required TResult Function(TLIconCategory iconCategory, TLIconName iconName)
         updateEarnedIcons,
-    required TResult Function(Color newAccentColor) saveCustomAccentColor,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -33,7 +32,6 @@ mixin _$UserDataAction {
         updateSelectedCheckBoxIcon,
     TResult? Function(TLIconCategory iconCategory, TLIconName iconName)?
         updateEarnedIcons,
-    TResult? Function(Color newAccentColor)? saveCustomAccentColor,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,7 +41,6 @@ mixin _$UserDataAction {
         updateSelectedCheckBoxIcon,
     TResult Function(TLIconCategory iconCategory, TLIconName iconName)?
         updateEarnedIcons,
-    TResult Function(Color newAccentColor)? saveCustomAccentColor,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -54,8 +51,6 @@ mixin _$UserDataAction {
     required TResult Function(UpdateSelectedCheckBoxIcon value)
         updateSelectedCheckBoxIcon,
     required TResult Function(UpdateEarnedIcons value) updateEarnedIcons,
-    required TResult Function(SaveCustomAccentColor value)
-        saveCustomAccentColor,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,7 +59,6 @@ mixin _$UserDataAction {
     TResult? Function(UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
     TResult? Function(UpdateEarnedIcons value)? updateEarnedIcons,
-    TResult? Function(SaveCustomAccentColor value)? saveCustomAccentColor,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -73,7 +67,6 @@ mixin _$UserDataAction {
     TResult Function(UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
     TResult Function(UpdateEarnedIcons value)? updateEarnedIcons,
-    TResult Function(SaveCustomAccentColor value)? saveCustomAccentColor,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -177,7 +170,6 @@ class _$UpdateCurrentAppIconTypeImpl implements UpdateCurrentAppIconType {
         updateSelectedCheckBoxIcon,
     required TResult Function(TLIconCategory iconCategory, TLIconName iconName)
         updateEarnedIcons,
-    required TResult Function(Color newAccentColor) saveCustomAccentColor,
   }) {
     return updateCurrentAppIconName(newThemeName);
   }
@@ -190,7 +182,6 @@ class _$UpdateCurrentAppIconTypeImpl implements UpdateCurrentAppIconType {
         updateSelectedCheckBoxIcon,
     TResult? Function(TLIconCategory iconCategory, TLIconName iconName)?
         updateEarnedIcons,
-    TResult? Function(Color newAccentColor)? saveCustomAccentColor,
   }) {
     return updateCurrentAppIconName?.call(newThemeName);
   }
@@ -203,7 +194,6 @@ class _$UpdateCurrentAppIconTypeImpl implements UpdateCurrentAppIconType {
         updateSelectedCheckBoxIcon,
     TResult Function(TLIconCategory iconCategory, TLIconName iconName)?
         updateEarnedIcons,
-    TResult Function(Color newAccentColor)? saveCustomAccentColor,
     required TResult orElse(),
   }) {
     if (updateCurrentAppIconName != null) {
@@ -220,8 +210,6 @@ class _$UpdateCurrentAppIconTypeImpl implements UpdateCurrentAppIconType {
     required TResult Function(UpdateSelectedCheckBoxIcon value)
         updateSelectedCheckBoxIcon,
     required TResult Function(UpdateEarnedIcons value) updateEarnedIcons,
-    required TResult Function(SaveCustomAccentColor value)
-        saveCustomAccentColor,
   }) {
     return updateCurrentAppIconName(this);
   }
@@ -233,7 +221,6 @@ class _$UpdateCurrentAppIconTypeImpl implements UpdateCurrentAppIconType {
     TResult? Function(UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
     TResult? Function(UpdateEarnedIcons value)? updateEarnedIcons,
-    TResult? Function(SaveCustomAccentColor value)? saveCustomAccentColor,
   }) {
     return updateCurrentAppIconName?.call(this);
   }
@@ -245,7 +232,6 @@ class _$UpdateCurrentAppIconTypeImpl implements UpdateCurrentAppIconType {
     TResult Function(UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
     TResult Function(UpdateEarnedIcons value)? updateEarnedIcons,
-    TResult Function(SaveCustomAccentColor value)? saveCustomAccentColor,
     required TResult orElse(),
   }) {
     if (updateCurrentAppIconName != null) {
@@ -357,7 +343,6 @@ class _$UpdateSelectedCheckBoxIconImpl implements UpdateSelectedCheckBoxIcon {
         updateSelectedCheckBoxIcon,
     required TResult Function(TLIconCategory iconCategory, TLIconName iconName)
         updateEarnedIcons,
-    required TResult Function(Color newAccentColor) saveCustomAccentColor,
   }) {
     return updateSelectedCheckBoxIcon(newCheckBox);
   }
@@ -370,7 +355,6 @@ class _$UpdateSelectedCheckBoxIconImpl implements UpdateSelectedCheckBoxIcon {
         updateSelectedCheckBoxIcon,
     TResult? Function(TLIconCategory iconCategory, TLIconName iconName)?
         updateEarnedIcons,
-    TResult? Function(Color newAccentColor)? saveCustomAccentColor,
   }) {
     return updateSelectedCheckBoxIcon?.call(newCheckBox);
   }
@@ -383,7 +367,6 @@ class _$UpdateSelectedCheckBoxIconImpl implements UpdateSelectedCheckBoxIcon {
         updateSelectedCheckBoxIcon,
     TResult Function(TLIconCategory iconCategory, TLIconName iconName)?
         updateEarnedIcons,
-    TResult Function(Color newAccentColor)? saveCustomAccentColor,
     required TResult orElse(),
   }) {
     if (updateSelectedCheckBoxIcon != null) {
@@ -400,8 +383,6 @@ class _$UpdateSelectedCheckBoxIconImpl implements UpdateSelectedCheckBoxIcon {
     required TResult Function(UpdateSelectedCheckBoxIcon value)
         updateSelectedCheckBoxIcon,
     required TResult Function(UpdateEarnedIcons value) updateEarnedIcons,
-    required TResult Function(SaveCustomAccentColor value)
-        saveCustomAccentColor,
   }) {
     return updateSelectedCheckBoxIcon(this);
   }
@@ -413,7 +394,6 @@ class _$UpdateSelectedCheckBoxIconImpl implements UpdateSelectedCheckBoxIcon {
     TResult? Function(UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
     TResult? Function(UpdateEarnedIcons value)? updateEarnedIcons,
-    TResult? Function(SaveCustomAccentColor value)? saveCustomAccentColor,
   }) {
     return updateSelectedCheckBoxIcon?.call(this);
   }
@@ -425,7 +405,6 @@ class _$UpdateSelectedCheckBoxIconImpl implements UpdateSelectedCheckBoxIcon {
     TResult Function(UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
     TResult Function(UpdateEarnedIcons value)? updateEarnedIcons,
-    TResult Function(SaveCustomAccentColor value)? saveCustomAccentColor,
     required TResult orElse(),
   }) {
     if (updateSelectedCheckBoxIcon != null) {
@@ -536,7 +515,6 @@ class _$UpdateEarnedIconsImpl implements UpdateEarnedIcons {
         updateSelectedCheckBoxIcon,
     required TResult Function(TLIconCategory iconCategory, TLIconName iconName)
         updateEarnedIcons,
-    required TResult Function(Color newAccentColor) saveCustomAccentColor,
   }) {
     return updateEarnedIcons(iconCategory, iconName);
   }
@@ -549,7 +527,6 @@ class _$UpdateEarnedIconsImpl implements UpdateEarnedIcons {
         updateSelectedCheckBoxIcon,
     TResult? Function(TLIconCategory iconCategory, TLIconName iconName)?
         updateEarnedIcons,
-    TResult? Function(Color newAccentColor)? saveCustomAccentColor,
   }) {
     return updateEarnedIcons?.call(iconCategory, iconName);
   }
@@ -562,7 +539,6 @@ class _$UpdateEarnedIconsImpl implements UpdateEarnedIcons {
         updateSelectedCheckBoxIcon,
     TResult Function(TLIconCategory iconCategory, TLIconName iconName)?
         updateEarnedIcons,
-    TResult Function(Color newAccentColor)? saveCustomAccentColor,
     required TResult orElse(),
   }) {
     if (updateEarnedIcons != null) {
@@ -579,8 +555,6 @@ class _$UpdateEarnedIconsImpl implements UpdateEarnedIcons {
     required TResult Function(UpdateSelectedCheckBoxIcon value)
         updateSelectedCheckBoxIcon,
     required TResult Function(UpdateEarnedIcons value) updateEarnedIcons,
-    required TResult Function(SaveCustomAccentColor value)
-        saveCustomAccentColor,
   }) {
     return updateEarnedIcons(this);
   }
@@ -592,7 +566,6 @@ class _$UpdateEarnedIconsImpl implements UpdateEarnedIcons {
     TResult? Function(UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
     TResult? Function(UpdateEarnedIcons value)? updateEarnedIcons,
-    TResult? Function(SaveCustomAccentColor value)? saveCustomAccentColor,
   }) {
     return updateEarnedIcons?.call(this);
   }
@@ -604,7 +577,6 @@ class _$UpdateEarnedIconsImpl implements UpdateEarnedIcons {
     TResult Function(UpdateSelectedCheckBoxIcon value)?
         updateSelectedCheckBoxIcon,
     TResult Function(UpdateEarnedIcons value)? updateEarnedIcons,
-    TResult Function(SaveCustomAccentColor value)? saveCustomAccentColor,
     required TResult orElse(),
   }) {
     if (updateEarnedIcons != null) {
@@ -627,171 +599,4 @@ abstract class UpdateEarnedIcons implements UserDataAction {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdateEarnedIconsImplCopyWith<_$UpdateEarnedIconsImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SaveCustomAccentColorImplCopyWith<$Res> {
-  factory _$$SaveCustomAccentColorImplCopyWith(
-          _$SaveCustomAccentColorImpl value,
-          $Res Function(_$SaveCustomAccentColorImpl) then) =
-      __$$SaveCustomAccentColorImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Color newAccentColor});
-}
-
-/// @nodoc
-class __$$SaveCustomAccentColorImplCopyWithImpl<$Res>
-    extends _$UserDataActionCopyWithImpl<$Res, _$SaveCustomAccentColorImpl>
-    implements _$$SaveCustomAccentColorImplCopyWith<$Res> {
-  __$$SaveCustomAccentColorImplCopyWithImpl(_$SaveCustomAccentColorImpl _value,
-      $Res Function(_$SaveCustomAccentColorImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of UserDataAction
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? newAccentColor = null,
-  }) {
-    return _then(_$SaveCustomAccentColorImpl(
-      newAccentColor: null == newAccentColor
-          ? _value.newAccentColor
-          : newAccentColor // ignore: cast_nullable_to_non_nullable
-              as Color,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$SaveCustomAccentColorImpl implements SaveCustomAccentColor {
-  const _$SaveCustomAccentColorImpl({required this.newAccentColor});
-
-  @override
-  final Color newAccentColor;
-
-  @override
-  String toString() {
-    return 'UserDataAction.saveCustomAccentColor(newAccentColor: $newAccentColor)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SaveCustomAccentColorImpl &&
-            (identical(other.newAccentColor, newAccentColor) ||
-                other.newAccentColor == newAccentColor));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, newAccentColor);
-
-  /// Create a copy of UserDataAction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SaveCustomAccentColorImplCopyWith<_$SaveCustomAccentColorImpl>
-      get copyWith => __$$SaveCustomAccentColorImplCopyWithImpl<
-          _$SaveCustomAccentColorImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String newThemeName) updateCurrentAppIconName,
-    required TResult Function(SelectedCheckBoxIconData newCheckBox)
-        updateSelectedCheckBoxIcon,
-    required TResult Function(TLIconCategory iconCategory, TLIconName iconName)
-        updateEarnedIcons,
-    required TResult Function(Color newAccentColor) saveCustomAccentColor,
-  }) {
-    return saveCustomAccentColor(newAccentColor);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String newThemeName)? updateCurrentAppIconName,
-    TResult? Function(SelectedCheckBoxIconData newCheckBox)?
-        updateSelectedCheckBoxIcon,
-    TResult? Function(TLIconCategory iconCategory, TLIconName iconName)?
-        updateEarnedIcons,
-    TResult? Function(Color newAccentColor)? saveCustomAccentColor,
-  }) {
-    return saveCustomAccentColor?.call(newAccentColor);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String newThemeName)? updateCurrentAppIconName,
-    TResult Function(SelectedCheckBoxIconData newCheckBox)?
-        updateSelectedCheckBoxIcon,
-    TResult Function(TLIconCategory iconCategory, TLIconName iconName)?
-        updateEarnedIcons,
-    TResult Function(Color newAccentColor)? saveCustomAccentColor,
-    required TResult orElse(),
-  }) {
-    if (saveCustomAccentColor != null) {
-      return saveCustomAccentColor(newAccentColor);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(UpdateCurrentAppIconType value)
-        updateCurrentAppIconName,
-    required TResult Function(UpdateSelectedCheckBoxIcon value)
-        updateSelectedCheckBoxIcon,
-    required TResult Function(UpdateEarnedIcons value) updateEarnedIcons,
-    required TResult Function(SaveCustomAccentColor value)
-        saveCustomAccentColor,
-  }) {
-    return saveCustomAccentColor(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UpdateCurrentAppIconType value)? updateCurrentAppIconName,
-    TResult? Function(UpdateSelectedCheckBoxIcon value)?
-        updateSelectedCheckBoxIcon,
-    TResult? Function(UpdateEarnedIcons value)? updateEarnedIcons,
-    TResult? Function(SaveCustomAccentColor value)? saveCustomAccentColor,
-  }) {
-    return saveCustomAccentColor?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(UpdateCurrentAppIconType value)? updateCurrentAppIconName,
-    TResult Function(UpdateSelectedCheckBoxIcon value)?
-        updateSelectedCheckBoxIcon,
-    TResult Function(UpdateEarnedIcons value)? updateEarnedIcons,
-    TResult Function(SaveCustomAccentColor value)? saveCustomAccentColor,
-    required TResult orElse(),
-  }) {
-    if (saveCustomAccentColor != null) {
-      return saveCustomAccentColor(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SaveCustomAccentColor implements UserDataAction {
-  const factory SaveCustomAccentColor({required final Color newAccentColor}) =
-      _$SaveCustomAccentColorImpl;
-
-  Color get newAccentColor;
-
-  /// Create a copy of UserDataAction
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SaveCustomAccentColorImplCopyWith<_$SaveCustomAccentColorImpl>
-      get copyWith => throw _privateConstructorUsedError;
 }

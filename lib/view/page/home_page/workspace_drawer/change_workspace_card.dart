@@ -5,8 +5,6 @@ import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/flux/store/current_workspace_store.dart';
-import 'package:today_list/flux/action/current_workspace_action.dart';
-import 'package:today_list/flux/dispatcher/current_workspace_dispatcher.dart';
 
 class WorkspaceCard extends ConsumerWidget {
   final TLWorkspace corrWorkspace;
@@ -74,6 +72,8 @@ class WorkspaceCard extends ConsumerWidget {
       context: ref.context,
     );
 
-    Navigator.pop(ref.context);
+    if (ref.context.mounted) {
+      Navigator.pop(ref.context);
+    }
   }
 }

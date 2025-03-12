@@ -80,7 +80,7 @@ class _AddOrEditWorkspaceDialogState
             data: (workspaces) =>
                 _buildActionButtons(context, themeConfig, workspaces),
             loading: () => const CircularProgressIndicator(),
-            error: (_, __) => Text('Error loading workspaces'),
+            error: (_, __) => const Text('Error loading workspaces'),
           ),
           const SizedBox(height: 16),
         ],
@@ -189,8 +189,10 @@ class _AddOrEditWorkspaceDialogState
       WorkspaceAction.updateWorkspace(editedWorkspace),
     );
 
-    const TLSingleOptionDialog(title: "Successfully changed!")
-        .show(context: context);
+    if (context.mounted) {
+      const TLSingleOptionDialog(title: "Successfully changed!")
+          .show(context: context);
+    }
   }
 
   Future<void> _onAddSuccess(
@@ -200,8 +202,10 @@ class _AddOrEditWorkspaceDialogState
       WorkspaceAction.addWorkspace(newWorkspace),
     );
 
-    TLSingleOptionDialog(
-            title: newWorkspace.name, message: "was successfully added!")
-        .show(context: context);
+    if (context.mounted) {
+      TLSingleOptionDialog(
+              title: newWorkspace.name, message: "was successfully added!")
+          .show(context: context);
+    }
   }
 }

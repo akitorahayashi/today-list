@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/model/todo/tl_todos_in_today_and_whenever.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
-import 'package:today_list/flux/store/todo_store.dart';
 import 'package:today_list/flux/action/todo_action.dart';
 import 'package:today_list/flux/dispatcher/todo_dispatcher.dart';
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
-import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/flux/store/user_data_store.dart';
 import 'package:today_list/resource/icon_resource_of_checkbox.dart';
@@ -54,7 +53,7 @@ class TLCheckBox extends ConsumerWidget {
           color: iconColor ??
               (isChecked
                   ? tlThemeConfig.accentColor
-                  : Colors.black.withOpacity(0.56)),
+                  : Colors.black.withValues(alpha: 0.56)),
           size: effectiveIconSize,
         );
       },
@@ -68,7 +67,7 @@ class TLCheckBox extends ConsumerWidget {
         color: iconColor ??
             (isChecked
                 ? tlThemeConfig.accentColor
-                : Colors.black.withOpacity(0.56)),
+                : Colors.black.withValues(alpha: 0.56)),
         size: iconSize ?? 17,
       ),
     );

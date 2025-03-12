@@ -30,7 +30,8 @@ class TLStepCard extends ConsumerWidget {
 
     // MARK: - Common Colors
     final cardColor = tlThemeConfig.whiteBasedColor;
-    final titleColor = Colors.black.withOpacity(corrStep.isChecked ? 0.3 : 0.6);
+    final titleColor =
+        Colors.black.withValues(alpha: corrStep.isChecked ? 0.3 : 0.6);
 
     return GestureDetector(
       onTap: () {

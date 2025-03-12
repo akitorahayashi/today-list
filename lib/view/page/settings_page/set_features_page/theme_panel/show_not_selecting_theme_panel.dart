@@ -42,14 +42,6 @@ class _RightSideThemeSelectButtonState
             ThemeAction.changeTheme(newThemeType: corrThemeType),
           );
 
-          // アクセントカラーをテーマ固有のデフォルト値にリセット
-          await UserDataDispatcher.dispatch(
-            ref,
-            UserDataAction.saveCustomAccentColor(
-              newAccentColor: corrThemeType.config.defaultAccentColor,
-            ),
-          );
-
           // アプリアイコンも変更
           await UserDataDispatcher.dispatch(
             ref,

@@ -31,7 +31,8 @@ class TLToDoCard extends ConsumerWidget {
 
     // MARK: - Colors
     final panelColor = tlThemeData.canTapCardColor;
-    final textColor = Colors.black.withOpacity(corrToDo.isChecked ? 0.3 : 0.6);
+    final textColor =
+        Colors.black.withValues(alpha: corrToDo.isChecked ? 0.3 : 0.6);
 
     return GestureDetector(
       onTap: () {

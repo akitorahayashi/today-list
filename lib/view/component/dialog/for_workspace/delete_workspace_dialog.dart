@@ -5,7 +5,6 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/flux/action/workspace_action.dart';
 import 'package:today_list/flux/dispatcher/workspace_dispatcher.dart';
-import 'package:today_list/flux/store/workspace_store.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/styles.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
@@ -107,9 +106,11 @@ class DeleteWorkspaceDialog extends ConsumerWidget with TLBaseDialogMixin {
     );
 
     // Close this dialog and show success notification
-    Navigator.pop(context);
-    TLVibrationService.vibrate();
-    const TLSingleOptionDialog(title: "Successfully deleted!")
-        .show(context: context);
+    if (context.mounted) {
+      Navigator.pop(context);
+      TLVibrationService.vibrate();
+      const TLSingleOptionDialog(title: "Successfully deleted!")
+          .show(context: context);
+    }
   }
 }

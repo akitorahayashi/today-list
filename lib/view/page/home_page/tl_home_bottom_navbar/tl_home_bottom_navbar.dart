@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -52,7 +50,6 @@ class TLHomeBottomNavBar extends HookConsumerWidget {
     }, [isKeyboardVisible]);
 
     final tlThemeConfig = TLTheme.of(context);
-    final workspacesAsync = ref.watch(workspacesProvider);
     final currentWorkspaceIdAsync = ref.watch(currentWorkspaceIdProvider);
 
     final bool doesCurrentWorkspaceExist = currentWorkspaceIdAsync.maybeWhen(

@@ -24,8 +24,10 @@ class TLHomePageHelper {
 
     // +タブが押された場合
     if (index == plusTabIndex) {
-      const AddOrEditWorkspaceDialog(oldWorkspaceId: null)
-          .show(context: context);
+      if (context.mounted) {
+        const AddOrEditWorkspaceDialog(oldWorkspaceId: null)
+            .show(context: context);
+      }
 
       // 「+」タブを押したらダイアログ後、前のタブに戻す
       tabController?.index = previousIndex;

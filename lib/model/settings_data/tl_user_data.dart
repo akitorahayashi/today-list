@@ -1,7 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/material.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
-import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 
 part '../generate/tl_user_data.freezed.dart';
 part '../generate/tl_user_data.g.dart';

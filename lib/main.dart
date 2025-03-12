@@ -16,8 +16,19 @@ bool kNotToShowAd = true;
 // 後方互換性のために残しておく
 String? initialWorkspaceId;
 
-// 実行中のURLスキームリンクを処理するためのストリームサブスクリプション
-StreamSubscription? _linkSubscription;
+// URLスキームのリスナー用サブスクリプション
+StreamSubscription<String?>? _linkSubscription;
+
+// アプリのライフサイクルを監視するクラス
+class AppLifecycleObserver extends WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.detached) {
+      // アプリが終了する際にサブスクリプションをキャンセル
+      _linkSubscription?.cancel();
+    }
+  }
+}
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -48,15 +59,15 @@ void main() async {
             uri.host == 'workspace' &&
             uri.queryParameters.containsKey('id')) {
           initialWorkspaceId = uri.queryParameters['id'];
+          print('Deep link received: $link');
         }
       }
-    }, onError: (err) {
-      // エラー処理
-      print('Error handling link stream: $err');
     });
+
+    // アプリ終了時にサブスクリプションをキャンセル
+    WidgetsBinding.instance.addObserver(AppLifecycleObserver());
   } catch (e) {
-    // エラー処理
-    print('Error handling initial link: $e');
+    print('Error handling deep links: $e');
   }
 
   // アプリの起動

@@ -1,11 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/flux/store/user_data_store.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
-import 'package:today_list/model/settings_data/tl_user_data.dart';
-import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 
 void main() {
   group('UserDataNotifier Tests', () {
@@ -87,23 +84,6 @@ void main() {
       final updatedUserData = await container.read(userDataProvider.future);
       expect(updatedUserData.earnedCheckBoxIcons['Default'], contains('Star'));
     });
-
-    test('カスタムアクセントカラーを設定すると状態が更新される', () async {
-      // 初期状態を確認
-      final initialUserData = await container.read(userDataProvider.future);
-      expect(initialUserData.customAccentColorValue, isNull);
-
-      // カスタムアクセントカラーを設定
-      const testColor = Colors.purple;
-      await container
-          .read(userDataProvider.notifier)
-          .saveCustomAccentColor(testColor);
-
-      // 変更後の状態を確認
-      final updatedUserData = await container.read(userDataProvider.future);
-      expect(updatedUserData.customAccentColorValue, equals(testColor.value));
-    });
-
     test('アプリアイコン名を更新すると状態が更新される', () async {
       // 初期状態を確認
       final initialUserData = await container.read(userDataProvider.future);
@@ -118,24 +98,6 @@ void main() {
       // 変更後の状態を確認
       final updatedUserData = await container.read(userDataProvider.future);
       expect(updatedUserData.currentAppIconName, equals(newThemeName));
-    });
-
-    test('ユーザーデータ変更後にアプリを再起動してもデータが保持される', () async {
-      // カスタムアクセントカラーを設定
-      const testColor = Colors.amber;
-      await container
-          .read(userDataProvider.notifier)
-          .saveCustomAccentColor(testColor);
-
-      // 新しいコンテナを作成して再起動をシミュレート
-      final newContainer = ProviderContainer();
-
-      // 保存されたデータを確認
-      final savedUserData = await newContainer.read(userDataProvider.future);
-      expect(savedUserData.customAccentColorValue, equals(testColor.value));
-
-      // リソース解放
-      newContainer.dispose();
     });
   });
 }

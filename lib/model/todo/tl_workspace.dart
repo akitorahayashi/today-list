@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'tl_todo_category.dart';
 import 'tl_todos_in_today_and_whenever.dart';
 
 part '../generate/tl_workspace.freezed.dart';

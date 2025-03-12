@@ -170,26 +170,4 @@ class UserDataNotifier extends AsyncNotifier<TLUserData> {
       state = AsyncValue<TLUserData>.error(e, stack).copyWithPrevious(state);
     }
   }
-
-  // カスタムアクセントカラーを設定
-  Future<void> saveCustomAccentColor(Color? color) async {
-    TLVibrationService.vibrate();
-
-    // 現在の状態を保持しながらローディング状態に
-    state = const AsyncValue<TLUserData>.loading().copyWithPrevious(state);
-
-    try {
-      final currentData = await future;
-      final updatedData = currentData.copyWith(
-        customAccentColorValue: color?.value,
-      );
-      await _saveUserData(updatedData);
-
-      // 成功したら新しい状態を設定
-      state = AsyncValue<TLUserData>.data(updatedData);
-    } catch (e, stack) {
-      // エラー時も前の状態を保持
-      state = AsyncValue<TLUserData>.error(e, stack).copyWithPrevious(state);
-    }
-  }
 }

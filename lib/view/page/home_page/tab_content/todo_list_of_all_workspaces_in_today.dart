@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:today_list/flux/store/workspace_store.dart';
 import 'package:today_list/flux/store/current_workspace_store.dart';
 import 'package:today_list/view/page/add_todo_page/add_todo_page.dart';
-import 'package:today_list/model/todo/tl_todo.dart';
 import 'package:today_list/view/component/common_ui_part/tl_loading_indicator.dart';
 
 import 'package:today_list/view/page/home_page/tab_content/build_todo_list/list_of_category_to_todos.dart';

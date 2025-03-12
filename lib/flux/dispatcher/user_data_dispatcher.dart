@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/flux/action/user_data_action.dart';
 import 'package:today_list/flux/store/user_data_store.dart';
-import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 
 /// ユーザーデータ関連のディスパッチャー
 class UserDataDispatcher {
@@ -23,11 +21,6 @@ class UserDataDispatcher {
         await ref
             .read(userDataProvider.notifier)
             .updateEarnedIcons(action.iconCategory.name, action.iconName.name);
-      },
-      saveCustomAccentColor: (action) async {
-        await ref
-            .read(userDataProvider.notifier)
-            .saveCustomAccentColor(action.newAccentColor);
       },
     );
   }
