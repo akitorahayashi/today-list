@@ -14,16 +14,16 @@ dependencies:
   # UI関連
   cupertino_icons: ^1.0.8
   flutter_progress_hud: ^2.0.2
-  font_awesome_flutter: ^10.7.0
+  font_awesome_flutter: 10.6.0
   flutter_slidable: 3.0.0
   reorderables: ^0.6.0
   popover: 0.2.8+2
 
   # ユーティリティ
-  intl: ^0.19.0
-  uuid: ^4.5.1
+  intl: ^0.18.0
+  uuid: 3.0.7
   flutter_vibrate: ^1.3.0
-  flutter_dotenv: ^5.2.1
+  flutter_dotenv: 5.1.0
   shared_preferences: ^2.3.2
   flutter_colorpicker: ^1.1.0
 
@@ -31,30 +31,30 @@ dependencies:
   google_mobile_ads: ^5.1.0
 
   # アイコン・スプラッシュ画面
-  flutter_native_splash: ^2.4.1
+  flutter_native_splash: ^2.3.5
   flutter_dynamic_icon: ^2.1.0
-  flutter_launcher_icons: ^0.14.1
+  flutter_launcher_icons: ^0.13.1
 
   # 状態管理
-  flutter_riverpod: ^2.5.3
-  flutter_hooks: ^0.20.5
-  hooks_riverpod: ^2.6.1
+  flutter_riverpod: ^2.4.9
+  flutter_hooks: ^0.20.3
+  hooks_riverpod: ^2.4.9
 
   # データモデル・シリアライズ
-  freezed_annotation: ^2.4.4
-  json_annotation: ^4.9.0
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
   uni_links: ^0.5.1
-  go_router: ^14.8.1
+  go_router: 12.1.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # 静的解析・開発補助
-  flutter_lints: ^4.0.0
-  json_serializable: ^6.9.0
-  build_runner: ^2.4.13
-  freezed: ^2.5.7
+  flutter_lints: ^3.0.1
+  json_serializable: ^6.7.1
+  build_runner: ^2.4.7
+  freezed: ^2.4.5
 
 # flutter pub run flutter_launcher_icons:main
 flutter_icons:
