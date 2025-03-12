@@ -29,7 +29,17 @@ class SettingsPage extends HookWidget {
     ];
 
     return Scaffold(
-      appBar: _AppBar(),
+      appBar: TLAppBar(
+        context: context,
+        pageTitle: "Settings",
+        leadingButtonOnPressed: () {
+          // GoRouterを使用してホーム画面に戻る
+          context.go('/');
+        },
+        leadingIconData: Icons.arrow_back_ios,
+        trailingButtonOnPressed: null,
+        trailingIconData: null,
+      ),
       body: Stack(
         children: [
           Container(color: tlThemeConfig.backgroundColor),
@@ -58,28 +68,6 @@ class SettingsPage extends HookWidget {
       ),
     );
   }
-}
-
-// MARK: - AppBar Widget
-class _AppBar extends StatelessWidget implements PreferredSizeWidget {
-  @override
-  Widget build(BuildContext context) {
-    final TLThemeConfig tlThemeConfig = TLTheme.of(context);
-    return TLAppBar(
-      context: context,
-      pageTitle: "Settings",
-      leadingButtonOnPressed: () {
-        // GoRouterを使用してホーム画面に戻る
-        context.go('/');
-      },
-      leadingIconData: Icons.arrow_back_ios_new,
-      trailingButtonOnPressed: null,
-      trailingIconData: null,
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 // MARK: - Bottom Navigation Bar Widget
