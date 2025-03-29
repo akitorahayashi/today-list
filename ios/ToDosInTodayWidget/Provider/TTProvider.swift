@@ -11,10 +11,9 @@ import WidgetKit
 struct TTProvider: TimelineProvider {
     typealias Entry = TTWidgetEntry
     
-    func placeholder(in context: Context) -> TWWidgetEntry {
-        return TWWidgetEntry(
+    func placeholder(in context: Context) -> TTWidgetEntry {
+        return TTWidgetEntry(
             date: Date(),
-            entity: nil,
             selectedThemeType: TLThemeType.sunOrange,
             tlWorkspaces: TCWExampleState.kTLWorkspacesExample
         )
@@ -25,7 +24,6 @@ struct TTProvider: TimelineProvider {
         let corrThemeType = TLThemeType.from(themeName)
         let entry = TTWidgetEntry(
             date: Date(),
-            entity: nil,
             selectedThemeType: corrThemeType,
             tlWorkspaces: TCWExampleState.kTLWorkspacesExample
         )
@@ -52,7 +50,6 @@ struct TTProvider: TimelineProvider {
         
         let loadedEntry = TTWidgetEntry(
             date: Date(),
-            entity: selectedWorkspace,
             selectedThemeType: corrThemeType,
             tlWorkspaces: tlWorkspaces
         )

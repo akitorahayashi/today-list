@@ -21,11 +21,24 @@ struct TTToDoListView: View {
             let displayData = getWorkspacesAndToDosToShow(workspaces: entry.tlWorkspaces, maxItems: maxItems)
             
             ForEach(Array(displayData.workspaces.enumerated()), id: \.element.id) { _, workspace in
-                Text(workspace.name)
-                    .font(.headline)
-                    .foregroundColor(entry.selectedThemeType.config.textColor)
-                    .padding(.bottom, spacing)
-                
+                ZStack(alignment: .leading) {
+                    entry.selectedThemeType.config.gradientOfTopBar
+                        .cornerRadius(12)
+                    
+                    Text(workspace.name)
+                        .font(.system(size: 13))
+                        .fontWeight(.bold)
+                        .foregroundColor(entry.selectedThemeType.config.navigationTitleColor)
+                        .padding(.vertical, 0)
+                        .padding(.horizontal, 10)
+                }
+                .fixedSize(horizontal: true, vertical: false)
+                .frame(height: 16)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.gray.opacity(0.2), lineWidth: 0.5)
+                )
+                .padding(.bottom, spacing)
                 ForEach(Array(workspace.toDos.enumerated()), id: \.element.id) { _, todo in
                     TLToDoRowForWidget(
                         spacing: spacing,
@@ -39,7 +52,7 @@ struct TTToDoListView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .padding(.top, 25.5)
+        .padding(.top, 24)
     }
     
     private struct WorkspaceWithToDos: Identifiable {
@@ -68,6 +81,9 @@ struct TTToDoListView: View {
             for todo in toDosInToday {
                 guard itemCount < maxItems else { break }
                 
+                // チェック済みのToDoは表示しない
+                if todo.isChecked { continue }
+                
                 var createdToDo = TLToDo(
                     id: todo.id,
                     workspaceID: todo.workspaceID,
@@ -91,7 +107,7 @@ struct TTToDoListView: View {
                 workspaceToDos.append(createdToDo)
             }
             
-            if !workspaceToDos.isEmpty || itemCount == 1 {
+            if !workspaceToDos.isEmpty {
                 result.append(WorkspaceWithToDos(
                     id: workspace.id,
                     name: workspace.name,
@@ -112,6 +128,9 @@ struct TTToDoListView: View {
         
         for tlToDo in toDosInToday {
             guard contentCounter < maxItems else { break }
+            
+            // チェック済みのToDoは表示しない
+            if tlToDo.isChecked { continue }
             
             var createdToDo = TLToDo(id: tlToDo.id, workspaceID: tlToDo.workspaceID, isInToday: true, isChecked: false, content: tlToDo.content, steps: [])
             contentCounter += 1

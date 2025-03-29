@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TTEntryView : View {
+struct ToDosInTodayWidgetEntryView : View {
     var entry: TTProvider.Entry
     
     @Environment(\.widgetFamily) var widgetFamily

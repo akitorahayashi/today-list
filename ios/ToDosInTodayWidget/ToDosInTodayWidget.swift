@@ -14,8 +14,30 @@ struct ToDosInTodayWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: ToDosInTodayWidget.kind, provider: TTProvider()) { entry in
             ToDosInTodayWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+                .containerBackground(for: .widget) {
+                    VStack(spacing: 0) {
+                        ZStack {
+                            entry.selectedThemeType.config.gradientOfTopBar
+                            Text("Today List")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundColor(entry.selectedThemeType.config.navigationTitleColor)
+                        }
+                        .frame(height: 28)
+                        
+                        ZStack {
+                            entry.selectedThemeType.config.backgroundColorOfToDoList
+                            
+                            Color.white
+                                .cornerRadius(15)
+                                .padding(6)
+                                .shadow(radius: 1)
+                        }
+                    }
+                }
+                .widgetURL(URL(string: "todaylist://today"))
         }
+        .configurationDisplayName("Today's ToDos Widget")
+        .description("Show your today's ToDo list in a beautiful widget.")
         .supportedFamilies([.systemLarge])
     }
 }
