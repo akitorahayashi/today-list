@@ -154,7 +154,23 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
       final index = workspacesAsync.indexWhere((w) => w.id == workspace.id);
       if (index >= 0) {
         // チェック状態を反転したToDoを作成
-        final updatedTodo = todo.copyWith(isChecked: !todo.isChecked);
+        final newCheckedState = !todo.isChecked;
+
+        // ToDoがチェックされた場合、すべてのステップもチェックする
+        final updatedSteps =
+            todo.steps.map((step) {
+              // Todo がチェックされるとき、すべてのステップもチェックする
+              if (newCheckedState) {
+                return step.copyWith(isChecked: true);
+              }
+              return step;
+            }).toList();
+
+        // 更新されたToDoを作成
+        final updatedTodo = todo.copyWith(
+          isChecked: newCheckedState,
+          steps: updatedSteps,
+        );
 
         final updatedWorkspace = _updateWorkspaceTodos(
           workspacesAsync[index],
@@ -466,16 +482,27 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
       final index = workspacesAsync.indexWhere((w) => w.id == workspace.id);
       if (index >= 0) {
         // ステップのチェック状態を反転
+        final newStepCheckedState = !step.isChecked;
         final updatedSteps =
             todo.steps.map((s) {
               if (s.id == step.id) {
-                return s.copyWith(isChecked: !s.isChecked);
+                return s.copyWith(isChecked: newStepCheckedState);
               }
               return s;
             }).toList();
 
+        // 全てのステップがチェックされているか確認
+        bool allStepsChecked = true;
+        if (updatedSteps.isNotEmpty) {
+          allStepsChecked = updatedSteps.every((s) => s.isChecked);
+        }
+
         // 更新されたステップリストを持つToDoを作成
-        final updatedTodo = todo.copyWith(steps: updatedSteps);
+        // ステップが全てチェックされていれば、親ToDoもチェック
+        final updatedTodo = todo.copyWith(
+          steps: updatedSteps,
+          isChecked: allStepsChecked,
+        );
 
         // ワークスペースのToDoリストを更新
         final updatedWorkspace = _updateWorkspaceTodos(
