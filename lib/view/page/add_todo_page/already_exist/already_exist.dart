@@ -12,14 +12,10 @@ class AlreadyExist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Todayのタスク一覧を取得
-    final List<TLToDo> todayToDos =
-        corrWorkspace.workspaceIDToToDos[corrWorkspace.id]?.getToDos(true) ??
-        [];
+    final List<TLToDo> todayToDos = corrWorkspace.toDos.getToDos(true);
 
     // Wheneverのタスク一覧を取得
-    final List<TLToDo> wheneverToDos =
-        corrWorkspace.workspaceIDToToDos[corrWorkspace.id]?.getToDos(false) ??
-        [];
+    final List<TLToDo> wheneverToDos = corrWorkspace.toDos.getToDos(false);
 
     // タスクの数を取得
     final numOfToDosInToday = todayToDos.length;

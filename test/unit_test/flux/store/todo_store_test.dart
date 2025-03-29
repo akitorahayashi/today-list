@@ -27,13 +27,11 @@ void main() {
       testWorkspace = TLWorkspace(
         id: workspaceId,
         name: 'Test Workspace',
-        workspaceIDToToDos: {
-          workspaceId: TLToDosInTodayAndWhenever(
-            workspaceID: workspaceId,
-            toDosInToday: [],
-            toDosInWhenever: [],
-          ),
-        },
+        toDos: TLToDosInTodayAndWhenever(
+          workspaceID: workspaceId,
+          toDosInToday: [],
+          toDosInWhenever: [],
+        ),
       );
 
       // ワークスペースを追加
@@ -69,22 +67,10 @@ void main() {
       );
 
       // 検証
+      expect(updatedWorkspace.toDos.toDosInToday, isNotEmpty);
+      expect(updatedWorkspace.toDos.toDosInToday.length, equals(1));
       expect(
-        updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday,
-        isNotEmpty,
-      );
-      expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInToday
-            .length,
-        equals(1),
-      );
-      expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInToday[0]
-            .content,
+        updatedWorkspace.toDos.toDosInToday[0].content,
         equals('Test Todo'),
       );
     });
@@ -117,10 +103,7 @@ void main() {
 
       // 検証
       expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInToday[0]
-            .content,
+        updatedWorkspace.toDos.toDosInToday[0].content,
         equals('Updated Todo'),
       );
     });
@@ -136,10 +119,7 @@ void main() {
       final currentWorkspace = workspaces.firstWhere(
         (w) => w.id == testWorkspace.id,
       );
-      final currentTodo =
-          currentWorkspace
-              .workspaceIDToToDos[currentWorkspace.id]!
-              .toDosInToday[0];
+      final currentTodo = currentWorkspace.toDos.toDosInToday[0];
 
       // ToDoのチェック状態を切り替え
       await container
@@ -153,13 +133,7 @@ void main() {
       );
 
       // 検証
-      expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInToday[0]
-            .isChecked,
-        isTrue,
-      );
+      expect(updatedWorkspace.toDos.toDosInToday[0].isChecked, isTrue);
     });
 
     test('ToDoを削除すると正しくワークスペースから削除される', () async {
@@ -173,10 +147,7 @@ void main() {
       final currentWorkspace = workspaces.firstWhere(
         (w) => w.id == testWorkspace.id,
       );
-      final currentTodo =
-          currentWorkspace
-              .workspaceIDToToDos[currentWorkspace.id]!
-              .toDosInToday[0];
+      final currentTodo = currentWorkspace.toDos.toDosInToday[0];
 
       // ToDoを削除
       await container
@@ -190,10 +161,7 @@ void main() {
       );
 
       // 検証
-      expect(
-        updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday,
-        isEmpty,
-      );
+      expect(updatedWorkspace.toDos.toDosInToday, isEmpty);
     });
 
     test('ToDoを今日といつかの間で切り替えると正しく反映される', () async {
@@ -207,12 +175,9 @@ void main() {
       final currentWorkspace = workspaces.firstWhere(
         (w) => w.id == testWorkspace.id,
       );
-      final currentTodo =
-          currentWorkspace
-              .workspaceIDToToDos[currentWorkspace.id]!
-              .toDosInToday[0];
+      final currentTodo = currentWorkspace.toDos.toDosInToday[0];
 
-      // ToDoを今日といつかの間で切り替え
+      // ToDoを今日/いつかで切り替え
       await container
           .read(todoProvider.notifier)
           .toggleTodoTodayWhenever(currentWorkspace, currentTodo);
@@ -224,108 +189,69 @@ void main() {
       );
 
       // 検証
+      expect(updatedWorkspace.toDos.toDosInToday, isEmpty);
+      expect(updatedWorkspace.toDos.toDosInWhenever, isNotEmpty);
       expect(
-        updatedWorkspace.workspaceIDToToDos[updatedWorkspace.id]!.toDosInToday,
-        isEmpty,
-      );
-      expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInWhenever,
-        isNotEmpty,
-      );
-      expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInWhenever[0]
-            .content,
+        updatedWorkspace.toDos.toDosInWhenever[0].content,
         equals('Test Todo'),
-      );
-      expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInWhenever[0]
-            .isInToday,
-        isFalse,
       );
     });
 
-    test('ステップを追加したToDoを更新すると正しく反映される', () async {
-      // ToDoを追加
+    test('ステップを追加したToDoが正しく保存される', () async {
+      // ステップを含むToDoを作成
+      final todoWithSteps = testTodo.copyWith(
+        steps: [
+          TLStep(
+            id: TLUUIDGenerator.generate(),
+            content: 'Step 1',
+            isChecked: false,
+          ),
+          TLStep(
+            id: TLUUIDGenerator.generate(),
+            content: 'Step 2',
+            isChecked: false,
+          ),
+        ],
+      );
+
+      // ステップ付きToDoを追加
       await container
           .read(todoProvider.notifier)
-          .addTodo(testWorkspace, testTodo);
+          .addTodo(testWorkspace, todoWithSteps);
 
-      // 最新のワークスペースを取得
+      // ワークスペースの状態を取得
       final workspaces = await container.read(workspacesProvider.future);
-      final currentWorkspace = workspaces.firstWhere(
-        (w) => w.id == testWorkspace.id,
-      );
-      final currentTodo =
-          currentWorkspace
-              .workspaceIDToToDos[currentWorkspace.id]!
-              .toDosInToday[0];
-
-      // ステップを追加したToDoを作成
-      final step = TLStep(
-        id: TLUUIDGenerator.generate(),
-        content: 'Test Step',
-        isChecked: false,
-      );
-      final todoWithStep = currentTodo.copyWith(steps: [step]);
-
-      // ToDoを更新
-      await container
-          .read(todoProvider.notifier)
-          .updateTodo(currentWorkspace, todoWithStep);
-
-      // 更新後のワークスペースを取得
-      final updatedWorkspaces = await container.read(workspacesProvider.future);
-      final updatedWorkspace = updatedWorkspaces.firstWhere(
+      final updatedWorkspace = workspaces.firstWhere(
         (w) => w.id == testWorkspace.id,
       );
 
       // 検証
-      expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInToday[0]
-            .steps,
-        isNotEmpty,
-      );
-      expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInToday[0]
-            .steps[0]
-            .content,
-        equals('Test Step'),
-      );
+      expect(updatedWorkspace.toDos.toDosInToday[0].steps.length, equals(2));
     });
 
     test('ステップのチェック状態を切り替えると正しく反映される', () async {
-      // ステップを持つToDoを作成
-      final step = TLStep(
-        id: TLUUIDGenerator.generate(),
-        content: 'Test Step',
-        isChecked: false,
+      // ステップを含むToDoを作成
+      final todoWithSteps = testTodo.copyWith(
+        steps: [
+          TLStep(
+            id: TLUUIDGenerator.generate(),
+            content: 'Step 1',
+            isChecked: false,
+          ),
+        ],
       );
-      final todoWithStep = testTodo.copyWith(steps: [step]);
 
-      // ToDoを追加
+      // ステップ付きToDoを追加
       await container
           .read(todoProvider.notifier)
-          .addTodo(testWorkspace, todoWithStep);
+          .addTodo(testWorkspace, todoWithSteps);
 
       // 最新のワークスペースを取得
       final workspaces = await container.read(workspacesProvider.future);
       final currentWorkspace = workspaces.firstWhere(
         (w) => w.id == testWorkspace.id,
       );
-      final currentTodo =
-          currentWorkspace
-              .workspaceIDToToDos[currentWorkspace.id]!
-              .toDosInToday[0];
+      final currentTodo = currentWorkspace.toDos.toDosInToday[0];
       final currentStep = currentTodo.steps[0];
 
       // ステップのチェック状態を切り替え
@@ -340,21 +266,90 @@ void main() {
       );
 
       // 検証
-      expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInToday[0]
-            .steps[0]
-            .isChecked,
-        isTrue,
+      expect(updatedWorkspace.toDos.toDosInToday[0].steps[0].isChecked, isTrue);
+    });
+
+    test('すべてのステップをチェックするとToDoもチェックされる', () async {
+      // ステップを含むToDoを作成
+      final todoWithSteps = testTodo.copyWith(
+        steps: [
+          TLStep(
+            id: TLUUIDGenerator.generate(),
+            content: 'Step 1',
+            isChecked: false,
+          ),
+        ],
       );
+
+      // ステップ付きToDoを追加
+      await container
+          .read(todoProvider.notifier)
+          .addTodo(testWorkspace, todoWithSteps);
+
+      // 最新のワークスペースを取得
+      final workspaces = await container.read(workspacesProvider.future);
+      final currentWorkspace = workspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
+      final currentTodo = currentWorkspace.toDos.toDosInToday[0];
+      final currentStep = currentTodo.steps[0];
+
+      // ステップのチェック状態を切り替え
+      await container
+          .read(todoProvider.notifier)
+          .toggleStepCheck(currentWorkspace, currentTodo, currentStep);
+
+      // 更新後のワークスペースを取得
+      final updatedWorkspaces = await container.read(workspacesProvider.future);
+      final updatedWorkspace = updatedWorkspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
+
+      // 検証
+      expect(updatedWorkspace.toDos.toDosInToday[0].isChecked, isTrue);
+    });
+
+    test('ToDoを並べ替えると正しくワークスペースに反映される', () async {
+      // 複数のToDoを追加
+      final todo1 = testTodo.copyWith(content: 'Todo 1');
+      final todo2 = TLToDo(
+        id: TLUUIDGenerator.generate(),
+        workspaceID: testWorkspace.id,
+        content: 'Todo 2',
+        isInToday: true,
+        isChecked: false,
+        steps: [],
+      );
+
+      await container.read(todoProvider.notifier).addTodo(testWorkspace, todo1);
+      await container.read(todoProvider.notifier).addTodo(testWorkspace, todo2);
+
+      // 最新のワークスペースを取得
+      final workspaces = await container.read(workspacesProvider.future);
+      final currentWorkspace = workspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
+      final todos = currentWorkspace.toDos.toDosInToday;
+
+      // ToDoを並べ替え
+      await container
+          .read(todoProvider.notifier)
+          .reorderTodos(currentWorkspace, todos, 0, 1, '', true);
+
+      // 更新後のワークスペースを取得
+      final updatedWorkspaces = await container.read(workspacesProvider.future);
+      final updatedWorkspace = updatedWorkspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
+
+      // 検証
+      expect(updatedWorkspace.toDos.toDosInToday[0].content, equals('Todo 2'));
+      expect(updatedWorkspace.toDos.toDosInToday[1].content, equals('Todo 1'));
     });
 
     test('チェック済みのToDoをすべて削除すると正しく反映される', () async {
-      // チェック済みのToDoを作成
+      // チェック済みToDoを追加
       final checkedTodo = testTodo.copyWith(isChecked: true);
-
-      // チェックされていないToDoを作成
       final uncheckedTodo = TLToDo(
         id: TLUUIDGenerator.generate(),
         workspaceID: testWorkspace.id,
@@ -364,7 +359,6 @@ void main() {
         steps: [],
       );
 
-      // 両方のToDoを追加
       await container
           .read(todoProvider.notifier)
           .addTodo(testWorkspace, checkedTodo);
@@ -378,7 +372,7 @@ void main() {
         (w) => w.id == testWorkspace.id,
       );
 
-      // チェック済みのToDoをすべて削除
+      // チェック済みToDoをすべて削除
       await container
           .read(todoProvider.notifier)
           .deleteAllCheckedTodos(currentWorkspace, true);
@@ -390,26 +384,61 @@ void main() {
       );
 
       // 検証
+      expect(updatedWorkspace.toDos.toDosInToday.length, equals(1));
       expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInToday
-            .length,
-        equals(1),
-      );
-      expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInToday[0]
-            .content,
+        updatedWorkspace.toDos.toDosInToday[0].content,
         equals('Unchecked Todo'),
       );
+    });
+
+    test('ステップを並べ替えると正しくワークスペースに反映される', () async {
+      // 複数のステップを含むToDoを作成
+      final todoWithSteps = testTodo.copyWith(
+        steps: [
+          TLStep(
+            id: TLUUIDGenerator.generate(),
+            content: 'Step 1',
+            isChecked: false,
+          ),
+          TLStep(
+            id: TLUUIDGenerator.generate(),
+            content: 'Step 2',
+            isChecked: false,
+          ),
+        ],
+      );
+
+      // ステップ付きToDoを追加
+      await container
+          .read(todoProvider.notifier)
+          .addTodo(testWorkspace, todoWithSteps);
+
+      // 最新のワークスペースを取得
+      final workspaces = await container.read(workspacesProvider.future);
+      final currentWorkspace = workspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
+      final currentTodo = currentWorkspace.toDos.toDosInToday[0];
+
+      // ステップを並べ替え
+      await container
+          .read(todoProvider.notifier)
+          .reorderSteps(currentWorkspace, currentTodo, 0, 1);
+
+      // 更新後のワークスペースを取得
+      final updatedWorkspaces = await container.read(workspacesProvider.future);
+      final updatedWorkspace = updatedWorkspaces.firstWhere(
+        (w) => w.id == testWorkspace.id,
+      );
+
+      // 検証
       expect(
-        updatedWorkspace
-            .workspaceIDToToDos[updatedWorkspace.id]!
-            .toDosInToday[0]
-            .isChecked,
-        isFalse,
+        updatedWorkspace.toDos.toDosInToday[0].steps[0].content,
+        equals('Step 2'),
+      );
+      expect(
+        updatedWorkspace.toDos.toDosInToday[0].steps[1].content,
+        equals('Step 1'),
       );
     });
   });

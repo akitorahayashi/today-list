@@ -173,8 +173,7 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
         );
 
         // 該当のToDoリストを取得
-        final todosInTodayAndWhenever =
-            workspacesAsync[index].workspaceIDToToDos[workspace.id]!;
+        final todosInTodayAndWhenever = workspacesAsync[index].toDos;
         final todosList =
             ifInToday
                 ? List<TLToDo>.from(todosInTodayAndWhenever.toDosInToday)
@@ -378,10 +377,8 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
     List<TLStep>? steps,
     bool isUpdate,
   ) {
-    final workspaceIDToToDos = Map<String, TLToDosInTodayAndWhenever>.from(
-      workspace.workspaceIDToToDos,
-    );
-    final todosInTodayAndWhenever = workspaceIDToToDos[workspace.id]!;
+    // toDosを直接操作
+    final todosInTodayAndWhenever = workspace.toDos;
 
     // 更新または追加するToDoを準備
     final updatedTodo = steps != null ? todo.copyWith(steps: steps) : todo;
@@ -401,8 +398,8 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
         todosInToday.add(updatedTodo);
       }
 
-      workspaceIDToToDos[workspace.id] = todosInTodayAndWhenever.copyWith(
-        toDosInToday: todosInToday,
+      return workspace.copyWith(
+        toDos: todosInTodayAndWhenever.copyWith(toDosInToday: todosInToday),
       );
     } else {
       final todosInWhenever = List<TLToDo>.from(
@@ -418,12 +415,12 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
         todosInWhenever.add(updatedTodo);
       }
 
-      workspaceIDToToDos[workspace.id] = todosInTodayAndWhenever.copyWith(
-        toDosInWhenever: todosInWhenever,
+      return workspace.copyWith(
+        toDos: todosInTodayAndWhenever.copyWith(
+          toDosInWhenever: todosInWhenever,
+        ),
       );
     }
-
-    return workspace.copyWith(workspaceIDToToDos: workspaceIDToToDos);
   }
 
   // ワークスペースからToDoを削除するヘルパーメソッド
@@ -432,10 +429,7 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
     TLToDo todo,
     bool ifInToday,
   ) {
-    final workspaceIDToToDos = Map<String, TLToDosInTodayAndWhenever>.from(
-      workspace.workspaceIDToToDos,
-    );
-    final todosInTodayAndWhenever = workspaceIDToToDos[workspace.id]!;
+    final todosInTodayAndWhenever = workspace.toDos;
 
     if (ifInToday) {
       final todosInToday =
@@ -443,8 +437,8 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
               .where((t) => t.id != todo.id)
               .toList();
 
-      workspaceIDToToDos[workspace.id] = todosInTodayAndWhenever.copyWith(
-        toDosInToday: todosInToday,
+      return workspace.copyWith(
+        toDos: todosInTodayAndWhenever.copyWith(toDosInToday: todosInToday),
       );
     } else {
       final todosInWhenever =
@@ -452,12 +446,12 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
               .where((t) => t.id != todo.id)
               .toList();
 
-      workspaceIDToToDos[workspace.id] = todosInTodayAndWhenever.copyWith(
-        toDosInWhenever: todosInWhenever,
+      return workspace.copyWith(
+        toDos: todosInTodayAndWhenever.copyWith(
+          toDosInWhenever: todosInWhenever,
+        ),
       );
     }
-
-    return workspace.copyWith(workspaceIDToToDos: workspaceIDToToDos);
   }
 
   /// チェック済みのToDoをすべて削除する
@@ -561,32 +555,29 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
 
   // チェック済みのToDoをすべて削除するヘルパーメソッド
   TLWorkspace _deleteAllCheckedTodos(TLWorkspace workspace, bool ifInToday) {
-    final workspaceIDToToDos = Map<String, TLToDosInTodayAndWhenever>.from(
-      workspace.workspaceIDToToDos,
-    );
-    final todosInTodayAndWhenever = workspaceIDToToDos[workspace.id]!;
+    final todosInTodayAndWhenever = workspace.toDos;
 
     if (ifInToday) {
       final todosInToday =
           todosInTodayAndWhenever.toDosInToday
-              .where((t) => !t.isChecked)
+              .where((todo) => !todo.isChecked)
               .toList();
 
-      workspaceIDToToDos[workspace.id] = todosInTodayAndWhenever.copyWith(
-        toDosInToday: todosInToday,
+      return workspace.copyWith(
+        toDos: todosInTodayAndWhenever.copyWith(toDosInToday: todosInToday),
       );
     } else {
       final todosInWhenever =
           todosInTodayAndWhenever.toDosInWhenever
-              .where((t) => !t.isChecked)
+              .where((todo) => !todo.isChecked)
               .toList();
 
-      workspaceIDToToDos[workspace.id] = todosInTodayAndWhenever.copyWith(
-        toDosInWhenever: todosInWhenever,
+      return workspace.copyWith(
+        toDos: todosInTodayAndWhenever.copyWith(
+          toDosInWhenever: todosInWhenever,
+        ),
       );
     }
-
-    return workspace.copyWith(workspaceIDToToDos: workspaceIDToToDos);
   }
 
   // ワークスペースのToDoリストを並べ替えるヘルパーメソッド
@@ -595,21 +586,18 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
     List<TLToDo> reorderedTodos,
     bool ifInToday,
   ) {
-    final workspaceIDToToDos = Map<String, TLToDosInTodayAndWhenever>.from(
-      workspace.workspaceIDToToDos,
-    );
-    final todosInTodayAndWhenever = workspaceIDToToDos[workspace.id]!;
+    final todosInTodayAndWhenever = workspace.toDos;
 
     if (ifInToday) {
-      workspaceIDToToDos[workspace.id] = todosInTodayAndWhenever.copyWith(
-        toDosInToday: reorderedTodos,
+      return workspace.copyWith(
+        toDos: todosInTodayAndWhenever.copyWith(toDosInToday: reorderedTodos),
       );
     } else {
-      workspaceIDToToDos[workspace.id] = todosInTodayAndWhenever.copyWith(
-        toDosInWhenever: reorderedTodos,
+      return workspace.copyWith(
+        toDos: todosInTodayAndWhenever.copyWith(
+          toDosInWhenever: reorderedTodos,
+        ),
       );
     }
-
-    return workspace.copyWith(workspaceIDToToDos: workspaceIDToToDos);
   }
 }

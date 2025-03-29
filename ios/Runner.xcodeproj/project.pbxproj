@@ -22,7 +22,6 @@
 		782AE0EA2D8179E50083483D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7C3192CC688C100DCF511 /* SwiftUI.framework */; };
 		782AE0F72D8179E70083483D /* ToDosInWorkspaceWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 782AE0E82D8179E50083483D /* ToDosInWorkspaceWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		782AE1412D817EFC0083483D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 782AE13C2D817EFC0083483D /* Assets.xcassets */; };
-		782AE1432D817EFC0083483D /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AE13B2D817EFC0083483D /* AppIntent.swift */; };
 		782AE1442D817EFC0083483D /* ToDosInTodayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AE13E2D817EFC0083483D /* ToDosInTodayWidget.swift */; };
 		782AE1452D817EFC0083483D /* ToDosInTodayWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AE13F2D817EFC0083483D /* ToDosInTodayWidgetBundle.swift */; };
 		782AE14D2D817EFE0083483D /* ToDosInWorkspaceWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AE1492D817EFE0083483D /* ToDosInWorkspaceWidget.swift */; };
@@ -51,6 +50,10 @@
 		98D189432D97F98D00808BEF /* TWProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189412D97F98D00808BEF /* TWProvider.swift */; };
 		98D189462D97F99000808BEF /* TWAppEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189442D97F99000808BEF /* TWAppEntity.swift */; };
 		98D189492D97F99200808BEF /* TWWorkspaceSelectionAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189472D97F99200808BEF /* TWWorkspaceSelectionAppIntent.swift */; };
+		98D1894C2D98026B00808BEF /* TTProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D1894B2D98026700808BEF /* TTProvider.swift */; };
+		98D1894F2D98032100808BEF /* TTWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D1894E2D98031F00808BEF /* TTWidgetEntry.swift */; };
+		98D189522D98035E00808BEF /* ToDosInTodayWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189512D98035D00808BEF /* ToDosInTodayWidgetEntryView.swift */; };
+		98D189542D9803AD00808BEF /* TTToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189532D9803A200808BEF /* TTToDoListView.swift */; };
 		B841F233343F06C411E5514E /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE996C3E161551E9D65D7E0 /* Pods_RunnerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -133,7 +136,6 @@
 		782AE0E82D8179E50083483D /* ToDosInWorkspaceWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ToDosInWorkspaceWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		782AE1112D817A120083483D /* ToDosInTodayWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToDosInTodayWidgetExtension.entitlements; sourceTree = "<group>"; };
 		782AE1122D817A2C0083483D /* ToDosInWorkspaceWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToDosInWorkspaceWidgetExtension.entitlements; sourceTree = "<group>"; };
-		782AE13B2D817EFC0083483D /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		782AE13C2D817EFC0083483D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		782AE13D2D817EFC0083483D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782AE13E2D817EFC0083483D /* ToDosInTodayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInTodayWidget.swift; sourceTree = "<group>"; };
@@ -161,6 +163,10 @@
 		98D189412D97F98D00808BEF /* TWProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWProvider.swift; sourceTree = "<group>"; };
 		98D189442D97F99000808BEF /* TWAppEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWAppEntity.swift; sourceTree = "<group>"; };
 		98D189472D97F99200808BEF /* TWWorkspaceSelectionAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWWorkspaceSelectionAppIntent.swift; sourceTree = "<group>"; };
+		98D1894B2D98026700808BEF /* TTProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTProvider.swift; sourceTree = "<group>"; };
+		98D1894E2D98031F00808BEF /* TTWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTWidgetEntry.swift; sourceTree = "<group>"; };
+		98D189512D98035D00808BEF /* ToDosInTodayWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInTodayWidgetEntryView.swift; sourceTree = "<group>"; };
+		98D189532D9803A200808BEF /* TTToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTToDoListView.swift; sourceTree = "<group>"; };
 		9BE996C3E161551E9D65D7E0 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2FB06035E5E66167257C984 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AB5029FEAE64614BF8D65958 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
@@ -266,7 +272,9 @@
 		782AE1402D817EFC0083483D /* ToDosInTodayWidget */ = {
 			isa = PBXGroup;
 			children = (
-				782AE13B2D817EFC0083483D /* AppIntent.swift */,
+				98D189502D98035800808BEF /* View */,
+				98D1894D2D98031900808BEF /* Model */,
+				98D1894A2D98025900808BEF /* Provider */,
 				782AE13C2D817EFC0083483D /* Assets.xcassets */,
 				782AE13D2D817EFC0083483D /* Info.plist */,
 				782AE13E2D817EFC0083483D /* ToDosInTodayWidget.swift */,
@@ -395,6 +403,31 @@
 				98D189472D97F99200808BEF /* TWWorkspaceSelectionAppIntent.swift */,
 			);
 			path = Intent;
+			sourceTree = "<group>";
+		};
+		98D1894A2D98025900808BEF /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				98D1894B2D98026700808BEF /* TTProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		98D1894D2D98031900808BEF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				98D1894E2D98031F00808BEF /* TTWidgetEntry.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		98D189502D98035800808BEF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				98D189532D9803A200808BEF /* TTToDoListView.swift */,
+				98D189512D98035D00808BEF /* ToDosInTodayWidgetEntryView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		DB379AA51043BDEB607A34D2 /* Frameworks */ = {
@@ -705,13 +738,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				782AE1432D817EFC0083483D /* AppIntent.swift in Sources */,
 				98D188F62D97F5A600808BEF /* TLThemeConfig.swift in Sources */,
+				98D1894F2D98032100808BEF /* TTWidgetEntry.swift in Sources */,
 				98D188F22D97F59A00808BEF /* TLUserDefaultsManager.swift in Sources */,
 				782AE1442D817EFC0083483D /* ToDosInTodayWidget.swift in Sources */,
+				98D189542D9803AD00808BEF /* TTToDoListView.swift in Sources */,
+				98D189522D98035E00808BEF /* ToDosInTodayWidgetEntryView.swift in Sources */,
 				782AE1452D817EFC0083483D /* ToDosInTodayWidgetBundle.swift in Sources */,
 				98D188F02D97F59400808BEF /* Model.swift in Sources */,
 				98D188F82D97F5B300808BEF /* TLUUIDGenerator.swift in Sources */,
+				98D1894C2D98026B00808BEF /* TTProvider.swift in Sources */,
 				98D188F42D97F5A100808BEF /* TCWExampleState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

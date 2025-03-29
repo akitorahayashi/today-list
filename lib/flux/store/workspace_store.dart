@@ -148,20 +148,10 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
     try {
       final currentWorkspaces = await future;
 
-      // `workspaceIDToToDos` をコピーする
-      final copiedWorkspaceIDToToDos =
-          Map<String, TLToDosInTodayAndWhenever>.from(
-            workspace.workspaceIDToToDos,
-          );
-
-      // ワークスペースIDに対応するTLToDosInTodayAndWheneverの中のチェック済みToDoを削除
-      for (String workspaceID in copiedWorkspaceIDToToDos.keys) {
-        final corrToDosInTodayAndWhenever =
-            copiedWorkspaceIDToToDos[workspaceID];
-        if (corrToDosInTodayAndWhenever == null) continue;
-        copiedWorkspaceIDToToDos[workspaceID] = corrToDosInTodayAndWhenever
-            .deleteAllCheckedToDosInAToDosList(isInToday: null);
-      }
+      // toDosをコピーして処理
+      final updatedToDos = workspace.toDos.deleteAllCheckedToDosInAToDosList(
+        isInToday: null,
+      );
 
       // workspacesを更新
       final corrWorkspaceIdx = currentWorkspaces.indexWhere(
@@ -175,7 +165,7 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
 
       final updatedWorkspaces = List<TLWorkspace>.from(currentWorkspaces);
       updatedWorkspaces[corrWorkspaceIdx] = workspace.copyWith(
-        workspaceIDToToDos: copiedWorkspaceIDToToDos,
+        toDos: updatedToDos,
       );
 
       await _saveWorkspaces(updatedWorkspaces);
@@ -264,17 +254,9 @@ class WorkspacesNotifier extends AsyncNotifier<List<TLWorkspace>> {
       List<TLWorkspace> updatedWorkspaceList = [];
       for (TLWorkspace workspace in workspaces) {
         final updatedWorkspace = workspace.copyWith(
-          workspaceIDToToDos: workspace.workspaceIDToToDos.map((
-            workspaceID,
-            tlToDosInTodayAndWhenever,
-          ) {
-            return MapEntry(
-              workspaceID,
-              tlToDosInTodayAndWhenever.deleteAllCheckedToDosInAToDosList(
-                isInToday: true,
-              ),
-            );
-          }),
+          toDos: workspace.toDos.deleteAllCheckedToDosInAToDosList(
+            isInToday: true,
+          ),
         );
         updatedWorkspaceList = [...updatedWorkspaceList, updatedWorkspace];
       }

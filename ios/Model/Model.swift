@@ -109,11 +109,8 @@ struct TLToDosInTodayAndWhenever: Codable {
         // 指定インデックスのワークスペースを取得
         let selectedWorkspace = tlWorkspaces[indexInWorkspaces]
         
-        // 指定ワークスペースIDのToDosを取得
-        guard let toDos = selectedWorkspace.workspaceIDToToDos[workspaceID] else {
-            print("指定されたワークスペースIDのToDosが見つかりません")
-            return nil
-        }
+        // 指定ワークスペースのToDosを取得
+        let toDos = selectedWorkspace.toDos
         
         return toDos
     }
@@ -122,16 +119,16 @@ struct TLToDosInTodayAndWhenever: Codable {
 struct TLWorkspace: Codable, Identifiable {
     var id: String
     var name: String
-    var workspaceIDToToDos: [String: TLToDosInTodayAndWhenever]
+    var toDos: TLToDosInTodayAndWhenever
     
     init(
         id: String?,
         name: String,
-        workspaceIDToToDos: [String: TLToDosInTodayAndWhenever]
+        toDos: TLToDosInTodayAndWhenever
     ) {
         self.id = id ?? TLUUIDGenerator.generate()
         self.name = name
-        self.workspaceIDToToDos = workspaceIDToToDos
+        self.toDos = toDos
     }
     
     // JSONからワークスペースをデコードする関数

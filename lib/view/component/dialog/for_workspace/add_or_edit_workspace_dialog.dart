@@ -168,13 +168,11 @@ class _AddOrEditWorkspaceDialogState
             TLWorkspace(
               id: newWorkspaceID,
               name: workspaceName,
-              workspaceIDToToDos: {
-                newWorkspaceID: TLToDosInTodayAndWhenever(
-                  workspaceID: newWorkspaceID,
-                  toDosInToday: [],
-                  toDosInWhenever: [],
-                ),
-              },
+              toDos: TLToDosInTodayAndWhenever(
+                workspaceID: newWorkspaceID,
+                toDosInToday: [],
+                toDosInWhenever: [],
+              ),
             ),
           );
         } else {

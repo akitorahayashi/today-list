@@ -13,7 +13,7 @@ class TLWorkspace with _$TLWorkspace {
   factory TLWorkspace({
     required String id,
     required String name,
-    required Map<String, TLToDosInTodayAndWhenever> workspaceIDToToDos,
+    required TLToDosInTodayAndWhenever toDos,
   }) = _TLWorkspace;
 
   factory TLWorkspace.fromJson(Map<String, dynamic> json) =>
@@ -22,8 +22,7 @@ class TLWorkspace with _$TLWorkspace {
   int getNumOfToDoInWorkspace({required bool ifInToday}) {
     int todoCount = 0;
 
-    final corrToDosOfWorkspaceID = workspaceIDToToDos[id]!;
-    todoCount += corrToDosOfWorkspaceID.getToDos(ifInToday).length;
+    todoCount += toDos.getToDos(ifInToday).length;
 
     return todoCount;
   }

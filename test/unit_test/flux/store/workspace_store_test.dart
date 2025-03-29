@@ -43,13 +43,11 @@ void main() {
       final newWorkspace = TLWorkspace(
         id: newWorkspaceId,
         name: 'Test Workspace',
-        workspaceIDToToDos: {
-          newWorkspaceId: TLToDosInTodayAndWhenever(
-            workspaceID: newWorkspaceId,
-            toDosInToday: [],
-            toDosInWhenever: [],
-          ),
-        },
+        toDos: TLToDosInTodayAndWhenever(
+          workspaceID: newWorkspaceId,
+          toDosInToday: [],
+          toDosInWhenever: [],
+        ),
       );
 
       // ワークスペースを追加

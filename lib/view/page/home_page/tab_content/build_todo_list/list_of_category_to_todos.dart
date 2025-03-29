@@ -21,10 +21,9 @@ class ListOfCategoryToToDos extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final TLToDosInTodayAndWhenever? corrToDos =
-        corrWorkspace.workspaceIDToToDos[corrWorkspace.id];
+    final TLToDosInTodayAndWhenever corrToDos = corrWorkspace.toDos;
     // カテゴリーへ分類されていない ToDo がある場合のみ表示
-    if (corrToDos!.getToDos(ifInToday).isEmpty) {
+    if (corrToDos.getToDos(ifInToday).isEmpty) {
       return const SizedBox.shrink();
     }
 
@@ -32,9 +31,7 @@ class ListOfCategoryToToDos extends ConsumerWidget {
       children: [
         ReorderableColumn(
           children: [
-            for (TLToDo corrToDo in corrWorkspace
-                .workspaceIDToToDos[corrWorkspace.id]!
-                .getToDos(ifInToday))
+            for (TLToDo corrToDo in corrWorkspace.toDos.getToDos(ifInToday))
               TLToDoCard(
                 key: ValueKey(corrToDo.id),
                 corrWorkspace: corrWorkspace,

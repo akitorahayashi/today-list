@@ -19,40 +19,38 @@ final List<TLWorkspace> initialTLWorkspaces = [
   TLWorkspace(
     id: _TLWorkspaceID.general.rawValue,
     name: _TLWorkspaceID.general.name,
-    workspaceIDToToDos: {
-      _TLWorkspaceID.general.rawValue: TLToDosInTodayAndWhenever(
-        workspaceID: _TLWorkspaceID.general.rawValue,
-        toDosInToday: [
-          TLToDo(
-            id: TLUUIDGenerator.generate(),
-            workspaceID: _TLWorkspaceID.general.rawValue,
-            isInToday: true,
-            content: "Aさんとのスケジュールを調整",
-          ),
-          TLToDo(
-            id: TLUUIDGenerator.generate(),
-            workspaceID: _TLWorkspaceID.general.rawValue,
-            isInToday: true,
-            content: "書類の作成",
-            steps: [
-              TLStep(id: TLUUIDGenerator.generate(), content: "資料を用意する"),
-              TLStep(id: TLUUIDGenerator.generate(), content: "送り先に送信する"),
-            ],
-          ),
-          TLToDo(
-            id: TLUUIDGenerator.generate(),
-            workspaceID: _TLWorkspaceID.general.rawValue,
-            isInToday: false,
-            content: "来月の旅行計画",
-            steps: [
-              TLStep(id: TLUUIDGenerator.generate(), content: "宿を予約する"),
-              TLStep(id: TLUUIDGenerator.generate(), content: "交通手段を調べる"),
-            ],
-          ),
-        ],
-        toDosInWhenever: [],
-      ),
-    },
+    toDos: TLToDosInTodayAndWhenever(
+      workspaceID: _TLWorkspaceID.general.rawValue,
+      toDosInToday: [
+        TLToDo(
+          id: TLUUIDGenerator.generate(),
+          workspaceID: _TLWorkspaceID.general.rawValue,
+          isInToday: true,
+          content: "Aさんとのスケジュールを調整",
+        ),
+        TLToDo(
+          id: TLUUIDGenerator.generate(),
+          workspaceID: _TLWorkspaceID.general.rawValue,
+          isInToday: true,
+          content: "書類の作成",
+          steps: [
+            TLStep(id: TLUUIDGenerator.generate(), content: "資料を用意する"),
+            TLStep(id: TLUUIDGenerator.generate(), content: "送り先に送信する"),
+          ],
+        ),
+        TLToDo(
+          id: TLUUIDGenerator.generate(),
+          workspaceID: _TLWorkspaceID.general.rawValue,
+          isInToday: false,
+          content: "来月の旅行計画",
+          steps: [
+            TLStep(id: TLUUIDGenerator.generate(), content: "宿を予約する"),
+            TLStep(id: TLUUIDGenerator.generate(), content: "交通手段を調べる"),
+          ],
+        ),
+      ],
+      toDosInWhenever: [],
+    ),
   ),
 ];
 
@@ -80,12 +78,10 @@ TLWorkspace createDefaultWorkspace({
   return TLWorkspace(
     id: workspaceID.rawValue,
     name: workspaceID.name,
-    workspaceIDToToDos: {
-      workspaceID.rawValue: TLToDosInTodayAndWhenever(
-        workspaceID: workspaceID.rawValue,
-        toDosInToday: [],
-        toDosInWhenever: [],
-      ),
-    },
+    toDos: TLToDosInTodayAndWhenever(
+      workspaceID: workspaceID.rawValue,
+      toDosInToday: [],
+      toDosInWhenever: [],
+    ),
   );
 }
