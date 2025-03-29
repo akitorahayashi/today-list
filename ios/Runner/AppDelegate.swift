@@ -25,16 +25,19 @@ import WidgetKit
             }
             
             let twKind: String = "ToDosInWorkspaceWidget"
+            let ttKind: String = "ToDosInTodayWidget"
             
             switch call.method {
             case "updateTLWorkspaces":
                 self.updateTLWorkspaces(arguments)
                 self.reloadWidget(twKind)
+                self.reloadWidget(ttKind)
                 result("workspaces saved successfully")
                 
             case "updateSelectedTheme":
                 self.updateSelectedTheme(arguments)
                 self.reloadWidget(twKind)
+                self.reloadWidget(ttKind)
                 result("selectedTheme saved successfully")
                 
             default:

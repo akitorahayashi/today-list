@@ -9,7 +9,7 @@ import WidgetKit
 import SwiftUI
 
 struct ToDosInTodayWidget: Widget {
-    static let kind: String = "ToDosInWorkspaceWidget"
+    static let kind: String = "ToDosInTodayWidget"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: ToDosInTodayWidget.kind, provider: TTProvider()) { entry in
@@ -34,7 +34,7 @@ struct ToDosInTodayWidget: Widget {
                         }
                     }
                 }
-                .widgetURL(URL(string: "todaylist://today"))
+                .widgetURL(URL(string: "todaylist:/"))
         }
         .configurationDisplayName("Today's ToDos Widget")
         .description("Show your today's ToDo list in a beautiful widget.")
