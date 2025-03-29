@@ -15,7 +15,10 @@ struct TWWorkspaceSelectionAppIntent: WidgetConfigurationIntent {
     @Parameter(title: "Select Workspace", default: nil)
     var selectedWorkspace: TWAppEntity?
     
+    @Parameter(title: "Enable Deep Link", default: true)
+    var enableDeepLink: Bool
+    
     static var parameterSummary: some ParameterSummary {
-        Summary("Select Workspace: \(\.$selectedWorkspace)")
+        Summary("Select Workspace: \(\.$selectedWorkspace), Enable Deep Link: \(\.$enableDeepLink)")
     }
 }

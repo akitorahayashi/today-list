@@ -12,4 +12,5 @@ struct TWWidgetEntry: TimelineEntry {
     let entity: TWAppEntity?
     let selectedThemeType: TLThemeType
     let tlWorkspaces: [TLWorkspace]
+    let enableDeepLink: Bool
 }

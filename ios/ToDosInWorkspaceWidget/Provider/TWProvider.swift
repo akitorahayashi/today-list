@@ -15,7 +15,8 @@ struct TWProvider: AppIntentTimelineProvider {
             date: Date(),
             entity: nil,
             selectedThemeType: TLThemeType.sunOrange,
-            tlWorkspaces: TCWExampleState.kTLWorkspacesExample
+            tlWorkspaces: TCWExampleState.kTLWorkspacesExample,
+            enableDeepLink: true
         )
     }
     
@@ -26,7 +27,8 @@ struct TWProvider: AppIntentTimelineProvider {
             date: Date(),
             entity: nil,
             selectedThemeType: corrThemeType,
-            tlWorkspaces: TCWExampleState.kTLWorkspacesExample
+            tlWorkspaces: TCWExampleState.kTLWorkspacesExample,
+            enableDeepLink: configuration.enableDeepLink
         )
     }
     
@@ -49,7 +51,8 @@ struct TWProvider: AppIntentTimelineProvider {
             // selectedWorkspace は オプショナル
             entity: configuration.selectedWorkspace,
             selectedThemeType: corrThemeType,
-            tlWorkspaces: tlWorkspaces
+            tlWorkspaces: tlWorkspaces,
+            enableDeepLink: configuration.enableDeepLink
         )
         
         
