@@ -1,21 +1,21 @@
 //
-//  UCTEntryView.swift
+//  TWEntryView.swift
 //  Runner
 //
-//  Created by 林明虎 on 2025/02/28.
+//  Created by akitora.hayashi on 2025/03/29.
 //
 
 import WidgetKit
 import SwiftUI
 
-struct UCTEntryView : View {
-    var entry: UCTProvider.Entry
+struct TWEntryView : View {
+    var entry: TWProvider.Entry
     
     @Environment(\.widgetFamily) var widgetFamily
     
     var body: some View {
         GeometryReader { geometry in
-            UCTToDoListView(entry: entry)
+            TWToDoListView(entry: entry)
                 .frame(width: geometry.size.width,
                        height: geometry.size.height,
                        alignment: .top)

@@ -1,24 +1,48 @@
 //
-//  UCTAppEntity.swift
+//  TWAppEntity.swift
 //  Runner
 //
-//  Created by 林明虎 on 2025/02/28.
+//  Created by akitora.hayashi on 2025/03/29.
 //
 
 import WidgetKit
 import AppIntents
 
+
+struct TWAppEntity: AppEntity {
+    // snapshotなどで使う
+    static let defaultEntity = TWAppEntity(
+        id: TLUUIDGenerator.generate(),
+        name: "Work",
+        workspaceID:  TCWExampleState.WorkspaceID.general.rawValue
+    )
+    
+    static var defaultQuery = TWQuery()
+    
+    var id: String
+    var name: String
+    var workspaceID: String
+    
+    static var typeDisplayRepresentation: TypeDisplayRepresentation {
+        "Selected Workspace"
+    }
+    
+    var displayRepresentation: DisplayRepresentation {
+        DisplayRepresentation(title: LocalizedStringResource(stringLiteral: name))
+    }
+}
+
 // UserDefaults からWorkspacesを取得するクエリ
-struct UCTQuery: EntityQuery {
-    func entities(for identifiers: [String]) -> [UCTAppEntity] {
+struct TWQuery: EntityQuery {
+    func entities(for identifiers: [String]) -> [TWAppEntity] {
         loadSettingsList().filter { identifiers.contains($0.id) }
     }
     
-    func suggestedEntities() -> [UCTAppEntity] {
+    func suggestedEntities() -> [TWAppEntity] {
         loadSettingsList()
     }
     
-    private func loadSettingsList() -> [UCTAppEntity] {
+    private func loadSettingsList() -> [TWAppEntity] {
         let userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
         
         guard let jsonString = userDefaults?.string(forKey: "tlWorkspaces") else {
@@ -37,7 +61,7 @@ struct UCTQuery: EntityQuery {
             let decodedSettings = try JSONDecoder().decode([TLWorkspace].self, from: data)
             
             let entities = decodedSettings.map {
-                UCTAppEntity(
+                TWAppEntity(
                     id: $0.id,
                     name: $0.name,
                     workspaceID: $0.id
@@ -48,28 +72,5 @@ struct UCTQuery: EntityQuery {
             print("decodeCustomListError: JSON decoding failed -> \(error.localizedDescription)")
             return []
         }
-    }
-}
-
-struct UCTAppEntity: AppEntity {
-    // snapshotなどで使う
-    static let defaultEntity = UCTAppEntity(
-        id: TLUUIDGenerator.generate(),
-        name: "Work",
-        workspaceID:  TCWExampleState.WorkspaceID.work.rawValue
-    )
-    
-    static var defaultQuery = UCTQuery()
-    
-    var id: String
-    var name: String
-    var workspaceID: String
-    
-    static var typeDisplayRepresentation: TypeDisplayRepresentation {
-        "Selected Workspace"
-    }
-    
-    var displayRepresentation: DisplayRepresentation {
-        DisplayRepresentation(title: LocalizedStringResource(stringLiteral: name))
     }
 }

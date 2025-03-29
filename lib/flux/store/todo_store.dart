@@ -172,11 +172,41 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
           steps: updatedSteps,
         );
 
-        final updatedWorkspace = _updateWorkspaceTodos(
+        // 該当のToDoリストを取得
+        final todosInTodayAndWhenever =
+            workspacesAsync[index].workspaceIDToToDos[workspace.id]!;
+        final todosList =
+            ifInToday
+                ? List<TLToDo>.from(todosInTodayAndWhenever.toDosInToday)
+                : List<TLToDo>.from(todosInTodayAndWhenever.toDosInWhenever);
+
+        // 元の位置からToDoを削除
+        final todoIndex = todosList.indexWhere((t) => t.id == todo.id);
+        if (todoIndex >= 0) {
+          todosList.removeAt(todoIndex);
+        }
+
+        // チェック状態に応じて適切な位置に挿入
+        if (newCheckedState) {
+          // チェックされた場合、リストの最後に追加
+          todosList.add(updatedTodo);
+        } else {
+          // チェックが外れた場合、最初のチェック済みToDoの直前に挿入
+          final firstCheckedIndex = todosList.indexWhere((t) => t.isChecked);
+          if (firstCheckedIndex >= 0) {
+            // チェック済みのToDoが存在する場合、その直前に挿入
+            todosList.insert(firstCheckedIndex, updatedTodo);
+          } else {
+            // チェック済みのToDoが存在しない場合、リストの最後に追加
+            todosList.add(updatedTodo);
+          }
+        }
+
+        // 更新されたToDoリストでワークスペースを更新
+        final updatedWorkspace = _reorderWorkspaceTodos(
           workspacesAsync[index],
-          updatedTodo,
-          null,
-          true,
+          todosList,
+          ifInToday,
         );
 
         final updatedWorkspaces = List<TLWorkspace>.from(workspacesAsync);

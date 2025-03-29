@@ -1,17 +1,17 @@
 //
-//  UCTProvider.swift
+//  TWProvider.swift
 //  Runner
 //
-//  Created by 林明虎 on 2025/02/28.
+//  Created by akitora.hayashi on 2025/03/29.
 //
 
 import SwiftUI
 import WidgetKit
 import AppIntents
 
-struct UCTProvider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> UCTWidgetEntry {
-        return UCTWidgetEntry(
+struct TWProvider: AppIntentTimelineProvider {
+    func placeholder(in context: Context) -> TWWidgetEntry {
+        return TWWidgetEntry(
             date: Date(),
             entity: nil,
             selectedThemeType: TLThemeType.sunOrange,
@@ -19,10 +19,10 @@ struct UCTProvider: AppIntentTimelineProvider {
         )
     }
     
-    func snapshot(for configuration: WorkspaceSelectionAppIntent, in context: Context) async -> UCTWidgetEntry {
+    func snapshot(for configuration: TWWorkspaceSelectionAppIntent, in context: Context) async -> TWWidgetEntry {
         let themeName = TLThemeType.sunOrange.rawValue
         let corrThemeType = TLThemeType.from(themeName)
-        return UCTWidgetEntry(
+        return TWWidgetEntry(
             date: Date(),
             entity: nil,
             selectedThemeType: corrThemeType,
@@ -30,7 +30,7 @@ struct UCTProvider: AppIntentTimelineProvider {
         )
     }
     
-    func timeline(for configuration: WorkspaceSelectionAppIntent, in context: Context) async -> Timeline<UCTWidgetEntry> {
+    func timeline(for configuration: TWWorkspaceSelectionAppIntent, in context: Context) async -> Timeline<TWWidgetEntry> {
         
         // 保存してあるデータの読み取り
         let userDefaults = TLUserDefaultsManager.shared.userDefaults
@@ -44,7 +44,7 @@ struct UCTProvider: AppIntentTimelineProvider {
         let tlWorkspaces: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? TCWExampleState.kTLWorkspacesExample
         
         
-        let loadedEntry = UCTWidgetEntry(
+        let loadedEntry = TWWidgetEntry(
             date: Date(),
             // selectedWorkspace は オプショナル
             entity: configuration.selectedWorkspace,

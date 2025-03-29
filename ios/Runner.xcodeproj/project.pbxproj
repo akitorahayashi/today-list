@@ -25,34 +25,32 @@
 		782AE1432D817EFC0083483D /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AE13B2D817EFC0083483D /* AppIntent.swift */; };
 		782AE1442D817EFC0083483D /* ToDosInTodayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AE13E2D817EFC0083483D /* ToDosInTodayWidget.swift */; };
 		782AE1452D817EFC0083483D /* ToDosInTodayWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AE13F2D817EFC0083483D /* ToDosInTodayWidgetBundle.swift */; };
-		782AE14C2D817EFE0083483D /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AE1462D817EFE0083483D /* AppIntent.swift */; };
 		782AE14D2D817EFE0083483D /* ToDosInWorkspaceWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AE1492D817EFE0083483D /* ToDosInWorkspaceWidget.swift */; };
 		782AE14E2D817EFE0083483D /* ToDosInWorkspaceWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AE14A2D817EFE0083483D /* ToDosInWorkspaceWidgetBundle.swift */; };
 		782AE14F2D817EFE0083483D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 782AE1472D817EFE0083483D /* Assets.xcassets */; };
 		78319ED02D6C516E004884A7 /* TLUUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78319ECE2D6C5169004884A7 /* TLUUIDGenerator.swift */; };
-		78A873C42D71B1AB00ABDC87 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7C3172CC688BC00DCF511 /* WidgetKit.framework */; };
-		78A873C52D71B1AB00ABDC87 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA7C3192CC688C100DCF511 /* SwiftUI.framework */; };
-		78A873D22D71B1AD00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 78A873C32D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		78A873DF2D71B1D200ABDC87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78A873DA2D71B1D200ABDC87 /* Assets.xcassets */; };
-		78A873E22D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A873DC2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget.swift */; };
-		78A873E32D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A873DD2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidgetBundle.swift */; };
-		78A873E62D71B20900ABDC87 /* UCTProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A873E52D71B20400ABDC87 /* UCTProvider.swift */; };
-		78A873E92D71B25300ABDC87 /* UCTWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A873E82D71B23F00ABDC87 /* UCTWidgetEntry.swift */; };
-		78A873EA2D71B26A00ABDC87 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526BD2D584B440039CDE3 /* Model.swift */; };
-		78A873EB2D71B27A00ABDC87 /* TLThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */; };
-		78A873EC2D71B28100ABDC87 /* TCWExampleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C0520A2D7011CC00071563 /* TCWExampleState.swift */; };
-		78A873ED2D71B28800ABDC87 /* TLUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B41EE682D5DAF2800207D88 /* TLUserDefaultsManager.swift */; };
-		78A873F02D71B2E200ABDC87 /* TLUUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78319ECE2D6C5169004884A7 /* TLUUIDGenerator.swift */; };
-		78A874422D71B6F100ABDC87 /* WorkspaceSelectionAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874412D71B6F000ABDC87 /* WorkspaceSelectionAppIntent.swift */; };
-		78A874442D71B9B200ABDC87 /* UCTAppEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874432D71B9B100ABDC87 /* UCTAppEntity.swift */; };
-		78A8744F2D71BD1600ABDC87 /* UCTEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8744E2D71BD1500ABDC87 /* UCTEntryView.swift */; };
-		78A874512D71BD9300ABDC87 /* UCTToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874502D71BD9200ABDC87 /* UCTToDoListView.swift */; };
-		78A8745A2D74647B00ABDC87 /* TLToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A874582D74640600ABDC87 /* TLToDoListView.swift */; };
-		78A8745D2D74649800ABDC87 /* TLToDoRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A8745B2D74649300ABDC87 /* TLToDoRow.swift */; };
 		78C0520B2D7011DE00071563 /* TCWExampleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C0520A2D7011CC00071563 /* TCWExampleState.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		98D188F02D97F59400808BEF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526BD2D584B440039CDE3 /* Model.swift */; };
+		98D188F12D97F59400808BEF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF526BD2D584B440039CDE3 /* Model.swift */; };
+		98D188F22D97F59A00808BEF /* TLUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B41EE682D5DAF2800207D88 /* TLUserDefaultsManager.swift */; };
+		98D188F32D97F59A00808BEF /* TLUserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B41EE682D5DAF2800207D88 /* TLUserDefaultsManager.swift */; };
+		98D188F42D97F5A100808BEF /* TCWExampleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C0520A2D7011CC00071563 /* TCWExampleState.swift */; };
+		98D188F52D97F5A100808BEF /* TCWExampleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C0520A2D7011CC00071563 /* TCWExampleState.swift */; };
+		98D188F62D97F5A600808BEF /* TLThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */; };
+		98D188F72D97F5A700808BEF /* TLThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA7C3012CC686F200DCF511 /* TLThemeConfig.swift */; };
+		98D188F82D97F5B300808BEF /* TLUUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78319ECE2D6C5169004884A7 /* TLUUIDGenerator.swift */; };
+		98D188F92D97F5B300808BEF /* TLUUIDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78319ECE2D6C5169004884A7 /* TLUUIDGenerator.swift */; };
+		98D1893A2D97F98700808BEF /* TLToDoListForWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189342D97F98700808BEF /* TLToDoListForWidget.swift */; };
+		98D1893B2D97F98700808BEF /* TLToDoRowForWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189352D97F98700808BEF /* TLToDoRowForWidget.swift */; };
+		98D1893C2D97F98700808BEF /* TWEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189372D97F98700808BEF /* TWEntryView.swift */; };
+		98D1893D2D97F98700808BEF /* TWToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189382D97F98700808BEF /* TWToDoListView.swift */; };
+		98D189402D97F98A00808BEF /* TWWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D1893E2D97F98A00808BEF /* TWWidgetEntry.swift */; };
+		98D189432D97F98D00808BEF /* TWProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189412D97F98D00808BEF /* TWProvider.swift */; };
+		98D189462D97F99000808BEF /* TWAppEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189442D97F99000808BEF /* TWAppEntity.swift */; };
+		98D189492D97F99200808BEF /* TWWorkspaceSelectionAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D189472D97F99200808BEF /* TWWorkspaceSelectionAppIntent.swift */; };
 		B841F233343F06C411E5514E /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BE996C3E161551E9D65D7E0 /* Pods_RunnerTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,13 +76,6 @@
 			remoteGlobalIDString = 782AE0E72D8179E50083483D;
 			remoteInfo = ToDosInWorkspaceWidgetExtension;
 		};
-		78A873D02D71B1AD00ABDC87 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 78A873C22D71B1AB00ABDC87;
-			remoteInfo = UnCategorizedToDosInWorkspaceWidgetExtension;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -104,7 +95,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				78A873D22D71B1AD00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex in Embed Foundation Extensions */,
 				782AE0F72D8179E70083483D /* ToDosInWorkspaceWidgetExtension.appex in Embed Foundation Extensions */,
 				782AE0DE2D8179D20083483D /* ToDosInTodayWidgetExtension.appex in Embed Foundation Extensions */,
 			);
@@ -148,26 +138,11 @@
 		782AE13D2D817EFC0083483D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782AE13E2D817EFC0083483D /* ToDosInTodayWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInTodayWidget.swift; sourceTree = "<group>"; };
 		782AE13F2D817EFC0083483D /* ToDosInTodayWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInTodayWidgetBundle.swift; sourceTree = "<group>"; };
-		782AE1462D817EFE0083483D /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
 		782AE1472D817EFE0083483D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		782AE1482D817EFE0083483D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782AE1492D817EFE0083483D /* ToDosInWorkspaceWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInWorkspaceWidget.swift; sourceTree = "<group>"; };
 		782AE14A2D817EFE0083483D /* ToDosInWorkspaceWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDosInWorkspaceWidgetBundle.swift; sourceTree = "<group>"; };
 		78319ECE2D6C5169004884A7 /* TLUUIDGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLUUIDGenerator.swift; sourceTree = "<group>"; };
-		78A873C32D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = UnCategorizedToDosInWorkspaceWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		78A873DA2D71B1D200ABDC87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		78A873DB2D71B1D200ABDC87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		78A873DC2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnCategorizedToDosInWorkspaceWidget.swift; sourceTree = "<group>"; };
-		78A873DD2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnCategorizedToDosInWorkspaceWidgetBundle.swift; sourceTree = "<group>"; };
-		78A873E52D71B20400ABDC87 /* UCTProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTProvider.swift; sourceTree = "<group>"; };
-		78A873E82D71B23F00ABDC87 /* UCTWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTWidgetEntry.swift; sourceTree = "<group>"; };
-		78A874412D71B6F000ABDC87 /* WorkspaceSelectionAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceSelectionAppIntent.swift; sourceTree = "<group>"; };
-		78A874432D71B9B100ABDC87 /* UCTAppEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTAppEntity.swift; sourceTree = "<group>"; };
-		78A8744E2D71BD1500ABDC87 /* UCTEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTEntryView.swift; sourceTree = "<group>"; };
-		78A874502D71BD9200ABDC87 /* UCTToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCTToDoListView.swift; sourceTree = "<group>"; };
-		78A874542D71C50F00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UnCategorizedToDosInWorkspaceWidgetExtension.entitlements; sourceTree = "<group>"; };
-		78A874582D74640600ABDC87 /* TLToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLToDoListView.swift; sourceTree = "<group>"; };
-		78A8745B2D74649300ABDC87 /* TLToDoRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLToDoRow.swift; sourceTree = "<group>"; };
 		78C0520A2D7011CC00071563 /* TCWExampleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TCWExampleState.swift; sourceTree = "<group>"; };
 		78D6CA5A33B6DA05E6F1B099 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
@@ -178,6 +153,14 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98D189342D97F98700808BEF /* TLToDoListForWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLToDoListForWidget.swift; sourceTree = "<group>"; };
+		98D189352D97F98700808BEF /* TLToDoRowForWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLToDoRowForWidget.swift; sourceTree = "<group>"; };
+		98D189372D97F98700808BEF /* TWEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWEntryView.swift; sourceTree = "<group>"; };
+		98D189382D97F98700808BEF /* TWToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWToDoListView.swift; sourceTree = "<group>"; };
+		98D1893E2D97F98A00808BEF /* TWWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWWidgetEntry.swift; sourceTree = "<group>"; };
+		98D189412D97F98D00808BEF /* TWProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWProvider.swift; sourceTree = "<group>"; };
+		98D189442D97F99000808BEF /* TWAppEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWAppEntity.swift; sourceTree = "<group>"; };
+		98D189472D97F99200808BEF /* TWWorkspaceSelectionAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TWWorkspaceSelectionAppIntent.swift; sourceTree = "<group>"; };
 		9BE996C3E161551E9D65D7E0 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2FB06035E5E66167257C984 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AB5029FEAE64614BF8D65958 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
@@ -201,15 +184,6 @@
 			files = (
 				782AE0EA2D8179E50083483D /* SwiftUI.framework in Frameworks */,
 				782AE0E92D8179E50083483D /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		78A873C02D71B1AB00ABDC87 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				78A873C52D71B1AB00ABDC87 /* SwiftUI.framework in Frameworks */,
-				78A873C42D71B1AB00ABDC87 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,80 +278,17 @@
 		782AE14B2D817EFE0083483D /* ToDosInWorkspaceWidget */ = {
 			isa = PBXGroup;
 			children = (
-				782AE1462D817EFE0083483D /* AppIntent.swift */,
+				98D189392D97F98700808BEF /* View */,
+				98D1893F2D97F98A00808BEF /* Model */,
+				98D189422D97F98D00808BEF /* Provider */,
+				98D189452D97F99000808BEF /* AppEntity */,
+				98D189482D97F99200808BEF /* Intent */,
 				782AE1472D817EFE0083483D /* Assets.xcassets */,
 				782AE1482D817EFE0083483D /* Info.plist */,
 				782AE1492D817EFE0083483D /* ToDosInWorkspaceWidget.swift */,
 				782AE14A2D817EFE0083483D /* ToDosInWorkspaceWidgetBundle.swift */,
 			);
 			path = ToDosInWorkspaceWidget;
-			sourceTree = "<group>";
-		};
-		78A873DE2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget */ = {
-			isa = PBXGroup;
-			children = (
-				78A874452D71BB3C00ABDC87 /* View */,
-				78A8743B2D71B62500ABDC87 /* Intent */,
-				78A874392D71B39C00ABDC87 /* AppEntity */,
-				78A873E72D71B23300ABDC87 /* Model */,
-				78A873E42D71B1F700ABDC87 /* Provider */,
-				78A873DA2D71B1D200ABDC87 /* Assets.xcassets */,
-				78A873DB2D71B1D200ABDC87 /* Info.plist */,
-				78A873DC2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget.swift */,
-				78A873DD2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidgetBundle.swift */,
-			);
-			path = UnCategorizedToDosInWorkspaceWidget;
-			sourceTree = "<group>";
-		};
-		78A873E42D71B1F700ABDC87 /* Provider */ = {
-			isa = PBXGroup;
-			children = (
-				78A873E52D71B20400ABDC87 /* UCTProvider.swift */,
-			);
-			path = Provider;
-			sourceTree = "<group>";
-		};
-		78A873E72D71B23300ABDC87 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				78A873E82D71B23F00ABDC87 /* UCTWidgetEntry.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		78A874392D71B39C00ABDC87 /* AppEntity */ = {
-			isa = PBXGroup;
-			children = (
-				78A874432D71B9B100ABDC87 /* UCTAppEntity.swift */,
-			);
-			path = AppEntity;
-			sourceTree = "<group>";
-		};
-		78A8743B2D71B62500ABDC87 /* Intent */ = {
-			isa = PBXGroup;
-			children = (
-				78A874412D71B6F000ABDC87 /* WorkspaceSelectionAppIntent.swift */,
-			);
-			path = Intent;
-			sourceTree = "<group>";
-		};
-		78A874452D71BB3C00ABDC87 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				78A874502D71BD9200ABDC87 /* UCTToDoListView.swift */,
-				78A8744E2D71BD1500ABDC87 /* UCTEntryView.swift */,
-				78A874562D7463EB00ABDC87 /* TLToDoListForWidget */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		78A874562D7463EB00ABDC87 /* TLToDoListForWidget */ = {
-			isa = PBXGroup;
-			children = (
-				78A8745B2D74649300ABDC87 /* TLToDoRow.swift */,
-				78A874582D74640600ABDC87 /* TLToDoListView.swift */,
-			);
-			path = TLToDoListForWidget;
 			sourceTree = "<group>";
 		};
 		9740EEB11CF90186004384FC /* Flutter */ = {
@@ -396,13 +307,11 @@
 			children = (
 				782AE1122D817A2C0083483D /* ToDosInWorkspaceWidgetExtension.entitlements */,
 				782AE1112D817A120083483D /* ToDosInTodayWidgetExtension.entitlements */,
-				78A874542D71C50F00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.entitlements */,
 				1B43F7D32D58EA16000D4044 /* Resource */,
 				1BA7C2FA2CC6861C00DCF511 /* Model */,
 				1BF526C82D584FB90039CDE3 /* Util */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
-				78A873DE2D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget */,
 				782AE1402D817EFC0083483D /* ToDosInTodayWidget */,
 				782AE14B2D817EFE0083483D /* ToDosInWorkspaceWidget */,
 				97C146EF1CF9000F007C117D /* Products */,
@@ -417,7 +326,6 @@
 			children = (
 				97C146EE1CF9000F007C117D /* Runner.app */,
 				331C8081294A63A400263BE5 /* RunnerTests.xctest */,
-				78A873C32D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex */,
 				782AE0CF2D8179D00083483D /* ToDosInTodayWidgetExtension.appex */,
 				782AE0E82D8179E50083483D /* ToDosInWorkspaceWidgetExtension.appex */,
 			);
@@ -436,6 +344,57 @@
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 			);
 			path = Runner;
+			sourceTree = "<group>";
+		};
+		98D189362D97F98700808BEF /* TLToDoListForWidget */ = {
+			isa = PBXGroup;
+			children = (
+				98D189342D97F98700808BEF /* TLToDoListForWidget.swift */,
+				98D189352D97F98700808BEF /* TLToDoRowForWidget.swift */,
+			);
+			path = TLToDoListForWidget;
+			sourceTree = "<group>";
+		};
+		98D189392D97F98700808BEF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				98D189362D97F98700808BEF /* TLToDoListForWidget */,
+				98D189372D97F98700808BEF /* TWEntryView.swift */,
+				98D189382D97F98700808BEF /* TWToDoListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		98D1893F2D97F98A00808BEF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				98D1893E2D97F98A00808BEF /* TWWidgetEntry.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		98D189422D97F98D00808BEF /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				98D189412D97F98D00808BEF /* TWProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		98D189452D97F99000808BEF /* AppEntity */ = {
+			isa = PBXGroup;
+			children = (
+				98D189442D97F99000808BEF /* TWAppEntity.swift */,
+			);
+			path = AppEntity;
+			sourceTree = "<group>";
+		};
+		98D189482D97F99200808BEF /* Intent */ = {
+			isa = PBXGroup;
+			children = (
+				98D189472D97F99200808BEF /* TWWorkspaceSelectionAppIntent.swift */,
+			);
+			path = Intent;
 			sourceTree = "<group>";
 		};
 		DB379AA51043BDEB607A34D2 /* Frameworks */ = {
@@ -509,25 +468,6 @@
 			productReference = 782AE0E82D8179E50083483D /* ToDosInWorkspaceWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		78A873C22D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 78A873D72D71B1AD00ABDC87 /* Build configuration list for PBXNativeTarget "UnCategorizedToDosInWorkspaceWidgetExtension" */;
-			buildPhases = (
-				78A873BF2D71B1AB00ABDC87 /* Sources */,
-				78A873C02D71B1AB00ABDC87 /* Frameworks */,
-				78A873C12D71B1AB00ABDC87 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = UnCategorizedToDosInWorkspaceWidgetExtension;
-			packageProductDependencies = (
-			);
-			productName = UnCategorizedToDosInWorkspaceWidgetExtension;
-			productReference = 78A873C32D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		97C146ED1CF9000F007C117D /* Runner */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
@@ -547,7 +487,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				78A873D12D71B1AD00ABDC87 /* PBXTargetDependency */,
 				782AE0DD2D8179D20083483D /* PBXTargetDependency */,
 				782AE0F62D8179E70083483D /* PBXTargetDependency */,
 			);
@@ -577,9 +516,6 @@
 					782AE0E72D8179E50083483D = {
 						CreatedOnToolsVersion = 16.2;
 					};
-					78A873C22D71B1AB00ABDC87 = {
-						CreatedOnToolsVersion = 16.2;
-					};
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 1100;
@@ -601,7 +537,6 @@
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
-				78A873C22D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension */,
 				782AE0CE2D8179D00083483D /* ToDosInTodayWidgetExtension */,
 				782AE0E72D8179E50083483D /* ToDosInWorkspaceWidgetExtension */,
 			);
@@ -629,14 +564,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				782AE14F2D817EFE0083483D /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		78A873C12D71B1AB00ABDC87 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				78A873DF2D71B1D200ABDC87 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -779,8 +706,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				782AE1432D817EFC0083483D /* AppIntent.swift in Sources */,
+				98D188F62D97F5A600808BEF /* TLThemeConfig.swift in Sources */,
+				98D188F22D97F59A00808BEF /* TLUserDefaultsManager.swift in Sources */,
 				782AE1442D817EFC0083483D /* ToDosInTodayWidget.swift in Sources */,
 				782AE1452D817EFC0083483D /* ToDosInTodayWidgetBundle.swift in Sources */,
+				98D188F02D97F59400808BEF /* Model.swift in Sources */,
+				98D188F82D97F5B300808BEF /* TLUUIDGenerator.swift in Sources */,
+				98D188F42D97F5A100808BEF /* TCWExampleState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -788,31 +720,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				782AE14C2D817EFE0083483D /* AppIntent.swift in Sources */,
+				98D1893A2D97F98700808BEF /* TLToDoListForWidget.swift in Sources */,
+				98D1893B2D97F98700808BEF /* TLToDoRowForWidget.swift in Sources */,
+				98D1893C2D97F98700808BEF /* TWEntryView.swift in Sources */,
+				98D1893D2D97F98700808BEF /* TWToDoListView.swift in Sources */,
+				98D188F12D97F59400808BEF /* Model.swift in Sources */,
+				98D189462D97F99000808BEF /* TWAppEntity.swift in Sources */,
+				98D189492D97F99200808BEF /* TWWorkspaceSelectionAppIntent.swift in Sources */,
+				98D189402D97F98A00808BEF /* TWWidgetEntry.swift in Sources */,
+				98D188F52D97F5A100808BEF /* TCWExampleState.swift in Sources */,
+				98D189432D97F98D00808BEF /* TWProvider.swift in Sources */,
 				782AE14D2D817EFE0083483D /* ToDosInWorkspaceWidget.swift in Sources */,
+				98D188F92D97F5B300808BEF /* TLUUIDGenerator.swift in Sources */,
+				98D188F32D97F59A00808BEF /* TLUserDefaultsManager.swift in Sources */,
 				782AE14E2D817EFE0083483D /* ToDosInWorkspaceWidgetBundle.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		78A873BF2D71B1AB00ABDC87 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				78A874422D71B6F100ABDC87 /* WorkspaceSelectionAppIntent.swift in Sources */,
-				78A873EB2D71B27A00ABDC87 /* TLThemeConfig.swift in Sources */,
-				78A873E92D71B25300ABDC87 /* UCTWidgetEntry.swift in Sources */,
-				78A8745A2D74647B00ABDC87 /* TLToDoListView.swift in Sources */,
-				78A873EC2D71B28100ABDC87 /* TCWExampleState.swift in Sources */,
-				78A873E22D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidget.swift in Sources */,
-				78A874512D71BD9300ABDC87 /* UCTToDoListView.swift in Sources */,
-				78A8745D2D74649800ABDC87 /* TLToDoRow.swift in Sources */,
-				78A8744F2D71BD1600ABDC87 /* UCTEntryView.swift in Sources */,
-				78A874442D71B9B200ABDC87 /* UCTAppEntity.swift in Sources */,
-				78A873ED2D71B28800ABDC87 /* TLUserDefaultsManager.swift in Sources */,
-				78A873EA2D71B26A00ABDC87 /* Model.swift in Sources */,
-				78A873E32D71B1D200ABDC87 /* UnCategorizedToDosInWorkspaceWidgetBundle.swift in Sources */,
-				78A873E62D71B20900ABDC87 /* UCTProvider.swift in Sources */,
-				78A873F02D71B2E200ABDC87 /* TLUUIDGenerator.swift in Sources */,
+				98D188F72D97F5A700808BEF /* TLThemeConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,11 +769,6 @@
 			isa = PBXTargetDependency;
 			target = 782AE0E72D8179E50083483D /* ToDosInWorkspaceWidgetExtension */;
 			targetProxy = 782AE0F52D8179E70083483D /* PBXContainerItemProxy */;
-		};
-		78A873D12D71B1AD00ABDC87 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 78A873C22D71B1AB00ABDC87 /* UnCategorizedToDosInWorkspaceWidgetExtension */;
-			targetProxy = 78A873D02D71B1AD00ABDC87 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1259,129 +1176,6 @@
 			};
 			name = Profile;
 		};
-		78A873D32D71B1AD00ABDC87 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = UnCategorizedToDosInWorkspaceWidgetExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = UnCategorizedToDosInWorkspaceWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = UnCategorizedToDosInWorkspaceWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.akitorahayashi.today-list.UnCategorizedToDosInWorkspaceWidget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		78A873D42D71B1AD00ABDC87 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = UnCategorizedToDosInWorkspaceWidgetExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = UnCategorizedToDosInWorkspaceWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = UnCategorizedToDosInWorkspaceWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.akitorahayashi.today-list.UnCategorizedToDosInWorkspaceWidget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		78A873D52D71B1AD00ABDC87 /* Profile */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = UnCategorizedToDosInWorkspaceWidgetExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2A7R4ZP8WU;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = UnCategorizedToDosInWorkspaceWidget/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = UnCategorizedToDosInWorkspaceWidget;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.akitorahayashi.today-list.UnCategorizedToDosInWorkspaceWidget";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Profile;
-		};
 		97C147031CF9000F007C117D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1589,16 +1383,6 @@
 				782AE0FA2D8179E70083483D /* Debug */,
 				782AE0FB2D8179E70083483D /* Release */,
 				782AE0FC2D8179E70083483D /* Profile */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		78A873D72D71B1AD00ABDC87 /* Build configuration list for PBXNativeTarget "UnCategorizedToDosInWorkspaceWidgetExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				78A873D32D71B1AD00ABDC87 /* Debug */,
-				78A873D42D71B1AD00ABDC87 /* Release */,
-				78A873D52D71B1AD00ABDC87 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

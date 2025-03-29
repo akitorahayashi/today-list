@@ -9,34 +9,32 @@ import Foundation
 
 enum TCWExampleState {
     enum WorkspaceID: String, Codable {
-        case life = "lifeId"
-        case work = "workId"
+        case general = "generalId"
         
         var name: String {
             switch self {
-            case .life: return "Life"
-            case .work: return "Work"
+            case .general: return "General"
             }
         }
     }
     
     // MARK: - kTLWorkspacesExample
     static let kTLWorkspacesExample: [TLWorkspace] = [
-        // MARK: - Work Workspace
+        // MARK: - General Workspace
         TLWorkspace(
-            id: WorkspaceID.work.rawValue,
-            name: WorkspaceID.work.name,
+            id: WorkspaceID.general.rawValue,
+            name: WorkspaceID.general.name,
             workspaceIDToToDos: [
-                WorkspaceID.work.rawValue: TLToDosInTodayAndWhenever(
-                    workspaceID: WorkspaceID.work.rawValue,
+                WorkspaceID.general.rawValue: TLToDosInTodayAndWhenever(
+                    workspaceID: WorkspaceID.general.rawValue,
                     toDosInToday: [
                         TLToDo(
-                            workspaceID: WorkspaceID.work.rawValue,
+                            workspaceID: WorkspaceID.general.rawValue,
                             isInToday: true,
                             content: "Aさんとのスケジュールを調整"
                         ),
                         TLToDo(
-                            workspaceID: WorkspaceID.work.rawValue,
+                            workspaceID: WorkspaceID.general.rawValue,
                             isInToday: true,
                             content: "書類の作成",
                             steps: [
@@ -45,55 +43,16 @@ enum TCWExampleState {
                             ]
                         ),
                         TLToDo(
-                            workspaceID: WorkspaceID.work.rawValue,
+                            workspaceID: WorkspaceID.general.rawValue,
                             isInToday: false,
-                            content: "次回会議の資料作成",
+                            content: "来月の旅行計画",
                             steps: [
-                                TLStep(content: "構成を考える"),
-                                TLStep(content: "スライド作成"),
-                                TLStep(content: "チームに共有")
+                                TLStep(content: "宿を予約する"),
+                                TLStep(content: "交通手段を調べる")
                             ]
                         )
-                    ]
-                )
-            ]
-        ),
-        
-        // MARK: - Life Workspace
-        TLWorkspace(
-            id: WorkspaceID.life.rawValue,
-            name: "Life",
-            workspaceIDToToDos: [
-                WorkspaceID.life.rawValue: TLToDosInTodayAndWhenever(
-                    workspaceID: WorkspaceID.life.rawValue,
-                    toDosInToday: [
-                        TLToDo(
-                            workspaceID: WorkspaceID.life.rawValue,
-                            isInToday: true,
-                            content: "ご飯を炊く"
-                        ),
-                        TLToDo(
-                            workspaceID: WorkspaceID.life.rawValue,
-                            isInToday: true,
-                            content: "鶏むね肉の照り焼き",
-                            steps: [
-                                TLStep(content: "鶏むね肉"),
-                                TLStep(content: "醤油"),
-                                TLStep(content: "みりん"),
-                                TLStep(content: "砂糖")
-                            ]
-                        ),
-                        TLToDo(
-                            workspaceID: WorkspaceID.life.rawValue,
-                            isInToday: true,
-                            content: "じゃがいもと玉ねぎの味噌汁",
-                            steps: [
-                                TLStep(content: "じゃがいも"),
-                                TLStep(content: "玉ねぎ"),
-                                TLStep(content: "味噌")
-                            ]
-                        )
-                    ]
+                    ],
+                    toDosInWhenever: []
                 )
             ]
         )

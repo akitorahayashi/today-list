@@ -2,88 +2,44 @@
 //  ToDosInWorkspaceWidget.swift
 //  ToDosInWorkspaceWidget
 //
-//  Created by 林明虎 on 2025/03/12.
+//  Created by 林明虎 on 2025/02/28.
 //
 
 import WidgetKit
 import SwiftUI
+import AppIntents
 
-struct Provider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
-    }
-
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration)
-    }
-    
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
-        }
-
-        return Timeline(entries: entries, policy: .atEnd)
-    }
-
-//    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
-}
-
-struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let configuration: ConfigurationAppIntent
-}
-
-struct ToDosInWorkspaceWidgetEntryView : View {
-    var entry: Provider.Entry
-
-    var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Favorite Emoji:")
-            Text(entry.configuration.favoriteEmoji)
-        }
-    }
-}
-
+// メインウィジェット定義
 struct ToDosInWorkspaceWidget: Widget {
-    let kind: String = "ToDosInWorkspaceWidget"
+    static let kind: String = "ToDosInWorkspaceWidget"
 
-    var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
-            ToDosInWorkspaceWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+        var body: some WidgetConfiguration {
+            AppIntentConfiguration(kind: ToDosInWorkspaceWidget.kind, intent: TWWorkspaceSelectionAppIntent.self, provider: TWProvider()) { entry in
+                TWEntryView(entry: entry)
+                    .containerBackground(for: .widget) {
+                        VStack(spacing: 0) {
+                            ZStack {
+                                entry.selectedThemeType.config.gradientOfTopBar
+                                Text(entry.entity?.name ?? entry.tlWorkspaces.first!.name)
+                                    .font(.system(size: 18, weight: .bold))
+                                    .foregroundColor(entry.selectedThemeType.config.navigationTitleColor)
+                            }
+                            .frame(height: 28)
+                            
+                            ZStack {
+                                entry.selectedThemeType.config.backgroundColorOfToDoList
+                                
+                                Color.white
+                                    .cornerRadius(15)
+                                    .padding(6)
+                                    .shadow(radius: 1)
+                            }
+                        }
+                    }
+                    .widgetURL(URL(string: "todaylist://workspace?id=\(entry.entity?.workspaceID ?? entry.tlWorkspaces.first!.id)"))
+            }
+            .configurationDisplayName("Show Uncategorized ToDos Widget")
+            .description("Show an uncategorized ToDo list in a workspace. After placing the widget, long press to edit and select the workspace you want to display.")
+            .supportedFamilies([.systemSmall, .systemMedium])
         }
-        .supportedFamilies([.systemSmall, .systemMedium])
-    }
-}
-
-extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
-        return intent
-    }
-    
-    fileprivate static var starEyes: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
-        return intent
-    }
-}
-
-#Preview(as: .systemSmall) {
-    ToDosInWorkspaceWidget()
-} timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
 }

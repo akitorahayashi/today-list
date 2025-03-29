@@ -24,17 +24,17 @@ import WidgetKit
                 return
             }
             
-            let uctKind: String = "UnCategorizedToDosInWorkspaceWidget"
+            let twKind: String = "ToDosInWorkspaceWidget"
             
             switch call.method {
             case "updateTLWorkspaces":
                 self.updateTLWorkspaces(arguments)
-                self.reloadWidget(uctKind)
+                self.reloadWidget(twKind)
                 result("workspaces saved successfully")
                 
             case "updateSelectedTheme":
                 self.updateSelectedTheme(arguments)
-                self.reloadWidget(uctKind)
+                self.reloadWidget(twKind)
                 result("selectedTheme saved successfully")
                 
             default:

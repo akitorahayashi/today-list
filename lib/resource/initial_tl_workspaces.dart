@@ -6,8 +6,7 @@ import 'package:today_list/model/todo/tl_step.dart';
 import 'package:today_list/util/tl_uuid_generator.dart';
 
 enum _TLWorkspaceID {
-  work("workId", "Work"),
-  life("lifeId", "Life");
+  general("generalId", "General");
 
   final String rawValue;
   final String name;
@@ -16,23 +15,23 @@ enum _TLWorkspaceID {
 }
 
 final List<TLWorkspace> initialTLWorkspaces = [
-  // MARK: - Work Workspace
+  // MARK: - General Workspace
   TLWorkspace(
-    id: _TLWorkspaceID.work.rawValue,
-    name: _TLWorkspaceID.work.name,
+    id: _TLWorkspaceID.general.rawValue,
+    name: _TLWorkspaceID.general.name,
     workspaceIDToToDos: {
-      _TLWorkspaceID.work.rawValue: TLToDosInTodayAndWhenever(
-        workspaceID: _TLWorkspaceID.work.rawValue,
+      _TLWorkspaceID.general.rawValue: TLToDosInTodayAndWhenever(
+        workspaceID: _TLWorkspaceID.general.rawValue,
         toDosInToday: [
           TLToDo(
             id: TLUUIDGenerator.generate(),
-            workspaceID: _TLWorkspaceID.work.rawValue,
+            workspaceID: _TLWorkspaceID.general.rawValue,
             isInToday: true,
             content: "Aさんとのスケジュールを調整",
           ),
           TLToDo(
             id: TLUUIDGenerator.generate(),
-            workspaceID: _TLWorkspaceID.work.rawValue,
+            workspaceID: _TLWorkspaceID.general.rawValue,
             isInToday: true,
             content: "書類の作成",
             steps: [
@@ -40,46 +39,14 @@ final List<TLWorkspace> initialTLWorkspaces = [
               TLStep(id: TLUUIDGenerator.generate(), content: "送り先に送信する"),
             ],
           ),
-        ],
-      ),
-    },
-  ),
-
-  // MARK: - Life Workspace
-  TLWorkspace(
-    id: _TLWorkspaceID.life.rawValue,
-    name: _TLWorkspaceID.life.name,
-    workspaceIDToToDos: {
-      _TLWorkspaceID.life.rawValue: TLToDosInTodayAndWhenever(
-        workspaceID: _TLWorkspaceID.life.rawValue,
-        toDosInToday: [
           TLToDo(
             id: TLUUIDGenerator.generate(),
-            workspaceID: _TLWorkspaceID.life.rawValue,
-            isInToday: true,
-            content: "ご飯を炊く",
-          ),
-          TLToDo(
-            id: TLUUIDGenerator.generate(),
-            workspaceID: _TLWorkspaceID.life.rawValue,
-            isInToday: true,
-            content: "鶏むね肉の照り焼き",
+            workspaceID: _TLWorkspaceID.general.rawValue,
+            isInToday: false,
+            content: "来月の旅行計画",
             steps: [
-              TLStep(id: TLUUIDGenerator.generate(), content: "鶏むね肉"),
-              TLStep(id: TLUUIDGenerator.generate(), content: "醤油"),
-              TLStep(id: TLUUIDGenerator.generate(), content: "みりん"),
-              TLStep(id: TLUUIDGenerator.generate(), content: "砂糖"),
-            ],
-          ),
-          TLToDo(
-            id: TLUUIDGenerator.generate(),
-            workspaceID: _TLWorkspaceID.life.rawValue,
-            isInToday: true,
-            content: "じゃがいもと玉ねぎの味噌汁",
-            steps: [
-              TLStep(id: TLUUIDGenerator.generate(), content: "じゃがいも"),
-              TLStep(id: TLUUIDGenerator.generate(), content: "玉ねぎ"),
-              TLStep(id: TLUUIDGenerator.generate(), content: "味噌"),
+              TLStep(id: TLUUIDGenerator.generate(), content: "宿を予約する"),
+              TLStep(id: TLUUIDGenerator.generate(), content: "交通手段を調べる"),
             ],
           ),
         ],

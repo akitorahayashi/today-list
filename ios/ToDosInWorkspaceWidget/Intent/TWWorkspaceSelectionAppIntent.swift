@@ -1,20 +1,19 @@
 //
-//  WorkspaceSelectionAppIntent.swift
+//  TWWorkspaceSelectionAppIntent.swift
 //  Runner
 //
-//  Created by 林明虎 on 2025/02/28.
+//  Created by akitora.hayashi on 2025/03/29.
 //
-
 
 import WidgetKit
 import AppIntents
 
-struct WorkspaceSelectionAppIntent: WidgetConfigurationIntent {
+struct TWWorkspaceSelectionAppIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "Configration"
-    static var description = IntentDescription("Show an uncategorized ToDo list in a workspace widget.")
+    static var description = IntentDescription("Show ToDo list of today in a workspace widget.")
     
     @Parameter(title: "Select Workspace", default: nil)
-    var selectedWorkspace: UCTAppEntity?
+    var selectedWorkspace: TWAppEntity?
     
     static var parameterSummary: some ParameterSummary {
         Summary("Select Workspace: \(\.$selectedWorkspace)")

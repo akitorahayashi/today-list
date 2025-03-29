@@ -1,15 +1,15 @@
 //
-//  UCTToDoListView.swift
+//  TWToDoListView.swift
 //  Runner
 //
-//  Created by 林明虎 on 2025/02/28.
+//  Created by akitora.hayashi on 2025/03/29.
 //
 
 import SwiftUI
 import WidgetKit
 
-struct UCTToDoListView: View {
-    var entry: UCTProvider.Entry
+struct TWToDoListView: View {
+    var entry: TWProvider.Entry
     
     @Environment(\.widgetFamily) var widgetFamily
     
@@ -22,7 +22,7 @@ struct UCTToDoListView: View {
             let toDosInToday = (corrWorkspace.workspaceIDToToDos[corrWorkspace.id]!.toDosInToday.filter { !$0.isChecked })
             
             TLToDoListForWidgetView(
-                toDosInToday: toDosInToday, 
+                toDosInToday: toDosInToday,
                 widgetFamily: widgetFamily,
                 textColor: entry.selectedThemeType.config.textColor
             )
