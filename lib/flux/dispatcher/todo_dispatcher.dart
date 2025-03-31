@@ -5,7 +5,7 @@ import 'package:today_list/flux/store/todo_store.dart';
 /// ToDoアクションのディスパッチャー
 class TodoDispatcher {
   /// ToDoアクションをディスパッチする
-  static void dispatch(WidgetRef ref, TodoAction action) async {
+  static Future<void> dispatch(WidgetRef ref, TodoAction action) async {
     await action.map(
       addTodo: (action) async {
         final notifier = ref.read(todoProvider.notifier);

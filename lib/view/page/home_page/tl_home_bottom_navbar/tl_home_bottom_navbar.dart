@@ -130,15 +130,15 @@ class TLHomeBottomNavBar extends HookConsumerWidget {
         Navigator.pop(context);
 
         if (doesCurrentWorkspaceExist) {
-          currentWorkspaceIdAsync.whenData((currentWorkspaceId) {
+          currentWorkspaceIdAsync.whenData((currentWorkspaceId) async {
             if (currentWorkspaceId != null) {
-              workspacesAsync.whenData((workspaces) {
+              workspacesAsync.whenData((workspaces) async {
                 final currentWorkspace = workspaces.firstWhere(
                   (workspace) => workspace.id == currentWorkspaceId,
                   orElse: () => workspaces.first,
                 );
 
-                TodoDispatcher.dispatch(
+                await TodoDispatcher.dispatch(
                   ref,
                   TodoAction.deleteAllCheckedTodos(
                     workspace: currentWorkspace,
@@ -149,9 +149,9 @@ class TLHomeBottomNavBar extends HookConsumerWidget {
             }
           });
         } else {
-          workspacesAsync.whenData((workspaces) {
+          workspacesAsync.whenData((workspaces) async {
             for (final workspace in workspaces) {
-              TodoDispatcher.dispatch(
+              await TodoDispatcher.dispatch(
                 ref,
                 TodoAction.deleteAllCheckedTodos(
                   workspace: workspace,

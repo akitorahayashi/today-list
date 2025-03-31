@@ -432,19 +432,25 @@ class TodoNotifier extends AsyncNotifier<List<TLWorkspace>> {
     final todosInTodayAndWhenever = workspace.toDos;
 
     if (ifInToday) {
-      final todosInToday =
-          todosInTodayAndWhenever.toDosInToday
-              .where((t) => t.id != todo.id)
-              .toList();
+      final todosInToday = List<TLToDo>.from(
+        todosInTodayAndWhenever.toDosInToday,
+      );
+      final index = todosInToday.indexWhere((t) => t.id == todo.id);
+      if (index >= 0) {
+        todosInToday.removeAt(index);
+      }
 
       return workspace.copyWith(
         toDos: todosInTodayAndWhenever.copyWith(toDosInToday: todosInToday),
       );
     } else {
-      final todosInWhenever =
-          todosInTodayAndWhenever.toDosInWhenever
-              .where((t) => t.id != todo.id)
-              .toList();
+      final todosInWhenever = List<TLToDo>.from(
+        todosInTodayAndWhenever.toDosInWhenever,
+      );
+      final index = todosInWhenever.indexWhere((t) => t.id == todo.id);
+      if (index >= 0) {
+        todosInWhenever.removeAt(index);
+      }
 
       return workspace.copyWith(
         toDos: todosInTodayAndWhenever.copyWith(
