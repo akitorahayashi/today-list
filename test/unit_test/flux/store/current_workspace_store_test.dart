@@ -8,7 +8,7 @@ void main() {
     late ProviderContainer container;
 
     setUp(() async {
-      // SharedPreferencesのモック設定
+      // SharedPreferencesのモックを設定
       SharedPreferences.setMockInitialValues({});
 
       // ProviderContainerの初期化
@@ -82,7 +82,7 @@ void main() {
       );
       expect(savedId, equals(testId));
 
-      // リソース解放
+      // リソースを解放
       newContainer.dispose();
     });
   });

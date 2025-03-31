@@ -28,9 +28,8 @@ void main() {
 
       // 検証
       expect(workspaces, isNotEmpty);
-      expect(workspaces.length, equals(2)); // 初期ワークスペースは2つ
-      expect(workspaces[0].name, equals('Work'));
-      expect(workspaces[1].name, equals('Life'));
+      expect(workspaces.length, equals(1)); // 初期ワークスペースは1つ
+      expect(workspaces[0].name, equals('General'));
     });
 
     test('ワークスペースを追加すると状態が更新される', () async {
@@ -97,6 +96,23 @@ void main() {
     });
 
     test('ワークスペースの並び替えが正しく機能する', () async {
+      // 新しいワークスペースを追加
+      final newWorkspaceId = TLUUIDGenerator.generate();
+      final newWorkspace = TLWorkspace(
+        id: newWorkspaceId,
+        name: 'Second Workspace',
+        toDos: TLToDosInTodayAndWhenever(
+          workspaceID: newWorkspaceId,
+          toDosInToday: [],
+          toDosInWhenever: [],
+        ),
+      );
+
+      // ワークスペースを追加
+      await container
+          .read(workspacesProvider.notifier)
+          .addWorkspace(newWorkspace);
+
       // 初期状態を確認
       final initialWorkspaces = await container.read(workspacesProvider.future);
       final firstWorkspace = initialWorkspaces[0];
