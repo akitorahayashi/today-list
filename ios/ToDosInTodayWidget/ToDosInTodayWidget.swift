@@ -37,7 +37,7 @@ struct ToDosInTodayWidget: Widget {
                 .widgetURL(URL(string: "todaylist:/"))
         }
         .configurationDisplayName("Today's ToDos Widget")
-        .description("Show your today's ToDo list in a beautiful widget.")
+        .description("Show your today's ToDo list.")
         .supportedFamilies([.systemLarge])
     }
 }
