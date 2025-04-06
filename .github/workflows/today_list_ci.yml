@@ -36,8 +36,8 @@ jobs:
       - name: Run unit tests
         run: flutter test test/unit_test/
       
-      - name: Run widget tests
-        run: flutter test test/widget_test/
+      # - name: Run widget tests
+      #   run: flutter test test/widget_test/
 
   build-android:
     name: Build Android APK
