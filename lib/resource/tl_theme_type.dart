@@ -36,7 +36,7 @@ enum TLThemeType {
       otherAppsPressedElevatedButtonColor: Color.fromRGBO(210, 210, 210, 1),
 
       // Basics
-      accentColor: Color.fromRGBO(94, 158, 214, 1),
+      accentColor: Color.fromRGBO(123, 162, 237, 1),
       canTapCardColor: Color.fromRGBO(240, 240, 240, 1),
       whiteBasedColor: Color.fromRGBO(255, 255, 255, 1),
       tlDoubleCardBorderColor: Color.fromRGBO(230, 230, 230, 1),
