@@ -1,4 +1,4 @@
-# Today List - タスク管理アプリ
+# Today List
 
 ## プロジェクト概要
 
@@ -33,47 +33,60 @@ View → Action → Dispatcher → Store → View（更新）
 ```
 today_list/
 ├── lib/
-│   ├── flux/                     # Fluxアーキテクチャの実装
-│   │   ├── action/               # アクション定義
-│   │   │   └── todo_action.dart  # ToDoに関するアクション
-│   │   ├── dispatcher/           # ディスパッチャー
-│   │   │   └── todo_dispatcher.dart # アクションのディスパッチ処理
-│   │   └── store/                # ストア（状態管理）
-│   │       ├── todo_store.dart   # ToDo状態の管理
-│   │       └── workspace_store.dart # ワークスペース状態の管理
-│   ├── model/                    # データモデル
-│   │   ├── design/               # デザイン関連のモデル
-│   │   │   ├── tl_theme.dart     # テーマ管理
-│   │   │   └── tl_theme_config.dart # テーマ設定
-│   │   ├── generate/             # 自動生成されたコード
-│   │   │   ├── tl_step.g.dart    # Stepモデルの生成コード
-│   │   │   └── tl_todo.g.dart    # ToDoモデルの生成コード
-│   │   └── todo/                 # ToDoデータモデル
-│   │       ├── tl_step.dart      # ステップモデル
-│   │       ├── tl_todo.dart      # ToDoモデル
-│   │       ├── tl_workspace.dart # ワークスペースモデル
-│   │       └── tl_todos_in_today_and_whenever.dart # Today/Whenever分類
-│   ├── resource/                 # リソース
-│   │   └── tl_theme_type.dart    # テーマタイプ定義
-│   ├── service/                  # サービス
-│   │   └── tl_vibration_service.dart # 振動サービス
-│   └── view/                     # UI関連
-│       ├── component/            # 再利用可能なコンポーネント
-│       │   ├── snack_bar/        # スナックバー関連
-│       │   └── todo_card/        # ToDoカード関連
-│       │       ├── tl_checkbox.dart # チェックボックス
-│       │       ├── tl_step_card.dart # ステップカード
-│       │       └── tl_todo_card/  # ToDoカード
-│       └── page/                 # アプリの各ページ
-│           ├── add_todo_page/    # ToDo追加ページ
-│           ├── home_page/        # ホームページ
-│           │   └── edit_todo_sheet/ # ToDo編集シート
-│           └── settings_page/    # 設定ページ
-└── test/                         # テストコード
-    └── unit_test/                # ユニットテスト
-        └── flux/                 # Flux関連のテスト
-            └── store/            # ストアのテスト
-                └── todo_store_test.dart # TodoStoreのテスト
+│   ├── flux/
+│   │   ├── action/
+│   │   │   └── todo_action.dart
+│   │   │   └── ...
+│   │   ├── dispatcher/
+│   │   │   └── todo_dispatcher.dart
+│   │   │   └── ...
+│   │   └── store/
+│   │       ├── todo_store.dart
+│   │       └── workspace_store.dart
+│   │       └── ...
+│   ├── model/
+│   │   ├── design/
+│   │   │   ├── tl_theme.dart
+│   │   │   └── tl_theme_config.dart
+│   │   ├── generate/
+│   │   │   ├── tl_step.g.dart
+│   │   │   └── tl_todo.g.dart
+│   │   │   └── ...
+│   │   └── todo/
+│   │       ├── tl_step.dart
+│   │       ├── tl_todo.dart
+│   │       ├── tl_workspace.dart
+│   │       └── tl_todos_in_today_and_whenever.dart
+│   ├── resource/
+│   │   └── tl_theme_type.dart
+│   │   └── ...
+│   ├── service/
+│   │   └── tl_vibration_service.dart
+│   │   └── ...
+│   └── view/
+│       ├── component/
+│       │   ├── snack_bar/
+│       │   │   └── ...
+│       │   └── todo_card/
+│       │       ├── tl_checkbox.dart
+│       │       ├── tl_step_card.dart
+│       │       └── tl_todo_card/
+│       │           └── ...
+│       └── page/
+│           ├── add_todo_page/
+│           │   └── ...
+│           ├── home_page/
+│           │   └── edit_todo_sheet/
+│           │       └── ...
+│           │   └── ...
+│           └── settings_page/
+│               └── ...
+└── test/
+    └── unit_test/
+        └── flux/
+            └── store/
+                └── todo_store_test.dart
+                └── ...
 ```
 
 ## 技術スタック
@@ -84,39 +97,39 @@ today_list/
 
 ### 使用パッケージ
 - **UI関連**
-  - cupertino_icons: iOSスタイルのアイコン
-  - flutter_progress_hud: 処理中のプログレスインジケーター表示
-  - font_awesome_flutter: Font Awesomeアイコンセット
-  - flutter_slidable: スワイプアクション機能
-  - reorderables: リスト項目のドラッグ＆ドロップ並べ替え
-  - popover: ポップアップウィンドウ表示
+  - cupertino_icons
+  - flutter_progress_hud
+  - font_awesome_flutter
+  - flutter_slidable
+  - reorderables
+  - popover
 
 - **状態管理**
-  - flutter_riverpod: 状態管理フレームワーク
-  - hooks_riverpod: RiverpodとFlutter Hooksの統合
-  - flutter_hooks: 再利用可能なステート処理
+  - flutter_riverpod
+  - hooks_riverpod
+  - flutter_hooks
 
 - **データモデル・シリアライズ**
-  - freezed_annotation: イミュータブルなデータモデル用アノテーション
-  - json_annotation: JSONシリアライズ用アノテーション
-  - go_router: ルーティング管理
-  - uni_links: ディープリンク処理
+  - freezed_annotation
+  - json_annotation
+  - go_router
+  - uni_links
 
 - **ユーティリティ**
-  - intl: 国際化とローカライゼーション
-  - uuid: 一意のID生成
-  - flutter_vibrate: 振動フィードバック
-  - flutter_dotenv: 環境変数の管理
-  - shared_preferences: データの永続化
-  - flutter_colorpicker: 色選択ダイアログ
+  - intl
+  - uuid
+  - flutter_vibrate
+  - flutter_dotenv
+  - shared_preferences
+  - flutter_colorpicker
   
 - **アイコン**
-  - flutter_native_splash: スプラッシュ画面の実装
-  - flutter_dynamic_icon: アプリアイコンの動的変更
-  - flutter_launcher_icons: アプリアイコンの設定
+  - flutter_native_splash
+  - flutter_dynamic_icon
+  - flutter_launcher_icons
 
 - **広告**
-  - google_mobile_ads: Google広告の統合
+  - google_mobile_ads
 
 
 ## 主要機能
