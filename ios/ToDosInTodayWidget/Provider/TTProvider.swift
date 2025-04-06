@@ -14,13 +14,15 @@ struct TTProvider: TimelineProvider {
     func placeholder(in context: Context) -> TTWidgetEntry {
         return TTWidgetEntry(
             date: Date(),
-            selectedThemeType: TLThemeType.sunOrange,
+            selectedThemeType: TLThemeType.notebook,
             tlWorkspaces: TCWExampleState.kTLWorkspacesExample
         )
     }
     
     func getSnapshot(in context: Context, completion: @escaping (TTWidgetEntry) -> Void) {
-        let themeName = TLThemeType.sunOrange.rawValue
+        // 保存してあるデータの読み取り
+        let userDefaults = TLUserDefaultsManager.shared.userDefaults
+        let themeName = userDefaults?.string(forKey: "selectedThemeName") ?? TLThemeType.sunOrange.rawValue
         let corrThemeType = TLThemeType.from(themeName)
         let entry = TTWidgetEntry(
             date: Date(),

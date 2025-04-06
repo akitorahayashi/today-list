@@ -21,7 +21,9 @@ struct TWProvider: AppIntentTimelineProvider {
     }
     
     func snapshot(for configuration: TWWorkspaceSelectionAppIntent, in context: Context) async -> TWWidgetEntry {
-        let themeName = TLThemeType.sunOrange.rawValue
+        // 保存してあるデータの読み取り
+        let userDefaults = TLUserDefaultsManager.shared.userDefaults
+        let themeName = userDefaults?.string(forKey: "selectedThemeName") ?? TLThemeType.sunOrange.rawValue
         let corrThemeType = TLThemeType.from(themeName)
         return TWWidgetEntry(
             date: Date(),
