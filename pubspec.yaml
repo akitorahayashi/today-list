@@ -60,9 +60,13 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/tl_sun.png"
-  # image_path: "assets/tl_lime.png"
+  # image_path: "assets/tl_sun.png"
+  image_path: "assets/tl_lime.png"
   # image_path: "assets/tl_marine.png"
+  # image_path: "assets/tl_cherry.png"
+  # image_path: "assets/tl_pastry.png"
+  # image_path: "assets/tl_note.png"
+  remove_alpha_ios: true
 
 # flutter pub run flutter_native_splash:create
 flutter_native_splash:
@@ -82,4 +86,4 @@ flutter:
     - assets/tl_marine.png
     - assets/tl_cherry.png
     - assets/tl_pastry.png
-    - assets/tl_notebook.png
+    - assets/tl_note.png
