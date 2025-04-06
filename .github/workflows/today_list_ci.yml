@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
       
+      - name: Create dummy .env file
+        run: touch .env
+      
       - name: Verify formatting
         run: dart format --output=none --set-exit-if-changed .
       
@@ -53,6 +56,9 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
       
+      - name: Create dummy .env file
+        run: touch .env
+      
       - name: Build APK
         run: flutter build apk --release
       
@@ -78,6 +84,9 @@ jobs:
       
       - name: Install dependencies
         run: flutter pub get
+      
+      - name: Create dummy .env file
+        run: touch .env
       
       - name: Build iOS
         run: flutter build ios --release --no-codesign 
