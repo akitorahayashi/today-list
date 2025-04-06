@@ -74,6 +74,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
     - assets/native_splash.png
 
     - assets/tl_sun.png

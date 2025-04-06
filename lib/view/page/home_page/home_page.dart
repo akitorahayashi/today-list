@@ -165,6 +165,11 @@ class _HomePageState extends ConsumerState<HomePage>
           _updatePageTitle();
         }
       });
+
+      // DeepLinkの処理が終わったらinitialWorkspaceIdをリセット
+      if (initialWorkspaceId != null) {
+        initialWorkspaceId = null;
+      }
     }
   }
 
