@@ -5,11 +5,11 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/resource/icon_resource_of_checkbox.dart';
 import 'icon_card.dart';
 
-class TLIconSeparatedBlock extends ConsumerWidget {
+class IconSeparatedBlock extends ConsumerWidget {
   final bool showIfNotEarned;
   final TLIconCategory tlIconCategory;
   final List<TLIconName> icons;
-  const TLIconSeparatedBlock({
+  const IconSeparatedBlock({
     super.key,
     required this.showIfNotEarned,
     required this.tlIconCategory,

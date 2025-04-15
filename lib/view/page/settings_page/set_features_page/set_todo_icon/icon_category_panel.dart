@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/resource/icon_resource_of_checkbox.dart';
-import 'icon_rarity_block/icon_separated_block.dart';
+import 'icon_separated_block/icon_separated_block.dart';
 
 class IconCategoryPanel extends StatelessWidget {
   final TLIconCategory corrIconCategory;
@@ -29,7 +29,7 @@ class IconCategoryPanel extends StatelessWidget {
           ),
           // Default
           if (corrIconCategory.name == TLIconCategory.defaultCategory.name)
-            TLIconSeparatedBlock(
+            IconSeparatedBlock(
               showIfNotEarned: true,
               tlIconCategory: corrIconCategory,
               icons: corrIconCategory.icons,
@@ -42,7 +42,7 @@ class IconCategoryPanel extends StatelessWidget {
                   children: [
                     Expanded(
                       flex: 2,
-                      child: TLIconSeparatedBlock(
+                      child: IconSeparatedBlock(
                         showIfNotEarned: true,
                         tlIconCategory: corrIconCategory,
                         icons: corrIconCategory.icons.sublist(0, 2),
@@ -50,7 +50,7 @@ class IconCategoryPanel extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 3,
-                      child: TLIconSeparatedBlock(
+                      child: IconSeparatedBlock(
                         showIfNotEarned: false,
                         tlIconCategory: corrIconCategory,
                         icons: corrIconCategory.icons.sublist(2, 5),
@@ -59,7 +59,7 @@ class IconCategoryPanel extends StatelessWidget {
                   ],
                 ),
                 // Common
-                TLIconSeparatedBlock(
+                IconSeparatedBlock(
                   showIfNotEarned: false,
                   tlIconCategory: corrIconCategory,
                   icons: corrIconCategory.icons.sublist(5, 10),

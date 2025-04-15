@@ -98,3 +98,10 @@ ui-debug.log
 .history/
 .svn/
 migrate_working_dir/
+
+# freezed 生成ファイル
+*.freezed.dart
+*.g.dart
+
+# CI関連
+/archives/

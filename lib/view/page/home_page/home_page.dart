@@ -23,8 +23,9 @@ import 'package:go_router/go_router.dart';
 // MARK: - HomePage Widget
 class HomePage extends ConsumerStatefulWidget {
   final String? initialWorkspaceId;
+  final bool testMode;
 
-  const HomePage({super.key, this.initialWorkspaceId});
+  const HomePage({super.key, this.initialWorkspaceId, this.testMode = false});
 
   @override
   ConsumerState<HomePage> createState() => _HomePageState();
@@ -74,7 +75,7 @@ class _HomePageState extends ConsumerState<HomePage>
       _lifecycleObserver = _AppLifecycleObserver(
         onResumed: () {
           // アプリがバックグラウンドから復帰したときにワークスペースIDを処理
-          if (initialWorkspaceId != null) {
+          if (widget.initialWorkspaceId != null) {
             _handleInitialWorkspaceId();
           }
         },
@@ -175,6 +176,23 @@ class _HomePageState extends ConsumerState<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    // If in test mode, show a simplified test version
+    if (widget.testMode) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Test Mode', key: ValueKey('test_appbar_title')),
+          actions: [
+            IconButton(
+              key: const ValueKey('settings_button_test'),
+              icon: const Icon(Icons.settings),
+              onPressed: () => context.go('/settings'),
+            ),
+          ],
+        ),
+        body: const Center(child: Text('Test Mode')),
+      );
+    }
+
     final workspacesAsync = ref.watch(workspacesProvider);
     final currentWorkspaceIdAsync = ref.watch(currentWorkspaceIdProvider);
     final tlThemeConfig = TLTheme.of(context);

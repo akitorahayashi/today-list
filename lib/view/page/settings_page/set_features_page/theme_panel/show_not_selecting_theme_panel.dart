@@ -74,26 +74,34 @@ class _RightSideThemeSelectButtonState
                 width: 100, // カードの幅を調整
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        corrThemeType.config.themeTitleInSettings,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: corrThemeType.config.accentColor,
-                          fontSize: 14, // フォントサイズを調整
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w800,
-                        ),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: SizedBox(
+                      height: 70, // Fixed height to avoid overflow
+                      child: Column(
+                        mainAxisSize:
+                            MainAxisSize.min, // Use minimum space needed
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            corrThemeType.config.themeTitleInSettings,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: corrThemeType.config.accentColor,
+                              fontSize: 14, // フォントサイズを調整
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          FaIcon(
+                            FontAwesomeIcons.square,
+                            color: corrThemeType.config.accentColor,
+                            size: 20, // アイコンサイズを調整
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 6),
-                      FaIcon(
-                        FontAwesomeIcons.square,
-                        color: corrThemeType.config.accentColor,
-                        size: 20, // アイコンサイズを調整
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
