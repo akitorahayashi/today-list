@@ -79,8 +79,8 @@ void main() {
   // Only include one theme variant in this test to avoid multiple rebuild issues
   testWidgets('異なるテーマタイプでの表示確認', (WidgetTester tester) async {
     // テスト用のより大きなサイズを設定
-    tester.binding.window.physicalSizeTestValue = const Size(500, 800);
-    tester.binding.window.devicePixelRatioTestValue = 1.0;
+    tester.view.physicalSize = const Size(500, 800);
+    tester.view.devicePixelRatio = 1.0;
 
     await tester.pumpWidget(
       ProviderScope(
@@ -110,8 +110,8 @@ void main() {
 
     // Reset the test value after the test
     addTearDown(() {
-      tester.binding.window.clearPhysicalSizeTestValue();
-      tester.binding.window.clearDevicePixelRatioTestValue();
+      tester.view.resetPhysicalSize();
+      tester.view.resetDevicePixelRatio();
     });
   });
 }

@@ -11,8 +11,8 @@ mixin TLBaseDialogMixin {
       transitionDuration: const Duration(milliseconds: 150),
       pageBuilder: (
         BuildContext buildContext,
-        Animation animation,
-        Animation secondaryAnimation,
+        Animation<double> animation,
+        Animation<double> secondaryAnimation,
       ) {
         return this as Widget;
       },
