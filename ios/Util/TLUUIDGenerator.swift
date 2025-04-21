@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TLUUIDGenerator {
+enum TLUUIDGenerator {
     static func generate() -> String {
         return UUID().uuidString
     }

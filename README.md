@@ -2,7 +2,7 @@
 
 ## プロジェクト概要
 
-Today Listは、日々のタスク管理を効率的かつ直感的に行うためのFlutterアプリケーションです。タスクを「今日やること」と「いつかやること」に明確に区分けすることで、ユーザーは日々の優先事項に集中しながらも、将来のタスクを忘れることなく管理できます。
+Today Listは、日々のタスク管理を効率的に行うためのアプリです。タスクを「今日やること」と「いつでもやっていいこと」に明確に区分けすることで、ユーザーは日々の優先事項に集中しながらも、将来のタスクを忘れることなく管理できます。
 
 各タスクには複数のステップを追加でき、大きな作業を小さく分割して取り組みやすくします。全てのタスクとステップは、美しく一貫性のあるデザインのカードUIで表示され、直感的な操作でタスク管理を行うことができます。
 
@@ -10,7 +10,7 @@ Today Listは、日々のタスク管理を効率的かつ直感的に行うた�
 
 ## アーキテクチャ
 
-本プロジェクトはFluxアーキテクチャを採用し、データの一方向の流れを実現しています。主な特徴は以下の通りです：
+本プロジェクトはFluxアーキテクチャを採用し、データの一方向の流れを実現しています。主な特徴は以下の通りです
 
 - **Flux**: アクション→ディスパッチャー→ストア→ビューという一方向のデータフローによる状態管理
 - **Riverpod**: 効率的な状態管理とUI更新を実現する依存性注入フレームワーク
@@ -33,60 +33,31 @@ View → Action → Dispatcher → Store → View（更新）
 ```
 today_list/
 ├── lib/
-│   ├── flux/
-│   │   ├── action/
-│   │   │   └── todo_action.dart
-│   │   │   └── ...
-│   │   ├── dispatcher/
-│   │   │   └── todo_dispatcher.dart
-│   │   │   └── ...
-│   │   └── store/
-│   │       ├── todo_store.dart
-│   │       └── workspace_store.dart
-│   │       └── ...
+│   ├── resource/
+│   ├── util/
+│   ├── router/
+│   ├── service/
 │   ├── model/
 │   │   ├── design/
-│   │   │   ├── tl_theme.dart
-│   │   │   └── tl_theme_config.dart
-│   │   ├── generate/
-│   │   │   ├── tl_step.g.dart
-│   │   │   └── tl_todo.g.dart
-│   │   │   └── ...
+│   │   ├── external/
+│   │   ├── settings_data/
 │   │   └── todo/
-│   │       ├── tl_step.dart
-│   │       ├── tl_todo.dart
-│   │       ├── tl_workspace.dart
-│   │       └── tl_todos_in_today_and_whenever.dart
-│   ├── resource/
-│   │   └── tl_theme_type.dart
-│   │   └── ...
-│   ├── service/
-│   │   └── tl_vibration_service.dart
-│   │   └── ...
+│   ├── flux/
+│   │   ├── action/
+│   │   ├── dispatcher/
+│   │   └── store/
 │   └── view/
 │       ├── component/
-│       │   ├── snack_bar/
-│       │   │   └── ...
-│       │   └── todo_card/
-│       │       ├── tl_checkbox.dart
-│       │       ├── tl_step_card.dart
-│       │       └── tl_todo_card/
-│       │           └── ...
 │       └── page/
 │           ├── add_todo_page/
-│           │   └── ...
-│           ├── home_page/
-│           │   └── edit_todo_sheet/
-│           │       └── ...
-│           │   └── ...
-│           └── settings_page/
-│               └── ...
+│           ├── settings_page/
+│           └── home_page/
 └── test/
-    └── unit_test/
-        └── flux/
-            └── store/
-                └── todo_store_test.dart
-                └── ...
+    ├── unit_test/
+    │   └── flux/
+    └── widget_test/
+        ├── component/
+        └── page/
 ```
 
 ## 技術スタック
@@ -134,8 +105,8 @@ today_list/
 
 ## 主要機能
 
-### 今日/いつかの分類による優先度管理
-タスクを「Today（今日）」と「Whenever（いつか）」に分類できます。この区分けにより、ユーザーは「今日やるべきこと」に集中しつつ、「いつか取り組みたいこと」も記録しておくことができます。また、タブ間で簡単にタスクを移動でき、計画を柔軟に調整できます。
+### 今日/いつでも の分類による優先度管理
+タスクを「Today（今日）」と「Whenever（いつでも）」に分類できます。この区分けにより、ユーザーは「今日やるべきこと」に集中しつつ、「いつか取り組みたいこと」も記録しておくことができます。また、タブ間で簡単にタスクを移動でき、計画を柔軟に調整できます。
 
 ### マルチワークスペース対応
 複数のワークスペースを作成し、目的別にタスクを整理できます。例えば「仕事」「個人」「勉強」など、異なる生活領域のタスクを分けて管理できます。各ワークスペースは独立しており、タブでの切り替えが可能です。

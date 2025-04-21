@@ -1,5 +1,5 @@
 //
-//  TLTheme.swift
+//  TLThemeConfig.swift
 //  Runner
 //
 //  Created by 林 明虎 on 2024/10/05.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-
 // MARK: - Struct: TLThemeConfig
+
 struct TLThemeConfig {
     let gradientOfTopBar: LinearGradient
     let backgroundColorOfToDoList: Color
@@ -18,6 +18,7 @@ struct TLThemeConfig {
 }
 
 // MARK: - Enum: TLThemeType
+
 enum TLThemeType: String {
     case sunOrange
     case limeGreen
@@ -37,16 +38,17 @@ enum TLThemeType: String {
     }
 
     // MARK: - Theme Configuration (Safe Accessor)
+
     var config: TLThemeConfig {
         switch self {
-            
         // MARK: - sunOrange
+
         case .sunOrange:
             return TLThemeConfig(
                 gradientOfTopBar: LinearGradient(
                     gradient: Gradient(colors: [
                         Color(red: 255 / 255, green: 163 / 255, blue: 163 / 255),
-                        Color(red: 255 / 255, green: 230 / 255, blue: 87 / 255)
+                        Color(red: 255 / 255, green: 230 / 255, blue: 87 / 255),
                     ]),
                     startPoint: .leading,
                     endPoint: .trailing
@@ -56,14 +58,15 @@ enum TLThemeType: String {
                 navigationTitleColor: Color.white,
                 textColor: Color.black
             )
-            
+
         // MARK: - limeGreen
+
         case .limeGreen:
             return TLThemeConfig(
                 gradientOfTopBar: LinearGradient(
                     gradient: Gradient(colors: [
                         Color(red: 73 / 255, green: 194 / 255, blue: 70 / 255),
-                        Color(red: 143 / 255, green: 250 / 255, blue: 56 / 255)
+                        Color(red: 143 / 255, green: 250 / 255, blue: 56 / 255),
                     ]),
                     startPoint: .leading,
                     endPoint: .trailing
@@ -73,14 +76,15 @@ enum TLThemeType: String {
                 navigationTitleColor: Color.white,
                 textColor: Color.black
             )
-            
+
         // MARK: - marineBlue
+
         case .marineBlue:
             return TLThemeConfig(
                 gradientOfTopBar: LinearGradient(
                     gradient: Gradient(colors: [
                         Color(red: 131 / 255, green: 169 / 255, blue: 252 / 255),
-                        Color(red: 144 / 255, green: 242 / 255, blue: 249 / 255)
+                        Color(red: 144 / 255, green: 242 / 255, blue: 249 / 255),
                     ]),
                     startPoint: .leading,
                     endPoint: .trailing
@@ -90,14 +94,15 @@ enum TLThemeType: String {
                 navigationTitleColor: Color.white,
                 textColor: Color.black
             )
-            
+
         // MARK: - cherryBlossom
+
         case .cherryBlossom:
             return TLThemeConfig(
                 gradientOfTopBar: LinearGradient(
                     gradient: Gradient(colors: [
                         Color(red: 255 / 255, green: 182 / 255, blue: 193 / 255),
-                        Color(red: 255 / 255, green: 192 / 255, blue: 203 / 255)
+                        Color(red: 255 / 255, green: 192 / 255, blue: 203 / 255),
                     ]),
                     startPoint: .leading,
                     endPoint: .trailing
@@ -107,14 +112,15 @@ enum TLThemeType: String {
                 navigationTitleColor: Color.white,
                 textColor: Color.black
             )
-            
+
         // MARK: - pastryBloom
+
         case .pastryBloom:
             return TLThemeConfig(
                 gradientOfTopBar: LinearGradient(
                     gradient: Gradient(colors: [
                         Color(red: 255 / 255, green: 223 / 255, blue: 186 / 255),
-                        Color(red: 255 / 255, green: 236 / 255, blue: 210 / 255)
+                        Color(red: 255 / 255, green: 236 / 255, blue: 210 / 255),
                     ]),
                     startPoint: .leading,
                     endPoint: .trailing
@@ -124,14 +130,15 @@ enum TLThemeType: String {
                 navigationTitleColor: Color.white,
                 textColor: Color.black
             )
-            
+
         // MARK: - notebook
+
         case .notebook:
             return TLThemeConfig(
                 gradientOfTopBar: LinearGradient(
                     gradient: Gradient(colors: [
                         Color(red: 240 / 255, green: 240 / 255, blue: 240 / 255),
-                        Color(red: 250 / 255, green: 250 / 255, blue: 250 / 255)
+                        Color(red: 250 / 255, green: 250 / 255, blue: 250 / 255),
                     ]),
                     startPoint: .leading,
                     endPoint: .trailing
@@ -144,4 +151,3 @@ enum TLThemeType: String {
         }
     }
 }
-

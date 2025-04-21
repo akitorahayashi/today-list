@@ -5,12 +5,12 @@
 //  Created by akitora.hayashi on 2025/03/29.
 //
 
+import AppIntents
 import SwiftUI
 import WidgetKit
-import AppIntents
 
 struct TWProvider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> TWWidgetEntry {
+    func placeholder(in _: Context) -> TWWidgetEntry {
         return TWWidgetEntry(
             date: Date(),
             entity: nil,
@@ -19,8 +19,8 @@ struct TWProvider: AppIntentTimelineProvider {
             enableDeepLink: true
         )
     }
-    
-    func snapshot(for configuration: TWWorkspaceSelectionAppIntent, in context: Context) async -> TWWidgetEntry {
+
+    func snapshot(for configuration: TWWorkspaceSelectionAppIntent, in _: Context) async -> TWWidgetEntry {
         // 保存してあるデータの読み取り
         let userDefaults = TLUserDefaultsManager.shared.userDefaults
         let themeName = userDefaults?.string(forKey: "selectedThemeName") ?? TLThemeType.sunOrange.rawValue
@@ -33,21 +33,19 @@ struct TWProvider: AppIntentTimelineProvider {
             enableDeepLink: configuration.enableDeepLink
         )
     }
-    
-    func timeline(for configuration: TWWorkspaceSelectionAppIntent, in context: Context) async -> Timeline<TWWidgetEntry> {
-        
+
+    func timeline(for configuration: TWWorkspaceSelectionAppIntent, in _: Context) async -> Timeline<TWWidgetEntry> {
         // 保存してあるデータの読み取り
         let userDefaults = TLUserDefaultsManager.shared.userDefaults
         let themeName = userDefaults?.string(forKey: "selectedThemeName") ?? TLThemeType.sunOrange.rawValue
         let stringOfTLWorkspace: String? = TLUserDefaultsManager.shared.userDefaults?.string(forKey: "tlWorkspaces")
-        
+
         // テーマの特定
         let corrThemeType = TLThemeType.from(themeName)
-        
+
         // workspaceのデコード
         let tlWorkspaces: [TLWorkspace] = TLWorkspace.decodeWorkspaces(from: stringOfTLWorkspace) ?? TCWExampleState.kTLWorkspacesExample
-        
-        
+
         let loadedEntry = TWWidgetEntry(
             date: Date(),
             // selectedWorkspace は オプショナル
@@ -56,9 +54,7 @@ struct TWProvider: AppIntentTimelineProvider {
             tlWorkspaces: tlWorkspaces,
             enableDeepLink: configuration.enableDeepLink
         )
-        
-        
-        
+
         return Timeline(entries: [loadedEntry], policy: .never)
     }
 }

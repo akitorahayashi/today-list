@@ -10,10 +10,10 @@ import WidgetKit
 
 final class TLUserDefaultsManager {
     static let shared = TLUserDefaultsManager()
-    
+
     let userDefaults: UserDefaults?
-    
+
     private init() {
-        self.userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
+        userDefaults = UserDefaults(suiteName: "group.akitorahayashi.todayListGroup")
     }
 }

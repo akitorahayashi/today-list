@@ -5,14 +5,14 @@
 //  Created by akitora.hayashi on 2025/03/29.
 //
 
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
-struct TWEntryView : View {
+struct TWEntryView: View {
     var entry: TWProvider.Entry
-    
+
     @Environment(\.widgetFamily) var widgetFamily
-    
+
     var body: some View {
         GeometryReader { geometry in
             TWToDoListView(entry: entry)

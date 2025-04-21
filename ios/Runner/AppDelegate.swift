@@ -9,13 +9,14 @@ import WidgetKit
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         let controller = window?.rootViewController as! FlutterViewController
-        
+
         // MARK: - ToDos In Category Widgetの処理
+
         let tcwMethodChannel = FlutterMethodChannel(
             name: "com.akitora0703.todaylist.methodChannel",
             binaryMessenger: controller.binaryMessenger
         )
-        
+
         tcwMethodChannel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
             guard let arguments = call.arguments as? String else {
                 let errorMessage = "Expected a String for \(call.method)"
@@ -23,40 +24,40 @@ import WidgetKit
                 result(FlutterError(code: "INVALID_ARGUMENT", message: errorMessage, details: nil))
                 return
             }
-            
-            let twKind: String = "ToDosInWorkspaceWidget"
-            let ttKind: String = "ToDosInTodayWidget"
-            
+
+            let twKind = "ToDosInWorkspaceWidget"
+            let ttKind = "ToDosInTodayWidget"
+
             switch call.method {
             case "updateTLWorkspaces":
                 self.updateTLWorkspaces(arguments)
                 self.reloadWidget(twKind)
                 self.reloadWidget(ttKind)
                 result("workspaces saved successfully")
-                
+
             case "updateSelectedTheme":
                 self.updateSelectedTheme(arguments)
                 self.reloadWidget(twKind)
                 self.reloadWidget(ttKind)
                 result("selectedTheme saved successfully")
-                
+
             default:
                 result(FlutterMethodNotImplemented)
             }
         }
-        
+
         GeneratedPluginRegistrant.register(with: self)
         return super.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
-    
+
     private func updateTLWorkspaces(_ value: String) {
         TLUserDefaultsManager.shared.userDefaults?.set(value, forKey: "tlWorkspaces")
     }
-    
+
     private func updateSelectedTheme(_ value: String) {
         TLUserDefaultsManager.shared.userDefaults?.set(value, forKey: "selectedThemeName")
     }
-    
+
     /// ウィジェットの更新
     private func reloadWidget(_ widgetKind: String) {
         DispatchQueue.main.async {

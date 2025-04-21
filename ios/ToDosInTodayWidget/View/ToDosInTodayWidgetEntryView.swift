@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct ToDosInTodayWidgetEntryView : View {
+struct ToDosInTodayWidgetEntryView: View {
     var entry: TTProvider.Entry
-    
+
     @Environment(\.widgetFamily) var widgetFamily
-    
+
     var body: some View {
         GeometryReader { geometry in
             TTToDoListView(entry: entry)
