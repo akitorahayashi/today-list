@@ -9,6 +9,7 @@ void main() {
     late ProviderContainer container;
 
     setUp(() async {
+      TestWidgetsFlutterBinding.ensureInitialized();
       // SharedPreferencesのモック設定
       SharedPreferences.setMockInitialValues({});
 

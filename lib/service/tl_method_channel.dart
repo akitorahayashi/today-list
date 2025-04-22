@@ -56,4 +56,17 @@ class TCWiOSMethodChannelService {
       }
     }
   }
+
+  static Future<void> changeAppIcon({required String iconName}) async {
+    if (!Platform.isIOS) return;
+
+    try {
+      await methodChannel.invokeMethod('changeAppIcon', iconName);
+      print('Successfully requested to change app icon to: $iconName');
+    } on PlatformException catch (e) {
+      print("Failed to change app icon: '${e.message}'.");
+    } catch (e) {
+      print("An unexpected error occurred while changing app icon: $e");
+    }
+  }
 }

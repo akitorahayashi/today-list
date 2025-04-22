@@ -39,14 +39,6 @@ class _RightSideThemeSelectButtonState
             ThemeAction.changeTheme(newThemeType: corrThemeType),
           );
 
-          // アプリアイコンも変更
-          await UserDataDispatcher.dispatch(
-            ref,
-            UserDataAction.updateCurrentAppIconName(
-              newThemeName: corrThemeType.config.themeName,
-            ),
-          );
-
           if (context.mounted) {
             const TLSingleOptionDialog(
               title: "Theme Changed",

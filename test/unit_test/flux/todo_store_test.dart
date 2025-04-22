@@ -16,6 +16,7 @@ void main() {
     late TLToDo testTodo;
 
     setUp(() async {
+      TestWidgetsFlutterBinding.ensureInitialized();
       // SharedPreferencesのモック設定
       SharedPreferences.setMockInitialValues({});
 

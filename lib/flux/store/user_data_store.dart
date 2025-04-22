@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_dynamic_icon/flutter_dynamic_icon.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 import 'package:today_list/model/settings_data/tl_user_data.dart';
 import 'package:today_list/service/tl_pref.dart';
 import 'package:today_list/service/tl_vibration.dart';
+import 'package:today_list/service/tl_method_channel.dart';
 
 // ユーザーデータのプロバイダー
 final userDataProvider = AsyncNotifierProvider<UserDataNotifier, TLUserData>(
@@ -77,17 +77,11 @@ class UserDataNotifier extends AsyncNotifier<TLUserData> {
       final currentData = await future;
 
       try {
-        if (await FlutterDynamicIcon.supportsAlternateIcons) {
-          await FlutterDynamicIcon.setAlternateIconName(
-            newThemeName,
-            showAlert: false,
-          );
-          print('Icon changed to: $newThemeName');
-        } else {
-          print("Dynamic icon change is not supported on this device.");
-        }
+        // Call MethodChannel to change the icon natively on iOS
+        await TCWiOSMethodChannelService.changeAppIcon(iconName: newThemeName);
       } catch (e) {
-        print("Failed to change icon: $e");
+        // Log error but don't necessarily block state update
+        print("MethodChannel call to changeAppIcon failed: $e");
       }
 
       final updatedData = currentData.copyWith(

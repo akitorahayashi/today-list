@@ -6,18 +6,17 @@ import './app.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:uni_links/uni_links.dart';
+import 'package:app_links/app_links.dart';
 import 'dart:async';
 
 bool kAdTestMode = true;
 bool kNotToShowAd = true;
 
 // URLスキームからのパラメータを保持するグローバル変数
-// 後方互換性のために残しておく
 String? initialWorkspaceId;
 
 // URLスキームのリスナー用サブスクリプション
-StreamSubscription<String?>? _linkSubscription;
+StreamSubscription<Uri?>? _linkSubscription;
 
 // アプリのライフサイクルを監視するクラス
 class AppLifecycleObserver extends WidgetsBindingObserver {
@@ -37,29 +36,29 @@ void main() async {
   await TLAds.initializeTLAds();
   await TLVibrationService.initVibrate();
 
+  final _appLinks = AppLinks();
+
   // URLスキームからの起動を処理
   try {
     // 初期リンクの取得（GoRouterが処理するため、ここでは値の保存のみ）
-    final initialLink = await getInitialLink();
-    if (initialLink != null) {
-      final uri = Uri.parse(initialLink);
-      if (uri.scheme == 'todaylist' &&
-          uri.host == 'workspace' &&
-          uri.queryParameters.containsKey('id')) {
-        initialWorkspaceId = uri.queryParameters['id'];
+    final initialUri = await _appLinks.getInitialLink();
+    if (initialUri != null) {
+      if (initialUri.scheme == 'todaylist' &&
+          initialUri.host == 'workspace' &&
+          initialUri.queryParameters.containsKey('id')) {
+        initialWorkspaceId = initialUri.queryParameters['id'];
       }
     }
 
     // アプリ実行中のリンク処理のためのリスナーを設定
     // GoRouterがリダイレクトを処理するため、ここでは値の保存のみ
-    _linkSubscription = linkStream.listen((String? link) {
-      if (link != null) {
-        final uri = Uri.parse(link);
+    _linkSubscription = _appLinks.uriLinkStream.listen((Uri? uri) {
+      if (uri != null) {
         if (uri.scheme == 'todaylist' &&
             uri.host == 'workspace' &&
             uri.queryParameters.containsKey('id')) {
           initialWorkspaceId = uri.queryParameters['id'];
-          print('Deep link received: $link');
+          print('Deep link received: $uri');
         }
       }
     });

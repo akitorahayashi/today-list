@@ -53,12 +53,12 @@ class _SetVibrationCardState extends State<SetVibrationCard> {
           // 強さを調節するスライダー
           Slider(
             min: 0,
-            max: 4,
-            divisions: 4,
+            max: 3,
+            divisions: 3,
             activeColor: tlThemeConfig.accentColor,
-            value: TLVibrationService.vibrationStrength,
+            value: TLVibrationService.vibrationStrength.toDouble(),
             onChanged: (sliderValue) {
-              TLVibrationService.vibrationStrength = sliderValue;
+              TLVibrationService.vibrationStrength = sliderValue.toInt();
               setState(() {});
             },
             onChangeEnd: (sliderValue) {

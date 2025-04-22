@@ -41,6 +41,35 @@ import WidgetKit
                 self.reloadWidget(ttKind)
                 result("selectedTheme saved successfully")
 
+            case "changeAppIcon":
+                let iconName = arguments // arguments is already cast to String
+                // If iconName is empty or a specific keyword for default, pass nil
+                let targetIconName = (iconName.isEmpty || iconName == "Notebook") ? nil : iconName
+
+                // Check if alternate icons are supported
+                if #available(iOS 10.3, *) {
+                    guard UIApplication.shared.supportsAlternateIcons else {
+                        print("Alternate icons not supported")
+                        result(FlutterError(code: "UNSUPPORTED", message: "Alternate icons not supported on this device.", details: nil))
+                        return
+                    }
+
+                    // Call setAlternateIconName
+                    UIApplication.shared.setAlternateIconName(targetIconName) { error in
+                        if let error = error {
+                            print("Failed to change app icon: \(error.localizedDescription)")
+                            result(FlutterError(code: "NATIVE_ERROR", message: "Failed to set alternate icon: \(error.localizedDescription)", details: nil))
+                        } else {
+                            print("App icon changed successfully to \(targetIconName ?? "Primary")")
+                            result("App icon changed successfully")
+                        }
+                    }
+                } else {
+                    // Fallback on earlier versions
+                    print("Alternate icons not supported below iOS 10.3")
+                    result(FlutterError(code: "UNSUPPORTED", message: "Alternate icons require iOS 10.3 or later.", details: nil))
+                }
+
             default:
                 result(FlutterMethodNotImplemented)
             }
