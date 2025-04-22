@@ -3,16 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/service/tl_ads/tl_ads.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import './app.dart';
+import 'dart:async';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:app_links/app_links.dart';
-import 'dart:async';
 
 bool kAdTestMode = true;
 bool kNotToShowAd = true;
 
-// URLスキームからのパラメータを保持するグローバル変数
+// URLスキームからのパラメータを保持する
 String? initialWorkspaceId;
 
 // URLスキームのリスナー用サブスクリプション

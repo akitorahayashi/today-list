@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/view/page/home_page/home_page.dart';
 import 'package:today_list/view/page/settings_page/settings_page.dart';
+import 'package:flutter/foundation.dart'; // for debugPrint
 
 // GoRouterのプロバイダー
 final routerProvider = Provider<GoRouter>((ref) {
@@ -29,6 +30,9 @@ final routerProvider = Provider<GoRouter>((ref) {
         name: 'workspace',
         builder: (context, state) {
           final workspaceId = state.pathParameters['id'];
+          debugPrint(
+            '[GoRouter] Building /workspace/:id route with id: $workspaceId',
+          );
           return HomePage(initialWorkspaceId: workspaceId);
         },
       ),
@@ -36,14 +40,18 @@ final routerProvider = Provider<GoRouter>((ref) {
 
     // URLスキームからのリンクを処理
     redirect: (context, state) {
+      debugPrint('[GoRouter] Redirect check: ${state.uri}');
       // カスタムURLスキームの処理
       final uri = Uri.parse(state.uri.toString());
       if (uri.scheme == 'todaylist' &&
           uri.host == 'workspace' &&
           uri.queryParameters.containsKey('id')) {
         final id = uri.queryParameters['id'];
-        return '/workspace/$id';
+        final redirectPath = '/workspace/$id';
+        debugPrint('[GoRouter] Redirecting to: $redirectPath from ${uri}');
+        return redirectPath;
       }
+      debugPrint('[GoRouter] No redirect needed.');
       return null; // リダイレクトなし
     },
   );

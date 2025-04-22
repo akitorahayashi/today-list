@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:today_list/model/design/tl_theme.dart';
-import 'package:today_list/view/component/common_ui_part/tl_animated_icon_button.dart';
+import 'package:today_list/view/component/button/tl_animated_icon_button.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:today_list/view/component/dialog/common/tl_yes_no_dialog.dart';
 import 'package:today_list/flux/store/workspace_store.dart';

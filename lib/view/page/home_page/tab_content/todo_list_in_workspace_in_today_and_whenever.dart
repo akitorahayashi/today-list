@@ -20,35 +20,38 @@ class ToDoListInWorkspaceInTodayAndWhenever extends StatelessWidget {
       ifInToday: false,
     );
 
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 12.0),
-          child: NumToDosCard(title: null, numTodos: numOfToDosInToday),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: ListOfCategoryToToDos(
-            ifInToday: true,
-            corrWorkspace: corrWorkspace,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: NumToDosCard(title: null, numTodos: numOfToDosInToday),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 12.0),
-          child: NumToDosCard(
-            title: "In Whenever",
-            numTodos: numOfToDosInWhenever,
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: ListOfCategoryToToDos(
+              ifInToday: true,
+              corrWorkspace: corrWorkspace,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: ListOfCategoryToToDos(
-            ifInToday: false,
-            corrWorkspace: corrWorkspace,
+          Padding(
+            padding: const EdgeInsets.only(top: 12.0),
+            child: NumToDosCard(
+              title: "In Whenever",
+              numTodos: numOfToDosInWhenever,
+            ),
           ),
-        ),
-        const SizedBox(height: 250),
-      ],
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: ListOfCategoryToToDos(
+              ifInToday: false,
+              corrWorkspace: corrWorkspace,
+            ),
+          ),
+          const SizedBox(height: 250),
+        ],
+      ),
     );
   }
 }

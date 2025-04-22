@@ -11,7 +11,7 @@ import 'package:today_list/service/tl_vibration.dart';
 import 'package:today_list/util/tl_uuid_generator.dart';
 import 'package:today_list/view/component/common_ui_part/tl_appbar.dart';
 import 'package:today_list/view/component/snack_bar/snack_bar_to_notify_todo_or_step_is_edited.dart';
-import 'package:today_list/view/page/add_todo_page/already_exist/already_exist.dart';
+import 'package:today_list/view/page/add_todo_page/already_exists/already_exist.dart';
 import 'package:today_list/view/page/add_todo_page/components_for_edit/added_steps_column.dart';
 import 'package:today_list/view/page/add_todo_page/components_for_edit/select_today_or_whenever_button.dart';
 import 'package:today_list/view/page/add_todo_page/components_for_edit/step_title_input_field.dart';
@@ -151,7 +151,7 @@ class AddToDoPage extends HookConsumerWidget {
                 // 既存のToDoリスト表示
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: AlreadyExist(corrWorkspace: corrWorkspace),
+                  child: AlreadyExists(corrWorkspace: corrWorkspace),
                 ),
 
                 const SizedBox(height: 200),

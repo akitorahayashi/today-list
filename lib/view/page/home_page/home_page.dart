@@ -4,7 +4,6 @@ import 'package:today_list/flux/action/current_workspace_action.dart';
 import 'package:today_list/flux/dispatcher/current_workspace_dispatcher.dart';
 import 'package:today_list/flux/store/current_workspace_store.dart';
 import 'package:today_list/flux/store/workspace_store.dart';
-import 'package:today_list/main.dart';
 import 'package:today_list/view/component/common_ui_part/tl_loading_indicator.dart';
 import 'package:today_list/view/page/home_page/tab_content/todo_list_in_workspace_in_today_and_whenever.dart';
 import 'package:today_list/view/page/home_page/tab_content/todo_list_of_all_workspaces_in_today.dart';
@@ -16,11 +15,11 @@ import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/util/device_util.dart';
 import 'package:today_list/view/page/home_page/workspace_drawer/workspace_drawer.dart';
 import 'package:today_list/view/page/home_page/tl_home_page_helper.dart';
+import 'package:today_list/main.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
 
-// MARK: - HomePage Widget
 class HomePage extends ConsumerStatefulWidget {
   final String? initialWorkspaceId;
   final bool testMode;
@@ -31,22 +30,14 @@ class HomePage extends ConsumerStatefulWidget {
   ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-// MARK: - HomePage State
 class _HomePageState extends ConsumerState<HomePage>
     with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _homePageScaffoldKey =
       GlobalKey<ScaffoldState>();
 
-  // 前回のタブインデックスを保持
-  int _previousIndex = 0;
-
-  // 現在アタッチしている TabController
-  late TabController _tabController;
-
-  // ページタイトル
   String _pageTitle = "Today List";
-
-  // アプリのライフサイクルオブザーバー
+  int _previousTabIndex = 0;
+  late TabController _tabController;
   _AppLifecycleObserver? _lifecycleObserver;
 
   @override
@@ -69,7 +60,7 @@ class _HomePageState extends ConsumerState<HomePage>
 
   // initialWorkspaceIdの変更を監視するメソッド
   void _setupWorkspaceIdListener() {
-    // アプリがアクティブになったときに呼ばれるリスナーを追加
+    // アプリがアクティブになったときに呼ばれる
     final appLifecycleState = WidgetsBinding.instance.lifecycleState;
     if (appLifecycleState != null) {
       _lifecycleObserver = _AppLifecycleObserver(
@@ -117,8 +108,8 @@ class _HomePageState extends ConsumerState<HomePage>
       context: context,
       ref: ref,
       tabController: _tabController,
-      previousIndex: _previousIndex,
-      updatePreviousIndex: (value) => setState(() => _previousIndex = value),
+      previousIndex: _previousTabIndex,
+      updatePreviousIndex: (value) => setState(() => _previousTabIndex = value),
     );
   }
 
@@ -135,20 +126,18 @@ class _HomePageState extends ConsumerState<HomePage>
 
   // URLスキームからのワークスペースIDを処理するメソッド
   void _handleInitialWorkspaceId() {
-    // コンストラクタから渡されたワークスペースIDを優先的に使用
-    final workspaceId = widget.initialWorkspaceId ?? initialWorkspaceId;
-    if (workspaceId != null && workspaceId.isNotEmpty) {
+    if (initialWorkspaceId != null) {
       // ワークスペースを切り替える
       CurrentWorkspaceDispatcher.dispatch(
         ref,
-        CurrentWorkspaceAction.setCurrentWorkspaceId(workspaceId),
+        CurrentWorkspaceAction.setCurrentWorkspaceId(initialWorkspaceId),
       );
 
       // ワークスペースタブに切り替える
       final workspacesAsync = ref.read(workspacesProvider);
       workspacesAsync.whenData((workspaces) {
         final workspaceIndex = workspaces.indexWhere(
-          (ws) => ws.id == workspaceId,
+          (ws) => ws.id == initialWorkspaceId,
         );
         if (workspaceIndex >= 0) {
           // ワークスペースのインデックス + 1 (Todayタブがあるため)
@@ -160,17 +149,14 @@ class _HomePageState extends ConsumerState<HomePage>
           }
 
           // 前回のインデックスを更新
-          setState(() => _previousIndex = tabIndex);
+          setState(() => _previousTabIndex = tabIndex);
 
-          // ページタイトルを更新
+          // ページのタイトルを更新
           _updatePageTitle();
         }
-      });
-
-      // DeepLinkの処理が終わったらinitialWorkspaceIdをリセット
-      if (initialWorkspaceId != null) {
         initialWorkspaceId = null;
-      }
+        print("initialWorkspaceIdをリセットしました: $initialWorkspaceId");
+      });
     }
   }
 

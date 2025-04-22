@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:today_list/model/design/tl_theme.dart';
 
-/// ローディング中に表示するインジケーター
 class TLLoadingIndicator extends StatelessWidget {
   const TLLoadingIndicator({super.key});
 
@@ -13,7 +12,6 @@ class TLLoadingIndicator extends StatelessWidget {
   }
 }
 
-/// エラー発生時に表示するウィジェット
 class TLErrorWidget extends StatelessWidget {
   final String message;
   final VoidCallback? onRetry;

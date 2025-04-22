@@ -4,10 +4,10 @@ import 'package:today_list/model/todo/tl_workspace.dart';
 import 'package:today_list/view/page/home_page/tab_content/build_todo_list/num_todos_card.dart';
 import 'model_of_todo_card.dart';
 
-class AlreadyExist extends StatelessWidget {
+class AlreadyExists extends StatelessWidget {
   final TLWorkspace corrWorkspace;
 
-  const AlreadyExist({super.key, required this.corrWorkspace});
+  const AlreadyExists({super.key, required this.corrWorkspace});
 
   @override
   Widget build(BuildContext context) {
