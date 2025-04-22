@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:today_list/resource/tl_theme_type.dart';
 import 'package:today_list/service/tl_pref.dart';
@@ -62,15 +61,5 @@ class ThemeNotifier extends AsyncNotifier<TLThemeType> {
       // エラー時も前の状態を保持
       state = AsyncValue<TLThemeType>.error(e, stack).copyWithPrevious(state);
     }
-  }
-
-  // アクセントカラーを変更
-  // 注: アクセントカラーの変更はユーザーデータで管理するため、
-  // このメソッドは実際にはテーマを変更しません。
-  // ユーザーデータのプロバイダーと連携して使用します。
-  Future<void> changeAccentColor(Color accentColor) async {
-    TLVibrationService.vibrate();
-    // テーマは変更せず、現在のテーマをそのまま返す
-    // 実際のアクセントカラーの変更はユーザーデータのプロバイダーで行う
   }
 }

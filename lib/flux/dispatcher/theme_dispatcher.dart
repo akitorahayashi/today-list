@@ -10,11 +10,6 @@ class ThemeDispatcher {
       changeTheme: (action) async {
         await ref.read(themeProvider.notifier).changeTheme(action.newThemeType);
       },
-      changeAccentColor: (action) async {
-        await ref
-            .read(themeProvider.notifier)
-            .changeAccentColor(action.newAccentColor);
-      },
     );
   }
 }

@@ -100,8 +100,11 @@ ui-debug.log
 migrate_working_dir/
 
 # freezed 生成ファイル
-*.freezed.dart
-*.g.dart
+**/*.freezed.dart
+**/*.g.dart
+
+# build_runner cache
+.dart_tool/build/
 
 # CI関連
 /archives/

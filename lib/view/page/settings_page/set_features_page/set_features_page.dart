@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:today_list/view/page/settings_page/set_features_page/panel_with_title.dart';
@@ -12,6 +10,7 @@ import 'theme_panel/show_not_selecting_theme_panel.dart';
 import 'set_todo_icon/icon_category_panel.dart';
 import 'set_vibration_card/set_vibration_card.dart';
 import 'update_app_icon_card/update_app_icon_card.dart';
+import 'dart:io';
 
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 

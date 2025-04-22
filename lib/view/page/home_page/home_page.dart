@@ -15,7 +15,7 @@ import 'package:today_list/model/design/tl_theme.dart';
 import 'package:today_list/model/design/tl_theme_config.dart';
 import 'package:today_list/util/device_util.dart';
 import 'package:today_list/view/page/home_page/workspace_drawer/workspace_drawer.dart';
-import 'package:today_list/view/page/home_page/helper/tl_home_page_helper.dart';
+import 'package:today_list/view/page/home_page/tl_home_page_helper.dart';
 
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
@@ -176,7 +176,6 @@ class _HomePageState extends ConsumerState<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    // If in test mode, show a simplified test version
     if (widget.testMode) {
       return Scaffold(
         appBar: AppBar(

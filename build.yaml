@@ -1,21 +1,16 @@
-
 # $ dart run build_runner build
 
 targets:
   $default:
     sources:
       include:
-        - lib/model/todo/**
-        - lib/model/settings_data/**
-        - lib/model/tl_app_state.dart
-        - lib/resource/tl_theme_type.dart
-        - lib/redux/action/**
-        - lib/flux/action/**
+        - "lib/**"
+        - "pubspec.yaml"
+        - "$package$"
       exclude:
-        - test/**  # テストコードはビルド対象から除外
+        - test/**
 
     builders:
-      # `source_gen` のビルダー
       source_gen|combining_builder:
         generate_for:
           - lib/model/todo/**
@@ -24,12 +19,21 @@ targets:
           - lib/resource/tl_theme_type.dart
         options:
           build_extensions:
-            '^lib/model/todo/{{}}.dart': 'lib/model/generate/{{}}.g.dart'
-            '^lib/model/settings_data/{{}}.dart': 'lib/model/generate/{{}}.g.dart'
-            '^lib/model/tl_app_state.dart': 'lib/model/generate/tl_app_state.g.dart'
-            '^lib/resource/tl_theme_type.dart': 'lib/resource/generate/tl_theme_type.g.dart'
+            "^lib/model/todo/{{}}.dart": "lib/model/generate/{{}}.g.dart"
+            "^lib/model/settings_data/{{}}.dart": "lib/model/generate/{{}}.g.dart"
+            "^lib/model/tl_app_state.dart": "lib/model/generate/tl_app_state.g.dart"
+            "^lib/resource/tl_theme_type.dart": "lib/resource/generate/tl_theme_type.g.dart"
 
-      # Freezed のビルダー設定
+      json_serializable:
+        generate_for:
+          - lib/model/todo/**
+          - lib/model/settings_data/**
+          - lib/model/tl_app_state.dart
+          - lib/resource/tl_theme_type.dart
+        options:
+          explicit_to_json: true
+          include_if_null: false
+
       freezed:
         generate_for:
           - lib/model/todo/**
@@ -38,7 +42,7 @@ targets:
           - lib/flux/action/**
         options:
           build_extensions:
-            '^lib/model/todo/{{}}.dart': 'lib/model/generate/{{}}.freezed.dart'
-            '^lib/model/settings_data/{{}}.dart': 'lib/model/generate/{{}}.freezed.dart'
-            '^lib/model/tl_app_state.dart': 'lib/model/generate/tl_app_state.freezed.dart'
-            '^lib/flux/action/{{}}.dart': 'lib/flux/action/generate/{{}}.freezed.dart'
+            "^lib/model/todo/{{}}.dart": "lib/model/generate/{{}}.freezed.dart"
+            "^lib/model/settings_data/{{}}.dart": "lib/model/generate/{{}}.freezed.dart"
+            "^lib/model/tl_app_state.dart": "lib/model/generate/tl_app_state.freezed.dart"
+            "^lib/flux/action/{{}}.dart": "lib/flux/action/generate/{{}}.freezed.dart"
