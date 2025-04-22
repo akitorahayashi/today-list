@@ -2,13 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:today_list/main.dart';
-import 'package:today_list/model/external/tl_ad_unit_type.dart';
+import 'package:today_list/service/tl_ads/tl_ad_unit_type.dart';
 import 'package:today_list/view/component/dialog/common/tl_single_option_dialog.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class TLAds {
+class TLAdsService {
   static RewardedAd? rewardedAd;
-  // **広告ロード中の状態を管理**
   static bool isLoadingRewardedAd = false;
 
   static Future<void> initializeTLAds() async {
@@ -22,7 +21,7 @@ class TLAds {
     // まず ProgressHUD を表示
     ProgressHUD.of(context)?.show();
 
-    // すでにロード済みの広告があればすぐに表示
+    // すでにロード済みの広告があれば表示
     if (rewardedAd != null) {
       await rewardedAd!.show(
         onUserEarnedReward: (_, reward) {
@@ -38,8 +37,6 @@ class TLAds {
 
     // ② まだロード中・ロードしていない場合は広告ロード
     if (isLoadingRewardedAd) {
-      // すでにロードリクエストが走っている場合は待つ
-      // ここでは簡略化してリターン例
       return;
     }
     final success = await loadIconRewardedAd();

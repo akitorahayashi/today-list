@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:today_list/main.dart';
-import 'package:today_list/model/external/tl_ads.dart';
+import 'package:today_list/service/tl_ads/tl_ads.dart';
 import 'package:today_list/model/settings_data/selected_check_box_icon_data.dart';
 import 'package:today_list/flux/action/user_data_action.dart';
 import 'package:today_list/flux/dispatcher/user_data_dispatcher.dart';
@@ -148,7 +148,7 @@ class IconCard extends HookConsumerWidget {
 
       try {
         // Step 3: Show the rewarded ad
-        await TLAds.showIconRewardedAd(
+        await TLAdsService.showIconRewardedAd(
           context: context,
           rewardAction: () async {
             if (!context.mounted) return; // Check if context is still valid

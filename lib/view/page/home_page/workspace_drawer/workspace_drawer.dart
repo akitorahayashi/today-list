@@ -25,7 +25,7 @@ class TLWorkspaceDrawer extends ConsumerWidget {
           Container(color: tlThemeConfig.backgroundColor),
           Column(
             children: [
-              if (!DeviceUtil.isIpad(context))
+              if (!DeviceUtil.isTablet(context))
                 TLAppBar(
                   context: context,
                   pageTitle: "Workspace",

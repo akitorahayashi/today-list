@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:today_list/model/external/tl_ads.dart';
+import 'package:today_list/service/tl_ads/tl_ads.dart';
 import 'package:today_list/service/tl_vibration.dart';
 import './app.dart';
 
@@ -33,7 +33,7 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await dotenv.load(fileName: ".env");
-  await TLAds.initializeTLAds();
+  await TLAdsService.initializeTLAds();
   await TLVibrationService.initVibrate();
 
   final _appLinks = AppLinks();

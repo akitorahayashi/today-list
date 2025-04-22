@@ -197,7 +197,7 @@ class _HomePageState extends ConsumerState<HomePage>
     final tlThemeConfig = TLTheme.of(context);
 
     // iPadかどうかを判定
-    final bool isIpad = DeviceUtil.isIpad(context);
+    final bool isIpad = DeviceUtil.isTablet(context);
 
     return workspacesAsync.when(
       data: (workspaces) {
