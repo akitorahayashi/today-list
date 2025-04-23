@@ -1,0 +1,182 @@
+name: Notify Completion
+
+on:
+  workflow_call:
+    inputs:
+      pr_number:
+        description: 'The number of the pull request'
+        required: true
+        type: number
+      run_id:
+        description: 'The ID of the current workflow run'
+        required: true
+        type: string
+      code_quality_needs:
+        description: 'Needs context for code quality job'
+        required: true
+        type: string
+      flutter_test_needs:
+        description: 'Needs context for flutter test job'
+        required: true
+        type: string
+      test_report_needs:
+        description: 'Needs context for test report job'
+        required: true
+        type: string
+      code_review_needs:
+        description: 'Needs context for copilot review job'
+        required: true
+        type: string
+      production_build_needs:
+        description: 'Needs context for build-app job'
+        required: true
+        type: string
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      actions: read
+    steps:
+      - name: Summarize Results and Comment on PR
+        uses: actions/github-script@v7
+        env:
+          PR_NUMBER: ${{ inputs.pr_number }}
+          RUN_ID: ${{ inputs.run_id }}
+          NEEDS_QUALITY: ${{ inputs.code_quality_needs }}
+          NEEDS_TEST: ${{ inputs.flutter_test_needs }}
+          NEEDS_REPORT: ${{ inputs.test_report_needs }}
+          NEEDS_REVIEW: ${{ inputs.code_review_needs }}
+          NEEDS_BUILD: ${{ inputs.production_build_needs }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const prNumber = parseInt(process.env.PR_NUMBER, 10);
+            const runId = parseInt(process.env.RUN_ID, 10);
+
+            // Only comment on valid PR numbers
+            if (!prNumber || prNumber <= 0) {
+              console.log('Not a valid PR number, skipping notification comment.');
+              return;
+            }
+            if (!runId) {
+              console.error('Workflow run ID is missing.');
+              core.setFailed('Missing run ID');
+              return;
+            }
+
+            const { owner, repo } = context.repo;
+
+            // --- Helper function to parse needs context safely ---
+            const parseNeeds = (jobName, jsonString) => {
+              try {
+                if (!jsonString) return { result: 'skipped' }; // Assume skipped if context is empty
+                // Check if it's already an object (less likely via env but possible)
+                if (typeof jsonString === 'object') return jsonString;
+                return JSON.parse(jsonString);
+              } catch (e) {
+                console.warn(`Failed to parse needs context for ${jobName}:`, jsonString, e);
+                return { result: 'unknown' }; // Indicate parsing failure
+              }
+            };
+
+            // --- Get Job Statuses ---
+            const qualityNeeds = parseNeeds('Quality', process.env.NEEDS_QUALITY);
+            const testNeeds = parseNeeds('Test', process.env.NEEDS_TEST);
+            const reportNeeds = parseNeeds('Report', process.env.NEEDS_REPORT);
+            const reviewNeeds = parseNeeds('Review', process.env.NEEDS_REVIEW);
+            const buildNeeds = parseNeeds('Build', process.env.NEEDS_BUILD);
+
+            const getJobStatus = (needsContext) => {
+              // result can be: success, failure, cancelled, skipped, unknown
+              const result = needsContext?.result || 'skipped'; 
+              const skipped = result === 'skipped';
+              return { result, skipped };
+            };
+
+            const qualityStatus = getJobStatus(qualityNeeds);
+            const testStatus = getJobStatus(testNeeds);
+            const reportStatus = getJobStatus(reportNeeds); // Report job runs even if tests fail
+            const reviewStatus = getJobStatus(reviewNeeds);
+            const buildStatus = getJobStatus(buildNeeds);
+
+            const getIcon = (status) => {
+              if (status.skipped) return '⏭️'; // Skipped
+              if (status.result === 'success') return '✅'; // Success
+              if (status.result === 'failure') return '❌'; // Failure
+              if (status.result === 'cancelled') return '⏹️'; // Cancelled
+              return '❓'; // Unknown or other status
+            };
+
+            // Determine overall status based on critical jobs
+            let overallIcon = '❓';
+            // Core checks are quality and tests
+            const coreChecksFailed = qualityStatus.result === 'failure' || testStatus.result === 'failure';
+            const coreChecksSucceeded = qualityStatus.result === 'success' && testStatus.result === 'success';
+            const coreChecksRan = !qualityStatus.skipped && !testStatus.skipped;
+            // Consider build status if core checks passed
+            const buildSucceeded = buildStatus.result === 'success';
+            const buildFailed = buildStatus.result === 'failure';
+
+            if (coreChecksFailed) {
+              overallIcon = '❌';
+            } else if (coreChecksSucceeded) {
+              // If core checks passed, look at the build status (if it ran)
+              if (buildStatus.skipped) {
+                overallIcon = '✅'; // Core passed, build skipped (might be intended)
+              } else if (buildSucceeded) {
+                overallIcon = '✅'; // Core passed, build passed
+              } else if (buildFailed) {
+                overallIcon = '❌'; // Core passed, build failed
+              } else {
+                overallIcon = '✅'; // Default to success if core passed and build has other status (e.g., cancelled)
+              }
+            } else if (coreChecksRan) {
+              // Core checks ran but weren't success or failure (e.g., cancelled)
+              overallIcon = getIcon(qualityStatus.result === 'cancelled' ? qualityStatus : testStatus);
+            } else {
+              // Core checks were skipped (e.g., workflow cancelled early)
+              overallIcon = '⏭️';
+            }
+
+            // --- Artifact Links (Optional - Based on Test Report Job) ---
+            // Note: Artifact links are generally available on the run summary page linked below.
+            // Generating direct links requires knowing the artifact names and potentially searching.
+            // We will link to the Test Report comment and the main run instead for simplicity.
+            let reportDetails = '';
+            if (reportStatus.result !== 'skipped') {
+               // Link to the PR comment generated by test-reporter.yml if possible
+               // We don't have the comment URL easily here, so link to the Checks tab
+               reportDetails = '(See Checks tab / PR Comment)';
+            } else {
+               reportDetails = '(Skipped)';
+            }
+
+            // --- Comment Body --- 
+            const commentMarker = '<!-- cicd-summary-today-list -->'; // Unique marker
+            const workflowRunUrl = `https://github.com/${owner}/${repo}/actions/runs/${runId}`;
+
+            let commentBody = `${commentMarker}\n\n`;
+            commentBody += `**Workflow Run Summary:** ${overallIcon}\n\n`; // Header
+            commentBody += `- **Code Quality:** ${getIcon(qualityStatus)}\n`;
+            commentBody += `- **Tests:** ${getIcon(testStatus)}\n`;
+            commentBody += `- **Test Report:** ${getIcon(reportStatus)} ${reportDetails}\n`;
+            commentBody += `- **Code Review:** ${getIcon(reviewStatus)}\n`;
+            commentBody += `- **Build App:** ${getIcon(buildStatus)}\n\n`; // Add extra newline before link
+            commentBody += `[View Workflow Run Details](${workflowRunUrl})\n`;
+
+            // --- Post/Update Comment ---
+            // Using the "always create new comment" approach
+            try {
+              console.log(`Creating new summary comment on PR #${prNumber}`);
+              await github.rest.issues.createComment({
+                owner: owner,
+                repo: repo,
+                issue_number: prNumber,
+                body: commentBody,
+              });
+            } catch (error) {
+              console.error("Error creating summary comment:", error);
+              core.setFailed(`Failed to create summary comment: ${error.message}`);
+            } 
