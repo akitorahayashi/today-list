@@ -1,2 +1,0 @@
-/Users/akitora.hayashi/Flutter Projects/today-list/android/app/.cxx/RelWithDebInfo/2p5j735g/x86_64/CMakeFiles/edit_cache.dir
-/Users/akitora.hayashi/Flutter Projects/today-list/android/app/.cxx/RelWithDebInfo/2p5j735g/x86_64/CMakeFiles/rebuild_cache.dir

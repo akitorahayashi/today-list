@@ -51,3 +51,6 @@ lib/model/generate/*.freezed.dart
 
 # Archives directory
 /archives/
+
+# Android intermediate files
+android/app/.cxx/

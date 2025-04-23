@@ -7,196 +7,139 @@ on:
         description: 'Pull Request number'
         required: true
         type: number
-    outputs:
-      report_comment_url:
-        description: "URL of the created/updated comment"
-        value: ${{ jobs.report.outputs.comment-url }}
 
 permissions:
-  checks: write
-  actions: read
-  pull-requests: write
+  checks: write          # テスト結果をチェックとして公開するために必要
+  actions: read          # 成果物をダウンロードするために必要
+  pull-requests: write   # PRにコメントするために必要
 
 jobs:
   report:
     runs-on: ubuntu-latest
-    outputs:
-      comment-url: ${{ steps.comment.outputs.comment-url }}
     steps:
-      - name: Checkout code
+      - name: Checkout code # actions/github-scriptのコンテキストに必要
         uses: actions/checkout@v4
 
+      # ユニットテスト結果をダウンロード
       - name: Download unit test results
         uses: actions/download-artifact@v4
         with:
           name: ci-unit-test-results-junit
           path: ./ci-outputs/test-results/unit
-        continue-on-error: true
 
+      # ウィジェットテスト結果をダウンロード
       - name: Download widget test results
         uses: actions/download-artifact@v4
         with:
           name: ci-widget-test-results-junit
           path: ./ci-outputs/test-results/widget
-        continue-on-error: true
 
+      # ダウンロードしたファイルの一覧を表示
       - name: List downloaded files
         run: |
           echo "--- Downloaded Test Results ---"
-          ls -lR ./ci-outputs/test-results || echo "No test results found."
+          ls -lR ./ci-outputs/test-results
 
       - name: Publish Test Report as Check
         uses: mikepenz/action-junit-report@v4
+        # JUnit XMLファイルが存在する場合のみ実行
         if: hashFiles('./ci-outputs/test-results/**/*.xml') != ''
         with:
           report_paths: './ci-outputs/test-results/**/*.xml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          fail_on_failure: false
-          require_tests: true
+          fail_on_failure: false # テストが失敗した場合でもレポーターステップ自体を失敗させない
+          require_tests: true # レポートにテストケースが含まれていない場合、ステップを失敗させる
           check_name: 'Flutter Test Suite Results'
-          detailed_summary: true
 
       - name: Create or Update PR Comment
-        id: comment
+        # JUnit XMLファイルがダウンロードされ、存在する場合のみ実行
         if: hashFiles('./ci-outputs/test-results/**/*.xml') != ''
         uses: actions/github-script@v7
-        env:
-            PR_NUMBER: ${{ inputs.pull_request_number }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const prNumber = parseInt(process.env.PR_NUMBER, 10);
+            const prNumber = ${{ inputs.pull_request_number }};
             if (!prNumber) {
               console.error('Pull request number input is invalid.');
-              core.setFailed('Invalid PR number input.');
               return;
             }
 
             const { owner, repo } = context.repo;
-            // Use a project-specific marker
-            const commentMarker = '<!-- flutter-test-report-today-list -->';
+            const commentMarker = '<!-- flutter-test-report -->';
             const fs = require('fs');
             const path = require('path');
-            const { glob } = require('glob'); // Using glob for file searching
 
-            // Find all JUnit report files
-            const junitFiles = await glob('./ci-outputs/test-results/**/*.xml', { nodir: true });
-            let testSummary = 'ℹ️ Test Results: No JUnit reports found or reports were empty.';
-            const checkTabLink = 'Details available in the Checks tab.';
+            // 複数のJUnitレポートファイルを検索
+            const globber = await glob.create('./ci-outputs/test-results/**/*.xml');
+            const junitFiles = await globber.glob();
+            let testSummary = 'ℹ️ Test Results: No JUnit report found.';
+            let reportLink = 'チェックタブで利用可能です。';
 
             if (junitFiles.length > 0) {
+              // JUnitレポートが見つかった場合の処理
+              
+              // 全テストファイルの結果を集計
               let totalTests = 0;
               let totalFailures = 0;
               let totalErrors = 0;
-              let parsedAnyFile = false;
 
               try {
+                // 各レポートファイルを処理
                 for (const junitPath of junitFiles) {
-                   console.log(`Parsing file: ${junitPath}`);
-                   if (!fs.existsSync(junitPath)) {
-                       console.warn(`File not found: ${junitPath}`);
-                       continue; // Skip if file doesn't exist (e.g., download failed)
-                   }
-                   const xmlContent = fs.readFileSync(junitPath, 'utf8');
-                   if (!xmlContent) {
-                       console.warn(`File is empty: ${junitPath}`);
-                       continue; // Skip empty files
-                   }
+                  const xmlContent = fs.readFileSync(junitPath, 'utf8');
+                  const testsMatch = xmlContent.match(/tests="(\d+)"/);
+                  const failuresMatch = xmlContent.match(/failures="(\d+)"/);
+                  const errorsMatch = xmlContent.match(/errors="(\d+)"/);
                   
-                   // More robust regex to handle potential variations in XML structure
-                   const testsuiteMatches = Array.from(xmlContent.matchAll(/<testsuite[^>]*tests="(\d+)"[^>]*failures="(\d+)"[^>]*errors="(\d+)"/g));
-                   
-                   if (testsuiteMatches.length > 0) {
-                       parsedAnyFile = true;
-                       testsuiteMatches.forEach(match => {
-                           totalTests += parseInt(match[1], 10);
-                           totalFailures += parseInt(match[2], 10);
-                           totalErrors += parseInt(match[3], 10);
-                       });
-                   } else {
-                        // Fallback for simpler structures or single testsuite
-                        const testsMatch = xmlContent.match(/<testsuites[^>]*tests="(\d+)"/);
-                        const failuresMatch = xmlContent.match(/<testsuites[^>]*failures="(\d+)"/);
-                        const errorsMatch = xmlContent.match(/<testsuites[^>]*errors="(\d+)"/);
-                        if (testsMatch && failuresMatch && errorsMatch) {
-                            parsedAnyFile = true;
-                            totalTests += parseInt(testsMatch[1], 10);
-                            totalFailures += parseInt(failuresMatch[1], 10);
-                            totalErrors += parseInt(errorsMatch[1], 10);
-                        } else {
-                           console.warn(`Could not parse test counts from ${junitPath}`);
-                        }
-                   }
+                  if (testsMatch) totalTests += parseInt(testsMatch[1], 10);
+                  if (failuresMatch) totalFailures += parseInt(failuresMatch[1], 10);
+                  if (errorsMatch) totalErrors += parseInt(errorsMatch[1], 10);
                 }
 
-                if (parsedAnyFile && totalTests > 0) {
+                if (totalTests > 0) {
                   const passedTests = totalTests - totalFailures - totalErrors;
                   if (totalFailures === 0 && totalErrors === 0) {
-                     testSummary = `✅ All ${totalTests} tests passed. ${checkTabLink}`;
+                     testSummary = `✅ 全ての ${totalTests} テストが成功しました。 ${reportLink}`;
                   } else {
-                     const failedCount = totalFailures + totalErrors;
-                     testSummary = `❌ ${failedCount} of ${totalTests} tests failed (${totalFailures} failures, ${totalErrors} errors). ${checkTabLink}`;
+                     testSummary = `❌ ${totalTests} テスト中 ${totalFailures + totalErrors} 件が失敗しました。 ${reportLink}`;
                   }
-                } else if (parsedAnyFile) {
-                   testSummary = `⚠️ Reports found, but they contain 0 tests. ${checkTabLink}`;
-                } // else keeps the default 'No reports found' message
+                } else {
+                  testSummary = `⚠️ レポートにテストが見つかりませんでした。 ${reportLink}`;
+                }
 
               } catch (e) {
                 console.error("Error parsing JUnit XML:", e);
-                testSummary = `⚠️ Could not parse test results. ${checkTabLink}`;
+                testSummary = `⚠️ テスト結果を解析できませんでした。 ${reportLink}`;
               }
+            }
+
+            let commentBody = `${commentMarker}\n\n## テスト概要\n\n${testSummary}\n`;
+
+            // 既存のコメントを検索
+            const { data: comments } = await github.rest.issues.listComments({
+              owner,
+              repo,
+              issue_number: prNumber,
+            });
+            const existingComment = comments.find(c =>
+              c.user.login === 'github-actions[bot]' &&
+              c.body.includes(commentMarker)
+            );
+
+            if (existingComment) {
+              console.log(`Updating comment ${existingComment.id} on PR #${prNumber}`);
+              await github.rest.issues.updateComment({
+                owner,
+                repo,
+                comment_id: existingComment.id,
+                body: commentBody,
+              });
             } else {
-              console.log("No JUnit files found in specified paths.");
-            }
-
-            let commentBody = `${commentMarker}\n\n
-
-            // Find existing comment
-            let existingCommentId = null;
-            let commentUrl = '';
-            try {
-                const { data: comments } = await github.rest.issues.listComments({
-                  owner,
-                  repo,
-                  issue_number: prNumber,
-                });
-                const existingComment = comments.find(c =>
-                  c.user && c.user.login === 'github-actions[bot]' &&
-                  c.body && c.body.includes(commentMarker)
-                );
-                if (existingComment) {
-                  existingCommentId = existingComment.id;
-                  commentUrl = existingComment.html_url;
-                }
-            } catch (findError) {
-                console.error("Error finding existing comment:", findError);
-                // Proceed to create a new comment if finding fails
-            }
-
-            // Update or create comment
-            try {
-                if (existingCommentId) {
-                  console.log(`Updating comment ${existingCommentId} on PR
-                  await github.rest.issues.updateComment({
-                    owner,
-                    repo,
-                    comment_id: existingCommentId,
-                    body: commentBody,
-                  });
-                } else {
-                  console.log(`Creating new comment on PR
-                  const { data: newComment } = await github.rest.issues.createComment({
-                    owner,
-                    repo,
-                    issue_number: prNumber,
-                    body: commentBody,
-                  });
-                  commentUrl = newComment.html_url;
-                }
-                console.log(`Comment URL: ${commentUrl}`);
-                // Set the output for the job
-                core.setOutput('comment-url', commentUrl);
-            } catch (postError) {
-                console.error("Error creating/updating comment:", postError);
-                core.setFailed(`Failed to post or update comment: ${postError.message}`);
+              console.log(`Creating new comment on PR #${prNumber}`);
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: prNumber,
+                body: commentBody,
+              });
             } 
