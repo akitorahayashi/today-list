@@ -1,3 +1,14 @@
+# =======================
+# このスクリプトは、CIで行われる主要なチェック (フォーマット、静的解析、テスト、ビルド、アーカイブ) をローカルで実行します。
+# PR作成前に問題を検出するのに役立ちます。
+#
+#   ./.github/scripts/run-local-ci.sh                   # 全てのデフォルトステップ (フォーマット、解析、デバッグビルド、単体テスト、アーカイブ)
+#   ./.github/scripts/run-local-ci.sh --all-tests       # デバッグビルド + 単体/UIテスト
+#   ./.github/scripts/run-local-ci.sh --unit-test       # デバッグビルド + 単体テスト
+#   ./.github/scripts/run-local-ci.sh --ui-test         # デバッグビルド + UIテスト
+#   ./.github/scripts/run-local-ci.sh --archive-only    # リリースビルド (APK/AAB/IPA)
+# =======================
+
 #!/bin/bash
 set -e
 
@@ -198,15 +209,20 @@ ALL_CHECKS_PASSED=true # 初期値は true と仮定
 # 特定のステップが失敗したが終了しなかった場合（例：オプションのステップ）にチェックをここに追加
 
 if [ "$ALL_CHECKS_PASSED" = true ]; then
-    final_message="Local CI script finished successfully with selected options:"
-    [ "$RUN_PUB_GET" = true ] && final_message="$final_message pub_get"
-    [ "$RUN_BUILD_RUNNER" = true ] && final_message="$final_message build_runner"
-    [ "$RUN_FORMAT" = true ] && final_message="$final_message format"
-    [ "$RUN_ANALYZE" = true ] && final_message="$final_message analyze"
-    [ "$BUILD_NEEDED" = true ] && final_message="$final_message build_debug"
-    [ "$RUN_UNIT_TEST" = true ] && final_message="$final_message unit_test"
-    [ "$RUN_UI_TEST" = true ] && final_message="$final_message ui_test"
-    [ "$RUN_ARCHIVE" = true ] && [ "$TEST_WITHOUT_BUILDING" = false ] && final_message="$final_message archive"
+    options_list=() # Initialize an empty array
+    [ "$RUN_PUB_GET" = true ] && options_list+=("pub_get")
+    [ "$RUN_BUILD_RUNNER" = true ] && options_list+=("build_runner")
+    [ "$RUN_FORMAT" = true ] && options_list+=("format")
+    [ "$RUN_ANALYZE" = true ] && options_list+=("analyze")
+    [ "$BUILD_NEEDED" = true ] && options_list+=("build_debug")
+    [ "$RUN_UNIT_TEST" = true ] && options_list+=("unit_test")
+    [ "$RUN_UI_TEST" = true ] && options_list+=("ui_test")
+    [ "$RUN_ARCHIVE" = true ] && [ "$TEST_WITHOUT_BUILDING" = false ] && options_list+=("archive")
+
+    # Join the array elements with ", "
+    joined_options=$(IFS=', '; echo "${options_list[*]}")
+
+    final_message="Local CI script finished successfully with selected options: $joined_options"
     success "$final_message"
 else
     fail "One or more selected steps failed."
