@@ -19,8 +19,6 @@ jobs:
 
   test:
     name: Flutter Test
-    needs: [format-and-analyze]
-    if: needs.format-and-analyze.result == 'success'
     uses: ./.github/workflows/flutter-test.yml
     permissions:
       contents: read
