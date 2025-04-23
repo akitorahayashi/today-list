@@ -19,9 +19,12 @@ on:
       android_apks_artifact_name:
         description: "Name of the Android APKs artifact"
         value: "ci-android-apks"
-      ios_ipa_artifact_name:
-        description: "Name of the iOS IPA artifact"
-        value: "ci-ios-ipa"
+      ios_apks_artifact_name:
+        description: "Name of the Android APKs artifact"
+        value: "ci-android-apks"
+      ios_xcarchive_artifact_name:
+        description: "Name of the iOS XCArchive artifact"
+        value: "ci-ios-xcarchive"
 
 jobs:
   build-android-release:
@@ -57,7 +60,7 @@ jobs:
       - name: Build Android App Bundle (Release)
         run: flutter build appbundle --release
 
-      - name: Build Android APKs (Release, Split per ABI)
+      - name: Build Android APKs (Release)
         run: flutter build apk --release --split-per-abi
 
       - name: Upload Android App Bundle Artifact
@@ -98,14 +101,14 @@ jobs:
       - name: Run build_runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
 
-      - name: Build iOS IPA (Release)
-        run: flutter build ipa --release --no-codesign
+      - name: Build iOS Archive (Release, No Code Signing)
+        run: flutter build ios --release --no-codesign
 
-      - name: Upload iOS IPA Artifact
+      - name: Upload iOS Archive Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ci-ios-ipa
-          path: build/ios/ipa/*.ipa
+          name: ci-ios-xcarchive
+          path: build/ios/archive/Runner.xcarchive
           retention-days: 7
 
   create-github-release:
@@ -131,10 +134,10 @@ jobs:
           name: ci-android-apks
           path: ./release-assets/android
 
-      - name: Download iOS IPA Artifact
+      - name: Download iOS Archive Artifact
         uses: actions/download-artifact@v4
         with:
-          name: ci-ios-ipa
+          name: ci-ios-xcarchive
           path: ./release-assets/ios
 
       - name: List downloaded artifacts
@@ -150,4 +153,4 @@ jobs:
           files: |
             ./release-assets/android/*.aab
             ./release-assets/android/*.apk
-            ./release-assets/ios/*.ipa
+            ./release-assets/ios/Runner.xcarchive

@@ -54,3 +54,6 @@ lib/model/generate/*.freezed.dart
 
 # Android intermediate files
 android/app/.cxx/
+
+# Android local properties
+/android/local.properties
