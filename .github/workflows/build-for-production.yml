@@ -1,0 +1,149 @@
+name: Build for Production
+
+on:
+  workflow_call:
+    inputs:
+      release_tag:
+        description: "Optional GitHub Release tag (e.g., v1.2.3)"
+        required: false
+        type: string
+      pr_number:
+        description: "Pull Request Number (if applicable, otherwise 0)"
+        required: false
+        type: number
+        default: 0
+    outputs:
+      android_bundle_artifact_name:
+        description: "Name of the Android App Bundle artifact"
+        value: "ci-android-bundle"
+      android_apks_artifact_name:
+        description: "Name of the Android APKs artifact"
+        value: "ci-android-apks"
+      ios_ipa_artifact_name:
+        description: "Name of the iOS IPA artifact"
+        value: "ci-ios-ipa"
+
+jobs:
+  build-android-release:
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ job.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.12.0
+        with:
+          flutter-version: '3.29.3'
+          channel: 'stable'
+          cache: true
+
+      - name: Create dummy .env file
+        run: touch .env
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run build_runner
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+
+      - name: Build Android App Bundle (Release)
+        run: flutter build appbundle --release
+
+      - name: Build Android APKs (Release, Split per ABI)
+        run: flutter build apk --release --split-per-abi
+
+      - name: Upload Android App Bundle Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-android-bundle
+          path: build/app/outputs/bundle/release/*.aab
+          retention-days: 7
+
+      - name: Upload Android APKs Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-android-apks
+          path: build/app/outputs/flutter-apk/*-release.apk
+          retention-days: 7
+
+  build-ios-release:
+    runs-on: macos-latest
+    outputs:
+      result: ${{ job.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.12.0
+        with:
+          flutter-version: '3.29.3'
+          channel: 'stable'
+          cache: true
+
+      - name: Create dummy .env file
+        run: touch .env
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run build_runner
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+
+      - name: Build iOS IPA (Release)
+        run: flutter build ipa --release --no-codesign
+
+      - name: Upload iOS IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-ios-ipa
+          path: build/ios/ipa/*.ipa
+          retention-days: 7
+
+  create-github-release:
+    needs: [build-android-release, build-ios-release]
+    runs-on: ubuntu-latest
+    if: |
+      inputs.release_tag != '' &&
+      needs.build-android-release.outputs.result == 'success' &&
+      needs.build-ios-release.outputs.result == 'success'
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Download Android Bundle Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ci-android-bundle
+          path: ./release-assets/android
+
+      - name: Download Android APKs Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ci-android-apks
+          path: ./release-assets/android
+
+      - name: Download iOS IPA Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ci-ios-ipa
+          path: ./release-assets/ios
+
+      - name: List downloaded artifacts
+        run: ls -lR ./release-assets
+
+      - name: Create GitHub Release Draft
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ inputs.release_tag }}
+          name: Release ${{ inputs.release_tag }}
+          draft: true
+          prerelease: false
+          files: |
+            ./release-assets/android/*.aab
+            ./release-assets/android/*.apk
+            ./release-assets/ios/*.ipa
