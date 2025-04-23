@@ -42,40 +42,28 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Check JAVA_HOME value
-        run: |
-          echo "Assigned JAVA_HOME is: $JAVA_HOME"
-
       - name: Create dummy .env file
         run: touch .env
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Clean Gradle Cache and Build Output
+      - name: Check Default Java Environment
         run: |
-          rm -rf $HOME/.gradle/caches
-          rm -rf $HOME/.gradle/daemon
-          rm -rf $HOME/.gradle/wrapper
-          ./android/gradlew --stop || true
-          rm -rf android/.gradle
-          rm -rf android/build
-          rm -rf android/app/build
+          echo "Default JAVA_HOME: $JAVA_HOME"
+          java -version
+          echo "---> Java Alternatives:"
+          update-alternatives --display java
+          echo "---> End Java Alternatives"
 
       - name: Run build_runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
 
       - name: Build Android App Bundle (Release)
-        run: flutter build appbundle --release --info -Porg.gradle.java.home="$JAVA_HOME"
+        run: flutter build appbundle --release
 
       - name: Build Android APKs (Release)
-        run: flutter build apk --release --split-per-abi --info -Porg.gradle.java.home="$JAVA_HOME"
+        run: flutter build apk --release --split-per-abi
 
       - name: Upload Android App Bundle Artifact
         uses: actions/upload-artifact@v4
