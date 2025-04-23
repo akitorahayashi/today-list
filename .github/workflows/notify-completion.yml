@@ -158,18 +158,18 @@ jobs:
             const workflowRunUrl = `https://github.com/${owner}/${repo}/actions/runs/${runId}`;
 
             let commentBody = `${commentMarker}\n\n`;
-            commentBody += `
+            commentBody += `**Workflow Run Summary:** ${overallIcon}\n\n`; // Header
             commentBody += `- **Code Quality:** ${getIcon(qualityStatus)}\n`;
             commentBody += `- **Tests:** ${getIcon(testStatus)}\n`;
             commentBody += `- **Test Report:** ${getIcon(reportStatus)} ${reportDetails}\n`;
             commentBody += `- **Code Review:** ${getIcon(reviewStatus)}\n`;
-            commentBody += `- **Build App:** ${getIcon(buildStatus)}\n`;
-            commentBody += `\n[View Workflow Run Details](${workflowRunUrl})\n`;
+            commentBody += `- **Build App:** ${getIcon(buildStatus)}\n\n`; // Add extra newline before link
+            commentBody += `[View Workflow Run Details](${workflowRunUrl})\n`;
 
-            // --- Post/Update Comment --- 
-            // Using the "always create new comment" approach from the example
+            // --- Post/Update Comment ---
+            // Using the "always create new comment" approach
             try {
-              console.log(`Creating new summary comment on PR
+              console.log(`Creating new summary comment on PR #${prNumber}`);
               await github.rest.issues.createComment({
                 owner: owner,
                 repo: repo,
